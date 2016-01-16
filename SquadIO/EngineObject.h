@@ -5,6 +5,6 @@ public:
 	EngineObject();
 
 
-	virtual ~EngineObject(); //virtual destructor, may not be desired later on.
+    ~EngineObject(); //virtual destructor, may not be desired later on.
 };
 
