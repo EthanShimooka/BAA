@@ -18,7 +18,7 @@ cException::cException(int aErrorNumber, string aErrorDesc, string aSrcFileName,
 }
 
 //what method will be called by the error log manager to write exception to log file
-const char* cException::what() const throw()
+const char* cException::what()
 {
 	return errText.c_str();
 }

@@ -4,10 +4,7 @@ using namespace std;
 
 LogManager LogManager::logManager;
 
-LogManager::LogManager()
-{
-
-}
+LogManager::LogManager(){}
 
 LogManager* LogManager::GetLogManager() 
 {

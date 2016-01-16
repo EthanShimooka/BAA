@@ -2,20 +2,24 @@
 #ifndef LOGMANAGER_H_INCLUDED
 #define LOGMANAGER_H_INCLUDED
 
-#include <exception>
+//------------------------------------------------------------------------------------------------------------------
+
+#include "EngineObject.h"
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <time.h>
 #include <iomanip>
 #include <fstream>
+#include <exception>
 #include <vector> //possible include, check later if breaking
-#include "EngineObject.h"
 
 //throw macro to throw exceptions
 #ifndef THROW_EXCEPTION
-#define THROW_EXCEPTION(ErrorNum, ErrorDesc) throw cException(errorNum, errorDesc, __FILE__, __LINE__);
+#define THROW_EXCEPTION(errorNum, errorDesc) throw cException(errorNum, errorDesc, __FILE__, __LINE__);
 #endif
+
+//EXCEPTION CLASS---------------------------------------------------------------------------------------------------
 
 class cException : public std::exception
 {
@@ -30,19 +34,26 @@ public:
 
 	//override std::exception::what
 	//returns string with ErrorNumber, ErrorDesc, SrcFile, LineNum
-	const char* what() const throw();
+	const char* what();
 
 	cException(int errorNumber, std::string errorDesc, std::string srcFileName, int lineNumber);
 	~cException() throw() {}
 
 };
 
+//LOGMANAGER SINGLETON----------------------------------------------------------------------------------------------------
 
 class LogManager : public EngineObject
 {
 public:
 	static LogManager * GetLogManager();
-	
+
+protected:
+	LogManager();
+	virtual ~LogManager(){}
+	static LogManager logManager;
+
+public:
 	//log buffer
 	std::stringstream logBuffer;
 	//create log file
@@ -57,11 +68,6 @@ public:
 	std::string getTimeString();
 	//handle to log file
 	std::ofstream logFile;
-
-protected:
-	LogManager();
-	virtual ~LogManager(){}
-	static LogManager logManager;
 
 };
 
