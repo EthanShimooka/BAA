@@ -1,7 +1,6 @@
 #include "LogManager.h"
-using namespace std;
 
-cException::cException(int aErrorNumber, string aErrorDesc, string aSrcFileName, int aLineNumber)
+cException::cException(int aErrorNumber, std::string aErrorDesc, std::string aSrcFileName, int aLineNumber)
 {
 	//set exception properties
 	errorNumber = aErrorNumber;

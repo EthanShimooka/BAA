@@ -1,7 +1,5 @@
 #include "LogManager.h"
 
-using namespace std;
-
 LogManager LogManager::logManager;
 
 LogManager::LogManager(){}
@@ -12,7 +10,7 @@ LogManager* LogManager::GetLogManager()
 }
 
 //called before any try-catch
-void LogManager::create(string Filename)
+void LogManager::create(std::string Filename)
 {
 	logFile.open(Filename.c_str());
 }
@@ -39,7 +37,7 @@ void LogManager::logException(cException e)
 }
 
 //gets current time as string in the form: hours:mins:secs
-string LogManager::getTimeString()
+std::string LogManager::getTimeString()
 {
 	/*stringstream timeStr;
 
