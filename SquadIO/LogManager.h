@@ -19,6 +19,14 @@
 #define THROW_EXCEPTION(errorNum, errorDesc) throw cException(errorNum, errorDesc, __FILE__, __LINE__);
 #endif
 
+#ifdef SQUADIO_EXPORTS
+#define SQUADIO_API __declspec(dllexport) 
+#else
+#define SQUADIO_API __declspec(dllimport) 
+#endif
+
+
+
 //EXCEPTION CLASS---------------------------------------------------------------------------------------------------
 
 class cException : public std::exception
@@ -34,9 +42,9 @@ public:
 
 	//override std::exception::what
 	//returns string with ErrorNumber, ErrorDesc, SrcFile, LineNum
-	const char* what();
+	SQUADIO_API const char* what();
 
-	cException(int errorNumber, std::string errorDesc, std::string srcFileName, int lineNumber);
+	SQUADIO_API cException(int errorNumber, std::string errorDesc, std::string srcFileName, int lineNumber);
 	~cException() throw() {}
 
 };
@@ -46,7 +54,7 @@ public:
 class LogManager : public EngineObject
 {
 public:
-	static LogManager * GetLogManager();
+	SQUADIO_API static LogManager * GetLogManager();
 
 protected:
 	LogManager();
@@ -57,13 +65,13 @@ public:
 	//log buffer
 	std::stringstream logBuffer;
 	//create log file
-	void create(std::string Filename);
+	SQUADIO_API void create(std::string Filename);
 	//commits contents to file
-	void flush();
+	SQUADIO_API void flush();
 	//closes file
-	void close();
+	SQUADIO_API void close();
 	//logs exception to the log file
-	void logException(cException e);
+	SQUADIO_API void logException(cException e);
 	//gets time as string to be used in log
 	std::string getTimeString();
 	//handle to log file
