@@ -24,9 +24,6 @@
     <ClInclude Include="LogManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SquadIO.cpp">
@@ -39,9 +36,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
