@@ -1,3 +1,4 @@
+#pragma once
 #include "LogManager.h"
 
 LogManager LogManager::logManager;

@@ -2,7 +2,7 @@
 
 
 class EngineObject
-{
+{ 
 public:
 	EngineObject();
 
