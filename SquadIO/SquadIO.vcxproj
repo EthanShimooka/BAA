@@ -53,10 +53,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)/SquadIO/Debug/;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SquadIO.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,10 +80,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EngineObject.h" />
+    <ClInclude Include="LogManager.h" />
     <ClInclude Include="SquadIO.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EngineObject.cpp" />
+    <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="SquadIO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cException.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
