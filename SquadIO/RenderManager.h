@@ -1,10 +1,21 @@
 #pragma once
 #ifndef SDL2DRENDERMANAGER_H_INCLUDED
 #define SDL2DRENDERMANAGER_H_INCLUDED
+
+//throw macro to throw exceptions
+#ifndef THROW_EXCEPTION
+#define THROW_EXCEPTION(errorNum, errorDesc) throw cException(errorNum, errorDesc, __FILE__, __LINE__);
+#endif
+
+#ifdef SQUADIO_EXPORTS
+#define SQUADIO_API __declspec(dllexport) 
+#else
+#define SQUADIO_API __declspec(dllimport) 
+#endif
+
 // TODO: page 135, add the first two includes: 2DRenderManager.h and ResourceManager.h they are made by us
 #include "EngineObject.h"
-
-#include "SDL.h"
+#include <SDL.h>
 #include <SDL_image.h>
 #include <string>
 #include <sstream>
@@ -67,12 +78,13 @@ public:
 	SpriteObject();
 };
 
-class RenderManager{// : public c2DRenderManager
+class RenderManager : public EngineObject {
 private:
 protected:
 	RenderManager();
 	static RenderManager renderManager;
 public:
+	SQUADIO_API static RenderManager * GetLogManager();
 	static RenderManager* getRenderManager();
 	SDL_Surface* renderWindow;
 	std::stringstream videoInfo;
