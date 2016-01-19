@@ -82,11 +82,13 @@
   <ItemGroup>
     <ClInclude Include="EngineObject.h" />
     <ClInclude Include="LogManager.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SquadIO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineObject.cpp" />
     <ClCompile Include="LogManager.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SquadIO.cpp" />
   </ItemGroup>
   <ItemGroup>
