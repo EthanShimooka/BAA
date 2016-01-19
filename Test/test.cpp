@@ -1,10 +1,13 @@
 #include "test.h"
+#include "RenderManager.h"
 #include <iostream>
+#include <windows.h>
+#include <tchar.h>
 
 using namespace std;
 
 int main() {
-	LogManager* log = LogManager::GetLogManager();
+	/*LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 	try {
 		THROW_EXCEPTION(1, "dude error");
@@ -24,4 +27,12 @@ int main() {
 	int b = 98;
 	cout << SquadIO::SquadIO::Add(a, b) << endl;
 	return 0;*/
+	RenderManager* rend = RenderManager::getRenderManager();
+	cout << "this is main()" << endl;
+	return 0;
+}
+
+int _tmain(int argc, _TCHAR* argv[]){
+	cout << "this is _tmain()" << endl;
+	return 0; 
 }

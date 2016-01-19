@@ -82,20 +82,20 @@ class RenderManager : public EngineObject {
 private:
 protected:
 	RenderManager();
+	virtual ~RenderManager(){}
 	static RenderManager renderManager;
 public:
-	SQUADIO_API static RenderManager * GetLogManager();
-	static RenderManager* getRenderManager();
+	SQUADIO_API static RenderManager* getRenderManager();
 	SDL_Surface* renderWindow;
 	std::stringstream videoInfo;
-	bool init(unsigned int Width = 800, unsigned int Height = 600, bool fullScreen = false, char* WindowTitle = 0);
-	void free();
-	bool update();
-	void toggleFullScreen();
+	SQUADIO_API bool init(unsigned int width = 800, unsigned int height = 600, bool fullScreen = false, char* WindowTitle = 0);
+	SQUADIO_API void free();
+	SQUADIO_API bool update();
+	SQUADIO_API void toggleFullScreen();
 	//cResource* loadResourceFromXML(TiXmlElement* element);
-	void renderAllObjects();
+	SQUADIO_API void renderAllObjects();
+	//NOTE: this list might need to be changed to be pointers
 	std::list<SDLRenderObject> renderObjects;
-	~RenderManager();
 };
 
-#endif //SDL2DRENDERMANAGER_H_INCLUDED
+#endif SDL2DRENDERMANAGER_H_INCLUDED
