@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClInclude Include="EngineObject.h" />
     <ClInclude Include="gameResource.h" />
+    <ClInclude Include="Inc\tinyxml2.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SquadIO.h" />

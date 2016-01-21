@@ -16,8 +16,8 @@
 #include <map>
 #include <vector>
 #include <string> //maybe
-
-// #include "TinyXML.h"  
+#include "LogManager.h"
+#include "Inc/Tinyxml2.h"  //XML library
 
 class ResourceManager :
 	public EngineObject
