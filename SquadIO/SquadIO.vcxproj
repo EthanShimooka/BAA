@@ -87,6 +87,7 @@
     <ClInclude Include="SquadIO.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Desktop\tinyxml2-master\tinyxml2-master\tinyxml2.cpp" />
     <ClCompile Include="EngineObject.cpp" />
     <ClCompile Include="gameResource.cpp" />
     <ClCompile Include="LogManager.cpp" />
