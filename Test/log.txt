@@ -1,0 +1,7 @@
+***WHOOPS***
+Tue Jan 19 17:13:50 2016
+
+Error Num: 1
+Error Description: dude error
+ Source File Name: c:\users\richy\documents\visual studio 2013\projects\baa\test\test.cpp
+Line Number: 10

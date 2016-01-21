@@ -19,7 +19,7 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 		cout << "Error: Could not initialize SDL Render" << endl;
 		return false;
 	}
-	if (fullScreen){
+	else if (fullScreen){
 		//NOTE: hardcoded window to appear at (0,0) on desktop for now
 		SDL_Window* renderWindow = SDL_CreateWindow(WindowTitle, 0, 0, width, height, fullScreen);
 		if (!renderWindow){
@@ -27,6 +27,14 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 			return false;
 		}
 		//would be nice to have a variable here to get init data for debugging
+	}
+	else {
+		cout << "not full" << endl;
+		SDL_Window* renderWindow = SDL_CreateWindow(WindowTitle, 0, 0, width, height, fullScreen);
+		if (!renderWindow){
+			//there was an error creating the window
+			return false;
+		}
 	}
 	return true;
 }

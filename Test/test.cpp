@@ -33,6 +33,10 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
+	RenderManager* rend = RenderManager::getRenderManager();
+	rend->init(256, 256, true , "WindowTitle");
+	SDL_Delay(2000);
+	cout << rend << endl;
 	cout << "this is _tmain()" << endl;
 	return 0; 
 }
