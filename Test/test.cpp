@@ -5,9 +5,16 @@ using namespace std;
 
 int main() {
 	LogManager* log = LogManager::GetLogManager();
+
+	ResourceManager* rec;
+
+	rec->loadFromXMLFile("test.xml");
+
+	
 	log->create("log.txt");
 	try {
-		THROW_EXCEPTION(1, "dude error");
+		
+		THROW_EXCEPTION(1, "test error");
 
 	}
 	catch (cException& e)

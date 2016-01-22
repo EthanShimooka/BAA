@@ -19,6 +19,13 @@
 #include "LogManager.h"
 #include "Inc/Tinyxml2.h"  //XML library
 
+#ifdef SQUADIO_EXPORTS
+#define SQUADIO_API __declspec(dllexport) 
+#else
+#define SQUADIO_API __declspec(dllimport) 
+#endif
+
+
 class ResourceManager :
 	public EngineObject
 {
@@ -33,26 +40,29 @@ protected:
 public:
 	~ResourceManager();
 
+
 	std::map<unsigned int, std::list<gameResource*>> m_Resources;
 
-	gameResource* findResourcebyID(unsigned int RID);
+
+	//fetches resource ID 
+	SQUADIO_API	gameResource* findResourcebyID(unsigned int RID);
 
 	//clears all resources and scopes
-	void clear();
+	SQUADIO_API	void clear();
 	
 	//loads all resouces from XML 
-	bool loadFromXMLFile(std::string Filename);
+	SQUADIO_API bool loadFromXMLFile(std::string Filename);
 
 	//Sets the current scope. Scene Dependent
-	void setCurrentScope(unsigned int Scope);
+	SQUADIO_API	void setCurrentScope(unsigned int Scope);
 
-
-	const unsigned int getResourceCount(){ return m_ResourceCount;
+	//fetches resource count
+	SQUADIO_API	const unsigned int getResourceCount(){
+		return m_ResourceCount;
 	}
 
-	inline ResourceManager(){
+	SQUADIO_API inline ResourceManager(){
 		m_CurrentScope = m_ResourceCount = 0;
-
 	}
 };
 

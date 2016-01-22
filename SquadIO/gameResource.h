@@ -1,9 +1,10 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * gameResource.h
 * External Libraies: TinyXML 2.0
-* Copyright Team Squabble Squad
-* Distributed under GNU Public License
+* Team Squabble Squad
+* 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 #pragma once
 #include "EngineObject.h"
 #include <iostream>

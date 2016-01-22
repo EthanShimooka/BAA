@@ -1,19 +1,84 @@
-
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* ResourceManager.cpp
+* External Libraies: TinyXML 2.0
+* Copyright Team Squabble Squad
+*
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #include "ResourceManager.h"
-
-
 
 ResourceManager::~ResourceManager()
 {
 }
 
+// ResourceManager::findResourcebyID() - - 
+// Accepts a resource-specific unique unsigned int and
+// cycles through to find specified resource and returns
+// said resource
+
+gameResource* ResourceManager::findResourcebyID(unsigned int RID)
+{
+	std::map < unsigned int, std::list < gameResource*>>::iterator it;
+
+		//search through scopes
+	for (it = m_Resources.begin(); it != m_Resources.end(); it++) {
+
+		if (!(*it).second.empty()) {
+
+			std::list<gameResource*>::iterator list_it;
+
+			for (list_it = (*it).second.begin(); list_it != (*it).second.end();
+				*list_it){
+
+				//if matching ID
+				if ((*list_it)->m_ResourceID == RID)
+					return (*list_it);
+			}
+		}
+	}
+	return NULL;
+}
+
+
+
+// ResourceManager::clear() - - 
+//Clears Resource manager of elements
+
 void ResourceManager:: clear()
 {
-	return;
+	std::map < unsigned int, std::list < gameResource*>>::iterator it;
+
+	for (it = m_Resources.begin(); it != m_Resources.end(); it++){
+
+		if (!(*it).second.empty())
+		{
+			std::list<gameResource*>::iterator list_it;
+
+			//examine all resources under scope
+			for (list_it = (*it).second.begin(); list_it != (*it).second.end();
+				list_it++){
+
+				//resource deletaion
+				(*list_it)->unload();
+				delete(*list_it);
+				*list_it = NULL;
+				}
+			(*it).second.clear();
+			}
+	}
+	m_Resources.clear();
 }
+
+
+//ResourceManager::loadFromXMLFile()  -- 
+//
+//Takes in a filename and loads resources from XML
+//into memory
 
 bool ResourceManager::loadFromXMLFile(std::string Filename)
 {
+
+	LogManager* log = LogManager::GetLogManager();
+
 	std::string path = "resources/" + Filename;
 	//FILE *
 
@@ -27,16 +92,18 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 			if (ResourceTree){
 
 
-				for (tinyxml2::XMLNode* child = ResourceTree->FirstChild(); 
+				for (tinyxml2::XMLNode* child = ResourceTree->FirstChild();
 					child;
 					child = child->NextSiblingElement())
 				{
-					
-				    tinyxml2::XMLElement* Element = child->ToElement();
+
+					tinyxml2::XMLElement* Element = child->ToElement();
 					if (Element){
 						gameResource *Resource = NULL;
-						for (const tinyxml2::XMLAttribute* ElementAttrib = Element->FirstAttribute(); ElementAttrib; ElementAttrib = ElementAttrib->Next()){ //should this be const?
-	
+						for (const tinyxml2::XMLAttribute* ElementAttrib =
+							Element->FirstAttribute(); ElementAttrib;
+							ElementAttrib = ElementAttrib->Next()){ //should this be const?
+
 							std::string AttribName = ElementAttrib->Name();
 
 							std::string AttribValue = ElementAttrib->Value();
@@ -91,26 +158,49 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 							m_ResourceCount++;
 						}
 					}
-
-
 				}
 				return true;
 			}
-
-
-		return true;
+			else{
+			THROW_EXCEPTION(14, "No Resource Tree");
+			return true;
+		    }
 		}
 		catch (cException& e){
-			//report error
-
-			return false;
+			log->logException(e);
+			log->flush();
+			std::cout << e.what() << std::endl;
 		}
 	}
 	else return false;
 }
 
+
+// ResourceManager:: setCurrentScope :
+//  flush current Scene and load specified
+//  scene (Scope)
+
 void ResourceManager::setCurrentScope(unsigned int Scope)
 {
+	if (m_CurrentScope != 0)
+	{
+		std::list<gameResource*>::iterator list_it;
+
+		for (list_it = m_Resources[m_CurrentScope].begin(); list_it !=
+			m_Resources[m_CurrentScope].end(); list_it++) {
+			(*list_it)->unload(); //?
+		}
+
+		m_CurrentScope = Scope;
+	}
+
+		//new scope load
+		std::list<gameResource*>::iterator list_it;
+
+		for (list_it = m_Resources[m_CurrentScope].begin();
+			list_it != m_Resources[m_CurrentScope].end(); list_it++){
+			(*list_it)->load();
+		}
 	return;
 }
 
