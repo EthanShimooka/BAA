@@ -16,6 +16,10 @@ int main() {
 		rec->loadFromXMLFile("source.xml");
 		//THROW_EXCEPTION(1, "test error");
 
+		//gameResource* test = rec->findResourcebyID(1);
+
+		//std::cout <<"The Filename is : " << test->m_Filename << std::endl;
+
 	}
 	catch (cException& e)
 	{
