@@ -33,7 +33,7 @@ void LogManager::close()
 //writes exception to log
 void LogManager::logException(cException e)
 {
-	logBuffer << getTimeString() << "\n" << e.what();
+	logBuffer << getTimeString() << e.what();
 	flush();
 }
 
