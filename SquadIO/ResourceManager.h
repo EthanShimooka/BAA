@@ -31,6 +31,13 @@ class ResourceManager :
 {
 private:
 protected:
+	inline ResourceManager(){
+		m_CurrentScope = m_ResourceCount = 0;
+	}
+
+	~ResourceManager();
+
+	static ResourceManager resourceManager;
 
 	//scope
 	unsigned int m_CurrentScope;
@@ -38,11 +45,9 @@ protected:
 	unsigned int m_ResourceCount;
 
 public:
-	~ResourceManager();
-
+	SQUADIO_API static ResourceManager * GetResourceManager();
 
 	std::map<unsigned int, std::list<gameResource*>> m_Resources;
-
 
 	//fetches resource ID 
 	SQUADIO_API	gameResource* findResourcebyID(unsigned int RID);
@@ -61,9 +66,6 @@ public:
 		return m_ResourceCount;
 	}
 
-	SQUADIO_API inline ResourceManager(){
-		m_CurrentScope = m_ResourceCount = 0;
-	}
 };
 
 #endif //

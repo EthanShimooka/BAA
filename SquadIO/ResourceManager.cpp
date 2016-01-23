@@ -6,8 +6,15 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #include "ResourceManager.h"
 
+ResourceManager ResourceManager::resourceManager;
+
 ResourceManager::~ResourceManager()
 {
+}
+
+ResourceManager* ResourceManager::GetResourceManager()
+{
+	return &resourceManager;
 }
 
 // ResourceManager::findResourcebyID() - - 
@@ -19,7 +26,7 @@ gameResource* ResourceManager::findResourcebyID(unsigned int RID)
 {
 	std::map < unsigned int, std::list < gameResource*>>::iterator it;
 
-		//search through scopes
+	//search through scopes
 	for (it = m_Resources.begin(); it != m_Resources.end(); it++) {
 
 		if (!(*it).second.empty()) {
@@ -43,7 +50,7 @@ gameResource* ResourceManager::findResourcebyID(unsigned int RID)
 // ResourceManager::clear() - - 
 //Clears Resource manager of elements
 
-void ResourceManager:: clear()
+void ResourceManager::clear()
 {
 	std::map < unsigned int, std::list < gameResource*>>::iterator it;
 
@@ -61,9 +68,9 @@ void ResourceManager:: clear()
 				(*list_it)->unload();
 				delete(*list_it);
 				*list_it = NULL;
-				}
-			(*it).second.clear();
 			}
+			(*it).second.clear();
+		}
 	}
 	m_Resources.clear();
 }
@@ -77,18 +84,19 @@ void ResourceManager:: clear()
 bool ResourceManager::loadFromXMLFile(std::string Filename)
 {
 
-	LogManager* log = LogManager::GetLogManager();
+	//LogManager* log = LogManager::GetLogManager();
+	//log->create("log.txt");
 
-	std::string path = "resources/" + Filename;
+	std::string path = "resources\\" + Filename;
+
 	//FILE *
 
 	tinyxml2::XMLDocument doc;
 	doc.LoadFile(path.c_str());
-	if (doc.ErrorID() == 0){
-		try{
+	
+		if (doc.ErrorID() == 0){
+
 			tinyxml2::XMLNode* ResourceTree = doc.FirstChildElement("resources");
-			//if (doc.LoadFile("resources.xml") == tinyxml2::XML_NO_ERROR)
-			//{
 			if (ResourceTree){
 
 
@@ -161,18 +169,15 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 				}
 				return true;
 			}
-			else{
-			THROW_EXCEPTION(14, "No Resource Tree");
-			return true;
-		    }
 		}
-		catch (cException& e){
-			log->logException(e);
-			log->flush();
-			std::cout << e.what() << std::endl;
+		else{
+			THROW_EXCEPTION(100, "Opening/Parsing XML Failure");
 		}
-	}
-	else return false;
+	
+	//log->close();
+
+
+	return false;
 }
 
 
@@ -194,13 +199,12 @@ void ResourceManager::setCurrentScope(unsigned int Scope)
 		m_CurrentScope = Scope;
 	}
 
-		//new scope load
-		std::list<gameResource*>::iterator list_it;
+	//new scope load
+	std::list<gameResource*>::iterator list_it;
 
-		for (list_it = m_Resources[m_CurrentScope].begin();
-			list_it != m_Resources[m_CurrentScope].end(); list_it++){
-			(*list_it)->load();
-		}
+	for (list_it = m_Resources[m_CurrentScope].begin();
+		list_it != m_Resources[m_CurrentScope].end(); list_it++){
+		(*list_it)->load();
+	}
 	return;
 }
-

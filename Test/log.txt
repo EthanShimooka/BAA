@@ -1,6 +1,7 @@
 ***WHOOPS***
-Fri Jan 22 14:24:46 2016
-*** ERROR NUM: 1 ***
- Error Description: dude error
- Source File Name: c:\users\ethan\documents\visual studio 2013\projects\baa\test\test.cpp
- Line Number: 15
+Fri Jan 22 18:34:43 2016
+*** ERROR NUM: 100 ***
+ Error Description: Opening/Parsing XML Failure
+ Source File Name: c:\users\ethan\documents\visual studio 2013\projects\baa\squadio\resourcemanager.cpp
+ Line Number: 174
+ 

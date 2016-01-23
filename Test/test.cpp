@@ -6,15 +6,15 @@ using namespace std;
 int main() {
 	LogManager* log = LogManager::GetLogManager();
 
-	ResourceManager* rec;
+	ResourceManager* rec = ResourceManager::GetResourceManager();
 
-	rec->loadFromXMLFile("test.xml");
+	
 
 	
 	log->create("log.txt");
 	try {
-		
-		THROW_EXCEPTION(1, "test error");
+		rec->loadFromXMLFile("source.xml");
+		//THROW_EXCEPTION(1, "test error");
 
 	}
 	catch (cException& e)
