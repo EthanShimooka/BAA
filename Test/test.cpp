@@ -1,24 +1,23 @@
 #include "test.h"
-#include <iostream>
+
 
 using namespace std;
 
+/*RenderResource* gameToRend(gameResource* game){
+	RenderResource* newSrc = new RenderResource();
+	newSrc->m_ResourceID = game->m_ResourceID;
+	newSrc->m_Scope = game->m_Scope;
+	newSrc->m_Filename = game->m_Filename;
+	newSrc->m_Type = game->m_Type;
+	return newSrc;
+}*/
+
+
 int main() {
-	LogManager* log = LogManager::GetLogManager();
-
-	ResourceManager* rec = ResourceManager::GetResourceManager();
-
-	
-
-	
+	/*LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 	try {
-		rec->loadFromXMLFile("source.xml");
-		//THROW_EXCEPTION(1, "test error");
-
-		//gameResource* test = rec->findResourcebyID(1);
-
-		//std::cout <<"The Filename is : " << test->m_Filename << std::endl;
+		THROW_EXCEPTION(1, "dude error");
 
 	}
 	catch (cException& e)
@@ -35,4 +34,36 @@ int main() {
 	int b = 98;
 	cout << SquadIO::SquadIO::Add(a, b) << endl;
 	return 0;*/
+	RenderManager* rend = RenderManager::getRenderManager();
+	cout << "this is main()" << endl;
+	return 0;
 }
+
+int _tmain(int argc, _TCHAR* argv[]){
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
+	renderMan->init(400, 256, false, "WindowTitle");
+	resourceMan->loadFromXMLFile("source.xml");
+	gameResource* tempSrc = resourceMan->findResourcebyID(1);
+	//RenderResource* tempRendSpr = gameToRend(tempSrc);
+	//tempRendSpr->load();
+	//SDLRenderObject* obj = new SDLRenderObject();
+	//obj->setResourceObject(tempRendSpr);
+	//renderMan->renderObjects.assign(1, obj);
+
+	/*RenderResource* sprite = new RenderResource();
+	sprite->load();
+	SDLRenderObject* obj = new SDLRenderObject();
+	obj->setResourceObject(sprite);
+	renderMan->renderObjects.assign(1,obj);*/
+
+
+
+	//renderMan->update();
+	//cout << renderMan << endl;
+	cout << "this is _tmain()" << endl;
+	return 0;
+}
+
+
+

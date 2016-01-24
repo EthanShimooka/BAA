@@ -45,6 +45,8 @@ public:
 	virtual ~gameResource(){};
 	virtual void load(){};
 	virtual void unload(){};
+	//TODO: Might need a bool flag for resources to say 
+	//whether or not they are loaded later on
 
 	inline gameResource()
 	{

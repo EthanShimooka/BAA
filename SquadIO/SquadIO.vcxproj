@@ -41,6 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,12 +55,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)/SquadIO/Debug/;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/SquadIO/Debug/;C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SquadIO.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SquadIO.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,6 +86,7 @@
     <ClInclude Include="gameResource.h" />
     <ClInclude Include="Inc\tinyxml2.h" />
     <ClInclude Include="LogManager.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SquadIO.h" />
   </ItemGroup>
@@ -91,7 +94,11 @@
     <ClCompile Include="EngineObject.cpp" />
     <ClCompile Include="gameResource.cpp" />
     <ClCompile Include="LogManager.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RenderResource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SDLRenderObject.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="SquadIO.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>

@@ -5,6 +5,7 @@
 *
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #include "ResourceManager.h"
+#include "RenderManager.h"
 
 ResourceManager ResourceManager::resourceManager;
 
@@ -86,6 +87,7 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 
 	//LogManager* log = LogManager::GetLogManager();
 	//log->create("log.txt");
+	RenderManager* renderManager = RenderManager::getRenderManager();
 
 	std::string path = "resources\\" + Filename;
 
@@ -121,7 +123,7 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 							{
 								if (AttribValue == "graphic"){
 
-									//Resource = RenderManager->loadResourceFromXML (Element);
+									Resource = renderManager->loadResourceFromXML(Element);
 									std::cout << "Graphic Resource Loaded \n";
 
 								}
