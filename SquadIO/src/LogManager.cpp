@@ -1,12 +1,15 @@
 #pragma once
-#include "LogManager.h"
+#include "include\LogManager.h"
 
 LogManager LogManager::logManager;
 
-LogManager::LogManager(){}
+LogManager::LogManager(){
+	ID = 1;
+}
 
 LogManager* LogManager::GetLogManager() 
 {
+	
 	return &logManager;
 }
 
@@ -33,7 +36,7 @@ void LogManager::close()
 //writes exception to log
 void LogManager::logException(cException e)
 {
-	logBuffer << getTimeString() << "\n" << e.what();
+	logBuffer << getTimeString() << e.what();
 	flush();
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "LogManager.h"
+#include "include\LogManager.h"
 
 cException::cException(int aErrorNumber, std::string aErrorDesc, std::string aSrcFileName, int aLineNumber)
 {
@@ -11,7 +11,9 @@ cException::cException(int aErrorNumber, std::string aErrorDesc, std::string aSr
 
 	//write properties to a human-readable string
 	std::stringstream errStr;
-	errStr << "Error Num: " << errorNumber << "\nError Description: " << errorDesc << "\n Source File Name: " << srcFileName << "\nLine Number: " << lineNumber << "\n";
+	errStr << "*** ERROR NUM: " << errorNumber << " ***"<<
+		"\n Error Description: " << errorDesc << "\n Source File Name: " <<
+		srcFileName << "\n Line Number: " << lineNumber << "\n";
 
 	errText = errStr.str();
 
