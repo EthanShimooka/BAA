@@ -1,14 +1,14 @@
 #pragma once
-#include "RenderManager.h"
+#include "include\RenderManager.h"
 
 
 SDLRenderObject::SDLRenderObject(){}
 //SDLRenderObject::~SDLRenderObject(){}
 
 
-void SDLRenderObject::setResourceObject(RenderResource *resource){
-	if (resource){
-		renderResource = resource;
+void SDLRenderObject::setResourceObject(RenderResource *source){
+	if (source){
+		renderResource = source;
 		renderRect.w = renderResource->mSurface->w;
 		renderRect.h = renderResource->mSurface->h;
 		if (colorKeyEnabled){

@@ -1,5 +1,5 @@
 #pragma once
-#include "SpriteObject.h"
+#include "include\SpriteObject.h"
 
 void SpriteObject::setFrameRect(unsigned int frameNum){
 	unsigned int rowNum = floor(frameNum / framesPerRow);

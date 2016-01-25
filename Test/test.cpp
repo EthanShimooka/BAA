@@ -40,26 +40,37 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
+	LogManager* log = LogManager::GetLogManager();
+	log->create("log.txt");
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
+
+
+
+
 	renderMan->init(400, 256, false, "WindowTitle");
 	resourceMan->loadFromXMLFile("source.xml");
+	resourceMan->setCurrentScope(0);
+	std::cout << "resource count : " << resourceMan->getResourceCount() <<"\n";
+	//fetches resource count
+	
 
-
-	//This block is supposted to load a sprite and draw it on screen. Thre are errors
-	/*gameResource* tempSrc = resourceMan->findResourcebyID(1);
-	tempSrc->load();
-
-	RenderResource* sprite = resourceMan->findResourcebyID(1);
 	SDLRenderObject* obj = new SDLRenderObject();
-	obj->setResourceObject(sprite);
-	renderMan->renderObjects.assign(1,obj);*/
+	RenderResource* rend = new RenderResource();
+			
+			obj->renderResource = rend;
+			obj->renderRect.w = 50;
+			obj->renderRect.h = 50;
+		
 
 
+	renderMan->renderObjects.push_back(obj); //list
+	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
 
 	renderMan->update();
-	//cout << renderMan << endl;
-	cout << "this is _tmain()" << endl;
+	std::cout << renderMan << endl;
+
+	log->close();
 	return 0;
 }
 

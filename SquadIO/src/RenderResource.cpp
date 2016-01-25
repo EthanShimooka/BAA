@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderManager.h"
+#include "include\RenderResource.h"
 
 
 RenderResource::RenderResource(){}
@@ -25,8 +25,8 @@ void RenderResource::load(){
 		//free old buffer
 		SDL_FreeSurface(tempSurface);
 		if (mSurface){
-			//TODO: again, implement cResource class
-			//bLoaded = true;
+			m_Bloaded = true;
+
 		}
 	}
 }

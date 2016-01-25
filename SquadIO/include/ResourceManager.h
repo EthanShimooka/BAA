@@ -11,13 +11,17 @@
 
 #include "EngineObject.h"
 #include "gameResource.h"
+
+#include "sdl2\SDL.h"
+#include "sdl2\SDL_image.h"
+
 #include <iostream>
 #include <list>
 #include <map>
 #include <vector>
 #include <string> //maybe
 #include "LogManager.h"
-#include "Inc/Tinyxml2.h"  //XML library
+#include "Tinyxml2.h"  //XML library
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport) 

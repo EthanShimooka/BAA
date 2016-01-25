@@ -58,7 +58,7 @@ public:
 
 protected:
 	LogManager();
-	virtual ~LogManager(){}
+   ~LogManager(){}
 	static LogManager logManager;
 
 public:

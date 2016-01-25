@@ -1,10 +1,12 @@
 #pragma once
-#include "RenderManager.h"
+#include "include\RenderManager.h"
 
 
 RenderManager RenderManager::renderManager;
 
-RenderManager::RenderManager(){}
+RenderManager::RenderManager(){
+	ID = 1;
+}
 
 RenderManager* RenderManager::getRenderManager()
 {
@@ -66,13 +68,13 @@ bool RenderManager::update(){
 //TODO: this function is necessary, but we need a resource manager first
 gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
 	if (elem){
-		//TODO: book says to use RenderResource constructor
-		gameResource* resource = new gameResource(); //this compiles atleast
-		//gameResource* resource = new RenderResource();
+		
+		gameResource* resource = new RenderResource(); // This is uber important
+
 		for (const tinyxml2::XMLAttribute* elementAttrib = elem->FirstAttribute(); elementAttrib; elementAttrib = elementAttrib->Next()){
 			std::string AttribName = elementAttrib->Name();
 			std::string AttribValue = elementAttrib->Value();
-			if (AttribName == "UID"){
+			if (AttribName == "UID"){                                                                                                                          
 				resource->m_ResourceID = atoi(AttribValue.c_str());
 			}
 			if (AttribName == "filename"){

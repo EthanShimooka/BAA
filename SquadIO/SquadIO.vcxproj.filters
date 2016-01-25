@@ -13,71 +13,80 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Render Classes">
+      <UniqueIdentifier>{08f24da7-bf1b-4277-9c1d-2c76c2959901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{8ebfde0d-e8d3-48f9-8d63-8cb92ff740d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource Classes">
+      <UniqueIdentifier>{6de43760-f1a8-4c99-a39c-e1bef94d582c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SquadIO.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\RenderResource.h">
+      <Filter>Header Files\Render Classes</Filter>
     </ClInclude>
-    <ClInclude Include="EngineObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\RenderManager.h">
+      <Filter>Header Files\Render Classes</Filter>
     </ClInclude>
-    <ClInclude Include="LogManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\SDLRenderObject.h">
+      <Filter>Header Files\Render Classes</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\LogManager.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="gameResource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\EngineObject.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\tinyxml2.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\SpriteObject.h">
+      <Filter>Header Files\Render Classes</Filter>
     </ClInclude>
-    <ClInclude Include="RenderManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\tinyxml2.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\SquadIO.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="SDLRenderObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\gameResource.h">
+      <Filter>Header Files\Resource Classes</Filter>
     </ClInclude>
-    <ClInclude Include="RenderResource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\ResourceManager.h">
+      <Filter>Header Files\Resource Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SquadIO.cpp">
+    <ClCompile Include="src\EngineObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EngineObject.cpp">
+    <ClCompile Include="src\gameResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LogManager.cpp">
+    <ClCompile Include="src\LogManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cException.cpp">
+    <ClCompile Include="src\RenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
+    <ClCompile Include="src\RenderResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameResource.cpp">
+    <ClCompile Include="src\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tinyxml2.cpp">
+    <ClCompile Include="src\SDLRenderObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
+    <ClCompile Include="src\SpriteObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RenderResource.cpp">
+    <ClCompile Include="src\SquadIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDLRenderObject.cpp">
+    <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteObject.cpp">
+    <ClCompile Include="src\cException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

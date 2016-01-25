@@ -1,12 +1,15 @@
 #pragma once
-#include "LogManager.h"
+#include "include\LogManager.h"
 
 LogManager LogManager::logManager;
 
-LogManager::LogManager(){}
+LogManager::LogManager(){
+	ID = 1;
+}
 
 LogManager* LogManager::GetLogManager() 
 {
+	
 	return &logManager;
 }
 

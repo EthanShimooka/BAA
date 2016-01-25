@@ -2,10 +2,6 @@
 #ifndef SDL2DRENDERMANAGER_H_INCLUDED
 #define SDL2DRENDERMANAGER_H_INCLUDED
 
-//throw macro to throw exceptions
-#ifndef THROW_EXCEPTION
-#define THROW_EXCEPTION(errorNum, errorDesc) throw cException(errorNum, errorDesc, __FILE__, __LINE__);
-#endif
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport) 
@@ -17,9 +13,10 @@
 #include "EngineObject.h"
 #include "gameResource.h"
 #include "SDLRenderObject.h"
-#include "Inc/Tinyxml2.h"
-#include <SDL.h>
-#include <SDL_image.h>
+#include "Tinyxml2.h"
+#include "sdl2\SDL.h"
+#include "sdl2\SDL_image.h"
+
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -51,6 +48,7 @@ public:
 	SQUADIO_API void toggleFullScreen();
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
 	SQUADIO_API void renderAllObjects();
+
 	//NOTE: this list might need to be changed to be pointers
 	std::list<SDLRenderObject*> renderObjects;
 };

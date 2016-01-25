@@ -13,7 +13,7 @@
 #include <vector>
 #include <string> //maybe
 
-// #include "TinyXML.h"  maybe?
+
 
 
 // To be used with ResourceManager. Refer to Resource Manager for 
@@ -38,6 +38,7 @@ public:
 
 	unsigned int m_ResourceID;
 	unsigned int m_Scope;
+	bool m_Bloaded;
 	std::string m_Filename;
 	RESOURCE_TYPE m_Type;
 
@@ -45,6 +46,7 @@ public:
 	virtual ~gameResource(){};
 	virtual void load(){};
 	virtual void unload(){};
+
 	//TODO: Might need a bool flag for resources to say 
 	//whether or not they are loaded later on
 

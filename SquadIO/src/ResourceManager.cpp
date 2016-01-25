@@ -4,8 +4,8 @@
 * Copyright Team Squabble Squad
 *
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#include "ResourceManager.h"
-#include "RenderManager.h"
+#include "include\ResourceManager.h"
+#include "include\RenderManager.h"
 
 ResourceManager ResourceManager::resourceManager;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "LogManager.h"
+#include "include\LogManager.h"
 
 cException::cException(int aErrorNumber, std::string aErrorDesc, std::string aSrcFileName, int aLineNumber)
 {
