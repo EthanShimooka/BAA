@@ -1,7 +1,6 @@
 #pragma once
 #include "RenderManager.h"
 
-using namespace std;
 
 RenderManager RenderManager::renderManager;
 
@@ -13,31 +12,20 @@ RenderManager* RenderManager::getRenderManager()
 }
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
-	SDL_Window* renderWindow = NULL;
-	SDL_Surface* screenSurface = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
-		cout << "Error: Could not initialize SDL Render" << endl;
+		std::cout << "Error: Could not initialize SDL Render" << std::endl;
 		return false;
 	}
-	else if (fullScreen){
-		//NOTE: hardcoded window to appear at (0,0) on desktop for now
-		renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
-		if (!renderWindow){
-			//there was an error creating the window
-			return false;
-		}
-		//would be nice to have a variable here to get init data for debugging
+	else if (!fullScreen){
+		std::cout << "not fullscreen" << std::endl;
 	}
-	else {
-		cout << "not full" << endl;
-		renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
-		if (!renderWindow){
-			//there was an error creating the window
-			return false;
-		}
+	renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
+	if (!renderWindow){
+		//there was an error creating the window
+		return false;
 	}
 	//Get window surface
-	screenSurface = SDL_GetWindowSurface(renderWindow);
+	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) ); 
 	//Update the surface 
@@ -58,9 +46,21 @@ bool RenderManager::update(){
 		}
 	}
 	//clear screen
-	SDL_FillRect(renderWindow, 0, SDL_MapRGB(renderWindow->format, 0, 0, 0));
+	windowSurface = SDL_GetWindowSurface(renderWindow);
+
+	//Fill the surface white
+	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0xFF, 0xFF, 0xFF));
+	
+
+	//interate through renderables, and generate the current frame
 	renderAllObjects();
-	SDL_RendererFlip(renderWindow);
+
+	//
+	SDL_UpdateWindowSurface(renderWindow);
+
+	//This next line is only still here to act as a restore point
+	//SDL_RendererFlip(renderWindow);
+	
 	return true;
 }
 //TODO: this function is necessary, but we need a resource manager first
@@ -70,8 +70,8 @@ gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
 		gameResource* resource = new gameResource(); //this compiles atleast
 		//gameResource* resource = new RenderResource();
 		for (const tinyxml2::XMLAttribute* elementAttrib = elem->FirstAttribute(); elementAttrib; elementAttrib = elementAttrib->Next()){
-			string AttribName = elementAttrib->Name();
-			string AttribValue = elementAttrib->Value();
+			std::string AttribName = elementAttrib->Name();
+			std::string AttribValue = elementAttrib->Value();
 			if (AttribName == "UID"){
 				resource->m_ResourceID = atoi(AttribValue.c_str());
 			}
@@ -97,7 +97,14 @@ void RenderManager::renderAllObjects(){
 			SDL_Rect pos;
 			pos.x = int((*iter)->posX);
 			pos.y = int((*iter)->posY);
-			SDL_BlitSurface((*iter)->renderResource->mSurface, &(*iter)->renderRect, renderWindow, &pos);
+			SDL_BlitSurface((*iter)->renderResource->mSurface, &(*iter)->renderRect, windowSurface, &pos);
 		}
 	}
+}
+
+void RenderManager::free(){
+	SDL_DestroyWindow(renderWindow);
+	SDL_FreeSurface(windowSurface);
+
+	//TODO: this obviously isn't a complete implementation of the free function
 }

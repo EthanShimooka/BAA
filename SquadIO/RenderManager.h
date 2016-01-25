@@ -15,6 +15,9 @@
 
 // TODO: page 135, add the first two includes: 2DRenderManager.h and ResourceManager.h they are made by us
 #include "EngineObject.h"
+#include "gameResource.h"
+#include "SDLRenderObject.h"
+#include "Inc/Tinyxml2.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
@@ -25,61 +28,11 @@
 #include <Windows.h>
 #include <math.h>
 #include <list>
-#include "gameResource.h"
-#include "Inc/Tinyxml2.h"  //XML library
+
 
 // TODO: import the tinyxml library
 //#include "TimyXML.h"
 
-class RenderResource : public gameResource { 
-private:
-protected:
-public:
-	SDL_Surface *mSurface;
-
-	~RenderResource();
-	SQUADIO_API void load();
-	SQUADIO_API void unload();
-	RenderResource();
-};
-
-class SDLRenderObject : public EngineObject{
-private:
-protected:
-public:
-	RenderResource *renderResource;
-	SDL_Rect renderRect;
-	float posX;
-	float posY;
-	bool visible;
-	SDL_Color colorKey;
-	bool colorKeyEnabled;
-	SDLRenderObject();
-	SQUADIO_API void setResourceObject(RenderResource *source);
-	SQUADIO_API virtual void update(){};
-};
-
-class SpriteObject : public SDLRenderObject{
-private:
-protected:
-	DWORD timeLastFrame;
-
-public:
-	unsigned int totalFrames;
-	unsigned int framesPerRow;
-	unsigned int framesPerColumn;
-	unsigned int currentFrame;
-	unsigned int startFrame;
-	float spriteSpeed;
-	unsigned int frameWidth;
-	unsigned int frameHeight;
-
-	SQUADIO_API void update();
-	SQUADIO_API void play();
-	SQUADIO_API void stop();
-	SQUADIO_API void setFrameRect(unsigned int frameNumber);
-	SpriteObject();
-};
 
 class RenderManager : public EngineObject {
 private:
@@ -89,7 +42,8 @@ protected:
 	static RenderManager renderManager;
 public:
 	SQUADIO_API static RenderManager* getRenderManager();
-	SDL_Surface* renderWindow;
+	SDL_Window* renderWindow;
+	SDL_Surface* windowSurface;
 	std::stringstream videoInfo;
 	SQUADIO_API bool init(unsigned int width = 800, unsigned int height = 600, bool fullScreen = false, char* WindowTitle = 0);
 	SQUADIO_API void free();

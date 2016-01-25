@@ -1,7 +1,10 @@
 #pragma once
 #include "RenderManager.h"
 
-using namespace std;
+
+SDLRenderObject::SDLRenderObject(){}
+//SDLRenderObject::~SDLRenderObject(){}
+
 
 void SDLRenderObject::setResourceObject(RenderResource *resource){
 	if (resource){

@@ -1,7 +1,5 @@
 #pragma once
-#include "RenderManager.h"
-
-using namespace std;
+#include "SpriteObject.h"
 
 void SpriteObject::setFrameRect(unsigned int frameNum){
 	unsigned int rowNum = floor(frameNum / framesPerRow);

@@ -44,22 +44,20 @@ int _tmain(int argc, _TCHAR* argv[]){
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	renderMan->init(400, 256, false, "WindowTitle");
 	resourceMan->loadFromXMLFile("source.xml");
-	gameResource* tempSrc = resourceMan->findResourcebyID(1);
-	//RenderResource* tempRendSpr = gameToRend(tempSrc);
-	//tempRendSpr->load();
-	//SDLRenderObject* obj = new SDLRenderObject();
-	//obj->setResourceObject(tempRendSpr);
-	//renderMan->renderObjects.assign(1, obj);
 
-	/*RenderResource* sprite = new RenderResource();
-	sprite->load();
+
+	//This block is supposted to load a sprite and draw it on screen. Thre are errors
+	/*gameResource* tempSrc = resourceMan->findResourcebyID(1);
+	tempSrc->load();
+
+	RenderResource* sprite = resourceMan->findResourcebyID(1);
 	SDLRenderObject* obj = new SDLRenderObject();
 	obj->setResourceObject(sprite);
 	renderMan->renderObjects.assign(1,obj);*/
 
 
 
-	//renderMan->update();
+	renderMan->update();
 	//cout << renderMan << endl;
 	cout << "this is _tmain()" << endl;
 	return 0;

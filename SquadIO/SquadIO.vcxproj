@@ -87,7 +87,10 @@
     <ClInclude Include="Inc\tinyxml2.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="RenderResource.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SDLRenderObject.h" />
+    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="SquadIO.h" />
   </ItemGroup>
   <ItemGroup>
