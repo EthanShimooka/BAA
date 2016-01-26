@@ -9,7 +9,6 @@ LogManager::LogManager(){
 
 LogManager* LogManager::GetLogManager() 
 {
-	
 	return &logManager;
 }
 
