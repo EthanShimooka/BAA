@@ -56,11 +56,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	
 
 	SDLRenderObject* obj = new SDLRenderObject();
-	RenderResource* rend = new RenderResource();
-			
+	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
+
+
 			obj->renderResource = rend;
+			obj->setResourceObject(rend);
 			obj->renderRect.w = 50;
 			obj->renderRect.h = 50;
+
 		
 
 

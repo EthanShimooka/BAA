@@ -32,7 +32,7 @@ public:
 	SDL_Rect renderRect;
 	float posX;
 	float posY;
-	bool visible;
+	bool visible=true;
 	SDL_Color colorKey;
 	bool colorKeyEnabled;
 	SQUADIO_API SDLRenderObject();
