@@ -22,7 +22,6 @@
 #include <Windows.h>
 #include <math.h>
 #include <list>
-#include "SDLRenderObject.h"
 
 // TODO: import the tinyxml library
 //#include "TimyXML.h"

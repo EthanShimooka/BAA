@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Resource Classes">
       <UniqueIdentifier>{6de43760-f1a8-4c99-a39c-e1bef94d582c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Network Classes">
+      <UniqueIdentifier>{db6d45a0-a912-4772-a919-808ee7bfcbb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network Classes">
+      <UniqueIdentifier>{2787e58b-53f9-4347-bd12-3ec96964ef33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\RenderResource.h">
@@ -53,6 +59,39 @@
     </ClInclude>
     <ClInclude Include="include\ResourceManager.h">
       <Filter>Header Files\Resource Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\BirdMath.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\Command.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\CommandList.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\GamerServices.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\MemoryBitStream.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\NetIncludes.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\NetworkManager.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\RandGen.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\Timing.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\TurnData.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\WeightedTimedMovingAverage.h">
+      <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +127,33 @@
     </ClCompile>
     <ClCompile Include="src\cException.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\BirdMath.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Command.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\CommandList.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\GamerServicesSteam.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\MemoryBitStream.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\NetworkManager.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\RandGen.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Timing.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\TurnData.cpp">
+      <Filter>Source Files\Network Classes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

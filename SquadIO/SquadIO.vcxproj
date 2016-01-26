@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\SquadIO\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\SquadIO\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -55,12 +55,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)/SquadIO/Debug/;C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/SquadIO/Debug/;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>"lib\SquadIO.lib";lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,11 +79,23 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
+    <ClInclude Include="include\Network\BirdMath.h" />
+    <ClInclude Include="include\Network\Command.h" />
+    <ClInclude Include="include\Network\CommandList.h" />
+    <ClInclude Include="include\Network\GamerServices.h" />
+    <ClInclude Include="include\Network\MemoryBitStream.h" />
+    <ClInclude Include="include\Network\NetIncludes.h" />
+    <ClInclude Include="include\Network\NetworkManager.h" />
+    <ClInclude Include="include\Network\RandGen.h" />
+    <ClInclude Include="include\Network\Timing.h" />
+    <ClInclude Include="include\Network\TurnData.h" />
+    <ClInclude Include="include\Network\WeightedTimedMovingAverage.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\LogManager.h" />
     <ClInclude Include="include\RenderManager.h" />
@@ -97,6 +109,15 @@
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
     <ClCompile Include="src\LogManager.cpp" />
+    <ClCompile Include="src\Network\BirdMath.cpp" />
+    <ClCompile Include="src\Network\Command.cpp" />
+    <ClCompile Include="src\Network\CommandList.cpp" />
+    <ClCompile Include="src\Network\GamerServicesSteam.cpp" />
+    <ClCompile Include="src\Network\MemoryBitStream.cpp" />
+    <ClCompile Include="src\Network\NetworkManager.cpp" />
+    <ClCompile Include="src\Network\RandGen.cpp" />
+    <ClCompile Include="src\Network\Timing.cpp" />
+    <ClCompile Include="src\Network\TurnData.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\RenderResource.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
