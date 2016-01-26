@@ -54,7 +54,7 @@
     <ClInclude Include="include\ResourceManager.h">
       <Filter>Header Files\Resource Classes</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
+    <ClInclude Include="include\SceneManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
   </ItemGroup>

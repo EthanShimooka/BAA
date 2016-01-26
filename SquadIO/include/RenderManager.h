@@ -16,6 +16,7 @@
 #include "Tinyxml2.h"
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_image.h"
+#include "include\SceneManager.h"
 
 #include <string>
 #include <sstream>
@@ -37,6 +38,7 @@ protected:
 	RenderManager();
 	virtual ~RenderManager(){}
 	static RenderManager renderManager;
+	void renderScene();
 public:
 	SQUADIO_API static RenderManager* getRenderManager();
 	SDL_Window* renderWindow;
@@ -51,6 +53,8 @@ public:
 
 	//NOTE: this list might need to be changed to be pointers
 	std::list<SDLRenderObject*> renderObjects;
+
+	SceneManager* sceneManager;
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

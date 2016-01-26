@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
+    <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\LogManager.h" />
     <ClInclude Include="include\RenderManager.h" />
@@ -94,7 +95,6 @@
     <ClInclude Include="include\SDLRenderObject.h" />
     <ClInclude Include="include\SpriteObject.h" />
     <ClInclude Include="include\SquadIO.h" />
-    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp" />

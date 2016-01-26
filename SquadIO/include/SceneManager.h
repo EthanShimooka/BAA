@@ -94,7 +94,11 @@ public:
 
 class SceneManager : public EngineObject {
 private:
+	SQUADIO_API static SceneManager * GetSceneManager();
 protected:
+	SceneManager();
+	~SceneManager(){}
+	static SceneManager sceneManager;
 	void addLayerObjects(Layer* layer, tinyxml2::XMLElement* element);
 	void checkTimerExpired();
 public:

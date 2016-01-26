@@ -8,6 +8,17 @@ bool compareLayerOrder(const Layer* lhs, const Layer* rhs){
 
 ///////////////////////////////////////////////////////////////////////////////
 
+SceneManager SceneManager::sceneManager;
+
+SceneManager::SceneManager(){}
+
+SceneManager* SceneManager::GetSceneManager()
+{
+	return &sceneManager;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 Layer::Layer() : EngineObject() {
 	m_Visible = true;
 	m_PosX = m_PosY = 0.0f;
@@ -37,6 +48,8 @@ Layer* SceneManager::findLayer(std::string Name) {
 			return(*list_it);
 		}
 	}
+	THROW_EXCEPTION(501, "Failed to find layer in SceneManager");
+	return NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -72,10 +85,10 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 		}
 
 		if (AttribName == "posx") {
-			object->posX = atof(AttribValue.c_str());
+			object->posX = (float)atof(AttribValue.c_str());
 		}
 		if (AttribName == "posy") {
-			object->posY = atof(AttribValue.c_str());
+			object->posY = (float)atof(AttribValue.c_str());
 		}
 
 		if (AttribName == "colorkey"){
@@ -134,11 +147,11 @@ bool SceneManager::loadFromXMLFile(std::string Filename) {
 						}
 
 						if (AttribName == "posx"){
-							layer->m_PosX = atof(AttribValue.c_str());
+							layer->m_PosX = (float)atof(AttribValue.c_str());
 						}
 
 						if (AttribName == "posy"){
-							layer->m_PosY = atof(AttribValue.c_str());
+							layer->m_PosY = (float)atof(AttribValue.c_str());
 						}
 
 						if (AttribName == "visible"){
