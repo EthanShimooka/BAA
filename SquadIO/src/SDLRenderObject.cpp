@@ -17,3 +17,11 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		}
 	}
 }
+
+void SDLRenderObject::setColorKey(unsigned int r, unsigned int g, unsigned int b){
+	colorKey.r = r;
+	colorKey.g = g;
+	colorKey.b = b;
+	Uint32 color = SDL_MapRGB(renderResource->mSurface->format, colorKey.r, colorKey.g, colorKey.b);
+	SDL_SetColorKey(renderResource->mSurface, SDL_TRUE, color); //SDL_TRUE might need to be SDL_SRCCOLORKEY
+}

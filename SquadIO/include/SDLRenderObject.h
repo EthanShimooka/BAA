@@ -37,6 +37,7 @@ public:
 	bool colorKeyEnabled;
 	SQUADIO_API SDLRenderObject();
 	SQUADIO_API void setResourceObject(RenderResource *source);
+	SQUADIO_API void setColorKey(unsigned int r, unsigned int g, unsigned int b);
 	SQUADIO_API virtual void update(){};
 };
 

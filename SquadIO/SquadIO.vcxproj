@@ -92,6 +92,7 @@
     <ClInclude Include="include\SDLRenderObject.h" />
     <ClInclude Include="include\SpriteObject.h" />
     <ClInclude Include="include\SquadIO.h" />
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\RenderResource.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\SDLRenderObject.cpp" />
     <ClCompile Include="src\SpriteObject.cpp" />
     <ClCompile Include="src\SquadIO.cpp" />
