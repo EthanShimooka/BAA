@@ -15,7 +15,7 @@
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_image.h"
 
-#include <string>
+#include <string.h>
 #include <sstream>
 #include <iostream>
 #include <time.h>

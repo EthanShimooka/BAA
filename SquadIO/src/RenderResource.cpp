@@ -23,9 +23,9 @@ void RenderResource::load(){
 	//Can load BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, XCF, XPM, XV file formats
 
 	//MUST PREPEND THE RESOURCE PATH FIRST
-	char* path = "resources/";
-	//strcat(path, m_Filename.c_str());
-	SDL_Surface *tempSurface = IMG_Load(m_Filename.c_str());
+	char path[64] = "resources/";
+	strcat_s(path,  m_Filename.c_str());
+	SDL_Surface *tempSurface = IMG_Load(path);
 
 
 	if (tempSurface){
