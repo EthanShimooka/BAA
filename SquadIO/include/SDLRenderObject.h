@@ -32,6 +32,7 @@ public:
 	SDL_Rect renderRect;
 	float posX;
 	float posY;
+	//bool visible; //uninitialized
 	bool visible=true;
 	SDL_Color colorKey;
 	bool colorKeyEnabled;
