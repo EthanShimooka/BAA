@@ -51,7 +51,7 @@ bool RenderManager::update(){
 	windowSurface = SDL_GetWindowSurface(renderWindow);
 
 	//Fill the surface white
-	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0xFF, 0xFF, 0xFF));
+	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
 	
 
 	//interate through renderables, and generate the current frame
@@ -99,7 +99,13 @@ void RenderManager::renderAllObjects(){
 			SDL_Rect pos;
 			pos.x = int((*iter)->posX);
 			pos.y = int((*iter)->posY);
-			SDL_BlitSurface((*iter)->renderResource->mSurface, &(*iter)->renderRect, windowSurface, &pos);
+			//pos.w = (*iter)->renderRect.w;
+			//pos.h = (*iter)->renderRect.h;
+			auto src = (*iter)->renderResource->mSurface;
+			auto srcrect = &(*iter)->renderRect;
+			auto dst = windowSurface;
+			auto dstrect = &pos;
+			SDL_BlitSurface(src, srcrect, dst, dstrect);
 		}
 	}
 }

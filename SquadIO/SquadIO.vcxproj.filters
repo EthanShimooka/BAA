@@ -23,10 +23,10 @@
       <UniqueIdentifier>{6de43760-f1a8-4c99-a39c-e1bef94d582c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Network Classes">
-      <UniqueIdentifier>{db6d45a0-a912-4772-a919-808ee7bfcbb0}</UniqueIdentifier>
+      <UniqueIdentifier>{9e8ea67f-2fed-426e-ad73-ad72decffe6d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Network Classes">
-      <UniqueIdentifier>{2787e58b-53f9-4347-bd12-3ec96964ef33}</UniqueIdentifier>
+      <UniqueIdentifier>{2b789f50-0db7-41cb-b5d7-0f08d1298c42}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
