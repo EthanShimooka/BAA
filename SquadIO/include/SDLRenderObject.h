@@ -40,8 +40,9 @@ public:
 	bool colorKeyEnabled;
 	SQUADIO_API SDLRenderObject();
 	SQUADIO_API void setResourceObject(RenderResource *source);
-	/*SQUADIO_API SDL_Rect getRenderRect();
+	/*SQUADIO_API SDL_Rect* getRenderRect();
 	SQUADIO_API void setRenderRect(SDL_Rect rect);
+	SQUADIO_API void resetRenderRect();
 	SQUADIO_API SDL_Point getPosition();
 	SQUADIO_API void setPosition(SDL_Point point);
 	SQUADIO_API float getRotation();

@@ -28,8 +28,11 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 
 
 //TODO: These are for when we make position, rotation, etc. private attibutes and need to change them
-/*SDL_Rect SDLRenderObject::getRenderRect(){return renderRect;}
+/*SDL_Rect* SDLRenderObject::getRenderRect(){return &renderRect;}
 void SDLRenderObject::setRenderRect(SDL_Rect rect){renderRect = rect;}
+void SDLRenderObject::resetRenderRect(){
+	SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRect.h);
+}
 SDL_Point SDLRenderObject::getPosition(){
 	SDL_Point pos;
 	//conversion floors numbers, but it shouldn't really matter for what we're doing
@@ -46,4 +49,4 @@ void SDLRenderObject::setRotation(float degrees){
 	rotation = degrees;
 }
 bool SDLRenderObject::getVisibility(){ return visible; }
-void SDLRenderObject::setVisibility(bool flag){visible = flag;}*/
+void SDLRenderObject::setVisibility(bool flag){ visible = flag; }/**/
