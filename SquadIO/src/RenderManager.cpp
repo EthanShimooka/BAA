@@ -128,4 +128,8 @@ void RenderManager::free(){
 	SDL_DestroyRenderer(renderer);
 	SDL_FreeSurface(windowSurface);
 	//TODO: this obviously isn't a complete implementation of the free function
+	std::list<SDLRenderObject*>::iterator iter;
+	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
+		(*iter)->renderResource->unload();
+	}
 }
