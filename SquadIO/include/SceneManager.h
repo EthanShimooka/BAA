@@ -94,7 +94,6 @@ public:
 
 class SceneManager : public EngineObject {
 private:
-	SQUADIO_API static SceneManager * GetSceneManager();
 protected:
 	SceneManager();
 	~SceneManager(){}
@@ -102,6 +101,7 @@ protected:
 	void addLayerObjects(Layer* layer, tinyxml2::XMLElement* element);
 	void checkTimerExpired();
 public:
+	SQUADIO_API static SceneManager * GetSceneManager();
 	std::list<Layer*> m_Layers;
 	std::list<Timer*> m_Timers;
 	std::list<SceneListener*> m_Listeners;
@@ -111,7 +111,7 @@ public:
 	void removeLayer(std::string Name);
 	void sortLayers();
 
-	bool loadFromXMLFile(std::string Filename);
+	SQUADIO_API bool loadFromXMLFile(std::string Filename);
 	
 	void addTimer(unsigned int id, DWORD interval);
 	void addListener(SceneListener* object);

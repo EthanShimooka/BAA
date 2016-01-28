@@ -132,8 +132,8 @@ void RenderManager::renderScene() { //will need modification to support more fla
 						SDL_Rect Pos;
 						Pos.x = int(layer->m_PosX) + int(obj->posX);
 						Pos.y = int(layer->m_PosY) + int(obj->posY);
-						//SDL_BlitSurface(obj->renderResource->mSurface, &obj->renderRect, renderWindow, &Pos); 
-						/////////////////////RENDERWINDOW IS NOT A RENDERSURFACE. RICAARRRDOOOOOO!!!
+						SDL_Surface* renderSurface = SDL_GetWindowSurface(renderWindow);
+						SDL_BlitSurface(obj->renderResource->mSurface, &obj->renderRect, renderSurface, &Pos); 
 					}
 				}
 			}
