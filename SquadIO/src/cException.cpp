@@ -1,7 +1,17 @@
 #pragma once
 #include "include\LogManager.h"
 
-cException::cException(int aErrorNumber, std::string aErrorDesc, std::string aSrcFileName, int aLineNumber)
+
+/**
+* cException is a custom error class that wraps Exception()
+*
+* Parameters include error number, description, source file name,
+* line number.
+*
+*/
+
+cException::cException(int aErrorNumber, std::string aErrorDesc,
+	std::string aSrcFileName, int aLineNumber)
 {
 	//set exception properties
 	errorNumber = aErrorNumber;
@@ -19,7 +29,13 @@ cException::cException(int aErrorNumber, std::string aErrorDesc, std::string aSr
 
 }
 
-//what method will be called by the error log manager to write exception to log file
+
+/**
+* cException.what() overrides Exception() class
+*
+* what method will be called by the error log manager to write exception to log file
+*/
+
 const char* cException::what()
 {
 	return errText.c_str();

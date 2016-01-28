@@ -29,6 +29,13 @@ typedef enum {
 }RESOURCE_TYPE;
 
 
+/**
+* gameResource is an abstract container for various resources,
+ such as graphics and audio, text and cfg files. The resource
+ is to be overridden by file type for each respective manager.
+*
+*/
+
 class gameResource :
 	public EngineObject
 {
@@ -36,20 +43,25 @@ private:
 protected:
 public:
 
+	/// Resource Id
 	unsigned int m_ResourceID;
+	/// Scope of resource
 	unsigned int m_Scope;
+	/// Is loaded.
 	bool m_Bloaded;
+	/// Name of Resource encapsulated
 	std::string m_Filename;
+	/// Resource Type 
 	RESOURCE_TYPE m_Type;
 
-	//to be overloaded
+	/// Destructor
 	virtual ~gameResource(){};
+	/// Virtual function for loading into memory. To be Overridden
 	virtual void load(){};
+	/// Virtual function for unloading from memory. To be Overridden
 	virtual void unload(){};
 
-	//TODO: Might need a bool flag for resources to say 
-	//whether or not they are loaded later on
-
+	/// initalizer
 	inline gameResource()
 	{
 		m_ResourceID = m_Scope = 0;

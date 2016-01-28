@@ -29,43 +29,52 @@
 #define SQUADIO_API __declspec(dllimport) 
 #endif
 
-
+/**
+*  ResourceManager is a class singleton a that handles parsing of file
+paths from XML doccuments, and provides an interface for dynamic 
+loading and unloading from memory, depending on the scene scope
+specified in the resource XML file.
+*
+*/
 class ResourceManager :
 	public EngineObject
 {
 private:
 protected:
+	/// Singleton instantiation.
 	inline ResourceManager(){
 		m_CurrentScope = m_ResourceCount = 0;
 	}
-
+	/// Class Destructor
 	~ResourceManager();
-
+	/// Static Instantiation
 	static ResourceManager resourceManager;
-
-	//scope
+	/// Game-state current scope
 	unsigned int m_CurrentScope;
-	//No. of resources both loaded and unloaded
+	/// Number of resources both loaded and unloaded
 	unsigned int m_ResourceCount;
 
 public:
-	SQUADIO_API static ResourceManager * GetResourceManager();
 
+	/// Singleton Accessor function
+	SQUADIO_API static ResourceManager * GetResourceManager();
+	/// Map of pointers to corrisponding gameResource objects
+	/// and an unsigned int as an accessor number
 	std::map<unsigned int, std::list<gameResource*>> m_Resources;
 
-	//fetches resource ID 
+	/// fetches resource ID 
 	SQUADIO_API	gameResource* findResourcebyID(unsigned int RID);
 
-	//clears all resources and scopes
+	/// clears all resources and scopes
 	SQUADIO_API	void clear();
 	
-	//loads all resouces from XML 
+	/// loads all resouces from XML 
 	SQUADIO_API bool loadFromXMLFile(std::string Filename);
 
-	//Sets the current scope. Scene Dependent
+	/// Sets the current scope. Scene Dependent
 	SQUADIO_API	void setCurrentScope(unsigned int Scope);
 
-	//fetches resource count
+	/// fetches resource count
 	SQUADIO_API	const unsigned int getResourceCount(){
 		return m_ResourceCount;
 	}

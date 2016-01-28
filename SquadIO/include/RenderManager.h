@@ -26,10 +26,12 @@
 #include <math.h>
 #include <list>
 
+/**
+* RenderResource is the interface for interacting with the resourceManager. The a RenderResouce contains
+overriden fucntions inherrited from the GameResource class. The RenderResource als contains a
+SDL surface/
 
-// TODO: import the tinyxml library
-//#include "TimyXML.h"
-
+*/
 
 class RenderManager : public EngineObject {
 private:
