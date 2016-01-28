@@ -39,8 +39,10 @@ protected:
 	static RenderManager renderManager;
 public:
 	SQUADIO_API static RenderManager* getRenderManager();
+	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
 	SDL_Window* renderWindow;
 	SDL_Surface* windowSurface;
+	SDL_Renderer* renderer;
 	std::stringstream videoInfo;
 	SQUADIO_API bool init(unsigned int width = 800, unsigned int height = 600, bool fullScreen = false, char* WindowTitle = 0);
 	SQUADIO_API void free();

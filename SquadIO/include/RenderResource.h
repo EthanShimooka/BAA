@@ -29,7 +29,7 @@ class RenderResource : public gameResource {
 private:
 protected:
 public:
-	SDL_Surface *mSurface;
+	SDL_Texture *mTexture;
 
 	~RenderResource();
 	SQUADIO_API void load();

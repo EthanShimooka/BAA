@@ -8,9 +8,13 @@ RenderManager::RenderManager(){
 	ID = 1;
 }
 
-RenderManager* RenderManager::getRenderManager()
-{
+RenderManager* RenderManager::getRenderManager(){
 	return &renderManager;
+}
+
+SDL_Renderer* RenderManager::getRenderManagerRenderer(){
+	RenderManager* manager = &renderManager;
+	return manager->renderer;
 }
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
@@ -21,7 +25,8 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	else if (!fullScreen){
 		std::cout << "not fullscreen" << std::endl;
 	}
-	renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
+	//renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
+	SDL_CreateWindowAndRenderer(width, height, fullScreen, &renderWindow, &renderer);
 	if (!renderWindow){
 		//there was an error creating the window
 		return false;
@@ -29,10 +34,10 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	//Get window surface
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
-	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) ); 
+	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
 	//Update the surface 
-	SDL_UpdateWindowSurface(renderWindow);
-	SDL_Delay(2000);
+	//SDL_UpdateWindowSurface(renderWindow);
+	//SDL_Delay(2000);
 	return true;
 }
 
@@ -52,7 +57,7 @@ bool RenderManager::update(){
 
 	//Fill the surface white
 	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
-	
+	SDL_RenderClear(renderer);
 
 	//interate through renderables, and generate the current frame
 	renderAllObjects();
@@ -60,6 +65,9 @@ bool RenderManager::update(){
 	//
 	SDL_UpdateWindowSurface(renderWindow);
 
+	SDL_RenderPresent(renderer);
+	//TODO: Remove delay
+	SDL_Delay(20);
 	//This next line is only still here to act as a restore point
 	//SDL_RendererFlip(renderWindow);
 	
@@ -95,24 +103,29 @@ void RenderManager::renderAllObjects(){
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->visible){
-			(*iter)->update();
+			//this update is a SpriteObject specific method for spritesheets
+			//(*iter)->update();
 			SDL_Rect pos;
 			pos.x = int((*iter)->posX);
 			pos.y = int((*iter)->posY);
-			//pos.w = (*iter)->renderRect.w;
-			//pos.h = (*iter)->renderRect.h;
-			auto src = (*iter)->renderResource->mSurface;
+			pos.w = (*iter)->renderRect.w;
+			pos.h = (*iter)->renderRect.h;
+			/*auto src = (*iter)->renderResource->mSurface;
 			auto srcrect = &(*iter)->renderRect;
 			auto dst = windowSurface;
 			auto dstrect = &pos;
-			SDL_BlitSurface(src, srcrect, dst, dstrect);
+			SDL_BlitSurface(src, srcrect, dst, dstrect);*/
+
+			//TODO: replace NULL parameters with meaningful SDL_Rects
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, NULL, SDL_FLIP_NONE);
+
 		}
 	}
 }
 
 void RenderManager::free(){
 	SDL_DestroyWindow(renderWindow);
+	SDL_DestroyRenderer(renderer);
 	SDL_FreeSurface(windowSurface);
-
 	//TODO: this obviously isn't a complete implementation of the free function
 }

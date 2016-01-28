@@ -1,41 +1,11 @@
 #include "test.h"
-
+#include <cmath>
 
 using namespace std;
 
-/*RenderResource* gameToRend(gameResource* game){
-	RenderResource* newSrc = new RenderResource();
-	newSrc->m_ResourceID = game->m_ResourceID;
-	newSrc->m_Scope = game->m_Scope;
-	newSrc->m_Filename = game->m_Filename;
-	newSrc->m_Type = game->m_Type;
-	return newSrc;
-}*/
-
-
-int main() {
-	/*LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
-	try {
-		THROW_EXCEPTION(1, "dude error");
-
-	}
-	catch (cException& e)
-	{
-		log->logBuffer << "***WHOOPS***\n";
-			log->flush();
-			log->logException(e);
-			log->flush();
-		cout << e.what() << endl;
-		
-	}
-	log->close();
-	/*double a = 7.4;
-	int b = 98;
-	cout << SquadIO::SquadIO::Add(a, b) << endl;
-	return 0;*/
-	RenderManager* rend = RenderManager::getRenderManager();
-	cout << "this is main()" << endl;
+int main(int argc, char *argv[]) {
+	//main() is the entry point for standard C++ standard, but _tmain is a Microsoft extension.
+	//TODO: Since the Microsoft specific_tmain is the main entry point for our project, try and call main() from it and put all code in main()
 	return 0;
 }
 
@@ -44,9 +14,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	log->create("log.txt");
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
-
-
-
 
 	renderMan->init(400, 256, false, "WindowTitle");
 	resourceMan->loadFromXMLFile("source.xml");
@@ -57,20 +24,28 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	SDLRenderObject* obj = new SDLRenderObject();
 	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
-
-
-			obj->renderResource = rend;
-			obj->setResourceObject(rend);
-			obj->renderRect.w = 50;
-			obj->renderRect.h = 50;
-
-		
+	obj->renderResource = rend;
+	obj->setResourceObject(rend);
 
 
 	renderMan->renderObjects.push_back(obj); //list
 	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
+	float width = obj->renderRect.w;
+	float height = obj->renderRect.h;
+	for (float i = 0;; i++){
+		//obj->posX = (1 - sin(i/8))*100;
+		//obj->renderRect.w = width *(1 - sin(i)) * 2;
+		//obj->renderRect.h = height *(1 - sin(i/8))* 2;
+		//std::cout << obj->renderRect.w *(2 - sin(i)) * 2 << endl;
 
-	renderMan->update();
+		obj->rotation = 45;
+		//NOTE: update returns a bool saying whether or not it updated.
+		//currently the only case it doesn't is if ESC is press or SDL_QUIT is signaled
+		//as detailed in the book
+		bool stat = renderMan->update();
+		if (!stat)break;
+	}
+	//renderMan->update();
 	std::cout << renderMan << endl;
 
 	log->close();

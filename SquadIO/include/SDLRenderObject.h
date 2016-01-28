@@ -25,6 +25,8 @@
 
 
 class SDLRenderObject : public EngineObject{
+	//NOTE: when we make position, rotation, etc. private members we either need to call
+	//the appropriate getter setter functions in RenderManager->renderAllObjects (doable) or use c++ friend feature (doable just different)
 private:
 protected:
 public:
@@ -32,11 +34,20 @@ public:
 	SDL_Rect renderRect;
 	float posX;
 	float posY;
-	bool visible=true;
+	float rotation;
+	bool visible = true;
 	SDL_Color colorKey;
 	bool colorKeyEnabled;
 	SQUADIO_API SDLRenderObject();
 	SQUADIO_API void setResourceObject(RenderResource *source);
+	/*SQUADIO_API SDL_Rect getRenderRect();
+	SQUADIO_API void setRenderRect(SDL_Rect rect);
+	SQUADIO_API SDL_Point getPosition();
+	SQUADIO_API void setPosition(SDL_Point point);
+	SQUADIO_API float getRotation();
+	SQUADIO_API void setRotation(float degrees);
+	SQUADIO_API bool getVisibility();
+	SQUADIO_API void setVisibility(bool flag);*/
 	SQUADIO_API virtual void update(){};
 };
 

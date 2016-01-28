@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "include\SpriteObject.h"
 
 void SpriteObject::setFrameRect(unsigned int frameNum){
@@ -38,4 +38,4 @@ void SpriteObject::play(){
 	currentFrame = startFrame;
 	setFrameRect(currentFrame);
 	timeLastFrame = timeGetTime();
-}
+}*/
