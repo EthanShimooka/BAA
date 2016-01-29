@@ -34,6 +34,7 @@
 class RenderManager : public EngineObject {
 private:
 protected:
+	/// Constructor.
 	RenderManager();
 	/// why is the destructor virtual?
 	virtual ~RenderManager(){} //why is the destructor virtual?
