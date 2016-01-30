@@ -30,10 +30,19 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	renderMan->renderObjects.push_back(obj); //list
 	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
-	//float width = obj->renderRect.w;
-	//float height = obj->renderRect.h;
-
-	for (float i = 0;; i++){
+	float width = obj->renderRect.w;
+	float height = obj->renderRect.h;
+	obj->anchor = { 1, 1 };
+	float i = 0;
+	for (i = 0;; i++){
+		float sini = 100*(sin(i/16)+1);
+		obj->posX = sini;
+		//obj->renderRect.h = height * (int(i) % 100);
+		obj->rotation = i;
+		if (int(i/10) % 4 == 0) obj->flipH = false;
+		if (int(i/10) % 4 == 1) obj->flipV = false;
+		if (int(i/10) % 4 == 2) obj->flipH = true;
+		if (int(i/10) % 4 == 3) obj->flipV = true;
 		bool stat = renderMan->update();
 		if (!stat)break;
 	}
