@@ -14,6 +14,14 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		//renderRect.h = renderResource->mTexture->h;
 		//stores the width and height of the texture 1:1 scale in the render rect
 		SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRect.h);
+		//initialize values
+		posX = 0.0;
+		posY = 0.0;
+		rotation = 0.0;
+		anchor = { renderRect.w/2,renderRect.h/2 };
+		flipH = false;
+		flipV = false;
+		visible = true;
 		if (colorKeyEnabled){
 			//generate the color key
 			//TODO: commented out colorkey stuff. We're using PNG's with transparency, so no need for colorkey at the moment

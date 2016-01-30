@@ -117,7 +117,14 @@ void RenderManager::renderAllObjects(){
 			SDL_BlitSurface(src, srcrect, dst, dstrect);*/
 
 			//TODO: replace NULL parameters with meaningful SDL_Rects
-			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, NULL, SDL_FLIP_NONE);
+			SDL_RendererFlip flip = SDL_FLIP_NONE;
+			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
+			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
+			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
+			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
+
+			SDL_FLIP_NONE;
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &(*iter)->anchor, flip);
 
 		}
 	}

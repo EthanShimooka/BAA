@@ -34,8 +34,11 @@ public:
 	SDL_Rect renderRect;
 	float posX;
 	float posY;
-	float rotation;
-	bool visible = true;
+	double rotation;
+	SDL_Point anchor;
+	bool flipH;
+	bool flipV;
+	bool visible;
 	SDL_Color colorKey;
 	bool colorKeyEnabled;
 	SQUADIO_API SDLRenderObject();

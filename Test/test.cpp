@@ -32,13 +32,21 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
-	for (float i = 0;; i++){
-		//obj->posX = (1 - sin(i/8))*100;
-		//obj->renderRect.w = width *(1 - sin(i)) * 2;
-		//obj->renderRect.h = height *(1 - sin(i/8))* 2;
-		//std::cout << obj->renderRect.w *(2 - sin(i)) * 2 << endl;
 
-		obj->rotation = 45;
+	obj->renderRect.w = width * 3;
+	obj->renderRect.h = height * 3;
+	for (float i = 0;; i++){
+		obj->posX = (1 - sin(i/160))*50;
+		obj->posY = (1 - sin(i / 160)) * 50;
+		//obj->renderRect.w = width *(2 - sin(i/16)) * 2;
+		//obj->renderRect.h = height *(2 - sin(i/16))* 2;
+		//std::cout << obj->renderRect.w *(2 - sin(i)) * 2 << endl;
+		//std::cout << int(i / 10) % 4 <<":"<< obj->flipH << obj->flipV<<endl;
+		if (int(i/10) % 4 == 0) { obj->flipH = false; }
+		if (int(i/10) % 4 == 1) { obj->flipV = false; }
+		if (int(i/10) % 4 == 2) { obj->flipH = true; }
+		if (int(i/10) % 4 == 3) { obj->flipV = true; }
+		//obj->rotation = i;
 		//NOTE: update returns a bool saying whether or not it updated.
 		//currently the only case it doesn't is if ESC is press or SDL_QUIT is signaled
 		//as detailed in the book
