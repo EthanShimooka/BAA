@@ -16,6 +16,7 @@
 #include "Tinyxml2.h"
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_image.h"
+#include "include\SceneManager.h"
 
 #include <string>
 #include <sstream>
@@ -40,6 +41,7 @@ protected:
 	virtual ~RenderManager(){} //why is the destructor virtual?
 	/// Static instance of RenderManager class
 	static RenderManager renderManager;
+	void renderScene();
 public:
 	/// Singlelton accessor fuinction for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
@@ -74,6 +76,8 @@ public:
 	SQUADIO_API void renderAllObjects();
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
+
+	SceneManager* sceneManager;
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

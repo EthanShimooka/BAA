@@ -2,7 +2,7 @@
 #include "include\SpriteObject.h"
 
 void SpriteObject::setFrameRect(unsigned int frameNum){
-	unsigned int rowNum = floor(frameNum / framesPerRow);
+	unsigned int rowNum = (unsigned int)floor(frameNum / framesPerRow);
 	unsigned int colNum = frameNum;
 
 	if (rowNum > 0){

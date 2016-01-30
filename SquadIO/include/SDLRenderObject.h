@@ -24,37 +24,20 @@
 #include <list>
 
 
-/**
-* SDLRender Object is the renderable object that take a pointer to a renderResource (gameResource).
-* SDLRenderObject also contains the renderable options that are fed into the renderManager.
-*/
-
 class SDLRenderObject : public EngineObject{
 private:
 protected:
 public:
-
-	/// pointer to renderResource, which is derived from the RenderManager
-	/// function loadfromXML()
 	RenderResource *renderResource;
-	/// SDL Rect object. contains the definition of a rectangle, 
-	/// with the origin at the upper left.
 	SDL_Rect renderRect;
-	/// Object position on the x axis
 	float posX;
-	/// Object position on the y axis
 	float posY;
-	/// bool visible; //uninitialized
-	bool visible=true; ////////////////////////////IT IS INITIALIZED YO
-	/// SDL color key paramater, usually should not be tampared with
+	bool visible=true;
 	SDL_Color colorKey;
-	/// A key to enable color filtering 
 	bool colorKeyEnabled;
-	///  Constructor?
 	SQUADIO_API SDLRenderObject();
-	/// Set a resource object from a Render Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(RenderResource *source);
-	/// Abstract update function to be overriden.
+	SQUADIO_API void setColorKey(unsigned int r, unsigned int g, unsigned int b);
 	SQUADIO_API virtual void update(){};
 };
 

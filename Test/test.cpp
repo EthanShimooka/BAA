@@ -44,9 +44,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	log->create("log.txt");
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-
-
+	
 
 	renderMan->init(400, 256, false, "WindowTitle");
 	resourceMan->loadFromXMLFile("source.xml");
@@ -54,6 +54,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << "resource count : " << resourceMan->getResourceCount() <<"\n";
 	//fetches resource count
 	
+
+	try {
+		sceneMan->loadFromXMLFile("SceneTree.xml");
+	}
+	catch (cException& e){
+		cout << "loadfromxml in SceneMan failed" << endl;
+		log->logException(e);
+	}
 
 	SDLRenderObject* obj = new SDLRenderObject();
 	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
@@ -72,6 +80,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	renderMan->update();
 	std::cout << renderMan << endl;
+	
 
 	log->close();
 	return 0;

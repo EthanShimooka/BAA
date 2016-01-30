@@ -116,3 +116,27 @@ void RenderManager::free(){
 
 	//TODO: this obviously isn't a complete implementation of the free function
 }
+
+void RenderManager::renderScene() { //will need modification to support more flags other than visible
+
+	if (sceneManager) { //scenemanager needs to be filled somewhere else before running this function
+		std::list<Layer*>::iterator i;
+		for (i = sceneManager->m_Layers.begin(); i != sceneManager->m_Layers.end(); i++) {
+			Layer* layer = *i;
+			if (layer->m_Visible) {
+				std::list<SceneObject*>::iterator obj_it;
+				for (obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++){
+					SceneObject* obj = *obj_it;
+					if (obj->visible) {
+						obj->update();
+						SDL_Rect Pos;
+						Pos.x = int(layer->m_PosX) + int(obj->posX);
+						Pos.y = int(layer->m_PosY) + int(obj->posY);
+						SDL_Surface* renderSurface = SDL_GetWindowSurface(renderWindow);
+						SDL_BlitSurface(obj->renderResource->mSurface, &obj->renderRect, renderSurface, &Pos); 
+					}
+				}
+			}
+		}
+	}
+}
