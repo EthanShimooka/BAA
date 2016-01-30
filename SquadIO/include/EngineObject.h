@@ -1,13 +1,23 @@
 #pragma once
 
 
+
+/**
+* Abstract base class give resource identification method and
+* basic constructors.
+*
+*/
 class EngineObject
 { 
 public:
+
+	/// Constructor
 	EngineObject();
 
-	int ID;  //process 
+	/// Deconstructor 
+    ~EngineObject(); 
 
-    ~EngineObject(); //virtual destructor, may not be desired later on.
+	/// Resource Identifier. Singletons get "1"
+	int ID; 
 };
 
