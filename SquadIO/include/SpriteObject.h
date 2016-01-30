@@ -28,7 +28,10 @@
 //#include "TimyXML.h"
 
 
-
+/**
+* SpriteObject inherits from SDLRenderObject.
+*
+*/
 
 class SpriteObject : public SDLRenderObject{
 private:

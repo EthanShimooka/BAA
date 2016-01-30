@@ -29,21 +29,34 @@
 
 //EXCEPTION CLASS---------------------------------------------------------------------------------------------------
 
+/**
+* cException is a custom error class that wraps Exception()
+*
+* Parameters include error number, description, source file name,
+* line number.
+*
+*/
 class cException : public std::exception
 {
 private:
 protected:
 public:
+	/// Error Number
 	int errorNumber;
+	/// Error Description
 	std::string errorDesc;
+	/// Source Filename
 	std::string srcFileName;
+	/// Line Number
 	int lineNumber;
+	/// Error Text
 	std::string errText;
 
-	//override std::exception::what
-	//returns string with ErrorNumber, ErrorDesc, SrcFile, LineNum
+	/// override std::exception::what
+	/// returns string with ErrorNumber, ErrorDesc, SrcFile, LineNum
 	SQUADIO_API const char* what();
-
+	
+	/// 
 	SQUADIO_API cException(int errorNumber, std::string errorDesc, std::string srcFileName, int lineNumber);
 	~cException() throw() {}
 
@@ -51,30 +64,38 @@ public:
 
 //LOGMANAGER SINGLETON----------------------------------------------------------------------------------------------------
 
+/**
+* LogManager is a singleton that is instantiated at runtime, and is accessed by GetLogManager()+
+*
+*/
 class LogManager : public EngineObject
 {
 public:
+	/// Singleton Accessor method
 	SQUADIO_API static LogManager * GetLogManager();
 
 protected:
+	/// Constructor
 	LogManager();
+	/// Deconstructor
    ~LogManager(){}
+   /// Static instance
 	static LogManager logManager;
 
 public:
-	//log buffer
+	/// log buffer
 	std::stringstream logBuffer;
-	//create log file
+	/// create log file
 	SQUADIO_API void create(std::string Filename);
-	//commits contents to file
+	/// commits contents to file
 	SQUADIO_API void flush();
-	//closes file
+	/// closes file
 	SQUADIO_API void close();
-	//logs exception to the log file
+	/// logs exception to the log file
 	SQUADIO_API void logException(cException e);
-	//gets time as string to be used in log
+	/// gets time as string to be used in log
 	std::string getTimeString();
-	//handle to log file
+	/// handle to log file
 	std::ofstream logFile;
 
 };

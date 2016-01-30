@@ -25,15 +25,28 @@
 #include <list>
 #include "gameResource.h"
 
+
+
+/**
+* RenderResource is the interface for interacting with the resourceManager. The a RenderResouce contains 
+ overriden fucntions inherrited from the GameResource class. The RenderResource als contains a
+ SDL surface/
+
+*/
 class RenderResource : public gameResource {
 private:
 protected:
 public:
 	SDL_Texture *mTexture;
 
+	/// Destructor 
 	~RenderResource();
+	/// Load gets called in resourceManager.setSceneScope() 
 	SQUADIO_API void load();
+	/// UnLoad gets called in resourceManager.setSceneScope(). 
+	/// Be sure to unload before you call Load. Every. Time.
 	SQUADIO_API void unload();
+	/// Cosntructor
 	SQUADIO_API RenderResource();
 };
 

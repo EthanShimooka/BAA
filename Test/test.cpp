@@ -30,8 +30,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	renderMan->renderObjects.push_back(obj); //list
 	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
-	float width = obj->renderRect.w;
-	float height = obj->renderRect.h;
+	//float width = obj->renderRect.w;
+	//float height = obj->renderRect.h;
 
 	for (float i = 0;; i++){
 		bool stat = renderMan->update();
