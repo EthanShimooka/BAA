@@ -119,13 +119,15 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 bool SceneManager::loadFromXMLFile(std::string Filename) {
+	LogManager* log = LogManager::GetLogManager(); //debug
+
 	tinyxml2::XMLDocument doc;
 	std::list<Layer*> list;
 
 	std::string path = "resources\\" + Filename;
 	//std::string path = Filename;
-
-	if (doc.LoadFile(path.c_str())){
+	doc.LoadFile(path.c_str());
+	if (doc.ErrorID() == 0){
 		//find resources node
 		tinyxml2::XMLNode* ResourceTree = doc.FirstChildElement("scene");
 		
@@ -166,6 +168,8 @@ bool SceneManager::loadFromXMLFile(std::string Filename) {
 					} // end XMLAttribute loop
 
 					m_Layers.push_back(layer);
+					log->logBuffer << "Size of layers : "<< m_Layers.size() << std::endl;
+					log->flush();
 
 					//cycle through layer objects
 					for (tinyxml2::XMLNode* objs = child->FirstChild(); objs; objs = objs->NextSibling()) {

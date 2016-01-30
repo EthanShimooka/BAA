@@ -12,6 +12,7 @@
 #include "include/ResourceManager.h"
 #include "include/SDLRenderObject.h"
 #include "include/RenderResource.h"
+#include "LogManager.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -30,6 +31,8 @@ class SceneListener : public EngineObject {
 public:	
 	SCENE_EVENT_TYPE m_ListenFor;
 
+	/// Abstract fucntion to handle event. To be overridden depending
+	/// on type of event
 	virtual void Event(SceneManager* Manager, void* customData) const = 0;
 
 };
@@ -90,8 +93,10 @@ public:
 
 
 /**
-*
-*
+* SceneObject inherits from SDL renderObject.
+
+* Everything belonging to a scene should be derived from this class.
+  Add this to a layer
 */
 class SceneObject : public SDLRenderObject {
 private:
@@ -105,7 +110,8 @@ public:
 
 
 /**
-*
+* Layer componant.  Drawn in order of Z value assigned.
+ -Z axis is imaginary-
 *
 */
 class Layer : public EngineObject {
@@ -114,12 +120,21 @@ protected:
 public:
 	//render objects for the layer
 	Layer();
+	/// invisable flag
 	bool m_Visible;
+	/// Order drawn on the Z axis
 	unsigned int m_ZOrder;
+	/// X Axis Position of layer
 	float m_PosX;
+	/// Y Axis Position of layer
 	float m_PosY;
+	/// optional layer tag. Can be refrenced
+	/// and searched
 	std::string m_Name;
+	/// list of SceneObjects assigned to layer instance
+	///
 	std::list<SceneObject*> m_SceneObjects;
+	/// Layer update function not implemented
 	void update();
 }; //end class Layer
 

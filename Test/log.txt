@@ -1,5 +1,2 @@
-Fri Jan 29 15:17:06 2016
-*** ERROR NUM: 302 ***
- Error Description: Failed to load XML for Scene Manager
- Source File Name: c:\users\ethan\documents\visual studio 2013\projects\baa\squadio\src\scenemanager.cpp
- Line Number: 187
+Size of layers : 1
+Size of layers : 2
