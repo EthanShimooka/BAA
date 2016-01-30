@@ -42,19 +42,13 @@ protected:
 public:
 	/// Singlelton accessor fuinction for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
-<<<<<<< HEAD
 	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
-=======
 	/// 
->>>>>>> refs/remotes/origin/nu-master
 	SDL_Window* renderWindow;
 	/// 
 	SDL_Surface* windowSurface;
-<<<<<<< HEAD
 	SDL_Renderer* renderer;
-=======
 	///
->>>>>>> refs/remotes/origin/nu-master
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
 	/// if successful, returns false if not.

@@ -35,16 +35,13 @@ class SDLRenderObject : public EngineObject{
 private:
 protected:
 public:
-<<<<<<< HEAD
 	struct anchor_point {
 		float x;
 		float y;
 	} anchor;
-=======
 
 	/// pointer to renderResource, which is derived from the RenderManager
 	/// function loadfromXML()
->>>>>>> refs/remotes/origin/nu-master
 	RenderResource *renderResource;
 	/// SDL Rect object. contains the definition of a rectangle, 
 	/// with the origin at the upper left.
@@ -53,17 +50,12 @@ public:
 	float posX;
 	/// Object position on the y axis
 	float posY;
-<<<<<<< HEAD
 	double rotation;
 	//SDL_Point anchor;
 	bool flipH;
 	bool flipV;
 	bool visible;
-=======
-	/// bool visible; //uninitialized
-	bool visible=true; ////////////////////////////IT IS INITIALIZED YO
 	/// SDL color key paramater, usually should not be tampared with
->>>>>>> refs/remotes/origin/nu-master
 	SDL_Color colorKey;
 	/// A key to enable color filtering 
 	bool colorKeyEnabled;
@@ -71,7 +63,6 @@ public:
 	SQUADIO_API SDLRenderObject();
 	/// Set a resource object from a Render Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(RenderResource *source);
-<<<<<<< HEAD
 	/*SQUADIO_API SDL_Rect* getRenderRect();
 	SQUADIO_API void setRenderRect(SDL_Rect rect);
 	SQUADIO_API void resetRenderRect();
@@ -81,9 +72,7 @@ public:
 	SQUADIO_API void setRotation(float degrees);
 	SQUADIO_API bool getVisibility();
 	SQUADIO_API void setVisibility(bool flag);*/
-=======
 	/// Abstract update function to be overriden.
->>>>>>> refs/remotes/origin/nu-master
 	SQUADIO_API virtual void update(){};
 };
 
