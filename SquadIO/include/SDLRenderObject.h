@@ -30,12 +30,16 @@ class SDLRenderObject : public EngineObject{
 private:
 protected:
 public:
+	struct anchor_point {
+		float x;
+		float y;
+	} anchor;
 	RenderResource *renderResource;
 	SDL_Rect renderRect;
 	float posX;
 	float posY;
 	double rotation;
-	SDL_Point anchor;
+	//SDL_Point anchor;
 	bool flipH;
 	bool flipV;
 	bool visible;

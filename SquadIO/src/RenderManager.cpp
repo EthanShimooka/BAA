@@ -117,6 +117,8 @@ void RenderManager::renderAllObjects(){
 			SDL_BlitSurface(src, srcrect, dst, dstrect);*/
 
 			//TODO: replace NULL parameters with meaningful SDL_Rects
+			//uses the object's anchor value as a general position, and multiplies it with the proper w and h
+			SDL_Point anchor = { (*iter)->renderRect.w*(*iter)->anchor.x, (*iter)->renderRect.h*(*iter)->anchor.y };
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
 			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
 			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
@@ -124,7 +126,7 @@ void RenderManager::renderAllObjects(){
 			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
 
 			SDL_FLIP_NONE;
-			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &(*iter)->anchor, flip);
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
 
 		}
 	}

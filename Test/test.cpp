@@ -35,18 +35,22 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	obj->renderRect.w = width * 3;
 	obj->renderRect.h = height * 3;
+	obj->anchor = { 1.2, 1.2 };
 	for (float i = 0;; i++){
-		obj->posX = (1 - sin(i/160))*50;
-		obj->posY = (1 - sin(i / 160)) * 50;
+		//obj->posX = (1 - sin(i/160))*50;
+		//obj->posY = (1 - sin(i / 160)) * 50;
 		//obj->renderRect.w = width *(2 - sin(i/16)) * 2;
 		//obj->renderRect.h = height *(2 - sin(i/16))* 2;
 		//std::cout << obj->renderRect.w *(2 - sin(i)) * 2 << endl;
 		//std::cout << int(i / 10) % 4 <<":"<< obj->flipH << obj->flipV<<endl;
-		if (int(i/10) % 4 == 0) { obj->flipH = false; }
+		/*if (int(i/10) % 4 == 0) { obj->flipH = false; }
 		if (int(i/10) % 4 == 1) { obj->flipV = false; }
 		if (int(i/10) % 4 == 2) { obj->flipH = true; }
-		if (int(i/10) % 4 == 3) { obj->flipV = true; }
-		//obj->rotation = i;
+		if (int(i/10) % 4 == 3) { obj->flipV = true; }*/
+		//SDL_Point anchor = { obj->renderRect.w * obj->anchor.x, obj->renderRect.h * obj->anchor.y };
+		//std::cout << "(" << anchor.x << "," << anchor.y << ")" << endl;
+		obj->rotation = i*1.3;
+		//obj->posX++;
 		//NOTE: update returns a bool saying whether or not it updated.
 		//currently the only case it doesn't is if ESC is press or SDL_QUIT is signaled
 		//as detailed in the book

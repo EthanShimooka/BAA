@@ -18,7 +18,8 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		posX = 0.0;
 		posY = 0.0;
 		rotation = 0.0;
-		anchor = { renderRect.w/2,renderRect.h/2 };
+		//anchor point 0,0 = top left corner,1,1 = bottom right corner 
+		anchor = { 0.5,0.5 };
 		flipH = false;
 		flipV = false;
 		visible = true;
