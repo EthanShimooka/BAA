@@ -257,8 +257,9 @@ void GamerServices::Impl::OnP2PSessionFail(P2PSessionConnectFail_t* inCallback)
 
 void GamerServices::Impl::OnStatsReceived(UserStatsReceived_t* inCallback)
 {
-	//TO DO: Update Error logging
-	//LOG("Stats loaded from server...");
+	LogManager* log = LogManager::GetLogManager();
+	log->logBuffer << "Stats successfully loaded from server: GamerServices::Impl::OnStatsReceived\n";
+	log->flush();
 	mAreStatsReady = true;
 
 	if (inCallback->m_nGameID == mGameId &&
@@ -271,15 +272,15 @@ void GamerServices::Impl::OnStatsReceived(UserStatsReceived_t* inCallback)
 			if (stat.Type == StatType::INT)
 			{
 				SteamUserStats()->GetStat(stat.Name, &stat.IntStat);
-				//TO DO: Update Error logging
-				//LOG("Stat %s = %d", stat.Name, stat.IntStat);
+				log->logBuffer << "Stat %s = %d\n", stat.Name, stat.IntStat;
+				log->flush();
 			}
 			else
 			{
 				//when we get average rate, we still only get one float
 				SteamUserStats()->GetStat(stat.Name, &stat.FloatStat);
-				//TO DO: Update Error logging
-				//LOG("Stat %s = %f", stat.Name, stat.FloatStat);
+				log->logBuffer << "Stat %s = %f\n", stat.Name, stat.FloatStat;
+				log->flush();
 			}
 		}
 
@@ -288,8 +289,8 @@ void GamerServices::Impl::OnStatsReceived(UserStatsReceived_t* inCallback)
 		{
 			AchieveData& ach = mAchieveArray[i];
 			SteamUserStats()->GetAchievement(ach.Name, &ach.Unlocked);
-			//TO DO: Update Error logging
-			//LOG("Achievement %s = %d", ach.Name, ach.Unlocked);
+			log->logBuffer << "Achievement %s = %d\n", ach.Name, ach.Unlocked;
+			log->flush();
 		}
 	}
 }
@@ -390,8 +391,9 @@ int GamerServices::GetStatInt(Stat inStat)
 {
 	if (!mImpl->mAreStatsReady)
 	{
-		//TO DO: Update Error logging
-		//LOG("Stats ERROR: Stats not ready yet");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Stats ERROR: Stats not ready yet. GamerServices::GetStatInt";
+		log->flush();
 		return -1;
 	}
 
@@ -399,8 +401,9 @@ int GamerServices::GetStatInt(Stat inStat)
 
 	if (stat.Type != StatType::INT)
 	{
-		//TO DO: Update Error logging
-		//LOG("Stats ERROR: %s is not an integer stat", stat.Name);
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Stats ERROR: %s is not an integer stat\n", stat.Name;
+		log->flush();
 		return -1;
 	}
 
@@ -537,8 +540,9 @@ bool GamerServices::IsAchievementUnlocked(Achievement inAch)
 {
 	if (!mImpl->mAreStatsReady)
 	{
-		//TO DO: Update Error logging
-		//LOG("Achievements ERROR: Stats not ready yet");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Achievements ERROR: Stats not ready yet. GamerServices::IsAchievemetUnlocked";
+		log->flush();
 		return false;
 	}
 
@@ -549,8 +553,9 @@ void GamerServices::UnlockAchievement(Achievement inAch)
 {
 	if (!mImpl->mAreStatsReady)
 	{
-		//TO DO: Update Error logging
-		//LOG("Achievements ERROR: Stats not ready yet");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Achievements ERROR: Stats not ready yet. GamerServices::UnlockAchievemet";
+		log->flush();
 		return;
 	}
 
@@ -565,8 +570,9 @@ void GamerServices::UnlockAchievement(Achievement inAch)
 	SteamUserStats()->SetAchievement(ach.Name);
 	ach.Unlocked = true;
 
-	//TO DO: Update Error logging
-	//LOG("Unlocking achievement %s", ach.Name);
+	LogManager* log = LogManager::GetLogManager();
+	log->logBuffer << "Unlocking achievement %s\n", ach.Name;
+	log->flush();
 }
 /*
 void GamerServices::UploadLeaderboardScoreAsync(Leaderboard inLead, int inScore)

@@ -1,5 +1,5 @@
 #include "test.h"
-
+//#include "include\network\NetIncludes.h"
 
 using namespace std;
 
@@ -42,6 +42,39 @@ int main() {
 int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
+
+	//RandGen::StaticInit();
+	// need to initialize Steam before SDL so the overlay works
+	if (!GamerServices::StaticInit())
+	{
+		std::cout << "Failed to initialize Steam" << "\n";
+	}
+	//NetworkManager::StaticInit();
+	if (!NetworkManager::StaticInit())
+	{
+		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
+	}
+	while(true) {
+		GamerServices::sInstance->Update();
+		int x;
+		cout << "Press 1 for player count" << endl
+			 << "Press 2 for Player ID" << endl;
+		cin >> x;
+		switch (x){
+		case 1:
+			cout << NetworkManager::sInstance->GetPlayerCount() << endl;
+			if (NetworkManager::sInstance->IsMasterPeer()){
+				cout << "You are master peer." << endl;
+			}
+			break;
+		case 2:
+			cout << GamerServices::sInstance->GetLocalPlayerName() << endl;
+			break;
+		case 3:
+			break;
+		}
+	}
+	/*
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 
@@ -71,11 +104,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
 
 	renderMan->update();
-	std::cout << renderMan << endl;
+	std::cout << renderMan << endl;*/
 
 	log->close();
 	return 0;
 }
-
-
-

@@ -1,3 +1,5 @@
+#ifndef GAMERSERVICES_H_INCLUDED
+#define GAMERSERVICES_H_INCLUDED
 class GamerServices
 {
 public:
@@ -6,8 +8,8 @@ public:
 
 	//general player functions
 	uint64_t GetLocalPlayerId();
-	string GetLocalPlayerName();
-	string GetRemotePlayerName( uint64_t inPlayerId );
+	SQUADIO_API string GetLocalPlayerName();
+	SQUADIO_API string GetRemotePlayerName( uint64_t inPlayerId );
 
 	//lobby functions
 	void LobbySearchAsync();
@@ -94,3 +96,4 @@ private:
 	
 	std::unique_ptr< Impl > mImpl;
 };
+#endif

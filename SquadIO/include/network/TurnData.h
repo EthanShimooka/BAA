@@ -1,3 +1,5 @@
+#ifndef TURNDATA_H_INCLUDED
+#define TURNDATA_H_INCLUDED
 class TurnData
 {
 public:
@@ -29,3 +31,4 @@ private:
 	uint32_t mCRC;
 	CommandList mCommandList;
 };
+#endif

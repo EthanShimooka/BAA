@@ -1,3 +1,5 @@
+#ifndef RANDGEN_H_INCLUDED
+#define RANDGEN_H_INCLUDED
 /*
 Header for random number generator class
 */
@@ -20,3 +22,4 @@ private:
 	std::mt19937 mGenerator;
 	std::uniform_real_distribution< float > mFloatDistr;
 };
+#endif

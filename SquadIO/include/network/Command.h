@@ -1,3 +1,5 @@
+#ifndef COMMAND_H_INCLUDED
+#define COMMAND_H_INCLUDED
 /*
 To add: class DieCommand, JumpCommand, AbilityCommand
 */
@@ -85,3 +87,4 @@ protected:
 };
 
 typedef shared_ptr< MoveCommand > MoveCommandPtr;
+#endif

@@ -1,3 +1,5 @@
+#ifndef COMMANDLIST_H_INCLUDED
+#define COMMANDLIST_H_INCLUDED
 class CommandList
 {
 public:
@@ -17,3 +19,4 @@ public:
 private:
 	deque< CommandPtr >	mCommands;
 };
+#endif

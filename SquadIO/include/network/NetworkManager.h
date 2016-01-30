@@ -1,3 +1,5 @@
+#ifndef NETWORKMANAGER_H_INCLUDED
+#define NETWORKMANAGER_H_INCLUDED
 class NetworkManager
 {
 public:
@@ -167,3 +169,4 @@ private:
 
 	CommandList		mCommandList;
 };
+#endif

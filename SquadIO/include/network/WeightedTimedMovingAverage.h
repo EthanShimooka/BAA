@@ -1,3 +1,5 @@
+#ifndef WEIGHTEDTIMEDMOVINGAVERAGE_H_INCLUDED
+#define WEIGHTEDTIMEDMOVINGAVERAGE_H_INCLUDED
 class WeightedTimedMovingAverage
 {
 public:
@@ -48,3 +50,4 @@ private:
 	float			mDuration;
 
 };
+#endif

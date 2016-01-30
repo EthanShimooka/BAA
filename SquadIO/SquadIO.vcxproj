@@ -61,7 +61,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;winmm.lib;%(AdditionalDependencies);steam_api.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\vpmou_000\Desktop\BAA-master\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

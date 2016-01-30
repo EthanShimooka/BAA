@@ -1,3 +1,5 @@
+#ifndef TIMING_H_INCLUDED
+#define TIMING_H_INCLUDED
 class Timing
 {
 public:
@@ -29,3 +31,4 @@ private:
 	double		mPerfCountDuration;
 
 };
+#endif

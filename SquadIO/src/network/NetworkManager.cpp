@@ -217,8 +217,9 @@ void NetworkManager::TryAdvanceTurn()
 		else
 		{
 			//for simplicity, just kill the game if it desyncs
-			//TO DO: Update Error logging
-			//LOG("DESYNC: Game over man, game over.");
+			LogManager* log = LogManager::GetLogManager();
+			log->logBuffer << "DESYNC: Game over. NetworkManager::TryAdvanceTurn";
+			log->flush();
 			//Commented out: Code to stop the engine from running anymore
 			//Engine::sInstance->SetShouldKeepRunning(false);
 		}
@@ -227,8 +228,9 @@ void NetworkManager::TryAdvanceTurn()
 	{
 		//don't have all player's turn data, we have to delay :(
 		mState = NMS_Delay;
-		//TO DO: Update Error logging
-		//LOG("Going into delay state, don't have all the info for turn %d", mTurnNumber + 1);
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Going into delay state, don't have all the info for turn %d\n", mTurnNumber + 1;
+		log->flush();
 	}
 }
 
@@ -328,8 +330,9 @@ void NetworkManager::HandleStartPacket(InputMemoryBitStream& inInputStream, uint
 	//make sure this is the master peer, cause we don't want any funny business
 	if (inFromPlayer == mMasterPeerId)
 	{
-		//TO DO: Update Error logging
-		//LOG("Got the orders to go!");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Got the orders to go! NetworkManager::HandleStartPacket";
+		log->flush();
 		//get the rng seed
 		uint32_t seed;
 		inInputStream.Read(seed);
@@ -366,8 +369,9 @@ void NetworkManager::HandleTurnPacket(InputMemoryBitStream& inInputStream, uint6
 
 	if (playerId != inFromPlayer)
 	{
-		//TO DO: Update Error logging
-		//LOG("We received turn data for a different player Id...stop trying to cheat!");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Cheating attempted? We received turn data for a different playerID. NetworkManager::HandleTurnPacket";
+		log->flush();
 		return;
 	}
 
@@ -397,8 +401,9 @@ void NetworkManager::HandleConnectionReset(uint64_t inFromPlayer)
 	//remove this player from our maps
 	if (mPlayerNameMap.find(inFromPlayer) != mPlayerNameMap.end())
 	{
-		//TO DO: Update Error logging
-		//LOG("Player %llu disconnected", inFromPlayer);
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Player %llu disconnected. NetworkManager::HandleConnectionReset\n", inFromPlayer;
+		log->flush();
 		mPlayerNameMap.erase(inFromPlayer);
 		//Commented out: Code to update scoreboard
 		//ScoreBoardManager::sInstance->RemoveEntry(inFromPlayer);
@@ -591,15 +596,17 @@ bool NetworkManager::CheckSync(Int64ToTurnDataMap& inTurnMap)
 	{
 		if (expectedRand != iter->second.GetRandomValue())
 		{
-			//TO DO: Update Error logging
-			//LOG("Random is out of sync for player %llu on turn %d", iter->second.GetPlayerId(), mTurnNumber);
+			LogManager* log = LogManager::GetLogManager();
+			log->logBuffer << "Random is out of sync for player %llu on turn %d", iter->second.GetPlayerId(), mTurnNumber;
+			log->flush();
 			return false;
 		}
 
 		if (expectedCRC != iter->second.GetCRC())
 		{
-			//TO DO: Update Error logging
-			//LOG("CRC is out of sync for player %llu on turn %d", iter->second.GetPlayerId(), mTurnNumber);
+			LogManager* log = LogManager::GetLogManager();
+			log->logBuffer << "CRC is out of sync for player %llu on turn %d", iter->second.GetPlayerId(), mTurnNumber;
+			log->flush();
 			return false;
 		}
 		++iter;
@@ -644,8 +651,9 @@ void NetworkManager::TryStartGame()
 {
 	if (mState == NMS_Ready && IsMasterPeer() && mPlayerCount == mReadyCount)
 	{
-		//TO DO: Update Error logging
-		//LOG("Starting!");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Starting! NetworkManager::TryStartGame";
+		log->flush();
 		//let everyone know
 		OutputMemoryBitStream outPacket;
 		outPacket.Write(kStartCC);
@@ -672,8 +680,9 @@ void NetworkManager::TryReadyGame()
 {
 	if (mState == NMS_Lobby && IsMasterPeer())
 	{
-		//TO DO: Update Error logging
-		//LOG("Master peer readying up!");
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Master peer readying up! NetworkManager::TryReadyGame";
+		log->flush();
 		//let the gamer services know we're readying up
 		GamerServices::sInstance->SetLobbyReady(mLobbyId);
 
@@ -772,8 +781,9 @@ uint32_t NetworkManager::GetNewNetworkId()
 	uint32_t toRet = mNewNetworkId++;
 	if (mNewNetworkId < toRet)
 	{
-		//TO DO: Update Error logging
-		//LOG("Network ID Wrap Around!!! You've been playing way too long...", 0);
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Network ID Wrap Around! NetworkManager::GetNewNetworkId";
+		log->flush();
 	}
 
 	return toRet;

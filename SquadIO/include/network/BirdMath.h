@@ -1,3 +1,6 @@
+#ifndef BIRDMATH_H_INCLUDED
+#define BIRDMATH_H_INCLUDED
+
 class Vector3
 {
 public:
@@ -198,3 +201,4 @@ namespace Colors
 	static const Vector3 LightPink(1.0f, 0.71f, 0.76f);
 	static const Vector3 LightGreen(0.56f, 0.93f, 0.56f);
 }
+#endif

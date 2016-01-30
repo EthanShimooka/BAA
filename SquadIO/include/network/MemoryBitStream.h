@@ -1,4 +1,5 @@
-
+#ifndef MEMORYBITSTREAM_H_INCLUDED
+#define MEMORYBITSTREAM_H_INCLUDED
 #include <cstdint>
 #include <cstdlib>
 #include <string>
@@ -155,3 +156,4 @@ private:
 	bool		mIsBufferOwner;
 
 };
+#endif
