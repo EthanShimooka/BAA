@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 
-	renderMan->init(400, 256, false, "WindowTitle");
+	renderMan->init(400, 256, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() <<"\n";
@@ -33,8 +33,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
 	obj->anchor = { 1, 1 };
-	float i = 0;
-	for (i = 0;; i++){
+	for (float i = 0;; i++){
 		float sini = 100*(sin(i/16)+1);
 		obj->posX = sini;
 		//obj->renderRect.h = height * (int(i) % 100);
@@ -43,10 +42,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (int(i/10) % 4 == 1) obj->flipV = false;
 		if (int(i/10) % 4 == 2) obj->flipH = true;
 		if (int(i/10) % 4 == 3) obj->flipV = true;
-		bool stat = renderMan->update();
-		if (!stat)break;
+		renderMan->update();
+		if (renderMan->isReadyToQuit())break;
 	}
-	//renderMan->update();
 	std::cout << renderMan << endl;
 
 	log->close();

@@ -35,15 +35,13 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
-	//Update the surface 
-	//SDL_UpdateWindowSurface(renderWindow);
-	//SDL_Delay(2000);
+
 	return true;
 }
 
-bool RenderManager::update(){
+void RenderManager::update(){
 	//check to see if escape key was pushed (paused) or 
-	SDL_Event event;
+	/*SDL_Event event;
 	while (SDL_PollEvent(&event)){
 		switch (event.type){
 			case SDL_QUIT: return false;
@@ -51,7 +49,7 @@ bool RenderManager::update(){
 				if (event.key.keysym.sym == SDLK_ESCAPE)return false;
 			}
 		}
-	}
+	}*/
 	//clear screen
 	windowSurface = SDL_GetWindowSurface(renderWindow);
 
@@ -70,8 +68,7 @@ bool RenderManager::update(){
 	SDL_Delay(20);
 	//This next line is only still here to act as a restore point
 	//SDL_RendererFlip(renderWindow);
-	
-	return true;
+
 }
 //TODO: this function is necessary, but we need a resource manager first
 gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
@@ -141,4 +138,32 @@ void RenderManager::free(){
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		(*iter)->renderResource->unload();
 	}
+}
+
+bool RenderManager::isReadyToQuit(){
+	//returns whether or not an SDL_QUIT event has been made
+	//When we want to quit, we can push a SDL_QUIT from anywhere,
+	//and the rendermanager will see it here and initiate program shutdown
+	std::list<SDL_Event*>events;
+	std::list<SDL_Event*>::iterator iter;
+	SDL_Event event;
+	while (SDL_PollEvent(&event)){
+		events.push_back(&event);
+		for (iter = events.begin(); iter != events.end(); iter++){
+			switch ((*iter)->type){
+				case SDL_QUIT: return true;
+					//This case is just for debugging purposes for the moment
+				case SDL_KEYDOWN:{
+						 if (event.key.keysym.sym == SDLK_ESCAPE)return true;
+				}
+			}
+		}
+	}
+
+	//No quit event was found, so put everything back into the event queue
+	while (events.size() > 0){
+		SDL_PushEvent(events.front());
+		events.pop_front();
+	}
+	return false;
 }
