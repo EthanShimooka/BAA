@@ -58,7 +58,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GamerServices::sInstance->Update();
 		int x;
 		cout << "Press 1 for player count" << endl
-			 << "Press 2 for Player ID" << endl;
+			 << "Press 2 for Player ID" << endl
+			 << "Press 3 for text test" << endl;
 		cin >> x;
 		switch (x){
 		case 1:
@@ -71,6 +72,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			cout << GamerServices::sInstance->GetLocalPlayerName() << endl;
 			break;
 		case 3:
+			NetworkManager::sInstance->SendHelloWorld();
 			break;
 		}
 	}

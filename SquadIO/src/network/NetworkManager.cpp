@@ -325,6 +325,19 @@ void NetworkManager::SendReadyPacketsToPeers()
 	}
 }
 
+void NetworkManager::SendHelloWorld(){
+	OutputMemoryBitStream outPacket;
+	std::string hello = "Hello World!";
+	outPacket.Write(hello);
+	for (auto& iter : mPlayerNameMap)
+	{
+		//if (iter.first != mPlayerId)
+		//{
+			SendPacket(outPacket, iter.first);
+		//}
+	}
+}
+
 void NetworkManager::HandleStartPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer)
 {
 	//make sure this is the master peer, cause we don't want any funny business
