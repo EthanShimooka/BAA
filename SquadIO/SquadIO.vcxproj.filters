@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Resource Classes">
       <UniqueIdentifier>{6de43760-f1a8-4c99-a39c-e1bef94d582c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input Classes">
+      <UniqueIdentifier>{4bcaf08b-a147-42be-bb90-275d04ea4f0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\RenderResource.h">
@@ -56,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="include\SceneManager.h">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InputMap.h">
+      <Filter>Header Files\Input Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InputManager.h">
+      <Filter>Header Files\Input Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +102,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

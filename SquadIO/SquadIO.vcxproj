@@ -86,6 +86,8 @@
   <ItemGroup>
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
+    <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\InputMap.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\LogManager.h" />
@@ -99,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\LogManager.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\RenderResource.cpp" />
