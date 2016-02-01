@@ -8,9 +8,13 @@ RenderManager::RenderManager(){
 	ID = 1;
 }
 
-RenderManager* RenderManager::getRenderManager()
-{
+RenderManager* RenderManager::getRenderManager(){
 	return &renderManager;
+}
+
+SDL_Renderer* RenderManager::getRenderManagerRenderer(){
+	RenderManager* manager = &renderManager;
+	return manager->renderer;
 }
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
@@ -21,7 +25,8 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	else if (!fullScreen){
 		std::cout << "not fullscreen" << std::endl;
 	}
-	renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
+	//renderWindow = SDL_CreateWindow(WindowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, fullScreen);
+	SDL_CreateWindowAndRenderer(width, height, fullScreen, &renderWindow, &renderer);
 	if (!renderWindow){
 		//there was an error creating the window
 		return false;
@@ -29,16 +34,14 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	//Get window surface
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
-	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) ); 
-	//Update the surface 
-	SDL_UpdateWindowSurface(renderWindow);
-	SDL_Delay(2000);
+	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
+
 	return true;
 }
 
-bool RenderManager::update(){
+void RenderManager::update(){
 	//check to see if escape key was pushed (paused) or 
-	SDL_Event event;
+	/*SDL_Event event;
 	while (SDL_PollEvent(&event)){
 		switch (event.type){
 			case SDL_QUIT: return false;
@@ -46,13 +49,13 @@ bool RenderManager::update(){
 				if (event.key.keysym.sym == SDLK_ESCAPE)return false;
 			}
 		}
-	}
+	}*/
 	//clear screen
 	windowSurface = SDL_GetWindowSurface(renderWindow);
 
 	//Fill the surface white
 	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
-	
+	SDL_RenderClear(renderer);
 
 	//interate through renderables, and generate the current frame
 	renderAllObjects();
@@ -60,10 +63,12 @@ bool RenderManager::update(){
 	//
 	SDL_UpdateWindowSurface(renderWindow);
 
+	SDL_RenderPresent(renderer);
+	//TODO: Remove delay
+	SDL_Delay(20);
 	//This next line is only still here to act as a restore point
 	//SDL_RendererFlip(renderWindow);
-	
-	return true;
+
 }
 //TODO: this function is necessary, but we need a resource manager first
 gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
@@ -95,24 +100,70 @@ void RenderManager::renderAllObjects(){
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->visible){
-			(*iter)->update();
+			//this update is a SpriteObject specific method for spritesheets
+			//(*iter)->update();
 			SDL_Rect pos;
 			pos.x = int((*iter)->posX);
 			pos.y = int((*iter)->posY);
-			//pos.w = (*iter)->renderRect.w;
-			//pos.h = (*iter)->renderRect.h;
-			auto src = (*iter)->renderResource->mSurface;
+			pos.w = (*iter)->renderRect.w;
+			pos.h = (*iter)->renderRect.h;
+			/*auto src = (*iter)->renderResource->mSurface;
 			auto srcrect = &(*iter)->renderRect;
 			auto dst = windowSurface;
 			auto dstrect = &pos;
-			SDL_BlitSurface(src, srcrect, dst, dstrect);
+			SDL_BlitSurface(src, srcrect, dst, dstrect);*/
+
+			//TODO: replace NULL parameters with meaningful SDL_Rects
+			//uses the object's anchor value as a general position, and multiplies it with the proper w and h
+			SDL_Point anchor = { (*iter)->renderRect.w*(*iter)->anchor.x, (*iter)->renderRect.h*(*iter)->anchor.y };
+			SDL_RendererFlip flip = SDL_FLIP_NONE;
+			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
+			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
+			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
+			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
+
+			SDL_FLIP_NONE;
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
+
 		}
 	}
 }
 
 void RenderManager::free(){
 	SDL_DestroyWindow(renderWindow);
+	SDL_DestroyRenderer(renderer);
 	SDL_FreeSurface(windowSurface);
-
 	//TODO: this obviously isn't a complete implementation of the free function
+	std::list<SDLRenderObject*>::iterator iter;
+	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
+		(*iter)->renderResource->unload();
+	}
+}
+
+bool RenderManager::isReadyToQuit(){
+	//returns whether or not an SDL_QUIT event has been made
+	//When we want to quit, we can push a SDL_QUIT from anywhere,
+	//and the rendermanager will see it here and initiate program shutdown
+	std::list<SDL_Event*>events;
+	std::list<SDL_Event*>::iterator iter;
+	SDL_Event event;
+	while (SDL_PollEvent(&event)){
+		events.push_back(&event);
+		for (iter = events.begin(); iter != events.end(); iter++){
+			switch ((*iter)->type){
+				case SDL_QUIT: return true;
+					//This case is just for debugging purposes for the moment
+				case SDL_KEYDOWN:{
+						 if (event.key.keysym.sym == SDLK_ESCAPE)return true;
+				}
+			}
+		}
+	}
+
+	//No quit event was found, so put everything back into the event queue
+	while (events.size() > 0){
+		SDL_PushEvent(events.front());
+		events.pop_front();
+	}
+	return false;
 }

@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #ifndef SPRITEOBJECT_H_INCLUDED
 #define SPRITEOBJECT_H_INCLUDED
 
@@ -55,4 +55,4 @@ public:
 	SpriteObject();
 };
 
-#endif SPRITEOBJECT_H_INCLUDED
+#endif SPRITEOBJECT_H_INCLUDED*/

@@ -30,9 +30,15 @@
 */
 
 class SDLRenderObject : public EngineObject{
+	//NOTE: when we make position, rotation, etc. private members we either need to call
+	//the appropriate getter setter functions in RenderManager->renderAllObjects (doable) or use c++ friend feature (doable just different)
 private:
 protected:
 public:
+	struct anchor_point {
+		float x;
+		float y;
+	} anchor;
 
 	/// pointer to renderResource, which is derived from the RenderManager
 	/// function loadfromXML()
@@ -44,8 +50,11 @@ public:
 	float posX;
 	/// Object position on the y axis
 	float posY;
-	/// bool visible; //uninitialized
-	bool visible=true; ////////////////////////////IT IS INITIALIZED YO
+	double rotation;
+	//SDL_Point anchor;
+	bool flipH;
+	bool flipV;
+	bool visible;
 	/// SDL color key paramater, usually should not be tampared with
 	SDL_Color colorKey;
 	/// A key to enable color filtering 
@@ -54,6 +63,15 @@ public:
 	SQUADIO_API SDLRenderObject();
 	/// Set a resource object from a Render Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(RenderResource *source);
+	/*SQUADIO_API SDL_Rect* getRenderRect();
+	SQUADIO_API void setRenderRect(SDL_Rect rect);
+	SQUADIO_API void resetRenderRect();
+	SQUADIO_API SDL_Point getPosition();
+	SQUADIO_API void setPosition(SDL_Point point);
+	SQUADIO_API float getRotation();
+	SQUADIO_API void setRotation(float degrees);
+	SQUADIO_API bool getVisibility();
+	SQUADIO_API void setVisibility(bool flag);*/
 	/// Abstract update function to be overriden.
 	SQUADIO_API virtual void update(){};
 };

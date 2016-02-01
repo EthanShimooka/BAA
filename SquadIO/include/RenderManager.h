@@ -42,10 +42,12 @@ protected:
 public:
 	/// Singlelton accessor fuinction for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
+	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
 	/// 
 	SDL_Window* renderWindow;
 	/// 
 	SDL_Surface* windowSurface;
+	SDL_Renderer* renderer;
 	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
@@ -58,12 +60,14 @@ public:
 	/// Clears, free's, and destroys SDL window *INCOMPLETE*
 	SQUADIO_API void free();
 	/// Rendermanager update loop.a
-	SQUADIO_API bool update();
+	SQUADIO_API void update();
 	/// Swaps from full screen SDL window.
 	SQUADIO_API void toggleFullScreen();
 	/// loadResourceFromXML() is called from ResourceManager's
 	/// loadFromXMLFile(std::string Filename). It creates a
 	/// renderResource, which is derived from gameResource.
+
+	SQUADIO_API bool isReadyToQuit();
 
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
 	/// Function that takes the list of renderable objects (renderObjects) and 
