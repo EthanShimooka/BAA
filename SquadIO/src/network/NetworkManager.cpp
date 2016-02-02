@@ -271,6 +271,7 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
 	default:
+		std::cout << packetType << std::endl;
 		//ignore anything else
 		break;
 	}
@@ -327,7 +328,7 @@ void NetworkManager::SendReadyPacketsToPeers()
 
 void NetworkManager::SendHelloWorld(){
 	OutputMemoryBitStream outPacket;
-	std::string hello = "Hello World!";
+	uint32_t hello = 42;
 	outPacket.Write(hello);
 	for (auto& iter : mPlayerNameMap)
 	{
@@ -335,6 +336,12 @@ void NetworkManager::SendHelloWorld(){
 		//{
 			SendPacket(outPacket, iter.first);
 		//}
+	}
+}
+
+void NetworkManager::GetAllPlayersInLobby(){
+	for (auto& iter : mPlayerNameMap){
+		std::cout << iter.first << " " << iter.second << std::endl;
 	}
 }
 

@@ -67,6 +67,7 @@ public:
 
 	SQUADIO_API void	SendPacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer);
 	SQUADIO_API void    SendHelloWorld();
+	SQUADIO_API void	GetAllPlayersInLobby();
 
 	SQUADIO_API void	EnterLobby(uint64_t inLobbyId);
 	SQUADIO_API void	UpdateLobbyPlayers();

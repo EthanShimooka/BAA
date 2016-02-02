@@ -59,7 +59,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		int x;
 		cout << "Press 1 for player count" << endl
 			 << "Press 2 for Player ID" << endl
-			 << "Press 3 for text test" << endl;
+			 << "Press 3 for text test" << endl
+			 << "Press 4 for all players in lobby" << endl;
 		cin >> x;
 		switch (x){
 		case 1:
@@ -74,7 +75,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		case 3:
 			NetworkManager::sInstance->SendHelloWorld();
 			break;
+		case 4:
+			NetworkManager::sInstance->GetAllPlayersInLobby();
+
 		}
+		NetworkManager::sInstance->ProcessIncomingPackets();
 	}
 	/*
 	RenderManager* renderMan = RenderManager::getRenderManager();
