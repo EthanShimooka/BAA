@@ -95,7 +95,6 @@
     <ClInclude Include="include\RenderResource.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SDLRenderObject.h" />
-    <ClInclude Include="include\SpriteObject.h" />
     <ClInclude Include="include\SquadIO.h" />
   </ItemGroup>
   <ItemGroup>
@@ -108,7 +107,6 @@
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\SDLRenderObject.cpp" />
-    <ClCompile Include="src\SpriteObject.cpp" />
     <ClCompile Include="src\SquadIO.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
   </ItemGroup>

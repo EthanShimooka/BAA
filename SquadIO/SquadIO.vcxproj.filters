@@ -42,9 +42,6 @@
     <ClInclude Include="include\EngineObject.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="include\SpriteObject.h">
-      <Filter>Header Files\Render Classes</Filter>
-    </ClInclude>
     <ClInclude Include="include\tinyxml2.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
@@ -87,9 +84,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SDLRenderObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SpriteObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SquadIO.cpp">

@@ -110,7 +110,7 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 	}
 	
 	if (object->colorKeyEnabled)
-		object->setColorKey(r, g, b);
+		//object->setColorKey(r, g, b);
 
 	layer->m_SceneObjects.push_back(object);
 

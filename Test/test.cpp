@@ -33,9 +33,7 @@ int main() {
 	/*double a = 7.4;
 	int b = 98;
 	cout << SquadIO::SquadIO::Add(a, b) << endl;
-	return 0;*/
-	RenderManager* rend = RenderManager::getRenderManager();
-	cout << "this is main()" << endl;
+	*/
 	return 0;
 }
 
@@ -44,43 +42,38 @@ int _tmain(int argc, _TCHAR* argv[]){
 	log->create("log.txt");
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
-	SceneManager* sceneMan = SceneManager::GetSceneManager();
-
-	
-
-	renderMan->init(400, 256, false, "WindowTitle");
+	renderMan->init(400, 256, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
+	renderMan->setBackground("sky.jpg"); //TODO: change so it does not reference the direct filename
 	resourceMan->setCurrentScope(0);
-	std::cout << "resource count : " << resourceMan->getResourceCount() <<"\n";
+	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 	//fetches resource count
-	
 
-	try {
-		sceneMan->loadFromXMLFile("SceneTree.xml");
-	}
-	catch (cException& e){
-		cout << "loadfromxml in SceneMan failed" << endl;
-		log->logException(e);
-	}
 
 	SDLRenderObject* obj = new SDLRenderObject();
+	//////////////////////////////////////////////////////////
+	//TODO: Gets stuck on an infinite loop trying to find ID number 2
 	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
-
-
-			obj->renderResource = rend;
-			obj->setResourceObject(rend);
-			obj->renderRect.w = 50;
-			obj->renderRect.h = 50;
-
-		
-
+	obj->renderResource = rend;
+	obj->setResourceObject(rend);
 
 	renderMan->renderObjects.push_back(obj); //list
-	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
-
-	renderMan->update();
+	float width = obj->renderRect.w;
+	float height = obj->renderRect.h;
+	obj->anchor = { 0.5, 0.5 };
+	for (float i = 0;; i++){
+		float sini = 100 * (sin(i / 16) + 1);
+		obj->posX = sini;
+		//obj->renderRect.h = height * (int(i) % 100);
+		obj->rotation = i;
+		if (int(i / 10) % 4 == 0) obj->flipH = false;
+		if (int(i / 10) % 4 == 1) obj->flipV = false;
+		if (int(i / 10) % 4 == 2) obj->flipH = true;
+		if (int(i / 10) % 4 == 3) obj->flipV = true;
+		renderMan->update();
+		//if (renderMan->isReadyToQuit())break;
+	}
 	std::cout << renderMan << endl;
-	
 
 	log->close();
 	return 0;
