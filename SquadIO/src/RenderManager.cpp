@@ -56,7 +56,7 @@ void RenderManager::update(){
 	//Fill the surface white
 	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
 	SDL_RenderClear(renderer);
-
+	renderBackground();
 	//interate through renderables, and generate the current frame
 	renderAllObjects();
 
@@ -93,10 +93,45 @@ gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
 	}
 	return NULL;
 }
-
+void RenderManager::setBackground(SDL_Surface* bg){
+	if (bg){
+		SDL_Surface* tempSurface = SDL_ConvertSurface(bg, bg->format,bg->flags);
+		//SDL_BlitSurface(bg, NULL,tempSurface, NULL);
+		if (tempSurface){
+			SDL_FreeSurface(background);
+			background = tempSurface;
+		}
+	}
+	else{
+		printf("Unable to copy the image %s! SDL_image Error: %s\n", IMG_GetError());
+	}
+}
+void RenderManager::setBackground(std::string filename){
+	//background = bg;
+	std::string path = "resources/" + filename;
+	SDL_Surface *tempSurface = IMG_Load(path.c_str());
+	if (tempSurface){
+		//free old buffer
+		//SDL_FreeSurface(background);
+		background = tempSurface;
+	}
+	else{
+		printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
+	}
+}
+void RenderManager::renderBackground(){
+	if (background){
+		SDL_Rect dstrect;
+		dstrect.x = 0;
+		dstrect.y = 0;
+		//SDL_RenderCopy(renderer, (*iter)->renderResource->mTexture, NULL, &pos);
+		SDL_BlitSurface(background, NULL, windowSurface, &dstrect);
+	}
+}
 
 void RenderManager::renderAllObjects(){
 	//NOTE: this list might need to be changed to be pointers
+	//NOTE: May have to be based on a subset of renderobjects, not all of them
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->visible){
@@ -121,10 +156,7 @@ void RenderManager::renderAllObjects(){
 			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
 			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
 			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
-
-			SDL_FLIP_NONE;
 			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
-
 		}
 	}
 }

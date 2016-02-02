@@ -14,25 +14,26 @@ int _tmain(int argc, _TCHAR* argv[]){
 	log->create("log.txt");
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
-
 	renderMan->init(400, 256, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
+	renderMan->setBackground("sky.jpg"); //TODO: change so it does not reference the direct filename
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() <<"\n";
 	//fetches resource count
 	
 
 	SDLRenderObject* obj = new SDLRenderObject();
-	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
+	//////////////////////////////////////////////////////////
+	//TODO: Gets stuck on an infinite loop trying to find ID number 2
+	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(2));
 	obj->renderResource = rend;
 	obj->setResourceObject(rend);
-
 
 	renderMan->renderObjects.push_back(obj); //list
 	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
-	obj->anchor = { 1, 1 };
+	obj->anchor = { 0.5, 0.5 };
 	for (float i = 0;; i++){
 		float sini = 100*(sin(i/16)+1);
 		obj->posX = sini;
