@@ -25,12 +25,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SDLRenderObject* obj = new SDLRenderObject();
 	//////////////////////////////////////////////////////////
 	//TODO: Gets stuck on an infinite loop trying to find ID number 2
-	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(2));
+	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
 	obj->renderResource = rend;
 	obj->setResourceObject(rend);
 
 	renderMan->renderObjects.push_back(obj); //list
-	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
 	obj->anchor = { 0.5, 0.5 };
