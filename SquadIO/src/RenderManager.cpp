@@ -57,12 +57,12 @@ void RenderManager::update(){
 	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
 	SDL_RenderClear(renderer);
 	renderBackground();
+	SDL_UpdateWindowSurface(renderWindow);
 	//interate through renderables, and generate the current frame
 	renderAllObjects();
 
 	//
-	SDL_UpdateWindowSurface(renderWindow);
-
+	
 	SDL_RenderPresent(renderer);
 	//TODO: Remove delay
 	SDL_Delay(20);
@@ -93,7 +93,7 @@ gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
 	}
 	return NULL;
 }
-void RenderManager::setBackground(SDL_Surface* bg){
+/*void RenderManager::setBackground(SDL_Texture* bg){
 	if (bg){
 		SDL_Surface* tempSurface = SDL_ConvertSurface(bg, bg->format,bg->flags);
 		//SDL_BlitSurface(bg, NULL,tempSurface, NULL);
@@ -105,27 +105,44 @@ void RenderManager::setBackground(SDL_Surface* bg){
 	else{
 		printf("Unable to copy the image %s! SDL_image Error: %s\n", IMG_GetError());
 	}
-}
+}*/
 void RenderManager::setBackground(std::string filename){
 	//background = bg;
 	std::string path = "resources/" + filename;
+	std::cout<<path<<std::endl;
 	SDL_Surface *tempSurface = IMG_Load(path.c_str());
+	//mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+	SDL_Texture*tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
 	if (tempSurface){
 		//free old buffer
-		//SDL_FreeSurface(background);
-		background = tempSurface;
+		SDL_FreeSurface(tempSurface);
+		if (tempTexture){
+			if (background){
+				SDL_DestroyTexture(background);
+			}
+			background = tempTexture;
+		}
 	}
 	else{
 		printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
 	}
 }
 void RenderManager::renderBackground(){
+	//to avoid using a null background
 	if (background){
 		SDL_Rect dstrect;
+		SDL_QueryTexture(background, NULL, NULL, &dstrect.w, &dstrect.h);
 		dstrect.x = 0;
 		dstrect.y = 0;
-		//SDL_RenderCopy(renderer, (*iter)->renderResource->mTexture, NULL, &pos);
-		SDL_BlitSurface(background, NULL, windowSurface, &dstrect);
+		SDL_RenderCopy(renderer, background, NULL, &dstrect);
+		//tiling the image
+		/*for (int x = 0;;){
+			dstrect.x = x;
+			for (int y = 0;;){
+				dstrect.y = y;
+				SDL_RenderCopy(renderer, background, NULL, &dstrect);
+			}
+		}*/
 	}
 }
 

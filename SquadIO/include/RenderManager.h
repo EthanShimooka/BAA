@@ -47,7 +47,7 @@ public:
 	SDL_Window* renderWindow;
 	/// 
 	SDL_Surface* windowSurface;
-	SDL_Surface* background;
+	SDL_Texture* background;
 	SDL_Renderer* renderer;
 	///
 	std::stringstream videoInfo;

@@ -31,9 +31,10 @@ gameResource* ResourceManager::findResourcebyID(unsigned int RID)
 		if (!(*it).second.empty()) {
 			std::list<gameResource*>::iterator list_it;
 			for (list_it = (*it).second.begin(); list_it != (*it).second.end();
-				*list_it){
+				list_it++){
 				//if matching ID
-				if ((*list_it)->m_ResourceID == RID)
+				int thisID = (*list_it)->m_ResourceID;
+				if ( thisID== RID)
 					return (*list_it);
 			}
 		}
