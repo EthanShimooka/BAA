@@ -128,8 +128,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		renderMan->update();
 		//if (renderMan->isReadyToQuit())break;
 	}
-	std::cout << renderMan << endl;*/
+	std::cout << renderMan << endl;
 
-	log->close();
+	log->close();*/
 	return 0;
 }
