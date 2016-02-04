@@ -49,6 +49,8 @@ public:
 	SDL_Surface* windowSurface;
 	SDL_Texture* background;
 	SDL_Renderer* renderer;
+	float zoom;
+	float minZoom;
 	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true

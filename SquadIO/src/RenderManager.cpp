@@ -32,6 +32,8 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 		return false;
 	}
 	//Get window surface
+	zoom = 1;
+	minZoom = .05;
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
@@ -129,20 +131,21 @@ void RenderManager::setBackground(std::string filename){
 }
 void RenderManager::renderBackground(){
 	//to avoid using a null background
+	if (zoom < minZoom){ zoom = minZoom; }
 	if (background){
 		SDL_Rect dstrect;
 		SDL_QueryTexture(background, NULL, NULL, &dstrect.w, &dstrect.h);
-		dstrect.x = 0;
-		dstrect.y = 0;
-		SDL_RenderCopy(renderer, background, NULL, &dstrect);
+		dstrect.w *= zoom;
+		dstrect.h *= zoom;
+		//SDL_RenderCopy(renderer, background, NULL, &dstrect);
 		//tiling the image
-		/*for (int x = 0;;){
+		for (float x = 0; x < windowSurface->w; x += dstrect.w){
 			dstrect.x = x;
-			for (int y = 0;;){
+			for (float y = 0; y < windowSurface->h; y += dstrect.h){
 				dstrect.y = y;
 				SDL_RenderCopy(renderer, background, NULL, &dstrect);
 			}
-		}*/
+		}
 	}
 }
 
@@ -155,10 +158,10 @@ void RenderManager::renderAllObjects(){
 			//this update is a SpriteObject specific method for spritesheets
 			//(*iter)->update();
 			SDL_Rect pos;
-			pos.x = int((*iter)->posX);
-			pos.y = int((*iter)->posY);
-			pos.w = (*iter)->renderRect.w;
-			pos.h = (*iter)->renderRect.h;
+			pos.x = int((*iter)->posX)*zoom;
+			pos.y = int((*iter)->posY)*zoom;
+			pos.w = (*iter)->renderRect.w*zoom;
+			pos.h = (*iter)->renderRect.h*zoom;
 			/*auto src = (*iter)->renderResource->mSurface;
 			auto srcrect = &(*iter)->renderRect;
 			auto dst = windowSurface;
@@ -167,7 +170,7 @@ void RenderManager::renderAllObjects(){
 
 			//TODO: replace NULL parameters with meaningful SDL_Rects
 			//uses the object's anchor value as a general position, and multiplies it with the proper w and h
-			SDL_Point anchor = { (*iter)->renderRect.w*(*iter)->anchor.x, (*iter)->renderRect.h*(*iter)->anchor.y };
+			SDL_Point anchor = { int((*iter)->renderRect.w*zoom*(*iter)->anchor.x), int((*iter)->renderRect.h*zoom*(*iter)->anchor.y) };
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
 			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
 			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
