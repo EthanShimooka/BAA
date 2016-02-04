@@ -70,7 +70,7 @@ public:
 
 	/// Sets a start time and begins interval.
 	void start() {
-		m_StartTime = timeGetTime();
+//		m_StartTime = timeGetTime();
 		m_Expired = false;
 	}
 
@@ -80,11 +80,11 @@ public:
 		if (m_Expired)
 			return;
 		
-		DWORD ElapsedTime = timeGetTime() - m_StartTime;
+		//DWORD ElapsedTime = timeGetTime() - m_StartTime;
 
-		if (ElapsedTime >= m_Interval){
+		/*if (ElapsedTime >= m_Interval){
 			m_Expired = true;
-		}
+		}*/
 	}
 }; //end class Timer
 
