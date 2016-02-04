@@ -13,15 +13,147 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Render Classes">
+      <UniqueIdentifier>{08f24da7-bf1b-4277-9c1d-2c76c2959901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{8ebfde0d-e8d3-48f9-8d63-8cb92ff740d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource Classes">
+      <UniqueIdentifier>{6de43760-f1a8-4c99-a39c-e1bef94d582c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network Classes">
+      <UniqueIdentifier>{9e8ea67f-2fed-426e-ad73-ad72decffe6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network Classes">
+      <UniqueIdentifier>{2b789f50-0db7-41cb-b5d7-0f08d1298c42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SquadIO.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\RenderResource.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderManager.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SDLRenderObject.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LogManager.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineObject.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SpriteObject.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyxml2.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SquadIO.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gameResource.h">
+      <Filter>Header Files\Resource Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ResourceManager.h">
+      <Filter>Header Files\Resource Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\BirdMath.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\Command.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\CommandList.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\GamerServices.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\MemoryBitStream.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\NetIncludes.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\NetworkManager.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\RandGen.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\Timing.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\TurnData.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\WeightedTimedMovingAverage.h">
+      <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SquadIO.cpp">
+    <ClCompile Include="src\EngineObject.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LogManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDLRenderObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SquadIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\BirdMath.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Command.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\CommandList.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\GamerServicesSteam.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\MemoryBitStream.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\NetworkManager.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\RandGen.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Timing.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\TurnData.cpp">
+      <Filter>Source Files\Network Classes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
