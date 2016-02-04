@@ -1,6 +1,6 @@
 #pragma once
 #include "include\RenderResource.h"
-
+#include "include\RenderManager.h"
 
 RenderResource::RenderResource(){}
 
@@ -12,9 +12,9 @@ RenderResource::~RenderResource(){}
 }*/
 
 void RenderResource::unload(){
-	if (mSurface){
-		SDL_FreeSurface(mSurface);
-		mSurface = NULL;
+	if (mTexture){
+		SDL_DestroyTexture(mTexture);
+		mTexture = NULL;
 	}
 	//bLoaded=true;
 }
@@ -26,13 +26,19 @@ void RenderResource::load(){
 	std::string path = "resources/" + m_Filename;
 	SDL_Surface *tempSurface = IMG_Load(path.c_str());
 
-	if (tempSurface){
-		mSurface = tempSurface;
-		//free old buffer
-		//SDL_FreeSurface(tempSurface);//deletes both temp and mSurface
-		if (mSurface){
-			m_Bloaded = true;
+	//SDL_Texture *tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+	mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
 
+	if (tempSurface){
+		//free old buffer
+
+		SDL_FreeSurface(tempSurface);
+		if (mTexture){
+			//delete previous texture
+			//SDL_DestroyTexture(mTexture);
+			//replace with new texture
+			//mTexture = tempTexture;
+			//SDL_FreeSurface(tempSurface);//deletes both temp and mSurface
 		}
 	}
 	else{
