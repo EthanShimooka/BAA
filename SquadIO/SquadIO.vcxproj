@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>winmm.lib;lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;winmm.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib;winmm.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
