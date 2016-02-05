@@ -39,18 +39,6 @@ public:
 	// return true if mouseup
 	SQUADIO_API bool isMouseUp(int b);
 
-	/* Unsure if needed
-	SQUADIO_API bool isKeyPressed(KeyboardKeys k);
-	SQUADIO_API bool isKeyReleased(KeyboardKeys k);
-
-	SQUADIO_API bool isMousePressed(MouseButton b);
-	SQUADIO_API bool isMouseReleased(MouseButton b);
-	*/
-
-	// might need key clicked and mouse clicked functions??
-	//bool isMouseClicked(MouseButton b);
-	//bool isKeyClicked(KeyboardKeys k);
-
 	// get mouse x and y positions
 	SQUADIO_API int getMouseX();
 	SQUADIO_API int getMouseY();
@@ -58,9 +46,6 @@ public:
 	// lock and unlock input
 	SQUADIO_API void lock();
 	SQUADIO_API void unlock();
-
-	// remove later, test function call for status
-	SQUADIO_API bool getQuitStatus();
 
 protected:
 	// constructor only called by getInstance()
@@ -72,28 +57,21 @@ protected:
 	static InputManager* inputInstance;
 
 private:
-	// keyboard and mouse states
-	const uint8_t* keyboard;
-	uint8_t mouse;
+	// keyboard state
+	const uint8_t* keyboardState;
+	
+	// mouse state
+	uint8_t mouseState;
 
 	// x and y positions of mouse
 	int mouseX, mouseY;
 
-	// key and mouse states
-	vector<int> keyDown;
-	vector<int> keyUp;
+	// mouse states
 	vector<int> mouseDown;
 	vector<int> mouseUp;
 
 	// keyboard input allowed or not
 	bool locked;
-
-	// test variable for quitting
-	bool quit;
-
-	// test variables for keydown
-	int numKeysPressed;
-	int numMousePressed;
 };
 
 #endif // INPUTMANAGER_H_INCLUDED
