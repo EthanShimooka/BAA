@@ -1,11 +1,13 @@
 <resources>
 
 <resource UID="1" type="graphic" filename="duck.jpg" scenescope="0"></resource>
-<resource UID="1" type="graphic" filename="duck.bmp" scenescope="0"></resource>
-<resource UID="1" type="graphic" filename="duck.png" scenescope="0"></resource>
-<resource UID="2" type="text" filename="text.txt" scenescope="0"></resource>
-<resource UID="3" type="audio" filename="Meow.ogg" scenescope="2"></resource>
-<resource UID="4" type="audio" filename="bear.wav" scenescope="0"></resource>
+<resource UID="2" type="graphic" filename="duck.bmp" scenescope="0"></resource>
+<resource UID="3" type="graphic" filename="duck.png" scenescope="0"></resource>
+<resource UID="4" type="graphic" filename="level.png" scenescope="0"></resource>
+<resource UID="5" type="graphic" filename="sky.jpg" scenescope="0"></resource>
+<resource UID="6" type="text" filename="text.txt" scenescope="0"></resource>
+<resource UID="7" type="audio" filename="Meow.ogg" scenescope="2"></resource>
+<resource UID="8" type="audio" filename="bear.wav" scenescope="0"></resource>
 
 
 </resources>

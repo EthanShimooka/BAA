@@ -44,10 +44,18 @@ public:
 	SQUADIO_API static RenderManager* getRenderManager();
 	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
 	/// 
+	//A lot of the variables below should be private, and not be called directly
+	//TODO: make get and set functions for the below variables
 	SDL_Window* renderWindow;
-	/// 
 	SDL_Surface* windowSurface;
+	SDL_Texture* background;
 	SDL_Renderer* renderer;
+	float zoom;
+	float minZoom;
+	struct point{
+		float x;
+		float y;
+	} cameraPoint;
 	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
@@ -70,10 +78,13 @@ public:
 	SQUADIO_API bool isReadyToQuit();
 
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
+	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
+	SQUADIO_API void setBackground(SDL_Surface* bg);
+	SQUADIO_API void setBackground(std::string filename);
+	SQUADIO_API void renderBackground();
 	/// Function that takes the list of renderable objects (renderObjects) and 
 	/// draws them on screen. 
-	/// Objects are rendered in order of the list from first to last.
-
+	/// Objects are rendered in order of the list from first to last.	
 	SQUADIO_API void renderAllObjects();
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;

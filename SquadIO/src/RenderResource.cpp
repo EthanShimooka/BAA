@@ -29,13 +29,16 @@ void RenderResource::load(){
 	//SDL_Surface *tempSurface = IMG_Load(path);
 	std::string path = "resources/" + m_Filename;
 	SDL_Surface *tempSurface = IMG_Load(path.c_str());
-	mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
-
+	SDL_Texture *tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+	//mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
 	if (tempSurface){
 		//free old buffer
 		SDL_FreeSurface(tempSurface);
-		if (mTexture){
-			//SDL_FreeSurface(tempSurface);//deletes both temp and mSurface
+		if (tempTexture){
+			if (mTexture){
+				SDL_DestroyTexture(mTexture);
+			}
+			mTexture = tempTexture;
 		}
 	}
 	else{

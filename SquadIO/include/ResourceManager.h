@@ -64,6 +64,7 @@ public:
 
 	/// fetches resource ID 
 	SQUADIO_API	gameResource* findResourcebyID(unsigned int RID);
+	SQUADIO_API	gameResource* findResourcebyFilename(std::string RFN);
 
 	/// clears all resources and scopes
 	SQUADIO_API	void clear();
