@@ -36,11 +36,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
 	obj->anchor = { 0.5, 0.5 };
+	//renderMan->zoom = 4;
 	for (float i = 0;; i++){
 		float sini = 100*(sin(i/16)+1);
-		renderMan->zoom = sin(i / 226) + 1;
-		obj->posX = sini;
-		obj->posY = sini;
+		renderMan->zoom = (sin(i / 600) + 1);
+		obj->posX = 300 * (sin(i / 16) + 1);
+		obj->posY = 100 * (cos(i / 16) + 1);
+		renderMan->cameraPoint = { obj->posX, obj->posY };
 		//obj->renderRect.h = height * (int(i) % 100);
 		obj->rotation = i;
 		if (int(i/10) % 4 == 0) obj->flipH = false;

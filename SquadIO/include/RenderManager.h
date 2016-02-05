@@ -44,13 +44,18 @@ public:
 	SQUADIO_API static RenderManager* getRenderManager();
 	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
 	/// 
+	//A lot of the variables below should be private, and not be called directly
+	//TODO: make get and set functions for the below variables
 	SDL_Window* renderWindow;
-	/// 
 	SDL_Surface* windowSurface;
 	SDL_Texture* background;
 	SDL_Renderer* renderer;
 	float zoom;
 	float minZoom;
+	struct point{
+		float x;
+		float y;
+	} cameraPoint;
 	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true

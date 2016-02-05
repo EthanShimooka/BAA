@@ -34,6 +34,7 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	//Get window surface
 	zoom = 1;
 	minZoom = .05;
+	cameraPoint = {0,0};
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
@@ -133,16 +134,22 @@ void RenderManager::renderBackground(){
 	//to avoid using a null background
 	if (zoom < minZoom){ zoom = minZoom; }
 	if (background){
+		//maybe invert z = 1/zoom
+		float z = 1/zoom;
 		SDL_Rect dstrect;
 		SDL_QueryTexture(background, NULL, NULL, &dstrect.w, &dstrect.h);
-		dstrect.w *= zoom;
-		dstrect.h *= zoom;
-		//SDL_RenderCopy(renderer, background, NULL, &dstrect);
+		//offset is for how the background tiles tile. it tells you the offset of the centermost tile 
+		//it should give the illusion that the tiling begins at (0,0)
+		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % dstrect.w)*z;
+		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % dstrect.h)*z;
+		dstrect.w *= z;//stretched due to zoom
+		dstrect.h *= z;
 		//tiling the image
-		for (float x = 0; x < windowSurface->w; x += dstrect.w){
-			dstrect.x = x;
-			for (float y = 0; y < windowSurface->h; y += dstrect.h){
-				dstrect.y = y;
+		for (float x = centerOffsetX - ceil(centerOffsetX / (dstrect.w))*dstrect.w; x < windowSurface->w; x += dstrect.w){
+			//x = the offset - the number of times the background needs to be repeated from the offset point and (0,0) on the window and keep the background static
+			dstrect.x = round(x);//rounding to make it less jagged
+			for (float y = centerOffsetY - ceil(centerOffsetY / (dstrect.h))*dstrect.h; y < windowSurface->h; y += dstrect.h){
+				dstrect.y = round(y);
 				SDL_RenderCopy(renderer, background, NULL, &dstrect);
 			}
 		}
@@ -152,16 +159,18 @@ void RenderManager::renderBackground(){
 void RenderManager::renderAllObjects(){
 	//NOTE: this list might need to be changed to be pointers
 	//NOTE: May have to be based on a subset of renderobjects, not all of them
+	if (zoom < minZoom){ zoom = minZoom; }
+	float z = 1/zoom; //maybe invert
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->visible){
 			//this update is a SpriteObject specific method for spritesheets
 			//(*iter)->update();
 			SDL_Rect pos;
-			pos.x = int((*iter)->posX)*zoom;
-			pos.y = int((*iter)->posY)*zoom;
-			pos.w = (*iter)->renderRect.w*zoom;
-			pos.h = (*iter)->renderRect.h*zoom;
+			pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w / 2)*z + windowSurface->w / 2);
+			pos.y = int((((*iter)->posY) - cameraPoint.y - (*iter)->renderRect.h / 2)*z + windowSurface->h / 2);
+			pos.w = (*iter)->renderRect.w*z;
+			pos.h = (*iter)->renderRect.h*z;
 			/*auto src = (*iter)->renderResource->mSurface;
 			auto srcrect = &(*iter)->renderRect;
 			auto dst = windowSurface;
@@ -170,7 +179,7 @@ void RenderManager::renderAllObjects(){
 
 			//TODO: replace NULL parameters with meaningful SDL_Rects
 			//uses the object's anchor value as a general position, and multiplies it with the proper w and h
-			SDL_Point anchor = { int((*iter)->renderRect.w*zoom*(*iter)->anchor.x), int((*iter)->renderRect.h*zoom*(*iter)->anchor.y) };
+			SDL_Point anchor = { int((*iter)->renderRect.w*z*(*iter)->anchor.x), int((*iter)->renderRect.h*z*(*iter)->anchor.y) };
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
 			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
 			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
