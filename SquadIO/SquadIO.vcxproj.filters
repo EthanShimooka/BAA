@@ -27,7 +27,7 @@
     </Filter>
     <Filter Include="Source Files\Network Classes">
       <UniqueIdentifier>{2b789f50-0db7-41cb-b5d7-0f08d1298c42}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Header Files\Input Classes">
       <UniqueIdentifier>{4bcaf08b-a147-42be-bb90-275d04ea4f0b}</UniqueIdentifier>
     </Filter>
@@ -92,7 +92,7 @@
     </ClInclude>
     <ClInclude Include="include\network\WeightedTimedMovingAverage.h">
       <Filter>Header Files\Network Classes</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="include\SceneManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
@@ -101,6 +101,12 @@
     </ClInclude>
     <ClInclude Include="include\InputManager.h">
       <Filter>Header Files\Input Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\include\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\include\zlib.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -160,12 +166,15 @@
     </ClCompile>
     <ClCompile Include="src\network\TurnData.cpp">
       <Filter>Source Files\Network Classes</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="src\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="zlib\lib\zdll.lib" />
   </ItemGroup>
 </Project>

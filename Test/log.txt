@@ -9,4 +9,3 @@ Achievement %s = %d
 Achievement %s = %d
 Achievement %s = %d
 Achievement %s = %d
-Player %llu disconnected. NetworkManager::HandleConnectionReset

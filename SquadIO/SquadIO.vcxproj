@@ -55,13 +55,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\include\network;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\include;$(SolutionDir)/SquadIO/Debug/;C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\zlib\include;$(SolutionDir)SquadIO\include\network;$(SolutionDir)SquadIO\Debug\;$(SolutionDir)\SquadIO\;$(SolutionDir)\Debug\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib;winmm.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\zlib\lib;$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,6 +109,8 @@
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SDLRenderObject.h" />
     <ClInclude Include="include\SquadIO.h" />
+    <ClInclude Include="zlib\include\zconf.h" />
+    <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp" />
@@ -134,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cException.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="zlib\lib\zdll.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

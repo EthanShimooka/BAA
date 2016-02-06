@@ -1,5 +1,6 @@
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
+#include "zlib\include\zlib.h"
 
 unique_ptr<NetworkManager> NetworkManager::sInstance;
 
@@ -813,15 +814,13 @@ uint32_t NetworkManager::ComputeGlobalCRC()
 {
 	//save into bit stream to reduce CRC calls
 	OutputMemoryBitStream crcStream;
-	/* Commented out b/c zlib not included yet!!! Still TO DO
 	uint32_t crc = static_cast<uint32_t>(crc32(0, Z_NULL, 0));
-
+	/*Commented out b/c mNetworkIdToGameObjectMap doesn't exist Still TO DO
 	for (auto& iter : mNetworkIdToGameObjectMap)
 	{
 		iter.second->WriteForCRC(crcStream);
-	}
+	}*/
 
 	crc = static_cast<uint32_t>(crc32(crc, reinterpret_cast<const Bytef*>(crcStream.GetBufferPtr()), crcStream.GetByteLength()));
-	return crc; */
-	return 0;
+	return crc;
 }
