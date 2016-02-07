@@ -30,15 +30,15 @@ public:
 	// might need to use a flag to determine type of AudioResource
 	Mix_Music* bgm;
 	Mix_Chunk* effect;
-	// -1 defaults none, 0 for bgm, 1 for effect
-	int type;
+	// true for bgm, false for effect
+	bool isBgm;
 
 	// constructor
 	SQUADIO_API AudioResource();
 	// destructor
-	~AudioResource();
+	SQUADIO_API ~AudioResource();
 	// overloaded load/unload
-	SQUADIO_API void load(int t);
+	SQUADIO_API void load();
 	SQUADIO_API void unload();
 };
 
