@@ -18,9 +18,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->setBackground("tess1.gif"); //TODO: change so it does not reference the direct filename
 	resourceMan->setCurrentScope(0);
-	std::cout << "resource count : " << resourceMan->getResourceCount() <<"\n";
+	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 	//fetches resource count
-	
+
 
 	SDLRenderObject* obj = new SDLRenderObject();
 	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
@@ -38,16 +38,22 @@ int _tmain(int argc, _TCHAR* argv[]){
 	obj->anchor = { 0.5, 0.5 };
 	//renderMan->zoom = 4;
 	for (float i = 0;; i++){
-		float sini = 100*(sin(i/16)+1);
+		float sini = 100 * (sin(i / 16) + 1);
 		//renderMan->zoom = (sin(i / 600) + 1);
 		renderMan->cameraPoint = { obj->posX, obj->posY };
-		float zoomRatio = renderMan->zoomRatio(obj2->posX, obj2->posY);
+		float zoomRatio = renderMan->zoomRatio(obj2->posX - obj2->renderRect.w / 2, obj2->posY - obj2->renderRect.h / 2);
+		float temp = zoomRatio = renderMan->zoomRatio(obj2->posX - obj2->renderRect.w / 2, obj2->posY + obj2->renderRect.h / 2);
+		if (temp > zoomRatio) { zoomRatio = temp; }
+		temp = renderMan->zoomRatio(obj2->posX + obj2->renderRect.w / 2, obj2->posY - obj2->renderRect.h / 2);
+		if (temp > zoomRatio) { zoomRatio = temp; }
+		temp = renderMan->zoomRatio(obj2->posX + obj2->renderRect.w / 2, obj2->posY + obj2->renderRect.h / 2);
+		if (temp > zoomRatio) { zoomRatio = temp; }
 		cout << zoomRatio << endl;
 		renderMan->zoom = zoomRatio;
 		obj->posX = 200 * (sin(i / 320));
 		obj->posY = 200 * -(cos(i / 320));
-		obj2->posX = 400 * (sin(i / 160));
-		obj2->posY = 400 * -(cos(i / 200));
+		obj2->posX = 200 * (sin(i / 16)) + obj->posX;
+		obj2->posY = 200 * -(cos(i / 20)) + obj->posY;
 		//obj->renderRect.h = height * (int(i) % 100);
 		obj->rotation = i;
 		if (int(i/10) % 4 == 0) obj->flipH = false;
