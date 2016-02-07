@@ -78,9 +78,14 @@ public:
 	SQUADIO_API bool isReadyToQuit();
 
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
+	// not implemented, but may be useful later if you want the camera to ignore anything out of bounds
 	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
-	SQUADIO_API void setBackground(SDL_Surface* bg);
+	// not implemented, but useful if filenames are likely to change often and may be useful for dynamically created textures
+	SQUADIO_API void setBackground(SDL_Texture* bg);
+	// loads an image given a specific filename.
 	SQUADIO_API void setBackground(std::string filename);
+	// given a specific point in the game world, compare the distance of an object from the center
+	// and the min distance it needs to be visible, returning the ratio that can be used to zoom out or in
 	SQUADIO_API float zoomRatio(float x1, float y1,float minSize = 1,float scaling = 1);
 	SQUADIO_API void renderBackground();
 	/// Function that takes the list of renderable objects (renderObjects) and 

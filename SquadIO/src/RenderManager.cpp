@@ -110,16 +110,15 @@ gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
 	}
 }*/
 void RenderManager::setBackground(std::string filename){
-	//background = bg;
-	std::string path = "resources/" + filename;
-	std::cout<<path<<std::endl;
-	SDL_Surface *tempSurface = IMG_Load(path.c_str());
-	//mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
-	SDL_Texture*tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+	std::string path = "resources/" + filename; //append the folder name
+	SDL_Surface *tempSurface = IMG_Load(path.c_str()); //load image as surface
 	if (tempSurface){
+		//if surface is loaded correctly, then make texture
+		SDL_Texture*tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
 		//free old buffer
 		SDL_FreeSurface(tempSurface);
 		if (tempTexture){
+			//if texture is made correctly, free old background data, and replace with new one
 			if (background){
 				SDL_DestroyTexture(background);
 			}
@@ -131,17 +130,22 @@ void RenderManager::setBackground(std::string filename){
 	}
 }
 float RenderManager::zoomRatio(float x1, float y1, float minSize, float scaling){
-	float dist1 = sqrt(pow(x1 - cameraPoint.x, 2) + pow(y1 - cameraPoint.y, 2));
+	float dist1 = sqrt(pow(x1 - cameraPoint.x, 2) + pow(y1 - cameraPoint.y, 2));//distance between center and (x1,y1)
 	int wWidth = 0;
 	int wHeight = 0;
-	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);
-	float m = (y1 - cameraPoint.y) / (x1 - cameraPoint.x);
-	float mi = (x1 - cameraPoint.x) / (y1 - cameraPoint.y);
+	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);//width and height of the window
+	float m = (y1 - cameraPoint.y) / (x1 - cameraPoint.x); //slope of the line that connects the center and (x1,y1)
+	float mi = (x1 - cameraPoint.x) / (y1 - cameraPoint.y); //inverse of the slope, if one is #INF than the other is 0
+	//what happens next depends on what quadrant the point is in, aka, which edge of the window is closest to (x1,y1)
 	if (x1 < cameraPoint.x && abs(atan(m)) < abs(atan(wHeight / float(wWidth)))){
+		//if we draw a line from the center to (x1,y1), then borderPoint is where that line crosses the edge of the window
 		float borderPoint = m*(cameraPoint.x - (wWidth / 2)) + y1 - m*x1;
 		float dist2 = sqrt(pow((cameraPoint.x - (wWidth / 2)) - cameraPoint.x, 2)
-							+ pow(borderPoint - cameraPoint.y, 2));
+							+ pow(borderPoint - cameraPoint.y, 2));//distance between borderPoint and center
 		return ((dist1 / dist2)*scaling)>minSize ? (dist1 / dist2)*scaling : minSize;
+		//return the ratio of the two distances; a ratio <1 zooms out, >1 zooms in, ==1 requires no zooming in to see it
+		//the minimum size determines how small it's allowed to go, as the closer a point is to the center,
+		//the closer the ratio gets to #INF, so a minimum size is manditory
 	}
 	else if (y1 < cameraPoint.y && abs(atan(mi)) <= abs(atan(wWidth / float(wHeight)))){
 		float borderPoint = mi*(cameraPoint.y - (wHeight / 2)) - mi*y1 + x1;
@@ -161,7 +165,7 @@ float RenderManager::zoomRatio(float x1, float y1, float minSize, float scaling)
 			+ pow(borderPoint - cameraPoint.x, 2));
 		return ((dist1 / dist2)*scaling)>minSize ? (dist1 / dist2)*scaling : minSize;
 	}
-	return minSize;
+	return minSize;//if the point is at the center, than just return the minimum size
 }
 void RenderManager::renderBackground(){
 	//to avoid using a null background
@@ -176,7 +180,7 @@ void RenderManager::renderBackground(){
 		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % dstrect.w)*z;
 		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % dstrect.h)*z;
 		dstrect.w *= z;//stretched due to zoom
-		dstrect.h *= z;
+		dstrect.h *= z;//>1 means zoom in, <1 means zoom out
 		//tiling the image
 		for (float x = centerOffsetX - ceil(centerOffsetX / (dstrect.w))*dstrect.w; x < windowSurface->w; x += dstrect.w){
 			//x = the offset - the number of times the background needs to be repeated from the offset point and (0,0) on the window and keep the background static
