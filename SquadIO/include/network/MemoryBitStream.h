@@ -16,18 +16,21 @@ inline float ConvertFromFixed(uint32_t inNumber, float inMin, float inPrecision)
 	return static_cast< float >(inNumber)* inPrecision + inMin;
 }
 
-
+/**
+* OutputMemoryBitStream is a class used to send bitstreams
+*
+*/
 class OutputMemoryBitStream
 {
 public:
-
+	/// Constructor
 	OutputMemoryBitStream() :
 		mBitHead(0),
 		mBuffer(nullptr)
 	{
 		ReallocBuffer(1500 * 8);
 	}
-
+	/// Destructor
 	~OutputMemoryBitStream()	{ std::free(mBuffer); }
 
 	void		WriteBits(uint8_t inData, size_t inBitCount);
@@ -79,7 +82,10 @@ private:
 	uint32_t	mBitHead;
 	uint32_t	mBitCapacity;
 };
-
+/**
+* InputMemoryBitStream is a class used to read bitstreams
+*
+*/
 class InputMemoryBitStream
 {
 public:
