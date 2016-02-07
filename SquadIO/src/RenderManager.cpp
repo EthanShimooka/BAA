@@ -130,6 +130,39 @@ void RenderManager::setBackground(std::string filename){
 		printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
 	}
 }
+float RenderManager::zoomRatio(float x1, float y1, float minSize, float scaling){
+	float dist1 = sqrt(pow(x1 - cameraPoint.x, 2) + pow(y1 - cameraPoint.y, 2));
+	int wWidth = 0;
+	int wHeight = 0;
+	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);
+	float m = (y1 - cameraPoint.y) / (x1 - cameraPoint.x);
+	float mi = (x1 - cameraPoint.x) / (y1 - cameraPoint.y);
+	if (x1 < cameraPoint.x && abs(atan(m)) < abs(atan(wHeight / float(wWidth)))){
+		float borderPoint = m*(cameraPoint.x - (wWidth / 2)) + y1 - m*x1;
+		float dist2 = sqrt(pow((cameraPoint.x - (wWidth / 2)) - cameraPoint.x, 2)
+							+ pow(borderPoint - cameraPoint.y, 2));
+		return ((dist1 / dist2)*scaling)>minSize ? (dist1 / dist2)*scaling : minSize;
+	}
+	else if (y1 < cameraPoint.y && abs(atan(mi)) <= abs(atan(wWidth / float(wHeight)))){
+		float borderPoint = mi*(cameraPoint.y - (wHeight / 2)) - mi*y1 + x1;
+		float dist2 = sqrt(pow((cameraPoint.y - (wHeight / 2)) - cameraPoint.y, 2)
+							+ pow(borderPoint - cameraPoint.x, 2));
+		return ((dist1 / dist2)*scaling)>minSize ? (dist1 / dist2)*scaling : minSize;
+	}
+	else if (x1 > cameraPoint.x && abs(atan(m)) < abs(atan(wHeight / float(wWidth)))){
+		float borderPoint = m*(cameraPoint.x + (wWidth / 2)) + y1 - m*x1;
+		float dist2 = sqrt(pow((cameraPoint.x + (wWidth / 2)) - cameraPoint.x, 2)
+			+ pow(borderPoint - cameraPoint.y, 2));
+		return ((dist1 / dist2)*scaling)>minSize ? (dist1 / dist2)*scaling : minSize;
+	}
+	else if (y1 > cameraPoint.y && abs(atan(mi)) <= abs(atan(wWidth / float(wHeight)))){
+		float borderPoint = mi*(cameraPoint.y + (wHeight / 2)) - mi*y1 + x1;
+		float dist2 = sqrt(pow((cameraPoint.y + (wHeight / 2)) - cameraPoint.y, 2)
+			+ pow(borderPoint - cameraPoint.x, 2));
+		return ((dist1 / dist2)*scaling)>minSize ? (dist1 / dist2)*scaling : minSize;
+	}
+	return minSize;
+}
 void RenderManager::renderBackground(){
 	//to avoid using a null background
 	if (zoom < minZoom){ zoom = minZoom; }

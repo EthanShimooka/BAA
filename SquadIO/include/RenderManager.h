@@ -81,6 +81,7 @@ public:
 	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
 	SQUADIO_API void setBackground(SDL_Surface* bg);
 	SQUADIO_API void setBackground(std::string filename);
+	SQUADIO_API float zoomRatio(float x1, float y1,float minSize = 1,float scaling = 1);
 	SQUADIO_API void renderBackground();
 	/// Function that takes the list of renderable objects (renderObjects) and 
 	/// draws them on screen. 

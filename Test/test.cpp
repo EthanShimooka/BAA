@@ -39,10 +39,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//renderMan->zoom = 4;
 	for (float i = 0;; i++){
 		float sini = 100*(sin(i/16)+1);
-		renderMan->zoom = (sin(i / 600) + 1);
-		obj->posX = 300 * (sin(i / 16) + 1);
-		obj->posY = 100 * (cos(i / 16) + 1);
+		//renderMan->zoom = (sin(i / 600) + 1);
 		renderMan->cameraPoint = { obj->posX, obj->posY };
+		float zoomRatio = renderMan->zoomRatio(obj2->posX, obj2->posY);
+		cout << zoomRatio << endl;
+		renderMan->zoom = zoomRatio;
+		obj->posX = 200 * (sin(i / 320));
+		obj->posY = 200 * -(cos(i / 320));
+		obj2->posX = 400 * (sin(i / 160));
+		obj2->posY = 400 * -(cos(i / 200));
 		//obj->renderRect.h = height * (int(i) % 100);
 		obj->rotation = i;
 		if (int(i/10) % 4 == 0) obj->flipH = false;
