@@ -1,18 +1,23 @@
 #ifndef NETWORKMANAGER_H_INCLUDED
 #define NETWORKMANAGER_H_INCLUDED
+/**
+* NetworkManager is the overarching network class to handle sending packets. It uses MemoryBitStream to read/write into a bitstream,
+* and communicates with SceneManager to send and receive packets. It communicates with GamerServices to handle the initial connection.
+*
+*/
 class NetworkManager
 {
 public:
-	//contains data for a particular turn
+	/// Contains data for a particular turn
 	static const uint32_t	kTurnCC = 'TURN';
-	//notification used to ready up
+	/// Notification used to ready up
 	static const uint32_t	kReadyCC = 'REDY';
-	//notifies peers that the game will be starting soon
+	/// Notifies peers that the game will be starting soon
 	static const uint32_t	kStartCC = 'STRT';
-	//used to ping a peer when in delay
+	/// Used to ping a peer when in delay
 	static const uint32_t	kDelayCC = 'DELY';
 	static const int		kMaxPacketsPerFrameCount = 10;
-
+	/// Enum describing different states the networkmanager can enter. Uninit, Searching, Lobby, Ready are all pre-game/lobby/connection
 	enum NetworkManagerState
 	{
 		NMS_Unitialized,
@@ -30,23 +35,27 @@ public:
 
 	//SQUADIO_API static NetworkManager * GetNetworkManager(); //singleton class accessor
 
-
+	/// Access point for network manager
 	SQUADIO_API static unique_ptr< NetworkManager >	sInstance;
 
-
+	/// Initializes networkmanager
 	SQUADIO_API static bool	StaticInit();
-
+	/// Constructor
 	SQUADIO_API NetworkManager();
+	/// Destructor
 	SQUADIO_API ~NetworkManager();
-
+	/// Processes incoming packets
 	SQUADIO_API void	ProcessIncomingPackets();
-
+	/// Sends outgoing packets if state is starting or playing
 	SQUADIO_API void	SendOutgoingPackets();
+	/// Updates everything when state is delay
 	SQUADIO_API void	UpdateDelay();
 private:
 	SQUADIO_API void	UpdateSayingHello(bool inForce = false);
 	SQUADIO_API void	SendHelloPacket();
+	/// Updates starting time
 	SQUADIO_API void	UpdateStarting();
+	/// 
 	SQUADIO_API void	UpdateSendTurnPacket();
 	SQUADIO_API void	TryAdvanceTurn();
 public:

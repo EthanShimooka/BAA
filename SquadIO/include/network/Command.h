@@ -97,6 +97,8 @@ public:
 	MoveCommand()
 	{
 		mCommandType = CM_MOVE;
+		xpos = 0;
+		ypos = 0;
 	}
 	/// Unimplemented
 	static shared_ptr< MoveCommand > StaticCreate(uint32_t inNetworkId, const Vector3& inTarget);
@@ -107,6 +109,8 @@ public:
 protected:
 	/// Reads a move command from an output stream
 	virtual void Read(InputMemoryBitStream& inInputStream) override;
+	/// Int coordinates to describe player position
+	uint16_t xpos, ypos;
 
 	Vector3 mTarget;
 };
