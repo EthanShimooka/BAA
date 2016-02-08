@@ -15,11 +15,7 @@ RenderManager* RenderManager::getRenderManager(){
 SDL_Renderer* RenderManager::getRenderManagerRenderer(){
 	RenderManager* manager = &renderManager;
 	return manager->renderer;
-<<<<<<< HEAD
 }
-=======
-}		
->>>>>>> refs/heads/new-master
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -42,15 +38,10 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/heads/new-master
 	return true;
 }
 
 void RenderManager::update(){
-<<<<<<< HEAD
 	//check to see if escape key was pushed (paused) or 
 	/*SDL_Event event;
 	while (SDL_PollEvent(&event)){
@@ -61,8 +52,6 @@ void RenderManager::update(){
 			}
 		}
 	}*/
-=======
->>>>>>> refs/heads/new-master
 	//clear screen
 	windowSurface = SDL_GetWindowSurface(renderWindow);
 
@@ -70,28 +59,11 @@ void RenderManager::update(){
 	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
 	SDL_RenderClear(renderer);
 	renderBackground();
-<<<<<<< HEAD
 	SDL_UpdateWindowSurface(renderWindow);
-=======
-
->>>>>>> refs/heads/new-master
 	//interate through renderables, and generate the current frame
 	renderAllObjects(); //SHOULD BE UPDATED TO BE RENDERSCENE
-
-<<<<<<< HEAD
-	//
-	
-	SDL_RenderPresent(renderer);
-	//TODO: Remove delay
-	SDL_Delay(20);
-	//This next line is only still here to act as a restore point
-	//SDL_RendererFlip(renderWindow);
-
-=======
 	SDL_UpdateWindowSurface(renderWindow);
-
 	SDL_RenderPresent(renderer);
->>>>>>> refs/heads/new-master
 }
 //TODO: this function is necessary, but we need a resource manager first
 gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
@@ -116,16 +88,9 @@ gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
 	}
 	return NULL;
 }
-<<<<<<< HEAD
 /*void RenderManager::setBackground(SDL_Texture* bg){
 	if (bg){
 		SDL_Surface* tempSurface = SDL_ConvertSurface(bg, bg->format,bg->flags);
-=======
-
-void RenderManager::setBackground(SDL_Surface* bg){
-	if (bg){
-		SDL_Surface* tempSurface = SDL_ConvertSurface(bg, bg->format, bg->flags);
->>>>>>> refs/heads/new-master
 		//SDL_BlitSurface(bg, NULL,tempSurface, NULL);
 		if (tempSurface){
 			SDL_FreeSurface(background);

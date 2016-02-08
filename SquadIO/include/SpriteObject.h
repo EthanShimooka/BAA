@@ -27,13 +27,13 @@
 // TODO: import the tinyxml library
 //#include "TimyXML.h"
 
-
+*/
 /**
 * SpriteObject inherits from SDLRenderObject.
 *
 */
 
-class SpriteObject : public SDLRenderObject{
+/*class SpriteObject : public SDLRenderObject{
 private:
 protected:
 	DWORD timeLastFrame;
