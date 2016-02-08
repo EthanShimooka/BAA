@@ -1,13 +1,6 @@
 #include "test.h"
-<<<<<<< HEAD
 #include <cmath>
 
-using namespace std;
-
-int main(int argc, char *argv[]) {
-	//main() is the entry point for standard C++ standard, but _tmain is a Microsoft extension.
-	//TODO: Since the Microsoft specific_tmain is the main entry point for our project, try and call main() from it and put all code in main()
-=======
 //#include "include\network\NetIncludes.h"
 
 using namespace std;
@@ -43,7 +36,6 @@ int main() {
 	int b = 98;
 	cout << SquadIO::SquadIO::Add(a, b) << endl;
 	*/
->>>>>>> refs/heads/new-master
 	return 0;
 }
 
