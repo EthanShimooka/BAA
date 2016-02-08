@@ -23,18 +23,17 @@
 #include <math.h>
 #include <list>
 
-
 /**
 * SDLRender Object is the renderable object that take a pointer to a renderResource (gameResource).
 * SDLRenderObject also contains the renderable options that are fed into the renderManager.
 */
-
 class SDLRenderObject : public EngineObject{
 	//NOTE: when we make position, rotation, etc. private members we either need to call
 	//the appropriate getter setter functions in RenderManager->renderAllObjects (doable) or use c++ friend feature (doable just different)
 private:
 protected:
 public:
+<<<<<<< HEAD
 	/// anchor = center of rotation and center of render
 	/// the origin is the top left corner of the object,
 	/// and {1,1} represents the bottom right corner
@@ -43,6 +42,12 @@ public:
 		float y;
 	} anchor;
 
+=======
+	struct anchor_point {
+		float x;
+		float y;
+	} anchor;
+>>>>>>> refs/heads/new-master
 	/// pointer to renderResource, which is derived from the RenderManager
 	/// function loadfromXML()
 	RenderResource *renderResource;
@@ -54,11 +59,18 @@ public:
 	/// Object position on the y axis
 	float posY;
 	double rotation;
+<<<<<<< HEAD
 	bool flipH;
 	bool flipV;
 	bool visible;
 	int layer;
 	SQUADIO_API bool operator<(const SDLRenderObject& rhs);
+=======
+	//SDL_Point anchor;
+	bool flipH;
+	bool flipV;
+	bool visible;
+>>>>>>> refs/heads/new-master
 	/// SDL color key paramater, usually should not be tampared with
 	SDL_Color colorKey;
 	/// A key to enable color filtering 
@@ -77,6 +89,7 @@ public:
 	SQUADIO_API bool getVisibility();
 	SQUADIO_API void setVisibility(bool flag);*/
 	/// Abstract update function to be overriden.
+	SQUADIO_API void setColorKey(unsigned int r, unsigned int g, unsigned int b);
 	SQUADIO_API virtual void update(){};
 };
 

@@ -16,6 +16,7 @@
 #include "Tinyxml2.h"
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_image.h"
+#include "include\SceneManager.h"
 
 #include <string>
 #include <sstream>
@@ -35,11 +36,13 @@
 class RenderManager : public EngineObject {
 private:
 protected:
+	/// Constructor.
 	RenderManager();
 	/// why is the destructor virtual?
 	virtual ~RenderManager(){} //why is the destructor virtual?
 	/// Static instance of RenderManager class
 	static RenderManager renderManager;
+	void renderScene();
 public:
 	/// Singlelton accessor fuinction for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
@@ -49,6 +52,7 @@ public:
 	//TODO: make get and set functions for the below variables
 	SDL_Window* renderWindow;
 	SDL_Surface* windowSurface;
+<<<<<<< HEAD
 	SDL_Texture* background;
 	SDL_Renderer* renderer;
 	float zoom;
@@ -57,6 +61,10 @@ public:
 		float x;
 		float y;
 	} cameraPoint;
+=======
+	SDL_Surface* background;
+	SDL_Renderer* renderer;
+>>>>>>> refs/heads/new-master
 	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
@@ -79,6 +87,7 @@ public:
 	SQUADIO_API bool isReadyToQuit();
 
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
+<<<<<<< HEAD
 	// not implemented, but may be useful later if you want the camera to ignore anything out of bounds
 	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
 	// not implemented, but useful if filenames are likely to change often and may be useful for dynamically created textures
@@ -88,6 +97,11 @@ public:
 	// given a specific point in the game world, compare the distance of an object from the center
 	// and the min distance it needs to be visible, returning the ratio that can be used to zoom out or in
 	SQUADIO_API float zoomRatio(float x1, float y1,float minSize = 1,float scaling = 1);
+=======
+	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
+	SQUADIO_API void setBackground(SDL_Surface* bg);
+	SQUADIO_API void setBackground(std::string filename);
+>>>>>>> refs/heads/new-master
 	SQUADIO_API void renderBackground();
 	/// Function that takes the list of renderable objects (renderObjects) and 
 	/// draws them on screen. 
@@ -95,9 +109,14 @@ public:
 	SQUADIO_API void renderAllObjects();
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
+<<<<<<< HEAD
 	SQUADIO_API static bool compObj(const SDLRenderObject* left, const SDLRenderObject* right);
 	SQUADIO_API void sortObjects();
 	//std::priority_queue<SDLRenderObject*> renderObjects;
+=======
+
+	SceneManager* sceneManager;
+>>>>>>> refs/heads/new-master
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

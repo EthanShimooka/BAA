@@ -53,15 +53,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\blauwill\Downloads\SDL2_image-2.0.1\include;$(SolutionDir)/SquadIO/Debug/;C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(SolutionDir)/SquadIO/;$(SolutionDir)/Debug/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\zlib\include;$(SolutionDir)SquadIO\include\network;$(SolutionDir)SquadIO\Debug\;$(SolutionDir)\SquadIO\;$(SolutionDir)\Debug\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\zlib\lib;$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,43 +72,73 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\include\network;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\vpmou_000\Desktop\BAA-master\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib;winmm.lib;winmm.libwinmm.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
+    <ClInclude Include="include\network\BirdMath.h" />
+    <ClInclude Include="include\network\Command.h" />
+    <ClInclude Include="include\network\CommandList.h" />
+    <ClInclude Include="include\network\GamerServices.h" />
+    <ClInclude Include="include\network\MemoryBitStream.h" />
+    <ClInclude Include="include\network\NetIncludes.h" />
+    <ClInclude Include="include\network\NetworkManager.h" />
+    <ClInclude Include="include\network\RandGen.h" />
+    <ClInclude Include="include\network\Timing.h" />
+    <ClInclude Include="include\network\TurnData.h" />
+    <ClInclude Include="include\network\WeightedTimedMovingAverage.h" />
+    <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\InputMap.h" />
+    <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\LogManager.h" />
     <ClInclude Include="include\RenderManager.h" />
     <ClInclude Include="include\RenderResource.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SDLRenderObject.h" />
-    <ClInclude Include="include\SpriteObject.h" />
     <ClInclude Include="include\SquadIO.h" />
+    <ClInclude Include="zlib\include\zconf.h" />
+    <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\LogManager.cpp" />
+    <ClCompile Include="src\network\BirdMath.cpp" />
+    <ClCompile Include="src\network\Command.cpp" />
+    <ClCompile Include="src\network\CommandList.cpp" />
+    <ClCompile Include="src\network\GamerServicesSteam.cpp" />
+    <ClCompile Include="src\network\MemoryBitStream.cpp" />
+    <ClCompile Include="src\network\NetworkManager.cpp" />
+    <ClCompile Include="src\network\RandGen.cpp" />
+    <ClCompile Include="src\network\Timing.cpp" />
+    <ClCompile Include="src\network\TurnData.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\RenderResource.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\SDLRenderObject.cpp" />
-    <ClCompile Include="src\SpriteObject.cpp" />
     <ClCompile Include="src\SquadIO.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cException.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="zlib\lib\zdll.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

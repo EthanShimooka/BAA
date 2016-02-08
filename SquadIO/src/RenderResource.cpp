@@ -1,7 +1,10 @@
 #pragma once
 #include "include\RenderResource.h"
 #include "include\RenderManager.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/heads/new-master
 
 RenderResource::RenderResource(){}
 
@@ -29,6 +32,7 @@ void RenderResource::load(){
 	//SDL_Surface *tempSurface = IMG_Load(path);
 	std::string path = "resources/" + m_Filename;
 	SDL_Surface *tempSurface = IMG_Load(path.c_str());
+<<<<<<< HEAD
 	SDL_Texture *tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
 	//mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
 	if (tempSurface){
@@ -39,6 +43,22 @@ void RenderResource::load(){
 				SDL_DestroyTexture(mTexture);
 			}
 			mTexture = tempTexture;
+=======
+
+	//SDL_Texture *tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+	mTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+
+	if (tempSurface){
+		//free old buffer
+
+		SDL_FreeSurface(tempSurface);
+		if (mTexture){
+			//delete previous texture
+			//SDL_DestroyTexture(mTexture);
+			//replace with new texture
+			//mTexture = tempTexture;
+			//SDL_FreeSurface(tempSurface);//deletes both temp and mSurface
+>>>>>>> refs/heads/new-master
 		}
 	}
 	else{
