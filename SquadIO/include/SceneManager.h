@@ -13,6 +13,7 @@
 #include "include/SDLRenderObject.h"
 #include "include/RenderResource.h"
 #include "LogManager.h"
+#include "box2D\Box2D.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -102,6 +103,7 @@ class SceneObject : public SDLRenderObject {
 private:
 protected:
 public:
+	b2Body* bod;
 }; //end class SceneObject
 
 
