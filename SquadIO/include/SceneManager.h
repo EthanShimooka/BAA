@@ -103,7 +103,10 @@ class SceneObject : public SDLRenderObject {
 private:
 protected:
 public:
-	b2Body* bod;
+	b2Body* body;
+	//can be static, dynamic, or kinetic
+	b2BodyType bodyType;
+
 }; //end class SceneObject
 
 

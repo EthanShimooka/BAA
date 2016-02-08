@@ -112,6 +112,8 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 	if (object->colorKeyEnabled)
 		//object->setColorKey(r, g, b);
 
+	//probably will want physics features to be assigned here
+
 	layer->m_SceneObjects.push_back(object);
 
 }
@@ -218,6 +220,21 @@ void SceneManager::checkTimerExpired() {
 
 void SceneManager::update() {
 	checkTimerExpired();
+
+	//iterate through all the scene items and perform physics updates on them.
+	for (auto layerIter = m_Layers.begin(); layerIter != m_Layers.end(); layerIter++){
+		auto layerObjects = (*layerIter)->m_SceneObjects;
+		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
+			//perform the physics updates here
+
+			if ((*objectIter)->bodyType == b2_dynamicBody){
+				//do something
+			}else if((*objectIter)->bodyType == b2_staticBody){
+				//could be an immovable platform? maybe a switch?
+			}
+			//other physics stuff
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
