@@ -124,7 +124,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	renderMan->sortObjects();
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
-	obj2->anchor = { 1.0 , 1.0 };
+	obj->anchor = { 0.5 , 0.5 };
 	//renderMan->zoom = 4;
 	for (float i = 0;; i++){
 		float sini = 100 * (sin(i / 16) + 1);
@@ -144,18 +144,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		renderMan->zoom = zoomRatio;
 		//obj->posX = 200 * (sin(i / 320));
 		//obj->posY = 200 * -(cos(i / 320));
-		obj2->posX = 150 * (sin(i / 32)) + obj->posX;
-		obj2->posY = 150 * -(cos(i / 40)) + obj->posY;
+		obj2->posX = 500 * (sin(i / 32)) + obj->posX;
+		obj2->posY = 500 * -(cos(i / 40)) + obj->posY;
 		//obj->renderRect.h = height * (int(i) % 100);
-		obj2->rotation = i;
-		if (obj2->posY < 0) {
-			obj2->flipV = true;
-			obj2->flipH = true;
-		}
-		else {
-			obj2->flipV = false;
-			obj2->flipH = false;
-		}
+		obj->rotation = i;
+		//if (int(i/10) % 4 == 0) obj->flipH = false;
 		//if (int(i/10) % 4 == 1) obj->flipV = false;
 		//if (int(i/10) % 4 == 2) obj->flipH = true;
 		//if (int(i/10) % 4 == 3) obj->flipV = true;
