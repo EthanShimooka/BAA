@@ -195,8 +195,6 @@ void RenderManager::renderAllObjects(){
 		if ((*iter)->visible){
 			//this update is a SpriteObject specific method for spritesheets
 			//(*iter)->update();
-			float flipx = (*iter)->flipV ? -1 : 1;
-			float flipy = (*iter)->flipH ? -1 : 1;
 			SDL_Rect pos;
 			pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w * (*iter)->anchor.x)*z + windowSurface->w / 2);
 			pos.y = int((((*iter)->posY) - cameraPoint.y - (*iter)->renderRect.h * (*iter)->anchor.y)*z + windowSurface->h / 2);
