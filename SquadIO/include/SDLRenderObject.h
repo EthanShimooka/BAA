@@ -35,7 +35,10 @@ class SDLRenderObject : public EngineObject{
 private:
 protected:
 public:
-	struct anchor_point {
+	/// anchor = center of rotation and center of render
+	/// the origin is the top left corner of the object,
+	/// and {1,1} represents the bottom right corner
+	struct point {
 		float x;
 		float y;
 	} anchor;
@@ -51,10 +54,11 @@ public:
 	/// Object position on the y axis
 	float posY;
 	double rotation;
-	//SDL_Point anchor;
 	bool flipH;
 	bool flipV;
 	bool visible;
+	int layer;
+	SQUADIO_API bool operator<(const SDLRenderObject& rhs);
 	/// SDL color key paramater, usually should not be tampared with
 	SDL_Color colorKey;
 	/// A key to enable color filtering 

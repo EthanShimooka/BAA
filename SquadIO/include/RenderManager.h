@@ -25,6 +25,7 @@
 #include <Windows.h>
 #include <math.h>
 #include <list>
+#include <queue>
 
 /**
 * RenderManager d
@@ -94,6 +95,9 @@ public:
 	SQUADIO_API void renderAllObjects();
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
+	SQUADIO_API static bool compObj(const SDLRenderObject* left, const SDLRenderObject* right);
+	SQUADIO_API void sortObjects();
+	//std::priority_queue<SDLRenderObject*> renderObjects;
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

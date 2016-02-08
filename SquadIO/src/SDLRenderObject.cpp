@@ -23,6 +23,7 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		flipH = false;
 		flipV = false;
 		visible = true;
+		layer = 1;
 		if (colorKeyEnabled){
 			//generate the color key
 			//TODO: commented out colorkey stuff. We're using PNG's with transparency, so no need for colorkey at the moment
@@ -35,6 +36,11 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 	}
 }
 
+bool operator<(const SDLRenderObject& lhs, const SDLRenderObject& rhs){
+	std::cout << "hi" << std::endl;
+	return lhs.layer < rhs.layer;
+
+}
 
 //TODO: These are for when we make position, rotation, etc. private attibutes and need to change them
 /*SDL_Rect* SDLRenderObject::getRenderRect(){return &renderRect;}

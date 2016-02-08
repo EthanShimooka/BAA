@@ -204,8 +204,8 @@ void RenderManager::renderAllObjects(){
 			//this update is a SpriteObject specific method for spritesheets
 			//(*iter)->update();
 			SDL_Rect pos;
-			pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w / 2)*z + windowSurface->w / 2);
-			pos.y = int((((*iter)->posY) - cameraPoint.y - (*iter)->renderRect.h / 2)*z + windowSurface->h / 2);
+			pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w * (*iter)->anchor.x)*z + windowSurface->w / 2);
+			pos.y = int((((*iter)->posY) - cameraPoint.y - (*iter)->renderRect.h * (*iter)->anchor.y)*z + windowSurface->h / 2);
 			pos.w = (*iter)->renderRect.w*z;
 			pos.h = (*iter)->renderRect.h*z;
 			/*auto src = (*iter)->renderResource->mSurface;
@@ -226,7 +226,13 @@ void RenderManager::renderAllObjects(){
 		}
 	}
 }
-
+bool RenderManager::compObj(const SDLRenderObject* left, const SDLRenderObject* right){
+	std::cout << left->layer <<">"<< right->layer << std::endl;
+	return left->layer > right->layer;
+}
+void RenderManager::sortObjects(){
+	renderObjects.sort(RenderManager::compObj);
+}
 void RenderManager::free(){
 	SDL_DestroyWindow(renderWindow);
 	SDL_DestroyRenderer(renderer);
