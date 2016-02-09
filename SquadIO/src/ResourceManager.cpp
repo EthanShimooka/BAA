@@ -49,12 +49,7 @@ gameResource* ResourceManager::findResourcebyFilename(std::string RFN)
 		if (!(*it).second.empty()) {
 			std::list<gameResource*>::iterator list_it;
 			for (list_it = (*it).second.begin(); list_it != (*it).second.end();
-<<<<<<< HEAD
-				*list_it){
-=======
 				*list_it++){
-
->>>>>>> refs/heads/new-master
 				//if matching ID
 				if ((*list_it)->m_Filename == RFN)
 					return (*list_it);
@@ -64,26 +59,7 @@ gameResource* ResourceManager::findResourcebyFilename(std::string RFN)
 	return NULL;
 }
 
-<<<<<<< HEAD
-=======
-gameResource* ResourceManager::findResourcebyFilename(std::string RFN)
-{
-	std::map < unsigned int, std::list < gameResource*>>::iterator it;
-	//search through scopes
-	for (it = m_Resources.begin(); it != m_Resources.end(); it++) {
-		if (!(*it).second.empty()) {
-			std::list<gameResource*>::iterator list_it;
-			for (list_it = (*it).second.begin(); list_it != (*it).second.end();
-				*list_it){
-				//if matching ID
-				if ((*list_it)->m_Filename == RFN)
-					return (*list_it);
-			}
-		}
-	}
-	return NULL;
-}
->>>>>>> refs/heads/new-master
+
 
 // ResourceManager::clear() - - 
 //Clears Resource manager of elements
