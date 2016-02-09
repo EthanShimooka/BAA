@@ -12,8 +12,11 @@
 #include "include/ResourceManager.h"
 #include "include/SDLRenderObject.h"
 #include "include/RenderResource.h"
+#include "InputManager.h"
 #include "LogManager.h"
 #include "box2D\Box2D.h"
+#include "RenderManager.h"
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -191,6 +194,8 @@ public:
 	void addListener(SceneListener* object);
 	/// 
 	void update();
+	/// Puts scene together from incoming packets/input
+	void SQUADIO_API AssembleScene();
 };//end class SceneManager
 
 /////////////////////////////////////////////////////////////////////////////////////////////

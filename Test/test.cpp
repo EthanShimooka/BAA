@@ -51,10 +51,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
 
-
+	
 	for (float i = 0;; i++){
+		sceneMan->AssembleScene();
 		
-		renderMan->update();
+		//sceneMan->AssembleScene();
 		//if (renderMan->isReadyToQuit())break;
 	}
 	std::cout << renderMan << endl;
