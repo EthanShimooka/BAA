@@ -18,6 +18,7 @@ SDL_Renderer* RenderManager::getRenderManagerRenderer(){
 }		
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
+	sceneManager = SceneManager::GetSceneManager();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		std::cout << "Error: Could not initialize SDL Render" << std::endl;
 		return false;

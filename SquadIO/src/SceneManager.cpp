@@ -48,7 +48,7 @@ Layer* SceneManager::findLayer(std::string Name) {
 			return(*list_it);
 		}
 	}
-	THROW_EXCEPTION(301, "Failed to find layer in SceneManager");
+	//THROW_EXCEPTION(301, "Failed to find layer in SceneManager");
 	return NULL;
 }
 
