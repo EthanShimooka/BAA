@@ -43,7 +43,7 @@ protected:
 	static RenderManager renderManager;
 	void renderScene();
 public:
-	/// Singlelton accessor fuinction for RenderManager class.
+	/// Singlelton accessor function for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
 	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
 	/// 

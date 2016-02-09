@@ -16,25 +16,31 @@ inline float ConvertFromFixed(uint32_t inNumber, float inMin, float inPrecision)
 	return static_cast< float >(inNumber)* inPrecision + inMin;
 }
 
-
+/**
+* OutputMemoryBitStream is a class used to send bitstreams
+*
+*/
 class OutputMemoryBitStream
 {
 public:
-
+	/// Constructor
 	OutputMemoryBitStream() :
 		mBitHead(0),
 		mBuffer(nullptr)
 	{
 		ReallocBuffer(1500 * 8);
 	}
-
+	/// Destructor
 	~OutputMemoryBitStream()	{ std::free(mBuffer); }
-
+	/// Writes bits
 	void		WriteBits(uint8_t inData, size_t inBitCount);
+	/// Writes bits
 	void		WriteBits(const void* inData, size_t inBitCount);
-
+	/// Returns a buffer pointer
 	const 	char*	GetBufferPtr()		const	{ return mBuffer; }
+	/// Returns the bitlength
 	uint32_t		GetBitLength()		const	{ return mBitHead; }
+	/// Returns the byte length
 	uint32_t		GetByteLength()		const	{ return (mBitHead + 7) >> 3; }
 
 	void WriteBytes(const void* inData, uint32_t inByteCount)	{ WriteBits(inData, inByteCount << 3); }
@@ -58,10 +64,11 @@ public:
 	}
 
 	void 		Write(bool inData)								{ WriteBits(&inData, 1); }
-
+	/// Writes a vector to a bitstream
 	void		Write(const Vector3& inVector);
+	/// Writes a quaternion to a bitstream
 	void		Write(const Quaternion& inQuat);
-
+	/// Writes a string to a bitstream
 	void Write(const std::string& inString)
 	{
 		uint32_t elementCount = static_cast< uint32_t >(inString.size());
@@ -73,23 +80,29 @@ public:
 	}
 
 private:
+	/// Reallocates the buffer to be a new size
 	void		ReallocBuffer(uint32_t inNewBitCapacity);
-
+	/// Access variable for buffer
 	char*		mBuffer;
+	/// Access variable for bithead
 	uint32_t	mBitHead;
+	/// Access variable for bitcapacity
 	uint32_t	mBitCapacity;
 };
-
+/**
+* InputMemoryBitStream is a class used to read bitstreams
+*
+*/
 class InputMemoryBitStream
 {
 public:
-
+	/// Constructor
 	InputMemoryBitStream(char* inBuffer, uint32_t inBitCount) :
 		mBuffer(inBuffer),
 		mBitCapacity(inBitCount),
 		mBitHead(0),
 		mIsBufferOwner(false) {}
-
+	/// Constructor
 	InputMemoryBitStream(const InputMemoryBitStream& inOther) :
 		mBitCapacity(inOther.mBitCapacity),
 		mBitHead(inOther.mBitHead),
@@ -101,13 +114,15 @@ public:
 		//copy
 		memcpy(mBuffer, inOther.mBuffer, byteCount);
 	}
-
+	/// Destructor
 	~InputMemoryBitStream()	{ if (mIsBufferOwner) { free(mBuffer); }; }
-
+	/// Returns a buffer pointer
 	const 	char*	GetBufferPtr()		const	{ return mBuffer; }
+	/// Returns the remaining number of bits to be read in
 	uint32_t	GetRemainingBitCount() 	const { return mBitCapacity - mBitHead; }
-
+	/// Reads bits
 	void		ReadBits(uint8_t& outData, uint32_t inBitCount);
+	/// Reads bits
 	void		ReadBits(void* outData, uint32_t inBitCount);
 
 	void		ReadBytes(void* outData, uint32_t inByteCount)		{ ReadBits(outData, inByteCount << 3); }
@@ -130,12 +145,12 @@ public:
 
 	void		Read(uint8_t& outData, uint32_t inBitCount = 8)		{ ReadBits(&outData, inBitCount); }
 	void		Read(bool& outData)									{ ReadBits(&outData, 1); }
-
+	/// Reads a quaternion from a bitstream
 	void		Read(Quaternion& outQuat);
-
+	/// Resets the capacity
 	void		ResetToCapacity(uint32_t inByteCapacity)				{ mBitCapacity = inByteCapacity << 3; mBitHead = 0; }
 
-
+	/// Reads a string from a bitstream
 	void Read(std::string& inString)
 	{
 		uint32_t elementCount;
@@ -146,13 +161,17 @@ public:
 			Read(element);
 		}
 	}
-
+	/// Reads a vector from a bitstream
 	void Read(Vector3& inVector);
 
 private:
+	/// Access variable for buffer
 	char*		mBuffer;
+	/// Access variable for bithead
 	uint32_t	mBitHead;
+	/// Access variable for bitcapacity
 	uint32_t	mBitCapacity;
+	/// True if owns the buffer
 	bool		mIsBufferOwner;
 
 };
