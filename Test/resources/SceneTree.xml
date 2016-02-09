@@ -6,7 +6,7 @@
 	</layer>
 	<layer name="layer2" posx="0" posy="0" visible="true">
 		<objects>
-			<object resourceID="2" posx="200" posy="200"  visible="true" colorkey="true" r="0" g="0" b="0"></object>
+			<object  posx="200" posy="200"  visible="true" resourceID="2" colorkey="true" r="0" g="0" b="0"></object>
 		</objects>
 	</layer>
 </scene>
