@@ -272,7 +272,10 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
 	default:
-		std::cout << packetType << std::endl;
+		//std::cout << packetType << std::endl;
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << packetType << std::endl;
+		log->flush();
 		//ignore anything else
 		break;
 	}
@@ -327,15 +330,14 @@ void NetworkManager::SendReadyPacketsToPeers()
 	}
 }
 
-void NetworkManager::SendHelloWorld(){
+void NetworkManager::SendHelloWorld(uint32_t hello){
 	OutputMemoryBitStream outPacket;
-	uint32_t hello = 42;
 	outPacket.Write(hello);
 	for (auto& iter : mPlayerNameMap)
 	{
 		//if (iter.first != mPlayerId)
 		//{
-			SendPacket(outPacket, iter.first);
+		SendPacket(outPacket, iter.first);
 		//}
 	}
 }
@@ -423,7 +425,7 @@ void NetworkManager::HandleConnectionReset(uint64_t inFromPlayer)
 	if (mPlayerNameMap.find(inFromPlayer) != mPlayerNameMap.end())
 	{
 		LogManager* log = LogManager::GetLogManager();
-		log->logBuffer << "Player %llu disconnected. NetworkManager::HandleConnectionReset\n", inFromPlayer;
+		log->logBuffer << inFromPlayer + " disconnected. NetworkManager::HandleConnectionReset\n";
 		log->flush();
 		mPlayerNameMap.erase(inFromPlayer);
 		//Commented out: Code to update scoreboard

@@ -38,11 +38,11 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-	/*LogManager* log = LogManager::GetLogManager();
+	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
 	//RandGen::StaticInit();
-	// need to initialize Steam before SDL so the overlay works
+	// need to initialize Steam before SDL so the overlay works*/
 	if (!GamerServices::StaticInit())
 	{
 		std::cout << "Failed to initialize Steam" << "\n";
@@ -60,6 +60,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			 << "Press 3 for text test" << endl
 			 << "Press 4 for all players in lobby" << endl;
 		cin >> x;
+		uint32_t hello = 2;
 		switch (x){
 		case 1:
 			cout << NetworkManager::sInstance->GetPlayerCount() << endl;
@@ -71,14 +72,21 @@ int _tmain(int argc, _TCHAR* argv[]){
 			cout << GamerServices::sInstance->GetLocalPlayerName() << endl;
 			break;
 		case 3:
-			NetworkManager::sInstance->SendHelloWorld();
+			while (hello < 10001){
+				NetworkManager::sInstance->SendHelloWorld(hello);
+				NetworkManager::sInstance->ProcessIncomingPackets();
+				hello++;
+			}
 			break;
 		case 4:
 			NetworkManager::sInstance->GetAllPlayersInLobby();
-
+			break;
+		
+		case 5:
+			uint32_t h = 1;
+			NetworkManager::sInstance->SendHelloWorld(h);
 		}
-		NetworkManager::sInstance->ProcessIncomingPackets();
-	}*/
+	}
 	/*
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
@@ -128,8 +136,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		renderMan->update();
 		//if (renderMan->isReadyToQuit())break;
 	}
-	std::cout << renderMan << endl;
+	std::cout << renderMan << endl;*/
 
-	log->close();*/
+	log->close();
 	return 0;
 }
