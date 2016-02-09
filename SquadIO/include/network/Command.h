@@ -25,7 +25,8 @@ public:
 	Command() :
 		mCommandType(CM_INVALID),
 		mNetworkId(0),
-		mPlayerId(0)
+		mPlayerId(0),
+		mPacketUID(0)
 	{}
 	/// Given a buffer, will construct the appropriate command subclass
 	static shared_ptr< Command > StaticReadAndCreate(InputMemoryBitStream& inInputStream);
@@ -50,6 +51,8 @@ protected:
 	uint32_t mNetworkId;
 	/// Player Id variable
 	uint64_t mPlayerId;
+	/// Unique packet identifier
+	uint32_t mPacketUID;
 };
 /// Shared pointer of commands
 typedef shared_ptr< Command >	CommandPtr;
@@ -94,11 +97,11 @@ class MoveCommand : public Command
 {
 public:
 	/// Constructor. Defaults CommandType to Move
-	MoveCommand()
+	MoveCommand() :
+		xpos(0),
+		ypos(0)
 	{
 		mCommandType = CM_MOVE;
-		xpos = 0;
-		ypos = 0;
 	}
 	/// Unimplemented
 	static shared_ptr< MoveCommand > StaticCreate(uint32_t inNetworkId, const Vector3& inTarget);
