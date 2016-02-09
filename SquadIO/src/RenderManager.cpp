@@ -18,6 +18,7 @@ SDL_Renderer* RenderManager::getRenderManagerRenderer(){
 }		
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
+	SceneManager* sceneManager = SceneManager::GetSceneManager();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		std::cout << "Error: Could not initialize SDL Render" << std::endl;
 		return false;
@@ -145,6 +146,7 @@ void RenderManager::renderAllObjects(){
 }
 
 void RenderManager::renderScene() { //will need modification to support more flags other than visible
+	SceneManager* sceneManager = SceneManager::GetSceneManager();
 	if (sceneManager) { //scenemanager needs to be filled somewhere else before running this function
 		std::list<Layer*>::iterator i;
 		for (i = sceneManager->m_Layers.begin(); i != sceneManager->m_Layers.end(); i++) {

@@ -1,3 +1,4 @@
+#pragma once
 #include "include\SceneManager.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ Layer* SceneManager::findLayer(std::string Name) {
 			return(*list_it);
 		}
 	}
-	THROW_EXCEPTION(301, "Failed to find layer in SceneManager");
+	//THROW_EXCEPTION(301, "Failed to find layer in SceneManager");
 	return NULL;
 }
 
@@ -85,10 +86,17 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 		}
 
 		if (AttribName == "posx") {
-			object->posX = (float)atof(AttribValue.c_str());
-		}
+			float x = (float)atof(AttribValue.c_str());
+			object->posX = (float)atof(AttribValue.c_str());		}
 		if (AttribName == "posy") {
 			object->posY = (float)atof(AttribValue.c_str());
+		}
+
+		if (AttribName == "visible"){
+			if (AttribValue == "true")
+				object->visible = true;
+			else
+				object->visible = false;
 		}
 
 		if (AttribName == "colorkey"){
@@ -109,11 +117,11 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 		}
 	}
 	
-	if (object->colorKeyEnabled)
+	//if (object->colorKeyEnabled)
 		//object->setColorKey(r, g, b);
 
+	//probably will want physics features to be assigned here
 	layer->m_SceneObjects.push_back(object);
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -218,6 +226,21 @@ void SceneManager::checkTimerExpired() {
 
 void SceneManager::update() {
 	checkTimerExpired();
+
+	//iterate through all the scene items and perform physics updates on them.
+	for (auto layerIter = m_Layers.begin(); layerIter != m_Layers.end(); layerIter++){
+		auto layerObjects = (*layerIter)->m_SceneObjects;
+		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
+			//perform the physics updates here
+
+			if ((*objectIter)->bodyType == b2_dynamicBody){
+				//do something
+			}else if((*objectIter)->bodyType == b2_staticBody){
+				//could be an immovable platform? maybe a switch?
+			}
+			//other physics stuff
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -240,4 +263,33 @@ void SceneManager::addListener(SceneListener* object) {
 
 void SceneManager::sortLayers() {
 	m_Layers.sort(compareLayerOrder);
+}
+
+void SceneManager::AssembleScene(){
+	InputManager* input = InputManager::getInstance();
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	//get reference to network manager
+	renderMan->renderObjects.clear();
+	for (std::list<Layer*>::iterator lay_it = m_Layers.begin(); lay_it != m_Layers.end(); lay_it++) {
+		for (std::list<SceneObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
+			//cout << "item:" << &(*obj_it) << "x=" << (*obj_it)->posX << endl;
+			/*
+			if ((*obj_it)->getPlayerID() == GamerServices::sInstance->myID()) {
+			//if this object is a locally owned object => update using input manager
+			(*obj_it)->update(input);
+			} else {
+			//if this object is not locally owned => update object using information from packets
+			//loop through all packets looking for a specific packet with this Unique Object Reference
+			//if you find the specific packet with said UOR set this objects values to packet's values
+			(*obj_it)->update(network);
+
+			}
+			*/
+			renderMan->renderObjects.push_back((*obj_it));
+		}
+	}
+
+	renderMan->update();
+	SDL_Delay(20);
+
 }
