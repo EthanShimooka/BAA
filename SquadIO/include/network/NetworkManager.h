@@ -130,6 +130,8 @@ public:
 	uint64_t GetMyPlayerId() const { return mPlayerId; }
 	/// Returns true if player with player Id is in game
 	bool	IsPlayerInGame(uint64_t inPlayerId);
+
+	vector<uint32_t> test;
 private:
 //	void	AddToNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
 //	void	RemoveFromNetworkIdToGameObjectMap(GameObjectPtr inGameObject);

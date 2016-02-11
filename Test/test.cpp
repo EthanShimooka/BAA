@@ -12,6 +12,16 @@ using namespace std;
 	return newSrc;
 }*/
 
+void numbersDropped(const vector<uint32_t>& v){
+	size_t size = v.size();
+	//bool flag = false;
+	for (size_t i = 0, j = 0; i < size; ++i, ++j){
+		while (j != v[i]){
+			cout << j << " ";
+			++j;
+		}
+	}
+}
 
 int main() {
 	/*LogManager* log = LogManager::GetLogManager();
@@ -75,7 +85,17 @@ int _tmain(int argc, _TCHAR* argv[]){
 			break;
 		case 4:
 			NetworkManager::sInstance->GetAllPlayersInLobby();
-
+			break;
+		case 5:
+			NetworkManager::sInstance->ProcessIncomingPackets();
+			size_t size = NetworkManager::sInstance->test.size();
+			cout << "size: " << size << endl;
+			if (size > 0){
+				cout << "Packets Dropped: ";
+				numbersDropped(NetworkManager::sInstance->test);
+				cout << "Percentage: " << static_cast<double>(size) / static_cast<double>(NetworkManager::sInstance->test[size - 1]) << endl;
+			}
+			break;
 		}
 		NetworkManager::sInstance->ProcessIncomingPackets();
 	}*/
