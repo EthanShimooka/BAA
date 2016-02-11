@@ -20,6 +20,20 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
+
+	if (!GamerServices::StaticInit())
+		std::cout << "Failed to initialize Steam" << "\n";
+
+	if (!NetworkManager::StaticInit())
+		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
+
+	while (true){
+		GamerServices::sInstance->Update();
+		if (NetworkManager::sInstance->GetPlayerCount() == 2){
+			NetworkManager::sInstance->TryReadyGame();
+		}
+	}
+
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
@@ -36,7 +50,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 	Square* player = new Square();
-	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2,100, 100);
+	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2, 100, 100);
+	Square* player2 = new Square();
+	player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, 300, 200);
 
 
 	/////////////////////////////////////////////////////
