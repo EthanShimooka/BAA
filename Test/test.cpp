@@ -90,74 +90,72 @@ int _tmain(int argc, _TCHAR* argv[]){
 	renderMan->setBackground("tess1.gif"); //TODO: change so it does not reference the direct filename
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
-	//fetches resource count
-
-
-	sceneMan->loadFromXMLFile("SceneTree.xml");
-
-
-	SDLRenderObject* obj = new SDLRenderObject();
-	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
+	sceneMan->loadFromXMLFile("SceneTree.xml");//load objects onto scene
+	
+	//initializing objects not in XML
+	SceneObject* obj = new SceneObject();//daffy duck that spins in the center of the window
+	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(4));//daffy.jpg
 	obj->renderResource = rend;
 	obj->setResourceObject(rend);
-	SDLRenderObject* obj2 = new SDLRenderObject();
-	RenderResource* rend2 = static_cast<RenderResource*>(resourceMan->findResourcebyID(3));
+	
+	SceneObject* obj2 = new SceneObject();//yellow duck that circles around the center
+	RenderResource* rend2 = static_cast<RenderResource*>(resourceMan->findResourcebyID(3));//duck.png
 	obj2->renderResource = rend2;
 	obj2->setResourceObject(rend2);
-	SDLRenderObject* obj3 = new SDLRenderObject();
-	RenderResource* rend3 = static_cast<RenderResource*>(resourceMan->findResourcebyID(4));
-	obj3->renderResource = rend3;
-	obj3->setResourceObject(rend3);
 
-	obj->zdepth = 1;
-	obj2->zdepth = 3;
-	obj3->zdepth = 4;
-	//cout << (obj3 < obj2) << endl;
-	renderMan->renderObjects.push_back(obj2);
-	renderMan->renderObjects.push_back(obj);
-	//renderMan->renderObjects.push_back(obj3);
-	renderMan->sortObjects();
-	float width = obj->renderRect.w;
-	float height = obj->renderRect.h;
-	obj->anchor = { 0.5 , 0.5 };
-	//renderMan->zoom = 4;
-	
+	//push the objects onto the scene manager's first layer
+	sceneMan->m_Layers.front()->m_SceneObjects.push_back(obj);
+	sceneMan->m_Layers.front()->m_SceneObjects.push_back(obj2);
+	//obj->zdepth = 1;
+	//obj2->zdepth = 3;
+	//renderMan->sortObjects();
+
+	//set the center of rotation/rendering for each object
+	obj->anchor = { 0.5 , 0.5 };//{0,0} means top left corner of image
+	obj2->anchor = { 0.5, 0.5 };//{1,1} means bottom right corner of image
+
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
+	//core loop at moment
 	for (float i = 0;; i++){
-		sceneMan->AssembleScene();
-
-		//sceneMan->AssembleScene(
 		//if (renderMan->isReadyToQuit())break;
-		float sini = 100 * (sin(i / 16) + 1);
-		//renderMan->zoom = (sin(i / 600) + 1);
-		//renderMan->cameraPoint = { obj->posX, obj->posY };
-		//renderMan->cameraPoint = { (obj->posX + obj2->posX) / 2, (obj->posY + obj2->posY) / 2 };
-		float focus = 0.54; // 0.5 = midpoint, 1.0 = obj focus, 0.0 = obj2 focus
+
+		//cameraPoint is a point in the world that is made to be the window's center
+		//Set the camera point to a point that allows two objects to be visible to the window
+		float focus = 0.54; // 1.0 = obj focus; 0.0 = obj2 focus ; 0.5 = midpoint
 		renderMan->cameraPoint = { (obj->posX*focus + obj2->posX*(1 - focus)), (obj->posY*focus + obj2->posY*(1 - focus)) };
+		//cameraPoint is some point along a line that connects object 1 and object 2
+
+		//zoom ratio returns a number that tells how much or little the window should be zoomed in or out
+		//to make sure that a particular point is at the edge of the window
+
+		//The following section tests the 4 corners of obj2's sprite, and makes sure all 4 corners are visible
+		//alternate method: test distances, and only get the zoomRatio of the point with the largest distance from the cameraPoint
 		float zoomRatio = renderMan->zoomRatio(obj2->posX - obj2->renderRect.w / 2, obj2->posY - obj2->renderRect.h / 2);
 		float temp = zoomRatio = renderMan->zoomRatio(obj2->posX - obj2->renderRect.w / 2, obj2->posY + obj2->renderRect.h / 2);
-		if (temp > zoomRatio) { zoomRatio = temp; }
+		if (temp > zoomRatio) { zoomRatio = temp; }//if this corner requires a larger zoom, replace the older one
 		temp = renderMan->zoomRatio(obj2->posX + obj2->renderRect.w / 2, obj2->posY - obj2->renderRect.h / 2);
-		if (temp > zoomRatio) { zoomRatio = temp; }
+		if (temp > zoomRatio) { zoomRatio = temp; }//if this corner requires a larger zoom, replace the older one
 		temp = renderMan->zoomRatio(obj2->posX + obj2->renderRect.w / 2, obj2->posY + obj2->renderRect.h / 2);
-		if (temp > zoomRatio) { zoomRatio = temp; }
-		//cout << zoomRatio << endl;
-		renderMan->zoom = zoomRatio;
-		//obj->posX = 200 * (sin(i / 320));
-		//obj->posY = 200 * -(cos(i / 320));
-		obj2->posX = 500 * (sin(i / 32)) + obj->posX;
-		obj2->posY = 500 * -(cos(i / 40)) + obj->posY;
-		//obj->renderRect.h = height * (int(i) % 100);
-		obj->rotation = i;
+		if (temp > zoomRatio) { zoomRatio = temp; }//if this corner requires a larger zoom, replace the older one
+		renderMan->zoom = zoomRatio;//zoom is now the largest zoomRatio of the 4 corners
+
+		//obj->posX = 200 * (sin(i / 320)); // change obj's x pos
+		//obj->posY = 200 * -(cos(i / 320)); // change obj's y pos
+		obj2->posX = 500 * (sin(i / 32)) + obj->posX; // change obj2's x pos in relation to obj
+		obj2->posY = 500 * -(cos(i / 40)) + obj->posY; // change obj2's x pos in relation to obj 
+		//obj->renderRect.h = height * (int(i) % 100); // stretch obj's sprite
+		obj->rotation = i;// rotate obj
+
+		//in a cycle, flip the orientation of obj's sprite
 		//if (int(i/10) % 4 == 0) obj->flipH = false;
 		//if (int(i/10) % 4 == 1) obj->flipV = false;
 		//if (int(i/10) % 4 == 2) obj->flipH = true;
 		//if (int(i/10) % 4 == 3) obj->flipV = true;
 
-		renderMan->update();
-		Sleep(30);
+		sceneMan->AssembleScene();//render
+		Sleep(30);//delay before the next update
 	}
 	std::cout << renderMan << endl;
 
