@@ -343,3 +343,28 @@ void SceneManager::AssembleScene(){
 	SDL_Delay(20);
 
 }
+
+void SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y){
+	SceneObject* object = new SceneObject();
+	if (!object)
+		return;
+	
+	ResourceManager* ResMan = ResourceManager::GetResourceManager();
+	object->setResourceObject((RenderResource*)ResMan->findResourcebyID(resourceID));
+
+	object->posX = x;
+	object->posY = y;
+	layer->m_SceneObjects.push_back(object);
+}
+
+void SceneManager::RemoveObject(SceneObject* object, Layer* layer) {
+	if (!layer || !object)
+		return;
+	for (std::list<SceneObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
+		if (&(*obj_it) == &object) {
+			layer->m_SceneObjects.erase(obj_it);//probably causes memleak, need to kill all the scene object values first?
+			break;
+		}
+	}
+	
+}
