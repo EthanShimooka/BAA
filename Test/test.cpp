@@ -93,12 +93,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 	sceneMan->loadFromXMLFile("SceneTree.xml");//load objects onto scene
 	
 	//initializing objects not in XML
-	SceneObject* obj = new SceneObject();//daffy duck that spins in the center of the window
+	SDLRenderObject* obj = new SDLRenderObject();//daffy duck that spins in the center of the window
 	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(4));//daffy.jpg
 	obj->renderResource = rend;
 	obj->setResourceObject(rend);
 	
-	SceneObject* obj2 = new SceneObject();//yellow duck that circles around the center
+	SDLRenderObject* obj2 = new SDLRenderObject();//yellow duck that circles around the center
 	RenderResource* rend2 = static_cast<RenderResource*>(resourceMan->findResourcebyID(3));//duck.png
 	obj2->renderResource = rend2;
 	obj2->setResourceObject(rend2);

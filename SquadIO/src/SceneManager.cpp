@@ -68,7 +68,7 @@ void SceneManager::removeLayer(std::string Name){
 ///////////////////////////////////////////////////////////////////////////////
 
 void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) {
-	SceneObject* object = new SceneObject();
+	SDLRenderObject* object = new SDLRenderObject();
 	unsigned int r = 0;
 	unsigned int g = 0;
 	unsigned int b = 0;
@@ -222,7 +222,7 @@ bool SceneManager::saveToXMLFile(std::string Filename){
 		//build xml element for each of the objects
 		tinyxml2::XMLNode* currObjects = saveFile.NewElement("objects");
 		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
-			SceneObject* currObject = (*objectIter);
+			SDLRenderObject* currObject = (*objectIter);
 
 			tinyxml2::XMLElement* pElement = saveFile.NewElement("object");
 			pElement->SetText("");
@@ -283,11 +283,11 @@ void SceneManager::update() {
 		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
 			//perform the physics updates here
 
-			if ((*objectIter)->bodyType == b2_dynamicBody){
+			//if ((*objectIter)->bodyType == b2_dynamicBody){
 				//do something
-			}else if((*objectIter)->bodyType == b2_staticBody){
+			//}else if((*objectIter)->bodyType == b2_staticBody){
 				//could be an immovable platform? maybe a switch?
-			}
+			//}
 			//other physics stuff
 		}
 	}
@@ -321,7 +321,7 @@ void SceneManager::AssembleScene(){
 	//get reference to network manager
 	renderMan->renderObjects.clear();
 	for (std::list<Layer*>::iterator lay_it = m_Layers.begin(); lay_it != m_Layers.end(); lay_it++) {
-		for (std::list<SceneObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
+		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
 			//cout << "item:" << &(*obj_it) << "x=" << (*obj_it)->posX << endl;
 			/*
 			if ((*obj_it)->getPlayerID() == GamerServices::sInstance->myID()) {
@@ -340,4 +340,29 @@ void SceneManager::AssembleScene(){
 	}
 
 	renderMan->update();
+}
+
+void SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y){
+	SDLRenderObject* object = new SDLRenderObject();
+	if (!object)
+		return;
+	
+	ResourceManager* ResMan = ResourceManager::GetResourceManager();
+	object->setResourceObject((RenderResource*)ResMan->findResourcebyID(resourceID));
+
+	object->posX = x;
+	object->posY = y;
+	layer->m_SceneObjects.push_back(object);
+}
+
+void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
+	if (!layer || !object)
+		return;
+	for (std::list<SDLRenderObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
+		if (&(*obj_it) == &object) {
+			layer->m_SceneObjects.erase(obj_it);//probably causes memleak, need to kill all the scene object values first?
+			break;
+		}
 	}
+	
+}
