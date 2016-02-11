@@ -45,6 +45,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(400, 256, false, "Birds At Arms");
+	renderMan->setBackground("duck.png");
 	resourceMan->loadFromXMLFile("source.xml"); //load resources
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
