@@ -1,8 +1,5 @@
 #pragma once
-#ifndef TEST_H_INCLUDED
-#define TEST_H_INCLUDED
 #include "include\SquadIO.h"
-#include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
 #include "include\EngineObject.h"
 #include "include\ResourceManager.h"
@@ -23,16 +20,16 @@
 #include <math.h>
 #include <list>
 
-
-#include "Square.h"
-#include "InputListener.h"
-
 class test
 {
 public:
 
 	test();
 	~test();
+
+	void render();
+	void update();
+	long double getCurrentTime();
+
 };
 
-#endif

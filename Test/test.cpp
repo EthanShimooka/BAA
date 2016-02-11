@@ -1,67 +1,94 @@
 #include "test.h"
+
+
+
 //#include "include\network\NetIncludes.h"
 
 using namespace std;
 
-/*RenderResource* gameToRend(gameResource* game){
-	RenderResource* newSrc = new RenderResource();
-	newSrc->m_ResourceID = game->m_ResourceID;
-	newSrc->m_Scope = game->m_Scope;
-	newSrc->m_Filename = game->m_Filename;
-	newSrc->m_Type = game->m_Type;
-	return newSrc;
-}*/
-
+void update();
+void render(RenderManager*);
+long double getCurrentTime();
 
 int main() {
-	/*LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
-	try {
-		THROW_EXCEPTION(1, "dude error");
 
-	}
-	catch (cException& e)
-	{
-		log->logBuffer << "***WHOOPS***\n";
-			log->flush();
-			log->logException(e);
-			log->flush();
-		cout << e.what() << endl;
-		
-	}
-	log->close();
-	/*double a = 7.4;
-	int b = 98;
-	cout << SquadIO::SquadIO::Add(a, b) << endl;
-	*/
 	return 0;
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
+
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(400, 256, false, "Birds At Arms");
+	renderMan->init(700, 700, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
+	InputManager* input = InputManager::getInstance();
+	InputListener* listen = new InputListener();
 
+	Square* player = new Square();
+	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2,100, 100);
+
+
+	/////////////////////////////////////////////////////
+	/*              * * * GAME LOOP * * *              */
+	/////////////////////////////////////////////////////
+	bool gameloop = true;
+
+	while (gameloop) {
 	
-	for (float i = 0;; i++){
+		listen->getInput();
+
+		player->x += listen->input_x;
+		player->y += listen->input_y;
+
+		player->update();
+
+		if (input->isKeyDown(KEY_ESCAPE))
+			gameloop = false;
+
+		input->update();
+		update();
+
 		sceneMan->AssembleScene();
-		
-		//sceneMan->AssembleScene();
-		//if (renderMan->isReadyToQuit())break;
+
+		//render(renderMan);
 	}
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
 	std::cout << renderMan << endl;
-
 	log->close();
-
-
 	return 0;
+}
+
+
+void init(){
+
+}
+
+
+void update() {
+
+
+
+
+}
+
+
+void render(RenderManager* renderMan) {
+	renderMan->update();
+}
+
+long double getCurrentTime(){
+	long double sysTime = time(0);
+	long double sysTimeMS = sysTime * 1000;
+
+	return sysTimeMS;
 }

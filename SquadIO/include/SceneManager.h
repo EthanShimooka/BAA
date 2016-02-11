@@ -157,11 +157,11 @@ public:
 	std::list<SceneListener*> m_Listeners;
 
 	/// Add layer to scene.
-	Layer* addLayer(std::string Name);
+	SQUADIO_API Layer* addLayer(std::string Name);
 	/// look up layer object by name
-	Layer* findLayer(std::string Name);
+	SQUADIO_API Layer* findLayer(std::string Name);
 	/// Delete layer by name
-	void removeLayer(std::string Name);
+	SQUADIO_API void removeLayer(std::string Name);
 	/// Sort Existing layers smallest to biggest.
 	void sortLayers();
 	/// loads up scene elements From XML file specified.
@@ -176,11 +176,11 @@ public:
 	/// 
 	void update();
 	/// Puts scene together from incoming packets/input
-	void SQUADIO_API AssembleScene();
+	SQUADIO_API void AssembleScene();
 	/// Creates object and adds it to specified layer
-	void SQUADIO_API InstantiateObject(Layer* layer, int resourceID, float x, float y);
+	SQUADIO_API SDLRenderObject* InstantiateObject(Layer* layer, int resourceID, float x, float y);
 	/// Deletes object specified, must pass in the objects layer to properly remove.
-	void SQUADIO_API RemoveObject(SDLRenderObject* object, Layer* layer);
+	SQUADIO_API void RemoveObject(SDLRenderObject* object, Layer* layer);
 };//end class SceneManager
 
 /////////////////////////////////////////////////////////////////////////////////////////////
