@@ -1,3 +1,4 @@
+#pragma once
 #include "include\SceneManager.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ Layer* SceneManager::findLayer(std::string Name) {
 			return(*list_it);
 		}
 	}
-	THROW_EXCEPTION(301, "Failed to find layer in SceneManager");
+	//THROW_EXCEPTION(301, "Failed to find layer in SceneManager");
 	return NULL;
 }
 
@@ -67,7 +68,7 @@ void SceneManager::removeLayer(std::string Name){
 ///////////////////////////////////////////////////////////////////////////////
 
 void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) {
-	SceneObject* object = new SceneObject();
+	SDLRenderObject* object = new SDLRenderObject();
 	unsigned int r = 0;
 	unsigned int g = 0;
 	unsigned int b = 0;
@@ -85,10 +86,17 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 		}
 
 		if (AttribName == "posx") {
-			object->posX = (float)atof(AttribValue.c_str());
-		}
+			float x = (float)atof(AttribValue.c_str());
+			object->posX = (float)atof(AttribValue.c_str());		}
 		if (AttribName == "posy") {
 			object->posY = (float)atof(AttribValue.c_str());
+		}
+
+		if (AttribName == "visible"){
+			if (AttribValue == "true")
+				object->visible = true;
+			else
+				object->visible = false;
 		}
 
 		if (AttribName == "colorkey"){
@@ -109,11 +117,11 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 		}
 	}
 	
-	if (object->colorKeyEnabled)
+	//if (object->colorKeyEnabled)
 		//object->setColorKey(r, g, b);
 
+	//probably will want physics features to be assigned here
 	layer->m_SceneObjects.push_back(object);
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,6 +202,56 @@ bool SceneManager::loadFromXMLFile(std::string Filename) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+bool SceneManager::saveToXMLFile(std::string Filename){
+	tinyxml2::XMLDocument saveFile;
+
+	tinyxml2::XMLNode* sceneNode = saveFile.NewElement("scene");
+
+	//iterate through layers and create xml elements for each
+	int i = 1;
+	for (auto layerIter = m_Layers.begin(); layerIter != m_Layers.end(); layerIter++){
+		auto layerObjects = (*layerIter)->m_SceneObjects;
+		string layerName = "layer" + std::to_string(i);
+		tinyxml2::XMLElement* currLayer = saveFile.NewElement("layer");
+		currLayer->SetAttribute("name", layerName.c_str());
+		currLayer->SetAttribute("posx", (*layerIter)->m_PosX);
+		currLayer->SetAttribute("posy", (*layerIter)->m_PosY);
+		currLayer->SetAttribute("visible", (*layerIter)->m_Visible ? "true" : "false");
+		saveFile.InsertFirstChild(sceneNode);
+
+		//build xml element for each of the objects
+		tinyxml2::XMLNode* currObjects = saveFile.NewElement("objects");
+		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
+			SDLRenderObject* currObject = (*objectIter);
+
+			tinyxml2::XMLElement* pElement = saveFile.NewElement("object");
+			pElement->SetText("");
+			pElement->SetAttribute("resourceID", currObject->renderResource->m_ResourceID);
+			pElement->SetAttribute("posx", currObject->posX);
+			pElement->SetAttribute("posy", currObject->posY);
+			pElement->SetAttribute("visible", currObject->visible ? "true" : "false");
+			pElement->SetAttribute("rotation", currObject->rotation);
+			pElement->SetAttribute("colorkey", currObject->colorKeyEnabled ? "true" : "false");
+			if (currObject->colorKeyEnabled){
+				pElement->SetAttribute("r", currObject->colorKey.r);
+				pElement->SetAttribute("g", currObject->colorKey.g);
+				pElement->SetAttribute("b", currObject->colorKey.b);
+			}
+			currObjects->InsertFirstChild(pElement);
+
+		}
+		currLayer->InsertFirstChild(currObjects);
+		sceneNode->InsertEndChild(currLayer);
+		i++;
+	}
+
+	std::string path = "resources/" + Filename;
+	saveFile.SaveFile(path.c_str(), false);
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void SceneManager::checkTimerExpired() {
 	std::list<Timer*>::iterator list_it;
 
@@ -218,6 +276,21 @@ void SceneManager::checkTimerExpired() {
 
 void SceneManager::update() {
 	checkTimerExpired();
+
+	//iterate through all the scene items and perform physics updates on them.
+	for (auto layerIter = m_Layers.begin(); layerIter != m_Layers.end(); layerIter++){
+		auto layerObjects = (*layerIter)->m_SceneObjects;
+		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
+			//perform the physics updates here
+
+			//if ((*objectIter)->bodyType == b2_dynamicBody){
+				//do something
+			//}else if((*objectIter)->bodyType == b2_staticBody){
+				//could be an immovable platform? maybe a switch?
+			//}
+			//other physics stuff
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -240,4 +313,29 @@ void SceneManager::addListener(SceneListener* object) {
 
 void SceneManager::sortLayers() {
 	m_Layers.sort(compareLayerOrder);
+}
+
+void SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y){
+	SDLRenderObject* object = new SDLRenderObject();
+	if (!object)
+		return;
+	
+	ResourceManager* ResMan = ResourceManager::GetResourceManager();
+	object->setResourceObject((RenderResource*)ResMan->findResourcebyID(resourceID));
+
+	object->posX = x;
+	object->posY = y;
+	layer->m_SceneObjects.push_back(object);
+}
+
+void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
+	if (!layer || !object)
+		return;
+	for (std::list<SDLRenderObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
+		if (&(*obj_it) == &object) {
+			layer->m_SceneObjects.erase(obj_it);//probably causes memleak, need to kill all the scene object values first?
+			break;
+		}
+	}
+	
 }

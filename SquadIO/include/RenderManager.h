@@ -10,14 +10,6 @@
 #endif
 
 // TODO: page 135, add the first two includes: 2DRenderManager.h and ResourceManager.h they are made by us
-#include "EngineObject.h"
-#include "gameResource.h"
-#include "SDLRenderObject.h"
-#include "Tinyxml2.h"
-#include "sdl2\SDL.h"
-#include "sdl2\SDL_image.h"
-#include "include\SceneManager.h"
-
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -26,6 +18,16 @@
 #include <Windows.h>
 #include <math.h>
 #include <list>
+
+#include "EngineObject.h"
+#include "gameResource.h"
+#include "SDLRenderObject.h"
+#include "Tinyxml2.h"
+#include "sdl2\SDL.h"
+#include "sdl2\SDL_image.h"
+#include "SceneManager.h"
+
+
 
 /**
 * RenderManager d
@@ -43,7 +45,7 @@ protected:
 	static RenderManager renderManager;
 	void renderScene();
 public:
-	/// Singlelton accessor function for RenderManager class.
+	/// Singlelton accessor fuinction for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
 	SQUADIO_API static SDL_Renderer* getRenderManagerRenderer();
 	/// 
@@ -86,7 +88,6 @@ public:
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
 
-	SceneManager* sceneManager;
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

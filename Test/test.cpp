@@ -48,8 +48,9 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-	/*LogManager* log = LogManager::GetLogManager();
+	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
+<<<<<<< HEAD
 
 	//RandGen::StaticInit();
 	// need to initialize Steam before SDL so the overlay works
@@ -100,56 +101,48 @@ int _tmain(int argc, _TCHAR* argv[]){
 		NetworkManager::sInstance->ProcessIncomingPackets();
 	}*/
 	/*
+=======
+	InputManager* input = InputManager::getInstance();
+>>>>>>> origin/master
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(400, 256, false, "Birds At Arms");
-	resourceMan->loadFromXMLFile("source.xml");
-	renderMan->setBackground("sky.jpg"); //TODO: change so it does not reference the direct filename
+	resourceMan->loadFromXMLFile("source.xml"); //load resources
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
-	//fetches resource count
 
-	SDLRenderObject* obj = new SDLRenderObject();
-	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
+	sceneMan->loadFromXMLFile("SceneTree.xml");
+	
 
-
-			obj->renderResource = rend;
-			obj->setResourceObject(rend);
-			obj->renderRect.w = 50;
-			obj->renderRect.h = 50;
-
-		
-
-//	SDLRenderObject* obj = new SDLRenderObject();
-	//////////////////////////////////////////////////////////
-	//TODO: Gets stuck on an infinite loop trying to find ID number 2
-//	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
-//	obj->renderResource = rend;
-//	obj->setResourceObject(rend);
-
-	renderMan->renderObjects.push_back(obj); //list
-	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
-
-	renderMan->update();
-	std::cout << renderMan << endl;
-
-	float width = obj->renderRect.w;
-	float height = obj->renderRect.h;
-	obj->anchor = { 0.5, 0.5 };
+	
 	for (float i = 0;; i++){
-		float sini = 100 * (sin(i / 16) + 1);
-		obj->posX = sini;
-		//obj->renderRect.h = height * (int(i) % 100);
-		obj->rotation = i;
-		if (int(i / 10) % 4 == 0) obj->flipH = false;
-		if (int(i / 10) % 4 == 1) obj->flipV = false;
-		if (int(i / 10) % 4 == 2) obj->flipH = true;
-		if (int(i / 10) % 4 == 3) obj->flipV = true;
-		renderMan->update();
-		//if (renderMan->isReadyToQuit())break;
-	}
-	std::cout << renderMan << endl;
+		renderMan->renderObjects.clear(); //empty renderables list before building up a new one each frame. NEEDS A LOOP TO CULL NON VISIBLE OBJECTS
+		
+		for (std::list<Layer*>::iterator lay_it = sceneMan->m_Layers.begin(); lay_it != sceneMan->m_Layers.end(); lay_it++) {
+			for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
+				//cout << "item:" << &(*obj_it) << "x=" << (*obj_it)->posX << endl;
+				/*
+				if ((*obj_it)->getPlayerID() == GamerServices::sInstance->myID()) {
+				//if this object is a locally owned object => update using input manager
+				(*obj_it)->update(input);
+				} else {
+				//if this object is not locally owned => update object using information from packets
+				//loop through all packets looking for a specific packet with this Unique Object Reference
+				//if you find the specific packet with said UOR set this objects values to packet's values
+				(*obj_it)->update(network);
 
-	log->close();*/
+				}
+				*/
+				renderMan->renderObjects.push_back((*obj_it));
+			}
+		}
+
+		renderMan->update();
+	}
+
+	log->close();
+
+
 	return 0;
 }

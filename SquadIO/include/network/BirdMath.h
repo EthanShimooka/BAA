@@ -1,10 +1,6 @@
 #ifndef BIRDMATH_H_INCLUDED
 #define BIRDMATH_H_INCLUDED
 
-/**
-* Vector3 is a utility class used to send 3D coordinates. We might not need this.
-*
-*/
 class Vector3
 {
 public:
@@ -40,13 +36,13 @@ public:
 		return Vector3(inLeft.mX - inRight.mX, inLeft.mY - inRight.mY, inLeft.mZ - inRight.mZ);
 	}
 
-	/// Component-wise multiplication
+	// Component-wise multiplication
 	friend Vector3 operator*(const Vector3& inLeft, const Vector3& inRight)
 	{
 		return Vector3(inLeft.mX * inRight.mX, inLeft.mY * inRight.mY, inLeft.mZ * inRight.mZ);
 	}
 
-	/// Scalar multiply
+	// Scalar multiply
 	friend Vector3 operator*(float inScalar, const Vector3& inVec)
 	{
 		return Vector3(inVec.mX * inScalar, inVec.mY * inScalar, inVec.mZ * inScalar);
@@ -149,10 +145,6 @@ public:
 	static const Vector3 NegUnitZ;
 };
 
-/**
-* Quaternion is a utility class of the NetworkManager used for reading and writing bitstreams
-*
-*/
 
 class Quaternion
 {

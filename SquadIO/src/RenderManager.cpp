@@ -18,6 +18,7 @@ SDL_Renderer* RenderManager::getRenderManagerRenderer(){
 }		
 
 bool RenderManager::init(unsigned int width, unsigned int height, bool fullScreen, char* WindowTitle){
+	SceneManager* sceneManager = SceneManager::GetSceneManager();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		std::cout << "Error: Could not initialize SDL Render" << std::endl;
 		return false;
@@ -53,6 +54,8 @@ void RenderManager::update(){
 	SDL_UpdateWindowSurface(renderWindow);
 
 	SDL_RenderPresent(renderer);
+
+	SDL_Delay(20); //needs to be taken out?
 }
 //TODO: this function is necessary, but we need a resource manager first
 gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
@@ -145,14 +148,15 @@ void RenderManager::renderAllObjects(){
 }
 
 void RenderManager::renderScene() { //will need modification to support more flags other than visible
+	SceneManager* sceneManager = SceneManager::GetSceneManager();
 	if (sceneManager) { //scenemanager needs to be filled somewhere else before running this function
 		std::list<Layer*>::iterator i;
 		for (i = sceneManager->m_Layers.begin(); i != sceneManager->m_Layers.end(); i++) {
 			Layer* layer = *i;
 			if (layer->m_Visible) {
-				std::list<SceneObject*>::iterator obj_it;
+				std::list<SDLRenderObject*>::iterator obj_it;
 				for (obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++){
-					SceneObject* obj = *obj_it;
+					SDLRenderObject* obj = *obj_it;
 					if (obj->visible) {
 						obj->update();
 
