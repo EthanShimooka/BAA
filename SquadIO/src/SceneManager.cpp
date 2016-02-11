@@ -315,35 +315,6 @@ void SceneManager::sortLayers() {
 	m_Layers.sort(compareLayerOrder);
 }
 
-void SceneManager::AssembleScene(){
-	InputManager* input = InputManager::getInstance();
-	RenderManager* renderMan = RenderManager::getRenderManager();
-	//get reference to network manager
-	renderMan->renderObjects.clear();
-	for (std::list<Layer*>::iterator lay_it = m_Layers.begin(); lay_it != m_Layers.end(); lay_it++) {
-		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
-			//cout << "item:" << &(*obj_it) << "x=" << (*obj_it)->posX << endl;
-			/*
-			if ((*obj_it)->getPlayerID() == GamerServices::sInstance->myID()) {
-			//if this object is a locally owned object => update using input manager
-			(*obj_it)->update(input);
-			} else {
-			//if this object is not locally owned => update object using information from packets
-			//loop through all packets looking for a specific packet with this Unique Object Reference
-			//if you find the specific packet with said UOR set this objects values to packet's values
-			(*obj_it)->update(network);
-
-			}
-			*/
-			renderMan->renderObjects.push_back((*obj_it));
-		}
-	}
-
-	renderMan->update();
-	SDL_Delay(20);
-
-}
-
 void SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y){
 	SDLRenderObject* object = new SDLRenderObject();
 	if (!object)

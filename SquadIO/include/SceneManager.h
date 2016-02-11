@@ -175,8 +175,6 @@ public:
 	void addListener(SceneListener* object);
 	/// 
 	void update();
-	/// Puts scene together from incoming packets/input
-	void SQUADIO_API AssembleScene();
 	/// Creates object and adds it to specified layer
 	void SQUADIO_API InstantiateObject(Layer* layer, int resourceID, float x, float y);
 	/// Deletes object specified, must pass in the objects layer to properly remove.
