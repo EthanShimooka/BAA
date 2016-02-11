@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+=======
+Size of layers : 1
+Size of layers : 2
+>>>>>>> refs/remotes/origin/master

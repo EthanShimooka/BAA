@@ -42,7 +42,6 @@ int main() {
 int _tmain(int argc, _TCHAR* argv[]){
 	/*LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
-
 	//RandGen::StaticInit();
 	// need to initialize Steam before SDL so the overlay works
 	if (!GamerServices::StaticInit())
@@ -81,9 +80,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 		NetworkManager::sInstance->ProcessIncomingPackets();
 	}*/
-	
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(400, 256, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->setBackground("tess1.gif"); //TODO: change so it does not reference the direct filename
@@ -117,13 +116,24 @@ int _tmain(int argc, _TCHAR* argv[]){
 	float height = obj->renderRect.h;
 	obj->anchor = { 0.5 , 0.5 };
 	//renderMan->zoom = 4;
+	
+	resourceMan->setCurrentScope(0);
+	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
+
+	sceneMan->loadFromXMLFile("SceneTree.xml");
+
+
+	
 	for (float i = 0;; i++){
+		sceneMan->AssembleScene();
+		//sceneMan->AssembleScene(
+		//if (renderMan->isReadyToQuit())break;
 		float sini = 100 * (sin(i / 16) + 1);
 		//renderMan->zoom = (sin(i / 600) + 1);
 		//renderMan->cameraPoint = { obj->posX, obj->posY };
 		//renderMan->cameraPoint = { (obj->posX + obj2->posX) / 2, (obj->posY + obj2->posY) / 2 };
 		float focus = 0.54; // 0.5 = midpoint, 1.0 = obj focus, 0.0 = obj2 focus
-		renderMan->cameraPoint = { (obj->posX*focus + obj2->posX*(1-focus)), (obj->posY*focus + obj2->posY*(1-focus)) };
+		renderMan->cameraPoint = { (obj->posX*focus + obj2->posX*(1 - focus)), (obj->posY*focus + obj2->posY*(1 - focus)) };
 		float zoomRatio = renderMan->zoomRatio(obj2->posX - obj2->renderRect.w / 2, obj2->posY - obj2->renderRect.h / 2);
 		float temp = zoomRatio = renderMan->zoomRatio(obj2->posX - obj2->renderRect.w / 2, obj2->posY + obj2->renderRect.h / 2);
 		if (temp > zoomRatio) { zoomRatio = temp; }
@@ -145,7 +155,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//if (int(i/10) % 4 == 3) obj->flipV = true;
 
 		renderMan->update();
-		//if (renderMan->isReadyToQuit())break;
 	}
 	std::cout << renderMan << endl;
 

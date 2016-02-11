@@ -2,7 +2,17 @@
 #include "include\RenderManager.h"
 
 
-SDLRenderObject::SDLRenderObject(){}
+SDLRenderObject::SDLRenderObject(){
+	//initialize values
+	posX = 0.0;
+	posY = 0.0;
+	rotation = 0.0;
+	//anchor point 0,0 = top left corner,1,1 = bottom right corner 
+	anchor = { 0.5, 0.5 };
+	flipH = false;
+	flipV = false;
+	visible = true;
+}
 //SDLRenderObject::~SDLRenderObject(){}
 
 
@@ -10,8 +20,6 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 	if (source){
 		renderResource = source;
 		//by default, the texture sizes are stored 1:1 scale
-		//renderRect.w = renderResource->mTexture->w;
-		//renderRect.h = renderResource->mTexture->h;
 		//stores the width and height of the texture 1:1 scale in the render rect
 		SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRect.h);
 		//initialize values

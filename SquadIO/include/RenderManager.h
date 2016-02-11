@@ -10,14 +10,6 @@
 #endif
 
 // TODO: page 135, add the first two includes: 2DRenderManager.h and ResourceManager.h they are made by us
-#include "EngineObject.h"
-#include "gameResource.h"
-#include "SDLRenderObject.h"
-#include "Tinyxml2.h"
-#include "sdl2\SDL.h"
-#include "sdl2\SDL_image.h"
-#include "include\SceneManager.h"
-
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -27,6 +19,16 @@
 #include <math.h>
 #include <list>
 #include <queue>
+
+#include "EngineObject.h"
+#include "gameResource.h"
+#include "SDLRenderObject.h"
+#include "Tinyxml2.h"
+#include "sdl2\SDL.h"
+#include "sdl2\SDL_image.h"
+#include "SceneManager.h"
+
+
 
 /**
 * RenderManager d
@@ -101,7 +103,6 @@ public:
 	SQUADIO_API static bool compObj(const SDLRenderObject* left, const SDLRenderObject* right);
 	SQUADIO_API void sortObjects();
 	//std::priority_queue<SDLRenderObject*> renderObjects;
-	SceneManager* sceneManager;
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED
