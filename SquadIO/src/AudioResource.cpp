@@ -2,7 +2,7 @@
 #include "include\AudioResource.h"
 #include "include\AudioManager.h" // what goes in here?
 
-AudioResource::AudioResource() : bgm(NULL), effect(NULL), isBgm(false) {}
+AudioResource::AudioResource() : bgm(NULL), effect(NULL) {}
 
 AudioResource::~AudioResource(){}
 
@@ -16,7 +16,6 @@ void AudioResource::unload() {
 	if (effect) {
 		Mix_FreeChunk(effect);
 		effect = NULL;
-		isBgm = false;
 	}
 }
 

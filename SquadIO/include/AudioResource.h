@@ -30,8 +30,6 @@ public:
 	// might need to use a flag to determine type of AudioResource
 	Mix_Music* bgm;
 	Mix_Chunk* effect;
-	// true for bgm, false for effect
-	bool isBgm;
 
 	// constructor
 	SQUADIO_API AudioResource();
