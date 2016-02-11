@@ -12,19 +12,19 @@ protected:
 public:
 
 	~Square();
-	float x;
-	float y;
-	int ID;
+	uint32_t x;
+	uint32_t y;
+	uint32_t ID;
 
 	SDLRenderObject* obj;
 
 	void update();  //dontg know if this works ab
 
 	Square(){
-	obj = nullptr;
-	x = 50.0;
-	y = 50.0;
-}
+		obj = nullptr;
+		x = 50.0;
+		y = 50.0;
+	}
 
 };
 

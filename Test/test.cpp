@@ -29,7 +29,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	while (true){
 		GamerServices::sInstance->Update();
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+		if (NetworkManager::sInstance->GetState() == 4)
+			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == 2){
+			NetworkManager::sInstance->GetAllPlayersInLobby();
 			NetworkManager::sInstance->TryReadyGame();
 		}
 	}
@@ -50,8 +55,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 	Square* player = new Square();
+	player->ID = 1;
 	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2, 100, 100);
 	Square* player2 = new Square();
+	player2->ID = 2;
 	player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, 300, 200);
 
 
@@ -61,7 +68,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 
 	while (gameloop) {
-	
+		NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
 
 		player->x += listen->input_x;
