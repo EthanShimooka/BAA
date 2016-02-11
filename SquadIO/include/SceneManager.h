@@ -92,26 +92,6 @@ public:
 	}
 }; //end class Timer
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/**
-* SceneObject inherits from SDL renderObject.
-
-* Everything belonging to a scene should be derived from this class.
-  Add this to a layer
-*/
-class SceneObject : public SDLRenderObject {
-private:
-protected:
-public:
-	b2Body* body;
-	//can be static, dynamic, or kinetic
-	b2BodyType bodyType;
-
-}; //end class SceneObject
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -140,7 +120,7 @@ public:
 	/// and searched
 	std::string m_Name;
 	/// list of SceneObjects assigned to layer instance
-	std::list<SceneObject*> m_SceneObjects;
+	std::list<SDLRenderObject*> m_SceneObjects;
 	/// Layer update function not implemented
 	void update();
 }; //end class Layer
@@ -200,7 +180,7 @@ public:
 	/// Creates object and adds it to specified layer
 	void SQUADIO_API InstantiateObject(Layer* layer, int resourceID, float x, float y);
 	/// Deletes object specified, must pass in the objects layer to properly remove.
-	void SQUADIO_API RemoveObject(SceneObject* object, Layer* layer);
+	void SQUADIO_API RemoveObject(SDLRenderObject* object, Layer* layer);
 };//end class SceneManager
 
 /////////////////////////////////////////////////////////////////////////////////////////////
