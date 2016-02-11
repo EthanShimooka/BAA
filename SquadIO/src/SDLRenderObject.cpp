@@ -31,7 +31,7 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		flipH = false;
 		flipV = false;
 		visible = true;
-		layer = 1;
+		zdepth = 1;
 		if (colorKeyEnabled){
 			//generate the color key
 			//TODO: commented out colorkey stuff. We're using PNG's with transparency, so no need for colorkey at the moment
@@ -46,7 +46,7 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 
 bool operator<(const SDLRenderObject& lhs, const SDLRenderObject& rhs){
 	std::cout << "hi" << std::endl;
-	return lhs.layer < rhs.layer;
+	return lhs.zdepth < rhs.zdepth;
 }
 void SDLRenderObject::setColorKey(unsigned int r, unsigned int g, unsigned int b){
 	colorKey.r = r;

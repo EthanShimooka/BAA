@@ -263,8 +263,8 @@ void RenderManager::renderScene() { //will need modification to support more fla
 	}
 }
 bool RenderManager::compObj(const SDLRenderObject* left, const SDLRenderObject* right){
-	std::cout << left->layer <<">"<< right->layer << std::endl;
-	return left->layer > right->layer;
+	std::cout << left->zdepth << ">" << right->zdepth << std::endl;
+	return left->zdepth > right->zdepth;
 }
 void RenderManager::sortObjects(){
 	renderObjects.sort(RenderManager::compObj);

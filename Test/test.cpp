@@ -80,15 +80,20 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 		NetworkManager::sInstance->ProcessIncomingPackets();
 	}*/
+
+	///Initialize various managers
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(400, 256, false, "Birds At Arms");
-	resourceMan->loadFromXMLFile("source.xml");
+	renderMan->init(400, 256, false, "Birds At Arms");//create window
+	resourceMan->loadFromXMLFile("source.xml");//load images for objects
 	renderMan->setBackground("tess1.gif"); //TODO: change so it does not reference the direct filename
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 	//fetches resource count
+
+
+	sceneMan->loadFromXMLFile("SceneTree.xml");
 
 
 	SDLRenderObject* obj = new SDLRenderObject();
@@ -104,13 +109,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	obj3->renderResource = rend3;
 	obj3->setResourceObject(rend3);
 
-	obj->layer = 1;
-	obj2->layer = 3;
-	obj3->layer = 4;
+	obj->zdepth = 1;
+	obj2->zdepth = 3;
+	obj3->zdepth = 4;
 	//cout << (obj3 < obj2) << endl;
 	renderMan->renderObjects.push_back(obj2);
 	renderMan->renderObjects.push_back(obj);
-	renderMan->renderObjects.push_back(obj3);
+	//renderMan->renderObjects.push_back(obj3);
 	renderMan->sortObjects();
 	float width = obj->renderRect.w;
 	float height = obj->renderRect.h;
@@ -120,12 +125,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
-	sceneMan->loadFromXMLFile("SceneTree.xml");
-
-
-	
 	for (float i = 0;; i++){
 		sceneMan->AssembleScene();
+
 		//sceneMan->AssembleScene(
 		//if (renderMan->isReadyToQuit())break;
 		float sini = 100 * (sin(i / 16) + 1);
@@ -155,6 +157,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//if (int(i/10) % 4 == 3) obj->flipV = true;
 
 		renderMan->update();
+		Sleep(30);
 	}
 	std::cout << renderMan << endl;
 

@@ -54,7 +54,7 @@ public:
 	bool flipH;
 	bool flipV;
 	bool visible;
-	int layer;
+	int zdepth;
 	SQUADIO_API bool operator<(const SDLRenderObject& rhs);
 	/// SDL color key paramater, usually should not be tampared with
 	SDL_Color colorKey;
