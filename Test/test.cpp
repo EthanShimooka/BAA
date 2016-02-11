@@ -42,6 +42,7 @@ int main() {
 int _tmain(int argc, _TCHAR* argv[]){
 	/*LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
+<<<<<<< HEAD
 	//RandGen::StaticInit();
 	// need to initialize Steam before SDL so the overlay works
 	if (!GamerServices::StaticInit())
@@ -88,6 +89,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	renderMan->init(400, 256, false, "Birds At Arms");//create window
 	resourceMan->loadFromXMLFile("source.xml");//load images for objects
 	renderMan->setBackground("tess1.gif"); //TODO: change so it does not reference the direct filename
+=======
+	InputManager* input = InputManager::getInstance();
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	renderMan->init(400, 256, false, "Birds At Arms");
+	resourceMan->loadFromXMLFile("source.xml"); //load resources
+>>>>>>> refs/remotes/origin/master
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 	sceneMan->loadFromXMLFile("SceneTree.xml");//load objects onto scene
@@ -103,6 +112,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	obj2->renderResource = rend2;
 	obj2->setResourceObject(rend2);
 
+<<<<<<< HEAD
 	//push the objects onto the scene manager's first layer
 	sceneMan->m_Layers.front()->m_SceneObjects.push_back(obj);
 	sceneMan->m_Layers.front()->m_SceneObjects.push_back(obj2);
@@ -113,6 +123,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//set the center of rotation/rendering for each object
 	obj->anchor = { 0.5 , 0.5 };//{0,0} means top left corner of image
 	obj2->anchor = { 0.5, 0.5 };//{1,1} means bottom right corner of image
+=======
+	sceneMan->loadFromXMLFile("SceneTree.xml");
+	
+>>>>>>> refs/remotes/origin/master
 
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
