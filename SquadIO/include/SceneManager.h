@@ -188,6 +188,8 @@ public:
 	/// loads up scene elements From XML file specified.
 	/// pushe
 	SQUADIO_API bool loadFromXMLFile(std::string Filename);
+	/// saves scene elements to XML file specified.
+	SQUADIO_API bool saveToXMLFile(std::string filename);
 	/// creates a new timer and pushes to m_Timers list
 	void addTimer(unsigned int id, DWORD interval);
 	/// creates new SceneListner and pushes to m_Listners
