@@ -155,7 +155,7 @@ public:
 	std::list<Timer*> m_Timers;
 	/// list containing event listeners
 	std::list<SceneListener*> m_Listeners;
-
+	void SQUADIO_API AssembleScene();
 	/// Add layer to scene.
 	Layer* addLayer(std::string Name);
 	/// look up layer object by name

@@ -66,7 +66,6 @@ void RenderManager::update(){
 	SDL_UpdateWindowSurface(renderWindow);
 	SDL_RenderPresent(renderer);
 
-	SDL_Delay(20); //needs to be taken out?
 }
 //TODO: this function is necessary, but we need a resource manager first
 gameResource* RenderManager::loadResourceFromXML(tinyxml2::XMLElement *elem){
