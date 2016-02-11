@@ -152,9 +152,9 @@ void RenderManager::renderScene() { //will need modification to support more fla
 		for (i = sceneManager->m_Layers.begin(); i != sceneManager->m_Layers.end(); i++) {
 			Layer* layer = *i;
 			if (layer->m_Visible) {
-				std::list<SceneObject*>::iterator obj_it;
+				std::list<SDLRenderObject*>::iterator obj_it;
 				for (obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++){
-					SceneObject* obj = *obj_it;
+					SDLRenderObject* obj = *obj_it;
 					if (obj->visible) {
 						obj->update();
 
