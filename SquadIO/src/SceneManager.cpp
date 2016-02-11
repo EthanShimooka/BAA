@@ -202,6 +202,56 @@ bool SceneManager::loadFromXMLFile(std::string Filename) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+bool SceneManager::saveToXMLFile(std::string Filename){
+	tinyxml2::XMLDocument saveFile;
+
+	tinyxml2::XMLNode* sceneNode = saveFile.NewElement("scene");
+
+	//iterate through layers and create xml elements for each
+	int i = 1;
+	for (auto layerIter = m_Layers.begin(); layerIter != m_Layers.end(); layerIter++){
+		auto layerObjects = (*layerIter)->m_SceneObjects;
+		string layerName = "layer" + std::to_string(i);
+		tinyxml2::XMLElement* currLayer = saveFile.NewElement("layer");
+		currLayer->SetAttribute("name", layerName.c_str());
+		currLayer->SetAttribute("posx", (*layerIter)->m_PosX);
+		currLayer->SetAttribute("posy", (*layerIter)->m_PosY);
+		currLayer->SetAttribute("visible", (*layerIter)->m_Visible ? "true" : "false");
+		saveFile.InsertFirstChild(sceneNode);
+
+		//build xml element for each of the objects
+		tinyxml2::XMLNode* currObjects = saveFile.NewElement("objects");
+		for (auto objectIter = layerObjects.begin(); objectIter != layerObjects.end(); objectIter++){
+			SceneObject* currObject = (*objectIter);
+
+			tinyxml2::XMLElement* pElement = saveFile.NewElement("object");
+			pElement->SetText("");
+			pElement->SetAttribute("resourceID", currObject->renderResource->m_ResourceID);
+			pElement->SetAttribute("posx", currObject->posX);
+			pElement->SetAttribute("posy", currObject->posY);
+			pElement->SetAttribute("visible", currObject->visible ? "true" : "false");
+			pElement->SetAttribute("rotation", currObject->rotation);
+			pElement->SetAttribute("colorkey", currObject->colorKeyEnabled ? "true" : "false");
+			if (currObject->colorKeyEnabled){
+				pElement->SetAttribute("r", currObject->colorKey.r);
+				pElement->SetAttribute("g", currObject->colorKey.g);
+				pElement->SetAttribute("b", currObject->colorKey.b);
+			}
+			currObjects->InsertFirstChild(pElement);
+
+		}
+		currLayer->InsertFirstChild(currObjects);
+		sceneNode->InsertEndChild(currLayer);
+		i++;
+	}
+
+	std::string path = "resources/" + Filename;
+	saveFile.SaveFile(path.c_str(), false);
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void SceneManager::checkTimerExpired() {
 	std::list<Timer*>::iterator list_it;
 
