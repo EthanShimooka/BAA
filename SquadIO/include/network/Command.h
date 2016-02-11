@@ -62,13 +62,17 @@ typedef shared_ptr< Command >	CommandPtr;
 * of CommandType CM_ATTACK
 *
 */
-
 class AttackCommand : public Command
 {
 public:
 	/// Constructor. Defaults CommandType to Attack, mNetworkId to 0
 	AttackCommand() :
-		mTargetNetId(0)
+		mTargetNetId(0),
+		xpos(0),
+		ypos(0),
+		dx(0),
+		dy(0),
+		vel(0)
 	{
 		mCommandType = CM_ATTACK;
 	}
@@ -83,6 +87,12 @@ protected:
 	virtual void Read(InputMemoryBitStream& inInputStream) override;
 
 	uint32_t mTargetNetId;
+	/// Coordinates of where attack originated from
+	uint16_t xpos, ypos;
+	/// Coordinates of final destination of attack
+	uint16_t dx, dy;
+	/// Time player held down attack trigger
+	uint16_t vel;
 };
 /// Shared pointer of attack commands
 typedef shared_ptr< AttackCommand > AttackCommandPtr;
@@ -92,7 +102,6 @@ typedef shared_ptr< AttackCommand > AttackCommandPtr;
 * of CommandType CM_MOVE
 *
 */
-
 class MoveCommand : public Command
 {
 public:
@@ -119,4 +128,47 @@ protected:
 };
 /// Shared pointer of move commands
 typedef shared_ptr< MoveCommand > MoveCommandPtr;
+
+/**
+* AbilityCommand is inherited from the Command class and is used to send and read network packages
+* of CommandType CM_ABILITY.... Currently fully unimplemented
+*
+*/
+class AbilityCommand : public Command
+{
+public:
+	/// Enumeration of command types
+	enum EAbilityCommandType
+	{
+		ABL_CHICKEN,
+		ABL_PEACOCK,
+		ABL_EAGLE,
+		ABL_TURKEY,
+		ABL_FLAMINGO,
+		ABL_QUAIL,
+	};
+	/// Constructor. Defaults CommandType to Ability
+	AbilityCommand(EAbilityCommandType eACommandType) :
+		xpos(0),
+		ypos(0)
+	{
+		mCommandType = CM_ABILITY;
+		abilityCommandType = eACommandType;
+	}
+	/// Unimplemented
+	static shared_ptr< AbilityCommand > StaticCreate(uint32_t inNetworkId, const Vector3& inTarget);
+	/// Writes ability commands to an output stream
+	virtual void Write(OutputMemoryBitStream& inOutputStream) override;
+	/// Processes an ability command. Unimplemented
+	virtual void ProcessCommand() override;
+protected:
+	/// Ability command type variable
+	EAbilityCommandType abilityCommandType;
+	/// Reads a move command from an output stream
+	virtual void Read(InputMemoryBitStream& inInputStream) override;
+	/// Int coordinates to describe player position
+	uint16_t xpos, ypos;
+};
+/// Shared pointer of ability commands
+typedef shared_ptr< AbilityCommand > AbilityCommandPtr;
 #endif
