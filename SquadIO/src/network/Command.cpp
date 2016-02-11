@@ -1,6 +1,3 @@
-/*
-Command handles encoding of packet data
-*/
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
 

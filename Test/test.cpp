@@ -10,6 +10,7 @@ void update();
 void render(RenderManager*);
 long double getCurrentTime();
 
+
 int main() {
 
 	return 0;
@@ -19,18 +20,20 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
+	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
+
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
-	InputManager* input = InputManager::getInstance();
 	InputListener* listen = new InputListener();
+
 
 	Square* player = new Square();
 	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2,100, 100);
@@ -54,7 +57,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			gameloop = false;
 
 		input->update();
-		update();
+		
 
 		sceneMan->AssembleScene();
 
@@ -64,6 +67,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	std::cout << renderMan << endl;
+
 	log->close();
 	return 0;
 }
@@ -74,12 +78,7 @@ void init(){
 }
 
 
-void update() {
 
-
-
-
-}
 
 
 void render(RenderManager* renderMan) {
