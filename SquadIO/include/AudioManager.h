@@ -17,16 +17,21 @@
 
 #include "EngineObject.h"
 #include "gameResource.h"
+#include "SDLAudioObject.h"
 #include "Tinyxml2.h"
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_mixer.h"
 
-#include <iostream>
-#include <list>
-#include <map>
-#include <vector>
 #include <string>
-#include <unordered_map>
+#include <sstream>
+#include <iostream>
+#include <time.h>
+#include <iomanip>
+#include <Windows.h>
+#include <math.h>
+#include <list>
+
+using namespace std;
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport) 
@@ -37,7 +42,7 @@
 class AudioManager : public EngineObject {
 public:
 	// returns this instance of AudioManager
-	SQUADIO_API static AudioManager* getInstance();
+	SQUADIO_API static AudioManager* getAudioInstance();
 
 	// not sure what this does exactly
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
@@ -47,10 +52,20 @@ public:
 	// play effect, pause effect, stop effect
 	// clear and free all
 
+	// the ID passed in is found at SDLAudioObject->audioResource->m_ResourceID
+	// maybe m_ResourceID for audio will just match the position in the list it's stored
+	SQUADIO_API void playByID(int id);
+	SQUADIO_API void pauseByID(int id);
+	SQUADIO_API void stopByID(int id);
+
+	// need to store all SDLAudioObjects here which can be accessed through the functions above
+	// e.g. AudioManager.play(AudioFileID) where the play function finds and plays the file
+	vector<SDLAudioObject*> audioObjects;
+
 	// no need for update function I think if all audio is loaded during init??
 
 protected:
-	// constructor only called by getInstance()
+	// constructor only called by getAudioInstance()
 	AudioManager();
 	~AudioManager();
 	AudioManager(AudioManager const&) {};
@@ -63,12 +78,8 @@ private:
 	// init (called by constructor which should call Mix_Init(int flags)
 	bool InitAudio();
 
+	// quit called at end when cleaning up memory
 	void QuitAudio();
-
-	// need to store all AudioResources here which can be accessed through the functions above
-	// e.g. AudioManager.play(AudioFileID) where the play function finds and plays the file
-	AudioResource* bgm;
-	unordered_map<AudioResource>
 };
 
 #endif // AUDIOMANAGER_H_INCLUDED
