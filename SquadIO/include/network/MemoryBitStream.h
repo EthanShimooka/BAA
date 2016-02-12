@@ -21,7 +21,7 @@ class OutputMemoryBitStream
 {
 public:
 
-	OutputMemoryBitStream() :
+	SQUADIO_API OutputMemoryBitStream() :
 		mBitHead(0),
 		mBuffer(nullptr)
 	{
@@ -48,6 +48,10 @@ public:
 	void Write( uint8_t inData, uint32_t inBitCount = 8 )	{ WriteBits( &inData, inBitCount ); }
 	*/
 
+	SQUADIO_API void Write(uint32_t inData, uint32_t inBitCount = 32)	{ WriteBits(&inData, inBitCount); }
+	SQUADIO_API void Write(float inData)								{ WriteBits(&inData, 32); }
+	SQUADIO_API void Write(int inData, uint32_t inBitCount = 32)		{ WriteBits(&inData, inBitCount); }
+
 	template< typename T >
 	void Write(T inData, uint32_t inBitCount = sizeof(T)* 8)
 	{
@@ -57,10 +61,10 @@ public:
 		WriteBits(&inData, inBitCount);
 	}
 
-	void 		Write(bool inData)								{ WriteBits(&inData, 1); }
+	void 		Write(bool inData)	{ WriteBits(&inData, 1); }
 
-	void		Write(const Vector3& inVector);
-	void		Write(const Quaternion& inQuat);
+	//void		Write(const Vector3& inVector);
+	//void		Write(const Quaternion& inQuat);
 
 	void Write(const std::string& inString)
 	{
@@ -84,13 +88,13 @@ class InputMemoryBitStream
 {
 public:
 
-	InputMemoryBitStream(char* inBuffer, uint32_t inBitCount) :
+	SQUADIO_API InputMemoryBitStream(char* inBuffer, uint32_t inBitCount) :
 		mBuffer(inBuffer),
 		mBitCapacity(inBitCount),
 		mBitHead(0),
 		mIsBufferOwner(false) {}
 
-	InputMemoryBitStream(const InputMemoryBitStream& inOther) :
+	SQUADIO_API InputMemoryBitStream(const InputMemoryBitStream& inOther) :
 		mBitCapacity(inOther.mBitCapacity),
 		mBitHead(inOther.mBitHead),
 		mIsBufferOwner(true)
@@ -122,8 +126,8 @@ public:
 	}
 
 	void		Read(uint32_t& outData, uint32_t inBitCount = 32)		{ ReadBits(&outData, inBitCount); }
-	void		Read(int& outData, uint32_t inBitCount = 32)			{ ReadBits(&outData, inBitCount); }
-	void		Read(float& outData)									{ ReadBits(&outData, 32); }
+	SQUADIO_API void		Read(int& outData, uint32_t inBitCount = 32)			{ ReadBits(&outData, inBitCount); }
+	SQUADIO_API void		Read(float& outData)									{ ReadBits(&outData, 32); }
 
 	void		Read(uint16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
 	void		Read(int16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
@@ -131,7 +135,7 @@ public:
 	void		Read(uint8_t& outData, uint32_t inBitCount = 8)		{ ReadBits(&outData, inBitCount); }
 	void		Read(bool& outData)									{ ReadBits(&outData, 1); }
 
-	void		Read(Quaternion& outQuat);
+	//void		Read(Quaternion& outQuat);
 
 	void		ResetToCapacity(uint32_t inByteCapacity)				{ mBitCapacity = inByteCapacity << 3; mBitHead = 0; }
 
@@ -147,7 +151,7 @@ public:
 		}
 	}
 
-	void Read(Vector3& inVector);
+	//void Read(Vector3& inVector);
 
 private:
 	char*		mBuffer;

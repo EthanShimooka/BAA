@@ -21,7 +21,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	/*if (!GamerServices::StaticInit())
+	if (!GamerServices::StaticInit())
 		std::cout << "Failed to initialize Steam" << "\n";
 
 	if (!NetworkManager::StaticInit())
@@ -30,14 +30,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	while (true){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
-		cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
 		if (NetworkManager::sInstance->GetState() == 4)
 			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == 2){
-			NetworkManager::sInstance->GetAllPlayersInLobby();
+			//NetworkManager::sInstance->GetAllPlayersInLobby();
 			NetworkManager::sInstance->TryReadyGame();
 		}
-	}*/
+	}
 
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -66,15 +66,26 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 
 	while (gameloop) {
-		//NetworkManager::sInstance->ProcessIncomingPackets();
+		NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
 
-		player2->x += listen->input_x;
-		player2->y += listen->input_y;
+		player1->x += listen->input_x;
+		player1->y += listen->input_y;
 
 		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
 
-		player2->update();
+		player1->update();
+
+		OutputMemoryBitStream outData;
+		outData.Write(NetworkManager::sInstance->kPosCC);
+		player1->Write(outData);
+		NetworkManager::sInstance->sendPacketToAllPeers(outData);
+		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+			player2->Read(NetworkManager::sInstance->test.front());
+			player2->update();
+			NetworkManager::sInstance->test.pop();
+		}
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
