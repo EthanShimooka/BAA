@@ -30,7 +30,6 @@
 #include <Windows.h>
 #include <math.h>
 #include <list>
-#include <vector>
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport) 

@@ -38,6 +38,6 @@ public:
 	SQUADIO_API SDLAudioObject();
 	/// Set a resource object from a Audio Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(gameResource* source);
-}
+};
 
 #endif // SDLAUDIOOBJECT_H_INCLUDED
