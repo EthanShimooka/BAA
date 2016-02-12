@@ -1,12 +1,6 @@
 <scene>
 	<layer name="layer1" posx="0" posy="0" visible="true">
-		<objects>
-			<object resourceID="1" posx="25" posy="25"  visible="true" colorkey="false"></object>
-		</objects>
 	</layer>
 	<layer name="layer2" posx="0" posy="0" visible="true">
-		<objects>
-			<object  posx="200" posy="200"  visible="true" resourceID="2" colorkey="true" r="0" g="0" b="0"></object>
-		</objects>
 	</layer>
 </scene>

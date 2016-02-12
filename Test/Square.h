@@ -12,9 +12,9 @@ protected:
 public:
 
 	~Square();
-	uint32_t x;
-	uint32_t y;
-	uint32_t ID;
+	float x;
+	float y;
+	int ID;
 
 	SDLRenderObject* obj;
 
@@ -22,10 +22,11 @@ public:
 
 	Square(){
 		obj = nullptr;
-		x = 50.0;
-		y = 50.0;
+		x = 0.0;
+		y = 0.0;
 	}
-
+	
+	Square(float x, float y, int ID) : x(x), y(y), ID(ID){};
 };
 
 

@@ -21,7 +21,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	if (!GamerServices::StaticInit())
+	/*if (!GamerServices::StaticInit())
 		std::cout << "Failed to initialize Steam" << "\n";
 
 	if (!NetworkManager::StaticInit())
@@ -37,7 +37,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			NetworkManager::sInstance->GetAllPlayersInLobby();
 			NetworkManager::sInstance->TryReadyGame();
 		}
-	}
+	}*/
 
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -54,12 +54,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	InputListener* listen = new InputListener();
 
 
-	Square* player = new Square();
-	player->ID = 1;
-	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2, 100, 100);
-	Square* player2 = new Square();
-	player2->ID = 2;
-	player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, 300, 200);
+	Square* player1 = new Square(100, 100, 1);
+	player1->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, player1->x, player1->y);
+	Square* player2 = new Square(200, 200, 2);
+	player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 
 
 	/////////////////////////////////////////////////////
@@ -68,13 +66,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 
 	while (gameloop) {
-		NetworkManager::sInstance->ProcessIncomingPackets();
+		//NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
 
-		player->x += listen->input_x;
-		player->y += listen->input_y;
+		player2->x += listen->input_x;
+		player2->y += listen->input_y;
 
-		player->update();
+		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
+
+		player2->update();
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
