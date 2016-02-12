@@ -62,7 +62,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	players.push_back(new Square(300, 100, 3));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 13, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(400, 100, 4));
+	players.push_back(new Square(300, 200, 4));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 14, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	
 
@@ -98,7 +98,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			NetworkManager::sInstance->test.front().Read(ID);
-			cout << ID << endl;
+			//cout << ID << endl;
 			for (int j = 0; j < players.size(); ++j){
 				if (ID == players[j]->ID){
 					players[j]->Read(NetworkManager::sInstance->test.front());
