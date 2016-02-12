@@ -62,7 +62,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	players.push_back(new Square(300, 100, 3));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 13, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(400, 100, 4));
+	players.push_back(new Square(300, 200, 4));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 14, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	
 
@@ -71,7 +71,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//Square* player2 = new Square(200, 200, 2);
 	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 	
-	Square *localPlayer = players[0];
+	Square *localPlayer = players[3];
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
