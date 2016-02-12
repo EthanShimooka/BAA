@@ -21,7 +21,7 @@ class OutputMemoryBitStream
 {
 public:
 
-	OutputMemoryBitStream() :
+	SQUADIO_API OutputMemoryBitStream() :
 		mBitHead(0),
 		mBuffer(nullptr)
 	{
@@ -48,6 +48,7 @@ public:
 	void Write( uint8_t inData, uint32_t inBitCount = 8 )	{ WriteBits( &inData, inBitCount ); }
 	*/
 
+	SQUADIO_API void Write(uint32_t inData, uint32_t inBitCount = 32)	{ WriteBits(&inData, inBitCount); }
 	SQUADIO_API void Write(float inData)								{ WriteBits(&inData, 32); }
 	SQUADIO_API void Write(int inData, uint32_t inBitCount = 32)		{ WriteBits(&inData, inBitCount); }
 
@@ -87,13 +88,13 @@ class InputMemoryBitStream
 {
 public:
 
-	InputMemoryBitStream(char* inBuffer, uint32_t inBitCount) :
+	SQUADIO_API InputMemoryBitStream(char* inBuffer, uint32_t inBitCount) :
 		mBuffer(inBuffer),
 		mBitCapacity(inBitCount),
 		mBitHead(0),
 		mIsBufferOwner(false) {}
 
-	InputMemoryBitStream(const InputMemoryBitStream& inOther) :
+	SQUADIO_API InputMemoryBitStream(const InputMemoryBitStream& inOther) :
 		mBitCapacity(inOther.mBitCapacity),
 		mBitHead(inOther.mBitHead),
 		mIsBufferOwner(true)
