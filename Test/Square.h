@@ -21,11 +21,12 @@ public:
 	void update();  //dontg know if this works ab
 
 	Square(){
-	obj = nullptr;
-	x = 50.0;
-	y = 50.0;
-}
-
+		obj = nullptr;
+		x = 0.0;
+		y = 0.0;
+	}
+	
+	Square(float x, float y, int ID) : x(x), y(y), ID(ID){};
 };
 
 

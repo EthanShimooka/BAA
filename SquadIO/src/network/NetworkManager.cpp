@@ -272,8 +272,8 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
 	default:
-		std::cout << packetType << std::endl;
 		//ignore anything else
+		//std::cout << packetType << std::endl;
 		break;
 	}
 }
@@ -355,9 +355,9 @@ void NetworkManager::HandleStartPacket(InputMemoryBitStream& inInputStream, uint
 		log->logBuffer << "Got the orders to go! NetworkManager::HandleStartPacket";
 		log->flush();
 		//get the rng seed
-		uint32_t seed;
+		/*uint32_t seed;
 		inInputStream.Read(seed);
-		RandGen::sInstance->Seed(seed);
+		RandGen::sInstance->Seed(seed);*/
 		//for now, assume that we're one frame off, but ideally we would RTT to adjust
 		//the time to start, based on latency/jitter
 		mState = NMS_Starting;
@@ -680,10 +680,10 @@ void NetworkManager::TryStartGame()
 		outPacket.Write(kStartCC);
 
 		//select a seed value
-		uint32_t seed = RandGen::sInstance->GetRandomUInt32(0, UINT32_MAX);
+		/*uint32_t seed = RandGen::sInstance->GetRandomUInt32(0, UINT32_MAX);
 		RandGen::sInstance->Seed(seed);
 		outPacket.Write(seed);
-
+		*/
 		for (auto &iter : mPlayerNameMap)
 		{
 			if (iter.first != mPlayerId)
