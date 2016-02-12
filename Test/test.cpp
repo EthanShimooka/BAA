@@ -56,13 +56,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	InputListener* listen = new InputListener();
 
 	vector<Square*> players;
-	players.push_back(new Square(100, 100, 1));
+	players.push_back(new Square(-100, 100, 1));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(200, 100, 2));
+	players.push_back(new Square(100, 100, 2));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(300, 100, 3));
+	players.push_back(new Square(100, -100, 3));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 13, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(300, 200, 4));
+	players.push_back(new Square(-100, -100, 4));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 14, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	
 
