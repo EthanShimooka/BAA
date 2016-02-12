@@ -273,7 +273,6 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 		break;
 	default:
 		//ignore anything else
-		//std::cout << packetType << std::endl;
 		break;
 	}
 }
@@ -375,6 +374,8 @@ void NetworkManager::ProcessPacketsPlaying(InputMemoryBitStream& inInputStream, 
 	case kTurnCC:
 		HandleTurnPacket(inInputStream, inFromPlayer);
 		break;
+	case kPosCC:
+		HandlePosPacket(inInputStream, inFromPlayer);
 	default:
 		//ignore anything else
 		break;
@@ -638,7 +639,7 @@ bool NetworkManager::CheckSync(Int64ToTurnDataMap& inTurnMap)
 
 void NetworkManager::SendPacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer)
 {
-	GamerServices::sInstance->SendP2PReliable(inOutputStream, inToPlayer);
+	GamerServices::sInstance->SendP2PUnreliable(inOutputStream, inToPlayer);
 }
 
 void NetworkManager::EnterLobby(uint64_t inLobbyId)
@@ -823,4 +824,18 @@ uint32_t NetworkManager::ComputeGlobalCRC()
 
 	crc = static_cast<uint32_t>(crc32(crc, reinterpret_cast<const Bytef*>(crcStream.GetBufferPtr()), crcStream.GetByteLength()));
 	return crc;
+}
+
+void NetworkManager::sendPacketToAllPeers(OutputMemoryBitStream& outData){
+	for (auto &iter : mPlayerNameMap)
+	{
+		if (iter.first != mPlayerId)
+		{
+			SendPacket(outData, iter.first);
+		}
+	}
+}
+
+void NetworkManager::HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
+	test.push(inInputStream);
 }

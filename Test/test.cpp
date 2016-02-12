@@ -76,6 +76,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		player2->update();
 
+		/*OutputMemoryBitStream outData;
+		outData.Write(NetworkManager::sInstance->kPosCC);
+		player2->Write(outData);
+		NetworkManager::sInstance->sendPacketToAllPeers(outData);*/
+
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 

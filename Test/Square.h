@@ -4,6 +4,7 @@
 
 
 #include "include\SceneManager.h"
+#include "include\network\MemoryBitStream.h"
 
 class Square
 {
@@ -27,6 +28,9 @@ public:
 	}
 	
 	Square(float x, float y, int ID) : x(x), y(y), ID(ID){};
+
+	void Write(OutputMemoryBitStream& outData);
+	void Read(InputMemoryBitStream& data);
 };
 
 
