@@ -1,39 +1,18 @@
 #include "test.h"
+
+
+
 //#include "include\network\NetIncludes.h"
 
 using namespace std;
 
-/*RenderResource* gameToRend(gameResource* game){
-	RenderResource* newSrc = new RenderResource();
-	newSrc->m_ResourceID = game->m_ResourceID;
-	newSrc->m_Scope = game->m_Scope;
-	newSrc->m_Filename = game->m_Filename;
-	newSrc->m_Type = game->m_Type;
-	return newSrc;
-}*/
+void update();
+void render(RenderManager*);
+long double getCurrentTime();
 
 
 int main() {
-	/*LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
-	try {
-		THROW_EXCEPTION(1, "dude error");
 
-	}
-	catch (cException& e)
-	{
-		log->logBuffer << "***WHOOPS***\n";
-			log->flush();
-			log->logException(e);
-			log->flush();
-		cout << e.what() << endl;
-		
-	}
-	log->close();
-	/*double a = 7.4;
-	int b = 98;
-	cout << SquadIO::SquadIO::Add(a, b) << endl;
-	*/
 	return 0;
 }
 
@@ -43,16 +22,17 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	//RandGen::StaticInit();
 	// need to initialize Steam before SDL so the overlay works*/
+
+	LogManager* log = LogManager::GetLogManager();
+	log->create("log.txt");
+
 	if (!GamerServices::StaticInit())
-	{
 		std::cout << "Failed to initialize Steam" << "\n";
-	}
-	//NetworkManager::StaticInit();
+
 	if (!NetworkManager::StaticInit())
-	{
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
-	}
-	while(true) {
+
+	while (true){
 		GamerServices::sInstance->Update();
 		int x;
 		cout << "Press 1 for player count" << endl
@@ -88,56 +68,100 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 	}
 	/*
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+		if (NetworkManager::sInstance->GetState() == 4)
+			break;
+		if (NetworkManager::sInstance->GetPlayerCount() == 2){
+			//NetworkManager::sInstance->GetAllPlayersInLobby();
+			NetworkManager::sInstance->TryReadyGame();
+		}
+	}
+
+	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
-	renderMan->init(400, 256, false, "Birds At Arms");
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	renderMan->init(700, 700, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
-	renderMan->setBackground("sky.jpg"); //TODO: change so it does not reference the direct filename
+
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
-	//fetches resource count
 
-	SDLRenderObject* obj = new SDLRenderObject();
-	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
+	sceneMan->loadFromXMLFile("SceneTree.xml");
+
+	InputListener* listen = new InputListener();
 
 
-			obj->renderResource = rend;
-			obj->setResourceObject(rend);
-			obj->renderRect.w = 50;
-			obj->renderRect.h = 50;
+	Square* player1 = new Square(100, 100, 1);
+	player1->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, player1->x, player1->y);
+	Square* player2 = new Square(200, 200, 2);
+	player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 
+
+	/////////////////////////////////////////////////////
+	/*              * * * GAME LOOP * * *              */
+	/////////////////////////////////////////////////////
+	bool gameloop = true;
+
+	while (gameloop) {
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		listen->getInput();
+
+		player1->x += listen->input_x;
+		player1->y += listen->input_y;
+
+		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
+
+		player1->update();
+
+		OutputMemoryBitStream outData;
+		outData.Write(NetworkManager::sInstance->kPosCC);
+		player1->Write(outData);
+		NetworkManager::sInstance->sendPacketToAllPeers(outData);
+		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+			player2->Read(NetworkManager::sInstance->test.front());
+			player2->update();
+			NetworkManager::sInstance->test.pop();
+		}
+
+		if (input->isKeyDown(KEY_ESCAPE))
+			gameloop = false;
+
+		input->update();
 		
 
-	SDLRenderObject* obj = new SDLRenderObject();
-	//////////////////////////////////////////////////////////
-	//TODO: Gets stuck on an infinite loop trying to find ID number 2
-	RenderResource* rend = static_cast<RenderResource*>(resourceMan->findResourcebyID(1));
-	obj->renderResource = rend;
-	obj->setResourceObject(rend);
+		sceneMan->AssembleScene();
 
-	renderMan->renderObjects.push_back(obj); //list
-	std::cout <<"size of array :" << renderMan->renderObjects.size() << std::endl;
-
-	renderMan->update();
-	std::cout << renderMan << endl;*/
-	/*
-	float width = obj->renderRect.w;
-	float height = obj->renderRect.h;
-	obj->anchor = { 0.5, 0.5 };
-	for (float i = 0;; i++){
-		float sini = 100 * (sin(i / 16) + 1);
-		obj->posX = sini;
-		//obj->renderRect.h = height * (int(i) % 100);
-		obj->rotation = i;
-		if (int(i / 10) % 4 == 0) obj->flipH = false;
-		if (int(i / 10) % 4 == 1) obj->flipV = false;
-		if (int(i / 10) % 4 == 2) obj->flipH = true;
-		if (int(i / 10) % 4 == 3) obj->flipV = true;
-		renderMan->update();
-		//if (renderMan->isReadyToQuit())break;
+		//render(renderMan);
 	}
 	std::cout << renderMan << endl;*/
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	std::cout << renderMan << endl;
 
 	log->close();
 	return 0;
+}
+
+
+void init(){
+
+}
+
+
+
+
+
+void render(RenderManager* renderMan) {
+	renderMan->update();
+}
+
+long double getCurrentTime(){
+	long double sysTime = time(0);
+	long double sysTimeMS = sysTime * 1000;
+
+	return sysTimeMS;
 }

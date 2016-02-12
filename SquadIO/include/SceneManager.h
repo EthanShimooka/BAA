@@ -12,7 +12,11 @@
 #include "include/ResourceManager.h"
 #include "include/SDLRenderObject.h"
 #include "include/RenderResource.h"
+#include "InputManager.h"
 #include "LogManager.h"
+#include "box2D\Box2D.h"
+#include "RenderManager.h"
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -88,22 +92,6 @@ public:
 	}
 }; //end class Timer
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/**
-* SceneObject inherits from SDL renderObject.
-
-* Everything belonging to a scene should be derived from this class.
-  Add this to a layer
-*/
-class SceneObject : public SDLRenderObject {
-private:
-protected:
-public:
-}; //end class SceneObject
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -111,7 +99,7 @@ public:
 
 /**
 * Layer componant.  Drawn in order of Z value assigned.
- -Z axis is imaginary-
+* -Z axis is imaginary-
 *
 */
 class Layer : public EngineObject {
@@ -132,8 +120,7 @@ public:
 	/// and searched
 	std::string m_Name;
 	/// list of SceneObjects assigned to layer instance
-	///
-	std::list<SceneObject*> m_SceneObjects;
+	std::list<SDLRenderObject*> m_SceneObjects;
 	/// Layer update function not implemented
 	void update();
 }; //end class Layer
@@ -170,22 +157,30 @@ public:
 	std::list<SceneListener*> m_Listeners;
 
 	/// Add layer to scene.
-	Layer* addLayer(std::string Name);
+	SQUADIO_API Layer* addLayer(std::string Name);
 	/// look up layer object by name
-	Layer* findLayer(std::string Name);
+	SQUADIO_API Layer* findLayer(std::string Name);
 	/// Delete layer by name
-	void removeLayer(std::string Name);
+	SQUADIO_API void removeLayer(std::string Name);
 	/// Sort Existing layers smallest to biggest.
 	void sortLayers();
 	/// loads up scene elements From XML file specified.
 	/// pushe
 	SQUADIO_API bool loadFromXMLFile(std::string Filename);
+	/// saves scene elements to XML file specified.
+	SQUADIO_API bool saveToXMLFile(std::string filename);
 	/// creates a new timer and pushes to m_Timers list
 	void addTimer(unsigned int id, DWORD interval);
 	/// creates new SceneListner and pushes to m_Listners
 	void addListener(SceneListener* object);
 	/// 
 	void update();
+	/// Puts scene together from incoming packets/input
+	SQUADIO_API void AssembleScene();
+	/// Creates object and adds it to specified layer
+	SQUADIO_API SDLRenderObject* InstantiateObject(Layer* layer, int resourceID, float x, float y);
+	/// Deletes object specified, must pass in the objects layer to properly remove.
+	SQUADIO_API void RemoveObject(SDLRenderObject* object, Layer* layer);
 };//end class SceneManager
 
 /////////////////////////////////////////////////////////////////////////////////////////////

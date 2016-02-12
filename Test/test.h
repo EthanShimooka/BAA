@@ -23,6 +23,10 @@
 #include <math.h>
 #include <list>
 
+
+#include "Square.h"
+#include "InputListener.h"
+
 class test
 {
 public:

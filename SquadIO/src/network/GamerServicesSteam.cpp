@@ -362,7 +362,7 @@ void GamerServices::LeaveLobby(uint64_t inLobbyId)
 	SteamMatchmaking()->LeaveLobby(inLobbyId);
 }
 
-bool GamerServices::SendP2PReliable(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer)
+bool GamerServices::SendP2PUnreliable(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer)
 {
 	return SteamNetworking()->SendP2PPacket(inToPlayer, inOutputStream.GetBufferPtr(),
 		inOutputStream.GetByteLength(), k_EP2PSendUnreliable);
