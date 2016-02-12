@@ -17,11 +17,6 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-	LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
-
-	//RandGen::StaticInit();
-	// need to initialize Steam before SDL so the overlay works*/
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -34,40 +29,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	while (true){
 		GamerServices::sInstance->Update();
-		int x;
-		cout << "Press 1 for player count" << endl
-			 << "Press 2 for Player ID" << endl
-			 << "Press 3 for text test" << endl
-			 << "Press 4 for all players in lobby" << endl;
-		cin >> x;
-		uint32_t hello = 2;
-		switch (x){
-		case 1:
-			cout << NetworkManager::sInstance->GetPlayerCount() << endl;
-			if (NetworkManager::sInstance->IsMasterPeer()){
-				cout << "You are master peer." << endl;
-			}
-			break;
-		case 2:
-			cout << GamerServices::sInstance->GetLocalPlayerName() << endl;
-			break;
-		case 3:
-			while (hello < 10001){
-				NetworkManager::sInstance->SendHelloWorld(hello);
-				NetworkManager::sInstance->ProcessIncomingPackets();
-				hello++;
-			}
-			break;
-		case 4:
-			NetworkManager::sInstance->GetAllPlayersInLobby();
-			break;
-		
-		case 5:
-			uint32_t h = 1;
-			NetworkManager::sInstance->SendHelloWorld(h);
-		}
-	}
-	/*
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
 		if (NetworkManager::sInstance->GetState() == 4)
@@ -130,13 +91,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 			gameloop = false;
 
 		input->update();
-		
+
 
 		sceneMan->AssembleScene();
 
 		//render(renderMan);
 	}
-	std::cout << renderMan << endl;*/
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////

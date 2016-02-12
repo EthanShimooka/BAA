@@ -20,23 +20,23 @@ bool NetworkManager::StaticInit()
 }
 
 NetworkManager::NetworkManager() :
-	mBytesSentThisFrame(0),
-	mDropPacketChance(0.f),
-	mSimulatedLatency(0.f),
-	mBytesReceivedPerSecond(WeightedTimedMovingAverage(1.f)),
-	mBytesSentPerSecond(WeightedTimedMovingAverage(1.f)),
-	mPlayerId(0),
-	mLobbyId(0),
-	mNewNetworkId(1),
-	mIsMasterPeer(false),
-	mState(NMS_Unitialized),
-	mPlayerCount(0),
-	mReadyCount(0),
-	mDelayHeartbeat(kTimeBetweenDelayHeartbeat),
-	mTimeToStart(-1.0f),
-	//we always start on turn -2 b/c we need 2 frames before we can actually play
-	mTurnNumber(-2),
-	mSubTurnNumber(0)
+mBytesSentThisFrame(0),
+mDropPacketChance(0.f),
+mSimulatedLatency(0.f),
+mBytesReceivedPerSecond(WeightedTimedMovingAverage(1.f)),
+mBytesSentPerSecond(WeightedTimedMovingAverage(1.f)),
+mPlayerId(0),
+mLobbyId(0),
+mNewNetworkId(1),
+mIsMasterPeer(false),
+mState(NMS_Unitialized),
+mPlayerCount(0),
+mReadyCount(0),
+mDelayHeartbeat(kTimeBetweenDelayHeartbeat),
+mTimeToStart(-1.0f),
+//we always start on turn -2 b/c we need 2 frames before we can actually play
+mTurnNumber(-2),
+mSubTurnNumber(0)
 {
 	//this is enough for a 16.6 minute game...
 	//so let's avoid realloc/copies and just construct all the empty maps, too
@@ -272,10 +272,6 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
 	default:
-		//std::cout << packetType << std::endl;
-		LogManager* log = LogManager::GetLogManager();
-		log->logBuffer << packetType << std::endl;
-		log->flush();
 		//ignore anything else
 		break;
 	}
@@ -330,8 +326,9 @@ void NetworkManager::SendReadyPacketsToPeers()
 	}
 }
 
-void NetworkManager::SendHelloWorld(uint32_t hello){
+void NetworkManager::SendHelloWorld(){
 	OutputMemoryBitStream outPacket;
+	uint32_t hello = 42;
 	outPacket.Write(hello);
 	for (auto& iter : mPlayerNameMap)
 	{
@@ -427,7 +424,7 @@ void NetworkManager::HandleConnectionReset(uint64_t inFromPlayer)
 	if (mPlayerNameMap.find(inFromPlayer) != mPlayerNameMap.end())
 	{
 		LogManager* log = LogManager::GetLogManager();
-		log->logBuffer << inFromPlayer + " disconnected. NetworkManager::HandleConnectionReset\n";
+		log->logBuffer << "Player %llu disconnected. NetworkManager::HandleConnectionReset\n", inFromPlayer;
 		log->flush();
 		mPlayerNameMap.erase(inFromPlayer);
 		//Commented out: Code to update scoreboard
@@ -517,56 +514,48 @@ void NetworkManager::EnterPlayingState()
 	//create scoreboard entry for each player
 	for (auto& iter : mPlayerNameMap)
 	{
-		ScoreBoardManager::sInstance->AddEntry(iter.first, iter.second);
-		//everyone gets a score of 3 cause 3 cats
-		ScoreBoardManager::sInstance->GetEntry(iter.first)->SetScore(3);
+	ScoreBoardManager::sInstance->AddEntry(iter.first, iter.second);
+	//everyone gets a score of 3 cause 3 cats
+	ScoreBoardManager::sInstance->GetEntry(iter.first)->SetScore(3);
 	}
-
 	//spawn a cat for each player
-
 	float halfWidth = kWorldWidth / 2.0f;
 	float halfHeight = kWorldHeight / 2.0f;
-
 	// ( pos.x, pos.y, rot )
 	std::array<Vector3, 4> spawnLocs = {
-		Vector3(-halfWidth + halfWidth / 5, -halfHeight + halfHeight / 5, 2.35f), // UP-LEFT
-		Vector3(-halfWidth + halfWidth / 5, halfHeight - halfHeight / 4, -5.49f), // DOWN-LEFT
-		Vector3(halfWidth - halfWidth / 5, halfHeight - halfHeight / 4, -0.78f), // DOWN-RIGHT
-		Vector3(halfWidth - halfWidth / 5, -halfHeight + halfHeight / 4, -2.35f), // UP-RIGHT
+	Vector3(-halfWidth + halfWidth / 5, -halfHeight + halfHeight / 5, 2.35f), // UP-LEFT
+	Vector3(-halfWidth + halfWidth / 5, halfHeight - halfHeight / 4, -5.49f), // DOWN-LEFT
+	Vector3(halfWidth - halfWidth / 5, halfHeight - halfHeight / 4, -0.78f), // DOWN-RIGHT
+	Vector3(halfWidth - halfWidth / 5, -halfHeight + halfHeight / 4, -2.35f), // UP-RIGHT
 	};
-
 	//use this to randomize location of cats
 	std::array<int, 4> indices = { 0, 1, 2, 3 };
 	std::shuffle(indices.begin(), indices.end(), RandGen::sInstance->GetGeneratorRef());
-
 	const float kCatOffset = 1.0f;
-
 	int i = 0;
 	for (auto& iter : mPlayerNameMap)
 	{
-		Vector3 spawnVec = spawnLocs[indices[i]];
-		//spawn 3 cats per player
-		SpawnCat(iter.first, spawnVec);
-		if (spawnVec.mX > 0.0f)
-		{
-			SpawnCat(iter.first, Vector3(spawnVec.mX - kCatOffset, spawnVec.mY, spawnVec.mZ));
-		}
-		else
-		{
-			SpawnCat(iter.first, Vector3(spawnVec.mX + kCatOffset, spawnVec.mY, spawnVec.mZ));
-		}
-
-		if (spawnVec.mY > 0.0f)
-		{
-			SpawnCat(iter.first, Vector3(spawnVec.mX, spawnVec.mY - kCatOffset, spawnVec.mZ));
-		}
-		else
-		{
-			SpawnCat(iter.first, Vector3(spawnVec.mX, spawnVec.mY + kCatOffset, spawnVec.mZ));
-		}
-		i++;
+	Vector3 spawnVec = spawnLocs[indices[i]];
+	//spawn 3 cats per player
+	SpawnCat(iter.first, spawnVec);
+	if (spawnVec.mX > 0.0f)
+	{
+	SpawnCat(iter.first, Vector3(spawnVec.mX - kCatOffset, spawnVec.mY, spawnVec.mZ));
 	}
-
+	else
+	{
+	SpawnCat(iter.first, Vector3(spawnVec.mX + kCatOffset, spawnVec.mY, spawnVec.mZ));
+	}
+	if (spawnVec.mY > 0.0f)
+	{
+	SpawnCat(iter.first, Vector3(spawnVec.mX, spawnVec.mY - kCatOffset, spawnVec.mZ));
+	}
+	else
+	{
+	SpawnCat(iter.first, Vector3(spawnVec.mX, spawnVec.mY + kCatOffset, spawnVec.mZ));
+	}
+	i++;
+	}
 	//Increment games played stat
 	GamerServices::sInstance->AddToStat(GamerServices::Stat_NumGames, 1);*/
 }
@@ -574,11 +563,11 @@ void NetworkManager::EnterPlayingState()
 /*Placeholder, we shouldn't need this at all:
 void NetworkManager::SpawnCat(uint64_t inPlayerId, const Vector3& inSpawnVec)
 {
-	RoboCatPtr cat = std::static_pointer_cast< RoboCat >(GameObjectRegistry::sInstance->CreateGameObject('RCAT'));
-	cat->SetColor(ScoreBoardManager::sInstance->GetEntry(inPlayerId)->GetColor());
-	cat->SetPlayerId(inPlayerId);
-	cat->SetLocation(Vector3(inSpawnVec.mX, inSpawnVec.mY, 0.0f));
-	cat->SetRotation(inSpawnVec.mZ);
+RoboCatPtr cat = std::static_pointer_cast< RoboCat >(GameObjectRegistry::sInstance->CreateGameObject('RCAT'));
+cat->SetColor(ScoreBoardManager::sInstance->GetEntry(inPlayerId)->GetColor());
+cat->SetPlayerId(inPlayerId);
+cat->SetLocation(Vector3(inSpawnVec.mX, inSpawnVec.mY, 0.0f));
+cat->SetRotation(inSpawnVec.mZ);
 }*/
 
 void NetworkManager::CheckForAchievements()
@@ -741,32 +730,30 @@ mPacketBuffer(ioInputMemoryBitStream)
 /*No GameObject class yet
 GameObjectPtr NetworkManager::GetGameObject(uint32_t inNetworkId) const
 {
-	auto gameObjectIt = mNetworkIdToGameObjectMap.find(inNetworkId);
-	if (gameObjectIt != mNetworkIdToGameObjectMap.end())
-	{
-		return gameObjectIt->second;
-	}
-	else
-	{
-		return GameObjectPtr();
-	}
+auto gameObjectIt = mNetworkIdToGameObjectMap.find(inNetworkId);
+if (gameObjectIt != mNetworkIdToGameObjectMap.end())
+{
+return gameObjectIt->second;
 }
-
+else
+{
+return GameObjectPtr();
+}
+}
 GameObjectPtr NetworkManager::RegisterAndReturn(GameObject* inGameObject)
 {
-	GameObjectPtr toRet(inGameObject);
-	RegisterGameObject(toRet);
-	return toRet;
+GameObjectPtr toRet(inGameObject);
+RegisterGameObject(toRet);
+return toRet;
 }
-
 void NetworkManager::UnregisterGameObject(GameObject* inGameObject)
 {
-	int networkId = inGameObject->GetNetworkId();
-	auto iter = mNetworkIdToGameObjectMap.find(networkId);
-	if (iter != mNetworkIdToGameObjectMap.end())
-	{
-		mNetworkIdToGameObjectMap.erase(iter);
-	}
+int networkId = inGameObject->GetNetworkId();
+auto iter = mNetworkIdToGameObjectMap.find(networkId);
+if (iter != mNetworkIdToGameObjectMap.end())
+{
+mNetworkIdToGameObjectMap.erase(iter);
+}
 }*/
 
 bool NetworkManager::IsPlayerInGame(uint64_t inPlayerId)
@@ -783,22 +770,19 @@ bool NetworkManager::IsPlayerInGame(uint64_t inPlayerId)
 /*No GameOjbect class yet
 void NetworkManager::AddToNetworkIdToGameObjectMap(GameObjectPtr inGameObject)
 {
-	mNetworkIdToGameObjectMap[inGameObject->GetNetworkId()] = inGameObject;
+mNetworkIdToGameObjectMap[inGameObject->GetNetworkId()] = inGameObject;
 }
-
 void NetworkManager::RemoveFromNetworkIdToGameObjectMap(GameObjectPtr inGameObject)
 {
-	mNetworkIdToGameObjectMap.erase(inGameObject->GetNetworkId());
+mNetworkIdToGameObjectMap.erase(inGameObject->GetNetworkId());
 }
-
 void NetworkManager::RegisterGameObject(GameObjectPtr inGameObject)
 {
-	//assign network id
-	int newNetworkId = GetNewNetworkId();
-	inGameObject->SetNetworkId(newNetworkId);
-
-	//add mapping from network id to game object
-	mNetworkIdToGameObjectMap[newNetworkId] = inGameObject;
+//assign network id
+int newNetworkId = GetNewNetworkId();
+inGameObject->SetNetworkId(newNetworkId);
+//add mapping from network id to game object
+mNetworkIdToGameObjectMap[newNetworkId] = inGameObject;
 }*/
 
 uint32_t NetworkManager::GetNewNetworkId()
@@ -822,7 +806,7 @@ uint32_t NetworkManager::ComputeGlobalCRC()
 	/*Commented out b/c mNetworkIdToGameObjectMap doesn't exist Still TO DO
 	for (auto& iter : mNetworkIdToGameObjectMap)
 	{
-		iter.second->WriteForCRC(crcStream);
+	iter.second->WriteForCRC(crcStream);
 	}*/
 
 	crc = static_cast<uint32_t>(crc32(crc, reinterpret_cast<const Bytef*>(crcStream.GetBufferPtr()), crcStream.GetByteLength()));
