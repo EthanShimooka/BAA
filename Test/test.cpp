@@ -83,6 +83,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			player2->Read(NetworkManager::sInstance->test.front());
+			player2->update();
 			NetworkManager::sInstance->test.pop();
 		}
 
