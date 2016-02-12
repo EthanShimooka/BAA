@@ -2,9 +2,7 @@
 
 #pragma once
 #include "include\AudioManager.h"
-// #include "include\LogManager.h"
-
-using namespace std;
+#include "include\LogManager.h"
 
 AudioManager* AudioManager::audioInstance = nullptr;
 
@@ -94,6 +92,7 @@ gameResource* AudioManager::loadResourceFromXML(tinyxml2::XMLElement *element){
 		// Then audio can easily be played 
 		SDLAudioObject* obj = new SDLAudioObject();
 		obj->setResourceObject(resource);
+		//if (resource->m_File)
 		audioObjects.push_back(obj);
 
 		return resource;
@@ -101,35 +100,59 @@ gameResource* AudioManager::loadResourceFromXML(tinyxml2::XMLElement *element){
 	return NULL;
 }
 
-void AudioManager::playByID(int id) {
-	SDLAudioObject* playThis = audioObjects[id];
-	if (playThis->isBgm) {
-		// check that no background music is already playing
-		if (Mix_PlayingMusic() == 0) {
-			// first arg is what we play, second arg is how many loops
-			Mix_PlayMusic(playThis->audioResource->bgm, -1);
+
+
+void AudioManager::playByName(std::string name) {
+	// SDLAudioObject* playThis = audioObjects[id];
+	std::list<SDLAudioObject*>::iterator list_it;
+	//render all associated render objects
+	for (list_it = audioObjects.begin(); list_it != audioObjects.end(); list_it++){
+		if ((*list_it)->audioResource->m_Filename == name){
+			if ((*list_it)->isBgm) {
+				// check that no background music is already playing
+				if (Mix_PlayingMusic() == 0) {
+					// first arg is what we play, second arg is how many loops
+					Mix_PlayMusic((*list_it)->audioResource->bgm, -1);
+				}
+			}
+			else {
+				// first arg is what channel to play in (-1 = first free channel)
+				// second arg is what effect we play
+				// third arg is how many times to loop the effect
+				Mix_PlayChannel(-1, (*list_it)->audioResource->effect, 0);
+			}
 		}
-	} else {
-		// first arg is what channel to play in (-1 = first free channel)
-		// second arg is what effect we play
-		// third arg is how many times to loop the effect
-		Mix_PlayChannel(-1, playThis->audioResource->effect, 0);
 	}
+	THROW_EXCEPTION(601, "Failed to find audio in AudioManager");
 }
 
 // should never really be needed since effects are played once and automatically stop
 // and music should just be stopped when it's not used
-void AudioManager::pauseByID(int id) {
+void AudioManager::pauseByName(std::string name) {
 
 }
 
 // should only need this for bgm since effects are played once on first available channel and then stopped
-void AudioManager::stopByID(int id) {
-	SDLAudioObject* stopThis = audioObjects[id];
-	if (stopThis->isBgm) {
-		// check that bgm is playing
-		if (Mix_PlayingMusic != 0) {
-			Mix_HaltMusic();
+void AudioManager::stopByName(std::string name) {
+	// SDLAudioObject* stopThis = audioObjects[id];
+	std::list<SDLAudioObject*>::iterator list_it;
+	for (list_it = audioObjects.begin(); list_it != audioObjects.end(); list_it++){
+		if ((*list_it)->audioResource->m_Filename == name){
+			if ((*list_it)->isBgm) {
+				// check that bgm is playing
+				if (Mix_PlayingMusic != 0) {
+					Mix_HaltMusic();
+				}
+			}
+			/*
+			else {
+				// first arg is what channel to play in (-1 = first free channel)
+				// second arg is what effect we play
+				// third arg is how many times to loop the effect
+				Mix_PlayChannel(-1, (*list_it)->audioResource->effect, 0);
+			}
+			*/
 		}
 	}
+	THROW_EXCEPTION(601, "Failed to find audio in AudioManager");
 }

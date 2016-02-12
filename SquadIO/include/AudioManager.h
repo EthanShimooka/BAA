@@ -30,8 +30,7 @@
 #include <Windows.h>
 #include <math.h>
 #include <list>
-
-using namespace std;
+#include <vector>
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport) 
@@ -54,13 +53,13 @@ public:
 
 	// the ID passed in is found at SDLAudioObject->audioResource->m_ResourceID
 	// maybe m_ResourceID for audio will just match the position in the list it's stored
-	SQUADIO_API void playByID(int id);
-	SQUADIO_API void pauseByID(int id);
-	SQUADIO_API void stopByID(int id);
+	SQUADIO_API void playByName(std::string name);
+	SQUADIO_API void pauseByName(std::string name);
+	SQUADIO_API void stopByName(std::string name);
 
 	// need to store all SDLAudioObjects here which can be accessed through the functions above
 	// e.g. AudioManager.play(AudioFileID) where the play function finds and plays the file
-	vector<SDLAudioObject*> audioObjects;
+	std::list<SDLAudioObject*> audioObjects;
 
 	// no need for update function I think if all audio is loaded during init??
 
