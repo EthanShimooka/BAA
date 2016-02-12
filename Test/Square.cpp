@@ -10,7 +10,7 @@
 	}
 
 	void Square::Write(OutputMemoryBitStream& outData){
-		//outData.Write(ID);
+		outData.Write(ID);
 		outData.Write(x);
 		outData.Write(y);
 	}
