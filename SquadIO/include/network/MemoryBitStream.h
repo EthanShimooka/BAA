@@ -48,6 +48,9 @@ public:
 	void Write( uint8_t inData, uint32_t inBitCount = 8 )	{ WriteBits( &inData, inBitCount ); }
 	*/
 
+	SQUADIO_API void Write(float inData)								{ WriteBits(&inData, 32); }
+	SQUADIO_API void Write(int inData, uint32_t inBitCount = 32)		{ WriteBits(&inData, inBitCount); }
+
 	template< typename T >
 	void Write(T inData, uint32_t inBitCount = sizeof(T)* 8)
 	{
@@ -122,8 +125,8 @@ public:
 	}
 
 	void		Read(uint32_t& outData, uint32_t inBitCount = 32)		{ ReadBits(&outData, inBitCount); }
-	void		Read(int& outData, uint32_t inBitCount = 32)			{ ReadBits(&outData, inBitCount); }
-	void		Read(float& outData)									{ ReadBits(&outData, 32); }
+	SQUADIO_API void		Read(int& outData, uint32_t inBitCount = 32)			{ ReadBits(&outData, inBitCount); }
+	SQUADIO_API void		Read(float& outData)									{ ReadBits(&outData, 32); }
 
 	void		Read(uint16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
 	void		Read(int16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
