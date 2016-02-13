@@ -33,7 +33,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == 4)
+		if (NetworkManager::sInstance->GetState() == 1)
 			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
 			//NetworkManager::sInstance->GetAllPlayersInLobby();
