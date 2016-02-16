@@ -1,5 +1,5 @@
 #include "test.h"
-
+#include <functional>
 
 
 //#include "include\network\NetIncludes.h"
@@ -10,6 +10,49 @@ void update();
 void render(RenderManager*);
 long double getCurrentTime();
 
+typedef float(*ease_function)(float);
+
+float ease_linear(float i){
+	if (i < 0) return 0;
+	else if (i>1) return 1;
+	return i;
+}
+float ease_QuadOut(float i){
+	if (i < 0) return 0;
+	else if (i>1) return 1;
+	return pow(i,2);
+}
+float ease_QuadIn(float i){
+	if (i < 0) return 0;
+	else if (i>1) return 1;
+	return -i*(i-2);
+}
+std::function<float(float)> getBezier(float x0, float x1, float x2, float x3){
+	return [=](float i) {
+		float x;
+		if (i < 0) x = 0.0;
+		else if (i>1) x = 1.0;
+		else x = x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*(x3 - 3 * x2 + 3 * x1 - x0);
+		return x;
+	};
+}
+std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, double end){
+	return [=](float i) {obj->rotation = (end-start)*i+start; };
+}
+
+std::function<void(float)> moveCircArc(SDLRenderObject* obj, int centerx, int centery, double rad, double start_angle, double end_angle){
+	return [=](float i) {
+		obj->posX = centerx + rad * cos(M_PI*(end_angle*i + start_angle)/180);
+		obj->posY = centery + rad * sin(M_PI*(end_angle*i + start_angle)/180);
+	};
+}
+std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, int centerx, int centery, double height, double width, double start_angle, double end_angle){
+	return [=](float i) {
+		obj->posX = centerx + width/2 * cos(M_PI*(end_angle*i + start_angle)/180);
+		obj->posY = centery + height / 2 * sin(M_PI*(end_angle*i + start_angle)/180);
+	};
+}
+//float bezier()
 
 int main() {
 
@@ -17,7 +60,6 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
@@ -79,6 +121,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 
 	int var = 0;
+
+	auto up = rotateTransform(arm->obj, 0, 180);
+	auto down = rotateTransform(arm->obj, 180, 0);
 	while (gameloop) {
 		var += 1;
 		//NetworkManager::sInstance->ProcessIncomingPackets();
@@ -87,13 +132,25 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->obj->rotation = var * 2;
 		center.x += listen->input_x;
 		center.y += listen->input_y;
-		armor->obj->posX = 0 + center.x;
-		armor->obj->posY = 0 + center.y;
-		leg->obj->posX = 14 + armor->obj->posX;
-		leg->obj->posY = 60 + armor->obj->posY;
-		arm->obj->posX = 31 + armor->obj->posX;
-		arm->obj->posY = 43 + armor->obj->posY;
+		auto arcbody = moveEllipseArc(armor->obj, center.x, center.y, 5, 2, 0, -360);
+		arcbody(float(var % 12) / 12);
+		auto arcarm = moveEllipseArc(arm->obj, 31 + armor->obj->posX, 43 + armor->obj->posY, 0, 4, -180, 360);
+		arcarm(float(var % 12) / 12);
 
+		leg->obj->posX = 14 + center.x;
+		leg->obj->posY = 60 + center.y;
+		//arm->obj->posX = 31 + armor->obj->posX;
+		//arm->obj->posY = 43 + armor->obj->posY;
+		
+		int length = 20;
+		float loop = (var % length);
+		/*if (loop < length/2){
+			up(ease_QuadOut(loop/(length/2)));
+		}
+		else{
+			down(ease_QuadIn((loop - length / 2) / (length / 2)));
+		}*/
+		
 		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
 
 		player2->update();
