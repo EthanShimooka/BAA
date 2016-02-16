@@ -18,9 +18,12 @@ public:
 	DeliveryNotificationManager();
 	/// Destructor.
 	~DeliveryNotificationManager();
+	/// Sends a packet to WriteSequenceNumber for packet sequence number.
+	SQUADIO_API inline void WriteState(OutputMemoryBitStream& inOutputStream);
+	/// Reads in packet and sends to ProcessSequenceNumber, returns false if packet is older than mNextExpectedSequenceNumber.
+	SQUADIO_API inline bool ReadAndProcessState(InputMemoryBitStream& inOutputStream);
 
 private:
-
 
 	/// Writes a unique uint16_t to a packet before being sent.
 	void WriteSequenceNumber(OutputMemoryBitStream& inOutputStream);
@@ -35,4 +38,16 @@ private:
 
 };
 
+inline void DeliveryNotificationManager::WriteState(OutputMemoryBitStream& inOutputStream)
+{
+	WriteSequenceNumber(inOutputStream);
+}
+
+
+inline bool	DeliveryNotificationManager::ReadAndProcessState(InputMemoryBitStream& inInputStream)
+{
+	bool toRet = ProcessSequenceNumber(inInputStream);
+
+	return toRet;
+}
 #endif
