@@ -14,7 +14,7 @@ class DeliveryNotificationManager
 {
 public:
 
-	/// Constructor, initializes variables.
+	/// Constructor, initializes sequence variables to 0.
 	DeliveryNotificationManager();
 	/// Destructor.
 	~DeliveryNotificationManager();
