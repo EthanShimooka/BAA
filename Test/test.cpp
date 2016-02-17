@@ -79,6 +79,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 	int ID = -1;
 
+	input->update();
 	while (gameloop) {
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
