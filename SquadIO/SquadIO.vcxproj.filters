@@ -108,9 +108,6 @@
     <ClInclude Include="zlib\include\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DeliveryNotificationManager.h">
-      <Filter>Header Files\Network Classes</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp">
@@ -175,9 +172,6 @@
     </ClCompile>
     <ClCompile Include="src\InputManager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DeliveryNotificationManager.cpp">
-      <Filter>Source Files\Network Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

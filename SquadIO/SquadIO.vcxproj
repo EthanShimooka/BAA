@@ -86,7 +86,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DeliveryNotificationManager.h" />
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
     <ClInclude Include="include\network\BirdMath.h" />
@@ -114,7 +113,6 @@
     <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DeliveryNotificationManager.cpp" />
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
