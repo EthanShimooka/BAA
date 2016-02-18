@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int something[] = { 2, 12, 13, 14 };
 	vector<Player*> players;
 	for (int i = 0; i < 4; i++){
-		Player* player = new Player(i);
+		Player* player = new Player(i,50*i-50, 50*i-50);
 		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
 		players.push_back(player);
 	}
@@ -81,25 +81,33 @@ int _tmain(int argc, _TCHAR* argv[]){
 		localPlayer->update();
 
 		
-		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
+
+
+
+
+
+
+
+
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			NetworkManager::sInstance->test.front().Read(ID);
 			//cout << ID << endl;
-			/*for (int j = 0; j < players.size(); ++j){
+			for (int j = 0; j < players.size(); ++j){
 				if (ID == players[j]->ID){
-					players[j]->Read(NetworkManager::sInstance->test.front());
+					players[j]->updatePlayerFromNetwork(NetworkManager::sInstance->test.front());
 					players[j]->update();
 					NetworkManager::sInstance->test.pop();
-					players[j]->updatePlayerFromNetwork();
 				}
-			}*/
+			}
+			/*player2->Read(NetworkManager::sInstance->test.front());
+			player2->update();*/
+			//NetworkManager::sInstance->test.pop();
 		}
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
 		sceneMan->AssembleScene();
-
 
 	}
 	/////////////////////////////////////////////////////
@@ -109,11 +117,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	log->close();
 	return 0;
-}
-
-
-void init(){
-
 }
 
 

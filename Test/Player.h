@@ -21,13 +21,13 @@ public:
 	SDLRenderObject* objRef;
 	b2Body* body;
 	void updateRef();
-	void updatePlayerFromNetwork();
+	void updatePlayerFromNetwork(InputMemoryBitStream data);
 	void updatePlayerFromInput();
 	void sendPlayerDataToNetwork();
 	void updatePhysics();
 
 	Player();
-	Player(int playerID);
+	Player(int playerID, int x, int y);
 	Player(SDLRenderObject* obj);
 	void update();
 };

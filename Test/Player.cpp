@@ -2,13 +2,15 @@
 
 Player::Player(){}
 
-Player::Player(int playerID){
+Player::Player(int playerID, int x, int y){
 	//do initialization stuff here in the contructor
 	//TODO: this is hard coded in to load the first object to be the reference
 	//also requires there to be an object since it's hard coded for now
 
 	ID = playerID;
 	visible = true;
+	posX = x;
+	posY = y;
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -35,7 +37,6 @@ void Player::updateRef(){
 void Player::updatePlayerFromInput(){
 	//use the input manager to update the player
 	//most of this function is prototype code
-	cout << posX << "  ";
 	InputManager* input = InputManager::getInstance();
 
 	if (input->isKeyDown(KEY_RIGHT)) {
@@ -53,18 +54,16 @@ void Player::updatePlayerFromInput(){
 	else if (input->isKeyDown(KEY_DOWN)) {
 		posY += 2.0;
 	}
-	cout << posX << endl;
-	cout << "ref:" << objRef->posX << endl;
 }
 
-void Player::updatePlayerFromNetwork(){
+void Player::updatePlayerFromNetwork(InputMemoryBitStream data){
 	//of the recieved packets, find the ones pertaining to this puppet
 	//once found, process the packet
 	//most likely free the packet after it has been processed.
-	InputMemoryBitStream data = NetworkManager::sInstance->test.front();
+	//InputMemoryBitStream data = NetworkManager::sInstance->test.front();
 	data.Read(posX);
 	data.Read(posY);
-	NetworkManager::sInstance->test.pop();
+	//NetworkManager::sInstance->test.pop();
 }
 
 void Player::sendPlayerDataToNetwork(){
@@ -84,8 +83,7 @@ void Player::updatePhysics(){
 }
 
 void Player::update(){
-	if (isNetworkControlled)updatePlayerFromNetwork();
-	else updatePlayerFromInput();
+	if (!isNetworkControlled)updatePlayerFromInput();
 	//updatePhysics();
 	updateRef();
 	sendPlayerDataToNetwork();
