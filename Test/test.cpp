@@ -13,27 +13,17 @@ long double getCurrentTime();
 typedef float(*ease_function)(float);
 
 float ease_linear(float i){
-	if (i < 0) return 0;
-	else if (i>1) return 1;
 	return i;
 }
 float ease_QuadOut(float i){
-	if (i < 0) return 0;
-	else if (i>1) return 1;
 	return pow(i,2);
 }
 float ease_QuadIn(float i){
-	if (i < 0) return 0;
-	else if (i>1) return 1;
 	return -i*(i-2);
 }
 std::function<float(float)> getBezier(float x0, float x1, float x2, float x3){
 	return [=](float i) {
-		float x;
-		if (i < 0) x = 0.0;
-		else if (i>1) x = 1.0;
-		else x = x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*(x3 - 3 * x2 + 3 * x1 - x0);
-		return x;
+		return x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*(x3 - 3 * x2 + 3 * x1 - x0);
 	};
 }
 std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, double end){
@@ -60,16 +50,15 @@ struct motion{
 	int duration; //a value from 1-start to 0
 };
 struct animation{
-	motion *motions;
-	unsigned int size;
+	list <motion> motions;
 	bool animate(float i){
-		for (int iter = 0; iter < size;iter++){
-			if (i < motions[iter].start && motions[iter].start + motions[iter].duration){
-
-			}
-			motions[iter].trans(motions[iter].ease(i));
+		for (auto mot =  motions.begin(); mot != motions.end();mot++){
+			float place;
+			if (i >= mot->start + mot->duration){place = 1.0;}//so durations of 0 are assumed to have finished
+			else if (i < mot->start)			{place = 0.0;}
+			else								{place = (i - mot->start) / mot->duration;}
+			mot->trans(mot->ease(place));//apply transformation, place should be between 0 and 1
 		}
-		return motions;
 	}
 };
 
