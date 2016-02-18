@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 4;
+	int numPlayers = 2;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -71,7 +71,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//Square* player2 = new Square(200, 200, 2);
 	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 	
-	Square *localPlayer = players[3];
+	Square *localPlayer = players[0];
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
