@@ -25,6 +25,7 @@
 
 
 #include "Square.h"
+#include "Player.h"
 #include "InputListener.h"
 
 class test

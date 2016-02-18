@@ -83,12 +83,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputListener.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputListener.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>

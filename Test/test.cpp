@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 4;
+	int numPlayers = 1;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -41,7 +41,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 	}
 
-	InputManager* input = InputManager::getInstance();
+	InputManager* inputMan = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
@@ -55,23 +55,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	InputListener* listen = new InputListener();
 
-	vector<Square*> players;
-	players.push_back(new Square(-100, 100, 1));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(100, 100, 2));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(100, -100, 3));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 13, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(-100, -100, 4));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 14, players[players.size() - 1]->x, players[players.size() - 1]->y);
+	int something[] = { 2, 12, 13, 14 };
+	vector<Player*> players;
+	for (int i = 0; i < 4; i++){
+		Player* player = new Player(i);
+		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
+		players.push_back(player);
+	}
 	
-
-	//Square* player1 = new Square(100, 100, 1);
-	//player1->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, player1->x, player1->y);
-	//Square* player2 = new Square(200, 200, 2);
-	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
-	
-	Square *localPlayer = players[0];
+	Player* localPlayer = players[0];
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
@@ -79,48 +71,36 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 	int ID = -1;
 
-	input->update();
+	
 	while (gameloop) {
+		inputMan->update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
-		
 
-		localPlayer->x += listen->input_x;
-		localPlayer->y += listen->input_y;
-
-		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
 
 		localPlayer->update();
 
-		OutputMemoryBitStream outData;
-		outData.Write(NetworkManager::sInstance->kPosCC);
-		localPlayer->Write(outData);
-		NetworkManager::sInstance->sendPacketToAllPeers(outData);
+		
 		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			NetworkManager::sInstance->test.front().Read(ID);
 			//cout << ID << endl;
-			for (int j = 0; j < players.size(); ++j){
+			/*for (int j = 0; j < players.size(); ++j){
 				if (ID == players[j]->ID){
 					players[j]->Read(NetworkManager::sInstance->test.front());
 					players[j]->update();
 					NetworkManager::sInstance->test.pop();
+					players[j]->updatePlayerFromNetwork();
 				}
-			}
-			/*player2->Read(NetworkManager::sInstance->test.front());
-			player2->update();*/
-			//NetworkManager::sInstance->test.pop();
+			}*/
 		}
 
-		if (input->isKeyDown(KEY_ESCAPE))
+		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
-
-		input->update();
-		
 
 		sceneMan->AssembleScene();
 
-		//render(renderMan);
+
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
@@ -137,12 +117,6 @@ void init(){
 }
 
 
-
-
-
-void render(RenderManager* renderMan) {
-	renderMan->update();
-}
 
 long double getCurrentTime(){
 	long double sysTime = time(0);
