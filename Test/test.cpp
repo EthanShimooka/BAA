@@ -53,6 +53,25 @@ std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, int centerx, int
 	};
 }
 //float bezier()
+struct motion{
+	std::function<void(float)> trans;
+	std::function<float(float)> ease;
+	int start; //a value from 0 to 1
+	int duration; //a value from 1-start to 0
+};
+struct animation{
+	motion *motions;
+	unsigned int size;
+	bool animate(float i){
+		for (int iter = 0; iter < size;iter++){
+			if (i < motions[iter].start && motions[iter].start + motions[iter].duration){
+
+			}
+			motions[iter].trans(motions[iter].ease(i));
+		}
+		return motions;
+	}
+};
 
 int main() {
 
@@ -87,7 +106,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
-
+	renderMan->zoom = 0.25;
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 

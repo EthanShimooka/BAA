@@ -99,7 +99,6 @@ void RenderManager::setBackground(std::string filename){
 			}
 			background = tempTexture;
 		}
-
 	}
 	else{
 		printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
