@@ -91,6 +91,7 @@
     <ClInclude Include="include\network\BirdMath.h" />
     <ClInclude Include="include\network\Command.h" />
     <ClInclude Include="include\network\CommandList.h" />
+    <ClInclude Include="include\network\DeliveryNotificationManager.h" />
     <ClInclude Include="include\network\GamerServices.h" />
     <ClInclude Include="include\network\MemoryBitStream.h" />
     <ClInclude Include="include\network\NetIncludes.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DeliveryNotificationManager.cpp" />
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
