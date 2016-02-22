@@ -9,5 +9,3 @@ Achievement %s = %d
 Achievement %s = %d
 Achievement %s = %d
 Achievement %s = %d
-Master peer readying up! NetworkManager::TryReadyGameStarting! NetworkManager::TryStartGameSize of layers : 1
-Size of layers : 2
