@@ -8,8 +8,6 @@ using namespace std;
 
 void update();
 void render(RenderManager*);
-long double getCurrentTime();
-
 
 int main() {
 
@@ -18,7 +16,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 2;
+	int numPlayers = 4;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -40,7 +38,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 	}
-
+	/**/
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
@@ -55,8 +53,32 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	InputListener* listen = new InputListener();
 
+
+	//Buttons objects
+	/*LButton* gButton = new LButton();
+
+	gButton->setPosition(0, 0);
+	std::cout << gButton->getXPosition() << " " << gButton->getYPosition() << std::endl;
+	std::cout << input->getMouseX() << " " << input->getMouseY() << std::endl;
+	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition());
+	std::cout << gButton->obj->posX << " " << gButton->obj->posY << std::endl;
+	bool loop = true;
+	while (loop){
+
+		if (input->isKeyDown(KEY_ESCAPE))
+			loop = false;
+		SDL_Event e;
+
+		gButton->handleEvent(&e);
+	
+		input->update();
+
+		sceneMan->AssembleScene();
+
+		render(renderMan);
+	}*/
 	vector<Square*> players;
-	players.push_back(new Square(100, 100, 1));
+	players.push_back(new Square(0, 0, 1));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	players.push_back(new Square(200, 100, 2));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, players[players.size() - 1]->x, players[players.size() - 1]->y);
@@ -65,13 +87,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	players.push_back(new Square(300, 200, 4));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 14, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	
-
+	
 	//Square* player1 = new Square(100, 100, 1);
 	//player1->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, player1->x, player1->y);
 	//Square* player2 = new Square(200, 200, 2);
 	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 	
-	Square *localPlayer = players[0];
+	Square *localPlayer = players[1];
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
@@ -98,7 +120,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			NetworkManager::sInstance->test.front().Read(ID);
-			cout << ID << endl;
+			//cout << ID << endl;
 			for (int j = 0; j < players.size(); ++j){
 				if (ID == players[j]->ID){
 					players[j]->Read(NetworkManager::sInstance->test.front());
@@ -106,9 +128,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 					NetworkManager::sInstance->test.pop();
 				}
 			}
-			/*player2->Read(NetworkManager::sInstance->test.front());
-			player2->update();*/
-			//NetworkManager::sInstance->test.pop();
 		}
 
 		if (input->isKeyDown(KEY_ESCAPE))
@@ -120,7 +139,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sceneMan->AssembleScene();
 
 		//render(renderMan);
-	}
+	}/**/
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
@@ -131,21 +150,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 }
 
 
-void init(){
-
-}
-
-
-
-
-
 void render(RenderManager* renderMan) {
 	renderMan->update();
-}
-
-long double getCurrentTime(){
-	long double sysTime = time(0);
-	long double sysTimeMS = sysTime * 1000;
-
-	return sysTimeMS;
 }

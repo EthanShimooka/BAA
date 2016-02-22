@@ -12,6 +12,7 @@
 <resource UID="3" type="text" filename="text.txt" scenescope="0"></resource>
 <resource UID="4" type="audio" filename="Meow.ogg" scenescope="2"></resource>
 <resource UID="5" type="audio" filename="bear.wav" scenescope="0"></resource>
+<resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
 
 
 </resources>

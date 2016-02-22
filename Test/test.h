@@ -10,6 +10,7 @@
 #include "include\RenderResource.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
+#include "include\ButtonManager.h"
 #include <iostream>
 #include <windows.h>
 #include <tchar.h>
@@ -21,8 +22,8 @@
 #include <iomanip>
 #include <Windows.h>
 #include <math.h>
+#include <vld.h>
 #include <list>
-
 
 #include "Square.h"
 #include "InputListener.h"

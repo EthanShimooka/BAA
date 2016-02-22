@@ -108,6 +108,9 @@
     <ClInclude Include="zlib\include\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ButtonManager.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp">
@@ -171,6 +174,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ButtonManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

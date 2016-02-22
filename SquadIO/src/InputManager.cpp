@@ -61,6 +61,7 @@ void InputManager::update() {
 				break;
 			// SDL_MouseButtonEvent
 			case SDL_MOUSEBUTTONDOWN:
+				std::cout << "click" << std::endl;
 				if (ev.button.button == SDL_BUTTON_LEFT) {
 					this->mouseDown[MOUSE_LEFT] = 1;
 				}
