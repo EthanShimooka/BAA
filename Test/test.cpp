@@ -119,10 +119,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 	leg->obj->anchor = { 42 / float(leg->obj->renderRect.w), 2 / float(leg->obj->renderRect.h) };
 	Square* armor = new Square(0+center.x, 0+center.y, 4);
 	armor->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 101, armor->x, armor->y);
-	armor->obj->anchor = {0,0};
+	armor->obj->anchor = {0.5,0.5};
 	Square* arm = new Square(31+center.x, 43+center.y, 5);
 	arm->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 102, arm->x, arm->y);
 	arm->obj->anchor = { 14 / float(arm->obj->renderRect.w), 3 / float(arm->obj->renderRect.h) };
+	arm->obj->setParent(armor->obj);
+	//armor->obj->setParent(a->obj);
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
@@ -132,21 +134,38 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	auto up = rotateTransform(arm->obj, 0, 180);
 	auto down = rotateTransform(arm->obj, 180, 0);
+
+	auto arcarm = moveEllipseArc(arm->obj, 12, 14, 0, 4, -180, 360);
+	renderMan->zoom = 0.5;
+	int armswing = 20;
 	while (gameloop) {
 		var += 1;
+		//if (var % 10 == 0)
 		//NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
 
 		//arm->obj->rotation = var * 2;
 		center.x += listen->input_x;
 		center.y += listen->input_y;
+		if(input->isKeyDown(KEY_A)){
+			renderMan->flippedScreen = !renderMan->flippedScreen;
+		}
+		if (armswing > 20 && input->isKeyDown(KEY_Z)){
+			armswing = 0;
+		}
+		if (armswing <= 20){
+			armswing += 1;
+			if (armswing < 10)up(ease_QuadOut(float(armswing) / 10));
+			else down(ease_QuadIn(float(armswing - 10) / 10));
+			cout << float(armswing) / 20 << endl;
+		}
+		else{
+			arcarm(float(var % 12) / 12);
+		}
 		auto arcbody = moveEllipseArc(armor->obj, center.x, center.y, 5, 2, 0, -360);
+		leg->obj->setPos(-3 + center.x, 31 + center.y);
 		arcbody(float(var % 12) / 12);
-		auto arcarm = moveEllipseArc(arm->obj, 31 + armor->obj->posX, 43 + armor->obj->posY, 0, 4, -180, 360);
-		arcarm(float(var % 12) / 12);
-
-		leg->obj->posX = 14 + center.x;
-		leg->obj->posY = 60 + center.y;
+		
 		//arm->obj->posX = 31 + armor->obj->posX;
 		//arm->obj->posY = 43 + armor->obj->posY;
 		
