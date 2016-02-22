@@ -11,10 +11,8 @@ using namespace std;
 InputManager* InputManager::inputInstance = nullptr;
 
 // constructor
-InputManager::InputManager() :keyboard(nullptr), mouse(0), mouseX(0), 
-	mouseY(0), locked(false), quit(false), numKeysPressed(0), numMousePressed(0){
-	keyDown.resize(KEYBOARD_SIZE);
-	keyUp.resize(KEYBOARD_SIZE);
+InputManager::InputManager() :keyboardState(nullptr), mouseState(0),
+	mouseX(0), mouseY(0), locked(false) {
 	mouseDown.resize(MOUSE_SIZE);
 	mouseUp.resize(MOUSE_SIZE);
 };
@@ -29,36 +27,17 @@ InputManager* InputManager::getInstance() {
 
 // updates at every frame for new input
 void InputManager::update() {
-	// reset all to neutral state, continue polling for up/down events
-	for (int i = 0; i < KEYBOARD_SIZE; i++) {
-		this->keyDown[i] = 0;
-		this->keyUp[i] = 0;
-	}
+	// reset mouse to neutral state, continue polling for up/down events
 	for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;
 		this->mouseUp[i] = 0;
 	}
-	// poll for keyboard and mouse events
+	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	int index;
 	SDL_Event ev;
 	while (SDL_PollEvent(&ev)) {
 		switch (ev.type) {
-			// SDL_KeyboardEvents has SDL_KEYDOWN and SDL_KEYUP
-			// event fields accessed through ev.key.(x)
-			case SDL_KEYDOWN:
-				index = ev.key.keysym.scancode;
-				this->keyDown[index] = 1;
-				
-				// test quitting application when press Q key (hard coded 20 from SDL scancode)
-				if (index == 20) {
-					this->quit = true;
-				}
-				break;
-			case SDL_KEYUP:
-				index = ev.key.keysym.scancode;
-				this->keyUp[index] = 1;
-				break;
 			// SDL_MouseButtonEvent
 			case SDL_MOUSEBUTTONDOWN:
 				std::cout << "click" << std::endl;
@@ -96,6 +75,7 @@ void InputManager::update() {
 				break;
 		}
 	}
+	keyboardState = SDL_GetKeyboardState(nullptr);
 }
 
 // return true if keydown
@@ -106,7 +86,7 @@ bool InputManager::isKeyDown(int key) {
 	if (key < 0 || key >= KEYBOARD_SIZE) {
 		return false;
 	}
-	return this->keyDown[key] ? true : false;
+	return this->keyboardState[key] ? true : false;
 }
 
 // return true if keyup
@@ -117,7 +97,7 @@ bool InputManager::isKeyUp(int key) {
 	if (key < 0 || key >= KEYBOARD_SIZE) {
 		return false;
 	}
-	return this->keyUp[key] ? true : false;
+	return this->keyboardState[key] ? true : false;
 }
 
 // return true if mousedown
@@ -142,31 +122,6 @@ bool InputManager::isMouseUp(int b) {
 	return this->mouseUp[b] ? true : false;
 }
 
-
-/*
-bool InputManager::isKeyPressed(KeyboardKeys k) {
-	if (this->locked) {
-		return false;
-	}
-	return this->keyDown[k] ? true : false;
-}
-
-bool InputManager::isKeyReleased(KeyboardKeys k) {
-	if (this->locked) {
-		return false;
-	}
-	return this->keyUp[k] ? true : false;
-}
-
-bool InputManager::isMousePressed(MouseButton b) {
-	if (this->locked) {
-		return false;
-	}
-	return this->keyDown[k] ? true : false;
-	return false;
-}
-*/
-
 int InputManager::getMouseX() {
 	return this->mouseX;
 }
@@ -181,8 +136,4 @@ void InputManager::lock() {
 
 void InputManager::unlock() {
 	this->locked = false;
-}
-
-bool InputManager::getQuitStatus() {
-	return this->quit;
 }

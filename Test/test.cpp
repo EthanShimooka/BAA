@@ -27,7 +27,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	if (!NetworkManager::StaticInit())
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 
-	while (true){
+		/*while (true){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
@@ -38,7 +38,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 	}
-	/**/
+*/
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
@@ -55,7 +55,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 	//Buttons objects
-	/*LButton* gButton = new LButton();
+	LButton* gButton = new LButton();
 
 	gButton->setPosition(0, 0);
 	std::cout << gButton->getXPosition() << " " << gButton->getYPosition() << std::endl;
@@ -65,8 +65,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool loop = true;
 	while (loop){
 
-		if (input->isKeyDown(KEY_ESCAPE))
-			loop = false;
+		/*if (input->isKeyDown(KEY_ESCAPE))
+			loop = false;*/
 		SDL_Event e;
 
 		gButton->handleEvent(&e);
@@ -76,8 +76,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sceneMan->AssembleScene();
 
 		render(renderMan);
-	}*/
-	vector<Square*> players;
+	}
+	/*vector<Square*> players;
 	players.push_back(new Square(0, 0, 1));
 	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, players[players.size() - 1]->x, players[players.size() - 1]->y);
 	players.push_back(new Square(200, 100, 2));
@@ -93,7 +93,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//Square* player2 = new Square(200, 200, 2);
 	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 	
-	Square *localPlayer = players[1];
+	Square *localPlayer = players[1];*/
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
@@ -101,7 +101,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 	int ID = -1;
 
-	while (gameloop) {
+	/*while (gameloop) {
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
 		
@@ -139,7 +139,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sceneMan->AssembleScene();
 
 		//render(renderMan);
-	}/**/
+	}*/
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
