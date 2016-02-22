@@ -21,7 +21,7 @@ public:
 	SDLRenderObject* objRef;
 	b2Body* body;
 	void updateRef();
-	void updatePlayerFromNetwork(InputMemoryBitStream data);
+	void updatePlayerFromNetwork();
 	void updatePlayerFromInput();
 	void sendPlayerDataToNetwork();
 	void updatePhysics();

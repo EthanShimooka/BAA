@@ -9,6 +9,7 @@
 class GameObject
 {
 public:
+	vector<Command*> commands;
 	GameObject();
 	~GameObject();
 	virtual void update(){};

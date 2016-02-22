@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 2;
+	int numPlayers = 1;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -69,7 +69,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-	int ID = -1;
+	
 
 	
 	while (gameloop) {
@@ -82,27 +82,40 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		
 
+		
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+			//iterate though the queue, pop off packets, and create 
+			//commands to give to gameobjects
+			int UID;
+			NetworkManager::sInstance->test.front().Read(UID);
+			//process packet here
+			NetworkManager::sInstance->test.pop();
+		}
 
 
 
 
 
 
-
+		//THIS IS THE OLD PROTOTYPE FOR NETWORKING
+		/*int ID = -1;
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			NetworkManager::sInstance->test.front().Read(ID);
 			//cout << ID << endl;
 			for (int j = 0; j < players.size(); ++j){
 				if (ID == players[j]->ID){
-					players[j]->updatePlayerFromNetwork(NetworkManager::sInstance->test.front());
+					//players[j]->updatePlayerFromNetwork(NetworkManager::sInstance->test.front());
 					players[j]->update();
 					NetworkManager::sInstance->test.pop();
 				}
 			}
-			/*player2->Read(NetworkManager::sInstance->test.front());
-			player2->update();*/
+
+
+
+			//player2->Read(NetworkManager::sInstance->test.front());
+			//player2->update();
 			//NetworkManager::sInstance->test.pop();
-		}
+		}*/
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;

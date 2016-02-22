@@ -56,14 +56,41 @@ void Player::updatePlayerFromInput(){
 	}
 }
 
-void Player::updatePlayerFromNetwork(InputMemoryBitStream data){
+void Player::updatePlayerFromNetwork(){
 	//of the recieved packets, find the ones pertaining to this puppet
 	//once found, process the packet
 	//most likely free the packet after it has been processed.
-	//InputMemoryBitStream data = NetworkManager::sInstance->test.front();
+
+	for (auto iter = commands.begin(); iter != commands.end(); iter++){
+		switch ((*iter)->mCommandType){
+		case Command::CM_ABILITY:
+			//handle 
+			break;
+		case Command::CM_ATTACK:
+			//handle 
+			break;
+		case Command::CM_DIE:
+			//handle 
+			break;
+		case Command::CM_INVALID:
+			//handle 
+			break;
+		case Command::CM_JUMP:
+			//handle 
+			break;
+		case Command::CM_MOVE:
+			//handle movement
+			break;
+		}
+		
+		//iterate through the commands and process them as needed.
+	}
+
+
+
+	InputMemoryBitStream data = NetworkManager::sInstance->test.front();
 	data.Read(posX);
 	data.Read(posY);
-	//NetworkManager::sInstance->test.pop();
 }
 
 void Player::sendPlayerDataToNetwork(){
