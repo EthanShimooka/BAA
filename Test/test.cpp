@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 1;
+	int numPlayers = 2;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
