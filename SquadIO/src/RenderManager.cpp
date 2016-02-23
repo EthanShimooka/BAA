@@ -180,6 +180,7 @@ void RenderManager::renderAllObjects(){
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
 			SDL_Rect pos;
+			SDL_Point anchor;
 			//transforms the world positions of the object to window position
 			//if the screen is flipped, the math is a bit diffirent to accomadate it
 			//pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w * (*iter)->anchor.x)*z + windowSurface->w / 2);
@@ -187,17 +188,18 @@ void RenderManager::renderAllObjects(){
 			if (flippedScreen){
 				pos.x = int(-((*iter)->getPosX() - cameraPoint.x + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()))*z + windowSurface->w / 2);
 				pos.y = int(-((*iter)->getPosY() - cameraPoint.y + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()))*z + windowSurface->h / 2);
+				anchor = { int((*iter)->getWidth()*z*(1 - (*iter)->getAnchorX())), int((*iter)->getHeight()*z*(1 - (*iter)->getAnchorY())) };
 			}
 			else{
 				pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z + windowSurface->w / 2);
 				pos.y = int(((*iter)->getPosY() - cameraPoint.y - (*iter)->getHeight() * (*iter)->getAnchorY())*z + windowSurface->h / 2);
+				anchor = { int((*iter)->getWidth()*z*(*iter)->getAnchorX()), int((*iter)->getHeight()*z*(*iter)->getAnchorY()) };
 			}
 			pos.w = (*iter)->getWidth()*z;
 			pos.h = (*iter)->getHeight()*z;
 			
 			//TODO: replace NULL parameters with meaningful SDL_Rects
 			//uses the object's anchor value as a general position, and multiplies it with the proper w and h
-			SDL_Point anchor = { int((*iter)->getWidth()*z*(*iter)->getAnchorX()), int((*iter)->getHeight()*z*(*iter)->getAnchorY()) };
 			//flip the sprite based on some bool values
 			SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : SDL_FLIP_NONE;
 			if ((*iter)->isFlippedH()){ flip = (flippedScreen) ? SDL_FLIP_VERTICAL : SDL_FLIP_HORIZONTAL; }

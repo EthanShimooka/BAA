@@ -137,7 +137,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	auto arcarm = moveEllipseArc(arm->obj, 12, 14, 0, 4, -180, 360);
 	renderMan->zoom = 0.5;
-	int armswing = 20;
+	float size = 6;
+	float ratio = 0.7;
+	int armswing = size;
 	while (gameloop) {
 		var += 1;
 		//if (var % 10 == 0)
@@ -150,14 +152,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if(input->isKeyDown(KEY_A)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
-		if (armswing > 20 && input->isKeyDown(KEY_Z)){
+		if (armswing > size && input->isKeyDown(KEY_Z)){
 			armswing = 0;
 		}
-		if (armswing <= 20){
+		if (armswing <= size){
+			if (armswing < size*ratio)up(ease_QuadIn(float(armswing) / (size*ratio)));
+			else down(ease_QuadOut(float(armswing - (size*ratio)) / (size*(1-ratio))));
+			cout << float(armswing) << endl;
 			armswing += 1;
-			if (armswing < 10)up(ease_QuadOut(float(armswing) / 10));
-			else down(ease_QuadIn(float(armswing - 10) / 10));
-			cout << float(armswing) / 20 << endl;
 		}
 		else{
 			arcarm(float(var % 12) / 12);
