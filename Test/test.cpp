@@ -60,7 +60,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	gButton->setPosition(0, 0);
 	std::cout << gButton->getXPosition() << " " << gButton->getYPosition() << std::endl;
 	std::cout << input->getMouseX() << " " << input->getMouseY() << std::endl;
-	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition());
+	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(),true);
 	std::cout << gButton->obj->posX << " " << gButton->obj->posY << std::endl;
 	bool loop = true;
 	while (loop){

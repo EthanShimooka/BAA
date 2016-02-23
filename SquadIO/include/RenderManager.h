@@ -105,6 +105,7 @@ public:
 	SQUADIO_API void renderAllObjects();
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
+	std::list<SDLRenderObject*> windowObjects;
 
 };
 
