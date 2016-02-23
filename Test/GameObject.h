@@ -5,11 +5,13 @@
 
 #include "include\SceneManager.h"
 #include <iostream>
+#include <vector>
+//#include "include\network\Command.h"
 
 class GameObject
 {
 public:
-	vector<Command*> commands;
+//	std::vector< Command* > commands;
 	GameObject();
 	~GameObject();
 	virtual void update(){};

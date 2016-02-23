@@ -60,7 +60,7 @@ void Player::updatePlayerFromNetwork(){
 	//of the recieved packets, find the ones pertaining to this puppet
 	//once found, process the packet
 	//most likely free the packet after it has been processed.
-
+	/*
 	for (auto iter = commands.begin(); iter != commands.end(); iter++){
 		switch ((*iter)->mCommandType){
 		case Command::CM_ABILITY:
@@ -85,7 +85,7 @@ void Player::updatePlayerFromNetwork(){
 		
 		//iterate through the commands and process them as needed.
 	}
-
+	*/
 
 
 	InputMemoryBitStream data = NetworkManager::sInstance->test.front();
