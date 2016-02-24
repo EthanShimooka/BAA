@@ -16,6 +16,9 @@ public:
 	static const uint32_t	kStartCC = 'STRT';
 	/// Used to ping a peer when in delay
 	static const uint32_t	kDelayCC = 'DELY';
+
+	static const uint32_t	kPosCC = 'POSI';
+
 	static const int		kMaxPacketsPerFrameCount = 10;
 	/// Enum describing different states the networkmanager can enter. Uninit, Searching, Lobby, Ready are all pre-game/lobby/connection
 	enum NetworkManagerState
@@ -32,7 +35,7 @@ public:
 
 
 	/////////////////////////////
-	static const uint32_t	kPosCC = 'POSI';
+	
 	SQUADIO_API void sendPacketToAllPeers(OutputMemoryBitStream& outData);
 	SQUADIO_API void HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	///////////////////////
