@@ -30,6 +30,13 @@ public:
 		NMS_Delay,
 	};
 
+
+	/////////////////////////////
+	static const uint32_t	kPosCC = 'POSI';
+	SQUADIO_API void sendPacketToAllPeers(OutputMemoryBitStream& outData);
+	SQUADIO_API void HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	///////////////////////
+
 	//SQUADIO_API static NetworkManager networkManager; //local singleton instance of class
 
 
@@ -131,7 +138,12 @@ public:
 	/// Returns true if player with player Id is in game
 	bool	IsPlayerInGame(uint64_t inPlayerId);
 
-	vector<uint32_t> test;
+
+	///////////////////////////////////
+	queue<InputMemoryBitStream> test;
+	///////////////////////////////////
+
+
 private:
 //	void	AddToNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
 //	void	RemoveFromNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
