@@ -48,6 +48,8 @@ public:
 	/// Object position on the y axis
 	float posY;
 	double rotation;
+	float width;
+	float height;
 	//SDL_Point anchor;
 	bool flipH;
 	bool flipV;
@@ -61,17 +63,66 @@ public:
 	/// Set a resource object from a Render Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(RenderResource *source);
 	/*SQUADIO_API SDL_Rect* getRenderRect();
-	SQUADIO_API void setRenderRect(SDL_Rect rect);
 	SQUADIO_API void resetRenderRect();
 	SQUADIO_API SDL_Point getPosition();
 	SQUADIO_API void setPosition(SDL_Point point);
+	*/
+	
+	/// Get object's x position
+	SQUADIO_API float getPosX();
+	/// Get object's y position
+	SQUADIO_API float getPosY();
+	/// Get object's position
+	SQUADIO_API void getPos(float &x, float &y);
+	/// Set object's position
+	SQUADIO_API void setPos(float x, float y);
+
+	/// Get object's width
+	SQUADIO_API int getWidth();
+	/// Get object's height
+	SQUADIO_API int getHeight();
+	/// Get object's width and height
+	SQUADIO_API void getSize(int &w, int &h);
+	/// Set object's width and height
+	SQUADIO_API void setSize(int w, int h);
+	/// Set object's position, width, and height
+	SQUADIO_API void setRenderRect(SDL_Rect rect);
+
+	/// Check if the object is visible
+	SQUADIO_API bool isVisible();
+	/// Set if the object is visible
+	SQUADIO_API void setVisible(bool flag);
+
+	/// Get the object's rotation
 	SQUADIO_API float getRotation();
+	/// Set teh object's rotation
 	SQUADIO_API void setRotation(float degrees);
-	SQUADIO_API bool getVisibility();
-	SQUADIO_API void setVisibility(bool flag);*/
+
+	/// Check if the object is flipped horizontally
+	SQUADIO_API bool isFlippedH();
+	/// Check if the object is flipped vertically
+	SQUADIO_API bool isFlippedV();
+	/// Set if the object is flipped horizontally
+	SQUADIO_API void setFlippedH(bool flag);
+	/// Set if the object is flipped vertically
+	SQUADIO_API void setFlippedV(bool flag);
+
+	/// Get object's anchor xpoint relative to object's position and size
+	SQUADIO_API float getAnchorX();
+	/// Get object's anchor ypoint relative to object's position and size
+	SQUADIO_API float getAnchorY();
+	/// Get object's anchor point relative to object's position and size
+	SQUADIO_API void getAnchor(float &a, float &b);
+	/// Set object's anchor point relative to object's position and size
+	SQUADIO_API void setAnchor(float a, float b);
+	/// Set object's anchor point to the coordinate system
+	SQUADIO_API void setAnchor(int x, int y);
+
 	/// Abstract update function to be overriden.
 	SQUADIO_API void setColorKey(unsigned int r, unsigned int g, unsigned int b);
 	SQUADIO_API virtual void update(){};
+	SDLRenderObject * parent;
+	SQUADIO_API void setParent(SDLRenderObject * par);
 };
 
 #endif SDLRENDEROBJECT_H_INCLUDED
