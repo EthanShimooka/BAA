@@ -6,8 +6,8 @@ Player::Player(int playerID, int x, int y){
 	//do initialization stuff here in the contructor
 	//TODO: this is hard coded in to load the first object to be the reference
 	//also requires there to be an object since it's hard coded for now
-
-	ID = playerID;
+	//setPlayerID();
+	//ID = playerID;
 	visible = true;
 	posX = x;
 	posY = y;
@@ -85,12 +85,12 @@ void Player::updatePlayerFromNetwork(){
 		
 		//iterate through the commands and process them as needed.
 	}
-	*/
+	
 
 
 	InputMemoryBitStream data = NetworkManager::sInstance->test.front();
 	data.Read(posX);
-	data.Read(posY);
+	data.Read(posY);*/
 }
 
 void Player::sendPlayerDataToNetwork(){
@@ -116,4 +116,8 @@ void Player::update(){
 	sendPlayerDataToNetwork();
 
 
+}
+
+void Player::setPlayerID(){
+	ID = NetworkManager::sInstance->GetMyPlayerId();
 }

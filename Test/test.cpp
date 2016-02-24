@@ -57,10 +57,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	int something[] = { 2, 12, 13, 14 };
 	vector<Player*> players;
-	for (int i = 0; i < 4; i++){
-		Player* player = new Player(i,50*i-50, 50*i-50);
+	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+	int i = 0;
+	for (auto &iter : loby)
+	{
+		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
 		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
 		players.push_back(player);
+		i -= 50;
 	}
 	
 	Player* localPlayer = players[0];
@@ -69,12 +73,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-	
+	cout << localPlayer->ID;
 
 	
 	while (gameloop) {
 		inputMan->update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
+		NetworkManager::sInstance->UpdateDelay();
 		listen->getInput();
 
 
@@ -83,14 +87,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 		
 
 		
-		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
-			//iterate though the queue, pop off packets, and create 
-			//commands to give to gameobjects
-			int UID;
-			NetworkManager::sInstance->test.front().Read(UID);
-			//process packet here
-			NetworkManager::sInstance->test.pop();
-		}
+		//for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+		//	//iterate though the queue, pop off packets, and create 
+		//	//commands to give to gameobjects
+		//	int UID;
+		//	NetworkManager::sInstance->test.front().Read(UID);
+		//	//process packet here
+		//	NetworkManager::sInstance->test.pop();
+		//}
 
 
 

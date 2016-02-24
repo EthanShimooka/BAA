@@ -335,6 +335,7 @@ uint64_t GamerServices::GetMasterPeerId(uint64_t inLobbyId)
 
 void GamerServices::GetLobbyPlayerMap(uint64_t inLobbyId, map< uint64_t, string >& outPlayerMap)
 {
+	uint64_t retVal;
 	CSteamID myId = GetLocalPlayerId();
 	outPlayerMap.clear();
 	int count = GetLobbyNumPlayers(inLobbyId);

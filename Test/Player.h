@@ -9,7 +9,19 @@
 
 
 class Player: public GameObject{
+private:
+	enum playerCommand
+	{
+		CM_ABILITY,
+		CM_ATTACK,
+		CM_DIE,
+		CM_INVALID,
+		CM_JUMP,
+		CM_MOVE
+	};
+
 public:
+	queue<InputMemoryBitStream> commmands;
 	int ID;
 	float posX;
 	float posY;
@@ -25,6 +37,7 @@ public:
 	void updatePlayerFromInput();
 	void sendPlayerDataToNetwork();
 	void updatePhysics();
+	void setPlayerID();
 
 	Player();
 	Player(int playerID, int x, int y);
