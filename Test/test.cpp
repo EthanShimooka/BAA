@@ -73,7 +73,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-	cout << localPlayer->ID;
+	for (int i = 0; i < players.size(); ++i){
+		cout << i << ": " << localPlayer->ID;
+	}
 
 	
 	while (gameloop) {

@@ -7,7 +7,7 @@ Player::Player(int playerID, int x, int y){
 	//TODO: this is hard coded in to load the first object to be the reference
 	//also requires there to be an object since it's hard coded for now
 	//setPlayerID();
-	//ID = playerID;
+	ID = playerID;
 	visible = true;
 	posX = x;
 	posY = y;
