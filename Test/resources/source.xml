@@ -2,6 +2,17 @@
 
 <resource UID="1" type="graphic" filename="Duck.bmp" scenescope="0"></resource>
 <resource UID="2" type="graphic" filename="Duck.png" scenescope="0"></resource>
+<resource UID="12" type="graphic" filename="Duck2.png" scenescope="0"></resource>
+<resource UID="13" type="graphic" filename="Duck3.png" scenescope="0"></resource>
+<resource UID="14" type="graphic" filename="Duck4.png" scenescope="0"></resource>
+<resource UID="15" type="graphic" filename="Duck5.png" scenescope="0"></resource>
+<resource UID="16" type="graphic" filename="Duck6.png" scenescope="0"></resource>
+<resource UID="17" type="graphic" filename="Duck7.png" scenescope="0"></resource>
+<resource UID="18" type="graphic" filename="Duck8.png" scenescope="0"></resource>
+<resource UID="101" type="graphic" filename="ArmorBody1.gif" scenescope="0"></resource>
+<resource UID="102" type="graphic" filename="ArmorArmL1.gif" scenescope="0"></resource>
+<resource UID="103" type="graphic" filename="ArmorLeg1.gif" scenescope="0"></resource>
+<resource UID="151" type="graphic" filename="Tenta.png" scenescope="0"></resource>
 <resource UID="3" type="text" filename="text.txt" scenescope="0"></resource>
 <resource UID="4" type="audio" filename="Meow.ogg" scenescope="2"></resource>
 <resource UID="5" type="audio" filename="bear.wav" scenescope="0"></resource>

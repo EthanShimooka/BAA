@@ -38,8 +38,8 @@ int32_t RandGen::GetRandomInt(int32_t inMin, int32_t inMax)
 	return dist(mGenerator);
 }
 
-Vector3 RandGen::GetRandomVector(const Vector3& inMin, const Vector3& inMax)
-{
-	Vector3 r = Vector3(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
-	return inMin + (inMax - inMin) * r;
-}
+//Vector3 RandGen::GetRandomVector(const Vector3& inMin, const Vector3& inMax)
+//{
+//	Vector3 r = Vector3(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
+//	return inMin + (inMax - inMin) * r;
+//}

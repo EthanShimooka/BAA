@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Input Classes">
       <UniqueIdentifier>{4bcaf08b-a147-42be-bb90-275d04ea4f0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Audio Classes">
+      <UniqueIdentifier>{23abe390-9008-46be-8b1a-5760fd492e49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\RenderResource.h">
@@ -108,6 +111,15 @@
     <ClInclude Include="zlib\include\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\AudioManager.h">
+      <Filter>Header Files\Audio Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AudioResource.h">
+      <Filter>Header Files\Audio Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SDLAudioObject.h">
+      <Filter>Header Files\Audio Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp">
@@ -171,6 +183,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDLAudioObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #include "test.h"
-
+#include <functional>
 
 
 //#include "include\network\NetIncludes.h"
@@ -10,81 +10,116 @@ void update();
 void render(RenderManager*);
 long double getCurrentTime();
 
+typedef float(*ease_function)(float);
+
 int main() {
 
 	return 0;
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-
+	int numPlayers = 1;
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
+
+	if (!GamerServices::StaticInit())
+		std::cout << "Failed to initialize Steam" << "\n";
+
+	if (!NetworkManager::StaticInit())
+		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
+
+	while (true){
+		GamerServices::sInstance->Update();
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+		if (NetworkManager::sInstance->GetState() == 4)
+			break;
+		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
+			//NetworkManager::sInstance->GetAllPlayersInLobby();
+			NetworkManager::sInstance->TryReadyGame();
+		}
+	}
+
+	InputManager* inputMan = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
 	resourceMan->loadFromXMLFile("source.xml");
+	renderMan->zoom = 1.0;
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
-	InputManager* input = InputManager::getInstance();
 	InputListener* listen = new InputListener();
 
-	Square* player = new Square();
-	player->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),2,100, 100);
+	int something[] = { 2, 12, 13, 14 };
+	vector<Player*> players;
+	for (int i = 0; i < 4; i++){
+		Player* player = new Player(i, 50 * i - 50, 50 * i - 50);
+		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
+		players.push_back(player);
+	}
 
+	Player* localPlayer = players[0];
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-
 	while (gameloop) {
-	
+		inputMan->update();
+		NetworkManager::sInstance->ProcessIncomingPackets();
 		listen->getInput();
 
-		player->x += listen->input_x;
-		player->y += listen->input_y;
 
-		player->update();
+		localPlayer->update();
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+			//iterate though the queue, pop off packets, and create 
+			//commands to give to gameobjects
+			int UID;
+			NetworkManager::sInstance->test.front().Read(UID);
+			//process packet here
+			NetworkManager::sInstance->test.pop();
+		}
 
-		if (input->isKeyDown(KEY_ESCAPE))
+		//THIS IS THE OLD PROTOTYPE FOR NETWORKING
+		/*int ID = -1;
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+		NetworkManager::sInstance->test.front().Read(ID);
+		//cout << ID << endl;
+		for (int j = 0; j < players.size(); ++j){
+		if (ID == players[j]->ID){
+		//players[j]->updatePlayerFromNetwork(NetworkManager::sInstance->test.front());
+		players[j]->update();
+		NetworkManager::sInstance->test.pop();
+		}
+		}
+
+
+
+		//player2->Read(NetworkManager::sInstance->test.front());
+		//player2->update();
+		//NetworkManager::sInstance->test.pop();
+		}*/
+
+		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
-
-		input->update();
-		update();
 
 		sceneMan->AssembleScene();
 
-		//render(renderMan);
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	std::cout << renderMan << endl;
+
 	log->close();
 	return 0;
 }
 
 
-void init(){
-
-}
-
-
-void update() {
-
-
-
-
-}
-
-
-void render(RenderManager* renderMan) {
-	renderMan->update();
-}
 
 long double getCurrentTime(){
 	long double sysTime = time(0);

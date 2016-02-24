@@ -345,6 +345,7 @@ void SceneManager::AssembleScene(){
 }
 
 SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y){
+
 	SDLRenderObject* object = new SDLRenderObject();
 	
 	ResourceManager* ResMan = ResourceManager::GetResourceManager();
