@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 3;
+	int numPlayers = 2;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -81,7 +81,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	for (int i = 0; i < players.size(); ++i){
-		cout << i << ": " << localPlayer->ID << endl;
+		cout << i << ": " << players[i]->ID << endl;
 	}
 
 	

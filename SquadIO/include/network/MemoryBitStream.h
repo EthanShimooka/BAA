@@ -48,6 +48,7 @@ public:
 	void Write( uint8_t inData, uint32_t inBitCount = 8 )	{ WriteBits( &inData, inBitCount ); }
 	*/
 
+	SQUADIO_API void Write(uint64_t inData, uint32_t inBitCount = 64)	{ WriteBits(&inData, inBitCount); }
 	SQUADIO_API void Write(uint32_t inData, uint32_t inBitCount = 32)	{ WriteBits(&inData, inBitCount); }
 	SQUADIO_API void Write(float inData)								{ WriteBits(&inData, 32); }
 	SQUADIO_API void Write(int inData, uint32_t inBitCount = 32)		{ WriteBits(&inData, inBitCount); }

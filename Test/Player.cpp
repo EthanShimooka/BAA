@@ -2,7 +2,7 @@
 
 Player::Player(){}
 
-Player::Player(int playerID, int x, int y){
+Player::Player(uint64_t playerID, int x, int y){
 	//do initialization stuff here in the contructor
 	//TODO: this is hard coded in to load the first object to be the reference
 	//also requires there to be an object since it's hard coded for now

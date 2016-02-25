@@ -22,7 +22,7 @@ private:
 
 public:
 	queue<InputMemoryBitStream> commmands;
-	int ID;
+	uint64_t ID;
 	float posX;
 	float posY;
 	float rotation;
@@ -40,7 +40,7 @@ public:
 	void setPlayerID();
 
 	Player();
-	Player(int playerID, int x, int y);
+	Player(uint64_t playerID, int x, int y);
 	Player(SDLRenderObject* obj);
 	void update();
 };
