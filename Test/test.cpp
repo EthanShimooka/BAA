@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 2;
+	int numPlayers = 3;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -66,8 +66,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	{
 		cout << iter.second << endl;
 		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
-		if (player->ID == NetworkManager::sInstance->GetMyPlayerId())
+		if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
 			localPlayer = player;
+			player->isNetworkControlled = false;
+		}
 		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
 		players.push_back(player);
 		i++;
@@ -98,7 +100,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			//process packet here
 			for (int i = 0; i < players.size(); ++i){
 				if (players[i]->ID == UID){
-					cout << "ID matched" << endl;
+					//cout << "ID matched" << endl;
 					players[i]->commands.push(NetworkManager::sInstance->test.front());
 				}
 			}

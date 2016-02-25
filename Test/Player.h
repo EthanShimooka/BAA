@@ -29,7 +29,7 @@ public:
 	bool flipH;
 	bool flipV;
 	bool visible;
-	bool isNetworkControlled;
+	bool isNetworkControlled = true;
 	SDLRenderObject* objRef;
 	b2Body* body;
 	void updateRef();
