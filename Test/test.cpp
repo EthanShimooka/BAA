@@ -20,20 +20,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	int numPlayers = 2;
 
-	enum playerCommand
-	{
-		CM_INVALID,
-		CM_ABILITY,
-		CM_ATTACK,
-		CM_DIE,
-		CM_JUMP,
-		CM_MOVE
-	};
-
-	playerCommand s = CM_MOVE;
-	if (s == 5)
-		cout << "asdfasdfasdfasdfasdf" << endl;
-
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
@@ -112,6 +98,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			//process packet here
 			for (int i = 0; i < players.size(); ++i){
 				if (players[i]->ID == UID){
+					cout << "ID matched" << endl;
 					players[i]->commands.push(NetworkManager::sInstance->test.front());
 				}
 			}
@@ -119,7 +106,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 
 
-
+		for (int i = 0; i < players.size(); ++i){
+			players[i]->update();
+		}
 
 
 

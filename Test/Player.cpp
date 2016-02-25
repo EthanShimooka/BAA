@@ -87,6 +87,8 @@ void Player::updatePlayerFromNetwork(){
 			packet.Read(posX);
 			packet.Read(posY);
 			break;
+		default:
+			cout << "asdfasdfasdf" << endl;
 		}
 
 		commands.pop();
@@ -113,14 +115,11 @@ void Player::updatePhysics(){
 }
 
 void Player::update(){
-	if (!isNetworkControlled)updatePlayerFromInput();
+	if (!isNetworkControlled) updatePlayerFromInput();
+	updatePlayerFromNetwork();
 	//updatePhysics();
 	updateRef();
 	sendPlayerDataToNetwork();
 
 
-}
-
-void Player::setPlayerID(){
-	ID = NetworkManager::sInstance->GetMyPlayerId();
 }
