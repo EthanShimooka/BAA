@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\blauwill\Documents\GitHub\BAA\SquadIO\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;lib\SDL2_mixer.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\zlib\lib;$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -86,6 +86,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\AudioManager.h" />
+    <ClInclude Include="include\AudioResource.h" />
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
     <ClInclude Include="include\network\BirdMath.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="include\InputManager.h" />
     <ClInclude Include="include\InputMap.h" />
     <ClInclude Include="include\SceneManager.h" />
+    <ClInclude Include="include\SDLAudioObject.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\LogManager.h" />
     <ClInclude Include="include\RenderManager.h" />
@@ -113,6 +116,8 @@
     <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AudioManager.cpp" />
+    <ClCompile Include="src\AudioResource.cpp" />
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
@@ -130,6 +135,7 @@
     <ClCompile Include="src\RenderResource.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\SDLAudioObject.cpp" />
     <ClCompile Include="src\SDLRenderObject.cpp" />
     <ClCompile Include="src\SquadIO.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />

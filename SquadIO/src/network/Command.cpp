@@ -71,7 +71,7 @@ void AttackCommand::ProcessCommand()
 	*/
 }
 
-MoveCommandPtr MoveCommand::StaticCreate(uint32_t inNetworkId, const Vector3& inTarget)
+MoveCommandPtr MoveCommand::StaticCreate(uint32_t inNetworkId)
 {
 	MoveCommandPtr retVal;
 	/*
@@ -83,7 +83,7 @@ MoveCommandPtr MoveCommand::StaticCreate(uint32_t inNetworkId, const Vector3& in
 void MoveCommand::Write(OutputMemoryBitStream& inOutputStream)
 {
 	Command::Write(inOutputStream);
-	inOutputStream.Write(mTarget);
+	//inOutputStream.Write(mTarget);
 }
 
 void MoveCommand::ProcessCommand()
@@ -95,5 +95,5 @@ void MoveCommand::ProcessCommand()
 
 void MoveCommand::Read(InputMemoryBitStream& inInputStream)
 {
-	inInputStream.Read(mTarget);
+	//inInputStream.Read(mTarget);
 }

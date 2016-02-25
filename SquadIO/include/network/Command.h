@@ -42,11 +42,11 @@ public:
 	virtual void Write(OutputMemoryBitStream& inOutputStream);
 	/// Virtual function for processing a command, to be overridden
 	virtual void ProcessCommand() = 0;
+	/// Command type variable
+	ECommandType mCommandType;
 protected:
 	/// Reads a command from output stream, to be overridden
 	virtual void Read(InputMemoryBitStream& inInputStream) = 0;
-	/// Command type variable
-	ECommandType mCommandType;
 	/// Network Id variable
 	uint32_t mNetworkId;
 	/// Player Id variable
@@ -113,7 +113,7 @@ public:
 		mCommandType = CM_MOVE;
 	}
 	/// Unimplemented
-	static shared_ptr< MoveCommand > StaticCreate(uint32_t inNetworkId, const Vector3& inTarget);
+	static shared_ptr< MoveCommand > StaticCreate(uint32_t inNetworkId);
 	/// Writes move commands to an output stream
 	virtual void Write(OutputMemoryBitStream& inOutputStream) override;
 	/// Processes a move command. Unimplemented
@@ -124,7 +124,6 @@ protected:
 	/// Int coordinates to describe player position
 	uint16_t xpos, ypos;
 
-	Vector3 mTarget;
 };
 /// Shared pointer of move commands
 typedef shared_ptr< MoveCommand > MoveCommandPtr;
@@ -156,7 +155,7 @@ public:
 		abilityCommandType = eACommandType;
 	}
 	/// Unimplemented
-	static shared_ptr< AbilityCommand > StaticCreate(uint32_t inNetworkId, const Vector3& inTarget);
+	static shared_ptr< AbilityCommand > StaticCreate(uint32_t inNetworkId);
 	/// Writes ability commands to an output stream
 	virtual void Write(OutputMemoryBitStream& inOutputStream) override;
 	/// Processes an ability command. Unimplemented
