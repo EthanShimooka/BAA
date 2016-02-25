@@ -55,18 +55,22 @@ SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRec
 
 
 void SDLRenderObject::setParent(SDLRenderObject * par){
-	parent = par;
+	if (par != this){
+		parent = par;
+	}
 }
 
 float SDLRenderObject::getPosX(){ 
 	if (parent){
-		return parent->getPosX() + posX;
+		float flip = (isFlippedH()) ? -1 : 1;
+		return parent->getPosX() + posX*flip;
 	}
 	return posX; 
 }
-float SDLRenderObject::getPosY(){ 
+float SDLRenderObject::getPosY(){
 	if (parent){
-		return parent->getPosY() + posY;
+		float flip = (isFlippedV()) ? -1 : 1;
+		return parent->getPosY() + posY*flip;
 	}
 	return posY;
 }
@@ -93,16 +97,43 @@ bool SDLRenderObject::isVisible(){
 }
 void SDLRenderObject::setVisible(bool flag){ visible = flag; }
 
-float SDLRenderObject::getRotation(){ return rotation; }
+float SDLRenderObject::getRotation(){
+	bool h = isFlippedH(), v = isFlippedV();
+	float flip = ((h || v) && !(h && v)) ? -1 : 1;
+	if (parent){
+		return  rotation * flip + parent->getRotation();
+	}
+	return rotation * flip; 
+}
 void SDLRenderObject::setRotation(float degrees){ rotation = degrees; }
 
-bool SDLRenderObject::isFlippedH(){ return flipH; }
-bool SDLRenderObject::isFlippedV(){ return flipV; }
+bool SDLRenderObject::isFlippedH(){ 
+	if (parent){
+		return ((flipH || parent->isFlippedH()) && !(flipH && parent->isFlippedH()));
+	}
+	return flipH; 
+}
+bool SDLRenderObject::isFlippedV(){
+	if (parent){
+		return ((flipV || parent->isFlippedV()) && !(flipV && parent->isFlippedV()));
+	}
+	return flipV;
+}
 void SDLRenderObject::setFlippedH(bool flag){ flipH = flag; }
 void SDLRenderObject::setFlippedV(bool flag){ flipV = flag; }
 
-float SDLRenderObject::getAnchorX(){ return anchor.x; }
-float SDLRenderObject::getAnchorY(){ return anchor.y; }
+float SDLRenderObject::getAnchorX(){
+	if (parent){
+		return (isFlippedH()) ? (1 - anchor.x) : anchor.x;
+	}
+	return anchor.x;
+}
+float SDLRenderObject::getAnchorY(){
+	if (parent){
+		return (isFlippedV()) ? (1 - anchor.y) : anchor.y;
+	}
+	return anchor.y; 
+}
 
 void SDLRenderObject::getAnchor(float &a, float &b){ a = getAnchorX(); b = getAnchorY(); }
 void SDLRenderObject::setAnchor(float a, float b){ anchor.x = a; anchor.y = b; }
