@@ -104,29 +104,21 @@ int _tmain(int argc, _TCHAR* argv[]){
 	InputListener* listen = new InputListener();
 
 
-	Square* player1 = new Square(100, 100, 1);
-	player1->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, player1->x, player1->y);
-	Square* player2 = new Square(200, 200, 2);
-	player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
-
-	//center = {};
-	Square* base = new Square(0, 0,24);
-	base->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, base->x, base->y);
-	base->obj->anchor = { 0.5, 0.5 };
-	//base->obj->setVisible(false);
-	Square* leg = new Square(-5, 30, 3);
-	leg->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 103, leg->x, leg->y);
-	leg->obj->anchor = { 42 / float(leg->obj->renderRect.w), 2 / float(leg->obj->renderRect.h) };
-	leg->obj->setParent(base->obj);
-	Square* armor = new Square(0, 0, 4);
-	armor->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 101, armor->x, armor->y);
-	armor->obj->anchor = {0.5,0.5};
-	armor->obj->setParent(base->obj);
-	Square* arm = new Square(31, 43, 5);
-	arm->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 102, arm->x, arm->y);
-	arm->obj->anchor = { 14 / float(arm->obj->renderRect.w), 3 / float(arm->obj->renderRect.h) };
-	arm->obj->setParent(armor->obj);
-	//armor->obj->setParent(a->obj);
+	SDLRenderObject* player1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, 100, 100);
+	SDLRenderObject* player2 =  sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, 200, 200);
+	SDLRenderObject* base = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
+	base->anchor = { 0.5, 0.5 };
+	//base->setVisible(false);
+	SDLRenderObject* leg = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 103, -5, 30);
+	leg->anchor = { 42 / float(leg->renderRect.w), 2 / float(leg->renderRect.h) };
+	leg->setParent(base);
+	SDLRenderObject* armor = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 101, 0, 0);
+	armor->anchor = {0.5,0.5};
+	armor->setParent(base);
+	SDLRenderObject* arm = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 102, 31, 43);
+	arm->anchor = { 14 / float(arm->renderRect.w), 3 / float(arm->renderRect.h) };
+	arm->setParent(armor);
+	//armor->setParent(a);
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
@@ -134,34 +126,48 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	int var = 0;
 
-	auto up = rotateTransform(arm->obj, 0, 180);
-	auto down = rotateTransform(arm->obj, 180, 0);
+	auto up = rotateTransform(arm, 0, 180);
+	auto down = rotateTransform(arm, 180, 0);
 
-	auto arcarm = moveEllipseArc(arm->obj, 12, 14, 0, 4, -180, 360);
-	auto arcbody = moveEllipseArc(armor->obj, 0, 0, 5, 2, 0, -360);
+	auto arcarm = moveEllipseArc(arm, 12, 14, 0, 4, -180, 360);
+	auto arcbody = moveEllipseArc(armor, 0, 0, 5, 2, 0, -360);
 	renderMan->zoom = 0.5;
 	float size = 6;
 	float ratio = 0.7;
 	int armswing = size;
+	int moveSpd = 1;
 	while (gameloop) {
 		var += 1;
 		//if (var % 10 == 0)
 		//NetworkManager::sInstance->ProcessIncomingPackets();
-		listen->getInput();
+		//listen->getInput();
 
-		//arm->obj->rotation = var * 2;
-		base->obj->posX += listen->input_x;
-		base->obj->posY += listen->input_y;
+		//arm->rotation = var * 2;
+		//base->posX += listen->input_x;
+		//base->posY += listen->input_y;
+		
+		if (input->isKeyDown(KEY_DOWN)){
+			base->posY += moveSpd;
+		}
+		if (input->isKeyDown(KEY_UP)){
+			base->posY -= moveSpd;
+		}
+		if (input->isKeyDown(KEY_LEFT)){
+			base->posX -= moveSpd;
+		}
+		if (input->isKeyDown(KEY_RIGHT)){
+			base->posX += moveSpd;
+		}
 		if(input->isKeyDown(KEY_A)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
 		if (input->isKeyDown(KEY_Q)){
-			//base->obj->setVisible(!base->obj->isVisible());
-			base->obj->setFlippedH(!base->obj->isFlippedH());
+			//base->setVisible(!base->isVisible());
+			base->setFlippedH(!base->isFlippedH());
 		}
 		if (input->isKeyDown(KEY_W)){
-			//base->obj->setVisible(!base->obj->isVisible());
-			base->obj->setFlippedV(!base->obj->isFlippedV());
+			//base->setVisible(!base->isVisible());
+			base->setFlippedV(!base->isFlippedV());
 		}
 		if (armswing > size && input->isKeyDown(KEY_Z)){
 			armswing = 0;
@@ -177,8 +183,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 		arcbody(float(var % 12) / 12);
 		
-		//arm->obj->posX = 31 + armor->obj->posX;
-		//arm->obj->posY = 43 + armor->obj->posY;
+		//arm->posX = 31 + armor->posX;
+		//arm->posY = 43 + armor->posY;
 		
 		int length = 20;
 		float loop = (var % length);
@@ -189,7 +195,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			down(ease_QuadIn((loop - length / 2) / (length / 2)));
 		}*/
 		
-		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
+		//cout << player1->posX << "," << player2->posX<< endl;
 
 		player2->update();
 
