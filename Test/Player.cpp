@@ -98,8 +98,8 @@ void Player::updatePlayerFromNetwork(){
 void Player::sendPlayerDataToNetwork(){
 	OutputMemoryBitStream outData;
 	outData.Write(NetworkManager::sInstance->kPosCC);
-	//outData.Write(playerCommand::CM_MOVE);
 	outData.Write(ID);
+	outData.Write(5);
 	outData.Write(posX);
 	outData.Write(posY);
 	NetworkManager::sInstance->sendPacketToAllPeers(outData);
