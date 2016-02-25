@@ -67,7 +67,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		i -= 50;
 	}
 	
-	Player* localPlayer = players[0];
+	Player* localPlayer = players[2];
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
