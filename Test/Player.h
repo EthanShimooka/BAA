@@ -37,6 +37,7 @@ public:
 	void updatePlayerFromInput();
 	void sendPlayerDataToNetwork();
 	void updatePhysics();
+	int testNum = 0;
 
 	Player();
 	Player(uint64_t playerID, int x, int y);

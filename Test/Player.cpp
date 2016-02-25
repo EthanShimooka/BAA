@@ -84,8 +84,14 @@ void Player::updatePlayerFromNetwork(){
 			break;
 		case CM_MOVE:
 			//handle movement
-			packet.Read(posX);
-			packet.Read(posY);
+			int t;
+			packet.Read(t);
+			if (testNum < t){
+				packet.Read(posX);
+				packet.Read(posY);
+				testNum = t;
+			}
+			
 			break;
 		default:
 			cout << "asdfasdfasdf" << endl;
@@ -102,6 +108,7 @@ void Player::sendPlayerDataToNetwork(){
 	outData.Write(NetworkManager::sInstance->kPosCC);
 	outData.Write(ID);
 	outData.Write(5);
+	outData.Write(testNum++);
 	outData.Write(posX);
 	outData.Write(posY);
 	NetworkManager::sInstance->sendPacketToAllPeers(outData);

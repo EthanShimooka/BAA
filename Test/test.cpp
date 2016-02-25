@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 2;
+	int numPlayers = 3;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -64,7 +64,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int i = 0;
 	for (auto &iter : loby)
 	{
-		cout << iter.second << endl;
+		//cout << iter.second << endl;
 		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
 		if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
 			localPlayer = player;
@@ -92,8 +92,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 		localPlayer->update();
-
-		
 		
 		
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
