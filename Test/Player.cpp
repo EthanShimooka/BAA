@@ -85,9 +85,8 @@ void Player::updatePlayerFromNetwork(){
 			break;
 		case Command::CM_MOVE:
 			//handle movement
-			InputMemoryBitStream data = NetworkManager::sInstance->test.front();
-			data.Read(posX);
-			data.Read(posY);
+			packet.Read(posX);
+			packet.Read(posY);
 			break;
 		}
 	}
