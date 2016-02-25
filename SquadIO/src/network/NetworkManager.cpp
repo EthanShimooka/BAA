@@ -131,15 +131,6 @@ void NetworkManager::UpdateDelay()
 
 void NetworkManager::UpdateStarting()
 {
-	if (mIsMasterPeer){
-		//Want to set playerIdMap and send packets to all other players with PlayerId info
-		for (uint8_t i = 1; i <= GetPlayerCount(); i++){
-			mPlayerIdMap.insert(std::pair<uint8_t, uint64_t>(i, 1));
-		}
-	}
-	else {
-		// Receive incoming packets with playerIdMaps
-	}
 	mTimeToStart -= Timing::sInstance.GetDeltaTime();
 	if (mTimeToStart <= 0.0f)
 	{
