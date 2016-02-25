@@ -21,6 +21,7 @@ private:
 	};
 
 public:
+<<<<<<< HEAD
 	queue<InputMemoryBitStream> commands;
 	uint64_t ID;
 	float posX;

@@ -206,7 +206,6 @@ private:
 
 //	IntToGameObjectMap			mNetworkIdToGameObjectMap;
 	Int64ToStrMap				mPlayerNameMap;
-	PlayerNumToSteamIdMap		mPlayerIdMap;
 
 	//this stores all of our turn information for every turn since game start
 	/// Vector of turndata
