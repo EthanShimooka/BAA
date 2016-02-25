@@ -35,6 +35,7 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	zoom = 1;
 	minZoom = .05;
 	cameraPoint = { 0, 0 };
+	flippedScreen = false;
 	//Get window surface
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
@@ -99,7 +100,6 @@ void RenderManager::setBackground(std::string filename){
 			}
 			background = tempTexture;
 		}
-
 	}
 	else{
 		printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
@@ -178,22 +178,42 @@ void RenderManager::renderAllObjects(){
 	float z = 1 / zoom; //maybe invert
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
-		if ((*iter)->visible){
+		if ((*iter)->isVisible()){
 			SDL_Rect pos;
+			SDL_Point anchor;
 			//transforms the world positions of the object to window position
-			pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w * (*iter)->anchor.x)*z + windowSurface->w / 2);
-			pos.y = int((((*iter)->posY) - cameraPoint.y - (*iter)->renderRect.h * (*iter)->anchor.y)*z + windowSurface->h / 2);
-			pos.w = (*iter)->renderRect.w*z;
-			pos.h = (*iter)->renderRect.h*z;
+			//if the screen is flipped, the math is a bit diffirent to accomadate it
+			//pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w * (*iter)->anchor.x)*z + windowSurface->w / 2);
+			//pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z*f + windowSurface->w / 2);
+			if (flippedScreen){
+				pos.x = int(-((*iter)->getPosX() - cameraPoint.x + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()))*z + windowSurface->w / 2);
+				pos.y = int(-((*iter)->getPosY() - cameraPoint.y + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()))*z + windowSurface->h / 2);
+				anchor = { int((*iter)->getWidth()*z*(1 - (*iter)->getAnchorX())), int((*iter)->getHeight()*z*(1 - (*iter)->getAnchorY())) };
+			}
+			else{
+				pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z + windowSurface->w / 2);
+				pos.y = int(((*iter)->getPosY() - cameraPoint.y - (*iter)->getHeight() * (*iter)->getAnchorY())*z + windowSurface->h / 2);
+				anchor = { int((*iter)->getWidth()*z*(*iter)->getAnchorX()), int((*iter)->getHeight()*z*(*iter)->getAnchorY()) };
+			}
+			pos.w = (*iter)->getWidth()*z;
+			pos.h = (*iter)->getHeight()*z;
 			
 			//TODO: replace NULL parameters with meaningful SDL_Rects
 			//uses the object's anchor value as a general position, and multiplies it with the proper w and h
-			SDL_Point anchor = { int((*iter)->renderRect.w*z*(*iter)->anchor.x), int((*iter)->renderRect.h*z*(*iter)->anchor.y) };
 			//flip the sprite based on some bool values
+			SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : SDL_FLIP_NONE;
+			if ((*iter)->isFlippedH()){ flip = (flippedScreen) ? SDL_FLIP_VERTICAL : SDL_FLIP_HORIZONTAL; }
+			if ((*iter)->isFlippedV()){ flip = (flippedScreen) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_VERTICAL; }
+			if ((*iter)->isFlippedH() && (*iter)->isFlippedV()){
+				flip = (flippedScreen) ? SDL_FLIP_NONE : SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+			}
+			/*
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
-			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
-			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
-			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
+			if ((*iter)->isFlippedH()){ flip = SDL_FLIP_HORIZONTAL; }
+			if ((*iter)->isFlippedV()){ flip = SDL_FLIP_VERTICAL; }
+			if ((*iter)->isFlippedH() && (*iter)->isFlippedV()){
+				flip =  SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+			}*/
 			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
 			//add the object to the render
 			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
@@ -231,10 +251,12 @@ void RenderManager::renderScene() { //will need modification to support more fla
 						//TODO: replace NULL parameters with meaningful SDL_Rects
 						//uses the object's anchor value as a general position, and multiplies it with the proper w and h
 						SDL_Point anchor = { (*obj_it)->renderRect.w*(*obj_it)->anchor.x, (*obj_it)->renderRect.h*(*obj_it)->anchor.y };
-						SDL_RendererFlip flip = SDL_FLIP_NONE;
-						if ((*obj_it)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
-						if ((*obj_it)->flipV){ flip = SDL_FLIP_VERTICAL; }
-						if ((*obj_it)->flipH && (*obj_it)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
+						SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL): SDL_FLIP_NONE;
+						if ((*obj_it)->flipH){ flip = (flippedScreen) ? SDL_FLIP_VERTICAL : SDL_FLIP_HORIZONTAL; }
+						if ((*obj_it)->flipV){ flip = (flippedScreen) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_VERTICAL; }
+						if ((*obj_it)->flipH && (*obj_it)->flipV){
+							flip = (flippedScreen) ? SDL_FLIP_NONE: SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+						}
 						//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
 						SDL_RenderCopyEx(renderer, (*obj_it)->renderResource->mTexture, NULL, &pos, (*obj_it)->rotation, &anchor, flip);
 					}
