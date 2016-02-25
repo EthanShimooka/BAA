@@ -58,6 +58,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int something[] = { 2, 12, 13, 14 };
 	vector<Player*> players;
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+	for (auto &iter : loby)
+	{
+		cout << iter.second << ": " << iter.first << endl;
+	}
+
 	int i = 0, j = 0;
 	for (auto &iter : loby)
 	{
