@@ -9,5 +9,8 @@ Achievement %s = %d
 Achievement %s = %d
 Achievement %s = %d
 Achievement %s = %d
+<<<<<<< HEAD
 Got the orders to go! NetworkManager::HandleStartPacketSize of layers : 1
 Size of layers : 2
+=======
+>>>>>>> 811ef19c98f2903397d7282ebe27b01c0e2853b1

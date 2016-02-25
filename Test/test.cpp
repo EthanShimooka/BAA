@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 1;
+	int numPlayers = 3;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -58,13 +58,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int something[] = { 2, 12, 13, 14 };
 	vector<Player*> players;
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
-	int i = 0;
+	int i = 0, j = 0;
 	for (auto &iter : loby)
 	{
+		cout << iter.second << endl;
 		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
-		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
+		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[j], player->posX, player->posY);
 		players.push_back(player);
 		i -= 50;
+		j++;
 	}
 	
 	Player* localPlayer = players[2];
@@ -74,7 +76,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	for (int i = 0; i < players.size(); ++i){
-		cout << i << ": " << localPlayer->ID;
+		cout << i << ": " << localPlayer->ID << endl;
 	}
 
 	
