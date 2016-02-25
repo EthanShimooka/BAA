@@ -126,6 +126,7 @@ public:
 		ReadBits(&inData, inBitCount);
 	}
 
+	SQUADIO_API void		Read(uint64_t& outData, uint32_t inBitCount = 64)		{ ReadBits(&outData, inBitCount); }
 	void		Read(uint32_t& outData, uint32_t inBitCount = 32)		{ ReadBits(&outData, inBitCount); }
 	SQUADIO_API void		Read(int& outData, uint32_t inBitCount = 32)			{ ReadBits(&outData, inBitCount); }
 	SQUADIO_API void		Read(float& outData)									{ ReadBits(&outData, 32); }

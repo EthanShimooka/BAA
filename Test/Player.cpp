@@ -63,32 +63,33 @@ void Player::updatePlayerFromNetwork(){
 	
 	while (!commands.empty()){
 		InputMemoryBitStream packet = commands.front();
-		commands.pop();
-
 		int mCommand;
+
 		packet.Read(mCommand);
 		switch (mCommand){
-		case Command::CM_ABILITY:
+		case CM_INVALID:
 			//handle 
 			break;
-		case Command::CM_ATTACK:
+		case CM_ABILITY:
 			//handle 
 			break;
-		case Command::CM_DIE:
+		case CM_ATTACK:
 			//handle 
 			break;
-		case Command::CM_INVALID:
+		case CM_DIE:
 			//handle 
 			break;
-		case Command::CM_JUMP:
+		case CM_JUMP:
 			//handle 
 			break;
-		case Command::CM_MOVE:
+		case CM_MOVE:
 			//handle movement
 			packet.Read(posX);
 			packet.Read(posY);
 			break;
 		}
+
+		commands.pop();
 	}
 
 
@@ -97,6 +98,7 @@ void Player::updatePlayerFromNetwork(){
 void Player::sendPlayerDataToNetwork(){
 	OutputMemoryBitStream outData;
 	outData.Write(NetworkManager::sInstance->kPosCC);
+	//outData.Write(playerCommand::CM_MOVE);
 	outData.Write(ID);
 	outData.Write(posX);
 	outData.Write(posY);

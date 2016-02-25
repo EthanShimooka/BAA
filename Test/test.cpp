@@ -20,6 +20,20 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	int numPlayers = 3;
 
+	enum playerCommand
+	{
+		CM_INVALID,
+		CM_ABILITY,
+		CM_ATTACK,
+		CM_DIE,
+		CM_JUMP,
+		CM_MOVE
+	};
+
+	playerCommand s = CM_MOVE;
+	if (s == 5)
+		cout << "asdfasdfasdfasdfasdf" << endl;
+
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
@@ -59,10 +73,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	vector<Player*> players;
 	Player* localPlayer;
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
-	for (auto &iter : loby)
-	{
-		cout << iter.second << ": " << iter.first << endl;
-	}
+
 
 	int i = 0;
 	for (auto &iter : loby)
@@ -75,14 +86,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 		players.push_back(player);
 		i++;
 	}
+
+
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-	for (int i = 0; i < players.size(); ++i){
-		cout << i << ": " << players[i]->ID << endl;
-	}
-
 	
 	while (gameloop) {
 		inputMan->update();
@@ -93,41 +102,27 @@ int _tmain(int argc, _TCHAR* argv[]){
 		localPlayer->update();
 
 		
-
 		
-		//for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
-		//	//iterate though the queue, pop off packets, and create 
-		//	//commands to give to gameobjects
-		//	int UID;
-		//	NetworkManager::sInstance->test.front().Read(UID);
-		//	//process packet here
-		//	NetworkManager::sInstance->test.pop();
-		//}
-
-
-
-
-
-
-		//THIS IS THE OLD PROTOTYPE FOR NETWORKING
-		/*int ID = -1;
+		
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
-			NetworkManager::sInstance->test.front().Read(ID);
-			//cout << ID << endl;
-			for (int j = 0; j < players.size(); ++j){
-				if (ID == players[j]->ID){
-					//players[j]->updatePlayerFromNetwork(NetworkManager::sInstance->test.front());
-					players[j]->update();
-					NetworkManager::sInstance->test.pop();
+			//iterate though the queue, pop off packets, and create 
+			//commands to give to gameobjects
+			uint64_t UID;
+			NetworkManager::sInstance->test.front().Read(UID);
+			//process packet here
+			for (int i = 0; i < players.size(); ++i){
+				if (players[i]->ID == UID){
+					players[i]->commands.push(NetworkManager::sInstance->test.front());
 				}
 			}
+			NetworkManager::sInstance->test.pop();
+		}
 
 
 
-			//player2->Read(NetworkManager::sInstance->test.front());
-			//player2->update();
-			//NetworkManager::sInstance->test.pop();
-		}*/
+
+
+
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
@@ -135,9 +130,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sceneMan->AssembleScene();
 
 	}
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
+
 	std::cout << renderMan << endl;
 
 	log->close();

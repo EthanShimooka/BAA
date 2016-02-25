@@ -12,10 +12,10 @@ class Player: public GameObject{
 private:
 	enum playerCommand
 	{
+		CM_INVALID,
 		CM_ABILITY,
 		CM_ATTACK,
 		CM_DIE,
-		CM_INVALID,
 		CM_JUMP,
 		CM_MOVE
 	};
