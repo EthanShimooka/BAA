@@ -75,7 +75,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		i++;
 	}
 
-	for (int i = 0; players.size(); ++i){
+	for (int i = 0; i < players.size(); ++i){
 		if (!players[i]->isNetworkControlled)
 			cout << players[i]->ID << endl;
 	}
