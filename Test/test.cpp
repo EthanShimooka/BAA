@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 3;
+	int numPlayers = 2;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -75,6 +75,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 		i++;
 	}
 
+	for (int i = 0; players.size(); ++i){
+		if (!players[i]->isNetworkControlled)
+			cout << players[i]->ID << endl;
+	}
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */

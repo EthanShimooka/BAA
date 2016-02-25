@@ -116,7 +116,8 @@ void Player::updatePhysics(){
 
 void Player::update(){
 	if (!isNetworkControlled) updatePlayerFromInput();
-	updatePlayerFromNetwork();
+	else
+		updatePlayerFromNetwork();
 	//updatePhysics();
 	updateRef();
 	sendPlayerDataToNetwork();
