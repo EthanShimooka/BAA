@@ -68,10 +68,11 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
+	int numPlayers = 1;
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	/*if (!GamerServices::StaticInit())
+	if (!GamerServices::StaticInit())
 		std::cout << "Failed to initialize Steam" << "\n";
 
 	if (!NetworkManager::StaticInit())
@@ -80,14 +81,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	while (true){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
-		cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
 		if (NetworkManager::sInstance->GetState() == 4)
 			break;
-		if (NetworkManager::sInstance->GetPlayerCount() == 2){
-			NetworkManager::sInstance->GetAllPlayersInLobby();
+		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
+			//NetworkManager::sInstance->GetAllPlayersInLobby();
 			NetworkManager::sInstance->TryReadyGame();
 		}
-	}*/
+	}
 
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -103,9 +104,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	InputListener* listen = new InputListener();
 
+	int something[] = { 2, 12, 13, 14 };
+	vector<Player*> players;
+	for (int i = 0; i < 4; i++){
+		Player* player = new Player(i, 50 * i - 50, 50 * i - 50);
+		player->objRef = sceneMan->InstantiateObject(sceneMan ->findLayer("layer1"), something[i], player->posX, player->posY);
+		players.push_back(player);
+	}
+	Player* localPlayer = players[0];
 
-	SDLRenderObject* player1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, 100, 100);
-	SDLRenderObject* player2 =  sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, 200, 200);
 	SDLRenderObject* base = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
 	base->anchor = { 0.5, 0.5 };
 	//base->setVisible(false);
@@ -137,6 +144,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int armswing = size;
 	int moveSpd = 1;
 	while (gameloop) {
+		input->update();
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		listen->getInput();
 		var += 1;
 		//if (var % 10 == 0)
 		//NetworkManager::sInstance->ProcessIncomingPackets();
@@ -188,16 +198,17 @@ int _tmain(int argc, _TCHAR* argv[]){
 		
 		int length = 20;
 		float loop = (var % length);
-		/*if (loop < length/2){
-			up(ease_QuadOut(loop/(length/2)));
-		}
-		else{
-			down(ease_QuadIn((loop - length / 2) / (length / 2)));
-		}*/
 		
-		//cout << player1->posX << "," << player2->posX<< endl;
-
-		player2->update();
+		localPlayer->update();
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); +
+			+i){
+			//iterate though the queue, pop off packets, and create 
+			//commands to give to gameobjects
+			int UID;
+			NetworkManager::sInstance->test.front().Read(UID);
+			//process packet here
+			NetworkManager::sInstance->test.pop();
+		}
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
