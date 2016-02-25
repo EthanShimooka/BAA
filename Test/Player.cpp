@@ -2,7 +2,7 @@
 
 Player::Player(){}
 
-Player::Player(int playerID, int x, int y){
+Player::Player(uint64_t playerID, int x, int y){
 	//do initialization stuff here in the contructor
 	//TODO: this is hard coded in to load the first object to be the reference
 	//also requires there to be an object since it's hard coded for now
@@ -60,9 +60,14 @@ void Player::updatePlayerFromNetwork(){
 	//of the recieved packets, find the ones pertaining to this puppet
 	//once found, process the packet
 	//most likely free the packet after it has been processed.
-	/*
-	for (auto iter = commands.begin(); iter != commands.end(); iter++){
-		switch ((*iter)->mCommandType){
+	
+	while (!commands.empty()){
+		InputMemoryBitStream packet = commands.front();
+		commands.pop();
+
+		int mCommand;
+		packet.Read(mCommand);
+		switch (mCommand){
 		case Command::CM_ABILITY:
 			//handle 
 			break;
@@ -80,17 +85,14 @@ void Player::updatePlayerFromNetwork(){
 			break;
 		case Command::CM_MOVE:
 			//handle movement
+			InputMemoryBitStream data = NetworkManager::sInstance->test.front();
+			data.Read(posX);
+			data.Read(posY);
 			break;
 		}
-		
-		//iterate through the commands and process them as needed.
 	}
-	
 
 
-	InputMemoryBitStream data = NetworkManager::sInstance->test.front();
-	data.Read(posX);
-	data.Read(posY);*/
 }
 
 void Player::sendPlayerDataToNetwork(){

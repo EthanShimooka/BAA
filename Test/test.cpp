@@ -57,26 +57,30 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	int something[] = { 2, 12, 13, 14 };
 	vector<Player*> players;
+	Player* localPlayer;
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
-	int i = 0, j = 0;
+	for (auto &iter : loby)
+	{
+		cout << iter.second << ": " << iter.first << endl;
+	}
+
+	int i = 0;
 	for (auto &iter : loby)
 	{
 		cout << iter.second << endl;
 		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
-		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[j], player->posX, player->posY);
+		if (player->ID == NetworkManager::sInstance->GetMyPlayerId())
+			localPlayer = player;
+		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
 		players.push_back(player);
-		i -= 50;
-		j++;
+		i++;
 	}
-	
-	Player* localPlayer = players[2];
-
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	for (int i = 0; i < players.size(); ++i){
-		cout << i << ": " << localPlayer->ID << endl;
+		cout << i << ": " << players[i]->ID << endl;
 	}
 
 	
