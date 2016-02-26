@@ -24,6 +24,7 @@
 #include "MovementComponent.h"
 #include "RenderComponent.h"
 #include "PlayerRenderComponent.h"
+#include "PlayerInputComponent.h"
 
 
 class PlayerObjectFactory : public GameObjectFactory

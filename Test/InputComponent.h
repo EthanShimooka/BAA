@@ -32,7 +32,7 @@ public:
 	GameObject* gameObjectRef;
 
 	/// update object Positions from Input
-	void Update();
+	virtual void Update();
 };
 
 #endif

@@ -23,7 +23,7 @@ GameObject* PlayerObjectFactory::Spawn(int PID)
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually
 
-	InputComponent* input = new InputComponent();
+	PlayerInputComponent* input = new PlayerInputComponent();
 	input->gameObjectRef = player;
 	player->AddComponent(COMPONENT_INPUT,input);
 
