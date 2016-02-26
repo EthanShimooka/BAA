@@ -17,5 +17,4 @@ void SystemRenderUpdater::RenderUpdate(std::vector<GameObject*> rend)
 		rend[i]->UpdateComponentByType(COMPONENT_RENDER);
 
 	}
-
 }

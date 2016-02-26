@@ -87,7 +87,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="InputListener.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PlayerObjectFactory.h" />
     <ClInclude Include="PlayerRenderComponent.h" />
@@ -101,7 +100,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="InputComponent.cpp" />
-    <ClCompile Include="InputListener.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PlayerObjectFactory.cpp" />
     <ClCompile Include="PlayerRenderComponent.cpp" />
