@@ -143,6 +143,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	float ratio = 0.7;
 	int armswing = size;
 	int moveSpd = 1;
+	int pressed = 0;
+	int pressedTime = 3;
+	int rotation = 0;
 	while (gameloop) {
 		input->update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
@@ -168,17 +171,37 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (input->isKeyDown(KEY_RIGHT)){
 			base->posX += moveSpd;
 		}
-		if(input->isKeyDown(KEY_A)){
+		if(input->isKeyDown(KEY_A)&&!pressed){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
+			pressed = pressedTime;
 		}
-		if (input->isKeyDown(KEY_Q)){
+		if (input->isKeyDown(KEY_Q) && !pressed){
 			//base->setVisible(!base->isVisible());
 			base->setFlippedH(!base->isFlippedH());
+			pressed = pressedTime;
 		}
-		if (input->isKeyDown(KEY_W)){
+		if (input->isKeyDown(KEY_W) && !pressed){
 			//base->setVisible(!base->isVisible());
 			base->setFlippedV(!base->isFlippedV());
+			pressed = pressedTime;
 		}
+		if (pressed > 0)pressed--;
+		if (input->isKeyDown(KEY_1)){
+			base->setRotation(rotation++);
+		}
+		if (input->isKeyDown(KEY_2)){
+			base->setRotation(rotation--);
+		}
+		if (input->isKeyDown(KEY_3)){
+			base->setScale(2.0);
+		}
+		else if (input->isKeyDown(KEY_4)){
+			base->setScale(0.5);
+		}
+		else if (input->isKeyDown(KEY_5)){
+			base->setScale(2.0,1.0);
+		}
+		else base->setScale(1.0);
 		if (armswing > size && input->isKeyDown(KEY_Z)){
 			armswing = 0;
 		}
