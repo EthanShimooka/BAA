@@ -120,6 +120,8 @@ public:
 	/// Returns time to start
 	SQUADIO_API float	GetTimeToStart() const { return mTimeToStart; }
 
+	SQUADIO_API map< uint64_t, string >  getLobbyMap() const { return mPlayerNameMap; }
+
 //	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
 //	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
 //	void			UnregisterGameObject(GameObject* inGameObject);
@@ -195,6 +197,8 @@ private:
 	/// Map of ints to turndata
 	typedef map< uint64_t, TurnData > Int64ToTurnDataMap;
 //	typedef map< uint32_t, GameObjectPtr > IntToGameObjectMap;
+	/// Data structure holding ints 1-8 mapped to player steam IDs
+	typedef map< uint8_t, uint64_t > PlayerNumToSteamIdMap;
 	/// Checks for synchronization
 	bool	CheckSync(Int64ToTurnDataMap& inTurnMap);
 	/// Queue of received packets
