@@ -1,9 +1,5 @@
 #include "test.h"
 
-
-
-//#include "include\network\NetIncludes.h"
-
 using namespace std;
 
 void update();
@@ -55,11 +51,23 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	InputListener* listen = new InputListener();
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+
 	int something[] = { 2, 12, 13, 14 };
-	vector<Player*> players;
-	Player* localPlayer;
+	vector <GameObject *> players;
+
+	PlayerObjectFactory pFactory;
+	 
+	players.push_back(pFactory.Spawn(1));
+
+
+	//vector<Player*> players;
+
+	//Player* localPlayer;
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
+	/*
 
 	int i = 0;
 	for (auto &iter : loby)
@@ -80,20 +88,37 @@ int _tmain(int argc, _TCHAR* argv[]){
 			cout << players[i]->ID << endl;
 	}
 
+	*/
+
+
+
+
+
+	SystemRenderUpdater sysRenderer;
+	SystemInputUpdater sysInput;
+
+
+
+
+
+
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-
+	
 	while (gameloop) {
 		inputMan->update();
 		NetworkManager::sInstance->UpdateDelay();
-		listen->getInput();
 
 
-		localPlayer->update();
 
-
+		sysInput.InputUpdate(players);
+		sysRenderer.RenderUpdate(players);
+		 
+		//localPlayer->update();
+		
+		/*
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			//iterate though the queue, pop off packets, and create 
 			//commands to give to gameobjects
@@ -114,7 +139,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			players[i]->update();
 		}
 
-
+		*/
 
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
