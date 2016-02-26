@@ -24,8 +24,13 @@
 #include <list>
 
 
-#include "Player.h"
-#include "InputListener.h"
+#include "GameObject.h"
+#include "PlayerObjectFactory.h"
+
+#include "SystemInputUpdater.h"
+#include "SystemRenderUpdater.h"
+#include "SystemGameObjectQueue.h"
+#include "SystemLogicUpdater.h"
 
 class test
 {

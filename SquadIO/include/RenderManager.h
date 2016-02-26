@@ -67,6 +67,7 @@ public:
 		float x;
 		float y;
 	} cameraPoint;
+	bool flippedScreen;
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
 	/// if successful, returns false if not.

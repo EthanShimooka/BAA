@@ -1,9 +1,5 @@
 #include "test.h"
 
-
-
-//#include "include\network\NetIncludes.h"
-
 using namespace std;
 
 void update();
@@ -53,69 +49,96 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
-	InputListener* listen = new InputListener();
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
 
-	int something[] = { 2, 12, 13, 14 };
-	vector<Player*> players;
-	for (int i = 0; i < 4; i++){
-		Player* player = new Player(i,50*i-50, 50*i-50);
+	///  SYSTEMS
+
+	SystemRenderUpdater sysRenderer;
+	SystemInputUpdater sysInput;
+	SystemLogicUpdater sysLogic;
+	SystemGameObjectQueue world;
+
+
+	/// ENTITIES
+
+
+	PlayerObjectFactory pFactory;
+	 
+	world.AddObject(pFactory.Spawn(1));
+
+
+	//vector<Player*> players;
+
+	//Player* localPlayer;
+	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+
+	/*
+
+	int i = 0;
+	for (auto &iter : loby)
+	{
+		//cout << iter.second << endl;
+		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
+		if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
+			localPlayer = player;
+			player->isNetworkControlled = false;
+		}
 		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
 		players.push_back(player);
+		i++;
 	}
-	
-	Player* localPlayer = players[0];
+
+	for (int i = 0; i < players.size(); ++i){
+		if (!players[i]->isNetworkControlled)
+			cout << players[i]->ID << endl;
+	}
+
+	*/
+
+
+
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	
-
-	
 	while (gameloop) {
 		inputMan->update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
-		listen->getInput();
+		NetworkManager::sInstance->UpdateDelay();
 
 
-		localPlayer->update();
 
+		sysInput.InputUpdate(world.alive_object);
+		sysRenderer.RenderUpdate(world.alive_object);
+		sysLogic.LogicUpdate(world.alive_object);
+		 
+		//localPlayer->update();
 		
-
-		
+		/*
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			//iterate though the queue, pop off packets, and create 
 			//commands to give to gameobjects
-			int UID;
+			uint64_t UID;
 			NetworkManager::sInstance->test.front().Read(UID);
 			//process packet here
+			for (int i = 0; i < players.size(); ++i){
+				if (players[i]->ID == UID){
+					//cout << "ID matched" << endl;
+					players[i]->commands.push(NetworkManager::sInstance->test.front());
+				}
+			}
 			NetworkManager::sInstance->test.pop();
 		}
 
 
+		for (int i = 0; i < players.size(); ++i){
+			players[i]->update();
+		}
 
+		*/
 
-
-
-		//THIS IS THE OLD PROTOTYPE FOR NETWORKING
-		/*int ID = -1;
-		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
-			NetworkManager::sInstance->test.front().Read(ID);
-			//cout << ID << endl;
-			for (int j = 0; j < players.size(); ++j){
-				if (ID == players[j]->ID){
-					//players[j]->updatePlayerFromNetwork(NetworkManager::sInstance->test.front());
-					players[j]->update();
-					NetworkManager::sInstance->test.pop();
-				}
-			}
-
-
-
-			//player2->Read(NetworkManager::sInstance->test.front());
-			//player2->update();
-			//NetworkManager::sInstance->test.pop();
-		}*/
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
@@ -125,9 +148,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sceneMan->AssembleScene();
 
 	}
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
+
 	std::cout << renderMan << endl;
 
 	log->close();
