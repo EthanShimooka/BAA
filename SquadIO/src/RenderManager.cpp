@@ -216,7 +216,7 @@ void RenderManager::renderAllObjects(){
 			}*/
 			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
 			//add the object to the render
-			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->getRotation(), &anchor, flip);
 		}
 	}
 }
