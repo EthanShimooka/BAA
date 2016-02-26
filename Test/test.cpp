@@ -56,6 +56,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	SystemRenderUpdater sysRenderer;
 	SystemInputUpdater sysInput;
+	SystemLogicUpdater sysLogic;
 	SystemGameObjectQueue world;
 
 
@@ -111,7 +112,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		sysInput.InputUpdate(world.alive_object);
 		sysRenderer.RenderUpdate(world.alive_object);
-
+		sysLogic.LogicUpdate(world.alive_object);
 		 
 		//localPlayer->update();
 		

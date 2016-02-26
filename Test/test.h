@@ -30,6 +30,7 @@
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"
 #include "SystemGameObjectQueue.h"
+#include "SystemLogicUpdater.h"
 
 class test
 {
