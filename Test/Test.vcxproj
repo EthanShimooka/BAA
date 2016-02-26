@@ -83,15 +83,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputListener.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="PlayerObjectFactory.h" />
+    <ClInclude Include="PlayerRenderComponent.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="InputListener.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="PlayerObjectFactory.cpp" />
+    <ClCompile Include="PlayerRenderComponent.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>

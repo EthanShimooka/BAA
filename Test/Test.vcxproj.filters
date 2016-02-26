@@ -13,11 +13,26 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Player Classes">
-      <UniqueIdentifier>{10f09e4c-c29b-48bf-becf-344e684aca2e}</UniqueIdentifier>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{e2694d3f-c7f1-47d8-a2eb-4814fb7e5433}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Player Classes">
-      <UniqueIdentifier>{57be104a-2ecb-48cc-8bfe-edc908da46fc}</UniqueIdentifier>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{58424ed1-ec8e-484f-a235-7bea1ce8f978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component">
+      <UniqueIdentifier>{2ffcedb3-b6f1-4553-9d7c-a08f477f3111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{5e3194ea-fae0-4613-ba1a-47eae806a7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{eaefc330-0178-4cda-b990-2aa738fc6b5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base Component">
+      <UniqueIdentifier>{1a1b02a6-67f1-4b81-90c5-872a0e7631d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Player Component">
+      <UniqueIdentifier>{0519a6c4-617f-4b3f-9fe9-c9b52d1b675b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,11 +42,29 @@
     <ClInclude Include="InputListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Player Classes</Filter>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Base Component</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Player Classes</Filter>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Header Files\Base Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Header Files\Base Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Header Files\Base Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRenderComponent.h">
+      <Filter>Header Files\Player Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,11 +74,29 @@
     <ClCompile Include="InputListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Player Classes</Filter>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Player Classes</Filter>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRenderComponent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
