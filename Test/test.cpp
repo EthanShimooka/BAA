@@ -118,12 +118,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//base->setVisible(false);
 	SDLRenderObject* leg = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 103, -5, 30);
 	leg->anchor = { 42 / float(leg->renderRect.w), 2 / float(leg->renderRect.h) };
-	leg->setParent(base);
 	SDLRenderObject* armor = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 101, 0, 0);
 	armor->anchor = { 0.5, 0.5 };
-	armor->setParent(base);
 	SDLRenderObject* arm = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 102, 31, 43);
 	arm->anchor = { 14 / float(arm->renderRect.w), 3 / float(arm->renderRect.h) };
+
+	leg->setParent(base);
+	armor->setParent(base);
 	arm->setParent(armor);
 	//armor->setParent(a);
 	/////////////////////////////////////////////////////
@@ -187,10 +188,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 		if (pressed > 0)pressed--;
 		if (input->isKeyDown(KEY_1)){
-			base->setRotation(rotation++);
+			base->setRotation(++rotation);
 		}
 		if (input->isKeyDown(KEY_2)){
-			base->setRotation(rotation--);
+			base->setRotation(--rotation);
 		}
 		if (input->isKeyDown(KEY_3)){
 			base->setScale(2.0);
@@ -252,16 +253,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	log->close();
 	return 0;
 }
-
-
 void init(){
 
 }
-
-
-
-
-
 void render(RenderManager* renderMan) {
 	renderMan->update();
 }
