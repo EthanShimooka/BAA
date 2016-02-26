@@ -49,12 +49,16 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
-	InputListener* listen = new InputListener();
-
+	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
+	///  SYSTEMS
 
-	int something[] = { 2, 12, 13, 14 };
+	SystemRenderUpdater sysRenderer;
+	SystemInputUpdater sysInput;
+
+	/// ENTITIES
+
 	vector <GameObject *> players;
 
 	PlayerObjectFactory pFactory;
@@ -89,15 +93,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	}
 
 	*/
-
-
-
-
-
-	SystemRenderUpdater sysRenderer;
-	SystemInputUpdater sysInput;
-
-
 
 
 
