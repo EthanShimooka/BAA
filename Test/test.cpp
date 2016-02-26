@@ -94,7 +94,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 
-
+	SystemRenderUpdater sysRenderer;
+	SystemInputUpdater sysInput;
 
 
 
@@ -110,6 +111,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 		inputMan->update();
 		NetworkManager::sInstance->UpdateDelay();
 
+
+
+		sysInput.InputUpdate(players);
+		sysRenderer.RenderUpdate(players);
 
 		//localPlayer->update();
 		

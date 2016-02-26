@@ -92,6 +92,7 @@
     <ClInclude Include="PlayerObjectFactory.h" />
     <ClInclude Include="PlayerRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="SystemInputUpdater.h" />
     <ClInclude Include="SystemRenderUpdater.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
@@ -105,6 +106,7 @@
     <ClCompile Include="PlayerObjectFactory.cpp" />
     <ClCompile Include="PlayerRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="SystemInputUpdater.cpp" />
     <ClCompile Include="SystemRenderUpdater.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>

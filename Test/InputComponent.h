@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "MovementComponent.h"
 #include "include\InputManager.h"
+#include "GameObject.h"
 
 class InputComponent : public Component
 {
@@ -13,8 +14,10 @@ public:
 	InputComponent();
 	~InputComponent();
 
+	GameObject* gameObjectRef;
+
 	/// update object Positions from Input
-	void Update(MovementComponent move);
+	void Update();
 };
 
 #endif

@@ -23,15 +23,15 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 
 /// Updates SDL render Object from Move Data in game
 
-void RenderComponent::Update(MovementComponent move){
+void RenderComponent::Update(){
 
 	//Updates the related SDLRenderObject with the player's values
 	//The SDLRenderObject is was is showed on screen, but is only 
 	//a 'figurehead' for the player object 
 
-	objRef->posX = move.posX;
-	objRef->posY = move.posY;
-	objRef->rotation = move.rotation;
+	objRef->posX = gameObjectRef->posX;
+	objRef->posY = gameObjectRef->posY;
+	objRef->rotation = gameObjectRef->rotation;
 	objRef->visible = visible;
 
 	//there is most likely more attributes to send over. update as needed

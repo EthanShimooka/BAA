@@ -7,6 +7,8 @@
 #include "include\SDLRenderObject.h"
 
 #include "MovementComponent.h"
+#include "GameObject.h"
+
 
 class RenderComponent :	public Component
 {
@@ -21,6 +23,11 @@ public:
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
 
+
+	GameObject* gameObjectRef;
+
+
+
 	/// Renderer Visibility Flag
 	bool visible;
 	/// horizontal Flip
@@ -34,7 +41,7 @@ public:
 	/// Assign Sprites 
 	void AssignSprite(SDLRenderObject* rend);
 	/// Updates Sprite to renderer
-	void Update(MovementComponent move);
+	void Update();
 
 
 };

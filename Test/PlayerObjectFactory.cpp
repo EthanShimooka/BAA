@@ -24,19 +24,22 @@ GameObject* PlayerObjectFactory::Spawn(int PID)
 	// Will need to differentiate eventually
 
 	InputComponent* input = new InputComponent();
-	player->AddComponent(input);
+	input->gameObjectRef = player;
+	player->AddComponent(COMPONENT_INPUT,input);
 
 	// Movement Component nessasary for all objects that move
 	// Player moves, therefore, it is included
 
 	MovementComponent* move = new MovementComponent();
-	player->AddComponent(move);
+	move->gameObjectRef = player;
+	player->AddComponent(COMPONENT_MOVEMENT,move);
 
 	// Player Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
 	PlayerRenderComponent* rend = new PlayerRenderComponent();
-	player->AddComponent(rend);
+	rend->gameObjectRef = player;
+	player->AddComponent(COMPONENT_RENDER,rend);
 	
 	return player;
 }

@@ -29,6 +29,8 @@
 #include "GameObject.h"
 #include "PlayerObjectFactory.h"
 
+#include "SystemInputUpdater.h"
+#include "SystemRenderUpdater.h"
 
 class test
 {
