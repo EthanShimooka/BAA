@@ -77,6 +77,21 @@ public:
 	/// Set object's position
 	SQUADIO_API void setPos(float x, float y);
 
+
+	/// Get object's width multiplier
+	SQUADIO_API float getScaleX();
+	/// Get object's height multiplier
+	SQUADIO_API float getScaleY();
+	/// Set object's width multiplier
+	SQUADIO_API void setScaleX(float sx);
+	/// Set object's height multiplier
+	SQUADIO_API void setScaleY(float sy);
+	/// Set object's size multiplier,
+	SQUADIO_API void setScale(float s);
+	/// Set object's size multiplier
+	SQUADIO_API void setScale(float sx, float sy);
+
+
 	/// Get object's width
 	SQUADIO_API int getWidth();
 	/// Get object's height

@@ -18,7 +18,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 3;
+	int numPlayers = 1;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -84,7 +84,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-	
+
 	while (gameloop) {
 		inputMan->update();
 		NetworkManager::sInstance->UpdateDelay();
@@ -92,8 +92,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 		localPlayer->update();
-		
-		
+
+
 		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 			//iterate though the queue, pop off packets, and create 
 			//commands to give to gameobjects

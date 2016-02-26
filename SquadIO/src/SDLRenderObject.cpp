@@ -25,8 +25,6 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		//by default, the texture sizes are stored 1:1 scale
 		//stores the width and height of the texture 1:1 scale in the render rect
 		SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRect.h);
-		height = renderRect.h;
-		width = renderRect.w;
 		if (colorKeyEnabled){
 			//generate the color key
 			//TODO: commented out colorkey stuff. We're using PNG's with transparency, so no need for colorkey at the moment
@@ -55,18 +53,32 @@ SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRec
 
 
 void SDLRenderObject::setParent(SDLRenderObject * par){
-	parent = par;
+	if (par != this){
+		parent = par;
+	}
 }
 
 float SDLRenderObject::getPosX(){ 
 	if (parent){
-		return parent->getPosX() + posX;
+		float flipH = (parent->isFlippedH()) ? -1 : 1;
+		float flipV = (parent->isFlippedV()) ? -1 : 1;
+		float x = posX;
+		float y = posY;
+		float r = parent->getRotation()*flipH*flipV * (M_PI/180);
+		float s = parent->getScaleX();
+		return parent->getPosX() + s*(cos(r)*x - sin(r)*y)*flipH;
 	}
 	return posX; 
 }
-float SDLRenderObject::getPosY(){ 
+float SDLRenderObject::getPosY(){
 	if (parent){
-		return parent->getPosY() + posY;
+		float flipH = (parent->isFlippedH()) ? -1 : 1;
+		float flipV = (parent->isFlippedV()) ? -1 : 1;
+		float x =  posX;
+		float y =  posY;
+		float r = parent->getRotation()*flipH*flipV * (M_PI / 180);
+		float s = parent->getScaleY();
+		return parent->getPosY() + s*(sin(r)*x + cos(r)*y)*flipV;
 	}
 	return posY;
 }
@@ -74,14 +86,39 @@ void SDLRenderObject::getPos(float &x, float &y){x = getPosX(); y = getPosY(); }
 void SDLRenderObject::setPos(float x, float y){ posX = x; posY = y; }
 
 
+float SDLRenderObject::getScaleX(){
+	if (parent){
+		//cout << parent->getScaleX() <<":"<< width << endl;
+		return parent->getScaleX()*width;
+	}
+	return width;
+}
+float SDLRenderObject::getScaleY(){
+	if (parent){
+		return parent->getScaleY()*height;
+	}
+	return height;
+}
+void SDLRenderObject::setScaleX(float sx){
+	width = sx;
+}
+void SDLRenderObject::setScaleY(float sy){
+	height= sy;
+}
+void SDLRenderObject::setScale(float s){
+	height = width = s;
+}
+void SDLRenderObject::setScale(float sx,float sy){
+	height = sx;
+	width = sy;
+}
 int SDLRenderObject::getWidth(){
-	return renderRect.w;
+	return renderRect.w*getScaleX();
 }
 int SDLRenderObject::getHeight(){
-	return renderRect.h;
+	return renderRect.h*getScaleY();
 }
 void SDLRenderObject::getSize(int &w, int &h){w = getWidth(); h = getHeight();}
-void SDLRenderObject::setSize(int w, int h){ width = w, height = h; }
 
 void SDLRenderObject::setRenderRect(SDL_Rect rect){ renderRect = rect; }
 
@@ -93,16 +130,43 @@ bool SDLRenderObject::isVisible(){
 }
 void SDLRenderObject::setVisible(bool flag){ visible = flag; }
 
-float SDLRenderObject::getRotation(){ return rotation; }
+float SDLRenderObject::getRotation(){
+	if (parent){
+		bool h = isFlippedH(), v = isFlippedV();
+		float flip = ((h || v) && !(h && v)) ? -1 : 1;
+		return  rotation * flip + parent->getRotation();
+	}
+	return rotation; 
+}
 void SDLRenderObject::setRotation(float degrees){ rotation = degrees; }
 
-bool SDLRenderObject::isFlippedH(){ return flipH; }
-bool SDLRenderObject::isFlippedV(){ return flipV; }
+bool SDLRenderObject::isFlippedH(){ 
+	if (parent){
+		return ((flipH || parent->isFlippedH()) && !(flipH && parent->isFlippedH()));
+	}
+	return flipH; 
+}
+bool SDLRenderObject::isFlippedV(){
+	if (parent){
+		return ((flipV || parent->isFlippedV()) && !(flipV && parent->isFlippedV()));
+	}
+	return flipV;
+}
 void SDLRenderObject::setFlippedH(bool flag){ flipH = flag; }
 void SDLRenderObject::setFlippedV(bool flag){ flipV = flag; }
 
-float SDLRenderObject::getAnchorX(){ return anchor.x; }
-float SDLRenderObject::getAnchorY(){ return anchor.y; }
+float SDLRenderObject::getAnchorX(){
+	if (parent){
+		return (isFlippedH()) ? (1 - anchor.x) : anchor.x;
+	}
+	return anchor.x;
+}
+float SDLRenderObject::getAnchorY(){
+	if (parent){
+		return (isFlippedV()) ? (1 - anchor.y) : anchor.y;
+	}
+	return anchor.y; 
+}
 
 void SDLRenderObject::getAnchor(float &a, float &b){ a = getAnchorX(); b = getAnchorY(); }
 void SDLRenderObject::setAnchor(float a, float b){ anchor.x = a; anchor.y = b; }
