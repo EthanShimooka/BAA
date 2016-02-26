@@ -29,6 +29,7 @@
 
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"
+#include "SystemGameObjectQueue.h"
 
 class test
 {

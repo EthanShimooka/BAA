@@ -88,9 +88,11 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="PlayerInputComponent.h" />
     <ClInclude Include="PlayerObjectFactory.h" />
     <ClInclude Include="PlayerRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="SystemGameObjectQueue.h" />
     <ClInclude Include="SystemInputUpdater.h" />
     <ClInclude Include="SystemRenderUpdater.h" />
     <ClInclude Include="test.h" />
@@ -101,9 +103,11 @@
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="PlayerInputComponent.cpp" />
     <ClCompile Include="PlayerObjectFactory.cpp" />
     <ClCompile Include="PlayerRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="SystemGameObjectQueue.cpp" />
     <ClCompile Include="SystemInputUpdater.cpp" />
     <ClCompile Include="SystemRenderUpdater.cpp" />
     <ClCompile Include="test.cpp" />

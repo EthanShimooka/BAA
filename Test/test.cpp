@@ -56,14 +56,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	SystemRenderUpdater sysRenderer;
 	SystemInputUpdater sysInput;
+	SystemGameObjectQueue world;
+
 
 	/// ENTITIES
 
-	vector <GameObject *> players;
 
 	PlayerObjectFactory pFactory;
 	 
-	players.push_back(pFactory.Spawn(1));
+	world.AddObject(pFactory.Spawn(1));
 
 
 	//vector<Player*> players;
@@ -108,8 +109,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 
-		sysInput.InputUpdate(players);
-		sysRenderer.RenderUpdate(players);
+		sysInput.InputUpdate(world.alive_object);
+		sysRenderer.RenderUpdate(world.alive_object);
+
 		 
 		//localPlayer->update();
 		
