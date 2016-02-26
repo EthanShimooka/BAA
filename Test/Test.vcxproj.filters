@@ -84,6 +84,15 @@
     <ClInclude Include="PlayerInputComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
+    <ClInclude Include="LogicComponent.h">
+      <Filter>Header Files\Component\Base Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerLogicComponent.h">
+      <Filter>Header Files\Component\Player Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemLogicUpdater.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -124,6 +133,15 @@
     </ClCompile>
     <ClCompile Include="PlayerInputComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicComponent.cpp">
+      <Filter>Source Files\Component\Base Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerLogicComponent.cpp">
+      <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemLogicUpdater.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
