@@ -13,11 +13,15 @@ RenderComponent::~RenderComponent()
 }
 
 
+/// Assign a Diffrent SDL render Object
+
 void RenderComponent::AssignSprite(SDLRenderObject* rend){
 
 	objRef = rend;
 }
 
+
+/// Updates SDL render Object from Move Data in game
 
 void RenderComponent::Update(MovementComponent move){
 

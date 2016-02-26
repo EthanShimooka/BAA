@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	vector <GameObject *> players;
 
 	PlayerObjectFactory pFactory;
-
+	 
 	players.push_back(pFactory.Spawn(1));
 
 

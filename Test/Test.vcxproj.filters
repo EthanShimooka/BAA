@@ -28,10 +28,19 @@
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{eaefc330-0178-4cda-b990-2aa738fc6b5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Base Component">
+    <Filter Include="Source Files\Component\Player Component">
+      <UniqueIdentifier>{388ec4c8-7ac5-4ff1-9429-055af87e07ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Base Component">
+      <UniqueIdentifier>{49792e81-21f9-4962-8145-94be216b4bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component">
+      <UniqueIdentifier>{1a2a3596-c640-4fe6-862d-3daf9e65d049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Base Component">
       <UniqueIdentifier>{1a1b02a6-67f1-4b81-90c5-872a0e7631d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Player Component">
+    <Filter Include="Header Files\Component\Player Component">
       <UniqueIdentifier>{0519a6c4-617f-4b3f-9fe9-c9b52d1b675b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -43,16 +52,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Header Files\Base Component</Filter>
+      <Filter>Header Files\Component\Base Component</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
-      <Filter>Header Files\Base Component</Filter>
+      <Filter>Header Files\Component\Base Component</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Header Files\Base Component</Filter>
+      <Filter>Header Files\Component\Base Component</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
-      <Filter>Header Files\Base Component</Filter>
+      <Filter>Header Files\Component\Base Component</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
@@ -64,7 +73,10 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="PlayerRenderComponent.h">
-      <Filter>Header Files\Player Component</Filter>
+      <Filter>Header Files\Component\Player Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemRenderUpdater.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,18 +85,6 @@
     </ClCompile>
     <ClCompile Include="InputListener.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="InputComponent.cpp">
-      <Filter>Source Files\Component</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
@@ -96,7 +96,22 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="PlayerRenderComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Component\Base Component</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Source Files\Component\Base Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Source Files\Component\Base Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Source Files\Component\Base Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemRenderUpdater.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
