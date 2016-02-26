@@ -115,7 +115,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		sysInput.InputUpdate(players);
 		sysRenderer.RenderUpdate(players);
-
+		 
 		//localPlayer->update();
 		
 		/*
