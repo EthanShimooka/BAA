@@ -143,7 +143,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
-		input->update();
+		inputMan->update();
 
 		sceneMan->AssembleScene();
 
