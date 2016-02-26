@@ -2,11 +2,11 @@
 
 Player::Player(){}
 
-Player::Player(int playerID, int x, int y){
+Player::Player(uint64_t playerID, int x, int y){
 	//do initialization stuff here in the contructor
 	//TODO: this is hard coded in to load the first object to be the reference
 	//also requires there to be an object since it's hard coded for now
-
+	//setPlayerID();
 	ID = playerID;
 	visible = true;
 	posX = x;
@@ -60,43 +60,55 @@ void Player::updatePlayerFromNetwork(){
 	//of the recieved packets, find the ones pertaining to this puppet
 	//once found, process the packet
 	//most likely free the packet after it has been processed.
-	/*
-	for (auto iter = commands.begin(); iter != commands.end(); iter++){
-		switch ((*iter)->mCommandType){
-		case Command::CM_ABILITY:
+	
+	while (!commands.empty()){
+		InputMemoryBitStream packet = commands.front();
+		int mCommand;
+
+		packet.Read(mCommand);
+		switch (mCommand){
+		case CM_INVALID:
 			//handle 
 			break;
-		case Command::CM_ATTACK:
+		case CM_ABILITY:
 			//handle 
 			break;
-		case Command::CM_DIE:
+		case CM_ATTACK:
 			//handle 
 			break;
-		case Command::CM_INVALID:
+		case CM_DIE:
 			//handle 
 			break;
-		case Command::CM_JUMP:
+		case CM_JUMP:
 			//handle 
 			break;
-		case Command::CM_MOVE:
+		case CM_MOVE:
 			//handle movement
+			int t;
+			packet.Read(t);
+			if (testNum < t){
+				packet.Read(posX);
+				packet.Read(posY);
+				testNum = t;
+			}
+			
 			break;
+		default:
+			cout << "asdfasdfasdf" << endl;
 		}
-		
-		//iterate through the commands and process them as needed.
+
+		commands.pop();
 	}
-	*/
 
 
-	InputMemoryBitStream data = NetworkManager::sInstance->test.front();
-	data.Read(posX);
-	data.Read(posY);
 }
 
 void Player::sendPlayerDataToNetwork(){
 	OutputMemoryBitStream outData;
 	outData.Write(NetworkManager::sInstance->kPosCC);
 	outData.Write(ID);
+	outData.Write(5);
+	outData.Write(testNum++);
 	outData.Write(posX);
 	outData.Write(posY);
 	NetworkManager::sInstance->sendPacketToAllPeers(outData);
@@ -110,7 +122,9 @@ void Player::updatePhysics(){
 }
 
 void Player::update(){
-	if (!isNetworkControlled)updatePlayerFromInput();
+	if (!isNetworkControlled) updatePlayerFromInput();
+	else
+		updatePlayerFromNetwork();
 	//updatePhysics();
 	updateRef();
 	sendPlayerDataToNetwork();

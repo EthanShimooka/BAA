@@ -9,15 +9,27 @@
 
 
 class Player: public GameObject{
+private:
+	enum playerCommand
+	{
+		CM_INVALID,
+		CM_ABILITY,
+		CM_ATTACK,
+		CM_DIE,
+		CM_JUMP,
+		CM_MOVE
+	};
+
 public:
-	int ID;
+	queue<InputMemoryBitStream> commands;
+	uint64_t ID;
 	float posX;
 	float posY;
 	float rotation;
 	bool flipH;
 	bool flipV;
 	bool visible;
-	bool isNetworkControlled;
+	bool isNetworkControlled = true;
 	SDLRenderObject* objRef;
 	b2Body* body;
 	void updateRef();
@@ -25,9 +37,10 @@ public:
 	void updatePlayerFromInput();
 	void sendPlayerDataToNetwork();
 	void updatePhysics();
+	int testNum = 0;
 
 	Player();
-	Player(int playerID, int x, int y);
+	Player(uint64_t playerID, int x, int y);
 	Player(SDLRenderObject* obj);
 	void update();
 };
