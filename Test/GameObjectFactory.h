@@ -1,3 +1,14 @@
+/**
+*  GameObjectFactory.h
+*  Authors: Ethan Shimooka
+*  Date 2/25/2016
+*  Description :
+	GameObjectFactory is the abstract GameObject (entity) assembler for which 
+	diffrent "Object types" can be instatiated, based on  what types of components
+	are used.
+
+*/
+
 #pragma once
 
 #ifndef GAMEOBJECTFACTORY_H_INCLUDED
@@ -16,7 +27,9 @@
 class GameObjectFactory
 {
 public:
+	/// Constructor
 	GameObjectFactory();
+	/// Destructor
 	~GameObjectFactory();
 
 	/// Creates a new GameObject Component bag
@@ -26,10 +39,13 @@ public:
 
 #endif
 
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////
-
-
-
+///IGNORE PLZ
 ///////////////////////////////////////////////////////////////////////
 /*
 #pragma once

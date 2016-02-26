@@ -1,3 +1,18 @@
+/**
+*  RenderComponet.h
+*  Authors: Ethan Shimooka
+*  Date 2/25/2016
+*  Description :
+	RenderComponent represents the abstreact base class from which all other
+	render Components are derived.
+
+	The Render Component is responsible for containing the SDL object refrence
+	and managing it. Will probably handle the calls to animation as well.
+
+*/
+
+
+
 #pragma once
 #ifndef RENDERCOMPONENT_H_INCLUDED
 #define RENDERCOMPONENT_H_INCLUDED
