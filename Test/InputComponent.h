@@ -1,5 +1,5 @@
 /**
-*  InputComponet.h
+*  InputComponent.h
 *  Authors: Ethan Shimooka
 *  Date 2/25/2016
 *  Description :

@@ -99,6 +99,24 @@
     <ClInclude Include="SystemLogicUpdater.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkComponent.h">
+      <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemNetworkUpdater.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNetworkComponent.h">
+      <Filter>Header Files\Component\Player Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemPhysicsUpdater.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPhysicsComponent.h">
+      <Filter>Header Files\Component\Player Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -148,6 +166,24 @@
     </ClCompile>
     <ClCompile Include="SystemLogicUpdater.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkComponent.cpp">
+      <Filter>Source Files\Component\Abstract Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemNetworkUpdater.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNetworkComponent.cpp">
+      <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Source Files\Component\Abstract Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemPhysicsUpdater.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Player Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
