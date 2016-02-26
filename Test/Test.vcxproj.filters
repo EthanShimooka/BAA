@@ -31,17 +31,23 @@
     <Filter Include="Source Files\Component\Player Component">
       <UniqueIdentifier>{388ec4c8-7ac5-4ff1-9429-055af87e07ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Component\Base Component">
-      <UniqueIdentifier>{49792e81-21f9-4962-8145-94be216b4bb8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Component">
       <UniqueIdentifier>{1a2a3596-c640-4fe6-862d-3daf9e65d049}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Component\Base Component">
-      <UniqueIdentifier>{1a1b02a6-67f1-4b81-90c5-872a0e7631d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Component\Player Component">
       <UniqueIdentifier>{0519a6c4-617f-4b3f-9fe9-c9b52d1b675b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Minion Component">
+      <UniqueIdentifier>{3f78f795-5046-4974-9486-c50accad2341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Minion Component">
+      <UniqueIdentifier>{d5a97396-8e39-486d-87f5-dc2e80deba5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Abstract Component">
+      <UniqueIdentifier>{49792e81-21f9-4962-8145-94be216b4bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Abstract Component">
+      <UniqueIdentifier>{1a1b02a6-67f1-4b81-90c5-872a0e7631d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,16 +55,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Header Files\Component\Base Component</Filter>
+      <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
-      <Filter>Header Files\Component\Base Component</Filter>
+      <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Header Files\Component\Base Component</Filter>
+      <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
-      <Filter>Header Files\Component\Base Component</Filter>
+      <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
@@ -85,7 +91,7 @@
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
     <ClInclude Include="LogicComponent.h">
-      <Filter>Header Files\Component\Base Component</Filter>
+      <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
     <ClInclude Include="PlayerLogicComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
@@ -111,16 +117,16 @@
       <Filter>Source Files\Component\Player Component</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Component\Base Component</Filter>
+      <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
-      <Filter>Source Files\Component\Base Component</Filter>
+      <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
-      <Filter>Source Files\Component\Base Component</Filter>
+      <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
-      <Filter>Source Files\Component\Base Component</Filter>
+      <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
     <ClCompile Include="SystemRenderUpdater.cpp">
       <Filter>Source Files\Systems</Filter>
@@ -135,7 +141,7 @@
       <Filter>Source Files\Component\Player Component</Filter>
     </ClCompile>
     <ClCompile Include="LogicComponent.cpp">
-      <Filter>Source Files\Component\Base Component</Filter>
+      <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
     <ClCompile Include="PlayerLogicComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
