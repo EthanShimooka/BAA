@@ -31,6 +31,8 @@
 #include "SystemRenderUpdater.h"
 #include "SystemGameObjectQueue.h"
 #include "SystemLogicUpdater.h"
+#include "SystemNetworkUpdater.h"
+#include "SystemPhysicsUpdater.h"
 
 class test
 {

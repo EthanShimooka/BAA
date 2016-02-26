@@ -54,11 +54,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	///  SYSTEMS
 
+	SystemNetworkUpdater sysNetwork;
 	SystemRenderUpdater sysRenderer;
 	SystemInputUpdater sysInput;
 	SystemLogicUpdater sysLogic;
-	SystemGameObjectQueue world;
+	SystemPhysicsUpdater sysPhysics;
 
+
+	SystemGameObjectQueue world;
 
 	/// ENTITIES
 
@@ -113,6 +116,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sysInput.InputUpdate(world.alive_object);
 		sysRenderer.RenderUpdate(world.alive_object);
 		sysLogic.LogicUpdate(world.alive_object);
+		sysNetwork.NetworkUpdate(world.alive_object);
+		sysPhysics.PhysicsUpdate(world.alive_object);
 		 
 		//localPlayer->update();
 		

@@ -20,11 +20,13 @@
 
 // Component Includes
 #include "Component.h"
-#include "InputComponent.h"
 #include "MovementComponent.h"
-#include "RenderComponent.h"
 #include "PlayerRenderComponent.h"
 #include "PlayerInputComponent.h"
+#include "PlayerNetworkComponent.h"
+#include "PlayerLogicComponent.h"
+#include "PlayerPhysicsComponent.h"
+
 
 
 class PlayerObjectFactory : public GameObjectFactory
