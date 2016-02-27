@@ -120,6 +120,9 @@ public:
 	/// Returns time to start
 	SQUADIO_API float	GetTimeToStart() const { return mTimeToStart; }
 
+	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
+	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
+	//	void			UnregisterGameObject(GameObject* inGameObject);
 	SQUADIO_API map< uint64_t, string >  getLobbyMap() const { return mPlayerNameMap; }
 
 //	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
@@ -147,9 +150,9 @@ public:
 
 
 private:
-//	void	AddToNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
-//	void	RemoveFromNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
-//	void	RegisterGameObject(GameObjectPtr inGameObject);
+	//	void	AddToNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
+	//	void	RemoveFromNetworkIdToGameObjectMap(GameObjectPtr inGameObject);
+	//	void	RegisterGameObject(GameObjectPtr inGameObject);
 	/// Returns new network Id
 	uint32_t GetNewNetworkId();
 	/// Computes CRC value
@@ -187,7 +190,7 @@ private:
 	void	ProcessQueuedPackets();
 	/// Enters playing state
 	void	EnterPlayingState();
-//	void	SpawnCat(uint64_t inPlayerId, const Vector3& inSpawnVec);
+	//	void	SpawnCat(uint64_t inPlayerId, const Vector3& inSpawnVec);
 	/// Checks for steam achievements
 	void	CheckForAchievements();
 
@@ -196,7 +199,8 @@ private:
 	typedef map< uint64_t, string > Int64ToStrMap;
 	/// Map of ints to turndata
 	typedef map< uint64_t, TurnData > Int64ToTurnDataMap;
-//	typedef map< uint32_t, GameObjectPtr > IntToGameObjectMap;
+	//	typedef map< uint32_t, GameObjectPtr > IntToGameObjectMap;
+	//	typedef map< uint32_t, GameObjectPtr > IntToGameObjectMap;
 	/// Data structure holding ints 1-8 mapped to player steam IDs
 	typedef map< uint8_t, uint64_t > PlayerNumToSteamIdMap;
 	/// Checks for synchronization
@@ -204,7 +208,7 @@ private:
 	/// Queue of received packets
 	queue< ReceivedPacket, list< ReceivedPacket > >	mPacketQueue;
 
-//	IntToGameObjectMap			mNetworkIdToGameObjectMap;
+	//	IntToGameObjectMap			mNetworkIdToGameObjectMap;
 	Int64ToStrMap				mPlayerNameMap;
 
 	//this stores all of our turn information for every turn since game start

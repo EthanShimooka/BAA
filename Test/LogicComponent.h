@@ -8,7 +8,6 @@
 
 */
 
-
 #pragma once
 
 #ifndef LOGICCOMPONENT_H_INCLUDED

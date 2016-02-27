@@ -9,15 +9,15 @@
 
 */
 
-
 #pragma once
 #ifndef NETWORKCOMPONENT_H_INCLUDED
 #define NETWORKCOMPONENT_H_INCLUDED
 
 
-#include "Component.h"
-//#include "include\network\NetIncludes.h"
+//#include "Component.h"
 #include "GameObject.h"
+#include "include\network\NetIncludes.h"
+
 
 class NetworkComponent :	public Component
 {
@@ -25,8 +25,11 @@ public:
 	NetworkComponent();
 	~NetworkComponent();
 
+	
+
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;
+
 
 	/// update object Positions from Input
 	virtual void Update();

@@ -1,5 +1,6 @@
 #include "test.h"
 
+
 using namespace std;
 
 void update();
@@ -29,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == 4)
+		if (NetworkManager::sInstance->GetState() == 1)
 			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
 			//NetworkManager::sInstance->GetAllPlayersInLobby();
@@ -61,14 +62,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SystemPhysicsUpdater sysPhysics;
 
 
-	SystemGameObjectQueue world;
+	//SystemGameObjectQueue world;
 
 	/// ENTITIES
 
 
 	PlayerObjectFactory pFactory;
 	 
-	world.AddObject(pFactory.Spawn(1));
+	GameObjects.AddObject(pFactory.Spawn(1));
 
 
 	//vector<Player*> players;
@@ -113,11 +114,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 
-		sysInput.InputUpdate(world.alive_object);
-		sysRenderer.RenderUpdate(world.alive_object);
-		sysLogic.LogicUpdate(world.alive_object);
-		sysNetwork.NetworkUpdate(world.alive_object);
-		sysPhysics.PhysicsUpdate(world.alive_object);
+		sysInput.InputUpdate(GameObjects.alive_object);
+		sysRenderer.RenderUpdate(GameObjects.alive_object);
+		sysLogic.LogicUpdate(GameObjects.alive_object);
+		sysNetwork.NetworkUpdate(GameObjects.alive_object);
+		sysPhysics.PhysicsUpdate(GameObjects.alive_object);
 		 
 		//localPlayer->update();
 		
@@ -147,6 +148,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
+
+		inputMan->update();
 
 		sceneMan->AssembleScene();
 
