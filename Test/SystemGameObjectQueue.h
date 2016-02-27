@@ -22,4 +22,5 @@ public:
 
 };
 
+//GLOBAL INSTANCE OF SYSTEMGAMEOBJECTQUEUE. Anywhere that includes this file can just use GameObjects like a local variable.
 extern SystemGameObjectQueue GameObjects;

@@ -61,7 +61,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SystemPhysicsUpdater sysPhysics;
 
 
-	SystemGameObjectQueue world;
+	//SystemGameObjectQueue world;
 
 	/// ENTITIES
 
