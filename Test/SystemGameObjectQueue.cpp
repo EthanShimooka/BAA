@@ -19,7 +19,7 @@ void SystemGameObjectQueue::AddObject(GameObject * obj){
 
 void SystemGameObjectQueue::DeleteObject(int g_id){
 
-	for (int i = 0; i < alive_object.size(); i++){
+	for (unsigned int i = 0; i < alive_object.size(); i++){
 
 		//if (alive_object[i].ID == g_id)
 	}

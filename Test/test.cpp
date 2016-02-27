@@ -1,5 +1,6 @@
 #include "test.h"
 
+
 using namespace std;
 
 void update();
@@ -29,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == 4)
+		if (NetworkManager::sInstance->GetState() == 1)
 			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
 			//NetworkManager::sInstance->GetAllPlayersInLobby();
@@ -147,6 +148,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
+
+		inputMan->update();
 
 		sceneMan->AssembleScene();
 

@@ -72,6 +72,7 @@ using std::map;
 //#include "InputManager.h"
 
 #include "Timing.h"
+#include "DeliveryNotificationManager.h"
 
 //#include "GameObject.h"
 //#include "GameObjectRegistry.h"

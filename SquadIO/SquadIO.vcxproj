@@ -93,6 +93,7 @@
     <ClInclude Include="include\network\BirdMath.h" />
     <ClInclude Include="include\network\Command.h" />
     <ClInclude Include="include\network\CommandList.h" />
+    <ClInclude Include="include\network\DeliveryNotificationManager.h" />
     <ClInclude Include="include\network\GamerServices.h" />
     <ClInclude Include="include\network\MemoryBitStream.h" />
     <ClInclude Include="include\network\NetIncludes.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="src\network\BirdMath.cpp" />
     <ClCompile Include="src\network\Command.cpp" />
     <ClCompile Include="src\network\CommandList.cpp" />
+    <ClCompile Include="src\network\DeliveryNotificationManager.cpp" />
     <ClCompile Include="src\network\GamerServicesSteam.cpp" />
     <ClCompile Include="src\network\MemoryBitStream.cpp" />
     <ClCompile Include="src\network\NetworkManager.cpp" />
