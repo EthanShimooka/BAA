@@ -64,9 +64,10 @@ float SDLRenderObject::getPosX(){
 		float flipV = (parent->isFlippedV()) ? -1 : 1;
 		float x = posX;
 		float y = posY;
-		float r = parent->getRotation()*flipH*flipV * (M_PI/180);
-		float s = parent->getScaleX();
-		return parent->getPosX() + s*(cos(r)*x - sin(r)*y)*flipH;
+		float r = parent->getRotation()*flipH*flipV * (M_PI / 180);
+		float sx = parent->getScaleX();
+		float sy = parent->getScaleY();
+		return parent->getPosX() + (sx*cos(r)*x - sy*sin(r)*y)*flipH;
 	}
 	return posX; 
 }
@@ -77,8 +78,9 @@ float SDLRenderObject::getPosY(){
 		float x =  posX;
 		float y =  posY;
 		float r = parent->getRotation()*flipH*flipV * (M_PI / 180);
-		float s = parent->getScaleY();
-		return parent->getPosY() + s*(sin(r)*x + cos(r)*y)*flipV;
+		float sx = parent->getScaleX();
+		float sy = parent->getScaleY();
+		return parent->getPosY() + (sx*sin(r)*x + sy*cos(r)*y)*flipV;
 	}
 	return posY;
 }
