@@ -117,7 +117,6 @@
     <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DeliveryNotificationManager.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\AudioResource.cpp" />
     <ClCompile Include="src\EngineObject.cpp" />
@@ -127,6 +126,7 @@
     <ClCompile Include="src\network\BirdMath.cpp" />
     <ClCompile Include="src\network\Command.cpp" />
     <ClCompile Include="src\network\CommandList.cpp" />
+    <ClCompile Include="src\network\DeliveryNotificationManager.cpp" />
     <ClCompile Include="src\network\GamerServicesSteam.cpp" />
     <ClCompile Include="src\network\MemoryBitStream.cpp" />
     <ClCompile Include="src\network\NetworkManager.cpp" />

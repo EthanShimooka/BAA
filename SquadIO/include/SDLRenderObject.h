@@ -19,7 +19,7 @@
 #include <iostream>
 #include <time.h>
 #include <iomanip>
-#include <Windows.h>
+//#include <Windows.h>
 #include <math.h>
 #include <list>
 

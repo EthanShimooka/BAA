@@ -10,9 +10,6 @@
     <ClCompile Include="src\network\CommandList.cpp">
       <Filter>Source Files\network</Filter>
     </ClCompile>
-    <ClCompile Include="DeliveryNotificationManager.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
     <ClCompile Include="src\network\GamerServicesSteam.cpp">
       <Filter>Source Files\network</Filter>
     </ClCompile>
@@ -75,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\DeliveryNotificationManager.cpp">
+      <Filter>Source Files\network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
