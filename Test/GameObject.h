@@ -73,6 +73,9 @@ public:
 	/// Updates Component of selected ENUM type (c_type). See Component.h for list of types.
 	void UpdateComponentByType(int c_type);
 
+	/// Gets the list of components for this object
+	Component* GetComponent(int c_type);
+
 
 	/// To Be Implemented
 
