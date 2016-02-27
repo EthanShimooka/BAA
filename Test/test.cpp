@@ -14,11 +14,14 @@ typedef float(*ease_function)(float);
 float ease_linear(float i){
 	return i;
 }
-float ease_QuadOut(float i){
+float ease_QuadIn(float i){
 	return pow(i, 2);
 }
-float ease_QuadIn(float i){
-	return -i*(i - 2);
+float ease_QuadOut(float i){
+	return i*(2-i);
+}
+float ease_QuadInOut(float i){
+	return (i < 0.5) ? 2 * i*i : -1 + (4 - 2 * i)*i;
 }
 std::function<float(float)> getBezier(float x0, float x1, float x2, float x3){
 	return [=](float i) {
@@ -58,6 +61,7 @@ struct animation{
 			else								{ place = (i - mot->start) / mot->duration; }
 			mot->trans(mot->ease(place));//apply transformation, place should be between 0 and 1
 		}
+		return ((i>1.0) || (i<0.0));
 	}
 };
 
@@ -155,7 +159,37 @@ int _tmain(int argc, _TCHAR* argv[]){
 	armor->setParent(base);
 	arm->setParent(armor);
 
-	//SDLRenderObject* tenta1 = sceneMan->
+	SDLRenderObject* tenta1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 50);
+	tenta1->anchor = { 74 / float(tenta1->getWidth()), 200 / float(tenta1->getHeight()) };
+	tenta1->setScale(0.25);
+
+	SDLRenderObject* tenta2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0 , tenta1->getHeight() - 200);
+	tenta2->anchor = { 74 / float(tenta2->getWidth()), 200 / float(tenta2->getHeight()) };
+	tenta2->setScale(0.90);
+	tenta2->setParent(tenta1);
+
+
+	SDLRenderObject* tenta3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, tenta2->getHeight() - 200);
+	tenta3->anchor = { 74 / float(tenta3->getWidth()), 200 / float(tenta3->getHeight()) };
+	tenta3->setScale(0.90);
+	tenta3->setParent(tenta2);
+
+
+	SDLRenderObject* tenta4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, tenta3->getHeight() - 200);
+	tenta4->anchor = { 74 / float(tenta4->getWidth()), 200 / float(tenta4->getHeight()) };
+	tenta4->setScale(0.90);
+	tenta4->setParent(tenta3);
+
+	SDLRenderObject* tenta[4];
+	tenta[0] = tenta1;
+	tenta[1] = tenta2;
+	tenta[2] = tenta3;
+	tenta[3] = tenta4;
+	animation squirm;
+	for (SDLRenderObject * iter : tenta){
+		motion m = { rotateTransform(iter, 90, -90), ease_QuadInOut, 0, 1 };
+		squirm.motions.push_back(m);
+	}
 	/*
 	for (int i = 0; i < players.size(); ++i){
 	if (!players[i]->isNetworkControlled)
@@ -185,6 +219,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 	while (gameloop) {
 		var += 1;
 		input->update();
+		if (var % 40 < 20){
+			squirm.animate(float(var % 40) / 20);
+		}
+		else{
+			squirm.animate(2-float(var % 40) / 20);
+		}
 		//inputMan->update();
 		//listen->getInput();
 		NetworkManager::sInstance->ProcessIncomingPackets();
