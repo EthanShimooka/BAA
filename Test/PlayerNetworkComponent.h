@@ -5,15 +5,14 @@
 class PlayerNetworkComponent : public NetworkComponent
 {
 private:
-	enum playerCommand
-	{
+	typedef enum {
 		CM_INVALID,
 		CM_MOVE,
 		CM_ABILITY,
 		CM_ATTACK,
 		CM_DIE,
 		CM_JUMP
-	};
+	}COMMAND_TYPE;
 
 public:
 	PlayerNetworkComponent();

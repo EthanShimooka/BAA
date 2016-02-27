@@ -53,7 +53,7 @@ public:
 	~GameObject();
 
 	/// Object ID
-	int ID;
+	uint64_t ID;
 	///World X Position
 	float posX;
 	///World Y Position

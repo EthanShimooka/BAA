@@ -58,7 +58,7 @@ void PlayerNetworkComponent::Update(){
 	OutputMemoryBitStream outData;
 	outData.Write(NetworkManager::sInstance->kPosCC);
 	outData.Write(gameObjectRef->ID);
-	outData.Write(CM_MOVE);
+	outData.Write(1);
 	//outData.Write(testNum++);
 	outData.Write(gameObjectRef->posX);
 	outData.Write(gameObjectRef->posY);
