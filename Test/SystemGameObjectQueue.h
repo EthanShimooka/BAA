@@ -22,3 +22,4 @@ public:
 
 };
 
+extern SystemGameObjectQueue GameObjects;
