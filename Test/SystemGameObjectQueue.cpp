@@ -1,5 +1,6 @@
 #include "SystemGameObjectQueue.h"
 
+SystemGameObjectQueue GameObjects;
 
 SystemGameObjectQueue::SystemGameObjectQueue()
 {
@@ -9,6 +10,7 @@ SystemGameObjectQueue::SystemGameObjectQueue()
 SystemGameObjectQueue::~SystemGameObjectQueue()
 {
 }
+
 
 
 void SystemGameObjectQueue::AddObject(GameObject * obj){
