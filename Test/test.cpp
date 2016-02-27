@@ -1,7 +1,6 @@
 #include "test.h"
 #include <functional>
 
-
 //#include "include\network\NetIncludes.h"
 
 using namespace std;
@@ -102,17 +101,46 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
-	InputListener* listen = new InputListener();
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
 
-	int something[] = { 2, 12, 13, 14 };
-	vector<Player*> players;
-	for (int i = 0; i < 4; i++){
-		Player* player = new Player(i, 50 * i - 50, 50 * i - 50);
-		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
-		players.push_back(player);
+	///  SYSTEMS
+
+	SystemNetworkUpdater sysNetwork;
+	SystemRenderUpdater sysRenderer;
+	SystemInputUpdater sysInput;
+	SystemLogicUpdater sysLogic;
+	SystemPhysicsUpdater sysPhysics;
+
+
+	SystemGameObjectQueue world;
+
+	/// ENTITIES
+
+
+	PlayerObjectFactory pFactory;
+
+	world.AddObject(pFactory.Spawn(1));
+
+	//vector<Player*> players;
+
+	//Player* localPlayer;
+	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+
+	/*
+
+	int i = 0;
+	for (auto &iter : loby)
+	{
+	//cout << iter.second << endl;
+	Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
+	if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
+	localPlayer = player;
+	player->isNetworkControlled = false;
 	}
-	Player* localPlayer = players[0];
-
+	player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
+	players.push_back(player);
+	}*/
 	SDLRenderObject* base = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
 	base->anchor = { 0.5, 0.5 };
 	//base->setVisible(false);
@@ -126,12 +154,19 @@ int _tmain(int argc, _TCHAR* argv[]){
 	leg->setParent(base);
 	armor->setParent(base);
 	arm->setParent(armor);
-	//armor->setParent(a);
+
+	//SDLRenderObject* tenta1 = sceneMan->
+	/*
+	for (int i = 0; i < players.size(); ++i){
+	if (!players[i]->isNetworkControlled)
+	cout << players[i]->ID << endl;
+	}
+
+	*/
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-
 	int var = 0;
 
 	auto up = rotateTransform(arm, 0, 180);
@@ -148,13 +183,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int pressedTime = 3;
 	int rotation = 0;
 	while (gameloop) {
-		input->update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
-		listen->getInput();
 		var += 1;
-		//if (var % 10 == 0)
-		//NetworkManager::sInstance->ProcessIncomingPackets();
+		input->update();
+		//inputMan->update();
 		//listen->getInput();
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		NetworkManager::sInstance->UpdateDelay();
 
 		//arm->rotation = var * 2;
 		//base->posX += listen->input_x;
@@ -223,23 +257,32 @@ int _tmain(int argc, _TCHAR* argv[]){
 		int length = 20;
 		float loop = (var % length);
 
-		localPlayer->update();
-		for (int i = 0; i < NetworkManager::sInstance->test.size(); +
 
-			+i){
-			//iterate though the queue, pop off packets, and create 
-			//commands to give to gameobjects
-			int UID;
-			NetworkManager::sInstance->test.front().Read(UID);
-			//process packet here
-			NetworkManager::sInstance->test.pop();
+		sysInput.InputUpdate(world.alive_object);
+		sysRenderer.RenderUpdate(world.alive_object);
+		sysLogic.LogicUpdate(world.alive_object);
+		sysNetwork.NetworkUpdate(world.alive_object);
+		sysPhysics.PhysicsUpdate(world.alive_object);
+
+		//localPlayer->update();
+
+		/*
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+		//iterate though the queue, pop off packets, and create
+		//commands to give to gameobjects
+		int UID;
+		NetworkManager::sInstance->test.front().Read(UID);
+		//process packet here
+		NetworkManager::sInstance->test.pop();
 		}
 
 		if (input->isKeyDown(KEY_ESCAPE))
-			gameloop = false;
+		gameloop = false;
+		for (int i = 0; i < players.size(); ++i){
+		players[i]->update();
+		}
 
-		input->update();
-
+		*/
 
 		sceneMan->AssembleScene();
 
