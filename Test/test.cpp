@@ -69,36 +69,45 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	PlayerObjectFactory pFactory;
 	 
-	GameObjects.AddObject(pFactory.Spawn(1, true));
-	GameObjects.AddObject(pFactory.Spawn(2, false));
 
-	//vector<Player*> players;
+	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
-	//Player* localPlayer;
-	//map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
-
-	/*
-
-	int i = 0;
-	for (auto &iter : loby)
-	{
-		//cout << iter.second << endl;
-		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
-		if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
-			localPlayer = player;
-			player->isNetworkControlled = false;
+	for (auto &iter : loby){
+		bool local = false;
+		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+			local = true;
+			cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
 		}
-		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
-		players.push_back(player);
-		i++;
+		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 	}
 
-	for (int i = 0; i < players.size(); ++i){
+	/*for (int i = 0; i < players.size(); ++i){
 		if (!players[i]->isNetworkControlled)
 			cout << players[i]->ID << endl;
-	}
+	}*/
 
-	*/
+
+	//vector<Player*> players;
+	//Player* localPlayer;
+
+	//int i = 0;
+	//for (auto &iter : loby)
+	//{
+	//	//cout << iter.second << endl;
+	//	Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
+	//	if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
+	//		localPlayer = player;
+	//		player->isNetworkControlled = false;
+	//	}
+	//	player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
+	//	players.push_back(player);
+	//	i++;
+	//}
+
+	//for (int i = 0; i < players.size(); ++i){
+	//	if (!players[i]->isNetworkControlled)
+	//		cout << players[i]->ID << endl;
+	//}
 
 
 

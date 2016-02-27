@@ -51,16 +51,19 @@ void PlayerNetworkComponent::Update(){
 	}
 
 	/*while (!outgoingPackets.empty()){
-		InputMemoryBitStream packet = incomingPackets.front();
+		OutputMemoryBitStream outData = outgoingPackets.front();
+		NetworkManager::sInstance->sendPacketToAllPeers(outData);
 		outgoingPackets.pop();
 	}*/
 
-	OutputMemoryBitStream outData;
-	outData.Write(NetworkManager::sInstance->kPosCC);
-	outData.Write(gameObjectRef->ID);
-	outData.Write(1);
-	//outData.Write(testNum++);
-	outData.Write(gameObjectRef->posX);
-	outData.Write(gameObjectRef->posY);
-	NetworkManager::sInstance->sendPacketToAllPeers(outData);
+	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId()){
+		OutputMemoryBitStream outData;
+		outData.Write(NetworkManager::sInstance->kPosCC);
+		outData.Write(gameObjectRef->ID);
+		outData.Write(1);
+		//outData.Write(testNum++);
+		outData.Write(gameObjectRef->posX);
+		outData.Write(gameObjectRef->posY);
+		NetworkManager::sInstance->sendPacketToAllPeers(outData);
+	}
 }
