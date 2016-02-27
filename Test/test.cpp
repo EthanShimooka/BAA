@@ -112,21 +112,21 @@ int _tmain(int argc, _TCHAR* argv[]){
 		inputMan->update();
 		NetworkManager::sInstance->UpdateDelay();
 
-		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
-			//iterate though the queue, pop off packets, and create 
-			//commands to give to gameobjects
-			uint64_t UID;
-			NetworkManager::sInstance->test.front().Read(UID);
-			//process packet here
-			for (int i = 0; i < GameObjects.alive_object.size(); ++i){
-				if (GameObjects.alive_object[i]->ID == UID){
-					PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(GameObjects.alive_object[i]->GetComponent(COMPONENT_NETWORK));
-					if (net)
-						net->incomingPackets.push(NetworkManager::sInstance->test.front());
-				}
-			}
-			NetworkManager::sInstance->test.pop();
-		}
+		//for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+		//	//iterate though the queue, pop off packets, and create 
+		//	//commands to give to gameobjects
+		//	uint64_t UID;
+		//	NetworkManager::sInstance->test.front().Read(UID);
+		//	//process packet here
+		//	for (int i = 0; i < GameObjects.alive_object.size(); ++i){
+		//		if (GameObjects.alive_object[i]->ID == UID){
+		//			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(GameObjects.alive_object[i]->GetComponent(COMPONENT_NETWORK));
+		//			if (net)
+		//				net->incomingPackets.push(NetworkManager::sInstance->test.front());
+		//		}
+		//	}
+		//	NetworkManager::sInstance->test.pop();
+		//}
 
 		sysInput.InputUpdate(GameObjects.alive_object);
 		sysRenderer.RenderUpdate(GameObjects.alive_object);

@@ -44,7 +44,7 @@ void PlayerNetworkComponent::Update(){
 			//handle 
 			break;
 		default:
-			cout << "There is no such command!!" << endl;
+			cout << gameObjectRef->ID << ": There is no such command!!" << endl;
 		}
 
 		incomingPackets.pop();
