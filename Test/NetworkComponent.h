@@ -9,7 +9,6 @@
 
 */
 
-
 #pragma once
 #ifndef NETWORKCOMPONENT_H_INCLUDED
 #define NETWORKCOMPONENT_H_INCLUDED

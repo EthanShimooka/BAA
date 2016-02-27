@@ -9,13 +9,11 @@ imput Components are derived.
 Only the local player GameObject should have this component.
 
 */
-
-
 #pragma once
-#include "LogicComponent.h"
-
 #ifndef PLAYERLOGICCOMPONENT_H_INCLUDED
 #define PLAYERLOGICCOMPONENT_H_INCLUDED
+
+#include "LogicComponent.h"
 
 class PlayerLogicComponent :  public LogicComponent
 {

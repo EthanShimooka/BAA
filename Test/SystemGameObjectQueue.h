@@ -1,4 +1,6 @@
 #pragma once
+#ifndef SYSTEMGAMEOBJECTQUEUE_H_INCLUDED
+#define SYSTEMGAMEOBJECTQUEUE_H_INCLUDED
 
 #include "GameObject.h"
 #include <vector>
@@ -22,3 +24,4 @@ public:
 
 };
 
+#endif
