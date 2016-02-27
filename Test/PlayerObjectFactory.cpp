@@ -13,7 +13,7 @@ PlayerObjectFactory::~PlayerObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* PlayerObjectFactory::Spawn(int PID)
+GameObject* PlayerObjectFactory::Spawn(int PID, bool local)
 {
 
 	GameObject* player = new GameObject();
@@ -23,9 +23,11 @@ GameObject* PlayerObjectFactory::Spawn(int PID)
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually
 
-	PlayerInputComponent* input = new PlayerInputComponent();
-	input->gameObjectRef = player;
-	player->AddComponent(COMPONENT_INPUT,input);
+	if (local){
+		PlayerInputComponent* input = new PlayerInputComponent();
+		input->gameObjectRef = player;
+		player->AddComponent(COMPONENT_INPUT, input);
+	}
 
 	// Movement Component nessasary for all objects that move
 	// Player moves, therefore, it is included

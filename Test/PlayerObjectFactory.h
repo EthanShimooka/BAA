@@ -36,7 +36,7 @@ public:
 	~PlayerObjectFactory();
 
 	/// Creates a new player GameObject
-	GameObject * Spawn(int PID);
+	GameObject * Spawn(int PID, bool local);
 	/// Set postion of gameObject
 	void setPos(GameObject*);
 

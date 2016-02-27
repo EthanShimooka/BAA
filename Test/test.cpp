@@ -30,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == 1)
+		if (NetworkManager::sInstance->GetState() == 4)
 			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
 			//NetworkManager::sInstance->GetAllPlayersInLobby();
@@ -69,13 +69,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	PlayerObjectFactory pFactory;
 	 
-	GameObjects.AddObject(pFactory.Spawn(1));
-
+	GameObjects.AddObject(pFactory.Spawn(1, true));
+	GameObjects.AddObject(pFactory.Spawn(2, false));
 
 	//vector<Player*> players;
 
 	//Player* localPlayer;
-	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+	//map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
 	/*
 
