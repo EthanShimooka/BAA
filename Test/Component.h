@@ -1,5 +1,5 @@
 /**
-*  Componet.h
+*  Component.h
 *  Authors: Ethan Shimooka
 *  Date 2/25/2016
 *  Description :
