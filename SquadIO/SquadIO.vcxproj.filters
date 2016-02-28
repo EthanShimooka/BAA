@@ -76,6 +76,9 @@
     <ClCompile Include="src\network\DeliveryNotificationManager.cpp">
       <Filter>Source Files\network</Filter>
     </ClCompile>
+    <ClCompile Include="src\ButtonManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\network\NetworkManager.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="include\gameResource.h">
       <Filter>Header Files\Resource Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ButtonManager.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

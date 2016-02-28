@@ -9,6 +9,7 @@
 #include "include\ResourceManager.h"
 #include "include\RenderManager.h"
 #include "include\RenderResource.h"
+#include "include\ButtonManager.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
 #include <iostream>

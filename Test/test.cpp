@@ -50,6 +50,29 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
+	LButton* gButton = new LButton();
+
+	gButton->setPosition(0, 0);
+	std::cout << gButton->getXPosition() << " " << gButton->getYPosition() << std::endl;
+	std::cout << inputMan->getMouseX() << " " << inputMan->getMouseY() << std::endl;
+	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(), true);
+	std::cout << gButton->obj->posX << " " << gButton->obj->posY << std::endl;
+	bool loop = true;
+	while (loop){
+
+		/*if (input->isKeyDown(KEY_ESCAPE))
+		loop = false;*/
+		SDL_Event e;
+
+		gButton->handleEvent(&e);
+
+		inputMan->update();
+
+		sceneMan->AssembleScene();
+
+		render(renderMan);
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
