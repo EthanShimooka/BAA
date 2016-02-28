@@ -23,7 +23,7 @@ public:
 	/// Destructor
 	~MinionObjectFactory();
 
-	/// Creates a new player GameObject
+	/// Creates a new minion GameObject
 	GameObject * Spawn(uint64_t PID);
 
 };

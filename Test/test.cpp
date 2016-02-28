@@ -12,9 +12,7 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-
-	int numPlayers = 1;
-
+	
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
@@ -37,6 +35,28 @@ int _tmain(int argc, _TCHAR* argv[]){
 	}
 */
 	InputManager* input = InputManager::getInstance();
+	int numPlayers = 1;
+
+	if (numPlayers != 1){
+		if (!GamerServices::StaticInit())
+			std::cout << "Failed to initialize Steam" << "\n";
+
+		if (!NetworkManager::StaticInit())
+			std::cout << "NetworkManager::StaticInit() failed!" << "\n";
+
+		while (true){
+			GamerServices::sInstance->Update();
+			NetworkManager::sInstance->ProcessIncomingPackets();
+			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+			if (NetworkManager::sInstance->GetState() == 4)
+				break;
+			if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
+				//NetworkManager::sInstance->GetAllPlayersInLobby();
+				NetworkManager::sInstance->TryReadyGame();
+			}
+		}
+	}
+	
 
 	InputManager* inputMan = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -88,21 +108,33 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
+	FeatherObjectFactory fFactory;
 
-	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+	if (numPlayers != 1){
+		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
-	for (auto &iter : loby){
-		bool local = false;
-		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-			local = true;
-			cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+		for (auto &iter : loby){
+			bool local = false;
+			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+				local = true;
+				cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+			}
+			GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 		}
-		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
+	}
+	else{
+		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
 
 	for (uint64_t i = 0; i < 4; ++i){
 		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
 	}
+
+	for (uint64_t i = 0; i < 4; ++i) {
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+		GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
+	}
+	
 
 
 
@@ -143,13 +175,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	
 	while (gameloop) {
 		inputMan->update();
-		NetworkManager::sInstance->UpdateDelay();
+		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
-		sysNetwork.NetworkUpdate(GameObjects.alive_objects);
+		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 
 

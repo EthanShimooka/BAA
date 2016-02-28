@@ -49,6 +49,12 @@
     <Filter Include="Header Files\Component\Abstract Component">
       <UniqueIdentifier>{1a1b02a6-67f1-4b81-90c5-872a0e7631d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Feather Component">
+      <UniqueIdentifier>{331162b9-8eb3-4406-9186-96d688e9a0a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Feather Component">
+      <UniqueIdentifier>{f065aa7e-152e-460f-8fb6-22f5dfc9347d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -132,6 +138,21 @@
     <ClInclude Include="MinionObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="FeatherLogicComponent.h">
+      <Filter>Header Files\Component\Feather Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherNetworkComponent.h">
+      <Filter>Header Files\Component\Feather Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherPhysicsComponent.h">
+      <Filter>Header Files\Component\Feather Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherRenderComponent.h">
+      <Filter>Header Files\Component\Feather Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -213,6 +234,21 @@
       <Filter>Source Files\Component\Minion Component</Filter>
     </ClCompile>
     <ClCompile Include="MinionObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherLogicComponent.cpp">
+      <Filter>Source Files\Component\Feather Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherNetworkComponent.cpp">
+      <Filter>Source Files\Component\Feather Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Feather Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherRenderComponent.cpp">
+      <Filter>Source Files\Component\Feather Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
