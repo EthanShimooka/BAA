@@ -24,7 +24,7 @@ float LButton::getYPosition(){
 bool LButton::handleEvent(SDL_Event* e){
 	while (SDL_PollEvent(e)){
 	//if mouse event happened
-		if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP){
+		if (e->type == SDL_MOUSEBUTTONDOWN){
 			//get mouse position
 			int x, y;
 			SDL_GetMouseState(&x, &y);

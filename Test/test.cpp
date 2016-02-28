@@ -56,9 +56,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	//Button objects
-	/**/LButton* gButton = new LButton();
+	/*LButton* gButton = new LButton();
 
-	gButton->setPosition(350, 350);
+	gButton->setPosition(300, 325);
 	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(),true);
 
 	bool loop = true;
@@ -68,12 +68,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 		SDL_Event e;
 
 		gButton->handleEvent(&e);
-	
+
 		input->update();
 
 		sceneMan->AssembleScene();
 
-	}
+	}*/
 	///  SYSTEMS
 
 	SystemNetworkUpdater sysNetwork;

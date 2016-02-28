@@ -13,8 +13,8 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="playButton.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,17 +24,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0130859"
-     inkscape:cx="375"
+     inkscape:zoom="1.105585"
+     inkscape:cx="510.22252"
      inkscape:cy="520"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1302"
-     inkscape:window-height="908"
+     inkscape:window-height="900"
      inkscape:window-x="231"
      inkscape:window-y="43"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -52,24 +52,24 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ff6600;fill-opacity:1;stroke:#000000;stroke-width:0.61442286000000002;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ff6600;fill-opacity:1;stroke:#000000;stroke-width:0.17735074;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2985"
-       width="299.38559"
-       height="199.38557"
-       x="180.63541"
-       y="365.96756"
-       ry="45.570004" />
+       width="99.822655"
+       height="49.822651"
+       x="180.41687"
+       y="515.74902"
+       ry="11.387074" />
     <text
        xml:space="preserve"
-       style="font-size:72.37576294000000100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800080;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact"
-       x="256.40097"
-       y="508.74771"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20.89097977px;line-height:125%;font-family:Impact;-inkscape-font-specification:Impact;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#800080;fill-opacity:1;stroke:none"
+       x="174.52419"
+       y="654.19562"
        id="text2987"
        sodipodi:linespacing="125%"
-       transform="scale(1.0351405,0.96605243)"><tspan
+       transform="scale(1.1957265,0.83631163)"><tspan
          sodipodi:role="line"
          id="tspan2989"
-         x="256.40097"
-         y="508.74771">Play</tspan></text>
+         x="174.52419"
+         y="654.19562">Play</tspan></text>
   </g>
 </svg>
