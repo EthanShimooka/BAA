@@ -25,9 +25,6 @@ public:
 
 	/// Creates a new player GameObject
 	GameObject * Spawn(uint64_t PID);
-	/// Set postion of gameObject
-	void setPos(GameObject*);
-
 
 };
 
