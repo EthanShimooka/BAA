@@ -7,8 +7,6 @@ System class for updating all known Logic Components.
 */
 #pragma once
 
-
-
 #ifndef SYSTEMLOGICUPDATER_H_INCLUDED
 #define SYSTEMLOGICUPDATER_H_INCLUDED
 

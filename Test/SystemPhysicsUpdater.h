@@ -7,8 +7,6 @@ System class for updating all known Physics Components.
 */
 #pragma once
 
-
-
 #ifndef SYSTEMPHYSICSUPDATER_H_INCLUDED
 #define SYSTEMPHYSICSUPDATER_H_INCLUDED
 

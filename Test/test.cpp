@@ -30,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == 1)
+		if (NetworkManager::sInstance->GetState() == 4)
 			break;
 		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
 			//NetworkManager::sInstance->GetAllPlayersInLobby();
@@ -43,6 +43,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
+	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 
 	resourceMan->setCurrentScope(0);
@@ -85,44 +86,25 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SystemPhysicsUpdater sysPhysics;
 
 
-	SystemGameObjectQueue world;
+	//SystemGameObjectQueue world;
 
 	/// ENTITIES
-
-
 	PlayerObjectFactory pFactory;
-	 
-	world.AddObject(pFactory.Spawn(1));
+	MinionObjectFactory mFactory;
 
-
-	//vector<Player*> players;
-
-	//Player* localPlayer;
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
-	/*
-
-	int i = 0;
-	for (auto &iter : loby)
-	{
-		//cout << iter.second << endl;
-		Player* player = new Player(iter.first, 50 * i - 50, 50 * i - 50);
-		if (player->ID == NetworkManager::sInstance->GetMyPlayerId()){
-			localPlayer = player;
-			player->isNetworkControlled = false;
+	for (auto &iter : loby){
+		bool local = false;
+		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+			local = true;
+			cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
 		}
-		player->objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), something[i], player->posX, player->posY);
-		players.push_back(player);
-		i++;
+		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 	}
 
-	for (int i = 0; i < players.size(); ++i){
-		if (!players[i]->isNetworkControlled)
-			cout << players[i]->ID << endl;
-	}
-
-	*/
-
+	for (uint64_t i = 0; i < 4; ++i)
+		GameObjects.AddObject(mFactory.Spawn(i));
 
 
 
@@ -136,37 +118,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		NetworkManager::sInstance->UpdateDelay();
 
 
-
-		sysInput.InputUpdate(world.alive_object);
-		sysRenderer.RenderUpdate(world.alive_object);
-		sysLogic.LogicUpdate(world.alive_object);
-		sysNetwork.NetworkUpdate(world.alive_object);
-		sysPhysics.PhysicsUpdate(world.alive_object);
-		 
-		//localPlayer->update();
-		
-		/*
-		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
-			//iterate though the queue, pop off packets, and create 
-			//commands to give to gameobjects
-			uint64_t UID;
-			NetworkManager::sInstance->test.front().Read(UID);
-			//process packet here
-			for (int i = 0; i < players.size(); ++i){
-				if (players[i]->ID == UID){
-					//cout << "ID matched" << endl;
-					players[i]->commands.push(NetworkManager::sInstance->test.front());
-				}
-			}
-			NetworkManager::sInstance->test.pop();
-		}
-
-
-		for (int i = 0; i < players.size(); ++i){
-			players[i]->update();
-		}
-
-		*/
+		sysInput.InputUpdate(GameObjects.alive_object);
+		sysRenderer.RenderUpdate(GameObjects.alive_object);
+		sysLogic.LogicUpdate(GameObjects.alive_object);
+		sysNetwork.NetworkUpdate(GameObjects.alive_object);
+		sysPhysics.PhysicsUpdate(GameObjects.alive_object);
 
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))

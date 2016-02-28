@@ -9,7 +9,6 @@
 
 */
 
-
 #pragma once
 #ifndef NETWORKCOMPONENT_H_INCLUDED
 #define NETWORKCOMPONENT_H_INCLUDED
@@ -32,6 +31,9 @@ public:
 
 	/// update object Positions from Input
 	virtual void Update();
+
+	queue<OutputMemoryBitStream> outgoingPackets;
+	queue<InputMemoryBitStream> incomingPackets;
 };
 
 #endif

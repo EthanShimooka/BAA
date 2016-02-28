@@ -34,6 +34,8 @@ public:
 
 	/// Creates a new GameObject Component bag
 	virtual GameObject * Spawn();
+	/// Set postion of gameObject
+	void setPos(GameObject*);
 
 };
 
