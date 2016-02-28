@@ -19,7 +19,7 @@
 
 #include "Component.h"
 #include "include\SDLRenderObject.h"
-#include "include\SDLRenderObject.h"
+#include "include\AnimationLibrary.h"
 
 #include "MovementComponent.h"
 #include "GameObject.h"
@@ -37,8 +37,8 @@ public:
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
-
-
+	list <SDLRenderObject*> allObjs;
+	//hash <animation> animations;
 	GameObject* gameObjectRef;
 
 

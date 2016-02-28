@@ -70,7 +70,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	PlayerObjectFactory pFactory;
 
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
-
+	/*
 	SDLRenderObject* base = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
 	base->anchor = { 0.5, 0.5 };
 	//base->setVisible(false);
@@ -84,7 +84,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	leg->setParent(base);
 	armor->setParent(base);
 	arm->setParent(armor);
-
+	*/
+	/*
 	SDLRenderObject* tenta1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 50);
 	tenta1->anchor = { 74 / float(tenta1->getWidth()), 200 / float(tenta1->getHeight()) };
 	tenta1->setScale(0.25);
@@ -93,19 +94,16 @@ int _tmain(int argc, _TCHAR* argv[]){
 	tenta2->anchor = { 74 / float(tenta2->getWidth()), 200 / float(tenta2->getHeight()) };
 	tenta2->setScale(0.90);
 	tenta2->setParent(tenta1);
-
-
+	
 	SDLRenderObject* tenta3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, tenta2->getHeight() - 200);
 	tenta3->anchor = { 74 / float(tenta3->getWidth()), 200 / float(tenta3->getHeight()) };
 	tenta3->setScale(0.90);
 	tenta3->setParent(tenta2);
 
-
 	SDLRenderObject* tenta4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, tenta3->getHeight() - 200);
 	tenta4->anchor = { 74 / float(tenta4->getWidth()), 200 / float(tenta4->getHeight()) };
 	tenta4->setScale(0.90);
 	tenta4->setParent(tenta3);
-
 	SDLRenderObject* tenta[4];
 	tenta[0] = tenta1;
 	tenta[1] = tenta2;
@@ -114,7 +112,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	animation squirm;
 	for (SDLRenderObject * iter : tenta){
 		squirm.push(rotateTransform(iter, 90, -90), 0, 1, ease_QuadInOut);
-	}
+	}*/
 	for (auto &iter : loby){
 		bool local = false;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
@@ -128,12 +126,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	int var = 0;
-
+	/*
 	auto up = rotateTransform(arm, 0, 180);
 	auto down = rotateTransform(arm, 180, 0);
 
 	auto arcarm = moveEllipseArc(arm, 12, 14, 0, 4, -180, 360);
 	auto arcbody = moveEllipseArc(armor, 0, 0, 5, 2, 0, -360);
+	*/
 	renderMan->zoom = 0.5;
 	float size = 6;
 	float ratio = 0.7;
@@ -145,12 +144,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 	while (gameloop) {
 		var += 1;
 		input->update();
-		if (var % 40 < 20){
+		/*if (var % 40 < 20){
 			squirm.animate(float(var % 40) / 20);
 		}
 		else{
 			squirm.animate(2-float(var % 40) / 20);
-		}
+		}*/
 		//inputMan->update();
 		//listen->getInput();
 		NetworkManager::sInstance->ProcessIncomingPackets();
@@ -159,7 +158,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->rotation = var * 2;
 		//base->posX += listen->input_x;
 		//base->posY += listen->input_y;
-
+		/*
 		if (input->isKeyDown(KEY_DOWN)){
 			base->posY += moveSpd;
 		}
@@ -216,7 +215,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			arcarm(float(var % 12) / 12);
 		}
 		arcbody(float(var % 12) / 12);
-
+		*/
 		//arm->posX = 31 + armor->posX;
 		//arm->posY = 43 + armor->posY;
 

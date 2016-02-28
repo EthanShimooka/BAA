@@ -171,8 +171,11 @@ float SDLRenderObject::getAnchorY(){
 }
 
 void SDLRenderObject::getAnchor(float &a, float &b){ a = getAnchorX(); b = getAnchorY(); }
-void SDLRenderObject::setAnchor(float a, float b){ anchor.x = a; anchor.y = b; }
+void SDLRenderObject::setAnchor(double a, double b){ anchor.x = a; anchor.y = b; }
 void SDLRenderObject::setAnchor(int x, int y){ 
 	anchor.x = anchor.x + (x-posX)/renderRect.w; 
 	anchor.y = anchor.y + (y-posY)/renderRect.h; 
+}
+void SDLRenderObject::unrender(){
+	renderResource->mTexture = nullptr;
 }
