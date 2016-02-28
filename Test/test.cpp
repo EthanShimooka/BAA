@@ -56,9 +56,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	//Button objects
-	/*LButton* gButton = new LButton();
+	/**/LButton* gButton = new LButton();
 
-	gButton->setPosition(0, 0);
+	gButton->setPosition(350, 350);
 	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(),true);
 
 	bool loop = true;
@@ -73,8 +73,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		sceneMan->AssembleScene();
 
-		render(renderMan);
-	}*/
+	}
 	///  SYSTEMS
 
 	SystemNetworkUpdater sysNetwork;
@@ -101,8 +100,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 	}
 
-	for (uint64_t i = 0; i < 4; ++i)
-		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i* 50, i * 50);
+	for (uint64_t i = 0; i < 4; ++i){
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+	}
 
 
 

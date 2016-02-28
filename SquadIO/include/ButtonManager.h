@@ -13,8 +13,8 @@
 #include "sdl2\SDL_image.h"
 #include "include\SceneManager.h"
 
-const int BUTTON_WIDTH = 300;
-const int BUTTON_HEIGHT = 200;
+const int BUTTON_WIDTH = 100;
+const int BUTTON_HEIGHT = 50;
 const int TOTAL_BUTTONS = 1;
 
 enum LButtonSprite{
