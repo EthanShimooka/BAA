@@ -22,15 +22,15 @@ void PlayerInputComponent::Update()
 		gameObjectRef->posX += 2.0;
 
 	}
-	else if (input->isKeyDown(KEY_LEFT)) {
+	if (input->isKeyDown(KEY_LEFT)) {
 		gameObjectRef->posX += -2.0;
 
 	}
-	else if (input->isKeyDown(KEY_UP)) {
+	if (input->isKeyDown(KEY_UP)) {
 		gameObjectRef->posY += -2.0;
 
 	}
-	else if (input->isKeyDown(KEY_DOWN)) {
+	if (input->isKeyDown(KEY_DOWN)) {
 		gameObjectRef->posY += 2.0;
 	}
 

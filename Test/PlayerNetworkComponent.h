@@ -4,6 +4,16 @@
 #include "NetworkComponent.h"
 class PlayerNetworkComponent : public NetworkComponent
 {
+private:
+	typedef enum {
+		CM_INVALID,
+		CM_MOVE,
+		CM_ABILITY,
+		CM_ATTACK,
+		CM_DIE,
+		CM_JUMP
+	}COMMAND_TYPE;
+
 public:
 	PlayerNetworkComponent();
 	~PlayerNetworkComponent();

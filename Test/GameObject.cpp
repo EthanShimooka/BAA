@@ -41,3 +41,11 @@ void GameObject::UpdateComponentByType(int c_type){
 			g_components[i].component->Update();
 	}	
 }
+
+Component* GameObject::GetComponent(int c_type) {
+	for (int i = 0; i < component_count; i++){
+		if (g_components[i].type == c_type)
+			return g_components[i].component;
+	}
+	return nullptr;
+}

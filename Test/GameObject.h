@@ -53,7 +53,7 @@ public:
 	~GameObject();
 
 	/// Object ID
-	int ID;
+	uint64_t ID;
 	///World X Position
 	float posX;
 	///World Y Position
@@ -72,6 +72,9 @@ public:
 
 	/// Updates Component of selected ENUM type (c_type). See Component.h for list of types.
 	void UpdateComponentByType(int c_type);
+
+	/// Gets the list of components for this object
+	Component* GetComponent(int c_type);
 
 
 	/// To Be Implemented
