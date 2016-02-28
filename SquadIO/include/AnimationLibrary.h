@@ -26,10 +26,9 @@ struct motion{
 	int start; //a value from 0 to 1
 	int duration; //a value from 1-start to 0
 };
-SQUADIO_API struct animation{
+struct animation{
 	list <motion> motions;
-	SQUADIO_APIbool animate(float i);
-	SQUADIO_API bool reverseAnimate(float i);
+	SQUADIO_API bool animate(float i);
 	SQUADIO_API void push(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease = ease_linear);
 };
 

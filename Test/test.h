@@ -11,6 +11,7 @@
 #include "include\RenderResource.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
+#include "include\AnimationLibrary.h"
 #include <iostream>
 #include <tchar.h>
 
