@@ -117,6 +117,21 @@
     <ClInclude Include="PlayerPhysicsComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
+    <ClInclude Include="MinionLogicComponent.h">
+      <Filter>Header Files\Component\Minion Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionNetworkComponent.h">
+      <Filter>Header Files\Component\Minion Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionPhysicsComponent.h">
+      <Filter>Header Files\Component\Minion Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionRenderComponent.h">
+      <Filter>Header Files\Component\Minion Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -184,6 +199,21 @@
     </ClCompile>
     <ClCompile Include="PlayerPhysicsComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionLogicComponent.cpp">
+      <Filter>Source Files\Component\Minion Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionNetworkComponent.cpp">
+      <Filter>Source Files\Component\Minion Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Minion Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionRenderComponent.cpp">
+      <Filter>Source Files\Component\Minion Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

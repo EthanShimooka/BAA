@@ -29,7 +29,7 @@ public:
 
 
 	/// Virtual Update function
-	void virtual Update();
+	virtual void Update();
 };
 
 #endif

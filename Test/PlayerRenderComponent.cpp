@@ -14,4 +14,8 @@ PlayerRenderComponent::~PlayerRenderComponent()
 {
 }
 
+void PlayerRenderComponent::Update(){
+	RenderComponent::Update();
+}
+
 

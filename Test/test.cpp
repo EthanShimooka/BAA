@@ -66,7 +66,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
-	 
+	MinionObjectFactory mFactory;
 
 	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
@@ -79,7 +79,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 	}
 
-
+	for (uint64_t i = 0; i < 4; ++i)
+		GameObjects.AddObject(mFactory.Spawn(i));
 
 
 

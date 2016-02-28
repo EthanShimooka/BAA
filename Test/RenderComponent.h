@@ -56,7 +56,7 @@ public:
 	/// Assign Sprites 
 	void AssignSprite(SDLRenderObject* rend);
 	/// Updates Sprite to renderer
-	void Update();
+	virtual void Update();
 
 
 };

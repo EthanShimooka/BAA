@@ -20,7 +20,8 @@ public:
 	PlayerRenderComponent();
 	/// Destructor
 	~PlayerRenderComponent();
-
+	/// Update
+	void Update();
 };
 
 #endif
