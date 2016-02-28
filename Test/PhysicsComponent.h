@@ -15,6 +15,8 @@
 
 #include "Component.h"
 #include "GameObject.h"
+#include "include\box2D\Box2D.h"
+#include "GameWorld.h"
 #include <vector>
 
 class PhysicsComponent :
@@ -26,7 +28,7 @@ public:
 
 	/// GameObject Container Reference
 	GameObject* gameObjectRef;
-
+	b2Body* physicsBody;
 
 	/// Virtual Update function
 	virtual void Update();
