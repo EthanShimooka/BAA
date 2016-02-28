@@ -84,6 +84,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="FeatherLogicComponent.h" />
+    <ClInclude Include="FeatherNetworkComponent.h" />
+    <ClInclude Include="FeatherObjectFactory.h" />
+    <ClInclude Include="FeatherPhysicsComponent.h" />
+    <ClInclude Include="FeatherRenderComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
@@ -113,6 +118,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="FeatherLogicComponent.cpp" />
+    <ClCompile Include="FeatherNetworkComponent.cpp" />
+    <ClCompile Include="FeatherObjectFactory.cpp" />
+    <ClCompile Include="FeatherPhysicsComponent.cpp" />
+    <ClCompile Include="FeatherRenderComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="InputComponent.cpp" />
