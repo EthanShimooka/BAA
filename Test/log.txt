@@ -1,2 +1,13 @@
-Size of layers : 1
+Stats successfully loaded from server: GamerServices::Impl::OnStatsReceived
+Stat %s = %d
+Stat %s = %d
+Stat %s = %d
+Stat %s = %f
+Stat %s = %f
+Stat %s = %f
+Achievement %s = %d
+Achievement %s = %d
+Achievement %s = %d
+Achievement %s = %d
+Got the orders to go! NetworkManager::HandleStartPacketSize of layers : 1
 Size of layers : 2
