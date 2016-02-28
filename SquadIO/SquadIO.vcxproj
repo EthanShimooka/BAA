@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\AudioResource.h" />
     <ClInclude Include="include\EngineObject.h" />

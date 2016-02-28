@@ -120,6 +120,9 @@
     <ClInclude Include="include\SDLAudioObject.h">
       <Filter>Header Files\Audio Classes</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp">
