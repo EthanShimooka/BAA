@@ -83,13 +83,61 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="InputListener.h" />
-    <ClInclude Include="Square.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="LogicComponent.h" />
+    <ClInclude Include="MinionLogicComponent.h" />
+    <ClInclude Include="MinionNetworkComponent.h" />
+    <ClInclude Include="MinionObjectFactory.h" />
+    <ClInclude Include="MinionPhysicsComponent.h" />
+    <ClInclude Include="MinionRenderComponent.h" />
+    <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="NetworkComponent.h" />
+    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PlayerInputComponent.h" />
+    <ClInclude Include="PlayerLogicComponent.h" />
+    <ClInclude Include="PlayerNetworkComponent.h" />
+    <ClInclude Include="PlayerObjectFactory.h" />
+    <ClInclude Include="PlayerPhysicsComponent.h" />
+    <ClInclude Include="PlayerRenderComponent.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="SystemGameObjectQueue.h" />
+    <ClInclude Include="SystemInputUpdater.h" />
+    <ClInclude Include="SystemLogicUpdater.h" />
+    <ClInclude Include="SystemNetworkUpdater.h" />
+    <ClInclude Include="SystemPhysicsUpdater.h" />
+    <ClInclude Include="SystemRenderUpdater.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InputListener.cpp" />
-    <ClCompile Include="Square.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="LogicComponent.cpp" />
+    <ClCompile Include="MinionLogicComponent.cpp" />
+    <ClCompile Include="MinionNetworkComponent.cpp" />
+    <ClCompile Include="MinionObjectFactory.cpp" />
+    <ClCompile Include="MinionPhysicsComponent.cpp" />
+    <ClCompile Include="MinionRenderComponent.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="NetworkComponent.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PlayerInputComponent.cpp" />
+    <ClCompile Include="PlayerLogicComponent.cpp" />
+    <ClCompile Include="PlayerNetworkComponent.cpp" />
+    <ClCompile Include="PlayerObjectFactory.cpp" />
+    <ClCompile Include="PlayerPhysicsComponent.cpp" />
+    <ClCompile Include="PlayerRenderComponent.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="SystemGameObjectQueue.cpp" />
+    <ClCompile Include="SystemInputUpdater.cpp" />
+    <ClCompile Include="SystemLogicUpdater.cpp" />
+    <ClCompile Include="SystemNetworkUpdater.cpp" />
+    <ClCompile Include="SystemPhysicsUpdater.cpp" />
+    <ClCompile Include="SystemRenderUpdater.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>

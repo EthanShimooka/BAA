@@ -34,7 +34,7 @@ void InputManager::update() {
 	}
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
-	int index;
+//	int index;
 	SDL_Event ev;
 	while (SDL_PollEvent(&ev)) {
 		switch (ev.type) {

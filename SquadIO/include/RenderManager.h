@@ -15,7 +15,7 @@
 #include <iostream>
 #include <time.h>
 #include <iomanip>
-#include <Windows.h>
+//#include <Windows.h>
 #include <math.h>
 #include <list>
 
@@ -67,6 +67,7 @@ public:
 		float x;
 		float y;
 	} cameraPoint;
+	bool flippedScreen;
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
 	/// if successful, returns false if not.

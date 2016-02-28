@@ -1,9 +1,6 @@
 #include "test.h"
 
 
-
-//#include "include\network\NetIncludes.h"
-
 using namespace std;
 
 void update();
@@ -16,7 +13,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 
-	int numPlayers = 4;
+	int numPlayers = 1;
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
@@ -38,12 +35,18 @@ int _tmain(int argc, _TCHAR* argv[]){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 	}
+<<<<<<< HEAD
 */
 	InputManager* input = InputManager::getInstance();
+=======
+
+	InputManager* inputMan = InputManager::getInstance();
+>>>>>>> e92658aa754a438a0e316638606a678a7092268c
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
+	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 
 	resourceMan->setCurrentScope(0);
@@ -51,6 +54,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
+<<<<<<< HEAD
 	InputListener* listen = new InputListener();
 
 
@@ -94,11 +98,47 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
 	
 	Square *localPlayer = players[1];*/
+=======
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	///  SYSTEMS
+
+	SystemNetworkUpdater sysNetwork;
+	SystemRenderUpdater sysRenderer;
+	SystemInputUpdater sysInput;
+	SystemLogicUpdater sysLogic;
+	SystemPhysicsUpdater sysPhysics;
+
+
+	//SystemGameObjectQueue world;
+
+	/// ENTITIES
+	PlayerObjectFactory pFactory;
+	MinionObjectFactory mFactory;
+
+	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+
+	for (auto &iter : loby){
+		bool local = false;
+		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+			local = true;
+			cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+		}
+		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
+	}
+
+	for (uint64_t i = 0; i < 4; ++i)
+		GameObjects.AddObject(mFactory.Spawn(i));
+
+
+>>>>>>> e92658aa754a438a0e316638606a678a7092268c
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
+<<<<<<< HEAD
 	int ID = -1;
 
 	/*while (gameloop) {
@@ -129,20 +169,38 @@ int _tmain(int argc, _TCHAR* argv[]){
 				}
 			}
 		}
+=======
+	
+	while (gameloop) {
+		inputMan->update();
+		NetworkManager::sInstance->UpdateDelay();
 
-		if (input->isKeyDown(KEY_ESCAPE))
+
+		sysInput.InputUpdate(GameObjects.alive_object);
+		sysRenderer.RenderUpdate(GameObjects.alive_object);
+		sysLogic.LogicUpdate(GameObjects.alive_object);
+		sysNetwork.NetworkUpdate(GameObjects.alive_object);
+		sysPhysics.PhysicsUpdate(GameObjects.alive_object);
+
+>>>>>>> e92658aa754a438a0e316638606a678a7092268c
+
+		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
-		input->update();
-		
+		inputMan->update();
 
 		sceneMan->AssembleScene();
 
+<<<<<<< HEAD
 		//render(renderMan);
 	}*/
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
+=======
+	}
+
+>>>>>>> e92658aa754a438a0e316638606a678a7092268c
 	std::cout << renderMan << endl;
 
 	log->close();
@@ -150,6 +208,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 }
 
 
+<<<<<<< HEAD
 void render(RenderManager* renderMan) {
 	renderMan->update();
+=======
+
+long double getCurrentTime(){
+	long double sysTime = time(0);
+	long double sysTimeMS = sysTime * 1000;
+
+	return sysTimeMS;
+>>>>>>> e92658aa754a438a0e316638606a678a7092268c
 }

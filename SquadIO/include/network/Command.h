@@ -42,11 +42,11 @@ public:
 	virtual void Write(OutputMemoryBitStream& inOutputStream);
 	/// Virtual function for processing a command, to be overridden
 	virtual void ProcessCommand() = 0;
+	/// Command type variable
+	ECommandType mCommandType;
 protected:
 	/// Reads a command from output stream, to be overridden
 	virtual void Read(InputMemoryBitStream& inInputStream) = 0;
-	/// Command type variable
-	ECommandType mCommandType;
 	/// Network Id variable
 	uint32_t mNetworkId;
 	/// Player Id variable
