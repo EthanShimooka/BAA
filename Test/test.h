@@ -21,13 +21,8 @@
 #include <time.h>
 #include <iomanip>
 #include <math.h>
-#include <vld.h>
 #include <list>
 
-<<<<<<< HEAD
-#include "Square.h"
-#include "InputListener.h"
-=======
 #include "GameObject.h"
 #include "PlayerObjectFactory.h"
 #include "MinionObjectFactory.h"
@@ -38,7 +33,6 @@
 #include "SystemLogicUpdater.h"
 #include "SystemNetworkUpdater.h"
 #include "SystemPhysicsUpdater.h"
->>>>>>> e92658aa754a438a0e316638606a678a7092268c
 
 class test
 {

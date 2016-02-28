@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void update();
+
 void render(RenderManager*);
 
 int main() {
@@ -35,13 +35,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 	}
-<<<<<<< HEAD
 */
 	InputManager* input = InputManager::getInstance();
-=======
 
 	InputManager* inputMan = InputManager::getInstance();
->>>>>>> e92658aa754a438a0e316638606a678a7092268c
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
@@ -53,9 +50,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
-
-<<<<<<< HEAD
-	InputListener* listen = new InputListener();
 
 
 	//Buttons objects
@@ -81,27 +75,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		render(renderMan);
 	}
-	/*vector<Square*> players;
-	players.push_back(new Square(0, 0, 1));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(200, 100, 2));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(300, 100, 3));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 13, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	players.push_back(new Square(300, 200, 4));
-	players[players.size() - 1]->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 14, players[players.size() - 1]->x, players[players.size() - 1]->y);
-	
-	
-	//Square* player1 = new Square(100, 100, 1);
-	//player1->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, player1->x, player1->y);
-	//Square* player2 = new Square(200, 200, 2);
-	//player2->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 12, player2->x, player2->y);
-	
-	Square *localPlayer = players[1];*/
-=======
-	/////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////
-
 	///  SYSTEMS
 
 	SystemNetworkUpdater sysNetwork;
@@ -132,13 +105,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(mFactory.Spawn(i));
 
 
->>>>>>> e92658aa754a438a0e316638606a678a7092268c
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
-<<<<<<< HEAD
 	int ID = -1;
 
 	/*while (gameloop) {
@@ -169,7 +140,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 				}
 			}
 		}
-=======
 	
 	while (gameloop) {
 		inputMan->update();
@@ -182,7 +152,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 		sysNetwork.NetworkUpdate(GameObjects.alive_object);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_object);
 
->>>>>>> e92658aa754a438a0e316638606a678a7092268c
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
@@ -191,16 +160,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		sceneMan->AssembleScene();
 
-<<<<<<< HEAD
 		//render(renderMan);
-	}*/
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
-=======
 	}
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	}*/
 
->>>>>>> e92658aa754a438a0e316638606a678a7092268c
 	std::cout << renderMan << endl;
 
 	log->close();
@@ -208,15 +174,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 }
 
 
-<<<<<<< HEAD
 void render(RenderManager* renderMan) {
 	renderMan->update();
-=======
-
-long double getCurrentTime(){
-	long double sysTime = time(0);
-	long double sysTimeMS = sysTime * 1000;
-
-	return sysTimeMS;
->>>>>>> e92658aa754a438a0e316638606a678a7092268c
 }
