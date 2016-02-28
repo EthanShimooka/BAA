@@ -43,6 +43,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
+	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 
 	resourceMan->setCurrentScope(0);
