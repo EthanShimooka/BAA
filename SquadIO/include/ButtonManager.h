@@ -29,7 +29,7 @@ class LButton{
 public:
 	SQUADIO_API LButton();
 	SQUADIO_API void setPosition(float x, float y);
-	SQUADIO_API void handleEvent(SDL_Event* e);
+	SQUADIO_API bool handleEvent(SDL_Event* e);
 	SQUADIO_API float getXPosition();
 	SQUADIO_API float getYPosition();
 	SDLRenderObject* obj;

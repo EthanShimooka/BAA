@@ -12,6 +12,7 @@
 #include "include\ButtonManager.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
+#include "include\ButtonManager.h"
 #include <iostream>
 #include <tchar.h>
 

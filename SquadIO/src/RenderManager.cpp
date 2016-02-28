@@ -177,6 +177,22 @@ void RenderManager::renderAllObjects(){
 	if (zoom < minZoom){ zoom = minZoom; }
 	float z = 1 / zoom; //maybe invert
 	std::list<SDLRenderObject*>::iterator iter;
+	for (iter = windowObjects.begin(); iter != windowObjects.end(); iter++){
+		if ((*iter)->visible){
+			SDL_Rect pos;
+			pos.x = int((*iter)->posX);
+			pos.y = int((*iter)->posY);
+			pos.w = (*iter)->renderRect.w;
+			pos.h = (*iter)->renderRect.h;
+			SDL_Point anchor = { (*iter)->renderRect.w*(*iter)->anchor.x, (*iter)->renderRect.h*(*iter)->anchor.y };
+			SDL_RendererFlip flip = SDL_FLIP_NONE;
+			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
+			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
+			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
+			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
+		}
+	}
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
 			SDL_Rect pos;

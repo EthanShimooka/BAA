@@ -170,9 +170,76 @@
     </ClInclude>
     <ClInclude Include="include\ButtonManager.h">
       <Filter>Header Files\Util</Filter>
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ButtonManager.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EngineObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LogManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDLRenderObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SquadIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\BirdMath.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Command.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\CommandList.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\GamerServicesSteam.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\MemoryBitStream.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\NetworkManager.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\RandGen.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Timing.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\TurnData.cpp">
+      <Filter>Source Files\Network Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <Library Include="zlib\lib\zdll.lib" />
   </ItemGroup>
   <ItemGroup>

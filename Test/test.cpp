@@ -3,10 +3,8 @@
 
 using namespace std;
 
-void update();
-void render(RenderManager*);
-long double getCurrentTime();
 
+void render(RenderManager*);
 
 int main() {
 
@@ -26,7 +24,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	if (!NetworkManager::StaticInit())
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 
-	while (true){
+		/*while (true){
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
@@ -37,6 +35,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 	}
+*/
+	InputManager* input = InputManager::getInstance();
 
 	InputManager* inputMan = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -51,32 +51,30 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
-	LButton* gButton = new LButton();
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	//Button objects
+	/*LButton* gButton = new LButton();
 
 	gButton->setPosition(0, 0);
-	std::cout << gButton->getXPosition() << " " << gButton->getYPosition() << std::endl;
-	std::cout << inputMan->getMouseX() << " " << inputMan->getMouseY() << std::endl;
-	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(), true);
-	std::cout << gButton->obj->posX << " " << gButton->obj->posY << std::endl;
+	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(),true);
+
 	bool loop = true;
+	
 	while (loop){
 
-		/*if (input->isKeyDown(KEY_ESCAPE))
-		loop = false;*/
 		SDL_Event e;
 
 		gButton->handleEvent(&e);
-
-		inputMan->update();
+	
+		input->update();
 
 		sceneMan->AssembleScene();
 
 		render(renderMan);
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////
-
+	}*/
 	///  SYSTEMS
 
 	SystemNetworkUpdater sysNetwork;
@@ -112,6 +110,36 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
+	int ID = -1;
+
+	/*while (gameloop) {
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		listen->getInput();
+		
+
+		localPlayer->x += listen->input_x;
+		localPlayer->y += listen->input_y;
+
+		//cout << player1->obj->posX << "," << player2->obj->posX<< endl;
+
+		localPlayer->update();
+
+		OutputMemoryBitStream outData;
+		outData.Write(NetworkManager::sInstance->kPosCC);
+		localPlayer->Write(outData);
+		NetworkManager::sInstance->sendPacketToAllPeers(outData);
+		//cout << "test size: " << NetworkManager::sInstance->test.size() << endl;
+		for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+			NetworkManager::sInstance->test.front().Read(ID);
+			//cout << ID << endl;
+			for (int j = 0; j < players.size(); ++j){
+				if (ID == players[j]->ID){
+					players[j]->Read(NetworkManager::sInstance->test.front());
+					players[j]->update();
+					NetworkManager::sInstance->test.pop();
+				}
+			}
+		}
 	
 	while (gameloop) {
 		inputMan->update();
@@ -132,7 +160,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		sceneMan->AssembleScene();
 
+		//render(renderMan);
 	}
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////
+	}*/
 
 	std::cout << renderMan << endl;
 
@@ -141,10 +174,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 }
 
 
-
-long double getCurrentTime(){
-	long double sysTime = time(0);
-	long double sysTimeMS = sysTime * 1000;
-
-	return sysTimeMS;
+void render(RenderManager* renderMan) {
+	renderMan->update();
 }

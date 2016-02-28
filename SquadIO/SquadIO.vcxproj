@@ -55,7 +55,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\zlib\include;$(SolutionDir)SquadIO\include\network;$(SolutionDir)SquadIO\Debug\;$(SolutionDir)\SquadIO\;$(SolutionDir)\Debug\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\zlib\include;$(SolutionDir)SquadIO\include\network;$(SolutionDir)SquadIO\Debug\;$(SolutionDir)\SquadIO\;$(SolutionDir)\Debug\;%(AdditionalIncludeDirectories);$(SolutionDir)SquadIO\include\ButtonManager.h</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,7 +74,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\include\network;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\include\network;;$(SolutionDir)SquadIO\include\ButtonManager.h</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\ButtonManager.h" />
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\AudioResource.h" />
     <ClInclude Include="include\ButtonManager.h" />
