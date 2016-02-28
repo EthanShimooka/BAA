@@ -15,9 +15,11 @@ private:
 	}COMMAND_TYPE;
 
 public:
+	/// Construcor 
 	PlayerNetworkComponent();
+	/// Destructor
 	~PlayerNetworkComponent();
-
+	/// Update
 	void Update();
 };
 

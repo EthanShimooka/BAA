@@ -24,6 +24,7 @@
 
 #include "GameObject.h"
 #include "PlayerObjectFactory.h"
+#include "MinionObjectFactory.h"
 
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"

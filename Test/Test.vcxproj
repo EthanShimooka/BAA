@@ -88,6 +88,11 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="LogicComponent.h" />
+    <ClInclude Include="MinionLogicComponent.h" />
+    <ClInclude Include="MinionNetworkComponent.h" />
+    <ClInclude Include="MinionObjectFactory.h" />
+    <ClInclude Include="MinionPhysicsComponent.h" />
+    <ClInclude Include="MinionRenderComponent.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="NetworkComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
@@ -112,6 +117,11 @@
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="LogicComponent.cpp" />
+    <ClCompile Include="MinionLogicComponent.cpp" />
+    <ClCompile Include="MinionNetworkComponent.cpp" />
+    <ClCompile Include="MinionObjectFactory.cpp" />
+    <ClCompile Include="MinionPhysicsComponent.cpp" />
+    <ClCompile Include="MinionRenderComponent.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="NetworkComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
