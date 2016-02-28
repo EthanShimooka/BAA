@@ -81,7 +81,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	}
 
 	for (uint64_t i = 0; i < 4; ++i)
-		GameObjects.AddObject(mFactory.Spawn(i));
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i* 50, i * 50);
 
 
 
@@ -95,11 +95,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		NetworkManager::sInstance->UpdateDelay();
 
 
-		sysInput.InputUpdate(GameObjects.alive_object);
-		sysRenderer.RenderUpdate(GameObjects.alive_object);
-		sysLogic.LogicUpdate(GameObjects.alive_object);
-		sysNetwork.NetworkUpdate(GameObjects.alive_object);
-		sysPhysics.PhysicsUpdate(GameObjects.alive_object);
+		sysInput.InputUpdate(GameObjects.alive_objects);
+		sysRenderer.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
+		sysNetwork.NetworkUpdate(GameObjects.alive_objects);
+		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 
 
 		if (inputMan->isKeyDown(KEY_ESCAPE))

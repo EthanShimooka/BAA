@@ -14,10 +14,10 @@ public:
 	SystemGameObjectQueue();
 	~SystemGameObjectQueue();
 
-	vector<GameObject*> alive_object;
-	vector<GameObject*> dead_object;
+	vector<GameObject*> alive_objects;
+	vector<GameObject*> dead_objects;
 
-	void AddObject(GameObject * obj);
+	GameObject* AddObject(GameObject * obj);
 
 	void DeleteObject(int g_id);
 
