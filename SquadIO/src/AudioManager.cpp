@@ -21,27 +21,20 @@ bool AudioManager::InitAudio() {
 		printf("Error in InitAudio-Mix_OpenAudio: %s", Mix_GetError());
 		return false;
 	}
+	return true;
+}
 
+void AudioManager::loadAllAudio() {
 	// load all audio resources, this is assuming we don't need dynamically loading music
 	// everything is loaded at the start and can be accessed until AudioManager is freed
 	for (auto iter = audioObjects.cbegin(); iter != audioObjects.cend(); ++iter) {
 		(*iter)->audioResource->load();
 	}
-
-	return true;
 }
 
 void AudioManager::QuitAudio() {
 	// unload all audio resources
 	for (auto iter = audioObjects.cbegin(); iter != audioObjects.cend(); ++iter) {
-		/*
-		if ((*iter)->isBgm){
-			Mix_FreeMusic((*iter)->audioResource->bgm);
-		}
-		else {
-			Mix_FreeChunk((*iter)->audioResource->effect);
-		}
-		*/
 		(*iter)->audioResource->unload();
 	}
 	// may need Mix_QuerySpec to determine number of times Mix_CloseAudio() needs to be called
@@ -88,11 +81,12 @@ gameResource* AudioManager::loadResourceFromXML(tinyxml2::XMLElement *element){
 		}
 
 		// create an SDLAudioObject and push that to the global list in AudioManager
-		// ideally, the m_ResourceID for audio should start from 0 and increase
-		// Then audio can easily be played 
 		SDLAudioObject* obj = new SDLAudioObject();
-		obj->setResourceObject(resource);
-		//if (resource->m_File)
+		if ((resource->m_Filename).find("bgm") != std::string::npos) {
+			obj->setResourceObject(resource, true);
+		} else {
+			obj->setResourceObject(resource, false);
+		}
 		audioObjects.push_back(obj);
 
 		return resource;
@@ -123,7 +117,7 @@ void AudioManager::playByName(std::string name) {
 			}
 		}
 	}
-	THROW_EXCEPTION(601, "Failed to find audio in AudioManager");
+	// THROW_EXCEPTION(601, "Failed to find audio in AudioManager");
 }
 
 // should never really be needed since effects are played once and automatically stop
@@ -154,5 +148,5 @@ void AudioManager::stopByName(std::string name) {
 			*/
 		}
 	}
-	THROW_EXCEPTION(601, "Failed to find audio in AudioManager");
+	// THROW_EXCEPTION(601, "Failed to find audio in AudioManager");
 }
