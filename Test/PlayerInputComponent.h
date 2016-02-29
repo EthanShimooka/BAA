@@ -16,6 +16,8 @@ Only the local player GameObject should have this component.
 
 
 #include "InputComponent.h"
+#include "PlayerComponentIncludes.h"
+
 class PlayerInputComponent : public InputComponent
 {
 public:

@@ -3,6 +3,7 @@
 #define FEATHERLOGICCOMPONENT_H_INCLUDED
 
 #include "LogicComponent.h"
+#include "FeatherComponentIncludes.h"
 
 class FeatherLogicComponent : public LogicComponent
 {

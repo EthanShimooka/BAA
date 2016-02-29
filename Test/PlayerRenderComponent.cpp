@@ -5,7 +5,7 @@ PlayerRenderComponent::PlayerRenderComponent()
 {
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2, 0, 0);
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2, 0, 0);
 
 }
 

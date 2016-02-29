@@ -1,0 +1,5 @@
+#include "PlayerInputComponent.h"
+#include "PlayerLogicComponent.h"
+#include "PlayerNetworkComponent.h"
+#include "PlayerPhysicsComponent.h"
+#include "PlayerRenderComponent.h"
