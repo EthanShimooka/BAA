@@ -8,10 +8,7 @@
 
 // Component Includes
 #include "Component.h"
-#include "FeatherRenderComponent.h"
-#include "FeatherNetworkComponent.h"
-#include "FeatherLogicComponent.h"
-#include "FeatherPhysicsComponent.h"
+#include "FeatherComponentIncludes.h"
 
 
 

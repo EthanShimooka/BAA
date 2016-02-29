@@ -8,10 +8,7 @@
 
 // Component Includes
 #include "Component.h"
-#include "MinionRenderComponent.h"
-#include "MinionNetworkComponent.h"
-#include "MinionLogicComponent.h"
-#include "MinionPhysicsComponent.h"
+#include "MinionComponentIncludes.h"
 
 
 
