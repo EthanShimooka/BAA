@@ -7,9 +7,21 @@ GameObject::GameObject(){
 
 }
 
+/// Constructor
+GameObject::GameObject(float x, float y): posX(x), posY(y){
+
+	component_count = 0;
+
+}
+
 /// Destructor
 GameObject::~GameObject(){}
 
+
+void GameObject::setPos(float x, float y){
+	posX = x;
+	posY = y;
+}
 
 void GameObject::AddComponent(int c_type, Component* comp){
 	

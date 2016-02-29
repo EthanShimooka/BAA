@@ -18,33 +18,38 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-	int numPlayers = 1;
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	if (!GamerServices::StaticInit())
-		std::cout << "Failed to initialize Steam" << "\n";
+	int numPlayers = 1;
 
-	if (!NetworkManager::StaticInit())
-		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
+	if (numPlayers != 1){
+		if (!GamerServices::StaticInit())
+			std::cout << "Failed to initialize Steam" << "\n";
 
-	while (true){
-		GamerServices::sInstance->Update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
-		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == 4)
-			break;
-		if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
-			//NetworkManager::sInstance->GetAllPlayersInLobby();
-			NetworkManager::sInstance->TryReadyGame();
+		if (!NetworkManager::StaticInit())
+			std::cout << "NetworkManager::StaticInit() failed!" << "\n";
+
+		while (true){
+			GamerServices::sInstance->Update();
+			NetworkManager::sInstance->ProcessIncomingPackets();
+			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+			if (NetworkManager::sInstance->GetState() == 4)
+				break;
+			if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
+				//NetworkManager::sInstance->GetAllPlayersInLobby();
+				NetworkManager::sInstance->TryReadyGame();
+			}
 		}
 	}
+	
 
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderMan->init(700, 700, false, "Birds At Arms");
+	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
 	resourceMan->setCurrentScope(0);
@@ -68,59 +73,33 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
+	MinionObjectFactory mFactory;
+	FeatherObjectFactory fFactory;
 
-	map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
-	/*
-	SDLRenderObject* base = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
-	base->anchor = { 0.5, 0.5 };
-	//base->setVisible(false);
-	SDLRenderObject* leg = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 103, -5, 30);
-	leg->anchor = { 42 / float(leg->renderRect.w), 2 / float(leg->renderRect.h) };
-	SDLRenderObject* armor = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 101, 0, 0);
-	armor->anchor = { 0.5, 0.5 };
-	SDLRenderObject* arm = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 102, 31, 43);
-	arm->anchor = { 14 / float(arm->renderRect.w), 3 / float(arm->renderRect.h) };
+	if (numPlayers != 1){
+		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
-	leg->setParent(base);
-	armor->setParent(base);
-	arm->setParent(armor);
-	*/
-	/*
-	SDLRenderObject* tenta1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 50);
-	tenta1->anchor = { 74 / float(tenta1->getWidth()), 200 / float(tenta1->getHeight()) };
-	tenta1->setScale(0.25);
-
-	SDLRenderObject* tenta2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0 , tenta1->getHeight() - 200);
-	tenta2->anchor = { 74 / float(tenta2->getWidth()), 200 / float(tenta2->getHeight()) };
-	tenta2->setScale(0.90);
-	tenta2->setParent(tenta1);
-	
-	SDLRenderObject* tenta3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, tenta2->getHeight() - 200);
-	tenta3->anchor = { 74 / float(tenta3->getWidth()), 200 / float(tenta3->getHeight()) };
-	tenta3->setScale(0.90);
-	tenta3->setParent(tenta2);
-
-	SDLRenderObject* tenta4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, tenta3->getHeight() - 200);
-	tenta4->anchor = { 74 / float(tenta4->getWidth()), 200 / float(tenta4->getHeight()) };
-	tenta4->setScale(0.90);
-	tenta4->setParent(tenta3);
-	SDLRenderObject* tenta[4];
-	tenta[0] = tenta1;
-	tenta[1] = tenta2;
-	tenta[2] = tenta3;
-	tenta[3] = tenta4;
-	animation squirm;
-	for (SDLRenderObject * iter : tenta){
-		squirm.push(rotateTransform(iter, 90, -90), 0, 1, ease_QuadInOut);
-	}*/
-	for (auto &iter : loby){
-		bool local = false;
-		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-			local = true;
-			cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+		for (auto &iter : loby){
+			bool local = false;
+			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+				local = true;
+				cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+			}
+			GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 		}
-		GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 	}
+	else{
+		GameObjects.AddObject(pFactory.Spawn(10000, true));
+	}
+
+	for (uint64_t i = 0; i < 4; ++i) {
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+		GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
+	}
+	
+
+
+
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
@@ -142,18 +121,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int pressedTime = 3;
 	int rotation = 0;
 	while (gameloop) {
-		var += 1;
 		input->update();
-		/*if (var % 40 < 20){
-			squirm.animate(float(var % 40) / 20);
-		}
-		else{
-			squirm.animate(2-float(var % 40) / 20);
-		}*/
-		//inputMan->update();
-		//listen->getInput();
-		NetworkManager::sInstance->ProcessIncomingPackets();
-		NetworkManager::sInstance->UpdateDelay();
+		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		//arm->rotation = var * 2;
 		//base->posX += listen->input_x;
@@ -222,11 +191,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		int length = 20;
 		float loop = (var % length);
 
-		sysInput.InputUpdate(GameObjects.alive_object);
-		sysRenderer.RenderUpdate(GameObjects.alive_object);
-		sysLogic.LogicUpdate(GameObjects.alive_object);
-		sysNetwork.NetworkUpdate(GameObjects.alive_object);
-		sysPhysics.PhysicsUpdate(GameObjects.alive_object);
+		sysInput.InputUpdate(GameObjects.alive_objects);
+		sysRenderer.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
+		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
+		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 
 
 		if (input->isKeyDown(KEY_ESCAPE))

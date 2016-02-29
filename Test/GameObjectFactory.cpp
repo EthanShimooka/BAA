@@ -14,3 +14,4 @@ GameObject * GameObjectFactory::Spawn()
 {
 	return nullptr;
 }
+

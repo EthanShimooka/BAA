@@ -49,6 +49,8 @@ protected:
 public:
 	/// Constructor
 	GameObject();
+	/// Constructor
+	GameObject(float x, float y);
 	/// Destructor
 	~GameObject();
 
@@ -76,6 +78,8 @@ public:
 	/// Gets the list of components for this object
 	Component* GetComponent(int c_type);
 
+	/// Set postion of gameObject
+	void setPos(float x, float y);
 
 	/// To Be Implemented
 

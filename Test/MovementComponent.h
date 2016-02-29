@@ -29,7 +29,7 @@ public:
 	GameObject* gameObjectRef;
 
 	/// Update Function
-	void Update();
+	virtual void Update();
 	/// Manual Position Accessor
 	void SetPos(float x, float y);
 };
