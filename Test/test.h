@@ -12,7 +12,11 @@
 #include "include\ButtonManager.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
+<<<<<<< HEAD
 #include "include\ButtonManager.h"
+=======
+#include "include\AnimationLibrary.h"
+>>>>>>> 885913855ad500a2205f6813483d20ceaf9112cb
 #include <iostream>
 #include <tchar.h>
 

@@ -76,8 +76,13 @@
     <ClCompile Include="src\network\DeliveryNotificationManager.cpp">
       <Filter>Source Files\network</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="src\ButtonManager.cpp">
       <Filter>Source Files</Filter>
+=======
+    <ClCompile Include="src\AnimationLibrary.cpp">
+      <Filter>Source Files\network</Filter>
+>>>>>>> 885913855ad500a2205f6813483d20ceaf9112cb
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +173,7 @@
     <ClInclude Include="include\gameResource.h">
       <Filter>Header Files\Resource Classes</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="include\ButtonManager.h">
       <Filter>Header Files\Util</Filter>
       <Filter>Header Files\Render Classes</Filter>
@@ -175,6 +181,11 @@
     <ClInclude Include="include\ButtonManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="include\AnimationLibrary.h">
+      <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+>>>>>>> 885913855ad500a2205f6813483d20ceaf9112cb
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EngineObject.cpp">

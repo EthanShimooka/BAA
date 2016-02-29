@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\ButtonManager.h" />
+    <ClInclude Include="include\AnimationLibrary.h" />
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\AudioResource.h" />
     <ClInclude Include="include\ButtonManager.h" />
@@ -119,6 +120,7 @@
     <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimationLibrary.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\AudioResource.cpp" />
     <ClCompile Include="src\ButtonManager.cpp" />

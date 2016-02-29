@@ -129,7 +129,7 @@ public:
 	/// Get object's anchor point relative to object's position and size
 	SQUADIO_API void getAnchor(float &a, float &b);
 	/// Set object's anchor point relative to object's position and size
-	SQUADIO_API void setAnchor(float a, float b);
+	SQUADIO_API void setAnchor(double a, double b);
 	/// Set object's anchor point to the coordinate system
 	SQUADIO_API void setAnchor(int x, int y);
 
@@ -138,6 +138,7 @@ public:
 	SQUADIO_API virtual void update(){};
 	SDLRenderObject * parent;
 	SQUADIO_API void setParent(SDLRenderObject * par);
+	SQUADIO_API void unrender();
 };
 
 #endif SDLRENDEROBJECT_H_INCLUDED

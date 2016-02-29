@@ -92,7 +92,7 @@ public:
 	// not implemented, but may be useful later if you want the camera to ignore anything out of bounds
 	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
 	// not implemented, but useful if filenames are likely to change often and may be useful for dynamically created textures
-	SQUADIO_API void setBackground(SDL_Texture* bg);
+	SQUADIO_API void setBackground(SDL_Texture* texture);
 	// loads an image given a specific filename.
 	SQUADIO_API void setBackground(std::string filename);
 	// given a specific point in the game world, compare the distance of an object from the center
