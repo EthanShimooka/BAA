@@ -153,6 +153,15 @@
     <ClInclude Include="FeatherObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerComponentIncludes.h">
+      <Filter>Header Files\Component\Player Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionComponentIncludes.h">
+      <Filter>Header Files\Component\Minion Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherComponentIncludes.h">
+      <Filter>Header Files\Component\Feather Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">

@@ -3,7 +3,7 @@
 #define MINIONLOGICCOMPONENT_H_INCLUDED
 
 #include "LogicComponent.h"
-
+#include "MinionComponentIncludes.h"
 class MinionLogicComponent : public LogicComponent
 {
 public:

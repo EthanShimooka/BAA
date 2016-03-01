@@ -84,6 +84,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="FeatherComponentIncludes.h" />
     <ClInclude Include="FeatherLogicComponent.h" />
     <ClInclude Include="FeatherNetworkComponent.h" />
     <ClInclude Include="FeatherObjectFactory.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="LogicComponent.h" />
+    <ClInclude Include="MinionComponentIncludes.h" />
     <ClInclude Include="MinionLogicComponent.h" />
     <ClInclude Include="MinionNetworkComponent.h" />
     <ClInclude Include="MinionObjectFactory.h" />
@@ -101,6 +103,7 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="NetworkComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PlayerComponentIncludes.h" />
     <ClInclude Include="PlayerInputComponent.h" />
     <ClInclude Include="PlayerLogicComponent.h" />
     <ClInclude Include="PlayerNetworkComponent.h" />

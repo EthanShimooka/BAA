@@ -5,13 +5,13 @@ PlayerRenderComponent::PlayerRenderComponent()
 {
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
+	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->unrender();
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 100103, 0, 0);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 100105, 30, 300);
-	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 100101, 0, 0);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 100104, 50, 300);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 100102, 0, 0);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100105, 30, 300);
+	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100101, 0, 0);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100104, 50, 300);
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100102, 0, 0);
 	//objRef->setAnchor(0.5, 0.5);
 	
 	armR->setAnchor(174 / double(armR->renderRect.w), 154 / double(armR->renderRect.h));
