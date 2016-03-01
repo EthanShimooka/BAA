@@ -21,6 +21,14 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 }
 
 
+/// Sets the next animation given a string value found in a hashtable
+
+void RenderComponent::setAnimation(string name){
+	if (animations.count(name)){
+		nextAnimation = animations[name];
+	}
+}
+
 /// Updates SDL render Object from Move Data in game
 
 void RenderComponent::Update(){
@@ -31,6 +39,8 @@ void RenderComponent::Update(){
 
 	objRef->posX = gameObjectRef->posX;
 	objRef->posY = gameObjectRef->posY;
+	objRef->flipH = gameObjectRef->flipH;
+	objRef->flipV = gameObjectRef->flipV;
 	objRef->rotation = gameObjectRef->rotation;
 	objRef->visible = visible;
 

@@ -20,10 +20,11 @@ void PlayerInputComponent::Update()
 
 	if (input->isKeyDown(KEY_RIGHT)) {
 		gameObjectRef->posX += 2.0;
-
+		gameObjectRef->flipH = false;
 	}
 	if (input->isKeyDown(KEY_LEFT)) {
 		gameObjectRef->posX += -2.0;
+		gameObjectRef->flipH = true;
 
 	}
 	if (input->isKeyDown(KEY_UP)) {
