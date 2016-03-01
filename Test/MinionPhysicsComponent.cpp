@@ -21,8 +21,12 @@ void MinionPhysicsComponent::init(){
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	physicsBody->CreateFixture(&boxFixtureDef);
+	physicsBody->SetUserData(gameObjectRef);
 	physicsBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+}
 
+void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
+	//if hit, destroy minion or move it out of the alive_objects queue
 }
 
 void MinionPhysicsComponent::Update(){

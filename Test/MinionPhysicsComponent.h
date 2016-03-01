@@ -15,7 +15,7 @@ public:
 	/// Update
 	void Update();
 	void init();
-
+	void handleCollision(GameObject* otherObj);
 };
 
 #endif

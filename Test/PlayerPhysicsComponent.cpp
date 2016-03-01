@@ -1,9 +1,9 @@
 #include "PlayerPhysicsComponent.h"
 
 
-PlayerPhysicsComponent::PlayerPhysicsComponent(){
-	
-}
+PlayerPhysicsComponent::PlayerPhysicsComponent(){}
+
+PlayerPhysicsComponent::~PlayerPhysicsComponent(){}
 
 void PlayerPhysicsComponent::init(){
 	b2BodyDef bodyDef;
@@ -20,16 +20,14 @@ void PlayerPhysicsComponent::init(){
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	physicsBody->CreateFixture(&boxFixtureDef);
+	physicsBody->SetUserData(gameObjectRef);
 	//hardcoded for debugging purposes
-	physicsBody->SetTransform(b2Vec2(0,-150),0);
+	physicsBody->SetTransform(b2Vec2(0,-50),0);
 }
 
+void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 
-PlayerPhysicsComponent::~PlayerPhysicsComponent()
-{
 }
-
-
 
 void PlayerPhysicsComponent::Update(){
 	gameObjectRef->posX = physicsBody->GetPosition().x;

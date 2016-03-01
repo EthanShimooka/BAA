@@ -32,6 +32,7 @@ public:
 
 	/// Virtual Update function
 	virtual void Update();
+	virtual void handleCollision(GameObject* otherObj);
 };
 
 #endif

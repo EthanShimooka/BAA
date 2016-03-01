@@ -2,9 +2,8 @@
 #ifndef PLAYERPHYSICSCOMPONENT_H_INCLUDED
 #define PLAYERPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
-class PlayerPhysicsComponent :
-	public PhysicsComponent
-{
+
+class PlayerPhysicsComponent : public PhysicsComponent{
 public:
 	/// Constructor
 	PlayerPhysicsComponent();
@@ -13,6 +12,7 @@ public:
 	/// Update
 	void Update();
 	void init();
+	void handleCollision(GameObject* otherObj);
 
 };
 

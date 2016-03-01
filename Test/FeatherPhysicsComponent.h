@@ -13,6 +13,7 @@ public:
 	~FeatherPhysicsComponent();
 	/// Update
 	void Update();
+	void handleCollision(GameObject* otherObj);
 
 };
 
