@@ -29,14 +29,11 @@ void AudioResource::load() {
 	// chunksize = 4096 for music, maybe 1024 or 2048 for effects?
 	// Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096);
 	std::string filename = "resources/" + m_Filename;
-	/*
-	if (audioType == 0) {
+	if (filename.find("bgm") != std::string::npos) {
 		bgm = Mix_LoadMUS(filename.c_str());
-	}
-	*/
-	//if (audioType == 1) {
+	} else {
 		effect = Mix_LoadWAV(filename.c_str());
-	//}
+	}
 
 	// check for load success
 	if (bgm || effect) {

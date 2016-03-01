@@ -45,6 +45,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	
 
 	InputManager* input = InputManager::getInstance();
+	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
@@ -52,11 +53,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
+
+	audioMan->loadAllAudio();
+	std::cout << audioMan->audioObjects.size() << std::endl;
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
-
+	input->update();
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,6 +79,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
+
 
 	if (numPlayers != 1){
 		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
@@ -120,14 +125,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	while (gameloop) {
+	/*while (gameloop) {
 		input->update();
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		//arm->rotation = var * 2;
 		//base->posX += listen->input_x;
 		//base->posY += listen->input_y;
-		/*
+		
 		if (input->isKeyDown(KEY_DOWN)){
 			base->posY += moveSpd;
 		}
@@ -187,6 +192,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		*/
 		//arm->posX = 31 + armor->posX;
 		//arm->posY = 43 + armor->posY;
+	
+	audioMan->playByName("bgmfostershome.ogg");
+
+	while (gameloop) {
+		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		int length = 20;
 		float loop = (var % length);

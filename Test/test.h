@@ -5,6 +5,7 @@
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
+#include "include\AudioManager.h"
 #include "include\EngineObject.h"
 #include "include\ResourceManager.h"
 #include "include\RenderManager.h"
