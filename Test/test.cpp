@@ -89,8 +89,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
 
-	for (uint64_t i = 0; i < 4; ++i) {
-		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+	for (uint64_t i = 0; i < 1; ++i) {
+		//NOTE: there are currently issues ith the setPos function
+		//it only updates the gameobject x,y but the physics compnent (currently)
+		//overrides it with the collision box's location
+		auto minion = mFactory.Spawn(i);
+		minion->setPos(i * 50, i * 50 - 150);
+		GameObjects.AddObject(minion);
 		GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
 	}
 	
@@ -102,10 +107,22 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	
+
 	while (gameloop) {
 		inputMan->update();
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
+
+		//physics testing stuff
+		PhysicsListener listener;
+		GameWorld* gameWorld = GameWorld::getInstance();
+		gameWorld->physicsWorld->SetContactListener(&listener);
+
+
+
+
+		gameWorld->update(); //update physics world
+		//end physics testing stuff
 
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);

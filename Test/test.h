@@ -23,9 +23,11 @@
 #include <list>
 
 #include "GameObject.h"
+#include "GameWorld.h"
 #include "PlayerObjectFactory.h"
 #include "MinionObjectFactory.h"
 #include "FeatherObjectFactory.h"
+#include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"

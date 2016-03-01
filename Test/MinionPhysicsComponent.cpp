@@ -1,15 +1,34 @@
 #include "MinionPhysicsComponent.h"
 
 
-MinionPhysicsComponent::MinionPhysicsComponent()
-{
-}
+MinionPhysicsComponent::MinionPhysicsComponent(){}
 
 
-MinionPhysicsComponent::~MinionPhysicsComponent()
-{
+MinionPhysicsComponent::~MinionPhysicsComponent(){}
+
+void MinionPhysicsComponent::init(){
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_staticBody;
+	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
+	bodyDef.angle = 0;// ... which direction it's facing
+
+	GameWorld* gameWorld = GameWorld::getInstance();
+	physicsBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+
+	b2PolygonShape box;
+	box.SetAsBox(1, 1); // look up other functions for polygons
+	b2FixtureDef boxFixtureDef;
+	boxFixtureDef.shape = &box;
+	boxFixtureDef.density = 1;
+	physicsBody->CreateFixture(&boxFixtureDef);
+	physicsBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+
 }
 
 void MinionPhysicsComponent::Update(){
-
+	gameObjectRef->posX = physicsBody->GetPosition().x;
+	gameObjectRef->posY = physicsBody->GetPosition().y;
+	//cout << "x=" << physicsBody->GetPosition().x << "y=" << physicsBody->GetPosition().y<<endl;
 }
+
+	

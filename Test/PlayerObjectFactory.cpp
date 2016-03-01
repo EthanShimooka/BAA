@@ -55,7 +55,10 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 
 	PlayerPhysicsComponent* physics = new PlayerPhysicsComponent();
 	physics->gameObjectRef = player; //set components container refrence to this gameObject
+	physics->init();
 	player->AddComponent(COMPONENT_PHYSICS, physics);
 	
+
+	player->posY -= 300;
 	return player;
 }

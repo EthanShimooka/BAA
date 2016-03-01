@@ -12,6 +12,7 @@ public:
 	~PlayerPhysicsComponent();
 	/// Update
 	void Update();
+	void init();
 
 };
 

@@ -40,6 +40,7 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID)
 
 	MinionPhysicsComponent* physics = new MinionPhysicsComponent();
 	physics->gameObjectRef = minion; //set components container refrence to this gameObject
+	physics->init();
 	minion->AddComponent(COMPONENT_PHYSICS, physics);
 
 	return minion;

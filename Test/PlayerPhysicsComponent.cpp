@@ -2,6 +2,10 @@
 
 
 PlayerPhysicsComponent::PlayerPhysicsComponent(){
+	
+}
+
+void PlayerPhysicsComponent::init(){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
@@ -11,12 +15,13 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(){
 	physicsBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1,1); // look up other functions for polygons
+	box.SetAsBox(1, 1); // look up other functions for polygons
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	physicsBody->CreateFixture(&boxFixtureDef);
-
+	//hardcoded for debugging purposes
+	physicsBody->SetTransform(b2Vec2(0,-150),0);
 }
 
 
@@ -27,4 +32,7 @@ PlayerPhysicsComponent::~PlayerPhysicsComponent()
 
 
 void PlayerPhysicsComponent::Update(){
+	gameObjectRef->posX = physicsBody->GetPosition().x;
+	gameObjectRef->posY = physicsBody->GetPosition().y;
+	//cout << "x=" << physicsBody->GetPosition().x << "y=" << physicsBody->GetPosition().y<<endl;
 }
