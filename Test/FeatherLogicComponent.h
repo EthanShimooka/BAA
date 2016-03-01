@@ -9,11 +9,16 @@ class FeatherLogicComponent : public LogicComponent
 {
 public:
 	/// Constructor
-	FeatherLogicComponent();
+	FeatherLogicComponent(float posX, float posY, float dx, float dy);
 	/// Destructor
 	~FeatherLogicComponent();
 	/// Update Function
 	void Update();
+
+	float dx;
+	float dy;
+	float x;
+	float y;
 };
 
 #endif

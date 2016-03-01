@@ -36,7 +36,7 @@ void PlayerInputComponent::Update()
 
 	if (input->isMouseDown(MOUSE_LEFT)){
 		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		logic->spawnFeather();
+		logic->spawnFeather(input->getMouseX(), input->getMouseY());
 	}
 
 

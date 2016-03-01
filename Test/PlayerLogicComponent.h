@@ -29,7 +29,7 @@ public:
 	/// Update Function
 	void Update();
 
-	void spawnFeather();
+	void spawnFeather(int mouseX, int mouseY);
 
 	FeatherObjectFactory fFactory;
 	int featherNum = 0;
