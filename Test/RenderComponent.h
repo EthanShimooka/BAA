@@ -20,7 +20,6 @@
 #include "Component.h"
 #include "include\SDLRenderObject.h"
 #include "include\AnimationLibrary.h"
-#include "include\network\Timing.h"
 
 #include <unordered_map>
 
