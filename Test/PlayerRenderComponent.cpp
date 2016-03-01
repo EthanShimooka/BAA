@@ -1,5 +1,5 @@
 #include "PlayerRenderComponent.h"
-
+#include "include\AnimationLibrary.h"
 
 PlayerRenderComponent::PlayerRenderComponent()
 {
@@ -35,14 +35,16 @@ PlayerRenderComponent::PlayerRenderComponent()
 	
 	//Animation* idle = new Animation();
 	//idle->duration = 20;
-	/*idle->push(moveCircArc(armR, 0, 0, 1, 0, 360),0,20);
-	idle->push(moveCircArc(armL, 0, 0, 1, 0, 360), 0, 20);
+	list<motion> motions;
+	motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
+	motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	Animation* idle = new Animation(20,motions);
 	animations["idle"] = idle;
 	auto ani = animations["idle"];
 	auto ani2 = &animations["idle"];
 	//auto mot = idle.motions.begin();
 	currentAnimation = idle;
-	currentAnimation;*/
+	currentAnimation;
 }
 
 
@@ -52,7 +54,7 @@ PlayerRenderComponent::~PlayerRenderComponent()
 
 void PlayerRenderComponent::Update(){
 	RenderComponent::Update();
-	/*if (currentAnimation){
+	if (currentAnimation){
 		progress += 1;
 
 		while (progress >= currentAnimation->duration){
@@ -69,7 +71,6 @@ void PlayerRenderComponent::Update(){
 		auto len = currentAnimation->duration;
 		currentAnimation->animate(curr);
 	}
-	*/
 }
 
 
