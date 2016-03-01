@@ -34,8 +34,8 @@ GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, fl
 	feather->AddComponent(COMPONENT_NETWORK, net);
 
 
-	FeatherLogicComponent* logic = new FeatherLogicComponent(posX, posY, dx, dy);
-	logic->gameObjectRef = feather; //set components container refrence to this gameObject
+	FeatherLogicComponent* logic = new FeatherLogicComponent(feather, posX, posY, dx, dy);
+	//logic->gameObjectRef = feather; //set components container refrence to this gameObject
 	feather->AddComponent(COMPONENT_LOGIC, logic);
 
 	FeatherPhysicsComponent* physics = new FeatherPhysicsComponent();
