@@ -12,6 +12,7 @@
 <resource UID="17" type="graphic" filename="Duck7.png" scenescope="0"></resource>
 <resource UID="18" type="graphic" filename="Duck8.png" scenescope="0"></resource>
 <resource UID="20" type="graphic" filename="Feather.png" scenescope="0"></resource>
+<resource UID="21" type="graphic" filename="Arrow.png" scenescope="0"></resource>
 <resource UID="101" type="graphic" filename="ArmorBody1.gif" scenescope="0"></resource>
 <resource UID="102" type="graphic" filename="ArmorArmL1.gif" scenescope="0"></resource>
 <resource UID="103" type="graphic" filename="ArmorLeg1.gif" scenescope="0"></resource>

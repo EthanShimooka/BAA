@@ -15,8 +15,6 @@ public:
 	/// Update Function
 	void Update();
 
-	float dx;
-	float dy;
 	float x;
 	float y;
 };
