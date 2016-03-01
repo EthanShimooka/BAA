@@ -37,9 +37,15 @@ std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, int centerx, int
 	};
 }
 
-Animation::Animation(){
-	duration = 1;
+motion makeMotion(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
+	motion m = { trans, ease, start, duration };
+	return m;
 }
+Animation::Animation(float d,list<motion> m){
+	duration = d;
+	motions = m;
+}
+
 
 bool Animation::animate(float i){
 	for (auto mot = motions.begin(); mot != motions.end(); mot++){
@@ -57,5 +63,5 @@ void Animation::push(std::function<void(float)> trans, int start, int duration, 
 }
 
 float Animation::lengthConversion(int progress){
-	return float (progress / duration);
+	return float (progress / float(duration));
 }
