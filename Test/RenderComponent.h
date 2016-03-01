@@ -19,7 +19,10 @@
 
 #include "Component.h"
 #include "include\SDLRenderObject.h"
-#include "include\SDLRenderObject.h"
+#include "include\AnimationLibrary.h"
+#include "include\network\Timing.h"
+
+#include <unordered_map>
 
 #include "MovementComponent.h"
 #include "GameObject.h"
@@ -37,8 +40,8 @@ public:
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
-
-
+	list <SDLRenderObject*> allObjs;
+	//hash <animation> animations;
 	GameObject* gameObjectRef;
 
 
@@ -50,6 +53,16 @@ public:
 	/// Verticle Flip
 	bool flipV;
 
+	/// Animations hash table
+	unordered_map<string, Animation*> animations;
+	/// Current animation that is applyied on update
+	Animation* currentAnimation;
+	/// Queued animation that will be played next (may be applyied immediately)
+	Animation* nextAnimation;
+	/// time of last render
+	int unsigned lasttime;
+	/// amount of time since animation's beginning
+	int unsigned progress;
 
 	/////////////////////////////////////////////////
 
@@ -57,8 +70,8 @@ public:
 	void AssignSprite(SDLRenderObject* rend);
 	/// Updates Sprite to renderer
 	virtual void Update();
-
-
+	/// animation setter
+	void setAnimation(string name);
 };
 
 #endif

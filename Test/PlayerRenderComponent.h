@@ -23,6 +23,7 @@ public:
 	~PlayerRenderComponent();
 	/// Update
 	void Update();
+	
 };
 
 #endif

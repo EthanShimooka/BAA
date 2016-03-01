@@ -49,6 +49,7 @@ public:
 	// play bgm, pause bgm, stop bgm
 	// play effect, pause effect, stop effect
 	// clear and free all
+	SQUADIO_API void loadAllAudio();
 
 	// the ID passed in is found at SDLAudioObject->audioResource->m_ResourceID
 	// maybe m_ResourceID for audio will just match the position in the list it's stored

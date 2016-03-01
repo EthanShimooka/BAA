@@ -5,12 +5,14 @@
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
+#include "include\AudioManager.h"
 #include "include\EngineObject.h"
 #include "include\ResourceManager.h"
 #include "include\RenderManager.h"
 #include "include\RenderResource.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
+#include "include\AnimationLibrary.h"
 #include <iostream>
 #include <tchar.h>
 
