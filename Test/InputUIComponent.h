@@ -1,10 +1,10 @@
 /**
-*  InputComponent.h
+*  InputUIComponent.h
 *  Authors: Ethan Shimooka
 *  Date 2/25/2016
 *  Description :
-	InputComponent represents the abstreact base class from which all other
-	imput Components are derived. 
+	InputUIComponent represents the abstreact base class from which all other UI
+	input Components are derived.
 
 	Only the local player GameObject should have this component.
 
@@ -12,25 +12,25 @@
 
 
 #pragma once
-#ifndef INPUTCOMPONENT_H_INCLUDED
-#define INPUTCOMPONENT_H_INCLUDED
+#ifndef INPUTUICOMPONENT_H_INCLUDED
+#define INPUTUICOMPONENT_H_INCLUDED
 
 
 #include "Component.h"
-#include "MovementComponent.h"
 #include "include\InputManager.h"
-#include "GameObject.h"
 #include "UIObject.h"
 
-class InputComponent : public Component
+class InputUIComponent : public Component
 {
 public:
 	/// Constructor
-	InputComponent();
+	InputUIComponent();
 	/// Destructor
-	~InputComponent();
+	~InputUIComponent();
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
-	GameObject* gameObjectRef;
+
+	/// UIObject Container Reference.
+	UIObject* uiObjectRef;
 
 	/// update object Positions from Input
 	virtual void Update();

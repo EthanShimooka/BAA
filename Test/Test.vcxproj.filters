@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Component\Feather Component">
       <UniqueIdentifier>{f065aa7e-152e-460f-8fb6-22f5dfc9347d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\UI Component">
+      <UniqueIdentifier>{6f4a1e0a-2324-401e-9890-73fa2ba75967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\UI Component">
+      <UniqueIdentifier>{3d8c0136-8c7e-4a43-a065-3298bc2a6386}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -153,6 +159,30 @@
     <ClInclude Include="FeatherObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="UIInputComponent.h">
+      <Filter>Header Files\Component\UI Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderComponent.h">
+      <Filter>Header Files\Component\UI Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemUIUpdater.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObject.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUIComponent.h">
+      <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputUIComponent.h">
+      <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -250,6 +280,30 @@
     </ClCompile>
     <ClCompile Include="FeatherObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="UIInputComponent.cpp">
+      <Filter>Source Files\Component\UI Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRenderComponent.cpp">
+      <Filter>Source Files\Component\UI Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemUIUpdater.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObject.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUIComponent.cpp">
+      <Filter>Source Files\Component\Abstract Component</Filter>
+    </ClCompile>
+    <ClCompile Include="InputUIComponent.cpp">
+      <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

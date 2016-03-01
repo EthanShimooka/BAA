@@ -86,11 +86,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\ButtonManager.h" />
     <ClInclude Include="include\AnimationLibrary.h" />
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\AudioResource.h" />
-    <ClInclude Include="include\ButtonManager.h" />
     <ClInclude Include="include\EngineObject.h" />
     <ClInclude Include="include\gameResource.h" />
     <ClInclude Include="include\network\BirdMath.h" />
@@ -123,7 +121,6 @@
     <ClCompile Include="src\AnimationLibrary.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\AudioResource.cpp" />
-    <ClCompile Include="src\ButtonManager.cpp" />
     <ClCompile Include="src\EngineObject.cpp" />
     <ClCompile Include="src\gameResource.cpp" />
     <ClCompile Include="src\InputManager.cpp" />

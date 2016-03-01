@@ -92,6 +92,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputUIComponent.h" />
     <ClInclude Include="LogicComponent.h" />
     <ClInclude Include="MinionLogicComponent.h" />
     <ClInclude Include="MinionNetworkComponent.h" />
@@ -108,13 +109,20 @@
     <ClInclude Include="PlayerPhysicsComponent.h" />
     <ClInclude Include="PlayerRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="RenderUIComponent.h" />
     <ClInclude Include="SystemGameObjectQueue.h" />
     <ClInclude Include="SystemInputUpdater.h" />
     <ClInclude Include="SystemLogicUpdater.h" />
     <ClInclude Include="SystemNetworkUpdater.h" />
     <ClInclude Include="SystemPhysicsUpdater.h" />
     <ClInclude Include="SystemRenderUpdater.h" />
+    <ClInclude Include="SystemUIUpdater.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="UIInputComponent.h" />
+    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UIObjectFactory.h" />
+    <ClInclude Include="UIRenderComponent.h" />
+    <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
@@ -126,6 +134,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="InputUIComponent.cpp" />
     <ClCompile Include="LogicComponent.cpp" />
     <ClCompile Include="MinionLogicComponent.cpp" />
     <ClCompile Include="MinionNetworkComponent.cpp" />
@@ -142,13 +151,20 @@
     <ClCompile Include="PlayerPhysicsComponent.cpp" />
     <ClCompile Include="PlayerRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="RenderUIComponent.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />
     <ClCompile Include="SystemInputUpdater.cpp" />
     <ClCompile Include="SystemLogicUpdater.cpp" />
     <ClCompile Include="SystemNetworkUpdater.cpp" />
     <ClCompile Include="SystemPhysicsUpdater.cpp" />
     <ClCompile Include="SystemRenderUpdater.cpp" />
+    <ClCompile Include="SystemUIUpdater.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="UIInputComponent.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIObjectFactory.cpp" />
+    <ClCompile Include="UIRenderComponent.cpp" />
+    <ClCompile Include="WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SquadIO\SquadIO.vcxproj">

@@ -37,7 +37,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 	}
 */
-	InputManager* input = InputManager::getInstance();
 	int numPlayers = 1;
 
 	if (numPlayers != 1){
@@ -256,12 +255,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 			arcarm(float(var % 12) / 12);
 		}
 		arcbody(float(var % 12) / 12);
-		*/
+		
 		//arm->posX = 31 + armor->posX;
 		//arm->posY = 43 + armor->posY;
 
 		int length = 20;
-		float loop = (var % length);
+		float loop = (var % length);*/
 
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
@@ -282,23 +281,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	}*/
 
 	std::cout << renderMan << endl;
 
 	log->close();
 	return 0;
-}
-void init(){
-
-
-void render(RenderManager* renderMan) {
-	renderMan->update();
-}
-
-long double getCurrentTime(){
-	long double sysTime = time(0);
-	long double sysTimeMS = sysTime * 1000;
-
-	return sysTimeMS;
 }

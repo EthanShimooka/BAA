@@ -23,6 +23,7 @@
 
 #include "MovementComponent.h"
 #include "GameObject.h"
+#include "UIObject.h"
 
 
 class RenderComponent :	public Component
@@ -40,7 +41,6 @@ public:
 	list <SDLRenderObject*> allObjs;
 	//hash <animation> animations;
 	GameObject* gameObjectRef;
-
 
 
 	/// Renderer Visibility Flag
