@@ -63,6 +63,10 @@ public:
 	///Rotation
 	float rotation;
 
+	///Horizontal Flip
+	bool flipH;
+	///Vertical Flip
+	bool flipV;
 	/// virtual update function
 	virtual void update(){};
 
