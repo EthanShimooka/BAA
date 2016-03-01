@@ -96,11 +96,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	else{
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
-
-	for (uint64_t i = 0; i < 4; ++i) {
-		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
-		GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
-	}
 	
 
 

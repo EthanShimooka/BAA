@@ -2,6 +2,7 @@
 #ifndef PLAYERNETWORKCOMPONENT_H_INCLUDED
 #define PLAYERNETWORKCOMPONENT_H_INCLUDED
 #include "NetworkComponent.h"
+#include "PlayerComponentIncludes.h"
 class PlayerNetworkComponent : public NetworkComponent
 {
 private:

@@ -3,7 +3,7 @@
 #define MINIONRENDERCOMPONENT_H_INCLUDED
 #include "RenderComponent.h"
 #include "include\SceneManager.h"
-
+#include "MinionComponentIncludes.h"
 class MinionRenderComponent : public RenderComponent
 {
 public:
