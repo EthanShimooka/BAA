@@ -48,7 +48,7 @@ void PlayerInputComponent::Update()
 		featherPacket->Write(gameObjectRef->posY);
 		featherPacket->Write(input->getMouseX());
 		featherPacket->Write(input->getMouseY());
-		cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
+		//cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
 		net->outgoingPackets.push(featherPacket);
 	}
 
