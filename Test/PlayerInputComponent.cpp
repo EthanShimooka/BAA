@@ -48,7 +48,7 @@ void PlayerInputComponent::Update()
 		featherPacket.Write(gameObjectRef->posY);
 		featherPacket.Write(input->getMouseX());
 		featherPacket.Write(input->getMouseY());
-		net->outgoingPackets.push(featherPacket);
+		net->outgoingPackets.push(&featherPacket);
 	}
 
 

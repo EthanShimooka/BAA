@@ -63,8 +63,8 @@ void PlayerNetworkComponent::Update(){
 	}
 
 	while (!outgoingPackets.empty()){
-		OutputMemoryBitStream outData = outgoingPackets.front();
-		NetworkManager::sInstance->sendPacketToAllPeers(outData);
+		OutputMemoryBitStream* outData = outgoingPackets.front();
+		NetworkManager::sInstance->sendPacketToAllPeers(*outData);
 		outgoingPackets.pop();
 	}
 
