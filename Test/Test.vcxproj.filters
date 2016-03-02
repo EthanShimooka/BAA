@@ -180,7 +180,10 @@
     <ClInclude Include="RenderUIComponent.h">
       <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
-    <ClInclude Include="InputUIComponent.h">
+    <ClInclude Include="SystemUIObjectQueue.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="UIComponent.h">
       <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -302,7 +305,10 @@
     <ClCompile Include="RenderUIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
-    <ClCompile Include="InputUIComponent.cpp">
+    <ClCompile Include="SystemUIObjectQueue.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="UIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
   </ItemGroup>

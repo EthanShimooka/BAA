@@ -22,6 +22,7 @@ assembler that will use the input component.
 #include "Component.h"
 #include "UIRenderComponent.h"
 #include "UIInputComponent.h"
+#include "UIComponent.h"
 
 
 class UIObjectFactory : public WorldObjectFactory

@@ -15,6 +15,7 @@ System class for updating all known Input Components.
 
 #include "GameObject.h"
 #include "InputComponent.h"
+#include "UIObject.h"
 
 
 
@@ -29,6 +30,8 @@ public:
 
 	/// Accepts a global vector of all GameObjects (entities) and cycles through them
 	void InputUpdate(std::vector<GameObject*> obj);
+
+	void InputUpdate(std::vector<UIObject*>obj);
 
 
 };

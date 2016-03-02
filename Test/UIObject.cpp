@@ -1,7 +1,7 @@
 #include "UIObject.h"
 
 /// Constructor
-UIObject::UIObject(){
+UIObject::UIObject() : posX(0), posY(0){
 
 	component_count = 0;
 

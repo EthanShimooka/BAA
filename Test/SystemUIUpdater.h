@@ -9,12 +9,12 @@ System class for updating all known UI Components.
 
 #pragma once
 
-#ifndef SYSTEMINPUTUPDATER_H_INCLUDED
-#define SYSTEMINPUTUPDATER_H_INCLUDED
+#ifndef SYSTEMUIUPDATER_H_INCLUDED
+#define SYSTEMUIUPDATER_H_INCLUDED
 
 
-#include "GameObject.h"
-#include "InputComponent.h"
+#include "UIObject.h"
+#include "UIComponent.h"
 
 
 

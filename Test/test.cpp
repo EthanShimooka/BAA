@@ -77,25 +77,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	//Button objects
-	/*LButton* gButton = new LButton();
-
-	gButton->setPosition(300, 325);
-	gButton->obj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, gButton->getXPosition(), gButton->getYPosition(),true);
-
-	bool loop = true;
-	
-	while (loop){
-
-		SDL_Event e;
-
-		gButton->handleEvent(&e);
-
-		input->update();
-
-		sceneMan->AssembleScene();
-
-	}*/
 	///  SYSTEMS
 
 	SystemNetworkUpdater sysNetwork;
@@ -103,6 +84,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SystemInputUpdater sysInput;
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
+	SystemUIUpdater sysUI;
 
 
 	//SystemGameObjectQueue world;
@@ -111,6 +93,25 @@ int _tmain(int argc, _TCHAR* argv[]){
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
+	UIObjectFactory uFactory;
+
+	/**/UIObjects.AddObject(uFactory.Spawn(BUTTON));
+
+	while (true){
+
+		input->update();
+
+		if (input->isKeyDown(KEY_0))
+			break;
+
+		sysUI.UIUpdate(UIObjects.alive_objects);
+		sysInput.InputUpdate(UIObjects.alive_objects);
+		
+
+		input->update();
+
+		sceneMan->AssembleScene();
+	}
 
 	if (numPlayers != 1){
 		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();

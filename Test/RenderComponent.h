@@ -23,7 +23,6 @@
 
 #include "MovementComponent.h"
 #include "GameObject.h"
-#include "UIObject.h"
 
 
 class RenderComponent :	public Component

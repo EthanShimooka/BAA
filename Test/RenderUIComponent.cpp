@@ -2,6 +2,7 @@
 
 
 RenderUIComponent::RenderUIComponent(){
+	visible = true;
 }
 
 
@@ -28,7 +29,7 @@ void RenderUIComponent::Update(){
 	objRef->posX = uiObjectRef->posX;
 	objRef->posY = uiObjectRef->posY;
 	objRef->rotation = 0;
-	objRef->visible = true;
+	objRef->visible = visible;
 
 	//there is most likely more attributes to send over. update as needed
 }

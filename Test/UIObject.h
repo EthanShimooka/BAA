@@ -36,7 +36,6 @@ struct uiT_component {
 
 };
 
-
 /// UIObject (entity) main class
 
 class UIObject{

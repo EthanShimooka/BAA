@@ -9,10 +9,8 @@
 #include "include\ResourceManager.h"
 #include "include\RenderManager.h"
 #include "include\RenderResource.h"
-#include "include\ButtonManager.h"
 #include "include\sdl2\SDL.h"
 #include "include\sdl2\SDL_image.h"
-#include "include\ButtonManager.h"
 #include "include\AnimationLibrary.h"
 #include <iostream>
 #include <tchar.h>
@@ -29,13 +27,16 @@
 #include "PlayerObjectFactory.h"
 #include "MinionObjectFactory.h"
 #include "FeatherObjectFactory.h"
+#include "UIObjectFactory.h"
 
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"
 #include "SystemGameObjectQueue.h"
+#include "SystemUIObjectQueue.h"
 #include "SystemLogicUpdater.h"
 #include "SystemNetworkUpdater.h"
 #include "SystemPhysicsUpdater.h"
+#include "SystemUIUpdater.h"
 
 class test
 {

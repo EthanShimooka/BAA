@@ -35,6 +35,7 @@ public:
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
 	list <SDLRenderObject*> allObjs;
+	bool visible;
 
 	/// UI objects reference
 	UIObject* uiObjectRef;

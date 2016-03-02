@@ -92,7 +92,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="InputUIComponent.h" />
     <ClInclude Include="LogicComponent.h" />
     <ClInclude Include="MinionLogicComponent.h" />
     <ClInclude Include="MinionNetworkComponent.h" />
@@ -116,8 +115,10 @@
     <ClInclude Include="SystemNetworkUpdater.h" />
     <ClInclude Include="SystemPhysicsUpdater.h" />
     <ClInclude Include="SystemRenderUpdater.h" />
+    <ClInclude Include="SystemUIObjectQueue.h" />
     <ClInclude Include="SystemUIUpdater.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIInputComponent.h" />
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIObjectFactory.h" />
@@ -134,7 +135,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="InputComponent.cpp" />
-    <ClCompile Include="InputUIComponent.cpp" />
     <ClCompile Include="LogicComponent.cpp" />
     <ClCompile Include="MinionLogicComponent.cpp" />
     <ClCompile Include="MinionNetworkComponent.cpp" />
@@ -158,8 +158,10 @@
     <ClCompile Include="SystemNetworkUpdater.cpp" />
     <ClCompile Include="SystemPhysicsUpdater.cpp" />
     <ClCompile Include="SystemRenderUpdater.cpp" />
+    <ClCompile Include="SystemUIObjectQueue.cpp" />
     <ClCompile Include="SystemUIUpdater.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIInputComponent.cpp" />
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIObjectFactory.cpp" />

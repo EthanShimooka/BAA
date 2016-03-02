@@ -14,9 +14,9 @@ imput Components are derived.
 #define UIINPUTCOMPONENT_H_INCLUDED
 
 
-#include "InputUIComponent.h"
+#include "UIComponent.h"
 
-class UIInputComponent : public InputUIComponent
+class UIInputComponent : public UIComponent
 {
 public:
 	UIInputComponent();

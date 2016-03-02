@@ -11,8 +11,8 @@ void UIInputComponent::Update(){
 
 	InputManager* input = InputManager::getInstance();
 
-	if (uiObjectRef->ID == UIType::BUTTON){
-		if (input->isMouseDown(MouseButton::MOUSE_LEFT)){
+	if (uiObjectRef->ID == BUTTON){
+		if (input->isMouseDown(MOUSE_LEFT)){
 			//get mouse position
 			int x, y;
 			x = input->getMouseX();

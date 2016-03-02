@@ -13,6 +13,8 @@ System class for updating all known Render Components.
 
 #include <vector>
 #include "GameObject.h"
+#include "UIObject.h"
+
 class SystemRenderUpdater
 {
 public:
@@ -22,6 +24,8 @@ public:
 	~SystemRenderUpdater();
 	/// Accepts a global vector of all GameObjects (entities) and cycles through them
 	void RenderUpdate(std::vector<GameObject*> rend);
+	/// Accepts a global vector of all UIObjects (entities) and cycles through them
+	void RenderUpdate(std::vector<UIObject*> rend);
 };
 
 #endif
