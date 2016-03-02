@@ -16,11 +16,11 @@ void PhysicsListener::BeginContact(b2Contact* contact){
 	if(secondComp)secondComp->handleCollision(first);
 }
 void PhysicsListener::EndContact(b2Contact* contact){
-	std::cout << "End Contact" << std::endl;
+	//std::cout << "End Contact" << std::endl;
 }
 void PhysicsListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse){
-	std::cout << "Post Solve" << std::endl;
+	//std::cout << "Post Solve" << std::endl;
 }
 void PhysicsListener::PreSolve(b2Contact* contact, const b2ContactImpulse* impulse){
-	std::cout << "Pre Solve" << std::endl;
+	//std::cout << "Pre Solve" << std::endl;
 }

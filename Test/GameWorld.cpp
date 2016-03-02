@@ -7,6 +7,7 @@ GameWorld::GameWorld(){
 	//Note: hardcoded gravity for testing
 	const b2Vec2 gravity =  b2Vec2(0, 98);
 	physicsWorld = new b2World(gravity);
+	currTime = clock();
 }
 
 GameWorld::~GameWorld(){}
@@ -24,8 +25,10 @@ b2World* GameWorld::getPhysicsWorld(){
 }
 
 void GameWorld::update(){
-	//TODO: replace first hardcoded value of 1/30th of a second to actual time since last frame
+	//TODO: replace first hardcoded value of time length to actual time since last frame
 	//the last two values are how many calculations are done within this time period. Higher is
 	// more precise, but more computationally intensive
-	physicsWorld->Step(0.09f,5,5);
+	double fps = (clock() - currTime+1) / (double)(CLOCKS_PER_SEC / 1000);
+	currTime = clock();
+	physicsWorld->Step(1/fps,5,5);
 }

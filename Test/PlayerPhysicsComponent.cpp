@@ -26,7 +26,7 @@ void PlayerPhysicsComponent::init(){
 }
 
 void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
-
+	cout << "player handling physics" << endl;
 }
 
 void PlayerPhysicsComponent::Update(){

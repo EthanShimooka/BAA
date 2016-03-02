@@ -27,6 +27,7 @@ void MinionPhysicsComponent::init(){
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
+	cout << "minion handling physics" << endl;
 }
 
 void MinionPhysicsComponent::Update(){

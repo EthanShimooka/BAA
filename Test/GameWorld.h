@@ -1,8 +1,11 @@
 #pragma once
 
 #include "include\box2D\Box2D.h"
+#include <iostream>
 #include <time.h>
 class GameWorld{
+private:
+	clock_t currTime;
 protected:
 	// constructor only called by getInstance()
 	GameWorld();
