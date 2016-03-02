@@ -43,11 +43,12 @@ void PlayerInputComponent::Update()
 		featherPacket->Write(NetworkManager::sInstance->kPosCC);
 		featherPacket->Write(gameObjectRef->ID);
 		featherPacket->Write(2);
-		featherPacket->Write(0);
+		featherPacket->Write((uint64_t)0);
 		featherPacket->Write(gameObjectRef->posX);
 		featherPacket->Write(gameObjectRef->posY);
 		featherPacket->Write(input->getMouseX());
 		featherPacket->Write(input->getMouseY());
+		cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
 		net->outgoingPackets.push(featherPacket);
 	}
 
