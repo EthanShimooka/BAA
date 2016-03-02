@@ -1,39 +1,34 @@
 #include "PlayerInputComponent.h"
 
 
-PlayerInputComponent::PlayerInputComponent()
-{
-}
+PlayerInputComponent::PlayerInputComponent(){}
 
+PlayerInputComponent::~PlayerInputComponent(){}
 
-PlayerInputComponent::~PlayerInputComponent()
-{
-}
-
-
-void PlayerInputComponent::Update()
-{
-	//use the input manager to update the player
-	//most of this function is prototype code
-
-	InputManager* input = InputManager::getInstance();
-
-	if (input->isKeyDown(KEY_RIGHT)) {
-		gameObjectRef->posX += 2.0;
+void PlayerInputComponent::Update(){
+	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
+	if (physicsComp){
+		b2Body* body = physicsComp->physicsBody;
+		InputManager* input = InputManager::getInstance();
+		//handle input for moving
+		bool moving = false;
+		if (input->isKeyDown(KEY_RIGHT)) {
+			body->SetLinearVelocity(b2Vec2(10000, body->GetLinearVelocity().y));
+			moving = true;
+		}
+		if (input->isKeyDown(KEY_LEFT)) {
+			body->SetLinearVelocity(b2Vec2(-10000, body->GetLinearVelocity().y));
+			moving = true;		}
+		if (input->isKeyDown(KEY_UP)) {
+			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -10000));
+			moving = true;
+		}
+		if (input->isKeyDown(KEY_DOWN)) {
+			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 10000));
+			moving = true;
+		}
+		if (!moving)body->SetLinearVelocity(b2Vec2(0, 0));
 
 	}
-	if (input->isKeyDown(KEY_LEFT)) {
-		gameObjectRef->posX += -2.0;
-
-	}
-	if (input->isKeyDown(KEY_UP)) {
-		gameObjectRef->posY += -2.0;
-
-	}
-	if (input->isKeyDown(KEY_DOWN)) {
-		gameObjectRef->posY += 2.0;
-	}
-
-
 }
 

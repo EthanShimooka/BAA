@@ -16,7 +16,7 @@ void MinionPhysicsComponent::init(){
 	physicsBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1, 1); // look up other functions for polygons
+	box.SetAsBox(1000, 1); // look up other functions for polygons
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
