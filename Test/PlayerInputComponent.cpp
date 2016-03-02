@@ -38,6 +38,17 @@ void PlayerInputComponent::Update()
 	if (input->isMouseDown(MOUSE_LEFT)){
 		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		logic->spawnFeather(input->getMouseX(), input->getMouseY());
+		PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+		OutputMemoryBitStream featherPacket;
+		featherPacket.Write(NetworkManager::sInstance->kPosCC);
+		featherPacket.Write(gameObjectRef->ID);
+		featherPacket.Write(2);
+		featherPacket.Write(0);
+		featherPacket.Write(gameObjectRef->posX);
+		featherPacket.Write(gameObjectRef->posY);
+		featherPacket.Write(input->getMouseX());
+		featherPacket.Write(input->getMouseY());
+		net->outgoingPackets.push(featherPacket);
 	}
 
 

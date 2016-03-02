@@ -3,18 +3,18 @@
 #define PLAYERNETWORKCOMPONENT_H_INCLUDED
 #include "NetworkComponent.h"
 #include "PlayerComponentIncludes.h"
+
+typedef enum {
+	CM_INVALID = 0,
+	CM_MOVE    = 1,
+	CM_ATTACK  = 2,
+	CM_ABILITY = 3,
+	CM_DIE     = 4,
+	CM_JUMP    = 5,
+}COMMAND_TYPE;
+
 class PlayerNetworkComponent : public NetworkComponent
 {
-private:
-	typedef enum {
-		CM_INVALID,
-		CM_MOVE,
-		CM_ABILITY,
-		CM_ATTACK,
-		CM_DIE,
-		CM_JUMP
-	}COMMAND_TYPE;
-
 public:
 	/// Construcor 
 	PlayerNetworkComponent();

@@ -31,10 +31,19 @@ void PlayerNetworkComponent::Update(){
 			//testNum = t;
 			//}
 			break;
-		case CM_ABILITY:
-			//handle 
-			break;
 		case CM_ATTACK:
+			uint64_t ID;
+			float initialX, initialY;
+			int destX, destY;
+			packet.Read(ID);
+			packet.Read(initialX);
+			packet.Read(initialY);
+			packet.Read(destX);
+			packet.Read(destY);
+			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			logic->spawnFeather(ID, initialX, initialY, destX, destY);
+			break;
+		case CM_ABILITY:
 			//handle 
 			break;
 		case CM_DIE:
@@ -44,17 +53,17 @@ void PlayerNetworkComponent::Update(){
 			//handle 
 			break;
 		default:
-			cout << gameObjectRef->ID << ": There is no such command!!" << endl;
+			cout << gameObjectRef->ID << ", " << mCommand << ": There is no such command!!" << endl;
 		}
 
 		incomingPackets.pop();
 	}
 
-	/*while (!outgoingPackets.empty()){
+	while (!outgoingPackets.empty()){
 		OutputMemoryBitStream outData = outgoingPackets.front();
 		NetworkManager::sInstance->sendPacketToAllPeers(outData);
 		outgoingPackets.pop();
-	}*/
+	}
 
 	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId()){
 		OutputMemoryBitStream outData;
