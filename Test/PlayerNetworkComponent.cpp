@@ -16,6 +16,9 @@ void PlayerNetworkComponent::Update(){
 		InputMemoryBitStream packet = incomingPackets.front();
 		int mCommand;
 
+		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+
+
 		packet.Read(mCommand);
 		switch (mCommand){
 		case CM_INVALID:
@@ -40,8 +43,8 @@ void PlayerNetworkComponent::Update(){
 			packet.Read(initialY);
 			packet.Read(destX);
 			packet.Read(destY);
-			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			logic->spawnFeather(ID, initialX, initialY, destX, destY);
+			//
+			logic->spawnFeather(ID, initialX, initialY, destX, destY);;
 			break;
 		case CM_ABILITY:
 			//handle 
