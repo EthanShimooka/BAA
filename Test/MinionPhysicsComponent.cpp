@@ -25,7 +25,7 @@ void MinionPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
-	setCollisionFilter(0);
+	setCollisionFilter(PLATFORM|FEATHER|PLAYER);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
