@@ -8,7 +8,7 @@ class FeatherPhysicsComponent : public PhysicsComponent
 {
 public:
 	/// Constructor
-	FeatherPhysicsComponent();
+	FeatherPhysicsComponent(GameObject* feather);
 	/// Destructor
 	~FeatherPhysicsComponent();
 	/// Update

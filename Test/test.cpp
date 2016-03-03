@@ -1,5 +1,6 @@
 #include "test.h"
 #include <functional>
+#include <crtdbg.h>
 
 //#include "include\network\NetIncludes.h"
 
@@ -78,9 +79,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
-	FeatherObjectFactory fFactory;
 
-
+	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
 		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
@@ -93,11 +93,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 			GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 		}
 	}
+	/// create a local player with ID of 10000
 	else{
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
 	
-
+	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
 	/////////////////////////////////////////////////////
@@ -218,6 +219,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << renderMan << endl;
 
 	log->close();
+	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 	return 0;
 }
 void init(){

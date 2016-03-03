@@ -8,7 +8,7 @@ class MinionRenderComponent : public RenderComponent
 {
 public:
 	/// Constructor
-	MinionRenderComponent();
+	MinionRenderComponent(GameObject* minion);
 	/// Destructor
 	~MinionRenderComponent();
 	/// Update

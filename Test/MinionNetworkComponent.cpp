@@ -1,8 +1,10 @@
 #include "MinionNetworkComponent.h"
 
 
-MinionNetworkComponent::MinionNetworkComponent()
+MinionNetworkComponent::MinionNetworkComponent(GameObject* minion)
 {
+	gameObjectRef = minion;
+	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 }
 
 

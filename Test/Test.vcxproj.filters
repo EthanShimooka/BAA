@@ -13,17 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Entities">
-      <UniqueIdentifier>{e2694d3f-c7f1-47d8-a2eb-4814fb7e5433}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Systems">
       <UniqueIdentifier>{58424ed1-ec8e-484f-a235-7bea1ce8f978}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Component">
       <UniqueIdentifier>{2ffcedb3-b6f1-4553-9d7c-a08f477f3111}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entities">
-      <UniqueIdentifier>{5e3194ea-fae0-4613-ba1a-47eae806a7d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{eaefc330-0178-4cda-b990-2aa738fc6b5b}</UniqueIdentifier>
@@ -55,6 +49,12 @@
     <Filter Include="Source Files\Component\Feather Component">
       <UniqueIdentifier>{f065aa7e-152e-460f-8fb6-22f5dfc9347d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EntityFactories">
+      <UniqueIdentifier>{5e3194ea-fae0-4613-ba1a-47eae806a7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EntityFactories">
+      <UniqueIdentifier>{e2694d3f-c7f1-47d8-a2eb-4814fb7e5433}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -73,13 +73,13 @@
       <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\EntityFactories</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\EntityFactories</Filter>
     </ClInclude>
     <ClInclude Include="PlayerObjectFactory.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\EntityFactories</Filter>
     </ClInclude>
     <ClInclude Include="PlayerRenderComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
@@ -136,7 +136,7 @@
       <Filter>Header Files\Component\Minion Component</Filter>
     </ClInclude>
     <ClInclude Include="MinionObjectFactory.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\EntityFactories</Filter>
     </ClInclude>
     <ClInclude Include="FeatherLogicComponent.h">
       <Filter>Header Files\Component\Feather Component</Filter>
@@ -151,7 +151,7 @@
       <Filter>Header Files\Component\Feather Component</Filter>
     </ClInclude>
     <ClInclude Include="FeatherObjectFactory.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\EntityFactories</Filter>
     </ClInclude>
     <ClInclude Include="PlayerComponentIncludes.h">
       <Filter>Header Files\Component\Player Component</Filter>
@@ -168,13 +168,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectFactory.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source Files\EntityFactories</Filter>
     </ClCompile>
     <ClCompile Include="PlayerObjectFactory.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source Files\EntityFactories</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source Files\EntityFactories</Filter>
     </ClCompile>
     <ClCompile Include="PlayerRenderComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
@@ -243,7 +243,7 @@
       <Filter>Source Files\Component\Minion Component</Filter>
     </ClCompile>
     <ClCompile Include="MinionObjectFactory.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source Files\EntityFactories</Filter>
     </ClCompile>
     <ClCompile Include="FeatherLogicComponent.cpp">
       <Filter>Source Files\Component\Feather Component</Filter>
@@ -258,7 +258,7 @@
       <Filter>Source Files\Component\Feather Component</Filter>
     </ClCompile>
     <ClCompile Include="FeatherObjectFactory.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source Files\EntityFactories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

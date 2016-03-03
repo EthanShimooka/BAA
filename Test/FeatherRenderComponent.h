@@ -9,7 +9,7 @@ class FeatherRenderComponent : public RenderComponent
 {
 public:
 	/// Constructor
-	FeatherRenderComponent();
+	FeatherRenderComponent(GameObject* feather);
 	/// Destructor
 	~FeatherRenderComponent();
 	/// Update

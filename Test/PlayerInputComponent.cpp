@@ -1,8 +1,11 @@
 #include "PlayerInputComponent.h"
 
 
-PlayerInputComponent::PlayerInputComponent()
+PlayerInputComponent::PlayerInputComponent(GameObject* player)
 {
+	input = InputManager::getInstance();
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
 }
 
 
@@ -16,7 +19,7 @@ void PlayerInputComponent::Update()
 	//use the input manager to update the player
 	//most of this function is prototype code
 
-	InputManager* input = InputManager::getInstance();
+	//InputManager* input = InputManager::getInstance();
 
 	if (input->isKeyDown(KEY_RIGHT)) {
 		gameObjectRef->posX += 2.0;
@@ -38,6 +41,8 @@ void PlayerInputComponent::Update()
 	if (input->isMouseDown(MOUSE_LEFT)){
 		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		logic->spawnFeather(input->getMouseX(), input->getMouseY());
+		PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+		net->createFeatherPacket(0, input->getMouseX(), input->getMouseY());
 	}
 
 

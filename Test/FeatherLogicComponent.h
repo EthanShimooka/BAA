@@ -9,7 +9,7 @@ class FeatherLogicComponent : public LogicComponent
 {
 public:
 	/// Constructor
-	FeatherLogicComponent(float posX, float posY, float dx, float dy);
+	FeatherLogicComponent(GameObject* feather, float posX, float posY, float dx, float dy);
 	/// Destructor
 	~FeatherLogicComponent();
 	/// Update Function

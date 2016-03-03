@@ -18,7 +18,7 @@ class PlayerRenderComponent : public RenderComponent
 {
 public:
 	/// Constructor
-	PlayerRenderComponent();
+	PlayerRenderComponent(GameObject* player);
 	/// Destructor
 	~PlayerRenderComponent();
 	/// Update
