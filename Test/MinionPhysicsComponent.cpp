@@ -16,13 +16,15 @@ void MinionPhysicsComponent::init(){
 	physicsBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1000, 1); // look up other functions for polygons
+	box.SetAsBox(100,1); // look up other functions for polygons
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
-	physicsBody->CreateFixture(&boxFixtureDef);
+	b2Fixture* fixture = physicsBody->CreateFixture(&boxFixtureDef);
 	physicsBody->SetUserData(gameObjectRef);
 	physicsBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+
+	
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){

@@ -12,22 +12,23 @@ void PlayerInputComponent::Update(){
 		InputManager* input = InputManager::getInstance();
 		//handle input for moving
 		bool moving = false;
-		if (input->isKeyDown(KEY_RIGHT)) {
-			body->SetLinearVelocity(b2Vec2(10000, body->GetLinearVelocity().y));
+		float speed = 6.0f;
+		if (input->isKeyDown(KEY_D)) {
+			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
 		}
-		if (input->isKeyDown(KEY_LEFT)) {
-			body->SetLinearVelocity(b2Vec2(-10000, body->GetLinearVelocity().y));
+		if (input->isKeyDown(KEY_A)) {
+			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
 			moving = true;		}
-		if (input->isKeyDown(KEY_UP)) {
-			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -10000));
+		if (input->isKeyDown(KEY_SPACE)) {
+			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -speed));
 			moving = true;
 		}
-		if (input->isKeyDown(KEY_DOWN)) {
-			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 10000));
+		if (input->isKeyDown(KEY_S)) {
+			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed));
 			moving = true;
 		}
-		if (!moving)body->SetLinearVelocity(b2Vec2(0, 0));
+		if (!moving)body->SetLinearVelocity(b2Vec2(0,body->GetLinearVelocity().y));
 
 	}
 }

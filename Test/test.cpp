@@ -93,10 +93,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//NOTE: there are currently issues ith the setPos function
 		//it only updates the gameobject x,y but the physics compnent (currently)
 		//overrides it with the collision box's location
-		auto minion = mFactory.Spawn(i);
-		minion->setPos(i * 50, i * 50 - 150);
-		GameObjects.AddObject(minion);
-		GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
 	}
 	
 

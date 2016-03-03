@@ -58,7 +58,5 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 	physics->init();
 	player->AddComponent(COMPONENT_PHYSICS, physics);
 	
-
-	player->posY -= 300;
 	return player;
 }

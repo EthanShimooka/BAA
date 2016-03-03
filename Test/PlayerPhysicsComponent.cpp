@@ -15,14 +15,15 @@ void PlayerPhysicsComponent::init(){
 	physicsBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1, 1); // look up other functions for polygons
+	box.SetAsBox(1,1); // look up other functions for polygons
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	physicsBody->CreateFixture(&boxFixtureDef);
+	//b2MassData* massData = physicsBody->GetMassData();
 	physicsBody->SetUserData(gameObjectRef);
 	//hardcoded for debugging purposes
-	physicsBody->SetTransform(b2Vec2(0,-50),0);
+	physicsBody->SetTransform(b2Vec2(0,-5),0);
 }
 
 void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -30,7 +31,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void PlayerPhysicsComponent::Update(){
-	gameObjectRef->posX = physicsBody->GetPosition().x;
-	gameObjectRef->posY = physicsBody->GetPosition().y;
-	//cout << "x=" << physicsBody->GetPosition().x << "y=" << physicsBody->GetPosition().y<<endl;
+	gameObjectRef->posX = physicsBody->GetPosition().x*20.0f;
+	gameObjectRef->posY = physicsBody->GetPosition().y*20.0f;
+	//cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << endl;
 }
