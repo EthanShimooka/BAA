@@ -55,13 +55,14 @@ void PlayerNetworkComponent::Update(){
 			//if (testNum < t){
 			float x;
 			packet.Read(x);
+			gameObjectRef->posX = x;
 			if (gameObjectRef->posX > x){
 				gameObjectRef->flipH = true;
 			}
 			else if (gameObjectRef->posX < x){
 				gameObjectRef->flipH = false;
 			}
-			gameObjectRef->posX = x;
+			
 			//packet.Read(gameObjectRef->posX);
 			packet.Read(gameObjectRef->posY);
 			//testNum = t;
