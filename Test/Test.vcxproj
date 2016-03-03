@@ -103,6 +103,10 @@
     <ClInclude Include="NetworkComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsListener.h" />
+    <ClInclude Include="PlatformComponentIncludes.h" />
+    <ClInclude Include="PlatformObjectFactory.h" />
+    <ClInclude Include="PlatformPhysicsComponent.h" />
+    <ClInclude Include="PlatformRenderComponent.h" />
     <ClInclude Include="PlayerInputComponent.h" />
     <ClInclude Include="PlayerLogicComponent.h" />
     <ClInclude Include="PlayerNetworkComponent.h" />
@@ -139,6 +143,9 @@
     <ClCompile Include="NetworkComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsListener.cpp" />
+    <ClCompile Include="PlatformObjectFactory.cpp" />
+    <ClCompile Include="PlatformPhysicsComponent.cpp" />
+    <ClCompile Include="PlatformRenderComponent.cpp" />
     <ClCompile Include="PlayerInputComponent.cpp" />
     <ClCompile Include="PlayerLogicComponent.cpp" />
     <ClCompile Include="PlayerNetworkComponent.cpp" />

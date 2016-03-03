@@ -27,6 +27,7 @@
 #include "PlayerObjectFactory.h"
 #include "MinionObjectFactory.h"
 #include "FeatherObjectFactory.h"
+#include "PlatformObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"

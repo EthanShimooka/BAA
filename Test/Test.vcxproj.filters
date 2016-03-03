@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Component\Feather Component">
       <UniqueIdentifier>{f065aa7e-152e-460f-8fb6-22f5dfc9347d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Platform Component">
+      <UniqueIdentifier>{f696f7b9-ae81-4806-955a-fdebc3885ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Platform Component">
+      <UniqueIdentifier>{e55034b3-fc6a-4f0e-8c7a-1f08fd6b9976}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -159,6 +165,18 @@
     <ClInclude Include="PhysicsListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlatformPhysicsComponent.h">
+      <Filter>Header Files\Component\Platform Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformRenderComponent.h">
+      <Filter>Header Files\Component\Platform Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformComponentIncludes.h">
+      <Filter>Header Files\Component\Platform Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -262,6 +280,15 @@
     </ClCompile>
     <ClCompile Include="PhysicsListener.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Platform Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformRenderComponent.cpp">
+      <Filter>Source Files\Component\Platform Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

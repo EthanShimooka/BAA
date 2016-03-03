@@ -72,6 +72,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
+	PlatformObjectFactory plFactory;
 
 	if (numPlayers != 1){
 		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
@@ -96,6 +97,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
 		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
 	}
+	GameObjects.AddObject(plFactory.Spawn(123456))->setPos(0, 400);
 	
 
 
