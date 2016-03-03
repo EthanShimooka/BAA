@@ -20,10 +20,11 @@ void PlayerPhysicsComponent::init(){
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture=mBody->CreateFixture(&boxFixtureDef);
-	cout << mFixture->GetFilterData().maskBits << endl;
 	mBody->SetUserData(gameObjectRef);
 	//hardcoded for debugging purposes
-	mBody->SetTransform(b2Vec2(0,-5),0);
+	mBody->SetTransform(b2Vec2(0,-10),0);
+
+	//setCollisionFilter(COLLISION_ALL);
 }
 
 
@@ -33,7 +34,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void PlayerPhysicsComponent::Update(){
-	gameObjectRef->posX = mBody->GetPosition().x*20.0f;
-	gameObjectRef->posY = mBody->GetPosition().y*20.0f;
+	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
+	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
 	//cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << endl;
 }

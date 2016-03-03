@@ -21,11 +21,10 @@ void MinionPhysicsComponent::init(){
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
-	cout << mFixture->GetFilterData().maskBits << endl;
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
-	setCollisionFilter(PLATFORM|FEATHER|PLAYER);
+	//setCollisionFilter(COLLISION_PLATFORM | COLLISION_FEATHER | COLLISION_PLAYER);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){

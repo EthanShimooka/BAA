@@ -23,13 +23,15 @@ void PlatformPhysicsComponent::init(){
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(100, 1); // look up other functions for polygons
+	box.SetAsBox(300, 1); // look up other functions for polygons
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture=mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(0,100), 0);
+
+	//setCollisionFilter(!COLLISION_FEATHER);
 }
 
 void PlatformPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -38,8 +40,8 @@ void PlatformPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void PlatformPhysicsComponent::Update(){
-	gameObjectRef->posX = mBody->GetPosition().x;
-	gameObjectRef->posY = mBody->GetPosition().y;
+	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
+	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
 	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
 }
 

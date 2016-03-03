@@ -90,13 +90,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
 
-	for (uint64_t i = 0; i < 1; ++i) {
+	/*for (uint64_t i = 0; i < 1; ++i) {
 		//NOTE: there are currently issues ith the setPos function
 		//it only updates the gameobject x,y but the physics compnent (currently)
 		//overrides it with the collision box's location
 		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
 		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
-	}
+	}*/
+	GameObjects.AddObject(mFactory.Spawn(123))->setPos(0, 0);
 	GameObjects.AddObject(plFactory.Spawn(123456))->setPos(0, 400);
 	
 

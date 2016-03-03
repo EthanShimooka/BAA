@@ -12,7 +12,7 @@ void PlayerInputComponent::Update(){
 		InputManager* input = InputManager::getInstance();
 		//handle input for moving
 		bool moving = false;
-		float speed = 6.0f;
+		float speed = 60.0f;
 		if (input->isKeyDown(KEY_D)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
@@ -21,14 +21,14 @@ void PlayerInputComponent::Update(){
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
 			moving = true;		}
 		if (input->isKeyDown(KEY_SPACE)) {
-			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -speed));
-			moving = true;
+			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
+			//moving = true;
 		}
 		if (input->isKeyDown(KEY_S)) {
 			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed));
 			moving = true;
 		}
-		if (!moving)body->SetLinearVelocity(b2Vec2(0,body->GetLinearVelocity().y));
+		if (!moving)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x*0.8, body->GetLinearVelocity().y));
 
 	}
 }
