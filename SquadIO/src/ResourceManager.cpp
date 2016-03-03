@@ -104,6 +104,7 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 	//LogManager* log = LogManager::GetLogManager();
 	//log->create("log.txt");
 	RenderManager* renderManager = RenderManager::getRenderManager();
+	AudioManager* audioManager = AudioManager::getAudioInstance();
 
 	std::string path = "resources\\" + Filename;
 
@@ -146,7 +147,7 @@ bool ResourceManager::loadFromXMLFile(std::string Filename)
 
 								if (AttribValue == "audio"){
 
-									//Resource = AudioManager->loadResourceFromXML (Element);
+									Resource = audioManager->loadResourceFromXML (Element);
 									std::cout << "Sound Resource Loaded \n";
 
 								}

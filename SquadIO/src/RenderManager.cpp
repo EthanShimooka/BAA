@@ -105,7 +105,16 @@ void RenderManager::setBackground(std::string filename){
 		printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
 	}
 }
-
+void RenderManager::setBackground(SDL_Texture* texture){
+	//std::string path = "resources/" + filename; //append the folder name
+	//SDL_Surface *tempSurface = IMG_Load(path.c_str()); //load image as surface
+	if (texture){
+		background = texture;
+	}
+	else{
+		printf("Unable to load the image %s! SDL_image Error: %s\n", IMG_GetError());
+	}
+}
 float RenderManager::zoomRatio(float x1, float y1, float minSize, float scaling){
 	float dist1 = sqrt(pow(x1 - cameraPoint.x, 2) + pow(y1 - cameraPoint.y, 2));//distance between center and (x1,y1)
 	int wWidth = 0;

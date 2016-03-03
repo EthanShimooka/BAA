@@ -15,15 +15,17 @@ Only the local player GameObject should have this component.
 #define PLAYERINPUTCOMPONENT_H_INCLUDED
 
 #include "InputComponent.h"
-#include "PlayerPhysicsComponent.h"
+#include "PlayerComponentIncludes.h"
+
 class PlayerInputComponent : public InputComponent
 {
 public:
-	PlayerInputComponent();
+	PlayerInputComponent(GameObject* player);
 	~PlayerInputComponent();
 
 	void Update();
 
+	InputManager* input;
 };
 
 #endif

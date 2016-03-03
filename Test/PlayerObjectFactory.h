@@ -21,11 +21,7 @@
 // Component Includes
 #include "Component.h"
 #include "MovementComponent.h"
-#include "PlayerRenderComponent.h"
-#include "PlayerInputComponent.h"
-#include "PlayerNetworkComponent.h"
-#include "PlayerLogicComponent.h"
-#include "PlayerPhysicsComponent.h"
+#include "PlayerComponentIncludes.h"
 
 
 

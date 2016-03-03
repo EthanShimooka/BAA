@@ -8,10 +8,7 @@
 
 // Component Includes
 #include "Component.h"
-#include "FeatherRenderComponent.h"
-#include "FeatherNetworkComponent.h"
-#include "FeatherLogicComponent.h"
-#include "FeatherPhysicsComponent.h"
+#include "FeatherComponentIncludes.h"
 
 
 
@@ -24,7 +21,7 @@ public:
 	~FeatherObjectFactory();
 
 	/// Creates a new feather GameObject
-	GameObject * Spawn(uint64_t PID);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, float dx, float dy);
 
 };
 

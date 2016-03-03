@@ -21,6 +21,7 @@
 #include <vector>
 #include <string> //maybe
 #include "LogManager.h"
+#include "AudioManager.h"
 #include "Tinyxml2.h"  //XML library
 
 #ifdef SQUADIO_EXPORTS

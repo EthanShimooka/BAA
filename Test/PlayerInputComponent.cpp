@@ -1,9 +1,17 @@
 #include "PlayerInputComponent.h"
 
 
-PlayerInputComponent::PlayerInputComponent(){}
+PlayerInputComponent::PlayerInputComponent(GameObject* player)
+{
+	input = InputManager::getInstance();
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
+}
 
-PlayerInputComponent::~PlayerInputComponent(){}
+
+PlayerInputComponent::~PlayerInputComponent()
+{
+}
 
 void PlayerInputComponent::Update(){
 	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
@@ -29,6 +37,12 @@ void PlayerInputComponent::Update(){
 			moving = true;
 		}
 		if (!moving)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x*0.8, body->GetLinearVelocity().y));
+		if (input->isMouseDown(MOUSE_LEFT)){
+			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			logic->spawnFeather(input->getMouseX(), input->getMouseY());
+			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+			net->createFeatherPacket(0, input->getMouseX(), input->getMouseY());
+		}
 
 	}
 }

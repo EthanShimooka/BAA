@@ -1,8 +1,10 @@
 #include "FeatherNetworkComponent.h"
 
 
-FeatherNetworkComponent::FeatherNetworkComponent()
+FeatherNetworkComponent::FeatherNetworkComponent(GameObject* feather)
 {
+	gameObjectRef = feather;
+	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 }
 
 

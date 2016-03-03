@@ -1,8 +1,11 @@
 #include "FeatherPhysicsComponent.h"
 
 
-FeatherPhysicsComponent::FeatherPhysicsComponent(){}
-
+FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather)
+{
+	gameObjectRef = feather;
+	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
+}
 
 FeatherPhysicsComponent::~FeatherPhysicsComponent(){}
 

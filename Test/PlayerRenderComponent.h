@@ -12,16 +12,18 @@ PlayerRenderComponent represents the Player-specific Render class
 #define PLAYERRENDERCOMPONENT_H_INCLUDED
 #include "RenderComponent.h"
 #include "include\SceneManager.h"
+#include "PlayerComponentIncludes.h"
 
 class PlayerRenderComponent : public RenderComponent
 {
 public:
 	/// Constructor
-	PlayerRenderComponent();
+	PlayerRenderComponent(GameObject* player);
 	/// Destructor
 	~PlayerRenderComponent();
 	/// Update
 	void Update();
+	
 };
 
 #endif
