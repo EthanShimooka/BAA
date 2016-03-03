@@ -8,7 +8,7 @@ PlayerInputComponent::~PlayerInputComponent(){}
 void PlayerInputComponent::Update(){
 	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
 	if (physicsComp){
-		b2Body* body = physicsComp->physicsBody;
+		b2Body* body = physicsComp->mBody;
 		InputManager* input = InputManager::getInstance();
 		//handle input for moving
 		bool moving = false;

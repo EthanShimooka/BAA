@@ -28,11 +28,22 @@ public:
 
 	/// GameObject Container Reference
 	GameObject* gameObjectRef;
-	b2Body* physicsBody;
+	b2Body* mBody;
+	b2Fixture* mFixture;
 
 	/// Virtual Update function
 	virtual void Update();
 	virtual void handleCollision(GameObject* otherObj);
+	void setCollisionFilter(uint16 mask);
+};
+
+enum CollisionMasks {
+	PLAYER = 0x0001,
+	MINION = 0x0002,
+	PLATFORM = 0x0004,
+	SWTICH = 0x0008,
+	FEATHER = 0x0010,
+	//we can keep on adding more as needed
 };
 
 #endif
