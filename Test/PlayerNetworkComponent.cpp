@@ -61,6 +61,7 @@ void PlayerNetworkComponent::Update(){
 			else if (gameObjectRef->posX < x){
 				gameObjectRef->flipH = false;
 			}
+			gameObjectRef->posX = x;
 			//packet.Read(gameObjectRef->posX);
 			packet.Read(gameObjectRef->posY);
 			//testNum = t;
