@@ -24,7 +24,6 @@ void PlayerPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	//hardcoded for debugging purposes
 	mBody->SetTransform(b2Vec2(0,-5),0);
-	//setCollisionFilter(0);
 }
 
 
