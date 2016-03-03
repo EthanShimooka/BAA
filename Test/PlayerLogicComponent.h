@@ -23,7 +23,7 @@ class PlayerLogicComponent :  public LogicComponent
 {
 public:
 	/// Constructor
-	PlayerLogicComponent();
+	PlayerLogicComponent(GameObject* player);
 	/// Destructor
 	~PlayerLogicComponent();
 	/// Update Function

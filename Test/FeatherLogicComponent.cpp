@@ -4,6 +4,7 @@
 FeatherLogicComponent::FeatherLogicComponent(GameObject* feather, float posX, float posY, float dx, float dy)
 {
 	gameObjectRef = feather;
+	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	dx -= 350;
 	dy -= 350;
 	x = (dx - posX);

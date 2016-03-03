@@ -1,8 +1,10 @@
 #include "PlayerPhysicsComponent.h"
 
 
-PlayerPhysicsComponent::PlayerPhysicsComponent()
+PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player)
 {
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 }
 
 

@@ -1,8 +1,10 @@
 #include "PlayerLogicComponent.h"
 
 
-PlayerLogicComponent::PlayerLogicComponent()
+PlayerLogicComponent::PlayerLogicComponent(GameObject* player)
 {
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 }
 
 
@@ -13,8 +15,6 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 void PlayerLogicComponent::Update()
 {
-
-
 }
 
 

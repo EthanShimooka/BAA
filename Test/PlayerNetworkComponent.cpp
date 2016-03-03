@@ -1,8 +1,10 @@
 #include "PlayerNetworkComponent.h"
 
 
-PlayerNetworkComponent::PlayerNetworkComponent()
+PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player)
 {
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	//PlayerLogicComponent *
 	//logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 }

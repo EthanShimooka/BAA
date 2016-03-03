@@ -19,7 +19,7 @@ class PlayerNetworkComponent : public NetworkComponent
 {
 public:
 	/// Construcor 
-	PlayerNetworkComponent();
+	PlayerNetworkComponent(GameObject* player);
 	/// Destructor
 	~PlayerNetworkComponent();
 	/// Update

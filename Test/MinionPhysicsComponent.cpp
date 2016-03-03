@@ -1,8 +1,10 @@
 #include "MinionPhysicsComponent.h"
 
 
-MinionPhysicsComponent::MinionPhysicsComponent()
+MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion)
 {
+	gameObjectRef = minion;
+	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 }
 
 

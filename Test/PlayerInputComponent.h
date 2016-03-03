@@ -21,11 +21,12 @@ Only the local player GameObject should have this component.
 class PlayerInputComponent : public InputComponent
 {
 public:
-	PlayerInputComponent();
+	PlayerInputComponent(GameObject* player);
 	~PlayerInputComponent();
 
 	void Update();
 
+	InputManager* input;
 };
 
 #endif

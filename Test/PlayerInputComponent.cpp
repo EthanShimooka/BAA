@@ -1,8 +1,11 @@
 #include "PlayerInputComponent.h"
 
 
-PlayerInputComponent::PlayerInputComponent()
+PlayerInputComponent::PlayerInputComponent(GameObject* player)
 {
+	input = InputManager::getInstance();
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
 }
 
 
@@ -16,7 +19,7 @@ void PlayerInputComponent::Update()
 	//use the input manager to update the player
 	//most of this function is prototype code
 
-	InputManager* input = InputManager::getInstance();
+	//InputManager* input = InputManager::getInstance();
 
 	if (input->isKeyDown(KEY_RIGHT)) {
 		gameObjectRef->posX += 2.0;

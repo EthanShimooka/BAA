@@ -22,7 +22,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	int numPlayers = 2;
+	int numPlayers = 1;
 
 	if (numPlayers != 1){
 		if (!GamerServices::StaticInit())

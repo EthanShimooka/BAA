@@ -8,7 +8,7 @@ class MinionNetworkComponent : public NetworkComponent
 private:
 public:
 	/// Construcor 
-	MinionNetworkComponent();
+	MinionNetworkComponent(GameObject* minion);
 	/// Destructor
 	~MinionNetworkComponent();
 	/// Update
