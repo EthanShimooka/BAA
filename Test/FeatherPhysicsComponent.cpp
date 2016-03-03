@@ -7,9 +7,10 @@ FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather)
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 }
 
+FeatherPhysicsComponent::~FeatherPhysicsComponent(){}
 
-FeatherPhysicsComponent::~FeatherPhysicsComponent()
-{
+void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
+	//probably destroy itself, maybe trigger a sound?
 }
 
 void FeatherPhysicsComponent::Update() {

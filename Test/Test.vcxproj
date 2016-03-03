@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,6 +92,7 @@
     <ClInclude Include="FeatherRenderComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="LogicComponent.h" />
     <ClInclude Include="MinionComponentIncludes.h" />
@@ -103,6 +104,11 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="NetworkComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsListener.h" />
+    <ClInclude Include="PlatformComponentIncludes.h" />
+    <ClInclude Include="PlatformObjectFactory.h" />
+    <ClInclude Include="PlatformPhysicsComponent.h" />
+    <ClInclude Include="PlatformRenderComponent.h" />
     <ClInclude Include="PlayerComponentIncludes.h" />
     <ClInclude Include="PlayerInputComponent.h" />
     <ClInclude Include="PlayerLogicComponent.h" />
@@ -128,6 +134,7 @@
     <ClCompile Include="FeatherRenderComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
+    <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="LogicComponent.cpp" />
     <ClCompile Include="MinionLogicComponent.cpp" />
@@ -138,6 +145,10 @@
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="NetworkComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PhysicsListener.cpp" />
+    <ClCompile Include="PlatformObjectFactory.cpp" />
+    <ClCompile Include="PlatformPhysicsComponent.cpp" />
+    <ClCompile Include="PlatformRenderComponent.cpp" />
     <ClCompile Include="PlayerInputComponent.cpp" />
     <ClCompile Include="PlayerLogicComponent.cpp" />
     <ClCompile Include="PlayerNetworkComponent.cpp" />

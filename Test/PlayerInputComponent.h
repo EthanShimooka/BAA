@@ -14,7 +14,6 @@ Only the local player GameObject should have this component.
 #ifndef PLAYERINPUTCOMPONENT_H_INCLUDED
 #define PLAYERINPUTCOMPONENT_H_INCLUDED
 
-
 #include "InputComponent.h"
 #include "PlayerComponentIncludes.h"
 

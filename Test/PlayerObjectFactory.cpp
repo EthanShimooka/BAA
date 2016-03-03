@@ -58,6 +58,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
 	//net->gameObjectRef = player; //set components container refrence to this gameObject
 	//player->AddComponent(COMPONENT_NETWORK, net);
+
 	
 	return player;
 }

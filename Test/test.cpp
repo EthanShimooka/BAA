@@ -79,6 +79,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
+	FeatherObjectFactory fFactory;
+	PlatformObjectFactory plFactory;
+
 
 	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
@@ -97,7 +100,16 @@ int _tmain(int argc, _TCHAR* argv[]){
 	else{
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
-	
+
+	/*for (uint64_t i = 0; i < 1; ++i) {
+		//NOTE: there are currently issues ith the setPos function
+		//it only updates the gameobject x,y but the physics compnent (currently)
+		//overrides it with the collision box's location
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
+	}*/
+	GameObjects.AddObject(plFactory.Spawn(123456))->setPos(0, 400);
+
 	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
@@ -196,6 +208,17 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		int length = 20;
 		float loop = (var % length);
+
+		//physics testing stuff
+		PhysicsListener listener;
+		GameWorld* gameWorld = GameWorld::getInstance();
+		gameWorld->physicsWorld->SetContactListener(&listener);
+
+
+
+
+		gameWorld->update(); //update physics world
+		//end physics testing stuff
 
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
