@@ -201,7 +201,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posX = 31 + armor->posX;
 		//arm->posY = 43 + armor->posY;
 	
-	audioMan->playByName("bgmfostershome.ogg");
+	//audioMan->playByName("bgmfostershome.ogg");
 
 	while (gameloop) {
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();

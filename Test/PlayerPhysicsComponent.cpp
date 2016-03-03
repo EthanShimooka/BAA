@@ -35,6 +35,16 @@ void PlayerPhysicsComponent::init(){
 
 void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	cout << "player handling collision with object ID: " << otherObj->ID<<endl;
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
+		//do nothing or push past each other
+		break;
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		//take damage on self, maybe make a sqauaking sound?
+		break;
+	default:
+		break;
+	}
 }
 
 void PlayerPhysicsComponent::Update(){

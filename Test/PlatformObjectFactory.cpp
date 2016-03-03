@@ -20,6 +20,8 @@ GameObject* PlatformObjectFactory::Spawn(uint64_t PID)
 
 	platform->ID = PID;
 
+	platform->type = GAMEOBJECT_TYPE::OBJECT_PLATFORM;
+
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 

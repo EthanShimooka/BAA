@@ -33,6 +33,7 @@ void PlayerInputComponent::Update(){
 		}
 		if (input->isKeyDown(KEY_SPACE)) {
 			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
+			cout << body->GetLinearVelocity().x << endl;
 			//moving = true;
 		}
 		if (input->isKeyDown(KEY_S)) {

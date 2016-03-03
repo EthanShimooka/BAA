@@ -56,6 +56,8 @@ public:
 
 	/// Object ID
 	uint64_t ID;
+	/// type of game object
+	int type;
 	///World X Position
 	float posX;
 	///World Y Position
@@ -98,6 +100,15 @@ public:
 
 
 
+};
+
+enum GAMEOBJECT_TYPE {
+	OBJECT_PLAYER,
+	OBJECT_MINION,
+	OBJECT_PLATFORM,
+	OBJECT_SWTICH,
+	OBJECT_FEATHER
+	//we can keep on adding more as needed
 };
 
 #endif
