@@ -4,7 +4,7 @@
 PlayerNetworkComponent::PlayerNetworkComponent()
 {
 	//PlayerLogicComponent *
-	logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	//logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 }
 
 
@@ -16,7 +16,7 @@ void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int fi
 	OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
 	featherPacket->Write(NetworkManager::sInstance->kPosCC);
 	featherPacket->Write(gameObjectRef->ID);
-	featherPacket->Write(2);
+	featherPacket->Write((int)CM_ATTACK);
 	featherPacket->Write(ID);
 	featherPacket->Write(gameObjectRef->posX);
 	featherPacket->Write(gameObjectRef->posY);
@@ -30,7 +30,7 @@ void PlayerNetworkComponent::createMovementPacket(float x, float y){
 	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
-	outData->Write(1);
+	outData->Write((int)CM_MOVE);
 	//outData.Write(testNum++);
 	outData->Write(gameObjectRef->posX);
 	outData->Write(gameObjectRef->posY);
@@ -39,7 +39,7 @@ void PlayerNetworkComponent::createMovementPacket(float x, float y){
 
 void PlayerNetworkComponent::Update(){
 	while (!incomingPackets.empty()){
-		//PlayerLogicComponent *logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		PlayerLogicComponent *logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		InputMemoryBitStream packet = incomingPackets.front();
 		int mCommand;
 
@@ -96,7 +96,7 @@ void PlayerNetworkComponent::Update(){
 		OutputMemoryBitStream outData;
 		outData.Write(NetworkManager::sInstance->kPosCC);
 		outData.Write(gameObjectRef->ID);
-		outData.Write(1);
+		outData.Write((int)CM_MOVE);
 		//outData.Write(testNum++);
 		outData.Write(gameObjectRef->posX);
 		outData.Write(gameObjectRef->posY);

@@ -13,7 +13,7 @@ typedef enum {
 	CM_JUMP    = 5,
 }COMMAND_TYPE;
 
-class PlayerLogicComponent;
+
 
 class PlayerNetworkComponent : public NetworkComponent
 {
@@ -30,7 +30,7 @@ public:
 	void createMovementPacket(float x, float y);
 
 	/// Pointer to the player logic component
-	PlayerLogicComponent *logic;
+	//PlayerLogicComponent *logic;
 };
 
 #endif
