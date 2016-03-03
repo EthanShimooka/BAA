@@ -45,20 +45,28 @@ void PlayerNetworkComponent::Update(){
 
 		packet.Read(mCommand);
 		switch (mCommand){
-		case CM_INVALID:
+		case COMMAND_TYPE::CM_INVALID:
 			//handle 
 			break;
-		case CM_MOVE:
+		case COMMAND_TYPE::CM_MOVE:
 			//handle movement
 			//int t;
 			//packet.Read(t);
 			//if (testNum < t){
-			packet.Read(gameObjectRef->posX);
+			float x;
+			packet.Read(x);
+			if (gameObjectRef->posX > x){
+				gameObjectRef->flipH = true;
+			}
+			else if (gameObjectRef->posX < x){
+				gameObjectRef->flipH = false;
+			}
+			//packet.Read(gameObjectRef->posX);
 			packet.Read(gameObjectRef->posY);
 			//testNum = t;
 			//}
 			break;
-		case CM_ATTACK:
+		case COMMAND_TYPE::CM_ATTACK:
 			uint64_t ID;
 			float initialX, initialY;
 			int destX, destY;
@@ -69,13 +77,13 @@ void PlayerNetworkComponent::Update(){
 			packet.Read(destY);
 			logic->spawnFeather(ID, initialX, initialY, destX, destY);
 			break;
-		case CM_ABILITY:
+		case COMMAND_TYPE::CM_ABILITY:
 			//handle 
 			break;
-		case CM_DIE:
+		case COMMAND_TYPE::CM_DIE:
 			//handle 
 			break;
-		case CM_JUMP:
+		case COMMAND_TYPE::CM_JUMP:
 			//handle 
 			break;
 		default:

@@ -40,17 +40,6 @@ void PlayerInputComponent::Update()
 		logic->spawnFeather(input->getMouseX(), input->getMouseY());
 		PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		net->createFeatherPacket(0, input->getMouseX(), input->getMouseY());
-		//OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
-		//featherPacket->Write(NetworkManager::sInstance->kPosCC);
-		//featherPacket->Write(gameObjectRef->ID);
-		//featherPacket->Write(2);
-		//featherPacket->Write((uint64_t)0);
-		//featherPacket->Write(gameObjectRef->posX);
-		//featherPacket->Write(gameObjectRef->posY);
-		//featherPacket->Write(input->getMouseX());
-		//featherPacket->Write(input->getMouseY());
-		////cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
-		//net->outgoingPackets.push(featherPacket);
 	}
 
 
