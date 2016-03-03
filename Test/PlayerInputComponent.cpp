@@ -24,10 +24,13 @@ void PlayerInputComponent::Update(){
 		if (input->isKeyDown(KEY_D)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
+			gameObjectRef->flipH = false;
 		}
 		if (input->isKeyDown(KEY_A)) {
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
-			moving = true;		}
+			moving = true;		
+			gameObjectRef->flipH = true;
+		}
 		if (input->isKeyDown(KEY_SPACE)) {
 			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
 			//moving = true;
