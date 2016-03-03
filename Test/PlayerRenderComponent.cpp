@@ -3,6 +3,8 @@
 
 PlayerRenderComponent::PlayerRenderComponent()
 {
+	RenderComponent::RenderComponent();
+	lasttime;
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
@@ -38,7 +40,7 @@ PlayerRenderComponent::PlayerRenderComponent()
 	list<motion> motions;
 	motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
 	motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
-	Animation* idle = new Animation(20,motions);
+	Animation* idle = new Animation(400,motions);
 	animations["idle"] = idle;
 	auto ani = animations["idle"];
 	auto ani2 = &animations["idle"];
@@ -54,23 +56,7 @@ PlayerRenderComponent::~PlayerRenderComponent()
 
 void PlayerRenderComponent::Update(){
 	RenderComponent::Update();
-	if (currentAnimation){
-		progress += 1;
-
-		while (progress >= currentAnimation->duration){
-			progress -= currentAnimation->duration;
-			if (nextAnimation){
-				currentAnimation = nextAnimation;
-				//queue next animation through a switch statement
-			}
-			else{
-				currentAnimation = animations["idle"];
-			}
-		}
-		float curr = currentAnimation->lengthConversion(progress);
-		auto len = currentAnimation->duration;
-		currentAnimation->animate(curr);
-	}
+	RenderComponent::animate();
 }
 
 

@@ -20,6 +20,7 @@
 #include "Component.h"
 #include "include\SDLRenderObject.h"
 #include "include\AnimationLibrary.h"
+#include "time.h"
 
 #include <unordered_map>
 
@@ -71,6 +72,8 @@ public:
 	virtual void Update();
 	/// animation setter
 	void setAnimation(string name);
+	/// animate based on current animation
+	void animate();
 };
 
 #endif
