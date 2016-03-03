@@ -3,6 +3,8 @@
 
 PlayerNetworkComponent::PlayerNetworkComponent()
 {
+	//PlayerLogicComponent *
+	logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 }
 
 
@@ -10,14 +12,36 @@ PlayerNetworkComponent::~PlayerNetworkComponent()
 {
 }
 
+void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int finalY){
+	OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
+	featherPacket->Write(NetworkManager::sInstance->kPosCC);
+	featherPacket->Write(gameObjectRef->ID);
+	featherPacket->Write(2);
+	featherPacket->Write(ID);
+	featherPacket->Write(gameObjectRef->posX);
+	featherPacket->Write(gameObjectRef->posY);
+	featherPacket->Write(finalX);
+	featherPacket->Write(finalY);
+	//cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
+	outgoingPackets.push(featherPacket);
+}
+
+void PlayerNetworkComponent::createMovementPacket(float x, float y){
+	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write(1);
+	//outData.Write(testNum++);
+	outData->Write(gameObjectRef->posX);
+	outData->Write(gameObjectRef->posY);
+	outgoingPackets.push(outData);
+}
 
 void PlayerNetworkComponent::Update(){
 	while (!incomingPackets.empty()){
+		//PlayerLogicComponent *logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		InputMemoryBitStream packet = incomingPackets.front();
 		int mCommand;
-
-		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-
 
 		packet.Read(mCommand);
 		switch (mCommand){
@@ -43,8 +67,7 @@ void PlayerNetworkComponent::Update(){
 			packet.Read(initialY);
 			packet.Read(destX);
 			packet.Read(destY);
-			//
-			logic->spawnFeather(ID, initialX, initialY, destX, destY);;
+			logic->spawnFeather(ID, initialX, initialY, destX, destY);
 			break;
 		case CM_ABILITY:
 			//handle 
@@ -65,6 +88,7 @@ void PlayerNetworkComponent::Update(){
 	while (!outgoingPackets.empty()){
 		OutputMemoryBitStream* outData = outgoingPackets.front();
 		NetworkManager::sInstance->sendPacketToAllPeers(*outData);
+		delete outData;
 		outgoingPackets.pop();
 	}
 

@@ -1,5 +1,6 @@
 #include "test.h"
 #include <functional>
+#include <crtdbg.h>
 
 //#include "include\network\NetIncludes.h"
 
@@ -218,6 +219,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << renderMan << endl;
 
 	log->close();
+	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 	return 0;
 }
 void init(){

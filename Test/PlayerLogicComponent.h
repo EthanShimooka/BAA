@@ -33,7 +33,7 @@ public:
 	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY);
 
 	FeatherObjectFactory fFactory;
-	int featherNum = 0;
+	uint64_t featherNum = 0;
 };
 
 #endif

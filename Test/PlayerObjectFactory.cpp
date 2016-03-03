@@ -44,9 +44,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 	player->AddComponent(COMPONENT_RENDER,rend);
 
 
-	PlayerNetworkComponent* net = new PlayerNetworkComponent();
-	net->gameObjectRef = player; //set components container refrence to this gameObject
-	player->AddComponent(COMPONENT_NETWORK, net);
+	
 
 
 	PlayerLogicComponent* logic = new PlayerLogicComponent();
@@ -56,6 +54,10 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 	PlayerPhysicsComponent* physics = new PlayerPhysicsComponent();
 	physics->gameObjectRef = player; //set components container refrence to this gameObject
 	player->AddComponent(COMPONENT_PHYSICS, physics);
+
+	PlayerNetworkComponent* net = new PlayerNetworkComponent();
+	net->gameObjectRef = player; //set components container refrence to this gameObject
+	player->AddComponent(COMPONENT_NETWORK, net);
 	
 	return player;
 }
