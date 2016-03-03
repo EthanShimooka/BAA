@@ -14,6 +14,7 @@ public:
 		: initialX(_initialX), initialY(_initialY), length(_length), walkRight(true)
 	{
 		gameObjectRef = minion;
+		gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	}
 	/// Destructor
 	~MinionLogicComponent();
