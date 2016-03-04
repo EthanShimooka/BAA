@@ -7,14 +7,18 @@
 // #include "LogManager.h"
 
 using namespace std;
-
+const int JOYSTICK_DEAD_ZONE = 6000;
 InputManager* InputManager::inputInstance = nullptr;
 
 // constructor
 InputManager::InputManager() :keyboardState(nullptr), mouseState(0),
-	mouseX(0), mouseY(0), locked(false) {
+mouseX(0), mouseY(0), locked(false) {
 	mouseDown.resize(MOUSE_SIZE);
 	mouseUp.resize(MOUSE_SIZE);
+	joystickButton.resize(JOYSTICK_MAX);
+	joystickAnalogs.resize(4);
+	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+	isJoystickAvailable();
 };
 
 InputManager* InputManager::getInstance() {
@@ -34,44 +38,77 @@ void InputManager::update() {
 	}
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
-//	int index;
+	//	int index;
 	SDL_Event ev;
 	while (SDL_PollEvent(&ev)) {
 		switch (ev.type) {
+		case SDL_QUIT:
+			cout << "quit the game" << endl;
+			break;
 			// SDL_MouseButtonEvent
-			case SDL_MOUSEBUTTONDOWN:
-				if (ev.button.button == SDL_BUTTON_LEFT) {
-					this->mouseDown[MOUSE_LEFT] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_MIDDLE) {
-					this->mouseDown[MOUSE_MIDDLE] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_RIGHT) {
-					this->mouseDown[MOUSE_RIGHT] = 1;
-				}
-				break;
-			case SDL_MOUSEBUTTONUP:
-				if (ev.button.button == SDL_BUTTON_LEFT) {
-					this->mouseUp[MOUSE_LEFT] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_MIDDLE) {
-					this->mouseUp[MOUSE_MIDDLE] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_RIGHT) {
-					this->mouseUp[MOUSE_RIGHT] = 1;
-				}
-				break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (ev.button.button == SDL_BUTTON_LEFT) {
+				cout << "left" << endl;
+				this->mouseDown[MOUSE_LEFT] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
+				this->mouseDown[MOUSE_MIDDLE] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_RIGHT) {
+				this->mouseDown[MOUSE_RIGHT] = 1;
+			}
+			break;
+		case SDL_MOUSEBUTTONUP:
+			if (ev.button.button == SDL_BUTTON_LEFT) {
+				this->mouseUp[MOUSE_LEFT] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
+				this->mouseUp[MOUSE_MIDDLE] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_RIGHT) {
+				this->mouseUp[MOUSE_RIGHT] = 1;
+			}
+			break;
 			// SDL_MouseWheelEvent
-			case SDL_MOUSEWHEEL:
-				break;
+		case SDL_MOUSEWHEEL:
+			break;
 			// SDL_MouseMotionEvent
-			case SDL_MOUSEMOTION:
-				// store mouse location
-				this->mouseX = ev.motion.x;
-				this->mouseY = ev.motion.y;
-				break;
-			default:
-				break;
+		case SDL_MOUSEMOTION:
+			// store mouse location
+			this->mouseX = ev.motion.x;
+			this->mouseY = ev.motion.y;
+			break;
+		case SDL_JOYBUTTONDOWN:
+			this->joystickButton[ev.jbutton.button] = true;
+			cout << "joystick button pressed down" << endl;
+			break;
+		case SDL_JOYBUTTONUP:
+			this->joystickButton[ev.jbutton.button] = false;
+			cout << "joystick button pressed up" << endl;
+			break;
+		case SDL_JOYAXISMOTION:
+			//X axis motion
+			//cout << "axis value: " << ev.jaxis.value << endl;
+			if (ev.jaxis.axis == 0){
+				//out of dead zone
+				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
+					joystickAnalogs[0] = ev.jaxis.value / 32767;
+				}
+				else{
+					joystickAnalogs[0] = 0;
+				}
+			}//Y axis motion
+			else if (ev.jaxis.axis == 1){
+				//Below of dead zone
+				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
+					joystickAnalogs[1] = ev.jaxis.value / 32767;
+				}
+				else{
+					joystickAnalogs[1] = 0;
+				}
+			}
+		default:
+			break;
 		}
 	}
 	keyboardState = SDL_GetKeyboardState(nullptr);
@@ -135,4 +172,39 @@ void InputManager::lock() {
 
 void InputManager::unlock() {
 	this->locked = false;
+}
+
+
+bool InputManager::isJoystickAvailable(){
+	SDL_JoystickEventState(SDL_ENABLE);
+	SDL_Joystick *joystick;
+	joystick = SDL_JoystickOpen(0);
+	if (SDL_NumJoysticks() < 1)return false;
+	else return true;
+}
+
+bool InputManager::isJoystickUp(int b) {
+	if (this->locked) return false;
+	if (b < 0 || b >= JOYSTICK_MAX) return false;
+	return this->joystickButton[b];
+}
+
+bool InputManager::isJoystickDown(int b) {
+	if (this->locked) return false;
+	if (b < 0 || b >= JOYSTICK_MAX) return false;
+	return this->joystickButton[b];
+}
+
+double InputManager::getLeftThumbX(){
+	return joystickAnalogs[0];
+}
+double InputManager::getLeftThumbY(){
+	return joystickAnalogs[1];
+}
+
+double InputManager::getRightThumbX(){
+	return 0;
+}
+double InputManager::getRightThumbY(){
+	return 0;
 }

@@ -21,17 +21,17 @@ void PlayerInputComponent::Update(){
 		//handle input for moving
 		bool moving = false;
 		float speed = 60.0f;
-		if (input->isKeyDown(KEY_D)) {
+		if (input->isKeyDown(KEY_D)||input->isJoystickDown(JOYSTICK_B)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
 			gameObjectRef->flipH = false;
 		}
-		if (input->isKeyDown(KEY_A)) {
+		if (input->isKeyDown(KEY_A) || input->isJoystickDown(JOYSTICK_X)) {
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
 			moving = true;		
 			gameObjectRef->flipH = true;
 		}
-		if (input->isKeyDown(KEY_SPACE)) {
+		if (input->isKeyDown(KEY_SPACE) || input->isJoystickDown(JOYSTICK_A)) {
 			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
 			//moving = true;
 		}

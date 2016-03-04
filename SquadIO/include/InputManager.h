@@ -39,9 +39,26 @@ public:
 	// return true if mouseup
 	SQUADIO_API bool isMouseUp(int b);
 
+	// return true if controller plugged in
+	SQUADIO_API bool isJoystickAvailable();
+
+	// return true if joystick input up
+	SQUADIO_API bool isJoystickUp(int b);
+
+	// return true if joystick input up
+	SQUADIO_API bool isJoystickDown(int b);
+
 	// get mouse x and y positions
 	SQUADIO_API int getMouseX();
 	SQUADIO_API int getMouseY();
+
+	// get x and y positions of left thumbstick
+	SQUADIO_API double getLeftThumbX();
+	SQUADIO_API double getLeftThumbY();
+
+	// get x and y positions of right thumbstick
+	SQUADIO_API double getRightThumbX();
+	SQUADIO_API double getRightThumbY();
 
 	// lock and unlock input
 	SQUADIO_API void lock();
@@ -59,7 +76,7 @@ protected:
 private:
 	// keyboard state
 	const uint8_t* keyboardState;
-	
+
 	// mouse state
 	uint8_t mouseState;
 
@@ -69,6 +86,9 @@ private:
 	// mouse states
 	vector<int> mouseDown;
 	vector<int> mouseUp;
+	vector<bool>joystickButton;
+	vector<double> joystickAnalogs;
+
 
 	// keyboard input allowed or not
 	bool locked;
