@@ -35,6 +35,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 			gameObjectRef->isAlive = false;
+			gameObjectRef->setPos(-500, -500);
 			break;
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//just push each other around. Most likely done for us by box2d already
@@ -47,6 +48,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 void MinionPhysicsComponent::Update(){
 	//gameObjectRef->posX = mBody->GetPosition().x;
 	gameObjectRef->posY = mBody->GetPosition().y;
+	if (!gameObjectRef->isAlive)
+		mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
 }
 

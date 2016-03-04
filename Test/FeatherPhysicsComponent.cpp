@@ -37,6 +37,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//destroy self or return to object pool
 			gameObjectRef->isAlive = false;
+			gameObjectRef->setPos(-500, -500);
 			break;
 		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 			//destroy self or return to object pool
