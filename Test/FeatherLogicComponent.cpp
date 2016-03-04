@@ -20,4 +20,10 @@ FeatherLogicComponent::~FeatherLogicComponent()
 
 void FeatherLogicComponent::Update(){
 	gameObjectRef->setPos(gameObjectRef->posX + x/15, gameObjectRef->posY + y/15);
+	if (gameObjectRef->posX > 350 || gameObjectRef->posX < -350){
+		gameObjectRef->isAlive = false;
+	}
+	if (gameObjectRef->posY > 350 || gameObjectRef->posY < -350){
+		gameObjectRef->isAlive = false;
+	}
 }

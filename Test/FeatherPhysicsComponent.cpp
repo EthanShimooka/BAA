@@ -20,8 +20,7 @@ void FeatherPhysicsComponent::init(){
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(10, 10); // look up other functions for polygons
-	//b2FixtureDef boxFixtureDef;
+	box.SetAsBox(100, 100); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -38,7 +37,6 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//destroy self or return to object pool
 			gameObjectRef->isAlive = false;
-			cout << "@@@@@@@@@@@@@@@@@@@@@@@@@ feather -> minion" << endl;
 			break;
 		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 			//destroy self or return to object pool
@@ -49,5 +47,5 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void FeatherPhysicsComponent::Update() {
-
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 }

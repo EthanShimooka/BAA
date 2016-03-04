@@ -19,8 +19,7 @@ void MinionPhysicsComponent::init(){
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(50, 50); // look up other functions for polygons
-	//b2FixtureDef boxFixtureDef;
+	box.SetAsBox(16, 16); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -36,7 +35,6 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 			gameObjectRef->isAlive = false;
-			cout << "@@@@@@@@@@@@@@@@@@@@@@@@@ minion - > feather" << endl;
 			break;
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//just push each other around. Most likely done for us by box2d already
@@ -47,7 +45,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void MinionPhysicsComponent::Update(){
-	gameObjectRef->posX = mBody->GetPosition().x;
+	//gameObjectRef->posX = mBody->GetPosition().x;
 	gameObjectRef->posY = mBody->GetPosition().y;
 	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
 }

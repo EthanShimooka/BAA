@@ -19,8 +19,8 @@ void PlayerPhysicsComponent::init(){
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1,1); // look up other functions for polygons
-	//b2FixtureDef boxFixtureDef;
+	//box.SetAsBox(471, 480); // look up other functions for polygons
+	box.SetAsBox(75, 75);
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);

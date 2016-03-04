@@ -108,14 +108,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
 		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
 	}*/
-	GameObjects.AddObject(plFactory.Spawn(123456, -100, -100, 0));
+	//GameObjects.AddObject(plFactory.Spawn(123456, 0, 200, 0));
+	GameObjects.AddObject(plFactory.Spawn(321556, 0, 175, 0));
 
 	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
-
-	for (auto& obj : GameObjects.alive_objects){
-		if (!obj->isAlive)
-			cout << obj->ID << endl;
-	}
 
 
 	/////////////////////////////////////////////////////
@@ -123,6 +119,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	int var = 0;
+
 	/*
 	auto up = rotateTransform(arm, 0, 180);
 	auto down = rotateTransform(arm, 180, 0);
@@ -209,6 +206,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//audioMan->playByName("bgmfostershome.ogg");
 
 	while (gameloop) {
+
+		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
+			if (!GameObjects.alive_objects[i]->isAlive){
+				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
+				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			}
+		}
+
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		int length = 20;
