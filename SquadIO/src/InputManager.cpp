@@ -15,7 +15,9 @@ InputManager::InputManager() :keyboardState(nullptr), mouseState(0),
 mouseX(0), mouseY(0), locked(false) {
 	mouseDown.resize(MOUSE_SIZE);
 	mouseUp.resize(MOUSE_SIZE);
-	joystickButton.resize(JOYSTICK_MAX);
+	joystickButtonHeld.resize(JOYSTICK_MAX);
+	joystickButtonPressed.resize(JOYSTICK_MAX);
+	joystickButtonReleased.resize(JOYSTICK_MAX);
 	joystickAnalogs.resize(4);
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	isJoystickAvailable();
@@ -35,6 +37,10 @@ void InputManager::update() {
 	for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;
 		this->mouseUp[i] = 0;
+	}
+	for (int i = 0; i < JOYSTICK_MAX; i++) {
+		joystickButtonPressed[i]=false;
+		joystickButtonReleased[i] = false;
 	}
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
@@ -79,11 +85,13 @@ void InputManager::update() {
 			this->mouseY = ev.motion.y;
 			break;
 		case SDL_JOYBUTTONDOWN:
-			this->joystickButton[ev.jbutton.button] = true;
+			joystickButtonPressed[ev.jbutton.button] = true;
+			joystickButtonHeld[ev.jbutton.button] = true;
 			cout << "joystick button pressed down" << endl;
 			break;
 		case SDL_JOYBUTTONUP:
-			this->joystickButton[ev.jbutton.button] = false;
+			joystickButtonReleased[ev.jbutton.button] = true;
+			this->joystickButtonHeld[ev.jbutton.button] = false;
 			cout << "joystick button pressed up" << endl;
 			break;
 		case SDL_JOYAXISMOTION:
@@ -92,7 +100,7 @@ void InputManager::update() {
 			if (ev.jaxis.axis == 0){
 				//out of dead zone
 				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
-					joystickAnalogs[0] = ev.jaxis.value / 32767;
+					joystickAnalogs[0] = ev.jaxis.value / 32767.0;
 				}
 				else{
 					joystickAnalogs[0] = 0;
@@ -101,7 +109,7 @@ void InputManager::update() {
 			else if (ev.jaxis.axis == 1){
 				//Below of dead zone
 				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
-					joystickAnalogs[1] = ev.jaxis.value / 32767;
+					joystickAnalogs[1] = ev.jaxis.value / 32767.0;
 				}
 				else{
 					joystickAnalogs[1] = 0;
@@ -183,16 +191,28 @@ bool InputManager::isJoystickAvailable(){
 	else return true;
 }
 
+bool InputManager::isJoystickPressed(int b) {
+	if (this->locked) return false;
+	if (b < 0 || b >= JOYSTICK_MAX) return false;
+	return this->joystickButtonPressed[b];
+}
+
+bool InputManager::isJoystickReleased(int b) {
+	if (this->locked) return false;
+	if (b < 0 || b >= JOYSTICK_MAX) return false;
+	return this->joystickButtonReleased[b];
+}
+
 bool InputManager::isJoystickUp(int b) {
 	if (this->locked) return false;
 	if (b < 0 || b >= JOYSTICK_MAX) return false;
-	return this->joystickButton[b];
+	return !joystickButtonHeld[b];
 }
 
 bool InputManager::isJoystickDown(int b) {
 	if (this->locked) return false;
 	if (b < 0 || b >= JOYSTICK_MAX) return false;
-	return this->joystickButton[b];
+	return this->joystickButtonHeld[b];
 }
 
 double InputManager::getLeftThumbX(){

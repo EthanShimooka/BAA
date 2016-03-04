@@ -48,6 +48,12 @@ public:
 	// return true if joystick input up
 	SQUADIO_API bool isJoystickDown(int b);
 
+	/// return true on first frame pressed
+	SQUADIO_API bool isJoystickPressed(int b);
+
+	/// return true on first frame released
+	SQUADIO_API bool isJoystickReleased(int b);
+
 	// get mouse x and y positions
 	SQUADIO_API int getMouseX();
 	SQUADIO_API int getMouseY();
@@ -86,7 +92,10 @@ private:
 	// mouse states
 	vector<int> mouseDown;
 	vector<int> mouseUp;
-	vector<bool>joystickButton;
+
+	vector<bool>joystickButtonPressed;
+	vector<bool>joystickButtonHeld;
+	vector<bool>joystickButtonReleased;
 	vector<double> joystickAnalogs;
 
 

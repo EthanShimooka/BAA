@@ -21,7 +21,8 @@ void PlayerInputComponent::Update(){
 		//handle input for moving
 		bool moving = false;
 		float speed = 60.0f;
-		if (input->isKeyDown(KEY_D)||input->isJoystickDown(JOYSTICK_B)) {
+		body->SetLinearVelocity(b2Vec2(input->getLeftThumbX()*speed, body->GetLinearVelocity().y));
+		if (input->isKeyDown(KEY_D)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
 			gameObjectRef->flipH = false;
@@ -31,8 +32,8 @@ void PlayerInputComponent::Update(){
 			moving = true;		
 			gameObjectRef->flipH = true;
 		}
-		if (input->isKeyDown(KEY_SPACE) || input->isJoystickDown(JOYSTICK_A)) {
-			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
+		if (input->isKeyDown(KEY_SPACE) || input->isJoystickPressed(JOYSTICK_A)) {
+			body->SetLinearVelocity(b2Vec2(15*body->GetLinearVelocity().x, -speed));
 			//moving = true;
 		}
 		if (input->isKeyDown(KEY_S)) {
