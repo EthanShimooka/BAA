@@ -18,21 +18,22 @@ void PlayerInputComponent::Update(){
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		InputManager* input = InputManager::getInstance();
+		Controller* controller = input->controller;
 		//handle input for moving
 		bool moving = false;
 		float speed = 60.0f;
-		body->SetLinearVelocity(b2Vec2(input->getLeftThumbX()*speed, body->GetLinearVelocity().y));
+		body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*speed, body->GetLinearVelocity().y));
 		if (input->isKeyDown(KEY_D)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
 			gameObjectRef->flipH = false;
 		}
-		if (input->isKeyDown(KEY_A) || input->isJoystickDown(JOYSTICK_X)) {
+		if (input->isKeyDown(KEY_A) || controller->isJoystickDown(JOYSTICK_X)) {
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
 			moving = true;		
 			gameObjectRef->flipH = true;
 		}
-		if (input->isKeyDown(KEY_SPACE) || input->isJoystickPressed(JOYSTICK_A)) {
+		if (input->isKeyDown(KEY_SPACE) || controller->isJoystickPressed(JOYSTICK_A)) {
 			body->SetLinearVelocity(b2Vec2(15*body->GetLinearVelocity().x, -speed));
 			//moving = true;
 		}
@@ -47,7 +48,8 @@ void PlayerInputComponent::Update(){
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			net->createFeatherPacket(0, input->getMouseX(), input->getMouseY());
 		}
-
+		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
+		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
 	}
 }
 

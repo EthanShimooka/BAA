@@ -15,12 +15,7 @@ InputManager::InputManager() :keyboardState(nullptr), mouseState(0),
 mouseX(0), mouseY(0), locked(false) {
 	mouseDown.resize(MOUSE_SIZE);
 	mouseUp.resize(MOUSE_SIZE);
-	joystickButtonHeld.resize(JOYSTICK_MAX);
-	joystickButtonPressed.resize(JOYSTICK_MAX);
-	joystickButtonReleased.resize(JOYSTICK_MAX);
-	joystickAnalogs.resize(4);
-	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
-	isJoystickAvailable();
+	controller = new Controller();
 };
 
 InputManager* InputManager::getInstance() {
@@ -39,8 +34,8 @@ void InputManager::update() {
 		this->mouseUp[i] = 0;
 	}
 	for (int i = 0; i < JOYSTICK_MAX; i++) {
-		joystickButtonPressed[i]=false;
-		joystickButtonReleased[i] = false;
+		controller->joystickButtonPressed[i] = false;
+		controller->joystickButtonReleased[i] = false;
 	}
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
@@ -85,14 +80,12 @@ void InputManager::update() {
 			this->mouseY = ev.motion.y;
 			break;
 		case SDL_JOYBUTTONDOWN:
-			joystickButtonPressed[ev.jbutton.button] = true;
-			joystickButtonHeld[ev.jbutton.button] = true;
-			cout << "joystick button pressed down" << endl;
+			controller->joystickButtonPressed[ev.jbutton.button] = true;
+			controller->joystickButtonHeld[ev.jbutton.button] = true;
 			break;
 		case SDL_JOYBUTTONUP:
-			joystickButtonReleased[ev.jbutton.button] = true;
-			this->joystickButtonHeld[ev.jbutton.button] = false;
-			cout << "joystick button pressed up" << endl;
+			controller->joystickButtonReleased[ev.jbutton.button] = true;
+			controller->joystickButtonHeld[ev.jbutton.button] = false;
 			break;
 		case SDL_JOYAXISMOTION:
 			//X axis motion
@@ -100,19 +93,19 @@ void InputManager::update() {
 			if (ev.jaxis.axis == 0){
 				//out of dead zone
 				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
-					joystickAnalogs[0] = ev.jaxis.value / 32767.0;
+					controller->joystickAnalogs[0] = ev.jaxis.value / 32767.0;
 				}
 				else{
-					joystickAnalogs[0] = 0;
+					controller->joystickAnalogs[0] = 0;
 				}
 			}//Y axis motion
 			else if (ev.jaxis.axis == 1){
 				//Below of dead zone
 				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
-					joystickAnalogs[1] = ev.jaxis.value / 32767.0;
+					controller->joystickAnalogs[1] = ev.jaxis.value / 32767.0;
 				}
 				else{
-					joystickAnalogs[1] = 0;
+					controller->joystickAnalogs[1] = 0;
 				}
 			}
 		default:
@@ -183,48 +176,3 @@ void InputManager::unlock() {
 }
 
 
-bool InputManager::isJoystickAvailable(){
-	SDL_JoystickEventState(SDL_ENABLE);
-	SDL_Joystick *joystick;
-	joystick = SDL_JoystickOpen(0);
-	if (SDL_NumJoysticks() < 1)return false;
-	else return true;
-}
-
-bool InputManager::isJoystickPressed(int b) {
-	if (this->locked) return false;
-	if (b < 0 || b >= JOYSTICK_MAX) return false;
-	return this->joystickButtonPressed[b];
-}
-
-bool InputManager::isJoystickReleased(int b) {
-	if (this->locked) return false;
-	if (b < 0 || b >= JOYSTICK_MAX) return false;
-	return this->joystickButtonReleased[b];
-}
-
-bool InputManager::isJoystickUp(int b) {
-	if (this->locked) return false;
-	if (b < 0 || b >= JOYSTICK_MAX) return false;
-	return !joystickButtonHeld[b];
-}
-
-bool InputManager::isJoystickDown(int b) {
-	if (this->locked) return false;
-	if (b < 0 || b >= JOYSTICK_MAX) return false;
-	return this->joystickButtonHeld[b];
-}
-
-double InputManager::getLeftThumbX(){
-	return joystickAnalogs[0];
-}
-double InputManager::getLeftThumbY(){
-	return joystickAnalogs[1];
-}
-
-double InputManager::getRightThumbX(){
-	return 0;
-}
-double InputManager::getRightThumbY(){
-	return 0;
-}
