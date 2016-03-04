@@ -20,7 +20,7 @@ public:
 	~PlatformObjectFactory();
 
 	/// Creates a new minion GameObject
-	GameObject * Spawn(uint64_t PID);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, float length);
 
 };
 

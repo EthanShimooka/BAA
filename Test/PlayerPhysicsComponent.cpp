@@ -20,21 +20,20 @@ void PlayerPhysicsComponent::init(){
 
 	b2PolygonShape box;
 	box.SetAsBox(1,1); // look up other functions for polygons
-	b2FixtureDef boxFixtureDef;
+	//b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
-	mFixture=mBody->CreateFixture(&boxFixtureDef);
+	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	//hardcoded for debugging purposes
-	mBody->SetTransform(b2Vec2(0,-10),0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
-	//setCollisionFilter(COLLISION_ALL);
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM);
 }
 
 
 
 void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
-	cout << "player handling collision with object ID: " << otherObj->ID<<endl;
+	cout << "PLAYER handling collision with object ID: " << otherObj->ID<<endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 		//do nothing or push past each other

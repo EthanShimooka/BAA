@@ -56,6 +56,8 @@ public:
 
 	/// Object ID
 	uint64_t ID;
+	/// Alive state
+	bool isAlive;
 	/// type of game object
 	int type;
 	///World X Position
@@ -107,7 +109,7 @@ enum GAMEOBJECT_TYPE {
 	OBJECT_MINION,
 	OBJECT_PLATFORM,
 	OBJECT_SWTICH,
-	OBJECT_FEATHER
+	OBJECT_FEATHER,
 	//we can keep on adding more as needed
 };
 

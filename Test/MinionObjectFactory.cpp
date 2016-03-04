@@ -20,6 +20,7 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, flo
 	GameObject* minion = new GameObject();
 
 	minion->ID = PID;
+	minion->isAlive = true;
 	minion->type = GAMEOBJECT_TYPE::OBJECT_MINION;
 	minion->setPos(posX, posY);
 

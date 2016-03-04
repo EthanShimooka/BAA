@@ -19,23 +19,24 @@ void MinionPhysicsComponent::init(){
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1,1); // look up other functions for polygons
-	b2FixtureDef boxFixtureDef;
+	box.SetAsBox(50, 50); // look up other functions for polygons
+	//b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
-	//setCollisionFilter(COLLISION_PLATFORM | COLLISION_FEATHER | COLLISION_PLAYER);
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_PLATFORM);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
-	cout << "minion handling collision with object ID: " << otherObj->ID << endl;
+	cout << "MINION handling collision with object ID: " << otherObj->ID << endl;
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-			//destroy self or return to object pool
+			gameObjectRef->isAlive = false;
+			cout << "@@@@@@@@@@@@@@@@@@@@@@@@@ minion - > feather" << endl;
 			break;
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//just push each other around. Most likely done for us by box2d already

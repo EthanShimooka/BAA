@@ -13,13 +13,14 @@ PlatformObjectFactory::~PlatformObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* PlatformObjectFactory::Spawn(uint64_t PID)
+GameObject* PlatformObjectFactory::Spawn(uint64_t PID, float posX, float posY, float length)
 {
 
 	GameObject* platform = new GameObject();
 
 	platform->ID = PID;
-
+	platform->setPos(posX, posY);
+	platform->isAlive = true;
 	platform->type = GAMEOBJECT_TYPE::OBJECT_PLATFORM;
 
 	// Minion Specific Render Component. In future will have flag

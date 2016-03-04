@@ -108,9 +108,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
 		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
 	}*/
-	GameObjects.AddObject(plFactory.Spawn(123456))->setPos(0, 400);
+	GameObjects.AddObject(plFactory.Spawn(123456, -100, -100, 0));
 
 	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
+
+	for (auto& obj : GameObjects.alive_objects){
+		if (!obj->isAlive)
+			cout << obj->ID << endl;
+	}
 
 
 	/////////////////////////////////////////////////////
