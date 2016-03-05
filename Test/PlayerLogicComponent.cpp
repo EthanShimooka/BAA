@@ -18,8 +18,9 @@ void PlayerLogicComponent::Update()
 }
 
 
-void PlayerLogicComponent::spawnFeather(int dx, int dy){
+uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy){
 	GameObjects.AddObject(fFactory.Spawn(featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy));
+	return featherNum - 1;
 }
 
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY){

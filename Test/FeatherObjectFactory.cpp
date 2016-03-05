@@ -19,6 +19,8 @@ GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, fl
 	GameObject* feather = new GameObject();
 
 	feather->ID = PID;
+	feather->isAlive = true;
+	feather->type = GAMEOBJECT_TYPE::OBJECT_FEATHER;
 	feather->setPos(posX, posY);
 
 	// Feather Specific Render Component. In future will have flag
