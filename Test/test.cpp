@@ -110,6 +110,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	}*/
 	//GameObjects.AddObject(plFactory.Spawn(123456, 0, 200, 0));
 	GameObjects.AddObject(plFactory.Spawn(321556, 0, 175, 0));
+	GameObjects.AddObject(plFactory.Spawn(543543, 0, 0, 0));
 
 	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 

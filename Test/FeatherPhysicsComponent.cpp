@@ -25,7 +25,7 @@ void FeatherPhysicsComponent::init(){
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
 
 	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION);
 }
@@ -48,5 +48,5 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void FeatherPhysicsComponent::Update() {
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
 }
