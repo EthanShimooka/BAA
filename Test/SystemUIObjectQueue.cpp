@@ -17,11 +17,18 @@ UIObject* SystemUIObjectQueue::AddObject(UIObject * obj){
 	return obj;
 }
 
-void SystemUIObjectQueue::DeleteObject(int g_id){
+void SystemUIObjectQueue::DeleteObject(UIType g_id){
 
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
-
-		//if (alive_objects[i].ID == g_id)
+		if (alive_objects[i]->ID == g_id){
+			alive_objects.erase(std::remove(alive_objects.begin(), alive_objects.end(), alive_objects[i]), alive_objects.end());
+		}
 	}
 
+}
+
+void SystemUIObjectQueue::DeleteObjects(){
+	for (unsigned int i = 0; i < alive_objects.size(); i++){
+		delete alive_objects[i];
+	}
 }

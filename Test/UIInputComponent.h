@@ -13,16 +13,22 @@ imput Components are derived.
 #ifndef UIINPUTCOMPONENT_H_INCLUDED
 #define UIINPUTCOMPONENT_H_INCLUDED
 
-
+#include "SystemUIObjectQueue.h"
 #include "UIComponent.h"
 
 class UIInputComponent : public UIComponent
 {
 public:
+	/// Constructor
 	UIInputComponent();
+	/// Destructor
 	~UIInputComponent();
 
+	/// Updates the UI object
 	void Update();
+
+	/// Determines if UI button has been pressed, returns true if pressed.
+	bool isButtonPressed(InputManager* input);
 
 };
 

@@ -15,12 +15,14 @@ public:
 
 	UIObject* AddObject(UIObject * obj);
 
-	void DeleteObject(int g_id);
+	void DeleteObject(UIType g_id);
+
+	void DeleteObjects();
 
 
 };
 
-//GLOBAL INSTANCE OF SYSTEMGAMEOBJECTQUEUE. Anywhere that includes this file can just use GameObjects like a local variable.
+//GLOBAL INSTANCE OF SYSTEMGAMEOBJECTQUEUE. Anywhere that includes this file can just UIObjects like a local variable.
 extern SystemUIObjectQueue UIObjects;
 
 #endif

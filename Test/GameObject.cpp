@@ -61,3 +61,9 @@ Component* GameObject::GetComponent(int c_type) {
 	}
 	return nullptr;
 }
+
+void GameObject::FreeComponents(GameObject* toFree) {
+	for (int i = 0; i < toFree->g_components.size(); i++){
+		delete toFree->g_components[i].component;
+	}
+}

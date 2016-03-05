@@ -186,6 +186,9 @@
     <ClInclude Include="UIComponent.h">
       <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="UIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

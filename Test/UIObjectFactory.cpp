@@ -13,7 +13,6 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	UIObject* uiObject = new UIObject();
 
 	uiObject->ID = PID;
-	uiObject->setPos(0, 0);
 
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually
@@ -31,6 +30,28 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 
 	UIRenderComponent* rend = new UIRenderComponent();
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
+	switch (PID){
+	case PLAY_BUTTON:
+		rend->uiObjectRef->setPos(240, 325);
+		rend->createUIType(PLAY_BUTTON);
+		break;
+	case JOIN_BUTTON:
+		rend->uiObjectRef->setPos(365, 325);
+		rend->createUIType(JOIN_BUTTON);
+		// in here we will want to add some functionallity to
+		// join a lobby or set a flag to join a lobby.
+		break;
+	case CANCEL_BUTTON:
+		rend->createUIType(CANCEL_BUTTON);
+		break;
+	case BACK_BUTTON:
+		rend->createUIType(BACK_BUTTON);
+		break;
+	case SCORE:
+		break;
+	case TIMER:
+		break;
+	}
 	uiObject->AddComponent(COMPONENT_RENDER, rend);
 
 	return uiObject;

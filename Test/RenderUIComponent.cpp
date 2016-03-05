@@ -28,8 +28,8 @@ void RenderUIComponent::Update(){
 
 	objRef->posX = uiObjectRef->posX;
 	objRef->posY = uiObjectRef->posY;
-	objRef->rotation = 0;
-	objRef->visible = visible;
+	objRef->rotation = uiObjectRef->rotation;
+	objRef->visible = uiObjectRef->visible;
 
 	//there is most likely more attributes to send over. update as needed
 }

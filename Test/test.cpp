@@ -1,4 +1,5 @@
 #include "test.h"
+#include "game.h"
 #include <functional>
 
 //#include "include\network\NetIncludes.h"
@@ -37,29 +38,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 	}
 */
-	int numPlayers = 1;
-
-	if (numPlayers != 1){
-		if (!GamerServices::StaticInit())
-			std::cout << "Failed to initialize Steam" << "\n";
-
-		if (!NetworkManager::StaticInit())
-			std::cout << "NetworkManager::StaticInit() failed!" << "\n";
-
-		while (true){
-			GamerServices::sInstance->Update();
-			NetworkManager::sInstance->ProcessIncomingPackets();
-			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-			if (NetworkManager::sInstance->GetState() == 4)
-				break;
-			if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
-				//NetworkManager::sInstance->GetAllPlayersInLobby();
-				NetworkManager::sInstance->TryReadyGame();
-			}
-		}
-	}
-	
-
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
@@ -86,7 +64,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SystemPhysicsUpdater sysPhysics;
 	SystemUIUpdater sysUI;
 
-
 	//SystemGameObjectQueue world;
 
 	/// ENTITIES
@@ -95,22 +72,26 @@ int _tmain(int argc, _TCHAR* argv[]){
 	FeatherObjectFactory fFactory;
 	UIObjectFactory uFactory;
 
-	/**/UIObjects.AddObject(uFactory.Spawn(BUTTON));
+	Game* Menu = new Game();
+	UIType choice;
+	choice = Menu->mainMenu(input, renderMan, sceneMan);
 
-	while (true){
 
-		input->update();
+	int numPlayers = 1;
 
-		if (input->isKeyDown(KEY_0))
-			break;
+	if (numPlayers != 1){
 
-		sysUI.UIUpdate(UIObjects.alive_objects);
-		sysInput.InputUpdate(UIObjects.alive_objects);
-		
-
-		input->update();
-
-		sceneMan->AssembleScene();
+		while (true){
+			GamerServices::sInstance->Update();
+			NetworkManager::sInstance->ProcessIncomingPackets();
+			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+			if (NetworkManager::sInstance->GetState() == 4)
+				break;
+			if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
+				//NetworkManager::sInstance->GetAllPlayersInLobby();
+				NetworkManager::sInstance->TryReadyGame();
+			}
+		}
 	}
 
 	if (numPlayers != 1){
@@ -194,8 +175,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int rotation = 0;
 	while (gameloop) {
 		input->update();
-		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
+		sysUI.UIUpdate(UIObjects.alive_objects);
+		sysInput.InputUpdate(UIObjects.alive_objects);
+
+		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 		//arm->rotation = var * 2;
 		//base->posX += listen->input_x;
 		//base->posY += listen->input_y;
@@ -282,7 +266,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-
+	
 	std::cout << renderMan << endl;
 
 	log->close();

@@ -19,7 +19,7 @@ public:
 
 	GameObject* AddObject(GameObject * obj);
 
-	void DeleteObject(int g_id);
+	void DeleteObject(uint64_t g_id);
 
 
 };

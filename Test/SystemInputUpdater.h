@@ -32,8 +32,6 @@ public:
 	void InputUpdate(std::vector<GameObject*> obj);
 
 	void InputUpdate(std::vector<UIObject*>obj);
-
-
 };
 
 #endif

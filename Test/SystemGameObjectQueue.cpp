@@ -19,11 +19,9 @@ GameObject* SystemGameObjectQueue::AddObject(GameObject * obj){
 	return obj;
 }
 
-void SystemGameObjectQueue::DeleteObject(int g_id){
-
+void SystemGameObjectQueue::DeleteObject(uint64_t g_id){
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
-
-		//if (alive_objects[i].ID == g_id)
+		//if (alive_objects[i]->ID == g_id)
+			
 	}
-	
 }

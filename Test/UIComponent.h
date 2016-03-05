@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "UIObject.h"
 #include "include\InputManager.h"
+#include "include\network\NetIncludes.h"
 
 class UIComponent : public Component
 {

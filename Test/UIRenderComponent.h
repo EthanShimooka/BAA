@@ -20,6 +20,9 @@ public:
 	UIRenderComponent();
 	/// Destructor
 	~UIRenderComponent();
+
+	/// Create a new UI object
+	void createUIType(UIType ID);
 	/// Update
 	void Update();
 };

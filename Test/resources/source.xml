@@ -25,6 +25,10 @@
 <resource UID="4" type="audio" filename="Meow.ogg" scenescope="2"></resource>
 <resource UID="5" type="audio" filename="bear.wav" scenescope="0"></resource>
 <resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
+<resource UID="21" type="graphic" filename="join.png" scenescope="0"></resource>
+<resource UID="22" type="graphic" filename="cancel.png" scenescope="0"></resource>
+<resource UID="23" type="graphic" filename="back.png" scenescope="0"></resource>
+
 
 
 </resources>

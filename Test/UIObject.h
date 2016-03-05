@@ -24,8 +24,13 @@ const int BUTTON_WIDTH = 100;
 const int BUTTON_HEIGHT = 50;
 
 enum UIType{
-	BUTTON = 1,
-	HUD = 2,
+	PLAY_BUTTON = 1,
+	CANCEL_BUTTON = 2,
+	BACK_BUTTON = 3,
+	JOIN_BUTTON = 4,
+	SCORE = 5,
+	TIMER = 6,
+	BEGIN_MENU = 7,
 };
 
 /// t_component struct contains a component and a int enumerating its type
@@ -44,7 +49,7 @@ public:
 	/// Constructor
 	UIObject();
 	/// Constructor
-	UIObject(float x, float y);
+	UIObject(float x, float y, float r, float s);
 	/// Destructor
 	~UIObject();
 
@@ -55,6 +60,15 @@ public:
 	float posX;
 	///Screen Y Position
 	float posY;
+
+	///Rotation
+	float rotation;
+
+	///Scale
+	float scale;
+
+	/// Visible
+	bool visible = false;
 
 	/// virtual update function
 	virtual void update(){};
@@ -74,11 +88,17 @@ public:
 	/// Set postion of UIObject
 	void setPos(float x, float y);
 
+	/// Set the rotation for this object.
+	void setRotation(float r);
+
+	/// Set the scale for this object
+	void setScale(float s);
+
 	/// To Be Implemented
 
 	///	void AttachComponent(ComponentType, argumentList, name);
 
-	///	void DetachComponent(name)
+	void DetachComponent();
 
 
 	///	void UpdateComponentType(ComponentType typeOfComponentToUpdate);
