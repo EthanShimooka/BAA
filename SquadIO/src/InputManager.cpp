@@ -28,6 +28,7 @@ InputManager* InputManager::getInstance() {
 
 // updates at every frame for new input
 void InputManager::update() {
+	controller->update();
 	// reset mouse to neutral state, continue polling for up/down events
 	for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;

@@ -8,7 +8,6 @@ Controller::Controller(){
 	joystickAnalogs.resize(4);
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_ENABLE);
-	SDL_Joystick *joystick;
 	joystick = SDL_JoystickOpen(0);
 }
 
@@ -48,4 +47,17 @@ double Controller::getRightThumbX(){
 }
 double Controller::getRightThumbY(){
 	return 0;
+}
+
+void Controller::update(){
+	if (!joystick&&SDL_NumJoysticks()==1){
+		joystick = SDL_JoystickOpen(0);
+		std::cout << "Joystick plugged in" << std::endl;
+	}
+	if (joystick&&SDL_NumJoysticks() == 0){
+		//possible data loss. joystick is just a pointer, make sure
+		//what it's referencing is actually freed
+		joystick = NULL;
+		std::cout << "Joystick unplugged" << std::endl;
+	}
 }
