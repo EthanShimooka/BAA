@@ -2,7 +2,11 @@
 
 <resource UID="0" type="graphic" filename="test.png" scenescope="0"></resource>
 <resource UID="9999" type="graphic" filename="tempbackground.png" scenescope="0"></resource>
+<<<<<<< 729888fe339aca257f35cbfbc70d47829cdd4b4d
 <resource UID="9991" type="graphic" filename="playerplatform.png" scenescope="0"></resource>
+=======
+<resource UID="9998" type="graphic" filename="power_shield.png" scenescope="0"></resource>
+>>>>>>> Added Shield Class
 <resource UID="1" type="graphic" filename="Duck.bmp" scenescope="0"></resource>
 <resource UID="2" type="graphic" filename="Duck.png" scenescope="0"></resource>
 <resource UID="12" type="graphic" filename="Duck2.png" scenescope="0"></resource>
