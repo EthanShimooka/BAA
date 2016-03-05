@@ -21,30 +21,31 @@ void PlayerInputComponent::Update(){
 		//handle input for moving
 		bool moving = false;
 		float speed = 60.0f;
-		if (input->isKeyDown(KEY_D)) {
+		if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
 			moving = true;
 			gameObjectRef->flipH = false;
 		}
-		if (input->isKeyDown(KEY_A)) {
+		if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
 			moving = true;		
 			gameObjectRef->flipH = true;
 		}
 		if (input->isKeyDown(KEY_SPACE)) {
 			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
+			cout << body->GetLinearVelocity().x << endl;
 			//moving = true;
 		}
-		if (input->isKeyDown(KEY_S)) {
+		if (input->isKeyDown(KEY_S) || input->isKeyDown(KEY_DOWN)) {
 			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed));
 			moving = true;
 		}
 		if (!moving)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x*0.8, body->GetLinearVelocity().y));
 		if (input->isMouseDown(MOUSE_LEFT)){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			logic->spawnFeather(input->getMouseX(), input->getMouseY());
+			uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			net->createFeatherPacket(0, input->getMouseX(), input->getMouseY());
+			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 		}
 
 	}

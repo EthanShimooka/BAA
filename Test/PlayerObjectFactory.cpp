@@ -17,8 +17,9 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 {
 
 	GameObject* player = new GameObject();
-
 	player->ID = PID;
+	player->isAlive = true;
+	player->type = GAMEOBJECT_TYPE::OBJECT_PLAYER;
 
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually

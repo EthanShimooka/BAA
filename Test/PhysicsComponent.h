@@ -30,11 +30,12 @@ public:
 	GameObject* gameObjectRef;
 	b2Body* mBody;
 	b2Fixture* mFixture;
+	b2FixtureDef boxFixtureDef;
 
 	/// Virtual Update function
 	virtual void Update();
 	virtual void handleCollision(GameObject* otherObj);
-	void setCollisionFilter(uint16 mask);
+	void setCollisionFilter(uint16 categoryBits, uint16 mask);
 };
 
 enum CollisionMasks {
