@@ -10,11 +10,11 @@
 
 #include "include\sdl2\SDL.h"
 #include "include\InputMap.h"
-#include <iostream>
 #include <vector>
 
 class Controller{
 public:
+	std::vector<bool>joystickDPad;
 	std::vector<bool>joystickButtonPressed;
 	std::vector<bool>joystickButtonHeld;
 	std::vector<bool>joystickButtonReleased;
@@ -42,6 +42,8 @@ public:
 	// get x and y positions of right thumbstick
 	SQUADIO_API double getRightThumbX();
 	SQUADIO_API double getRightThumbY();
+
+	SQUADIO_API bool isDPadPressed(int pad);
 
 	// check if a controller was just plugged in. If so, start accepting input from it.
 	SQUADIO_API void update();

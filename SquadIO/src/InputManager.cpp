@@ -38,6 +38,9 @@ void InputManager::update() {
 		controller->joystickButtonPressed[i] = false;
 		controller->joystickButtonReleased[i] = false;
 	}
+	for (int i = 0; i < controller->joystickDPad.size()-1; i++){
+		controller->joystickDPad[i] = false;
+	}
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	//	int index;
@@ -90,25 +93,30 @@ void InputManager::update() {
 			break;
 		case SDL_JOYAXISMOTION:
 			//X axis motion
-			//cout << "axis value: " << ev.jaxis.value << endl;
 			if (ev.jaxis.axis == 0){
 				//out of dead zone
 				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
 					controller->joystickAnalogs[0] = ev.jaxis.value / 32767.0;
 				}
-				else{
-					controller->joystickAnalogs[0] = 0;
-				}
+				else controller->joystickAnalogs[0] = 0;
 			}//Y axis motion
 			else if (ev.jaxis.axis == 1){
 				//Below of dead zone
 				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
 					controller->joystickAnalogs[1] = ev.jaxis.value / 32767.0;
-				}
-				else{
-					controller->joystickAnalogs[1] = 0;
-				}
+				}else controller->joystickAnalogs[1] = 0;
 			}
+			break;
+		case SDL_JOYHATMOTION:  /* Handle DPAD Input */
+			if (ev.jhat.value == JOYSTICK_DPAD_UP)controller->joystickDPad[JOYSTICK_DPAD_UP]=true;
+			if (ev.jhat.value == JOYSTICK_DPAD_RIGHTUP)controller->joystickDPad[JOYSTICK_DPAD_RIGHTUP] = true;
+			if (ev.jhat.value == JOYSTICK_DPAD_RIGHT)controller->joystickDPad[JOYSTICK_DPAD_RIGHT] = true;
+			if (ev.jhat.value == JOYSTICK_DPAD_RIGHTDOWN)controller->joystickDPad[JOYSTICK_DPAD_RIGHTDOWN] = true;
+			if (ev.jhat.value == JOYSTICK_DPAD_DOWN)controller->joystickDPad[JOYSTICK_DPAD_DOWN] = true;
+			if (ev.jhat.value == JOYSTICK_DPAD_LEFTDOWN)controller->joystickDPad[JOYSTICK_DPAD_LEFTDOWN] = true;
+			if (ev.jhat.value == JOYSTICK_DPAD_LEFT)controller->joystickDPad[JOYSTICK_DPAD_LEFT] = true;
+			if (ev.jhat.value == JOYSTICK_DPAD_LEFTUP)controller->joystickDPad[JOYSTICK_DPAD_LEFTUP] = true;
+			break;
 		default:
 			break;
 		}
