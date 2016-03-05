@@ -14,16 +14,26 @@ Only the local player GameObject should have this component.
 #define PLAYERLOGICCOMPONENT_H_INCLUDED
 
 #include "LogicComponent.h"
+#include "SystemGameObjectQueue.h"
+#include "FeatherObjectFactory.h"
+#include "PlayerComponentIncludes.h"
+
 
 class PlayerLogicComponent :  public LogicComponent
 {
 public:
 	/// Constructor
-	PlayerLogicComponent();
+	PlayerLogicComponent(GameObject* player);
 	/// Destructor
 	~PlayerLogicComponent();
 	/// Update Function
 	void Update();
+
+	uint64_t spawnFeather(int mouseX, int mouseY);
+	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY);
+
+	FeatherObjectFactory fFactory;
+	uint64_t featherNum = 0;
 };
 
 #endif

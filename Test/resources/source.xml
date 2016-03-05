@@ -12,6 +12,7 @@
 <resource UID="17" type="graphic" filename="Duck7.png" scenescope="0"></resource>
 <resource UID="18" type="graphic" filename="Duck8.png" scenescope="0"></resource>
 <resource UID="20" type="graphic" filename="Feather.png" scenescope="0"></resource>
+<resource UID="21" type="graphic" filename="Arrow.png" scenescope="0"></resource>
 <resource UID="101" type="graphic" filename="ArmorBody1.gif" scenescope="0"></resource>
 <resource UID="102" type="graphic" filename="ArmorArmL1.gif" scenescope="0"></resource>
 <resource UID="103" type="graphic" filename="ArmorLeg1.gif" scenescope="0"></resource>
@@ -22,13 +23,12 @@
 <resource UID="100104" type="graphic" filename="chicken_leg_right.png" scenescope="0"></resource>
 <resource UID="100105" type="graphic" filename="chicken_leg_left.png" scenescope="0"></resource>
 <resource UID="3" type="text" filename="text.txt" scenescope="0"></resource>
-<resource UID="4" type="audio" filename="Meow.ogg" scenescope="2"></resource>
+<resource UID="4" type="audio" filename="meow.ogg" scenescope="2"></resource>
 <resource UID="5" type="audio" filename="bear.wav" scenescope="0"></resource>
 <resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
 <resource UID="21" type="graphic" filename="join.png" scenescope="0"></resource>
 <resource UID="22" type="graphic" filename="cancel.png" scenescope="0"></resource>
 <resource UID="23" type="graphic" filename="back.png" scenescope="0"></resource>
-
-
+<resource UID="60" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
 
 </resources>

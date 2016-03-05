@@ -8,10 +8,7 @@
 
 // Component Includes
 #include "Component.h"
-#include "MinionRenderComponent.h"
-#include "MinionNetworkComponent.h"
-#include "MinionLogicComponent.h"
-#include "MinionPhysicsComponent.h"
+#include "MinionComponentIncludes.h"
 
 
 
@@ -24,7 +21,7 @@ public:
 	~MinionObjectFactory();
 
 	/// Creates a new minion GameObject
-	GameObject * Spawn(uint64_t PID);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, float length, bool direction);
 
 };
 

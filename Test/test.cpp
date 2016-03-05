@@ -1,6 +1,7 @@
 #include "test.h"
 #include "game.h"
 #include <functional>
+#include <crtdbg.h>
 
 //#include "include\network\NetIncludes.h"
 
@@ -39,6 +40,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	}
 */
 	InputManager* input = InputManager::getInstance();
+	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
@@ -46,12 +48,16 @@ int _tmain(int argc, _TCHAR* argv[]){
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
+
+	audioMan->loadAllAudio();
+	std::cout << audioMan->audioObjects.size() << std::endl;
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 
 
+	input->update();
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,7 +99,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 			}
 		}
 	}
+	PlatformObjectFactory plFactory;
 
+
+	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
 		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
@@ -106,20 +115,28 @@ int _tmain(int argc, _TCHAR* argv[]){
 			GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 		}
 	}
+	/// create a local player with ID of 10000
 	else{
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
-
+	
 	for (uint64_t i = 0; i < 4; ++i){
 		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
 	}
 
-	for (uint64_t i = 0; i < 4; ++i) {
-		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
-		GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
-	}
-	
 
+	/*for (uint64_t i = 0; i < 1; ++i) {
+		//NOTE: there are currently issues ith the setPos function
+		//it only updates the gameobject x,y but the physics compnent (currently)
+		//overrides it with the collision box's location
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
+	}*/
+	//GameObjects.AddObject(plFactory.Spawn(123456, 0, 200, 0));
+	GameObjects.AddObject(plFactory.Spawn(321556, 0, 175, 0));
+	GameObjects.AddObject(plFactory.Spawn(543543, 0, 0, 0));
+
+	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
 	/////////////////////////////////////////////////////
@@ -158,6 +175,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 	
 	int var = 0;
+
 	/*
 	auto up = rotateTransform(arm, 0, 180);
 	auto down = rotateTransform(arm, 180, 0);
@@ -173,7 +191,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	while (gameloop) {
+	/*while (gameloop) {
 		input->update();
 
 		sysUI.UIUpdate(UIObjects.alive_objects);
@@ -183,7 +201,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->rotation = var * 2;
 		//base->posX += listen->input_x;
 		//base->posY += listen->input_y;
-		/*
+		
 		if (input->isKeyDown(KEY_DOWN)){
 			base->posY += moveSpd;
 		}
@@ -243,9 +261,33 @@ int _tmain(int argc, _TCHAR* argv[]){
 		
 		//arm->posX = 31 + armor->posX;
 		//arm->posY = 43 + armor->posY;
+	
+	//audioMan->playByName("bgmfostershome.ogg");
+
+	while (gameloop) {
+
+		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
+			if (!GameObjects.alive_objects[i]->isAlive){
+				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
+				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			}
+		}
+
+		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		int length = 20;
 		float loop = (var % length);*/
+
+		//physics testing stuff
+		PhysicsListener listener;
+		GameWorld* gameWorld = GameWorld::getInstance();
+		gameWorld->physicsWorld->SetContactListener(&listener);
+
+
+
+
+		gameWorld->update(); //update physics world
+		//end physics testing stuff
 
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
@@ -270,5 +312,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << renderMan << endl;
 
 	log->close();
+	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 	return 0;
 }

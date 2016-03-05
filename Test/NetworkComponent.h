@@ -32,7 +32,7 @@ public:
 	/// update object Positions from Input
 	virtual void Update();
 
-	queue<OutputMemoryBitStream> outgoingPackets;
+	queue<OutputMemoryBitStream*> outgoingPackets;
 	queue<InputMemoryBitStream> incomingPackets;
 };
 

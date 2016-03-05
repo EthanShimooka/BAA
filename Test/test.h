@@ -5,6 +5,7 @@
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
+#include "include\AudioManager.h"
 #include "include\EngineObject.h"
 #include "include\ResourceManager.h"
 #include "include\RenderManager.h"
@@ -26,10 +27,13 @@
 
 
 #include "GameObject.h"
+#include "GameWorld.h"
 #include "PlayerObjectFactory.h"
 #include "MinionObjectFactory.h"
 #include "FeatherObjectFactory.h"
 #include "UIObjectFactory.h"
+#include "PlatformObjectFactory.h"
+#include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"

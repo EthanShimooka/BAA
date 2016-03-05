@@ -19,7 +19,6 @@
 #include "include/RenderResource.h"
 #include "InputManager.h"
 #include "LogManager.h"
-#include "box2D\Box2D.h"
 #include "RenderManager.h"
 
 

@@ -19,6 +19,7 @@
 #include "Component.h"
 #include "MovementComponent.h"
 #include "include\InputManager.h"
+#include "include\network\MemoryBitStream.h"
 #include "GameObject.h"
 #include "UIObject.h"
 

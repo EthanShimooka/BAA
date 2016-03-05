@@ -56,6 +56,10 @@ public:
 
 	/// Object ID
 	uint64_t ID;
+	/// Alive state
+	bool isAlive;
+	/// type of game object
+	int type;
 	///World X Position
 	float posX;
 	///World Y Position
@@ -63,6 +67,10 @@ public:
 	///Rotation
 	float rotation;
 
+	///Horizontal Flip
+	bool flipH;
+	///Vertical Flip
+	bool flipV;
 	/// virtual update function
 	virtual void update(){};
 
@@ -96,6 +104,15 @@ public:
 
 
 
+};
+
+enum GAMEOBJECT_TYPE {
+	OBJECT_PLAYER,
+	OBJECT_MINION,
+	OBJECT_PLATFORM,
+	OBJECT_SWTICH,
+	OBJECT_FEATHER,
+	//we can keep on adding more as needed
 };
 
 #endif

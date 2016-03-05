@@ -24,10 +24,10 @@ std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, d
 	return [=](float i) {obj->rotation = (end - start)*i + start; };
 }
 
-std::function<void(float)> moveCircArc(SDLRenderObject* obj, int centerx, int centery, double rad, double start_angle, double end_angle){
+std::function<void(float)> moveCircArc(SDLRenderObject* obj, int centerx, int centery, double radius, double start_angle, double end_angle){
 	return [=](float i) {
-		obj->posX = centerx + rad * cos(M_PI*(end_angle*i + start_angle) / 180);
-		obj->posY = centery + rad * sin(M_PI*(end_angle*i + start_angle) / 180);
+		obj->posX = centerx + radius * cos(M_PI*(end_angle*i + start_angle) / 180);
+		obj->posY = centery + radius * sin(M_PI*(end_angle*i + start_angle) / 180);
 	};
 }
 std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, int centerx, int centery, double height, double width, double start_angle, double end_angle){
@@ -37,7 +37,17 @@ std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, int centerx, int
 	};
 }
 
-bool animation::animate(float i){
+motion makeMotion(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
+	motion m = { trans, ease, start, duration };
+	return m;
+}
+Animation::Animation(float d,list<motion> m){
+	duration = d;
+	motions = m;
+}
+
+
+bool Animation::animate(float i){
 	for (auto mot = motions.begin(); mot != motions.end(); mot++){
 		float place;
 		if (i >= mot->start + mot->duration){ place = 1.0; }//so durations of 0 are assumed to have finished
@@ -47,7 +57,11 @@ bool animation::animate(float i){
 	}
 	return ((i>1.0) || (i<0.0));
 }
-void animation::push(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
+void Animation::push(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
 	motion m = { trans, ease, start, duration };
 	motions.push_back(m);
+}
+
+float Animation::lengthConversion(int progress){
+	return float (progress / float(duration));
 }
