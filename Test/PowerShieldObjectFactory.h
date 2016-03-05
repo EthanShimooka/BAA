@@ -37,7 +37,7 @@ public:
 	~PowerShieldObjectFactory();
 	/// Spawn Function
 	// Probably going to be changed **
-	GameObject * Spawn(uint64_t PID, float posX, float posY, float length, bool direction);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, bool direction);
 
 };
 

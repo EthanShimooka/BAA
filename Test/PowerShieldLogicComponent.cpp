@@ -22,8 +22,6 @@ void PowerShieldLogicComponent::Update(){
 
 void PowerShieldLogicComponent::spawnShield(int xpos, int ypos){
 
-
-
 }
 
 void PowerShieldLogicComponent::spawnShield(uint64_t ID, float initialX, float initialY, int destX, int destY){

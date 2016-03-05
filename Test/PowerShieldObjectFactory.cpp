@@ -11,7 +11,7 @@ PowerShieldObjectFactory::~PowerShieldObjectFactory()
 }
 
 
-GameObject* PowerShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY, float length, bool direction)
+GameObject* PowerShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY, bool direction)
 {
 
 	GameObject* shield = new GameObject();
