@@ -211,6 +211,17 @@ int _tmain(int argc, _TCHAR* argv[]){
 		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
 				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
+				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER) { 
+					//if a feather is no longer alive, add to dead_feathers
+					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
+				}
+				else if (GameObjects.alive_objects[i]->type == OBJECT_MINION) { 
+					//if a minion is no longer alive, add to dead_minions
+					GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
+				} else { 
+					//if a anything else is no longer alive, add to dead_objects
+					GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
+				}
 				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
 			}
 		}
