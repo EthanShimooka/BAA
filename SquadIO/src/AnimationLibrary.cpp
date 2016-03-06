@@ -41,7 +41,7 @@ motion makeMotion(std::function<void(float)> trans, int start, int duration, std
 	motion m = { trans, ease, start, duration };
 	return m;
 }
-Animation::Animation(float d,list<motion> m){
+Animation::Animation(float d, std::list<motion> m){
 	duration = d;
 	motions = m;
 }

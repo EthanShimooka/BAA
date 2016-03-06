@@ -10,9 +10,8 @@
 #include "sdl2\SDL.h" // includes SDL keycodes	
 #include "InputMap.h" // include mapped key definitions
 #include "Controller.h"
-// #include <LogManager.h>
 
-using namespace std;
+//using namespace std;
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport)
@@ -69,8 +68,8 @@ private:
 	int mouseX, mouseY;
 
 	// mouse states
-	vector<int> mouseDown;
-	vector<int> mouseUp;
+	std::vector<int> mouseDown;
+	std::vector<int> mouseUp;
 
 	
 

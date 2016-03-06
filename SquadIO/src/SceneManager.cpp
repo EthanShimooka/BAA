@@ -211,7 +211,7 @@ bool SceneManager::saveToXMLFile(std::string Filename){
 	int i = 1;
 	for (auto layerIter = m_Layers.begin(); layerIter != m_Layers.end(); layerIter++){
 		auto layerObjects = (*layerIter)->m_SceneObjects;
-		string layerName = "layer" + std::to_string(i);
+		std::string layerName = "layer" + std::to_string(i);
 		tinyxml2::XMLElement* currLayer = saveFile.NewElement("layer");
 		currLayer->SetAttribute("name", layerName.c_str());
 		currLayer->SetAttribute("posx", (*layerIter)->m_PosX);

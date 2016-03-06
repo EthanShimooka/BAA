@@ -91,7 +91,7 @@ void PlayerNetworkComponent::Update(){
 			//handle 
 			break;
 		default:
-			cout << gameObjectRef->ID << ", " << mCommand << ": There is no such command!!" << endl;
+			std::cout << gameObjectRef->ID << ", " << mCommand << ": There is no such command!!" << std::endl;
 		}
 
 		incomingPackets.pop();

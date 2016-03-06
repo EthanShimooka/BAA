@@ -100,12 +100,17 @@ void InputManager::update() {
 				}
 				else controller->joystickAnalogs[0] = 0;
 			}//Y axis motion
-			else if (ev.jaxis.axis == 1){
-				//Below of dead zone
-				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
-					controller->joystickAnalogs[1] = ev.jaxis.value / 32767.0;
-				}else controller->joystickAnalogs[1] = 0;
+			
+			for (int i = 0; i < SDL_JoystickNumAxes(controller->joystick); i++){
+				if (ev.jaxis.axis == i){
+					//Below of dead zone
+					if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
+						controller->joystickAnalogs[i] = ev.jaxis.value / 32767.0;
+					}
+					else controller->joystickAnalogs[i] = 0;
+				}
 			}
+
 			break;
 		case SDL_JOYHATMOTION:  /* Handle DPAD Input */
 			if (ev.jhat.value == JOYSTICK_DPAD_UP)controller->joystickDPad[JOYSTICK_DPAD_UP]=true;

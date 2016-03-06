@@ -11,6 +11,7 @@
 #include "include\sdl2\SDL.h"
 #include "include\InputMap.h"
 #include <vector>
+#include <iostream>
 
 class Controller{
 public:
@@ -43,10 +44,19 @@ public:
 	SQUADIO_API double getRightThumbX();
 	SQUADIO_API double getRightThumbY();
 
+	// get the value of left trigger
+	SQUADIO_API double getLeftTrigger();
+
+	// get the value of right trigger
+	SQUADIO_API double getRightTrigger();
+
 	SQUADIO_API bool isDPadPressed(int pad);
 
 	// check if a controller was just plugged in. If so, start accepting input from it.
 	SQUADIO_API void update();
+
+	// free memory allocated to controller
+	SQUADIO_API void free();
 };
 
 #endif

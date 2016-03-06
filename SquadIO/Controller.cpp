@@ -6,10 +6,10 @@ Controller::Controller(){
 	joystickButtonPressed.resize(JOYSTICK_MAX);
 	joystickButtonReleased.resize(JOYSTICK_MAX);
 	joystickDPad.resize(13);
-	joystickAnalogs.resize(4);
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_ENABLE);
 	joystick = SDL_JoystickOpen(0);
+	joystickAnalogs.resize(SDL_JoystickNumAxes(joystick));
 }
 
 
@@ -49,10 +49,17 @@ double Controller::getLeftThumbY(){
 }
 
 double Controller::getRightThumbX(){
-	return 0;
+	return joystickAnalogs[3];
 }
 double Controller::getRightThumbY(){
-	return 0;
+	return joystickAnalogs[4];
+}
+
+double Controller::getLeftTrigger(){
+	return joystickAnalogs[2];
+}
+double Controller::getRightTrigger(){
+	return joystickAnalogs[5];
 }
 
 void Controller::update(){
@@ -64,4 +71,13 @@ void Controller::update(){
 		//what it's referencing is actually freed
 		joystick = NULL;
 	}
+}
+
+void Controller::free(){
+	SDL_JoystickClose(joystick);
+	joystickAnalogs.clear();
+	joystickButtonHeld.clear();
+	joystickButtonPressed.clear();
+	joystickButtonReleased.clear();
+	joystickDPad.clear();
 }
