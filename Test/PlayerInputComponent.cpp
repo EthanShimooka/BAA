@@ -18,36 +18,46 @@ void PlayerInputComponent::Update(){
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		InputManager* input = InputManager::getInstance();
+		Controller* controller = input->controller;
 		//handle input for moving
-		bool moving = false;
 		float speed = 60.0f;
+		body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*speed, body->GetLinearVelocity().y));
+		//keyboard move right
 		if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
-			moving = true;
-			gameObjectRef->flipH = false;
 		}
+		//keyboard move left
 		if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
-			moving = true;		
-			gameObjectRef->flipH = true;
 		}
-		if (input->isKeyDown(KEY_SPACE)) {
-			body->SetLinearVelocity(b2Vec2(10*body->GetLinearVelocity().x, -speed));
-			cout << body->GetLinearVelocity().x << endl;
-			//moving = true;
+		//keyboard jump
+		if (input->isKeyDown(KEY_SPACE)||controller->isJoystickPressed(JOYSTICK_A)) {
+			body->SetLinearVelocity(b2Vec2(15 * body->GetLinearVelocity().x, -speed));
 		}
+		////keyboard move down (not really needed)
 		if (input->isKeyDown(KEY_S) || input->isKeyDown(KEY_DOWN)) {
 			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed));
-			moving = true;
 		}
-		if (!moving)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x*0.8, body->GetLinearVelocity().y));
+		//shoot feather
 		if (input->isMouseDown(MOUSE_LEFT)){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+			std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
 			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 		}
-
+		if (controller->getLeftTrigger() > 0.8){
+			int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX() + 350;
+			int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY() + 350;
+			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			uint64_t id = logic->spawnFeather(xDir, yDir);
+			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+			//not working yet
+			net->createFeatherPacket(id, xDir, yDir);
+		}
+		//change direction of player sprite if needed
+		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
+		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
 	}
 }
 

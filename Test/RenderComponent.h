@@ -20,12 +20,11 @@
 #include "Component.h"
 #include "include\SDLRenderObject.h"
 #include "include\AnimationLibrary.h"
-#include "time.h"
-
-#include <unordered_map>
-
 #include "MovementComponent.h"
 #include "GameObject.h"
+#include <time.h>
+#include <string>
+#include <unordered_map>
 
 
 class RenderComponent :	public Component
@@ -40,7 +39,7 @@ public:
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
-	list <SDLRenderObject*> allObjs;
+	std::list <SDLRenderObject*> allObjs;
 	//hash <animation> animations;
 	GameObject* gameObjectRef;
 
@@ -54,7 +53,7 @@ public:
 	bool flipV;
 
 	/// Animations hash table
-	unordered_map<string, Animation*> animations;
+	std::unordered_map<std::string, Animation*> animations;
 	/// Current animation that is applyied on update
 	Animation* currentAnimation;
 	/// Queued animation that will be played next (may be applyied immediately)
@@ -71,7 +70,7 @@ public:
 	/// Updates Sprite to renderer
 	virtual void Update();
 	/// animation setter
-	void setAnimation(string name);
+	void setAnimation(std::string name);
 	/// animate based on current animation
 	void animate();
 };
