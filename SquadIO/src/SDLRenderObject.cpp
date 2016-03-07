@@ -56,7 +56,6 @@ SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRec
 */
 
 bool operator<(const SDLRenderObject& lhs, const SDLRenderObject& rhs){
-	std::cout << "hi" << std::endl;
 	return lhs.posZ < rhs.posZ;
 
 }
