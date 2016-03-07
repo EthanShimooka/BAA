@@ -47,13 +47,30 @@ public:
 	float posX;
 	/// Object position on the y axis
 	float posY;
+	/// Object position on the z axis, perpendicular to the camera
+	float posZ;
+	/// Object's rotation
 	double rotation;
+	/// width multiplier
 	float width;
+	/// height multiplier
 	float height;
-	//SDL_Point anchor;
+	/// if flipped horizonatally
 	bool flipH;
+	/// if flipped verically
 	bool flipV;
+	/// if visible in the world
 	bool visible;
+
+	/// Total number of frames
+	unsigned int frameTotal;
+	/// current frame of the animation sheet
+	unsigned int frameCurrent;
+	/// number of frames arranged horizontally
+	unsigned int frameWidth;
+	/// number of frames arranged vertically
+	unsigned int frameHeight;
+
 	/// SDL color key paramater, usually should not be tampared with
 	SDL_Color colorKey;
 	/// A key to enable color filtering 
@@ -72,11 +89,14 @@ public:
 	SQUADIO_API float getPosX();
 	/// Get object's y position
 	SQUADIO_API float getPosY();
+	/// Get object's z position
+	SQUADIO_API float getPosZ();
 	/// Get object's position
 	SQUADIO_API void getPos(float &x, float &y);
 	/// Set object's position
 	SQUADIO_API void setPos(float x, float y);
-
+	SQUADIO_API void setPos(float x, float y,float z);
+	SQUADIO_API void setPosZ(float z);
 
 	/// Get object's width multiplier
 	SQUADIO_API float getScaleX();
@@ -132,6 +152,16 @@ public:
 	SQUADIO_API void setAnchor(double a, double b);
 	/// Set object's anchor point to the coordinate system
 	SQUADIO_API void setAnchor(int x, int y);
+
+	/// Get the object's current frame number
+	SQUADIO_API unsigned int getCurrentFrame();
+	/// Set the object's current frame number
+	SQUADIO_API void setCurrentFrame(unsigned int f);
+	/// Get the render rectangle based on current frame
+	SQUADIO_API SDL_Rect getRenderRect();
+	/// Set the number of frames on framesheet
+	SQUADIO_API void setFrames(unsigned int w, unsigned int h, unsigned int totalFrames = 0);
+
 
 	/// Abstract update function to be overriden.
 	SQUADIO_API void setColorKey(unsigned int r, unsigned int g, unsigned int b);

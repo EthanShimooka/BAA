@@ -22,9 +22,13 @@ SDLRenderObject::SDLRenderObject(){
 void SDLRenderObject::setResourceObject(RenderResource *source){
 	if (source){
 		renderResource = source;
+		frameWidth = source->width;
+		frameHeight = source->height;
+		frameTotal = (frameTotal > frameWidth*frameHeight || frameTotal >= 0) ? frameWidth*frameHeight : source->max;
 		//by default, the texture sizes are stored 1:1 scale
 		//stores the width and height of the texture 1:1 scale in the render rect
 		SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRect.h);
+		
 		if (colorKeyEnabled){
 			//generate the color key
 			//TODO: commented out colorkey stuff. We're using PNG's with transparency, so no need for colorkey at the moment
@@ -51,6 +55,11 @@ SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRec
 }
 */
 
+bool operator<(const SDLRenderObject& lhs, const SDLRenderObject& rhs){
+	std::cout << "hi" << std::endl;
+	return lhs.posZ < rhs.posZ;
+
+}
 
 void SDLRenderObject::setParent(SDLRenderObject * par){
 	if (par != this){
@@ -84,8 +93,13 @@ float SDLRenderObject::getPosY(){
 	}
 	return posY;
 }
+float SDLRenderObject::getPosZ(){
+	return posZ;
+}
 void SDLRenderObject::getPos(float &x, float &y){x = getPosX(); y = getPosY(); }
+void SDLRenderObject::setPosZ(float z){ posZ = z; }
 void SDLRenderObject::setPos(float x, float y){ posX = x; posY = y; }
+void SDLRenderObject::setPos(float x, float y, float z){ posX = x; posY = y; posZ = z; }
 
 
 float SDLRenderObject::getScaleX(){
@@ -115,10 +129,10 @@ void SDLRenderObject::setScale(float sx,float sy){
 	width = sy;
 }
 int SDLRenderObject::getWidth(){
-	return renderRect.w*getScaleX();
+	return renderRect.w*getScaleX()/frameWidth;
 }
 int SDLRenderObject::getHeight(){
-	return renderRect.h*getScaleY();
+	return renderRect.h*getScaleY()/frameHeight;
 }
 void SDLRenderObject::getSize(int &w, int &h){w = getWidth(); h = getHeight();}
 
@@ -172,10 +186,30 @@ float SDLRenderObject::getAnchorY(){
 
 void SDLRenderObject::getAnchor(float &a, float &b){ a = getAnchorX(); b = getAnchorY(); }
 void SDLRenderObject::setAnchor(double a, double b){ anchor.x = a; anchor.y = b; }
-void SDLRenderObject::setAnchor(int x, int y){ 
+/*void SDLRenderObject::setAnchor(int x, int y){ 
 	anchor.x = anchor.x + (x-posX)/renderRect.w; 
 	anchor.y = anchor.y + (y-posY)/renderRect.h; 
-}
+}*/
 void SDLRenderObject::unrender(){
 	renderResource->mTexture = nullptr;
+}
+
+unsigned int SDLRenderObject::getCurrentFrame(){
+	return frameCurrent;
+}
+void SDLRenderObject::setCurrentFrame(unsigned int f){
+	frameCurrent = (f>=frameTotal) ? 0 :f;
+}
+SDL_Rect SDLRenderObject::getRenderRect(){
+	SDL_Rect rect;
+	rect.w = renderRect.w / frameWidth;
+	rect.h = renderRect.h / frameHeight;
+	rect.x = (frameCurrent%frameWidth)*rect.w;
+	rect.y = roundf(frameCurrent / frameWidth)*rect.h;
+	return rect;
+}
+void SDLRenderObject::setFrames(unsigned int w, unsigned int h, unsigned int totalFrames){
+	frameWidth = w;
+	frameHeight = h;
+	frameTotal = (frameTotal > frameWidth*frameHeight || frameTotal >= 0) ? frameWidth*frameHeight : totalFrames;
 }

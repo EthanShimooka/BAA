@@ -66,6 +66,7 @@ public:
 	struct point{
 		float x;
 		float y;
+		float z;
 	} cameraPoint;
 	bool flippedScreen;
 	std::stringstream videoInfo;
@@ -100,6 +101,10 @@ public:
 	SQUADIO_API float zoomRatio(float x1, float y1, float minSize = 1, float scaling = 1);
 	/// function renders the background image, tiling starting from the origin, and cut along the edges of the window
 	SQUADIO_API void renderBackground();
+	/// change the point where the camera renders from
+	SQUADIO_API void setCameraZ(float z);
+	SQUADIO_API void setCameraPoint(float x, float y);
+	SQUADIO_API void setCameraPoint(float x, float y, float z);
 	/// Function that takes the list of renderable objects (renderObjects) and 
 	/// draws them on screen. 
 	/// Objects are rendered in order of the list from first to last.	

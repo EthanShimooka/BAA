@@ -14,7 +14,6 @@ RenderComponent::~RenderComponent()
 {
 }
 
-
 /// Assign a Diffrent SDL render Object
 
 void RenderComponent::AssignSprite(SDLRenderObject* rend){
@@ -30,6 +29,8 @@ void RenderComponent::setAnimation(string name){
 		nextAnimation = animations[name];
 	}
 }
+
+/// The general animation function, that alters the object's
 
 void RenderComponent::animate(){
 	unsigned int currenttime = clock();
