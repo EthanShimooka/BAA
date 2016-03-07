@@ -9,7 +9,8 @@ Controller::Controller(){
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_ENABLE);
 	joystick = SDL_JoystickOpen(0);
-	joystickAnalogs.resize(SDL_JoystickNumAxes(joystick));
+	if(joystick) joystickAnalogs.resize(SDL_JoystickNumAxes(joystick));
+
 }
 
 
@@ -42,23 +43,29 @@ bool Controller::isDPadPressed(int pad){
 }
 
 double Controller::getLeftThumbX(){
+	if (joystickAnalogs.size() < 1)return 0;
 	return joystickAnalogs[0];
 }
 double Controller::getLeftThumbY(){
+	if (joystickAnalogs.size() < 2)return 0;
 	return joystickAnalogs[1];
 }
 
 double Controller::getRightThumbX(){
+	if (joystickAnalogs.size() < 4)return 0;
 	return joystickAnalogs[3];
 }
 double Controller::getRightThumbY(){
+	if (joystickAnalogs.size() < 5)return 0;
 	return joystickAnalogs[4];
 }
 
 double Controller::getLeftTrigger(){
+	if (joystickAnalogs.size() < 3)return 0;
 	return joystickAnalogs[2];
 }
 double Controller::getRightTrigger(){
+	if (joystickAnalogs.size() < 6)return 0;
 	return joystickAnalogs[5];
 }
 

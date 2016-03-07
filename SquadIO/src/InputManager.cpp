@@ -101,7 +101,7 @@ void InputManager::update() {
 				else controller->joystickAnalogs[0] = 0;
 			}//Y axis motion
 			
-			for (int i = 0; i < SDL_JoystickNumAxes(controller->joystick); i++){
+			for (int i = 0; i < controller->joystickAnalogs.size(); i++){
 				if (ev.jaxis.axis == i){
 					//Below of dead zone
 					if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){

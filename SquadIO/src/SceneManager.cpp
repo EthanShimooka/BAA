@@ -335,7 +335,8 @@ void SceneManager::AssembleScene(){
 
 			}
 			*/
-			renderMan->renderObjects.push_back((*obj_it));
+			if ((*obj_it)->isVisible()) 
+				renderMan->renderObjects.push_back((*obj_it));
 		}
 	}
 
