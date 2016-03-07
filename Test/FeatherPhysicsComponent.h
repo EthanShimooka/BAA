@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef FEATHERPHYSICSCOMPONENT_H_INCLUDED
 #define FEATHERPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
@@ -8,11 +9,13 @@ class FeatherPhysicsComponent : public PhysicsComponent
 {
 public:
 	/// Constructor
-	FeatherPhysicsComponent();
+	FeatherPhysicsComponent(GameObject* feather);
 	/// Destructor
 	~FeatherPhysicsComponent();
 	/// Update
 	void Update();
+	void handleCollision(GameObject* otherObj);
+	void init();
 
 };
 

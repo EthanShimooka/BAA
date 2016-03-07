@@ -23,16 +23,17 @@ class PlayerLogicComponent :  public LogicComponent
 {
 public:
 	/// Constructor
-	PlayerLogicComponent();
+	PlayerLogicComponent(GameObject* player);
 	/// Destructor
 	~PlayerLogicComponent();
 	/// Update Function
 	void Update();
 
-	void spawnFeather(int mouseX, int mouseY);
+	uint64_t spawnFeather(int mouseX, int mouseY);
+	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY);
 
 	FeatherObjectFactory fFactory;
-	int featherNum = 0;
+	uint64_t featherNum = 0;
 };
 
 #endif

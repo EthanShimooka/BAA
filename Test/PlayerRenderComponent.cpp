@@ -1,10 +1,13 @@
 #include "PlayerRenderComponent.h"
 #include "include\AnimationLibrary.h"
 
-PlayerRenderComponent::PlayerRenderComponent()
+PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 {
+	gameObjectRef = player;
+	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
+
 	RenderComponent::RenderComponent();
-	lasttime;
+
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);

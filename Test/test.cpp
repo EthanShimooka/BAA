@@ -1,5 +1,6 @@
 #include "test.h"
 #include <functional>
+#include <crtdbg.h>
 
 //#include "include\network\NetIncludes.h"
 
@@ -79,8 +80,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
+	PlatformObjectFactory plFactory;
 
 
+	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
 		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
 
@@ -93,11 +96,23 @@ int _tmain(int argc, _TCHAR* argv[]){
 			GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 		}
 	}
+	/// create a local player with ID of 10000
 	else{
 		GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
-	
 
+	/*for (uint64_t i = 0; i < 1; ++i) {
+		//NOTE: there are currently issues ith the setPos function
+		//it only updates the gameobject x,y but the physics compnent (currently)
+		//overrides it with the collision box's location
+		GameObjects.AddObject(mFactory.Spawn(i))->setPos(i * 50, i * 50);
+		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
+	}*/
+	//GameObjects.AddObject(plFactory.Spawn(123456, 0, 200, 0));
+	GameObjects.AddObject(plFactory.Spawn(321556, 0, 175, 0));
+	GameObjects.AddObject(plFactory.Spawn(543543, 0, 0, 0));
+
+	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
 	/////////////////////////////////////////////////////
@@ -105,6 +120,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	bool gameloop = true;
 	int var = 0;
+
 	/*
 	auto up = rotateTransform(arm, 0, 180);
 	auto down = rotateTransform(arm, 180, 0);
@@ -188,13 +204,43 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posX = 31 + armor->posX;
 		//arm->posY = 43 + armor->posY;
 	
-	audioMan->playByName("bgmfostershome.ogg");
+	//audioMan->playByName("bgmfostershome.ogg");
 
 	while (gameloop) {
+
+		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
+			if (!GameObjects.alive_objects[i]->isAlive){
+				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
+				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER) { 
+					//if a feather is no longer alive, add to dead_feathers
+					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
+				}
+				else if (GameObjects.alive_objects[i]->type == OBJECT_MINION) { 
+					//if a minion is no longer alive, add to dead_minions
+					GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
+				} else { 
+					//if a anything else is no longer alive, add to dead_objects
+					GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
+				}
+				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			}
+		}
+
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		int length = 20;
 		float loop = (var % length);
+
+		//physics testing stuff
+		PhysicsListener listener;
+		GameWorld* gameWorld = GameWorld::getInstance();
+		gameWorld->physicsWorld->SetContactListener(&listener);
+
+
+
+
+		gameWorld->update(); //update physics world
+		//end physics testing stuff
 
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
@@ -218,6 +264,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << renderMan << endl;
 
 	log->close();
+	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 	return 0;
 }
 void init(){

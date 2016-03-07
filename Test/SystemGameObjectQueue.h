@@ -14,8 +14,10 @@ public:
 	SystemGameObjectQueue();
 	~SystemGameObjectQueue();
 
-	vector<GameObject*> alive_objects;
-	vector<GameObject*> dead_objects;
+	std::vector<GameObject*> alive_objects;
+	std::vector<GameObject*> dead_objects;
+	std::vector<GameObject*> dead_feathers;
+	std::vector<GameObject*> dead_minions;
 
 	GameObject* AddObject(GameObject * obj);
 

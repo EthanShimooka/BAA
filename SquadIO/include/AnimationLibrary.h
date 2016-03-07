@@ -28,10 +28,10 @@ struct motion{
 };
 SQUADIO_API motion makeMotion(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease = ease_linear);
 class Animation{
-	list <motion> motions;
+	std::list <motion> motions;
 public:
 	SQUADIO_API Animation();
-	SQUADIO_API Animation(float d, list<motion> m);
+	SQUADIO_API Animation(float d, std::list<motion> m);
 	SQUADIO_API ~Animation();
 	unsigned int duration;
 	SQUADIO_API float lengthConversion(int progress);

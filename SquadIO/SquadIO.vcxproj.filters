@@ -79,6 +79,9 @@
     <ClCompile Include="src\AnimationLibrary.cpp">
       <Filter>Source Files\network</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\network\NetworkManager.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="include\AnimationLibrary.h">
       <Filter>Header Files\Render Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files\Input Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

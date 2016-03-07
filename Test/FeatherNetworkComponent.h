@@ -9,7 +9,7 @@ class FeatherNetworkComponent : public NetworkComponent
 private:
 public:
 	/// Construcor 
-	FeatherNetworkComponent();
+	FeatherNetworkComponent(GameObject* feather);
 	/// Destructor
 	~FeatherNetworkComponent();
 	/// Update

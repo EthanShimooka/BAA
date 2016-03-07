@@ -9,12 +9,13 @@ class MinionPhysicsComponent :
 {
 public:
 	/// Constructor
-	MinionPhysicsComponent();
+	MinionPhysicsComponent(GameObject* minion);
 	/// Destructor
 	~MinionPhysicsComponent();
 	/// Update
 	void Update();
-
+	void init();
+	void handleCollision(GameObject* otherObj);
 };
 
 #endif

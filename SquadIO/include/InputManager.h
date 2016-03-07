@@ -9,9 +9,9 @@
 #include <string>
 #include "sdl2\SDL.h" // includes SDL keycodes	
 #include "InputMap.h" // include mapped key definitions
-// #include <LogManager.h>
+#include "Controller.h"
 
-using namespace std;
+//using namespace std;
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport)
@@ -21,6 +21,7 @@ using namespace std;
 
 class InputManager {
 public:
+	Controller* controller;
 	// returns this instance of InputManager
 	SQUADIO_API static InputManager* getInstance();
 
@@ -59,7 +60,7 @@ protected:
 private:
 	// keyboard state
 	const uint8_t* keyboardState;
-	
+
 	// mouse state
 	uint8_t mouseState;
 
@@ -67,8 +68,11 @@ private:
 	int mouseX, mouseY;
 
 	// mouse states
-	vector<int> mouseDown;
-	vector<int> mouseUp;
+	std::vector<int> mouseDown;
+	std::vector<int> mouseUp;
+
+	
+
 
 	// keyboard input allowed or not
 	bool locked;
