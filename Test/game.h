@@ -8,7 +8,11 @@ public:
 	Game();
 	~Game();
 
-	UIType mainMenu(InputManager* input, RenderManager* renderMan, SceneManager* sceneMan);
+	void mainMenu(InputManager* input, RenderManager* renderMan, SceneManager* sceneMan);
+
+	void joinLobby();
+	void play();
+	void inLobby();
 };
 
 

@@ -9,6 +9,9 @@
 #define SQUADIO_API __declspec(dllimport) 
 #endif
 
+#define small char
+typedef unsigned char byte;
+
 // TODO: page 135, add the first two includes: 2DRenderManager.h and ResourceManager.h they are made by us
 #include <string>
 #include <sstream>
@@ -87,6 +90,7 @@ public:
 	/// renderResource, which is derived from gameResource.
 
 	SQUADIO_API bool isReadyToQuit();
+	
 
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
 	// not implemented, but may be useful later if you want the camera to ignore anything out of bounds
@@ -107,6 +111,8 @@ public:
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
 	std::list<SDLRenderObject*> windowObjects;
+
+	bool renderSteamAvatar(byte avatatStream, uint32_t width, uint32_t height);
 
 };
 

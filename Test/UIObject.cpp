@@ -3,6 +3,7 @@
 /// Constructor
 UIObject::UIObject() : posX(0), posY(0), rotation(0), scale(0){
 
+	visible = true;
 	component_count = 0;
 
 }
@@ -10,7 +11,7 @@ UIObject::UIObject() : posX(0), posY(0), rotation(0), scale(0){
 /// Constructor
 UIObject::UIObject(float x, float y, float r, float s) : 
 				   posX(x), posY(y), rotation(r), scale(s){
-
+	visible = true;
 	component_count = 0;
 
 }

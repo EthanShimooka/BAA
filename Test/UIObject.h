@@ -68,7 +68,7 @@ public:
 	float scale;
 
 	/// Visible
-	bool visible = false;
+	bool visible;
 
 	/// virtual update function
 	virtual void update(){};

@@ -62,10 +62,15 @@ bool NetworkManager::Init()
 	mName = GamerServices::sInstance->GetLocalPlayerName();
 
 	//begin the search for a lobby
-	mState = NMS_Searching;
-	GamerServices::sInstance->LobbySearchAsync();
+	//mState = NMS_Searching;
+	//GamerServices::sInstance->LobbySearchAsync();
 
 	return true;
+}
+
+void NetworkManager::startLobbySearch(){
+	mState = NMS_Searching;
+	GamerServices::sInstance->LobbySearchAsync();
 }
 
 void NetworkManager::ProcessIncomingPackets()
@@ -76,6 +81,10 @@ void NetworkManager::ProcessIncomingPackets()
 
 	UpdateBytesSentLastFrame();
 
+}
+
+void NetworkManager::SetState(NetworkManagerState state){
+	mState = state;
 }
 
 void NetworkManager::SendOutgoingPackets()

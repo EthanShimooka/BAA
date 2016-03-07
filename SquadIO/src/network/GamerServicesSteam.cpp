@@ -311,6 +311,22 @@ string GamerServices::GetRemotePlayerName(uint64_t inPlayerId)
 	return string(SteamFriends()->GetFriendPersonaName(inPlayerId));
 }
 
+int GamerServices::GetLocalPlayerAvatar(){
+	CSteamID localId = SteamUser()->GetSteamID();
+	RenderManager* rendMan = RenderManager::getRenderManager();
+	
+	int iImage = SteamFriends()->GetSmallFriendAvatar(localId);
+	uint32_t AvatarWidth, AvatarHeight;
+	SteamUtils()->GetImageSize(iImage, &AvatarWidth, &AvatarHeight);
+	if (AvatarWidth > 0 && AvatarHeight > 0){
+		byte *AvatarRGBA = new byte[AvatarWidth * AvatarHeight * 4];
+		SteamUtils()->GetImageRGBA(iImage, (uint8_t*)AvatarRGBA, AvatarWidth * AvatarHeight * 4);
+		std::cout << AvatarRGBA << std::endl;
+		rendMan->renderSteamAvatar(*AvatarRGBA, AvatarWidth, AvatarHeight);
+	}
+	return 1;
+}
+
 void GamerServices::LobbySearchAsync()
 {
 	//make sure it's the right game!

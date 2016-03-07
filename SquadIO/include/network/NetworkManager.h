@@ -27,10 +27,12 @@ public:
 		NMS_Searching,
 		NMS_Lobby,
 		NMS_Ready,
+		NMS_MainMenu,
 		//everything above this should be the pre-game/lobby/connection
 		NMS_Starting,
 		NMS_Playing,
 		NMS_Delay,
+		NMS_SinglePlayer,
 	};
 
 
@@ -50,6 +52,8 @@ public:
 
 	/// Initializes networkmanager
 	SQUADIO_API static bool	StaticInit();
+	/// Initialize lobby search
+	SQUADIO_API void startLobbySearch();
 	/// Constructor
 	SQUADIO_API NetworkManager();
 	/// Destructor
@@ -60,6 +64,8 @@ public:
 	SQUADIO_API void	SendOutgoingPackets();
 	/// Updates everything when state is delay
 	SQUADIO_API void	UpdateDelay();
+	/// Sets the current network state
+	SQUADIO_API void	SetState(NetworkManagerState state);
 private:
 	SQUADIO_API void	UpdateSayingHello(bool inForce = false);
 	SQUADIO_API void	SendHelloPacket();

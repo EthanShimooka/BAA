@@ -15,10 +15,9 @@ void UIInputComponent::Update(){
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
 		if (isButtonPressed(input)){
-			std::cout << "Play Single!" << std::endl;
-			uiObjectRef->visible = uiObjectRef->visible ? false : true;
+			std::cout << "Play!" << std::endl;
+			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
 		}
-		
 		break;
 	case CANCEL_BUTTON:
 		break;
@@ -26,7 +25,8 @@ void UIInputComponent::Update(){
 		break;
 	case JOIN_BUTTON:
 		if (isButtonPressed(input)){
-			std::cout << "Join Lobby!" << std::endl;
+			std::cout << "Join!" << std::endl;
+			NetworkManager::sInstance->startLobbySearch();
 		}
 		break;
 	case SCORE:
