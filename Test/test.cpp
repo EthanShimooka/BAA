@@ -226,6 +226,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	while (gameloop) {
 
+		if (input->isKeyDown(KEY_Q)){
+			if (renderMan->cameraPoint.z < -5){
+				renderMan->cameraPoint.z += 1;
+			}
+		}
+		if (input->isKeyDown(KEY_W)){
+			renderMan->cameraPoint.z -= 1;
+		}
+
 		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
 				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
