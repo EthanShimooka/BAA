@@ -225,11 +225,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posY = 43 + armor->posY;
 	
 	//audioMan->playByName("bgmfostershome.ogg");
-	//int mousecounter = 5;
+	int mousecounter = 5;
 	while (gameloop) {
 
 		////test inputs, delete if you want//
-		/*
+		
 		if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
 				renderMan->cameraPoint.z += 1;
@@ -248,7 +248,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			sceneMan->InstantiateObject(sceneMan->findLayer("layer2"),12,x,y);
 			mousecounter = 0;
 		}
-		mousecounter++;*/
+		mousecounter++;
 		////////////////////////////////////
 
 		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
