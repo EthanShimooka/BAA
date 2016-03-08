@@ -27,13 +27,8 @@ GameObject* PlatformObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 	// for type of class,  which will instatiate based on flag
 
 	PlatformRenderComponent* rend = new PlatformRenderComponent(platform);
-	//rend->gameObjectRef = minion; //set components container refrence to this gameObject
-	//minion->AddComponent(COMPONENT_RENDER, rend);
 
 	PlatformPhysicsComponent* physics = new PlatformPhysicsComponent(platform);
-	//physics->gameObjectRef = minion; //set components container refrence to this gameObject
-	//physics->init();
-	//minion->AddComponent(COMPONENT_PHYSICS, physics);
 
 	return platform;
 }
