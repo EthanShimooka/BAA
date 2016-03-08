@@ -38,7 +38,7 @@ void InputManager::update() {
 		controller->joystickButtonPressed[i] = false;
 		controller->joystickButtonReleased[i] = false;
 	}
-	for (int i = 0; i < controller->joystickDPad.size()-1; i++){
+	for (int i = 0; i < controller->joystickDPad.size(); i++){
 		controller->joystickDPad[i] = false;
 	}
 	mouseLeftPressed = false;
