@@ -66,6 +66,7 @@ public:
 	struct point{
 		float x;
 		float y;
+		float z;
 	} cameraPoint;
 	bool flippedScreen;
 	std::stringstream videoInfo;
@@ -96,11 +97,19 @@ public:
 	SQUADIO_API void setBackground(SDL_Texture* texture);
 	// loads an image given a specific filename.
 	SQUADIO_API void setBackground(std::string filename);
+	/// turn a world point into a window point
+	SQUADIO_API void worldCoordToWindowCoord(int &winx, int &winy, float worx, float wory, float worz = 0.0);
+	/// turn a window point into a world point
+	SQUADIO_API void windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz = 0.0);
 	// given a specific point in the game world, compare the distance of an object from the center
 	// and the min distance it needs to be visible, returning the ratio that can be used to zoom out or in
 	SQUADIO_API float zoomRatio(float x1, float y1, float minSize = 1, float scaling = 1);
 	/// function renders the background image, tiling starting from the origin, and cut along the edges of the window
 	SQUADIO_API void renderBackground();
+	/// change the point where the camera renders from
+	SQUADIO_API void setCameraZ(float z);
+	SQUADIO_API void setCameraPoint(float x, float y);
+	SQUADIO_API void setCameraPoint(float x, float y, float z);
 	/// Function that takes the list of renderable objects (renderObjects) and 
 	/// draws them on screen. 
 	/// Objects are rendered in order of the list from first to last.	

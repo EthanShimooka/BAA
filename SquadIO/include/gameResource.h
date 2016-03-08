@@ -53,7 +53,12 @@ public:
 	std::string m_Filename;
 	/// Resource Type 
 	RESOURCE_TYPE m_Type;
-
+	/// width of sprite sheet
+	unsigned int width = 1;
+	/// height of sprite sheet
+	unsigned int height = 1;
+	/// max frames of sprite sheet
+	unsigned int max = 1;
 	/// Destructor
 	virtual ~gameResource(){};
 	/// Virtual function for loading into memory. To be Overridden

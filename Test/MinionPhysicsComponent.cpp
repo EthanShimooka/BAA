@@ -31,13 +31,17 @@ void MinionPhysicsComponent::init(){
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
-	cout << "MINION handling collision with object ID: " << otherObj->ID << endl;
+	std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		{
+			gameObjectRef->setPos(-10000, 0);
+			//mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 			gameObjectRef->isAlive = false;
-			gameObjectRef->setPos(-500, -500);
+			
 
 			break;
+		}
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//just push each other around. Most likely done for us by box2d already
 			break;

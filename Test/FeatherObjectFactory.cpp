@@ -15,34 +15,36 @@ FeatherObjectFactory::~FeatherObjectFactory()
 
 GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, float dx, float dy)
 {
+	GameObject* feather;
+	FeatherRenderComponent* rend;
+	FeatherLogicComponent* logic;
+	FeatherPhysicsComponent* physics;
+	//FeatherNetworkComponent* net;
 
-	GameObject* feather = new GameObject();
-
-	feather->ID = PID;
-	feather->isAlive = true;
-	feather->type = GAMEOBJECT_TYPE::OBJECT_FEATHER;
-	feather->setPos(posX, posY);
-
+	if (GameObjects.dead_feathers.empty()){
+		feather = new GameObject();
+		feather->ID = PID;
+		feather->isAlive = true;
+		feather->type = GAMEOBJECT_TYPE::OBJECT_FEATHER;
+		feather->setPos(posX, posY);
+		rend = new FeatherRenderComponent(feather);
+		logic = new FeatherLogicComponent(feather, posX, posY, dx, dy);
+		physics = new FeatherPhysicsComponent(feather);
+		//net = new FeatherNetworkComponent(feather);
+	}
+	else{
+		feather = GameObjects.dead_feathers.back();
+		GameObjects.dead_feathers.pop_back();
+		std::cout << "Reusing " << feather->ID << " as " << PID << std::endl;
+		feather->ID = PID;
+		feather->isAlive = true;
+		feather->setPos(posX, posY);
+		dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->init(posX, posY, dx, dy);
+	}
 	// Feather Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
-	FeatherRenderComponent* rend = new FeatherRenderComponent(feather);
-	//rend->gameObjectRef = feather; //set components container refrence to this gameObject
-	//feather->AddComponent(COMPONENT_RENDER, rend);
-
-
-	FeatherNetworkComponent* net = new FeatherNetworkComponent(feather);
-	//net->gameObjectRef = feather; //set components container refrence to this gameObject
-	//feather->AddComponent(COMPONENT_NETWORK, net);
-
-
-	FeatherLogicComponent* logic = new FeatherLogicComponent(feather, posX, posY, dx, dy);
-	//logic->gameObjectRef = feather; //set components container refrence to this gameObject
-	//feather->AddComponent(COMPONENT_LOGIC, logic);
-
-	FeatherPhysicsComponent* physics = new FeatherPhysicsComponent(feather);
-	//physics->gameObjectRef = feather; //set components container refrence to this gameObject
-	//feather->AddComponent(COMPONENT_PHYSICS, physics);
+	
 
 	return feather;
 }

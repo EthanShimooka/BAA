@@ -14,6 +14,8 @@ public:
 	~FeatherLogicComponent();
 	/// Update Function
 	void Update();
+	/// init Function
+	void init(float posX, float posY, float dx, float dy);
 
 	float x;
 	float y;

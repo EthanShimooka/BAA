@@ -7,14 +7,15 @@
 // #include "LogManager.h"
 
 using namespace std;
-
+const int JOYSTICK_DEAD_ZONE = 6000;
 InputManager* InputManager::inputInstance = nullptr;
 
 // constructor
 InputManager::InputManager() :keyboardState(nullptr), mouseState(0),
-	mouseX(0), mouseY(0), locked(false) {
+mouseX(0), mouseY(0), locked(false) {
 	mouseDown.resize(MOUSE_SIZE);
 	mouseUp.resize(MOUSE_SIZE);
+	controller = new Controller();
 };
 
 InputManager* InputManager::getInstance() {
@@ -27,51 +28,103 @@ InputManager* InputManager::getInstance() {
 
 // updates at every frame for new input
 void InputManager::update() {
+	controller->update();
 	// reset mouse to neutral state, continue polling for up/down events
 	for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;
 		this->mouseUp[i] = 0;
 	}
+	for (int i = 0; i < SDL_JoystickNumButtons(controller->joystick); i++) {
+		controller->joystickButtonPressed[i] = false;
+		controller->joystickButtonReleased[i] = false;
+	}
+	for (int i = 0; i < controller->joystickDPad.size(); i++){
+		controller->joystickDPad[i] = false;
+	}
+	mouseLeftPressed = false;
+	mouseLeftReleased = false;
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
-//	int index;
+	//	int index;
 	SDL_Event ev;
 	while (SDL_PollEvent(&ev)) {
 		switch (ev.type) {
+		case SDL_QUIT:
+			cout << "quit the game" << endl;
+			break;
 			// SDL_MouseButtonEvent
-			case SDL_MOUSEBUTTONDOWN:
-				if (ev.button.button == SDL_BUTTON_LEFT) {
-					this->mouseDown[MOUSE_LEFT] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_MIDDLE) {
-					this->mouseDown[MOUSE_MIDDLE] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_RIGHT) {
-					this->mouseDown[MOUSE_RIGHT] = 1;
-				}
-				break;
-			case SDL_MOUSEBUTTONUP:
-				if (ev.button.button == SDL_BUTTON_LEFT) {
-					this->mouseUp[MOUSE_LEFT] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_MIDDLE) {
-					this->mouseUp[MOUSE_MIDDLE] = 1;
-				}
-				else if (ev.button.button == SDL_BUTTON_RIGHT) {
-					this->mouseUp[MOUSE_RIGHT] = 1;
-				}
-				break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (ev.button.button == SDL_BUTTON_LEFT) {
+				mouseLeftPressed = true;
+				mousePressClock = clock();
+				this->mouseDown[MOUSE_LEFT] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
+				this->mouseDown[MOUSE_MIDDLE] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_RIGHT) {
+				this->mouseDown[MOUSE_RIGHT] = 1;
+			}
+			break;
+		case SDL_MOUSEBUTTONUP:
+			if (ev.button.button == SDL_BUTTON_LEFT) {
+				mouseLeftReleased = true;
+				mousePressTime = (clock() - mousePressClock) / (CLOCKS_PER_SEC / 1000);
+				this->mouseUp[MOUSE_LEFT] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
+				this->mouseUp[MOUSE_MIDDLE] = 1;
+			}
+			else if (ev.button.button == SDL_BUTTON_RIGHT) {
+				this->mouseUp[MOUSE_RIGHT] = 1;
+			}
+			break;
 			// SDL_MouseWheelEvent
-			case SDL_MOUSEWHEEL:
-				break;
+		case SDL_MOUSEWHEEL:
+			break;
 			// SDL_MouseMotionEvent
-			case SDL_MOUSEMOTION:
-				// store mouse location
-				this->mouseX = ev.motion.x;
-				this->mouseY = ev.motion.y;
-				break;
-			default:
-				break;
+		case SDL_MOUSEMOTION:
+			// store mouse location
+			this->mouseX = ev.motion.x;
+			this->mouseY = ev.motion.y;
+			break;
+		case SDL_JOYBUTTONDOWN:
+			cout << (int)ev.jbutton.button << endl;
+			controller->joystickButtonPressed[ev.jbutton.button] = true;
+			controller->joystickButtonHeld[ev.jbutton.button] = true;
+			break;
+		case SDL_JOYBUTTONUP:
+			controller->joystickButtonReleased[ev.jbutton.button] = true;
+			controller->joystickButtonHeld[ev.jbutton.button] = false;
+			break;
+		case SDL_JOYAXISMOTION:
+			//X axis motion
+			if (ev.jaxis.axis == 0){
+				//out of dead zone
+				if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
+					controller->joystickAnalogs[0] = ev.jaxis.value / 32767.0;
+				}
+				else controller->joystickAnalogs[0] = 0;
+			}//Y axis motion
+			
+			for (int i = 0; i < controller->joystickAnalogs.size(); i++){
+				if (ev.jaxis.axis == i){
+					//Below of dead zone
+					if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){
+						controller->joystickAnalogs[i] = ev.jaxis.value / 32767.0;
+					}
+					else controller->joystickAnalogs[i] = 0;
+				}
+			}
+
+			break;
+		case SDL_JOYHATMOTION:  /* Handle DPAD Input */
+			for (int i = 0; i < 10; i++){
+				if (ev.jhat.value == i)controller->joystickDPad[i] = true;
+			}
+			break;
+		default:
+			break;
 		}
 	}
 	keyboardState = SDL_GetKeyboardState(nullptr);
@@ -135,4 +188,16 @@ void InputManager::lock() {
 
 void InputManager::unlock() {
 	this->locked = false;
+}
+
+bool InputManager::isMouseLeftPressed(){
+	return mouseLeftPressed;
+}
+
+bool InputManager::isMouseLeftReleased(){
+	return mouseLeftReleased;
+}
+
+double InputManager::getMousePressDuration(){
+	return mousePressTime;
 }

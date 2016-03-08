@@ -57,7 +57,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(700, 700, false, "Birds At Arms");
+	renderMan->init(1600, 900, false, "Birds At Arms");
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -92,6 +92,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	Game game;
 	game.mainMenu(input, renderMan, sceneMan);
 	game.play();
+	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
@@ -102,15 +103,35 @@ int _tmain(int argc, _TCHAR* argv[]){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 			}
-			GameObjects.AddObject(pFactory.Spawn(iter.first, local));
+			else{
+				GameObjects.AddObject(pFactory.Spawn(iter.first, local));
+			}
 		}
 	}
 	/// create a local player with ID of 10000
 	else{
-		GameObjects.AddObject(pFactory.Spawn(10000, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
-
+	/*
+	SDLRenderObject * backdrop1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	//backdrop1->setPosZ(10);
+	SDLRenderObject * backdrop2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop2->setPosZ(1);
+	SDLRenderObject * backdrop3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop3->setPosZ(2);
+	SDLRenderObject * backdrop4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop4->setPosZ(3);
+	SDLRenderObject * backdrop5 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop5->setPosZ(4);
+	SDLRenderObject * backdrop6 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop6->setPosZ(5);
+	SDLRenderObject * backdrop7 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop7->setPosZ(-1);
+	SDLRenderObject * backdrop8 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 151, 0, 0);
+	backdrop8->setPosZ(-2);
+	*/
 	/*for (uint64_t i = 0; i < 1; ++i) {
 	//NOTE: there are currently issues ith the setPos function
 	//it only updates the gameobject x,y but the physics compnent (currently)
@@ -213,18 +234,55 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//arm->posY = 43 + armor->posY;
 
 	//audioMan->playByName("bgmfostershome.ogg");
-
+	//int mousecounter = 5;
 	while (gameloop) {
 
-		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
-			if (!GameObjects.alive_objects[i]->isAlive){
-				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
-				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+
+		//for (int i = 0; i < GameObjects.alive_objects.size(); i++){
+		//	if (!GameObjects.alive_objects[i]->isAlive){
+		//		cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
+		//		if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER) { 
+		//			//if a feather is no longer alive, add to dead_feathers
+		//			GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
+		//		}
+		//		else if (GameObjects.alive_objects[i]->type == OBJECT_MINION) { 
+		//			//if a minion is no longer alive, add to dead_minions
+		//			GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
+		//		} else { 
+		//			//if a anything else is no longer alive, add to dead_objects
+		//			GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
+		//		}
+		//		GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+		//	}
+		//}
+
+		////test inputs, delete if you want//
+		/*
+		if (input->isKeyDown(KEY_Q)){
+			if (renderMan->cameraPoint.z < -5){
+				renderMan->cameraPoint.z += 1;
 			}
 		}
+		if (input->isKeyDown(KEY_W)){
+			renderMan->cameraPoint.z -= 1;
+		}
+		if (input->isKeyDown(KEY_E)){
+			renderMan->flippedScreen = !renderMan->flippedScreen;
+		}
+		if (input->isMouseDown(MOUSE_LEFT) && mousecounter>5){
+			float x = 0;
+			float y = 0;
+			renderMan->windowCoordToWorldCoord(x, y, input->getMouseX(), input->getMouseY());
+			sceneMan->InstantiateObject(sceneMan->findLayer("layer2"),12,x,y);
+			mousecounter = 0;
+		}
+		mousecounter++;*/
+		////////////////////////////////////
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
-
+		if (player){
+			renderMan->setCameraPoint(player->posX, player->posY);
+		}
 		int length = 20;
 		float loop = (var % length);
 

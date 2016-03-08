@@ -18,7 +18,7 @@
 <resource UID="103" type="graphic" filename="ArmorLeg1.gif" scenescope="0"></resource>
 <resource UID="151" type="graphic" filename="Tenta.png" scenescope="0"></resource>
 <resource UID="100101" type="graphic" filename="chicken_body.png" scenescope="0"></resource>
-<resource UID="100102" type="graphic" filename="chicken_arm_right.png" scenescope="0"></resource>
+<resource UID="100102" type="graphic" filename="chicken_arm_right_sp.png" scenescope="0" height="2" width="1" max="2"></resource>
 <resource UID="100103" type="graphic" filename="chicken_arm_left.png" scenescope="0"></resource>
 <resource UID="100104" type="graphic" filename="chicken_leg_right.png" scenescope="0"></resource>
 <resource UID="100105" type="graphic" filename="chicken_leg_left.png" scenescope="0"></resource>

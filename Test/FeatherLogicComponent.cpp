@@ -5,12 +5,7 @@ FeatherLogicComponent::FeatherLogicComponent(GameObject* feather, float posX, fl
 {
 	gameObjectRef = feather;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
-	dx -= 350;
-	dy -= 350;
-	x = (dx - posX);
-	y = (dy - posY);
-	gameObjectRef->rotation = atan(y / x) / M_PI * 180;
-	gameObjectRef->flipH = (x > 0) ? false : true;
+	init(posX, posY, dx, dy);
 }
 
 
@@ -20,12 +15,23 @@ FeatherLogicComponent::~FeatherLogicComponent()
 
 void FeatherLogicComponent::Update(){
 	gameObjectRef->setPos(gameObjectRef->posX + x/15, gameObjectRef->posY + y/15);
-	if (gameObjectRef->posX > 350 || gameObjectRef->posX < -350){
+	if (gameObjectRef->posX > 800 || gameObjectRef->posX < -800){ // manually set on screen size
 		gameObjectRef->isAlive = false;
-		gameObjectRef->setPos(-1000, -1000);
+		gameObjectRef->setPos(-10000, 0);
+		GameObjects.dead_feathers.push_back(gameObjectRef);
 	}
-	if (gameObjectRef->posY > 350 || gameObjectRef->posY < -350){
+	if (gameObjectRef->posY > 450 || gameObjectRef->posY < -450){ // manually set on screen size
 		gameObjectRef->isAlive = false;
-		gameObjectRef->setPos(-1000, -1000);
+		gameObjectRef->setPos(-10000, 0);
+		GameObjects.dead_feathers.push_back(gameObjectRef);
 	}
+}
+
+void FeatherLogicComponent::init(float posX, float posY, float dx, float dy){
+	dx -= 800; // manually set on screen size
+	dy -= 450; // manually set on screen size
+	x = (dx - posX);
+	y = (dy - posY);
+	gameObjectRef->rotation = atan(y / x) / M_PI * 180;
+	gameObjectRef->flipH = (x > 0) ? false : true;
 }

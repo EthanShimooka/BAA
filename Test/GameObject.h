@@ -24,7 +24,6 @@
 
 //#include "include\network\Command.h"
 
-
 /// t_component struct contains a component and a int enumerating its type
 /// used anytime trying to find a certain component of GameObject (entitiy)
 struct t_component {

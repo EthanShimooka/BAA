@@ -33,7 +33,7 @@ void PlayerPhysicsComponent::init(){
 
 
 void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
-	cout << "PLAYER handling collision with object ID: " << otherObj->ID<<endl;
+	std::cout << "PLAYER handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 		//do nothing or push past each other

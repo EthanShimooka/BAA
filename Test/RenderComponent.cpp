@@ -14,7 +14,6 @@ RenderComponent::~RenderComponent()
 {
 }
 
-
 /// Assign a Diffrent SDL render Object
 
 void RenderComponent::AssignSprite(SDLRenderObject* rend){
@@ -25,11 +24,13 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 
 /// Sets the next animation given a string value found in a hashtable
 
-void RenderComponent::setAnimation(string name){
+void RenderComponent::setAnimation(std::string name){
 	if (animations.count(name)){
 		nextAnimation = animations[name];
 	}
 }
+
+/// The general animation function, that alters the object's
 
 void RenderComponent::animate(){
 	unsigned int currenttime = clock();

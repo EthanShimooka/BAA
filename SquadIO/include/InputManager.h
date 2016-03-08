@@ -7,11 +7,12 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <time.h>
 #include "sdl2\SDL.h" // includes SDL keycodes	
 #include "InputMap.h" // include mapped key definitions
-// #include <LogManager.h>
+#include "Controller.h"
 
-using namespace std;
+//using namespace std;
 
 #ifdef SQUADIO_EXPORTS
 #define SQUADIO_API __declspec(dllexport)
@@ -21,6 +22,7 @@ using namespace std;
 
 class InputManager {
 public:
+	Controller* controller;
 	// returns this instance of InputManager
 	SQUADIO_API static InputManager* getInstance();
 
@@ -47,6 +49,15 @@ public:
 	SQUADIO_API void lock();
 	SQUADIO_API void unlock();
 
+	// if mouse was pressed this frame
+	SQUADIO_API bool isMouseLeftPressed();
+
+	// if mouse was released this frame
+	SQUADIO_API bool isMouseLeftReleased();
+
+	// returns the duration of the last left mouse press in milliseconds
+	SQUADIO_API double getMousePressDuration();
+
 protected:
 	// constructor only called by getInstance()
 	InputManager();
@@ -59,7 +70,7 @@ protected:
 private:
 	// keyboard state
 	const uint8_t* keyboardState;
-	
+
 	// mouse state
 	uint8_t mouseState;
 
@@ -67,8 +78,14 @@ private:
 	int mouseX, mouseY;
 
 	// mouse states
-	vector<int> mouseDown;
-	vector<int> mouseUp;
+	std::vector<int> mouseDown;
+	std::vector<int> mouseUp;
+
+	clock_t mousePressClock;
+	double mousePressTime;
+
+	bool mouseLeftPressed;
+	bool mouseLeftReleased;
 
 	// keyboard input allowed or not
 	bool locked;

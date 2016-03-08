@@ -79,6 +79,9 @@
     <ClCompile Include="src\SceneManager.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zlib\include\zconf.h" />
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="include\network\MemoryBitStream.h">
       <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files\Input Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
