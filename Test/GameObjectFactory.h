@@ -16,7 +16,7 @@
 
 #include "GameObject.h"
 
-
+#include "SystemGameObjectQueue.h"
 
 // Component Includes
 #include "Component.h"
