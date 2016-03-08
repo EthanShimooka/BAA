@@ -50,6 +50,12 @@ public:
 	// get the value of right trigger
 	SQUADIO_API double getRightTrigger();
 
+	// get the value of left trigger
+	SQUADIO_API bool getLeftBumper();
+
+	// get the value of right trigger
+	SQUADIO_API bool getRightBumper();
+
 	SQUADIO_API bool isDPadPressed(int pad);
 
 	// check if a controller was just plugged in. If so, start accepting input from it.
