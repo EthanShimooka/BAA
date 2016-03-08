@@ -13,8 +13,15 @@ PlayerLogicComponent::~PlayerLogicComponent()
 }
 
 
-void PlayerLogicComponent::Update()
-{
+void PlayerLogicComponent::Update(){
+	InputManager* input = InputManager::getInstance();
+	if (input->isMouseLeftPressed()){
+		isChargingAttack = true;
+	}
+	if (isChargingAttack&&input->isMouseLeftReleased()){
+		double chargeTime = input->getMousePressDuration();
+		std::cout << chargeTime << std::endl;
+	}
 }
 
 
