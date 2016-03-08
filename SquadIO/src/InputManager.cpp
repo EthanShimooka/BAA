@@ -34,11 +34,11 @@ void InputManager::update() {
 		this->mouseDown[i] = 0;
 		this->mouseUp[i] = 0;
 	}
-	for (int i = 0; i < JOYSTICK_MAX; i++) {
+	for (int i = 0; i < SDL_JoystickNumButtons(controller->joystick); i++) {
 		controller->joystickButtonPressed[i] = false;
 		controller->joystickButtonReleased[i] = false;
 	}
-	for (int i = 0; i < controller->joystickDPad.size()-1; i++){
+	for (int i = 0; i < controller->joystickDPad.size(); i++){
 		controller->joystickDPad[i] = false;
 	}
 	// poll for mouse events
@@ -84,6 +84,7 @@ void InputManager::update() {
 			this->mouseY = ev.motion.y;
 			break;
 		case SDL_JOYBUTTONDOWN:
+			cout << (int)ev.jbutton.button << endl;
 			controller->joystickButtonPressed[ev.jbutton.button] = true;
 			controller->joystickButtonHeld[ev.jbutton.button] = true;
 			break;

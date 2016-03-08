@@ -37,6 +37,40 @@ std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, float centerx, f
 	};
 }
 
+std::function<void(float)> moveLinearX(SDLRenderObject* obj, float startx, float endx){
+	return [=](float i) {obj->posX = (endx - startx)*i + startx; };
+}
+std::function<void(float)> moveLinearY(SDLRenderObject* obj, float starty, float endy){
+	return [=](float i) {obj->posY = (endy - starty)*i + starty; };
+}
+std::function<void(float)> moveLinearZ(SDLRenderObject* obj, float startz, float endz){
+	return [=](float i) {obj->posZ = (endz - startz)*i + startz; };
+}
+std::function<void(float)> moveLinearXY(SDLRenderObject* obj, float startx, float starty, float endx, float endy){
+	return [=](float i) {obj->posZ = (endx - startx)*i + startx;
+						 obj->posY = (endy - starty)*i + starty; };
+}
+std::function<void(float)> moveLinearXYZ(SDLRenderObject* obj, float startx, float starty, float startz, float endx, float endy, float endz){
+	return [=](float i) {obj->posZ = (endx - startx)*i + startx;
+					 	 obj->posY = (endy - starty)*i + starty;
+						 obj->posZ = (endz - startz)*i + startz;
+	};
+}
+std::function<void(float)> keyframeJump(SDLRenderObject* obj, unsigned int frame){
+	return [=](float i) { obj->frameCurrent = frame; };
+}
+std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, unsigned int startFrame, unsigned int endFrame){
+	return [=](float i) { 
+		if (i < 0) { obj->frameCurrent = startFrame; }
+		else if (i >= 1){ obj->frameCurrent = endFrame; }
+		else {
+			obj->frameCurrent = round(float(endFrame - startFrame)*i) + startFrame;
+		}
+	};
+}
+
+
+
 motion makeMotion(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
 	motion m = { trans, ease, start, duration };
 	return m;
@@ -49,11 +83,13 @@ Animation::Animation(float d, std::list<motion> m){
 
 bool Animation::animate(float i){
 	for (auto mot = motions.begin(); mot != motions.end(); mot++){
-		float place;
-		if (i >= mot->start + mot->duration){ place = 1.0; }//so durations of 0 are assumed to have finished
-		else if (i < mot->start)			{ place = 0.0; }
-		else								{ place = (i - mot->start) / mot->duration; }
-		mot->trans(mot->ease(place));//apply transformation, place should be between 0 and 1
+		if (i>=mot->start){
+			float place;
+			if (i >= mot->start + mot->duration){ place = 1.0; }//so durations of 0 are assumed to have finished
+			//else if (i < mot->start)			{ place = 0.0; }
+			else								{ place = (i - mot->start) / mot->duration; }
+			mot->trans(mot->ease(place));//apply transformation, place should be between 0 and 1
+		}
 	}
 	return ((i>1.0) || (i<0.0));
 }

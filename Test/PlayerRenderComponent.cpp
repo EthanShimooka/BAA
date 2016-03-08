@@ -11,9 +11,9 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
-	base->unrender();
+	//base->unrender();
 	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
-	armL->setPosZ(0.5);
+	//armL->setPosZ(0.5);
 	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100105, 30, 300);
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100101, 0, 0);
 	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100104, 50, 300);
