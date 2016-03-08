@@ -7,7 +7,7 @@ PlatformRenderComponent::PlatformRenderComponent(GameObject* platform){
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, 0, 0);
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 9991, 0, 0);
 }
 
 
