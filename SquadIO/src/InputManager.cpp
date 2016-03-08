@@ -41,6 +41,8 @@ void InputManager::update() {
 	for (int i = 0; i < controller->joystickDPad.size()-1; i++){
 		controller->joystickDPad[i] = false;
 	}
+	mouseLeftPressed = false;
+	mouseLeftReleased = false;
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	//	int index;
@@ -53,7 +55,8 @@ void InputManager::update() {
 			// SDL_MouseButtonEvent
 		case SDL_MOUSEBUTTONDOWN:
 			if (ev.button.button == SDL_BUTTON_LEFT) {
-				cout << "left" << endl;
+				mouseLeftPressed = true;
+				mousePressClock = clock();
 				this->mouseDown[MOUSE_LEFT] = 1;
 			}
 			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
@@ -65,6 +68,8 @@ void InputManager::update() {
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if (ev.button.button == SDL_BUTTON_LEFT) {
+				mouseLeftReleased = true;
+				mousePressTime = (clock() - mousePressClock) / (CLOCKS_PER_SEC / 1000);
 				this->mouseUp[MOUSE_LEFT] = 1;
 			}
 			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
@@ -114,14 +119,9 @@ void InputManager::update() {
 
 			break;
 		case SDL_JOYHATMOTION:  /* Handle DPAD Input */
-			if (ev.jhat.value == JOYSTICK_DPAD_UP)controller->joystickDPad[JOYSTICK_DPAD_UP]=true;
-			if (ev.jhat.value == JOYSTICK_DPAD_RIGHTUP)controller->joystickDPad[JOYSTICK_DPAD_RIGHTUP] = true;
-			if (ev.jhat.value == JOYSTICK_DPAD_RIGHT)controller->joystickDPad[JOYSTICK_DPAD_RIGHT] = true;
-			if (ev.jhat.value == JOYSTICK_DPAD_RIGHTDOWN)controller->joystickDPad[JOYSTICK_DPAD_RIGHTDOWN] = true;
-			if (ev.jhat.value == JOYSTICK_DPAD_DOWN)controller->joystickDPad[JOYSTICK_DPAD_DOWN] = true;
-			if (ev.jhat.value == JOYSTICK_DPAD_LEFTDOWN)controller->joystickDPad[JOYSTICK_DPAD_LEFTDOWN] = true;
-			if (ev.jhat.value == JOYSTICK_DPAD_LEFT)controller->joystickDPad[JOYSTICK_DPAD_LEFT] = true;
-			if (ev.jhat.value == JOYSTICK_DPAD_LEFTUP)controller->joystickDPad[JOYSTICK_DPAD_LEFTUP] = true;
+			for (int i = 0; i < 10; i++){
+				if (ev.jhat.value == i)controller->joystickDPad[i] = true;
+			}
 			break;
 		default:
 			break;
@@ -190,4 +190,14 @@ void InputManager::unlock() {
 	this->locked = false;
 }
 
+bool InputManager::isMouseLeftPressed(){
+	return mouseLeftPressed;
+}
 
+bool InputManager::isMouseLeftReleased(){
+	return mouseLeftReleased;
+}
+
+double InputManager::getMousePressDuration(){
+	return mousePressTime;
+}
