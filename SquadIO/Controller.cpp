@@ -2,14 +2,17 @@
 
 
 Controller::Controller(){
-	joystickButtonHeld.resize(JOYSTICK_MAX);
-	joystickButtonPressed.resize(JOYSTICK_MAX);
-	joystickButtonReleased.resize(JOYSTICK_MAX);
-	joystickDPad.resize(13);
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_JoystickEventState(SDL_ENABLE);
 	joystick = SDL_JoystickOpen(0);
-	if(joystick) joystickAnalogs.resize(SDL_JoystickNumAxes(joystick));
+	if (joystick){
+		joystickAnalogs.resize(SDL_JoystickNumAxes(joystick));
+		joystickButtonHeld.resize(SDL_JoystickNumButtons(joystick));
+		joystickButtonPressed.resize(SDL_JoystickNumButtons(joystick));
+		joystickButtonReleased.resize(SDL_JoystickNumButtons(joystick));
+		joystickDPad.resize(13);
+		;
+	}
 
 }
 
@@ -69,9 +72,21 @@ double Controller::getRightTrigger(){
 	return joystickAnalogs[5];
 }
 
+bool Controller::getLeftBumper(){
+	return SDL_JoystickGetButton(joystick, JOYSTICK_LEFTSHOULDER);
+}
+
+// get  value of right trigger
+bool Controller::getRightBumper(){
+	return SDL_JoystickGetButton(joystick, JOYSTICK_RIGHTSHOULDER);
+}
+
 void Controller::update(){
 	if (!joystick&&SDL_NumJoysticks()==1){
+		//initialize controller
 		joystick = SDL_JoystickOpen(0);
+		if (joystick) joystickAnalogs.resize(SDL_JoystickNumAxes(joystick));
+
 	}
 	if (joystick&&SDL_NumJoysticks() == 0){
 		//possible data loss. joystick is just a pointer, make sure
