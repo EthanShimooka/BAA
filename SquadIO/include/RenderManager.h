@@ -9,9 +9,6 @@
 #define SQUADIO_API __declspec(dllimport) 
 #endif
 
-#define small char
-typedef unsigned char byte;
-
 // TODO: page 135, add the first two includes: 2DRenderManager.h and ResourceManager.h they are made by us
 #include <string>
 #include <sstream>
@@ -111,9 +108,6 @@ public:
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
 	std::list<SDLRenderObject*> windowObjects;
-
-	bool renderSteamAvatar(byte avatatStream, uint32_t width, uint32_t height);
-
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

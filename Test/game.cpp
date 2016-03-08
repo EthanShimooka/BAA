@@ -21,9 +21,6 @@ void Game::mainMenu(InputManager* input, RenderManager* renderMan, SceneManager*
 	queue.AddObject(playButton.Spawn(PLAY_BUTTON));
 	queue.AddObject(joinButton.Spawn(JOIN_BUTTON));
 
-	//UIObjects.AddObject(uFactory.Spawn(PLAY_BUTTON));
-	//UIObjects.AddObject(uFactory.Spawn(JOIN_BUTTON));
-
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
 
 		renderMan->zoom = 0.5;
@@ -31,13 +28,17 @@ void Game::mainMenu(InputManager* input, RenderManager* renderMan, SceneManager*
 
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
-
-		//sysRend.RenderUpdate(queue.alive_objects);
+		sysRend.RenderUpdate(queue.alive_objects);
 
 		input->update();
 
 		sceneMan->AssembleScene();
 	}
+	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
+		queue.alive_objects[i]->visible = false;
+	}
+	sysRend.RenderUpdate(queue.alive_objects);
+	sceneMan->AssembleScene();
 	queue.DeleteObjects();
 }
 
@@ -58,5 +59,5 @@ void Game::play(){
 
 void Game::inLobby(){
 	std::cout << GamerServices::sInstance->GetLocalPlayerName() << std::endl;
-	std::cout << GamerServices::sInstance->GetLocalPlayerAvatar() << std::endl;
+
 }

@@ -1,8 +1,6 @@
 #ifndef GAMERSERVICES_H_INCLUDED
 #define GAMERSERVICES_H_INCLUDED
 
-#include "include\RenderManager.h"
-
 class GamerServices
 {
 public:
@@ -12,7 +10,6 @@ public:
 	//general player functions
 	uint64_t GetLocalPlayerId();
 	SQUADIO_API string GetLocalPlayerName();
-	SQUADIO_API int GetLocalPlayerAvatar();
 	SQUADIO_API string GetRemotePlayerName( uint64_t inPlayerId );
 
 	//lobby functions

@@ -329,18 +329,3 @@ bool RenderManager::isReadyToQuit(){
 	}
 	return false;
 }
-
-bool RenderManager::renderSteamAvatar(byte avatarStream, uint32_t width, uint32_t height){
-	SDL_Texture *AvatarTexture;
-	AvatarTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, width, height);
-
-	void *pixels;
-	int pitch;
-
-	if (SDL_LockTexture(AvatarTexture, NULL, &pixels, &pitch) != 0){
-		std::cout << "Couldn't lock texture" << std::endl;
-	}
-
-
-	return true;
-}
