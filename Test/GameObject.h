@@ -22,7 +22,7 @@
 #include <iostream>
 #include <vector>
 
-#include "SystemGameObjectQueue.h"
+//#include "SystemGameObjectQueue.h"
 
 
 //#include "include\network\Command.h"
