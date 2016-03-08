@@ -189,6 +189,21 @@ void RenderManager::renderBackground(){
 	}
 }
 
+void RenderManager::worldCoordToWindowCoord(int &winx, int &winy, float worx, float wory, float worz){
+	// make sure that worz does not equal cameraPoint.z
+	float proj = -cameraPoint.z / (worz - cameraPoint.z);
+	float flip = (flippedScreen) ? -1 : 1;
+	winx = int((worx - cameraPoint.x)*flip*proj / zoom + windowSurface->w / 2);
+	winy = int((wory - cameraPoint.y)*flip*proj / zoom + windowSurface->h / 2);
+}
+void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz){
+	//make sure that cameraPoint.z is not at 0
+	float proj = (worz - cameraPoint.z) / (-cameraPoint.z);
+	float flip = (flippedScreen) ? -1 : 1;
+	worx = (float(winx) - windowSurface->w / 2)*zoom*proj*flip + cameraPoint.x;
+	wory = (float(winy) - windowSurface->h / 2)*zoom*proj*flip + cameraPoint.y;
+}
+
 bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
 	return lhs->posZ > rhs->posZ;
 }
@@ -211,14 +226,16 @@ void RenderManager::renderAllObjects(){
 				//pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z*f + windowSurface->w / 2);
 				float proj = -cameraPoint.z / ((*iter)->posZ - cameraPoint.z );
 				if (flippedScreen){
-					pos.x = int(-((*iter)->getPosX() - cameraPoint.x + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()))*z*proj + windowSurface->w / 2);
-					pos.y = int(-((*iter)->getPosY() - cameraPoint.y + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()))*z*proj + windowSurface->h / 2);
-					anchor = { int((*iter)->getWidth()*z*(1 - (*iter)->getAnchorX())), int((*iter)->getHeight()*z*(1 - (*iter)->getAnchorY())) };
+					//pos.x = int(-((*iter)->getPosX() - cameraPoint.x + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()))*z*proj + windowSurface->w / 2);
+					//pos.y = int(-((*iter)->getPosY() - cameraPoint.y + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()))*z*proj + windowSurface->h / 2);
+					worldCoordToWindowCoord(pos.x, pos.y, (*iter)->getPosX() + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()), (*iter)->getPosY() + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()));
+					anchor = { int((*iter)->getWidth()*z*proj*(1 - (*iter)->getAnchorX())), int((*iter)->getHeight()*z*proj*(1 - (*iter)->getAnchorY())) };
 				}
 				else{
-					pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z*proj + windowSurface->w / 2);
-					pos.y = int(((*iter)->getPosY() - cameraPoint.y - (*iter)->getHeight() * (*iter)->getAnchorY())*z*proj + windowSurface->h / 2);
-					anchor = { int((*iter)->getWidth()*z*(*iter)->getAnchorX()), int((*iter)->getHeight()*z*(*iter)->getAnchorY()) };
+					//pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z*proj + windowSurface->w / 2);
+					//pos.y = int(((*iter)->getPosY() - cameraPoint.y - (*iter)->getHeight() * (*iter)->getAnchorY())*z*proj + windowSurface->h / 2);
+					worldCoordToWindowCoord(pos.x, pos.y, (*iter)->getPosX()-(*iter)->getWidth()*(*iter)->getAnchorX(), (*iter)->getPosY()-(*iter)->getHeight()*(*iter)->getAnchorY());
+					anchor = { int((*iter)->getWidth()*z*proj*(*iter)->getAnchorX()), int((*iter)->getHeight()*z*proj*(*iter)->getAnchorY()) };
 				}
 				pos.w = (*iter)->getWidth()*z*proj;
 				pos.h = (*iter)->getHeight()*z*proj;

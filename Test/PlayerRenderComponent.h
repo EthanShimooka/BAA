@@ -23,7 +23,8 @@ public:
 	~PlayerRenderComponent();
 	/// Update
 	void Update();
-	
+	/// variable that decides where to aim
+	float aimRotation;
 };
 
 #endif
