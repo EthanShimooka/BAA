@@ -129,8 +129,19 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//GameObjects.AddObject(fFactory.Spawn(i * 4))->setPos(i * 50 + 5, i * 50 + 5);
 	}*/
 	//GameObjects.AddObject(plFactory.Spawn(123456, 0, 200, 0));
-	GameObjects.AddObject(plFactory.Spawn(321556, 0, 175, 0));
-	GameObjects.AddObject(plFactory.Spawn(543543, 0, 0, 0));
+
+	for (int i = 0; i < 3; i++){
+
+		GameObjects.AddObject(plFactory.Spawn((321556+(i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543543+i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
+
+
+	}
+
+
+	
 
 	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
@@ -228,6 +239,25 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int mousecounter = 5;
 	while (gameloop) {
 
+
+		//for (int i = 0; i < GameObjects.alive_objects.size(); i++){
+		//	if (!GameObjects.alive_objects[i]->isAlive){
+		//		cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
+		//		if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER) { 
+		//			//if a feather is no longer alive, add to dead_feathers
+		//			GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
+		//		}
+		//		else if (GameObjects.alive_objects[i]->type == OBJECT_MINION) { 
+		//			//if a minion is no longer alive, add to dead_minions
+		//			GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
+		//		} else { 
+		//			//if a anything else is no longer alive, add to dead_objects
+		//			GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
+		//		}
+		//		GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+		//	}
+		//}
+
 		////test inputs, delete if you want//
 		
 		if (input->isKeyDown(KEY_Q)){
@@ -250,24 +280,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 		mousecounter++;
 		////////////////////////////////////
-
-		for (int i = 0; i < GameObjects.alive_objects.size(); i++){
-			if (!GameObjects.alive_objects[i]->isAlive){
-				cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
-				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER) { 
-					//if a feather is no longer alive, add to dead_feathers
-					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
-				}
-				else if (GameObjects.alive_objects[i]->type == OBJECT_MINION) { 
-					//if a minion is no longer alive, add to dead_minions
-					GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
-				} else { 
-					//if a anything else is no longer alive, add to dead_objects
-					GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
-				}
-				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
-			}
-		}
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 		if (player){

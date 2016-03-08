@@ -17,6 +17,7 @@ Only the local player GameObject should have this component.
 #include "SystemGameObjectQueue.h"
 #include "FeatherObjectFactory.h"
 #include "PlayerComponentIncludes.h"
+#include "include\InputManager.h"
 
 
 class PlayerLogicComponent :  public LogicComponent
@@ -34,6 +35,8 @@ public:
 
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
+
+	bool isChargingAttack = false;
 };
 
 #endif
