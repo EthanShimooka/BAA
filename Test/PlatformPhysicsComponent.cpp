@@ -23,10 +23,14 @@ void PlatformPhysicsComponent::init(){
 	GameWorld* gameWorld = GameWorld::getInstance();
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
+	/// Hitbox instantiation
 	b2PolygonShape box;
-	box.SetAsBox(350, 1); // look up other functions for polygons
+	/// Set Box Shape
+	box.SetAsBox(350, 32); // look up other functions for polygons
+	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
+	// Create Fixture 
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
