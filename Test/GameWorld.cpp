@@ -5,7 +5,7 @@ GameWorld* GameWorld::gameWorld = nullptr;
 GameWorld::GameWorld(){
 	//initialize the class here
 	//Note: hardcoded gravity for testing
-	const b2Vec2 gravity =  b2Vec2(0, 200);
+	const b2Vec2 gravity =  b2Vec2(0, 0);
 	physicsWorld = new b2World(gravity);
 	currTime = clock();
 }

@@ -1,16 +1,16 @@
 #include "FeatherPhysicsComponent.h"
 
 
-FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather)
+FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float initX, float initY, float dx, float dy)
 {
 	gameObjectRef = feather;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init();
+	init(initX,  initY,  dx,  dy);
 }
 
 FeatherPhysicsComponent::~FeatherPhysicsComponent(){}
 
-void FeatherPhysicsComponent::init(){
+void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
@@ -25,9 +25,16 @@ void FeatherPhysicsComponent::init(){
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
 
 	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION);
+	
+	//handle init stuff for positions
+	gameObjectRef->posX = initX;
+	gameObjectRef->posY =  initY;
+	gameObjectRef->rotation = atan(dy / dx) / M_PI * 180;
+	gameObjectRef->flipH = !(dx > 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
+	mBody->SetLinearVelocity(b2Vec2(dx, dy));
 }
 
 void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -52,5 +59,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void FeatherPhysicsComponent::Update() {
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
+	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
+	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
+	//mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
 }
