@@ -92,6 +92,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	Game game;
 	game.mainMenu(input, renderMan, sceneMan);
 	game.play();
+
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game

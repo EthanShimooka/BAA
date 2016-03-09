@@ -34,7 +34,7 @@ public:
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
-	list <SDLRenderObject*> allObjs;
+	std::list <SDLRenderObject*> allObjs;
 	bool visible;
 
 	/// UI objects reference

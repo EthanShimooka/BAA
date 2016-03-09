@@ -10,8 +10,8 @@ public:
 	SystemUIObjectQueue();
 	~SystemUIObjectQueue();
 
-	vector<UIObject*> alive_objects;
-	vector<UIObject*> dead_objects;
+	std::vector<UIObject*> alive_objects;
+	std::vector<UIObject*> dead_objects;
 
 	UIObject* AddObject(UIObject * obj);
 
