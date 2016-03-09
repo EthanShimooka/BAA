@@ -42,7 +42,10 @@ void PlayerInputComponent::Update(){
 		//shoot feather
 		if (input->isMouseDown(MOUSE_LEFT)){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
+			float dx, dy;
+			renderMan->windowCoordToWorldCoord(dx,dy,input->getMouseX(), input->getMouseY());
+
+			uint64_t id = logic->spawnFeather(dx,dy);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
 			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
