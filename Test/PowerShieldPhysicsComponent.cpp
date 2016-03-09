@@ -1,22 +1,25 @@
-#include "PlatformPhysicsComponent.h"
+#include "PowerShieldPhysicsComponent.h"
 
 
-PlatformPhysicsComponent::PlatformPhysicsComponent(GameObject* platform){
-	gameObjectRef = platform;
+PowerShieldPhysicsComponent::PowerShieldPhysicsComponent(GameObject* shield)
+{
+	gameObjectRef = shield;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 	init();
-
 }
 
 
-PlatformPhysicsComponent::~PlatformPhysicsComponent()
+PowerShieldPhysicsComponent::~PowerShieldPhysicsComponent()
 {
 }
 
-void PlatformPhysicsComponent::init(){
+void PowerShieldPhysicsComponent::init()
+{
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
-	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
+
+	// Adjust offsets here yo
+	bodyDef.position.Set(gameObjectRef->posX + 40, gameObjectRef->posY);
 
 	bodyDef.angle = 0;// ... which direction it's facing
 
@@ -26,7 +29,7 @@ void PlatformPhysicsComponent::init(){
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(350, 32); // look up other functions for polygons
+	box.SetAsBox(100, 15); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
@@ -38,14 +41,13 @@ void PlatformPhysicsComponent::init(){
 	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
 }
 
-void PlatformPhysicsComponent::handleCollision(GameObject* otherObj){
+
+void PowerShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
 }
 
-void PlatformPhysicsComponent::Update(){
-	//gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
-	//gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
-	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
-}
 
+void PowerShieldPhysicsComponent::Update(){
+
+}
