@@ -31,9 +31,9 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, flo
 
 	MinionNetworkComponent* net = new MinionNetworkComponent(minion);
 
-	MinionLogicComponent* logic = new MinionLogicComponent(minion, posX, posY, length, direction);
+	MinionLogicComponent* logic = new MinionLogicComponent(minion);
 
-	MinionPhysicsComponent* physics = new MinionPhysicsComponent(minion);
+	MinionPhysicsComponent* physics = new MinionPhysicsComponent(minion, posX, posY, length, direction);
 
 	return minion;
 }

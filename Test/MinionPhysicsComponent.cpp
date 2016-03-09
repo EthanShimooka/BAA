@@ -1,6 +1,6 @@
 #include "MinionPhysicsComponent.h"
 
-MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion)
+MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, float _length, bool _walkRight)
 {
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
@@ -25,7 +25,7 @@ void MinionPhysicsComponent::init(){
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
-
+	mBody->SetLinearVelocity(b2Vec2(50, 0));
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_PLATFORM);
 }
 
@@ -51,11 +51,16 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void MinionPhysicsComponent::Update(){
-	//gameObjectRef->posX = mBody->GetPosition().x;
-	gameObjectRef->posY = mBody->GetPosition().y;
-	if (!gameObjectRef->isAlive)
-		mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
-	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
+	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
+	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
+	//temp testing code from here down
+	if (gameObjectRef->posX > 400){
+		mBody->SetLinearVelocity(b2Vec2(-30, 0));
+	}
+	else if (gameObjectRef->posX < -400){
+		mBody->SetLinearVelocity(b2Vec2(30, 0));
+	}
+
 }
 
 	
