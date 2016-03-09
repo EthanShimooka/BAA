@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Component\Platform Component">
       <UniqueIdentifier>{e55034b3-fc6a-4f0e-8c7a-1f08fd6b9976}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Power-Shield Component">
+      <UniqueIdentifier>{c3efb030-17e9-46d9-8119-a92948f0f4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Power-Shield Component">
+      <UniqueIdentifier>{a6f81836-19c5-4450-bfb0-5e685d603492}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -186,6 +192,24 @@
     <ClInclude Include="PlayerComponentIncludes.h">
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
+    <ClInclude Include="PowerShieldLogicComponent.h">
+      <Filter>Header Files\Component\Power-Shield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerShieldObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerShieldRenderComponent.h">
+      <Filter>Header Files\Component\Power-Shield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerShieldPhysicsComponent.h">
+      <Filter>Header Files\Component\Power-Shield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerShieldIncludes.h">
+      <Filter>Header Files\Component\Power-Shield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerShieldNetworkComponent.h">
+      <Filter>Header Files\Component\Power-Shield Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -298,6 +322,21 @@
     </ClCompile>
     <ClCompile Include="PlatformObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerShieldObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerShieldLogicComponent.cpp">
+      <Filter>Source Files\Component\Power-Shield Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerShieldRenderComponent.cpp">
+      <Filter>Source Files\Component\Power-Shield Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerShieldPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Power-Shield Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerShieldNetworkComponent.cpp">
+      <Filter>Source Files\Component\Power-Shield Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

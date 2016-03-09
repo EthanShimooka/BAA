@@ -47,6 +47,7 @@ void PlayerInputComponent::Update(){
 			std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
 			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 		}
+
 		if (controller->getLeftTrigger() > 0.8){	
 			int xDir, yDir;
 			renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
@@ -62,6 +63,15 @@ void PlayerInputComponent::Update(){
 		//change direction of player sprite if needed
 		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
+
+		if (input->isMouseDown(MOUSE_RIGHT)) {
+			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			logic->spawnShield();
+		//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
+		//  PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+		//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
+		}
+
 	}
 }
 
