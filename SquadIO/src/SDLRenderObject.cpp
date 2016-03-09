@@ -71,8 +71,8 @@ void SDLRenderObject::setParent(SDLRenderObject * par){
 
 float SDLRenderObject::getPosX(){ 
 	if (parent){
-		float flipH = (parent->isFlippedH()) ? -1 : 1;
-		float flipV = (parent->isFlippedV()) ? -1 : 1;
+		float flipH = (parent->isFlippedH()) ? -1.0 : 1.0;
+		float flipV = (parent->isFlippedV()) ? -1.0 : 1.0;
 		float x = posX;
 		float y = posY;
 		float r = parent->getRotation()*flipH*flipV * (M_PI / 180);

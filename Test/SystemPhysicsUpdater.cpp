@@ -10,6 +10,11 @@ SystemPhysicsUpdater::~SystemPhysicsUpdater()
 {
 }
 
+
+
+
+
+
 void SystemPhysicsUpdater::PhysicsUpdate(std::vector<GameObject*> obj)
 {
 
