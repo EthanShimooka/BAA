@@ -54,7 +54,9 @@ void RenderComponent::animate(){
 }
 
 /// Updates SDL render Object from Move Data in game
-
+void RenderComponent::RenderPhysics(){
+	//gameObjectRef->GetComponent(COMPONENT_PHYSICS);
+}
 void RenderComponent::Update(){
 
 	//Updates the related SDLRenderObject with the player's values

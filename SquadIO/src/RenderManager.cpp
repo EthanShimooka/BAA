@@ -204,6 +204,60 @@ void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, 
 	wory = (float(winy) - windowSurface->h / 2)*zoom*proj*flip + cameraPoint.y;
 }
 
+void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
+	if (obj->getPosZ() > cameraPoint.z){
+		SDL_Rect pos;
+		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z); 
+		if (flippedScreen){
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()));
+		}
+		else{
+			int x = obj->getPosX();
+			int y = obj->getPosY();
+			int w = obj->getWidth();
+			int h = obj->getHeight();
+			float ax = obj->getAnchorX();
+			float zy = obj->getAnchorY();
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY());
+		}
+		pos.w = obj->getWidth()*proj / zoom;
+		pos.h = obj->getHeight()*proj / zoom;
+		SDL_RenderDrawRect(renderer, &pos);
+	}
+}
+void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
+	if (obj->getPosZ() > cameraPoint.z){
+		SDL_Rect pos;
+		SDL_Point anchor;
+		//transforms the world positions of the object to window position
+		//if the screen is flipped, the math is a bit diffirent to accomadate it
+		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
+		if (flippedScreen){
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()));
+			anchor = { int(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), int(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
+		}
+		else{
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY());
+			anchor = { int(obj->getWidth()*proj*obj->getAnchorX()/zoom), int(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
+		}
+		pos.w = obj->getWidth()*proj/zoom;
+		pos.h = obj->getHeight()*proj/zoom;
+		//uses the object's anchor value as a general position, and multiplies it with the proper w and h
+		//flip the sprite based on some bool values
+		SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : SDL_FLIP_NONE;
+		if (obj->isFlippedH()){ flip = (flippedScreen) ? SDL_FLIP_VERTICAL : SDL_FLIP_HORIZONTAL; }
+		if (obj->isFlippedV()){ flip = (flippedScreen) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_VERTICAL; }
+		if (obj->isFlippedH() && obj->isFlippedV()){
+			flip = (flippedScreen) ? SDL_FLIP_NONE : SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+		}
+		//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
+		//add the object to the render
+		SDL_Rect rect = obj->getRenderRect();
+		SDL_RenderCopyEx(renderer, obj->renderResource->mTexture, &rect, &pos, obj->getRotation(), &anchor, flip);
+	}
+
+}
+
 bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
 	return lhs->posZ > rhs->posZ;
 }
@@ -217,50 +271,8 @@ void RenderManager::renderAllObjects(){
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
-			if ((*iter)->getPosZ() > cameraPoint.z){
-				SDL_Rect pos;
-				SDL_Point anchor;
-				//transforms the world positions of the object to window position
-				//if the screen is flipped, the math is a bit diffirent to accomadate it
-				//pos.x = int((((*iter)->posX) - cameraPoint.x - (*iter)->renderRect.w * (*iter)->anchor.x)*z + windowSurface->w / 2);
-				//pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z*f + windowSurface->w / 2);
-				float proj = -cameraPoint.z / ((*iter)->posZ - cameraPoint.z );
-				if (flippedScreen){
-					//pos.x = int(-((*iter)->getPosX() - cameraPoint.x + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()))*z*proj + windowSurface->w / 2);
-					//pos.y = int(-((*iter)->getPosY() - cameraPoint.y + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()))*z*proj + windowSurface->h / 2);
-					worldCoordToWindowCoord(pos.x, pos.y, (*iter)->getPosX() + (*iter)->getWidth()*(1 - (*iter)->getAnchorX()), (*iter)->getPosY() + (*iter)->getHeight()*(1 - (*iter)->getAnchorY()));
-					anchor = { int((*iter)->getWidth()*z*proj*(1 - (*iter)->getAnchorX())), int((*iter)->getHeight()*z*proj*(1 - (*iter)->getAnchorY())) };
-				}
-				else{
-					//pos.x = int(((*iter)->getPosX() - cameraPoint.x - (*iter)->getWidth() * (*iter)->getAnchorX())*z*proj + windowSurface->w / 2);
-					//pos.y = int(((*iter)->getPosY() - cameraPoint.y - (*iter)->getHeight() * (*iter)->getAnchorY())*z*proj + windowSurface->h / 2);
-					worldCoordToWindowCoord(pos.x, pos.y, (*iter)->getPosX()-(*iter)->getWidth()*(*iter)->getAnchorX(), (*iter)->getPosY()-(*iter)->getHeight()*(*iter)->getAnchorY());
-					anchor = { int((*iter)->getWidth()*z*proj*(*iter)->getAnchorX()), int((*iter)->getHeight()*z*proj*(*iter)->getAnchorY()) };
-				}
-				pos.w = (*iter)->getWidth()*z*proj;
-				pos.h = (*iter)->getHeight()*z*proj;
-
-				//TODO: replace NULL parameters with meaningful SDL_Rects
-				//uses the object's anchor value as a general position, and multiplies it with the proper w and h
-				//flip the sprite based on some bool values
-				SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : SDL_FLIP_NONE;
-				if ((*iter)->isFlippedH()){ flip = (flippedScreen) ? SDL_FLIP_VERTICAL : SDL_FLIP_HORIZONTAL; }
-				if ((*iter)->isFlippedV()){ flip = (flippedScreen) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_VERTICAL; }
-				if ((*iter)->isFlippedH() && (*iter)->isFlippedV()){
-					flip = (flippedScreen) ? SDL_FLIP_NONE : SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
-				}
-				/*
-				SDL_RendererFlip flip = SDL_FLIP_NONE;
-				if ((*iter)->isFlippedH()){ flip = SDL_FLIP_HORIZONTAL; }
-				if ((*iter)->isFlippedV()){ flip = SDL_FLIP_VERTICAL; }
-				if ((*iter)->isFlippedH() && (*iter)->isFlippedV()){
-				flip =  SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
-				}*/
-				//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
-				//add the object to the render
-				SDL_Rect rect = (*iter)->getRenderRect();
-				SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, &rect, &pos, (*iter)->getRotation(), &anchor, flip);
-			}
+			if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
+			if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
 		}
 	}
 }

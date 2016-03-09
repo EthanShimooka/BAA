@@ -21,6 +21,8 @@ public:
 	PlayerRenderComponent(GameObject* player);
 	/// Destructor
 	~PlayerRenderComponent();
+	/// render various physics
+	void RenderPhysics();
 	/// Update
 	void Update();
 	/// variable that decides where to aim

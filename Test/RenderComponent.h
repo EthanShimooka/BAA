@@ -39,7 +39,7 @@ public:
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
-	std::list <SDLRenderObject*> allObjs;
+	std::unordered_map<std::string,SDLRenderObject*> allObjs;
 	//hash <animation> animations;
 	GameObject* gameObjectRef;
 
@@ -69,6 +69,7 @@ public:
 	void AssignSprite(SDLRenderObject* rend);
 	/// Updates Sprite to renderer
 	virtual void Update();
+	virtual void RenderPhysics();
 	/// animation setter
 	void setAnimation(std::string name);
 	/// animate based on current animation
