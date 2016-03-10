@@ -53,8 +53,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 void MinionPhysicsComponent::Update(){
 	//gameObjectRef->posX = mBody->GetPosition().x;
 	gameObjectRef->posY = mBody->GetPosition().y;
-	if (gameObjectRef->isAlive)
-		mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	//if (gameObjectRef->isAlive)
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
 }
 

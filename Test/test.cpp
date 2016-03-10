@@ -281,13 +281,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (input->isKeyDown(KEY_E)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
-		if (input->isMouseDown(MOUSE_LEFT) && mousecounter>5){
+		/* if (input->isMouseDown(MOUSE_LEFT) && mousecounter>5){ //spawn minion on click location
 			float x = 0;
 			float y = 0;
 			renderMan->windowCoordToWorldCoord(x, y, input->getMouseX(), input->getMouseY());
 			sceneMan->InstantiateObject(sceneMan->findLayer("layer2"),12,x,y);
 			mousecounter = 0;
-		}
+		} */
 		mousecounter++;
 		////////////////////////////////////
 
@@ -321,11 +321,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
 		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
 			spawnTimer1 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -200, -100, 200, true));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
 		}
 		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
 			spawnTimer2 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -200, 0, 200, true));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, 0, 200, true));
 		}
 
 		input->update();
