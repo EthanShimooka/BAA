@@ -31,7 +31,7 @@ void FeatherPhysicsComponent::init(){
 }
 
 void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
-	std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
 	//probably destroy itself, maybe trigger a sound?
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_MINION:

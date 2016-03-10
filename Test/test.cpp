@@ -143,7 +143,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	
 
-	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
+	//GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
 	/////////////////////////////////////////////////////
@@ -235,8 +235,20 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posY = 43 + armor->posY;
 	
 	//audioMan->playByName("bgmfostershome.ogg");
+<<<<<<< HEAD
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
+=======
+	//int mousecounter = 5;
+	
+	///*auto spawning minion variables
+	
+	int minionCounter = 0;
+	long double spawnTimer = getCurrentTime();
+	long double spawnEvery = 200;
+
+	//*/
+>>>>>>> refs/remotes/origin/master
 	while (gameloop) {
 
 
@@ -305,9 +317,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 
-
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
+
+		if ((long double)spawnTimer + spawnEvery <= getCurrentTime()) {
+			spawnTimer = getCurrentTime();
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -200, -100, 200, true));
+		}
 
 		input->update();
 
