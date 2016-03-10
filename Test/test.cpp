@@ -159,7 +159,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	auto arcarm = moveEllipseArc(arm, 12, 14, 0, 4, -180, 360);
 	auto arcbody = moveEllipseArc(armor, 0, 0, 5, 2, 0, -360);
 	*/
-	renderMan->zoom = 0.5;
 	float size = 6;
 	float ratio = 0.7;
 	int armswing = size;
@@ -236,6 +235,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posY = 43 + armor->posY;
 	
 	//audioMan->playByName("bgmfostershome.ogg");
+<<<<<<< HEAD
+	int mousecounter = 5;
+	renderMan->zoom = 0.6;
+=======
 	//int mousecounter = 5;
 	
 	///*auto spawning minion variables
@@ -245,6 +248,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	long double spawnEvery = 200;
 
 	//*/
+>>>>>>> refs/remotes/origin/master
 	while (gameloop) {
 
 
@@ -267,7 +271,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//}
 
 		////test inputs, delete if you want//
-		/*
+		
 		if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
 				renderMan->cameraPoint.z += 1;
@@ -286,12 +290,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 			sceneMan->InstantiateObject(sceneMan->findLayer("layer2"),12,x,y);
 			mousecounter = 0;
 		}
-		mousecounter++;*/
+		mousecounter++;
 		////////////////////////////////////
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 		if (player){
-			renderMan->setCameraPoint(player->posX, player->posY);
+			renderMan->setCameraPoint(player->posX, 0);
 		}
 		int length = 20;
 		float loop = (var % length);

@@ -14,6 +14,8 @@ SDLRenderObject::SDLRenderObject(){
 	flipH = false;
 	flipV = false;
 	visible = true;
+	ifRenderImage = false;
+	ifRenderRect = false;
 	parent = NULL;
 }
 //SDLRenderObject::~SDLRenderObject(){}
@@ -25,6 +27,7 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		frameWidth = source->width;
 		frameHeight = source->height;
 		frameTotal = (frameTotal > frameWidth*frameHeight || frameTotal >= 0) ? frameWidth*frameHeight : source->max;
+		ifRenderImage = true;
 		//by default, the texture sizes are stored 1:1 scale
 		//stores the width and height of the texture 1:1 scale in the render rect
 		SDL_QueryTexture(renderResource->mTexture, NULL, NULL, &renderRect.w, &renderRect.h);
@@ -128,14 +131,18 @@ void SDLRenderObject::setScale(float sx,float sy){
 	width = sy;
 }
 int SDLRenderObject::getWidth(){
-	return renderRect.w*getScaleX()/frameWidth;
+	return (frameWidth>0) ? renderRect.w*getScaleX() / frameWidth : renderRect.w*getScaleX();
 }
 int SDLRenderObject::getHeight(){
-	return renderRect.h*getScaleY()/frameHeight;
+	return (frameHeight>0) ? renderRect.h*getScaleY() / frameHeight : renderRect.h*getScaleY();
 }
 void SDLRenderObject::getSize(int &w, int &h){w = getWidth(); h = getHeight();}
 
 void SDLRenderObject::setRenderRect(SDL_Rect rect){ renderRect = rect; }
+
+void SDLRenderObject::setRenderRect(int width,int height){ 
+	renderRect = { 0, 0, width, height };
+}
 
 bool SDLRenderObject::isVisible(){ 
 	if (parent){
@@ -144,6 +151,11 @@ bool SDLRenderObject::isVisible(){
 	return visible;
 }
 void SDLRenderObject::setVisible(bool flag){ visible = flag; }
+void SDLRenderObject::toggleVisible(){ visible = !visible; }
+void SDLRenderObject::setIfRenderRect(bool flag){ ifRenderRect = flag; }
+void SDLRenderObject::toggleIfRenderRect(){ ifRenderRect = !ifRenderRect; }
+void SDLRenderObject::setIfRenderImage(bool flag){ ifRenderImage = flag; }
+void SDLRenderObject::toggleIfRenderImage(){ ifRenderImage = !ifRenderImage; }
 
 float SDLRenderObject::getRotation(){
 	if (parent){
@@ -169,6 +181,8 @@ bool SDLRenderObject::isFlippedV(){
 }
 void SDLRenderObject::setFlippedH(bool flag){ flipH = flag; }
 void SDLRenderObject::setFlippedV(bool flag){ flipV = flag; }
+void SDLRenderObject::toggleFlippedH(){ flipH = !flipH; }
+void SDLRenderObject::toggleFlippedV(){ flipV = !flipV; }
 
 float SDLRenderObject::getAnchorX(){
 	if (parent){

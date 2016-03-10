@@ -345,15 +345,23 @@ void SceneManager::AssembleScene(){
 
 }
 
-SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y){
+SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y, float z){
 
 	SDLRenderObject* object = new SDLRenderObject();
 	
 	ResourceManager* ResMan = ResourceManager::GetResourceManager();
 	object->setResourceObject((RenderResource*)ResMan->findResourcebyID(resourceID));
 
-	object->posX = x;
-	object->posY = y;
+	object->setPos(x, y, z);
+	layer->m_SceneObjects.push_back(object);
+	return object;
+}
+SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, float y,int w,int h, float z){
+
+	SDLRenderObject* object = new SDLRenderObject();
+
+	object->setPos(x, y, z);
+	object->setRenderRect(w,h);
 	layer->m_SceneObjects.push_back(object);
 	return object;
 }

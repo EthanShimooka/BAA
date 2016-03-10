@@ -61,7 +61,10 @@ public:
 	bool flipV;
 	/// if visible in the world
 	bool visible;
-
+	/// render the render rectangle
+	bool ifRenderRect;
+	/// render the image
+	bool ifRenderImage;
 	/// Total number of frames
 	unsigned int frameTotal;
 	/// current frame of the animation sheet
@@ -122,11 +125,23 @@ public:
 	SQUADIO_API void setSize(int w, int h);
 	/// Set object's position, width, and height
 	SQUADIO_API void setRenderRect(SDL_Rect rect);
+	/// Set object's position, width, and height
+	SQUADIO_API void setRenderRect(int width,int height);
 
 	/// Check if the object is visible
 	SQUADIO_API bool isVisible();
 	/// Set if the object is visible
 	SQUADIO_API void setVisible(bool flag);
+	SQUADIO_API void toggleVisible();
+
+	/// Set if the object should be rendered as a rectangle
+	SQUADIO_API void setIfRenderRect(bool flag);
+	SQUADIO_API void toggleIfRenderRect();
+
+	/// Set if the object should be rendered as an image
+	SQUADIO_API void setIfRenderImage(bool flag);
+	SQUADIO_API void toggleIfRenderImage();
+
 
 	/// Get the object's rotation
 	SQUADIO_API float getRotation();
@@ -139,9 +154,10 @@ public:
 	SQUADIO_API bool isFlippedV();
 	/// Set if the object is flipped horizontally
 	SQUADIO_API void setFlippedH(bool flag);
+	SQUADIO_API void toggleFlippedH();
 	/// Set if the object is flipped vertically
 	SQUADIO_API void setFlippedV(bool flag);
-
+	SQUADIO_API void toggleFlippedV();
 	/// Get object's anchor xpoint relative to object's position and size
 	SQUADIO_API float getAnchorX();
 	/// Get object's anchor ypoint relative to object's position and size
