@@ -21,7 +21,7 @@ GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, fl
 	FeatherPhysicsComponent* physics;
 	//FeatherNetworkComponent* net;
 
-	if (GameObjects.dead_feathers.empty()){
+	if (GameObjects.dead_feathers.empty()){ //pool not large enough, add new feather
 		feather = new GameObject();
 		feather->ID = PID;
 		feather->isAlive = true;
@@ -31,11 +31,10 @@ GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, fl
 		logic = new FeatherLogicComponent(feather, posX, posY, dx, dy);
 		physics = new FeatherPhysicsComponent(feather);
 		//net = new FeatherNetworkComponent(feather);
-	}
-	else{
+	} else { //reuse feather from pool
 		feather = GameObjects.dead_feathers.back();
 		GameObjects.dead_feathers.pop_back();
-		std::cout << "Reusing " << feather->ID << " as " << PID << std::endl;
+		std::cout << "Feather Pool Reusing " << feather->ID << " as " << PID << std::endl;
 		feather->ID = PID;
 		feather->isAlive = true;
 		feather->setPos(posX, posY);

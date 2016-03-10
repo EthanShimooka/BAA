@@ -14,7 +14,7 @@ MinionLogicComponent::~MinionLogicComponent()
 
 void MinionLogicComponent::Update(){
 	
-	if (!walkRight && gameObjectRef->posX <= initialX)
+	/*if (!walkRight && gameObjectRef->posX <= initialX) //walk back and forth code
 		walkRight = true;
 	else if (walkRight && gameObjectRef->posX >= initialX + length)
 		walkRight = false;
@@ -22,6 +22,7 @@ void MinionLogicComponent::Update(){
 	float speed = (walkRight) ? 2.5 : -2.5;
 	gameObjectRef->flipH = (walkRight) ? false : true;
 
-	gameObjectRef->posX += speed;
+	gameObjectRef->posX += speed;*/
+	gameObjectRef->posX += 2.5;
 	
 }
