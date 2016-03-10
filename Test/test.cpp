@@ -1,5 +1,4 @@
 #include "test.h"
-#include "game.h"
 #include <functional>
 #include <crtdbg.h>
 
@@ -89,9 +88,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 
-	Game game;
-	game.mainMenu(input, renderMan, sceneMan);
-	game.play();
+	Lobby menu;
+	menu.mainMenu();
+
+	std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
 	GameObject * player = NULL;
 

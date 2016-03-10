@@ -110,10 +110,13 @@ public:
 	SQUADIO_API void setCameraZ(float z);
 	SQUADIO_API void setCameraPoint(float x, float y);
 	SQUADIO_API void setCameraPoint(float x, float y, float z);
-	/// Function that takes the list of renderable objects (renderObjects) and 
+	/// Function that takes the list of render	able objects (renderObjects) and 
 	/// draws them on screen. 
 	/// Objects are rendered in order of the list from first to last.	
 	SQUADIO_API void renderAllObjects();
+
+	SQUADIO_API void getWindowSize(int *w, int *h);
+
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
 	std::list<SDLRenderObject*> windowObjects;

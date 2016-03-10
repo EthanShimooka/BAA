@@ -98,6 +98,8 @@ private:
 	/// Attempts to start the game
 	SQUADIO_API void	TryStartGame();
 public:
+	/// Gets Lobby Id
+	SQUADIO_API uint64_t GetLobbyId();
 	/// Handles player disconnecting mid-game
 	SQUADIO_API void	HandleConnectionReset(uint64_t inFromPlayer);
 	/// Calls Gamerservices to send reliable packet

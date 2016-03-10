@@ -16,6 +16,10 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually
+	RenderManager* rendMan = RenderManager::getRenderManager();
+
+	int w, h;
+	rendMan->getWindowSize(&w, &h);
 
 	UIComponent* comp = new UIComponent();
 	comp->uiObjectRef = uiObject;
@@ -32,11 +36,11 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 	switch (PID){
 	case PLAY_BUTTON:
-		rend->uiObjectRef->setPos(240, 325);
+		rend->uiObjectRef->setPos(w/2 - 125, h/2 - 25);
 		rend->createUIType(PLAY_BUTTON);
 		break;
 	case JOIN_BUTTON:
-		rend->uiObjectRef->setPos(365, 325);
+		rend->uiObjectRef->setPos(w/2 + 25, h/2 - 25);
 		rend->createUIType(JOIN_BUTTON);
 		// in here we will want to add some functionallity to
 		// join a lobby or set a flag to join a lobby.

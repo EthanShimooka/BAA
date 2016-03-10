@@ -1,12 +1,16 @@
-#include "game.h"
+#include "lobby.h"
 
-Game::Game(){
+Lobby::Lobby(){
 }
 
-Game::~Game(){
+Lobby::~Lobby(){
 }
 
-void Game::mainMenu(InputManager* input, RenderManager* renderMan, SceneManager* sceneMan){
+void Lobby::mainMenu(){
+
+	InputManager* input = InputManager::getInstance();
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
@@ -40,9 +44,10 @@ void Game::mainMenu(InputManager* input, RenderManager* renderMan, SceneManager*
 	sysRend.RenderUpdate(queue.alive_objects);
 	sceneMan->AssembleScene();
 	queue.DeleteObjects();
+	play();
 }
 
-void Game::play(){
+void Lobby::play(){
 	switch (NetworkManager::sInstance->GetState()){
 	case NetworkManager::NMS_Searching:
 		while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
@@ -57,7 +62,7 @@ void Game::play(){
 
 }
 
-void Game::inLobby(){
+void Lobby::inLobby(){
 	std::cout << GamerServices::sInstance->GetLocalPlayerName() << std::endl;
 
 }

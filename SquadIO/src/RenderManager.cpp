@@ -365,6 +365,12 @@ bool RenderManager::isReadyToQuit(){
 	return false;
 }
 
+void RenderManager::getWindowSize(int *w, int *h){
+
+	*w = SDL_GetWindowSurface(renderWindow)->w;
+	*h = SDL_GetWindowSurface(renderWindow)->h;
+}
+
 
 void RenderManager::setCameraZ(float z){
 	cameraPoint.z = z;

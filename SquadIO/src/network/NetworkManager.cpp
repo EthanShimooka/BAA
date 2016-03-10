@@ -835,3 +835,6 @@ void NetworkManager::sendPacketToAllPeers(OutputMemoryBitStream& outData){
 void NetworkManager::HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
 	test.push(inInputStream);
 }
+uint64_t NetworkManager::GetLobbyId(){
+	return mLobbyId;
+}

@@ -90,7 +90,7 @@
     <ClInclude Include="FeatherObjectFactory.h" />
     <ClInclude Include="FeatherPhysicsComponent.h" />
     <ClInclude Include="FeatherRenderComponent.h" />
-    <ClInclude Include="game.h" />
+    <ClInclude Include="lobby.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameWorld.h" />
@@ -148,7 +148,7 @@
     <ClCompile Include="FeatherObjectFactory.cpp" />
     <ClCompile Include="FeatherPhysicsComponent.cpp" />
     <ClCompile Include="FeatherRenderComponent.cpp" />
-    <ClCompile Include="game.cpp" />
+    <ClCompile Include="lobby.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameWorld.cpp" />

@@ -43,6 +43,7 @@
 #include "SystemNetworkUpdater.h"
 #include "SystemPhysicsUpdater.h"
 #include "SystemUIUpdater.h"
+#include "lobby.h"
 
 class test
 {

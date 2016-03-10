@@ -213,9 +213,6 @@
     <ClInclude Include="PowerShieldNetworkComponent.h">
       <Filter>Header Files\Component\Power-Shield Component</Filter>
     </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIRenderComponent.h">
       <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
@@ -242,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="UIObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="lobby.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,9 +371,6 @@
     <ClCompile Include="PowerShieldNetworkComponent.cpp">
       <Filter>Source Files\Component\Power-Shield Component</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RenderUIComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -399,6 +396,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lobby.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
