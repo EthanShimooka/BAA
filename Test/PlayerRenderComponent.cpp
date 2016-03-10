@@ -1,5 +1,4 @@
 #include "PlayerRenderComponent.h"
-#include "include\AnimationLibrary.h"
 
 PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 {
@@ -13,15 +12,13 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
 	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
-	//armL->setPosZ(0.5);
 	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100105, 30, 300);
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100101, 0, 0);
 	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100104, 50, 300);
 	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100102, 0, 0);
 	
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
-	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0,10,10);
-	box->setIfRenderRect(true);
+	
 	
 	//objRef->setAnchor(0.5, 0.5);
 	
@@ -35,17 +32,22 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	armR->setParent(body);
 	legL->setParent(body);
 	legR->setParent(body);
-	box->setParent(base);
 	body->setScale(0.1);
 	objRef = base;
 	allObjs["base"] = base;
-	allObjs["box"] = box;
 	allObjs["body"] = body;
 	allObjs["legL"] = legL;
 	allObjs["legR"] = legR;
 	allObjs["armL"] = armL;
 	allObjs["armR"] = armR;
 	
+	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
+	box->setIfRenderRect(true);
+	box->setParent(base);
+	allObjs["box"] = box;
+
+	////////////////////////////////////
+	//Animations//
 	//Animation* idle = new Animation();
 	//idle->duration = 20;
 	list<motion> motions;
@@ -65,7 +67,7 @@ PlayerRenderComponent::~PlayerRenderComponent()
 {
 }
 
-void PlayerRenderComponent::RenderPhysics(){
+/*void PlayerRenderComponent::RenderPhysics(){
 	PlayerPhysicsComponent* physics = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	//PlayerPhysicsComponent* physics = gameObjectRef->GetComponent(COMPONENT_PHYSICS)
 	//allObjs["box"]->setRenderRect((physics->mBody->GetUserData()).getWidth(), (physics->mBody->GetUserData()).getHeight() );
@@ -91,11 +93,12 @@ void PlayerRenderComponent::RenderPhysics(){
 		fixture = fixture->GetNext();
 	}
 	allObjs["box"]->setRenderRect(round(aabb.upperBound.x - aabb.lowerBound.x), round(aabb.upperBound.y- aabb.lowerBound.y));
-}
+}*/
 
 void PlayerRenderComponent::Update(){
 	RenderComponent::Update();
-	RenderPhysics();
+	RenderBoundingBox((allObjs["box"]));
+	ApplyPhysicsRotation(allObjs["base"]);
 	RenderComponent::animate();
 }
 

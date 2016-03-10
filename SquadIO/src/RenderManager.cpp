@@ -206,23 +206,49 @@ void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, 
 
 void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 	if (obj->getPosZ() > cameraPoint.z){
-		SDL_Rect pos;
+		//SDL_Rect pos;
+		int posx = 0;
+		int posy = 0;
+		worldCoordToWindowCoord(posx, posy, obj->getPosX(),obj->getPosY());
+		float anchorx = 0;
+		float anchory = 0;
 		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z); 
 		if (flippedScreen){
-			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()));
+			anchorx = obj->getAnchorX()-1;
+			anchory = obj->getAnchorY()-1;
 		}
 		else{
-			int x = obj->getPosX();
-			int y = obj->getPosY();
-			int w = obj->getWidth();
-			int h = obj->getHeight();
-			float ax = obj->getAnchorX();
-			float zy = obj->getAnchorY();
-			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY());
+			anchorx = obj->getAnchorX();
+			anchory = obj->getAnchorY();
 		}
-		pos.w = obj->getWidth()*proj / zoom;
-		pos.h = obj->getHeight()*proj / zoom;
-		SDL_RenderDrawRect(renderer, &pos);
+		float w = obj->getWidth()*proj / zoom;
+		float h = obj->getHeight()*proj / zoom;
+		float r = obj->rotation * M_PI/180;
+		//SDL_RenderDrawRect(renderer, &pos);
+		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
+									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r),
+									 posx + (w*(1-anchorx))*cos(r) - (h*(1-anchory))*sin(r),
+									 posy + (w*(1-anchorx))*sin(r) + (h*(1-anchory))*cos(r)	 );
+		SDL_RenderDrawLine(renderer, posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r),
+									 posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r),
+									 posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r),
+									 posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r));
+		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
+									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r),
+									 posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r),
+									 posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r));
+		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r),
+									 posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r),
+									 posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r),
+									 posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r));
+		SDL_RenderDrawLine(renderer, posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r),
+									 posy + (w*(1-anchorx))*sin(r) + (h*(1 - anchory))*cos(r),
+									 posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r),
+									 posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r));
+		SDL_RenderDrawLine(renderer, posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r),
+									 posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r),
+									 posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
+									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r));
 	}
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){

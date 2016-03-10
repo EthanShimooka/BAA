@@ -5,6 +5,13 @@ GameObject::GameObject(){
 
 	component_count = 0;
 
+	posX = 0.0;
+	posY = 0.0;
+	rotation = 0;
+	scaleX = 1.0;
+	scaleY = 1.0;
+	flipH = false;
+	flipV = false;
 }
 
 /// Constructor

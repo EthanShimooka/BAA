@@ -21,6 +21,7 @@
 #include "include\SDLRenderObject.h"
 #include "include\AnimationLibrary.h"
 #include "MovementComponent.h"
+#include "PhysicsComponent.h"
 #include "GameObject.h"
 #include <time.h>
 #include <string>
@@ -69,7 +70,9 @@ public:
 	void AssignSprite(SDLRenderObject* rend);
 	/// Updates Sprite to renderer
 	virtual void Update();
-	virtual void RenderPhysics();
+	virtual void AddBoundingBox();
+	virtual void RenderBoundingBox(SDLRenderObject* boxRender);
+	virtual void ApplyPhysicsRotation(SDLRenderObject* render);
 	/// animation setter
 	void setAnimation(std::string name);
 	/// animate based on current animation
