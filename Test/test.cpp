@@ -235,20 +235,18 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posY = 43 + armor->posY;
 	
 	//audioMan->playByName("bgmfostershome.ogg");
-<<<<<<< HEAD
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
-=======
-	//int mousecounter = 5;
 	
 	///*auto spawning minion variables
 	
 	int minionCounter = 0;
-	long double spawnTimer = getCurrentTime();
-	long double spawnEvery = 200;
+	time_t spawnTimer1 = time(0);
+	time_t spawnEvery1 = 2;
+	time_t spawnTimer2 = time(0);
+	time_t spawnEvery2 = 3;
 
 	//*/
->>>>>>> refs/remotes/origin/master
 	while (gameloop) {
 
 
@@ -319,10 +317,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
-
-		if ((long double)spawnTimer + spawnEvery <= getCurrentTime()) {
-			spawnTimer = getCurrentTime();
+		
+		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
+		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
+			spawnTimer1 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -200, -100, 200, true));
+		}
+		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
+			spawnTimer2 = time(0);
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -200, 0, 200, true));
 		}
 
 		input->update();
@@ -338,6 +341,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	log->close();
 	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
+
 	return 0;
 }
 void init(){
