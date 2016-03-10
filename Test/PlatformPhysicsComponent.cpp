@@ -33,7 +33,7 @@ void PlatformPhysicsComponent::init(){
 	// Create Fixture 
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
 }

@@ -51,14 +51,14 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void MinionPhysicsComponent::Update(){
-	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
-	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
+	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 	//temp testing code from here down
 	if (gameObjectRef->posX > 400){
-		mBody->SetLinearVelocity(b2Vec2(-30, 0));
+		mBody->SetLinearVelocity(b2Vec2(-10, 0));
 	}
 	else if (gameObjectRef->posX < -400){
-		mBody->SetLinearVelocity(b2Vec2(30, 0));
+		mBody->SetLinearVelocity(b2Vec2(10, 0));
 	}
 
 }

@@ -21,7 +21,7 @@ void PlayerInputComponent::Update(){
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		Controller* controller = input->controller;
 		//handle input for moving
-		float speed = 60.0f;
+		float speed = 15.0f;
 		body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*speed, body->GetLinearVelocity().y));
 		//keyboard move right
 		if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
@@ -44,7 +44,6 @@ void PlayerInputComponent::Update(){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			float dx, dy;
 			renderMan->windowCoordToWorldCoord(dx,dy,input->getMouseX(), input->getMouseY());
-
 			uint64_t id = logic->spawnFeather(dx,dy);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;

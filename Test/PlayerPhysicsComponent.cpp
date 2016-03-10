@@ -47,7 +47,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void PlayerPhysicsComponent::Update(){
-	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
-	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
-	//cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << endl;
+	if (gameObjectRef->posY < 0){
+		mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
+	}else mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
+
+	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	std::cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << std::endl;
 }

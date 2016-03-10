@@ -7,7 +7,7 @@ FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float init
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 	init(initX,  initY,  dx,  dy);
 }
-
+float worldScale = 20.0f;
 FeatherPhysicsComponent::~FeatherPhysicsComponent(){}
 
 void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy){
@@ -20,7 +20,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy)
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(100, 100); // look up other functions for polygons
+	box.SetAsBox(16, 16); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -33,7 +33,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy)
 	gameObjectRef->posY =  initY;
 	gameObjectRef->rotation = atan(dy / dx) / M_PI * 180;
 	gameObjectRef->flipH = !(dx > 0);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), gameObjectRef->rotation / 180.0 * M_PI);
 	mBody->SetLinearVelocity(b2Vec2(dx, dy));
 }
 
@@ -59,7 +59,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void FeatherPhysicsComponent::Update() {
-	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
-	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
+	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 	//mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
 }
