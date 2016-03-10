@@ -19,6 +19,7 @@ Only the local player GameObject should have this component.
 #include "PlayerComponentIncludes.h"
 #include "include\InputManager.h"
 
+#include "PowerShieldObjectFactory.h"
 
 class PlayerLogicComponent :  public LogicComponent
 {
@@ -29,9 +30,16 @@ public:
 	~PlayerLogicComponent();
 	/// Update Function
 	void Update();
-
+	/// Spawn Feather Function
 	uint64_t spawnFeather(int mouseX, int mouseY);
+	/// Spawn Feather (networked)
 	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY);
+	/// Spawn Hero Class Power
+	void spawnShield();
+
+	/// Shield Object Factory. Will need to be changed eventually
+	/// And migrated to maybe class specific logic class?
+	PowerShieldObjectFactory sFactory;
 
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;

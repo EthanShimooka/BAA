@@ -117,6 +117,12 @@
     <ClInclude Include="PlayerObjectFactory.h" />
     <ClInclude Include="PlayerPhysicsComponent.h" />
     <ClInclude Include="PlayerRenderComponent.h" />
+    <ClInclude Include="PowerShieldIncludes.h" />
+    <ClInclude Include="PowerShieldLogicComponent.h" />
+    <ClInclude Include="PowerShieldNetworkComponent.h" />
+    <ClInclude Include="PowerShieldObjectFactory.h" />
+    <ClInclude Include="PowerShieldPhysicsComponent.h" />
+    <ClInclude Include="PowerShieldRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderUIComponent.h" />
     <ClInclude Include="SystemGameObjectQueue.h" />
@@ -166,6 +172,11 @@
     <ClCompile Include="PlayerObjectFactory.cpp" />
     <ClCompile Include="PlayerPhysicsComponent.cpp" />
     <ClCompile Include="PlayerRenderComponent.cpp" />
+    <ClCompile Include="PowerShieldLogicComponent.cpp" />
+    <ClCompile Include="PowerShieldNetworkComponent.cpp" />
+    <ClCompile Include="PowerShieldObjectFactory.cpp" />
+    <ClCompile Include="PowerShieldPhysicsComponent.cpp" />
+    <ClCompile Include="PowerShieldRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderUIComponent.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />

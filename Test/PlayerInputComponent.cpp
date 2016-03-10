@@ -18,6 +18,7 @@ void PlayerInputComponent::Update(){
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
 		Controller* controller = input->controller;
 		//handle input for moving
 		float speed = 60.0f;
@@ -46,9 +47,13 @@ void PlayerInputComponent::Update(){
 			std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
 			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 		}
-		if (controller->getLeftTrigger() > 0.8){
-			int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX() + 350;
-			int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY() + 350;
+
+		if (controller->getLeftTrigger() > 0.8){	
+			int xDir, yDir;
+			renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
+			xDir += 200 * controller->getRightThumbX();
+			yDir += 200 * controller->getRightThumbY();
+
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			uint64_t id = logic->spawnFeather(xDir, yDir);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
@@ -58,6 +63,15 @@ void PlayerInputComponent::Update(){
 		//change direction of player sprite if needed
 		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
+
+		if (input->isMouseDown(MOUSE_RIGHT)) {
+			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			logic->spawnShield();
+		//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
+		//  PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+		//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
+		}
+
 	}
 }
 

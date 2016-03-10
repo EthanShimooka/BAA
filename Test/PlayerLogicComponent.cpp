@@ -33,3 +33,10 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy){
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY){
 	GameObjects.AddObject(fFactory.Spawn(ID, initialX, initialY, destX, destY));
 }
+
+
+void PlayerLogicComponent::spawnShield(){
+
+	GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+
+}
