@@ -14,18 +14,41 @@ FeatherLogicComponent::~FeatherLogicComponent()
 }
 
 void FeatherLogicComponent::Update(){
+<<<<<<< HEAD
 	if (gameObjectRef->posX > 800 || gameObjectRef->posX < -800){ // manually set on screen size
+=======
+	gameObjectRef->setPos(gameObjectRef->posX + x*10, gameObjectRef->posY + y*10);
+	if (gameObjectRef->posX > 2000 || gameObjectRef->posX < -2000){ // manually set on screen size
+>>>>>>> refs/remotes/origin/master
 		gameObjectRef->isAlive = false;
 		gameObjectRef->setPos(-10000, 0);
 		GameObjects.dead_feathers.push_back(gameObjectRef);
 	}
-	if (gameObjectRef->posY > 450 || gameObjectRef->posY < -450){ // manually set on screen size
+	if (gameObjectRef->posY > 1000 || gameObjectRef->posY < -1000){ // manually set on screen size
 		gameObjectRef->isAlive = false;
 		gameObjectRef->setPos(-10000, 0);
 		GameObjects.dead_feathers.push_back(gameObjectRef);
 	}
 }
 
+<<<<<<< HEAD
 void FeatherLogicComponent::init(){
 
+=======
+void FeatherLogicComponent::init(float posX, float posY, float dx, float dy){
+	RenderManager* ren = RenderManager::getRenderManager();
+	float ex = 0;
+	float ey = 0;
+	ren->windowCoordToWorldCoord(ex, ey, dx, dy);
+	//dx -= 800; // manually set on screen size
+	//dy -= 450; // manually set on screen size
+	x = (ex - posX);
+	y = (ey - posY);
+	float z = sqrt((x*x) + (y*y));
+	x /= z;
+	y /= z;
+	std::cout << "x: " << x << " y: " << y << std::endl;
+	gameObjectRef->rotation = atan(y / x) / M_PI * 180;
+	gameObjectRef->flipH = (x > 0) ? false : true;
+>>>>>>> refs/remotes/origin/master
 }

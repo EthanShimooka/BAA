@@ -20,7 +20,11 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy)
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
+<<<<<<< HEAD
 	box.SetAsBox(1, 1); // look up other functions for polygons
+=======
+	box.SetAsBox(32, 16); // look up other functions for polygons
+>>>>>>> refs/remotes/origin/master
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -38,7 +42,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy)
 }
 
 void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
-	std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
 	//probably destroy itself, maybe trigger a sound?
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_MINION:

@@ -32,7 +32,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 	PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player);
 
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
-
+	player->setPos(player->posX, 200);
 	
 	return player;
 }

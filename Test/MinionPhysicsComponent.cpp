@@ -31,7 +31,7 @@ void MinionPhysicsComponent::init(){
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
-	std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		{
@@ -51,6 +51,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void MinionPhysicsComponent::Update(){
+<<<<<<< HEAD
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 	//temp testing code from here down
@@ -61,6 +62,13 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetLinearVelocity(b2Vec2(10, 0));
 	}
 
+=======
+	//gameObjectRef->posX = mBody->GetPosition().x;
+	gameObjectRef->posY = mBody->GetPosition().y;
+	//if (gameObjectRef->isAlive)
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
+>>>>>>> refs/remotes/origin/master
 }
 
 	

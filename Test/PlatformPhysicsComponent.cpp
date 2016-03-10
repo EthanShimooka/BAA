@@ -40,7 +40,7 @@ void PlatformPhysicsComponent::init(){
 
 void PlatformPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
-	std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
 }
 
 void PlatformPhysicsComponent::Update(){
