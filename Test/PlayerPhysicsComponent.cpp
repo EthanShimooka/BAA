@@ -20,7 +20,7 @@ void PlayerPhysicsComponent::init(){
 
 	b2PolygonShape box;
 	//box.SetAsBox(471, 480); // look up other functions for polygons
-	box.SetAsBox(75, 75);
+	box.SetAsBox(1, 1);
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -47,11 +47,16 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void PlayerPhysicsComponent::Update(){
+	b2Vec2 vel = mBody->GetLinearVelocity();
 	if (gameObjectRef->posY < 0){
-		mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
-	}else mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
-
+		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.4));
+	}
+	else{
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.4));
+		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
+	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
-	std::cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << std::endl;
+	//std::cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << std::endl;
 }

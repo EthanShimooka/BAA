@@ -33,7 +33,8 @@ void PlayerInputComponent::Update(){
 		}
 		//keyboard jump
 		if (input->isKeyDown(KEY_SPACE)||controller->isJoystickPressed(JOYSTICK_A)) {
-			body->SetLinearVelocity(b2Vec2(15 * body->GetLinearVelocity().x, -speed));
+			if (gameObjectRef->posY>0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -speed/2));
+			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed / 2));
 		}
 		////keyboard move down (not really needed)
 		if (input->isKeyDown(KEY_S) || input->isKeyDown(KEY_DOWN)) {
@@ -65,7 +66,7 @@ void PlayerInputComponent::Update(){
 		//change direction of player sprite if needed
 		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
-
+		//spawn shield
 		if (input->isMouseDown(MOUSE_RIGHT)) {
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			logic->spawnShield();

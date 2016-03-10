@@ -104,12 +104,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 		player = GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
 
-	/*for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 3; i++){
 		GameObjects.AddObject(plFactory.Spawn((321556+(i)), (i * 340), 240, 0));
 		GameObjects.AddObject(plFactory.Spawn((543543+i), (i * 340), -240, 0));
 		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
 		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
-	}*/
+	}
 
 
 	

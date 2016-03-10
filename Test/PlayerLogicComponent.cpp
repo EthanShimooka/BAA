@@ -22,6 +22,9 @@ void PlayerLogicComponent::Update(){
 		double chargeTime = input->getMousePressDuration();
 		std::cout << chargeTime << std::endl;
 	}
+	//check if on top or bottom of screen
+	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
+	else gameObjectRef->flipV = false;
 }
 
 

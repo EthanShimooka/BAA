@@ -26,7 +26,7 @@ void PlatformPhysicsComponent::init(){
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(350, 32); // look up other functions for polygons
+	box.SetAsBox(350, 3); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
