@@ -28,10 +28,14 @@ void FeatherLogicComponent::Update(){
 }
 
 void FeatherLogicComponent::init(float posX, float posY, float dx, float dy){
-	dx -= 800; // manually set on screen size
-	dy -= 450; // manually set on screen size
-	x = (dx - posX);
-	y = (dy - posY);
+	RenderManager* ren = RenderManager::getRenderManager();
+	float ex = 0;
+	float ey = 0;
+	ren->windowCoordToWorldCoord(ex, ey, dx, dy);
+	//dx -= 800; // manually set on screen size
+	//dy -= 450; // manually set on screen size
+	x = (ex - posX);
+	y = (ey - posY);
 	gameObjectRef->rotation = atan(y / x) / M_PI * 180;
 	gameObjectRef->flipH = (x > 0) ? false : true;
 }
