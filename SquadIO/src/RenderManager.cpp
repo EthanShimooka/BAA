@@ -169,20 +169,26 @@ void RenderManager::renderBackground(){
 	if (background){
 		//maybe invert z = 1/zoom
 		float z = 1 / zoom;
+		int textWidth;
+		int textHeight;
 		SDL_Rect dstrect;
-		SDL_QueryTexture(background, NULL, NULL, &dstrect.w, &dstrect.h);
+		SDL_QueryTexture(background, NULL, NULL, &textWidth, &textHeight);
 		//offset is for how the background tiles tile. it tells you the offset of the centermost tile 
 		//it should give the illusion that the tiling begins at (0,0)
-		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % dstrect.w)*z;
-		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % dstrect.h)*z;
-		dstrect.w *= z;//stretched due to zoom
-		dstrect.h *= z;//>1 means zoom in, <1 means zoom out
+		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % textWidth)*z;
+		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % textHeight)*z;
+		textWidth *= z;//stretched due to zoom
+		textHeight *= z;//>1 means zoom in, <1 means zoom out
 		//tiling the image
-		for (float x = centerOffsetX - ceil(centerOffsetX / (dstrect.w))*dstrect.w; x < windowSurface->w; x += dstrect.w){
+		dstrect.w = textWidth;
+		dstrect.h = textHeight;
+		for (float x = centerOffsetX - ceil(centerOffsetX / (textWidth))*textWidth; x < windowSurface->w; x += dstrect.w){
 			//x = the offset - the number of times the background needs to be repeated from the offset point and (0,0) on the window and keep the background static
 			dstrect.x = round(x);//rounding to make it less jagged
+			dstrect.w = textWidth;
 			for (float y = centerOffsetY - ceil(centerOffsetY / (dstrect.h))*dstrect.h; y < windowSurface->h; y += dstrect.h){
 				dstrect.y = round(y);
+				dstrect.h = textHeight;
 				SDL_RenderCopy(renderer, background, NULL, &dstrect);
 			}
 		}
