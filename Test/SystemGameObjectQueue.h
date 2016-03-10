@@ -23,7 +23,7 @@ public:
 
 	void DeleteObject(int g_id);
 
-
+	GameObject* GetGameObject(int g_id);
 };
 
 //GLOBAL INSTANCE OF SYSTEMGAMEOBJECTQUEUE. Anywhere that includes this file can just use GameObjects like a local variable.

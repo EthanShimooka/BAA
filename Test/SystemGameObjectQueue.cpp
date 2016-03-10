@@ -27,3 +27,14 @@ void SystemGameObjectQueue::DeleteObject(int g_id){
 	}
 	
 }
+
+GameObject* SystemGameObjectQueue::GetGameObject(int g_id) {
+	// iterate through alive objects 
+	for (auto iter = alive_objects.begin(); iter != alive_objects.end(); ++iter) {
+		if ((*iter)->ID == g_id) {
+			return (*iter);
+		}
+	}
+	// object not found
+	return nullptr;
+}
