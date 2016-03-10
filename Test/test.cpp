@@ -235,11 +235,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 		//arm->posY = 43 + armor->posY;
 	
 	//audioMan->playByName("bgmfostershome.ogg");
-<<<<<<< HEAD
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
-=======
-	//int mousecounter = 5;
 	
 	///*auto spawning minion variables
 	
@@ -250,7 +247,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	time_t spawnEvery2 = 3;
 
 	//*/
->>>>>>> refs/remotes/origin/master
 	while (gameloop) {
 
 
@@ -345,6 +341,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	log->close();
 	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
+
 	return 0;
 }
 void init(){
