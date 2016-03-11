@@ -11,7 +11,6 @@ PlatformRenderComponent::PlatformRenderComponent(GameObject* platform){
 
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
 	box->setIfRenderRect(true);
-	box->setParent(objRef);
 	allObjs["box"] = box;
 	allObjs["base"] = objRef;
 }
