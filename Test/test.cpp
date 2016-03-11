@@ -20,7 +20,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	int numPlayers = 1;
+	int numPlayers = 2;
+	int numLobbyPlayer = 0;
 
 	if (numPlayers != 1){
 		if (!GamerServices::StaticInit())
@@ -32,6 +33,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		while (true){
 			GamerServices::sInstance->Update();
 			NetworkManager::sInstance->ProcessIncomingPackets();
+			if (numLobbyPlayer != NetworkManager::sInstance->GetPlayerCount()){
+				numLobbyPlayer = NetworkManager::sInstance->GetPlayerCount();
+				NetworkManager::sInstance->GetAllPlayersInLobby();
+				cout << endl << endl;
+			}
 			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
 			if (NetworkManager::sInstance->GetState() == 4)
 				break;
