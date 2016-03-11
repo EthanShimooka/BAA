@@ -24,7 +24,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef enum {SE_TIMER_EXPIRED=0}SCENE_EVENT_TYPE;
+typedef enum { SE_TIMER_EXPIRED = 0 }SCENE_EVENT_TYPE;
 
 class SceneManager; //definition lower down in this file
 
@@ -36,7 +36,7 @@ class SceneManager; //definition lower down in this file
 *
 */
 class SceneListener : public EngineObject {
-public:	
+public:
 	SCENE_EVENT_TYPE m_ListenFor;
 
 	/// Abstract fucntion to handle event. To be overridden depending
@@ -51,7 +51,7 @@ public:
 /**
 *   ***DEFINED IN HEADER (SceneManager.h)***
 *  The Timer class is used for keying events in the
- Scenelistnert class.
+Scenelistnert class.
 *
 */
 class Timer : public EngineObject {
@@ -78,7 +78,7 @@ public:
 
 	/// Sets a start time and begins interval.
 	void start() {
-//		m_StartTime = timeGetTime();
+		//		m_StartTime = timeGetTime();
 		m_Expired = false;
 	}
 
@@ -87,11 +87,11 @@ public:
 	void update(){
 		if (m_Expired)
 			return;
-		
+
 		//DWORD ElapsedTime = timeGetTime() - m_StartTime;
 
 		/*if (ElapsedTime >= m_Interval){
-			m_Expired = true;
+		m_Expired = true;
 		}*/
 	}
 }; //end class Timer
@@ -125,8 +125,6 @@ public:
 	std::string m_Name;
 	/// list of SceneObjects assigned to layer instance
 	std::list<SDLRenderObject*> m_SceneObjects;
-	/// list of SceneObjects that render according to window coords instead of world coords
-	std::list<SDLRenderObject*> m_WindowObjects;
 	/// Layer update function not implemented
 	void update();
 }; //end class Layer
@@ -183,8 +181,6 @@ public:
 	void update();
 	/// Puts scene together from incoming packets/input
 	SQUADIO_API void AssembleScene();
-	/// Creates object and adds it to specified layer
-	SQUADIO_API SDLRenderObject* InstantiateObject(Layer* layer, int resourceID, float x, float y,bool windowObj = false);
 	/// Creates an object and adds it to specified layer
 	SQUADIO_API SDLRenderObject* InstantiateObject(Layer* layer, int resourceID, float x, float y, float z = 0.0);
 	/// Creates an object with no set image, and adds it to specified layer

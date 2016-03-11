@@ -75,19 +75,20 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 
 	if (!object)
 		return;
-	
+
 	for (const tinyxml2::XMLAttribute* ElementAttrib = element->FirstAttribute(); ElementAttrib; ElementAttrib = ElementAttrib->Next()) {
 		std::string AttribName = ElementAttrib->Name();
 		std::string AttribValue = ElementAttrib->Value();
 		if (AttribName == "resourceID"){
 			ResourceManager* ResMan = ResourceManager::GetResourceManager();
 
-			object->setResourceObject((RenderResource*) ResMan->findResourcebyID(atoi(AttribValue.c_str())));
+			object->setResourceObject((RenderResource*)ResMan->findResourcebyID(atoi(AttribValue.c_str())));
 		}
 
 		if (AttribName == "posx") {
 			float x = (float)atof(AttribValue.c_str());
-			object->posX = (float)atof(AttribValue.c_str());		}
+			object->posX = (float)atof(AttribValue.c_str());
+		}
 		if (AttribName == "posy") {
 			object->posY = (float)atof(AttribValue.c_str());
 		}
@@ -116,9 +117,9 @@ void SceneManager::addLayerObjects(Layer* layer, tinyxml2::XMLElement* element) 
 			b = atoi(AttribValue.c_str());
 		}
 	}
-	
+
 	//if (object->colorKeyEnabled)
-		//object->setColorKey(r, g, b);
+	//object->setColorKey(r, g, b);
 
 	//probably will want physics features to be assigned here
 	layer->m_SceneObjects.push_back(object);
@@ -138,7 +139,7 @@ bool SceneManager::loadFromXMLFile(std::string Filename) {
 	if (doc.ErrorID() == 0){
 		//find resources node
 		tinyxml2::XMLNode* ResourceTree = doc.FirstChildElement("scene");
-		
+
 		if (ResourceTree) {
 			//Enumerate resource objects
 			for (tinyxml2::XMLNode* child = ResourceTree->FirstChild(); child; child = child->NextSibling()) {
@@ -176,7 +177,7 @@ bool SceneManager::loadFromXMLFile(std::string Filename) {
 					} // end XMLAttribute loop
 
 					m_Layers.push_back(layer);
-					log->logBuffer << "Size of layers : "<< m_Layers.size() << std::endl;
+					log->logBuffer << "Size of layers : " << m_Layers.size() << std::endl;
 					log->flush();
 
 					//cycle through layer objects
@@ -284,9 +285,9 @@ void SceneManager::update() {
 			//perform the physics updates here
 
 			//if ((*objectIter)->bodyType == b2_dynamicBody){
-				//do something
+			//do something
 			//}else if((*objectIter)->bodyType == b2_staticBody){
-				//could be an immovable platform? maybe a switch?
+			//could be an immovable platform? maybe a switch?
 			//}
 			//other physics stuff
 		}
@@ -321,9 +322,6 @@ void SceneManager::AssembleScene(){
 	//get reference to network manager
 	renderMan->renderObjects.clear();
 	for (std::list<Layer*>::iterator lay_it = m_Layers.begin(); lay_it != m_Layers.end(); lay_it++) {
-		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_WindowObjects.begin(); obj_it != (*lay_it)->m_WindowObjects.end(); obj_it++) {
-			renderMan->windowObjects.push_back((*obj_it));
-		}
 		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
 			//cout << "item:" << &(*obj_it) << "x=" << (*obj_it)->posX << endl;
 			/*
@@ -335,10 +333,9 @@ void SceneManager::AssembleScene(){
 			//loop through all packets looking for a specific packet with this Unique Object Reference
 			//if you find the specific packet with said UOR set this objects values to packet's values
 			(*obj_it)->update(network);
-
 			}
 			*/
-			if ((*obj_it)->isVisible()) 
+			if ((*obj_it)->isVisible())
 				renderMan->renderObjects.push_back((*obj_it));
 		}
 	}
@@ -347,32 +344,24 @@ void SceneManager::AssembleScene(){
 	SDL_Delay(20);
 
 }
-SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y, bool windowObj){
+
+SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y, float z){
 
 	SDLRenderObject* object = new SDLRenderObject();
-	
+
 	ResourceManager* ResMan = ResourceManager::GetResourceManager();
 	object->setResourceObject((RenderResource*)ResMan->findResourcebyID(resourceID));
-
-	object->posX = x;
-	object->posY = y;
-	if (windowObj){
-		layer->m_WindowObjects.push_back(object);
-	}
-	else{
-		layer->m_SceneObjects.push_back(object);
-	}
 
 	object->setPos(x, y, z);
 	layer->m_SceneObjects.push_back(object);
 	return object;
 }
-SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, float y,int w,int h, float z){
+SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, float y, int w, int h, float z){
 
 	SDLRenderObject* object = new SDLRenderObject();
 
 	object->setPos(x, y, z);
-	object->setRenderRect(w,h);
+	object->setRenderRect(w, h);
 	layer->m_SceneObjects.push_back(object);
 	return object;
 }
@@ -386,5 +375,5 @@ void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
 			break;
 		}
 	}
-	
+
 }
