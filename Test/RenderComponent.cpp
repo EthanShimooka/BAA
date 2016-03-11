@@ -85,7 +85,8 @@ void RenderComponent::RenderBoundingBox(SDLRenderObject* boxRender){
 		}
 		fixture = fixture->GetNext();
 	}
-	boxRender->setRenderRect(round(20*(aabb.upperBound.x - aabb.lowerBound.x)), round(20*(aabb.upperBound.y - aabb.lowerBound.y)));
+	boxRender->setRenderRect(round(worldScale * (aabb.upperBound.x - aabb.lowerBound.x)), round(worldScale * (aabb.upperBound.y - aabb.lowerBound.y)));
+	boxRender->setPos(physics->mBody->GetPosition().x*worldScale, physics->mBody->GetPosition().y*worldScale);
 	ApplyPhysicsRotation(boxRender);
 }
 void RenderComponent::ApplyPhysicsRotation(SDLRenderObject* render){

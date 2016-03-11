@@ -167,31 +167,56 @@ void RenderManager::renderBackground(){
 	//to avoid using a null background
 	if (zoom < minZoom){ zoom = minZoom; }
 	if (background){
-		//maybe invert z = 1/zoom
+		SDL_Rect wholeWindow = { 0, 0, windowSurface->w, windowSurface->h};
+		SDL_RenderCopy(renderer, background, NULL, &wholeWindow);
+		/*//maybe invert z = 1/zoom
 		float z = 1 / zoom;
 		int textWidth;
 		int textHeight;
-		SDL_Rect dstrect;
 		SDL_QueryTexture(background, NULL, NULL, &textWidth, &textHeight);
 		//offset is for how the background tiles tile. it tells you the offset of the centermost tile 
 		//it should give the illusion that the tiling begins at (0,0)
 		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % textWidth)*z;
 		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % textHeight)*z;
-		textWidth *= z;//stretched due to zoom
-		textHeight *= z;//>1 means zoom in, <1 means zoom out
+		float WorldTextWidth = textWidth* z;//the size of the texture after being multiplied by zoom
+		float WorldTextHeight = textHeight* z;//>1 means zoom in, <1 means zoom out
 		//tiling the image
-		dstrect.w = textWidth;
-		dstrect.h = textHeight;
-		for (float x = centerOffsetX - ceil(centerOffsetX / (textWidth))*textWidth; x < windowSurface->w; x += dstrect.w){
+		SDL_Rect srcrect = { 0, 0, textWidth, textHeight };
+		SDL_Rect dstrect = { 0, 0, WorldTextWidth, WorldTextHeight };
+		//float start = 0;
+		//for (float x = centerOffsetX - ceil(centerOffsetX / (WorldTextWidth))*WorldTextWidth; x < windowSurface->w; x += dstrect.w){
+		for (float x = 0; x < windowSurface->w; x += dstrect.w){
 			//x = the offset - the number of times the background needs to be repeated from the offset point and (0,0) on the window and keep the background static
 			dstrect.x = round(x);//rounding to make it less jagged
-			dstrect.w = textWidth;
-			for (float y = centerOffsetY - ceil(centerOffsetY / (dstrect.h))*dstrect.h; y < windowSurface->h; y += dstrect.h){
-				dstrect.y = round(y);
-				dstrect.h = textHeight;
-				SDL_RenderCopy(renderer, background, NULL, &dstrect);
+			if (x==0){
+				dstrect.w = ceil(centerOffsetX - floor(centerOffsetX / (WorldTextWidth))*WorldTextWidth);
+				if (dstrect.w == 0) dstrect.w = WorldTextWidth;
+				srcrect.w = ceil(dstrect.w / z);
+				srcrect.x = textWidth - srcrect.w;
 			}
-		}
+			else if (x + WorldTextWidth > windowSurface->w){
+				dstrect.w = ceil(windowSurface->w - x);
+				srcrect.x = 0;
+				srcrect.w = ceil(dstrect.w/z);
+			}
+			else {
+				dstrect.w = WorldTextWidth;
+				srcrect.x = 0;
+				srcrect.w = textWidth;
+			}
+			for (float y = centerOffsetY - ceil(centerOffsetY / (WorldTextHeight))*WorldTextHeight; y < windowSurface->h; y += dstrect.h){
+				dstrect.y = round(y);
+				if (y + WorldTextHeight > windowSurface->h){
+					dstrect.h = ceil(windowSurface->h - y);
+					srcrect.h = ceil(dstrect.h / z);
+				}
+				else {
+					dstrect.h = WorldTextHeight;
+					srcrect.h = textHeight;
+				}
+				SDL_RenderCopy(renderer, background, &srcrect, &dstrect);
+			}
+		}*/
 	}
 }
 
@@ -199,8 +224,8 @@ void RenderManager::worldCoordToWindowCoord(int &winx, int &winy, float worx, fl
 	// make sure that worz does not equal cameraPoint.z
 	float proj = -cameraPoint.z / (worz - cameraPoint.z);
 	float flip = (flippedScreen) ? -1 : 1;
-	winx = int((worx - cameraPoint.x)*flip*proj / zoom + windowSurface->w / 2);
-	winy = int((wory - cameraPoint.y)*flip*proj / zoom + windowSurface->h / 2);
+	winx = int((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2);
+	winy = int((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2);
 }
 void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz){
 	//make sure that cameraPoint.z is not at 0
@@ -220,8 +245,8 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		float anchory = 0;
 		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z); 
 		if (flippedScreen){
-			anchorx = obj->getAnchorX()-1;
-			anchory = obj->getAnchorY()-1;
+			anchorx = 1- obj->getAnchorX();
+			anchory = 1- obj->getAnchorY();
 		}
 		else{
 			anchorx = obj->getAnchorX();
@@ -229,8 +254,10 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		}
 		float w = obj->getWidth()*proj / zoom;
 		float h = obj->getHeight()*proj / zoom;
-		float r = obj->rotation * M_PI/180;
+		float r = obj->getRotation() * M_PI/180;
+		//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 		//SDL_RenderDrawRect(renderer, &pos);
+
 		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
 									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r),
 									 posx + (w*(1-anchorx))*cos(r) - (h*(1-anchory))*sin(r),
@@ -265,11 +292,11 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 		//if the screen is flipped, the math is a bit diffirent to accomadate it
 		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
 		if (flippedScreen){
-			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()));
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()),obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), int(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
 		}
 		else{
-			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY());
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY(), obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*obj->getAnchorX()/zoom), int(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
 		}
 		pos.w = obj->getWidth()*proj/zoom;

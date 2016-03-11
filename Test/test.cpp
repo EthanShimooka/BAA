@@ -11,8 +11,6 @@ void update();
 void render(RenderManager*);
 long double getCurrentTime();
 
-typedef float(*ease_function)(float);
-
 int main() {
 
 	return 0;
@@ -22,7 +20,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	int numPlayers = 2;
+	int numPlayers = 1;
 
 	if (numPlayers != 1){
 		if (!GamerServices::StaticInit())
@@ -126,7 +124,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	bool gameloop = true;
 	int var = 0;
 
-	
+
 	float size = 6;
 	float ratio = 0.7;
 	int armswing = size;
@@ -134,7 +132,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	
+
 
 	//audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
@@ -149,9 +147,30 @@ int _tmain(int argc, _TCHAR* argv[]){
 	time_t spawnEvery2 = 3;
 
 	//*/
+	for (int j = -800; j <= 800; j += 200){
+		for (float i = 0.01; i <= 8; i += 3){
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, j, 0, i))->setScale(.25);
+		}
+	}
+	for (int j = -340 * 2; j <= 340 * 2; j += 340){
+		for (float i = 3; i <= 8; i += 3){
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, 250, i));
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, -250, i));
+		}
+	}
+	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005);
+
+	fount->setScale(0.5);
+	list<motion> motions;
+	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
+	Animation * runWater = new Animation(20,motions);
+	int aniCounter = 0;
+
 	while (gameloop) {
 
-
+		runWater->animate(float(aniCounter)/20);
+		aniCounter++;
+		aniCounter = aniCounter % 20;
 		
 
 		if (input->isKeyDown(KEY_Q)){
