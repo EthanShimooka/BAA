@@ -49,7 +49,7 @@ void PlayerInputComponent::Update(){
 			uint64_t id = logic->spawnFeather(dx,dy);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			//std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
-			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
+			net->createFeatherPacket(id, dx, dy);
 		}
 
 		if (controller->getLeftTrigger() > 0.8){	
