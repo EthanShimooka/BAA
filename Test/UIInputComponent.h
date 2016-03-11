@@ -28,7 +28,9 @@ public:
 	void Update();
 
 	/// Determines if UI button has been pressed, returns true if pressed.
-	bool isButtonPressed(InputManager* input);
+	bool isButtonPressed();
+	/// Determines if mouse is hovering over UI element
+	bool isMouseHovering();
 
 };
 

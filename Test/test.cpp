@@ -56,7 +56,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(1600, 900, false, "Birds At Arms");
+	renderMan->init(800, 300, false, "Birds At Arms");
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;

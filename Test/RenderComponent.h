@@ -22,6 +22,7 @@
 #include "include\AnimationLibrary.h"
 #include "MovementComponent.h"
 #include "GameObject.h"
+#include "UIObject.h"
 #include <time.h>
 #include <string>
 #include <unordered_map>
@@ -42,6 +43,9 @@ public:
 	std::list <SDLRenderObject*> allObjs;
 	//hash <animation> animations;
 	GameObject* gameObjectRef;
+
+	/// UIobjects ref
+	UIObject* uiObjectRef;
 
 
 	/// Renderer Visibility Flag

@@ -7,16 +7,17 @@ UIInputComponent::UIInputComponent(){
 UIInputComponent::~UIInputComponent(){
 }
 
-void UIInputComponent::Update(){
-
-	InputManager* input = InputManager::getInstance();
-	
+void UIInputComponent::Update(){	
 
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
-		if (isButtonPressed(input)){
+		if (isButtonPressed()){
 			std::cout << "Play!" << std::endl;
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
+		}
+		else if (isMouseHovering()){
+			uiObjectRef->scale = .5f;
+			std::cout << "Hovering!" << std::endl;
 		}
 		break;
 	case CANCEL_BUTTON:
@@ -24,9 +25,13 @@ void UIInputComponent::Update(){
 	case BACK_BUTTON:
 		break;
 	case JOIN_BUTTON:
-		if (isButtonPressed(input)){
+		if (isButtonPressed()){
 			std::cout << "Join!" << std::endl;
 			NetworkManager::sInstance->startLobbySearch();
+		}
+		else if (isMouseHovering()){
+			uiObjectRef->scale = .5f;
+			std::cout << "Hovering!" << std::endl;
 		}
 		break;
 	case SCORE:
@@ -37,7 +42,9 @@ void UIInputComponent::Update(){
 	}
 }
 
-bool UIInputComponent::isButtonPressed(InputManager* input){
+bool UIInputComponent::isButtonPressed(){
+
+	InputManager* input = InputManager::getInstance();
 	if (input->isMouseDown(MOUSE_LEFT)){
 		//get mouse position
 		int x, y;
@@ -59,5 +66,29 @@ bool UIInputComponent::isButtonPressed(InputManager* input){
 		else{
 			return true;
 		}
+	}
+}
+
+bool UIInputComponent::isMouseHovering(){
+
+	InputManager* input = InputManager::getInstance();
+
+	int x, y;
+	x = input->getMouseX();
+	y = input->getMouseY();
+
+	if (x < uiObjectRef->posX)
+		return false;
+	//mouse is right of the button
+	else if (x > uiObjectRef->posX + BUTTON_WIDTH)
+		return false;
+	//mouse above the button
+	else if (y < uiObjectRef->posY)
+		return false;
+	//mouse below the button
+	else if (y > uiObjectRef->posY + BUTTON_HEIGHT)
+		return false;
+	else{
+		return true;
 	}
 }
