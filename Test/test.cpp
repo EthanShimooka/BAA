@@ -20,7 +20,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	int numPlayers = 1;
+	int numPlayers = 4;
+
+	// don't need to change this line
 	int numLobbyPlayer = 0;
 
 
