@@ -11,8 +11,6 @@ void update();
 void render(RenderManager*);
 long double getCurrentTime();
 
-typedef float(*ease_function)(float);
-
 int main() {
 
 	return 0;
@@ -29,6 +27,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	if (!NetworkManager::StaticInit()){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
+	int numLobbyPlayer = 0;
+
 
 	if (numPlayers != 1){
 		if (!GamerServices::StaticInit())
@@ -40,6 +40,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		while (true){
 			GamerServices::sInstance->Update();
 			NetworkManager::sInstance->ProcessIncomingPackets();
+			if (numLobbyPlayer != NetworkManager::sInstance->GetPlayerCount()){
+				numLobbyPlayer = NetworkManager::sInstance->GetPlayerCount();
+				NetworkManager::sInstance->GetAllPlayersInLobby();
+				cout << endl << endl;
+			}
 			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
 			if (NetworkManager::sInstance->GetState() == 4)
 				break;
@@ -144,8 +149,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	for (int i = 0; i < 3; i++){
 
-		GameObjects.AddObject(plFactory.Spawn((321556+(i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543+i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
 		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
 		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
 
@@ -153,9 +158,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	}
 
 
-	
 
-	GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
+
+	//GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
 	/////////////////////////////////////////////////////
@@ -171,6 +176,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	auto arcbody = moveEllipseArc(armor, 0, 0, 5, 2, 0, -360);
 	*/
 	renderMan->zoom = 0.5;
+
 	float size = 6;
 	float ratio = 0.7;
 	int armswing = size;
@@ -247,29 +253,47 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	//audioMan->playByName("bgmfostershome.ogg");
 	//int mousecounter = 5;
+
+
+	//audioMan->playByName("bgmfostershome.ogg");
+	int mousecounter = 5;
+	renderMan->zoom = 0.6;
+
+	///*auto spawning minion variables
+
+	int minionCounter = 0;
+	time_t spawnTimer1 = time(0);
+	time_t spawnEvery1 = 2;
+	time_t spawnTimer2 = time(0);
+	time_t spawnEvery2 = 3;
+
+	//*/
+	for (int j = -800; j <= 800; j += 200){
+		for (float i = 0.01; i <= 8; i += 3){
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, j, 0, i))->setScale(.25);
+		}
+	}
+	for (int j = -340 * 2; j <= 340 * 2; j += 340){
+		for (float i = 3; i <= 8; i += 3){
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, 250, i));
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, -250, i));
+		}
+	}
+	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005);
+
+	fount->setScale(0.5);
+	list<motion> motions;
+	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
+	Animation * runWater = new Animation(20,motions);
+	int aniCounter = 0;
+
 	while (gameloop) {
 
+		runWater->animate(float(aniCounter)/20);
+		aniCounter++;
+		aniCounter = aniCounter % 20;
+		
 
-		//for (int i = 0; i < GameObjects.alive_objects.size(); i++){
-		//	if (!GameObjects.alive_objects[i]->isAlive){
-		//		cout << "Is Dead: " << GameObjects.alive_objects[i]->ID << endl;
-		//		if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER) { 
-		//			//if a feather is no longer alive, add to dead_feathers
-		//			GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
-		//		}
-		//		else if (GameObjects.alive_objects[i]->type == OBJECT_MINION) { 
-		//			//if a minion is no longer alive, add to dead_minions
-		//			GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
-		//		} else { 
-		//			//if a anything else is no longer alive, add to dead_objects
-		//			GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
-		//		}
-		//		GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
-		//	}
-		//}
-
-		////test inputs, delete if you want//
-		/*
 		if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
 				renderMan->cameraPoint.z += 1;
@@ -281,19 +305,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (input->isKeyDown(KEY_E)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
-		if (input->isMouseDown(MOUSE_LEFT) && mousecounter>5){
-			float x = 0;
-			float y = 0;
-			renderMan->windowCoordToWorldCoord(x, y, input->getMouseX(), input->getMouseY());
-			sceneMan->InstantiateObject(sceneMan->findLayer("layer2"),12,x,y);
-			mousecounter = 0;
-		}
-		mousecounter++;*/
+		
+		mousecounter++;
 		////////////////////////////////////
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 		if (player){
-			renderMan->setCameraPoint(player->posX, player->posY);
+			renderMan->setCameraPoint(player->posX, 0);
 		}
 		int length = 20;
 		float loop = (var % length);
@@ -315,15 +333,23 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 
-
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
+
+		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
+		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
+			spawnTimer1 = time(0);
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
+		}
+		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
+			spawnTimer2 = time(0);
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, 0, 200, true));
+		}
 
 		input->update();
 
 		sceneMan->AssembleScene();
 
-		//render(renderMan);
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
@@ -332,6 +358,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	log->close();
 	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
+
 	return 0;
 }
 

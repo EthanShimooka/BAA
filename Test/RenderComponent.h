@@ -21,6 +21,7 @@
 #include "include\SDLRenderObject.h"
 #include "include\AnimationLibrary.h"
 #include "MovementComponent.h"
+#include "PhysicsComponent.h"
 #include "GameObject.h"
 #include "UIObject.h"
 #include <time.h>
@@ -40,7 +41,7 @@ public:
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
-	std::list <SDLRenderObject*> allObjs;
+	std::unordered_map<std::string,SDLRenderObject*> allObjs;
 	//hash <animation> animations;
 	GameObject* gameObjectRef;
 
@@ -72,6 +73,9 @@ public:
 	void AssignSprite(SDLRenderObject* rend);
 	/// Updates Sprite to renderer
 	virtual void Update();
+	virtual void AddBoundingBox();
+	virtual void RenderBoundingBox(SDLRenderObject* boxRender);
+	virtual void ApplyPhysicsRotation(SDLRenderObject* render);
 	/// animation setter
 	void setAnimation(std::string name);
 	/// animate based on current animation

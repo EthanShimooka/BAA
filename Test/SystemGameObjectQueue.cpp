@@ -13,6 +13,7 @@ SystemGameObjectQueue::~SystemGameObjectQueue()
 
 
 
+
 GameObject* SystemGameObjectQueue::AddObject(GameObject * obj){
 
 	alive_objects.push_back(obj);

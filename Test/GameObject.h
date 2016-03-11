@@ -65,11 +65,14 @@ public:
 	float posY;
 	///Rotation
 	float rotation;
-
+	/// scale X
+	float scaleX ;
+	/// scale Y
+	float scaleY ;
 	///Horizontal Flip
-	bool flipH;
+	bool flipH ;
 	///Vertical Flip
-	bool flipV;
+	bool flipV ;
 	/// virtual update function
 	virtual void update(){};
 

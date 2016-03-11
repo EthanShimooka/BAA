@@ -26,21 +26,21 @@ void PlatformPhysicsComponent::init(){
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(350, 32); // look up other functions for polygons
+	box.SetAsBox(8.5, 1.7); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	// Create Fixture 
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
 }
 
 void PlatformPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
-	std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
 }
 
 void PlatformPhysicsComponent::Update(){

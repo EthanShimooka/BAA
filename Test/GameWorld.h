@@ -22,3 +22,4 @@ public:
 	~GameWorld();
 };
 
+extern float worldScale;
