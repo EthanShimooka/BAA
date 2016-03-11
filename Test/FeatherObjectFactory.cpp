@@ -13,7 +13,7 @@ FeatherObjectFactory::~FeatherObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, float dx, float dy)
+GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float posX, float posY, float dx, float dy)
 {
 	GameObject* feather;
 	FeatherRenderComponent* rend;
@@ -31,6 +31,9 @@ GameObject* FeatherObjectFactory::Spawn(uint64_t PID, float posX, float posY, fl
 		logic = new FeatherLogicComponent(feather, posX, posY, dx, dy);
 		physics = new FeatherPhysicsComponent(feather);
 		//net = new FeatherNetworkComponent(feather);
+
+		// set owner of feather
+		logic->setOwner(owner);
 	}
 	else{
 		feather = GameObjects.dead_feathers.back();
