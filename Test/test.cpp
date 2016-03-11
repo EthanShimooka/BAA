@@ -141,7 +141,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int rotation = 0;
 
 
-	//audioMan->playByName("bgmfostershome.ogg");
+	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
 
