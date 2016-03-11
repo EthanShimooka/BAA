@@ -45,18 +45,18 @@ void PlayerInputComponent::Update(){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			float dx, dy;
 			renderMan->windowCoordToWorldCoord(dx,dy,input->getMouseX(), input->getMouseY());
+			std::cout << atan(dy / dx) / M_PI * 180 << std::endl;
 			uint64_t id = logic->spawnFeather(dx,dy);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
+			//std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
 			net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 		}
 
 		if (controller->getLeftTrigger() > 0.8){	
-			int xDir, yDir;
-			renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
-			xDir += 200 * controller->getRightThumbX();
-			yDir += 200 * controller->getRightThumbY();
-
+			//renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
+			int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX();
+			int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY();
+			std::cout << "xdir=" << xDir << " ydir=" << std::endl;
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			uint64_t id = logic->spawnFeather(xDir, yDir);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));

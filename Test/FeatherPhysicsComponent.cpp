@@ -29,10 +29,12 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy)
 	//handle init stuff for positions
 	gameObjectRef->posX = initX;
 	gameObjectRef->posY =  initY;
-	gameObjectRef->rotation = atan(dy / dx) / M_PI * 180;
-	gameObjectRef->flipH = !(dx > 0);
+	float xAngle = dx - initX;
+	if (xAngle == 0)xAngle == 0.00001;
+	gameObjectRef->rotation = atan((dy - initY) / (xAngle)) / M_PI * 180;
+	gameObjectRef->flipH = !(dx-initX > 0);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), gameObjectRef->rotation / 180.0 * M_PI);
-	mBody->SetLinearVelocity(b2Vec2(dx, dy));
+	mBody->SetLinearVelocity(b2Vec2(dx - initX, dy - initY));
 }
 
 void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -43,6 +45,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 		{
 			//destroy self or return to object pool
 			gameObjectRef->isAlive = false;
+			GameObjects.dead_feathers.push_back(gameObjectRef);
 			break;
 		}
 		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
