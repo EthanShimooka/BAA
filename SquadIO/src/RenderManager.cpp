@@ -171,25 +171,48 @@ void RenderManager::renderBackground(){
 		float z = 1 / zoom;
 		int textWidth;
 		int textHeight;
-		SDL_Rect dstrect;
 		SDL_QueryTexture(background, NULL, NULL, &textWidth, &textHeight);
 		//offset is for how the background tiles tile. it tells you the offset of the centermost tile 
 		//it should give the illusion that the tiling begins at (0,0)
 		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % textWidth)*z;
 		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % textHeight)*z;
-		textWidth *= z;//stretched due to zoom
-		textHeight *= z;//>1 means zoom in, <1 means zoom out
+		float WorldTextWidth = textWidth* z;//the size of the texture after being multiplied by zoom
+		float WorldTextHeight = textHeight* z;//>1 means zoom in, <1 means zoom out
 		//tiling the image
-		dstrect.w = textWidth;
-		dstrect.h = textHeight;
-		for (float x = centerOffsetX - ceil(centerOffsetX / (textWidth))*textWidth; x < windowSurface->w; x += dstrect.w){
+		SDL_Rect srcrect = { 0, 0, textWidth, textHeight };
+		SDL_Rect dstrect = { 0, 0, WorldTextWidth, WorldTextHeight };
+		//float start = 0;
+		//for (float x = centerOffsetX - ceil(centerOffsetX / (WorldTextWidth))*WorldTextWidth; x < windowSurface->w; x += dstrect.w){
+		for (float x = 0; x < windowSurface->w; x += dstrect.w){
 			//x = the offset - the number of times the background needs to be repeated from the offset point and (0,0) on the window and keep the background static
 			dstrect.x = round(x);//rounding to make it less jagged
-			dstrect.w = textWidth;
-			for (float y = centerOffsetY - ceil(centerOffsetY / (dstrect.h))*dstrect.h; y < windowSurface->h; y += dstrect.h){
+			if (x==0){
+				dstrect.w = ceil(centerOffsetX - floor(centerOffsetX / (WorldTextWidth))*WorldTextWidth);
+				if (dstrect.w == 0) dstrect.w = WorldTextWidth;
+				srcrect.w = ceil(dstrect.w / z);
+				srcrect.x = textWidth - srcrect.w;
+			}
+			else if (x + WorldTextWidth > windowSurface->w){
+				dstrect.w = ceil(windowSurface->w - x);
+				srcrect.x = 0;
+				srcrect.w = ceil(dstrect.w/z);
+			}
+			else {
+				dstrect.w = WorldTextWidth;
+				srcrect.x = 0;
+				srcrect.w = textWidth;
+			}
+			for (float y = centerOffsetY - ceil(centerOffsetY / (WorldTextHeight))*WorldTextHeight; y < windowSurface->h; y += dstrect.h){
 				dstrect.y = round(y);
-				dstrect.h = textHeight;
-				SDL_RenderCopy(renderer, background, NULL, &dstrect);
+				if (y + WorldTextHeight > windowSurface->h){
+					dstrect.h = ceil(windowSurface->h - y);
+					srcrect.h = ceil(dstrect.h / z);
+				}
+				else {
+					dstrect.h = WorldTextHeight;
+					srcrect.h = textHeight;
+				}
+				SDL_RenderCopy(renderer, background, &srcrect, &dstrect);
 			}
 		}
 	}

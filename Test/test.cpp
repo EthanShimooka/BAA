@@ -293,7 +293,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 		if (player){
-			renderMan->setCameraPoint(player->posX, 0);
+			renderMan->setCameraPoint(player->posX, player->posY);
 		}
 		int length = 20;
 		float loop = (var % length);
