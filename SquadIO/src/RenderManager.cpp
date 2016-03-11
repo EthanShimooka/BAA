@@ -167,7 +167,9 @@ void RenderManager::renderBackground(){
 	//to avoid using a null background
 	if (zoom < minZoom){ zoom = minZoom; }
 	if (background){
-		//maybe invert z = 1/zoom
+		SDL_Rect wholeWindow = { 0, 0, windowSurface->w, windowSurface->h};
+		SDL_RenderCopy(renderer, background, NULL, &wholeWindow);
+		/*//maybe invert z = 1/zoom
 		float z = 1 / zoom;
 		int textWidth;
 		int textHeight;
@@ -214,7 +216,7 @@ void RenderManager::renderBackground(){
 				}
 				SDL_RenderCopy(renderer, background, &srcrect, &dstrect);
 			}
-		}
+		}*/
 	}
 }
 
