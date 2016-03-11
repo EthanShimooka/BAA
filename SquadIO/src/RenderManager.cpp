@@ -290,11 +290,11 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 		//if the screen is flipped, the math is a bit diffirent to accomadate it
 		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
 		if (flippedScreen){
-			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()));
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()),obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), int(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
 		}
 		else{
-			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY());
+			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY(), obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*obj->getAnchorX()/zoom), int(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
 		}
 		pos.w = obj->getWidth()*proj/zoom;
