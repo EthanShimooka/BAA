@@ -32,7 +32,7 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, flo
 		minion->setPos(posX, posY);
 		rend = new MinionRenderComponent(minion);
 		logic = new MinionLogicComponent(minion, posX, posY, length, direction);
-		physics = new MinionPhysicsComponent(minion);
+		physics = new MinionPhysicsComponent(minion, posX, posY, length, direction);
 		net = new MinionNetworkComponent(minion);
 	} else { //reuse minion from pool
 		minion = GameObjects.dead_minions.back();
@@ -46,7 +46,14 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, flo
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
-	
+/*	MinionRenderComponent* rend = new MinionRenderComponent(minion);
+
+	MinionNetworkComponent* net = new MinionNetworkComponent(minion);
+
+	MinionLogicComponent* logic = new MinionLogicComponent(minion);
+
+	MinionPhysicsComponent* physics = new MinionPhysicsComponent(minion, posX, posY, length, direction);*/
+
 
 	return minion;
 }

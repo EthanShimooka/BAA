@@ -9,13 +9,13 @@ class FeatherPhysicsComponent : public PhysicsComponent
 {
 public:
 	/// Constructor
-	FeatherPhysicsComponent(GameObject* feather);
+	FeatherPhysicsComponent(GameObject* feather, float initX, float initY, float dx, float dy);
 	/// Destructor
 	~FeatherPhysicsComponent();
 	/// Update
 	void Update();
 	void handleCollision(GameObject* otherObj);
-	void init();
+	void init(float initX, float initY, float dx, float dy);
 
 };
 

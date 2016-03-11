@@ -61,6 +61,7 @@ void RenderComponent::animate(){
 /// Updates SDL render Object from Move Data in game
 void RenderComponent::RenderBoundingBox(SDLRenderObject* boxRender){
 	PhysicsComponent* physics = dynamic_cast<PhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	if (!physics)return;
 	//PlayerPhysicsComponent* physics = gameObjectRef->GetComponent(COMPONENT_PHYSICS)
 	//box->setRenderRect((physics->mBody->GetUserData()).getWidth(), (physics->mBody->GetUserData()).getHeight() );
 	b2AABB aabb;
@@ -84,12 +85,13 @@ void RenderComponent::RenderBoundingBox(SDLRenderObject* boxRender){
 		}
 		fixture = fixture->GetNext();
 	}
-	boxRender->setRenderRect(round(aabb.upperBound.x - aabb.lowerBound.x), round(aabb.upperBound.y - aabb.lowerBound.y));
-	boxRender->setPos(physics->mBody->GetPosition().x, physics->mBody->GetPosition().y);
+	boxRender->setRenderRect(round(worldScale * (aabb.upperBound.x - aabb.lowerBound.x)), round(worldScale * (aabb.upperBound.y - aabb.lowerBound.y)));
+	boxRender->setPos(physics->mBody->GetPosition().x*worldScale, physics->mBody->GetPosition().y*worldScale);
 	ApplyPhysicsRotation(boxRender);
 }
 void RenderComponent::ApplyPhysicsRotation(SDLRenderObject* render){
 	PhysicsComponent* physics = dynamic_cast<PhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	if (!physics)return;
 	render->setRotation(physics->mBody->GetAngle() * 180 / M_PI);
 }
 void RenderComponent::Update(){

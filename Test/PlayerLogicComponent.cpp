@@ -22,11 +22,15 @@ void PlayerLogicComponent::Update(){
 		double chargeTime = input->getMousePressDuration();
 		std::cout << chargeTime << std::endl;
 	}
+	//check if on top or bottom of screen
+	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
+	else gameObjectRef->flipV = false;
 }
 
 
 uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy){
-	GameObjects.AddObject(fFactory.Spawn(featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy));
+	GameObject* newFeather = fFactory.Spawn(featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy);
+	GameObjects.AddObject(newFeather);
 	return featherNum - 1;
 }
 

@@ -12,6 +12,7 @@ PlayerPhysicsComponent::~PlayerPhysicsComponent(){}
 void PlayerPhysicsComponent::init(){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
+	bodyDef.fixedRotation = true;
 	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
 	bodyDef.angle = 0;// ... which direction it's facing
 
@@ -20,7 +21,7 @@ void PlayerPhysicsComponent::init(){
 
 	b2PolygonShape box;
 	//box.SetAsBox(471, 480); // look up other functions for polygons
-	box.SetAsBox(75, 75);
+	box.SetAsBox(2.7, 2.7);
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -47,7 +48,16 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void PlayerPhysicsComponent::Update(){
-	gameObjectRef->posX = mBody->GetPosition().x;// *20.0f;
-	gameObjectRef->posY = mBody->GetPosition().y;// *20.0f;
-	//cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << endl;
+	b2Vec2 vel = mBody->GetLinearVelocity();
+	if (gameObjectRef->posY < 0){
+		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.5));
+	}
+	else{
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5));
+		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
+	}
+	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	//std::cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << std::endl;
 }

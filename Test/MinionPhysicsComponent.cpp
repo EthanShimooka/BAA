@@ -1,13 +1,19 @@
 #include "MinionPhysicsComponent.h"
 
-MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion)
+MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, float _length, bool _walkRight)
 {
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 	init();
 }
 
-MinionPhysicsComponent::~MinionPhysicsComponent(){}
+MinionPhysicsComponent::~MinionPhysicsComponent(){
+	std::cout << "calling minion physics destructor" << std::endl;
+	GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+	//not sure if next line is needed;
+	delete this;
+
+}
 
 void MinionPhysicsComponent::init(){
 	b2BodyDef bodyDef;
@@ -19,13 +25,13 @@ void MinionPhysicsComponent::init(){
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(16, 16); // look up other functions for polygons
+	box.SetAsBox(1, 1); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
-
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
+	mBody->SetLinearVelocity(b2Vec2(50, 0));
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_PLATFORM);
 }
 
@@ -34,14 +40,13 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		{
+
 			gameObjectRef->setPos(-10000, 0);
-			//mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+			//setCollisionFilter(COLLISION_MINION, 0);
 			gameObjectRef->isAlive = false;
-			
 
 			break;
-		}
+
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 			//just push each other around. Most likely done for us by box2d already
 			break;
@@ -51,11 +56,21 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void MinionPhysicsComponent::Update(){
-	//gameObjectRef->posX = mBody->GetPosition().x;
-	gameObjectRef->posY = mBody->GetPosition().y;
-	//if (gameObjectRef->isAlive)
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
-	//cout << "x=" << mBody->GetPosition().x << "y=" << mBody->GetPosition().y<<endl;
+	if (gameObjectRef->isAlive){
+		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	}
+	else{
+		gameObjectRef->setPos(-10000, 0);
+		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
+	}
+	//temp testing code from here down
+	if (gameObjectRef->posX > 400){
+		mBody->SetLinearVelocity(b2Vec2(-10, 0));
+	}
+	else if (gameObjectRef->posX < -400){
+		mBody->SetLinearVelocity(b2Vec2(10, 0));
+	}
 }
 
 	

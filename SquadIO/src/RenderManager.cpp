@@ -222,8 +222,8 @@ void RenderManager::worldCoordToWindowCoord(int &winx, int &winy, float worx, fl
 	// make sure that worz does not equal cameraPoint.z
 	float proj = -cameraPoint.z / (worz - cameraPoint.z);
 	float flip = (flippedScreen) ? -1 : 1;
-	winx = int((worx - cameraPoint.x)*flip*proj / zoom + windowSurface->w / 2);
-	winy = int((wory - cameraPoint.y)*flip*proj / zoom + windowSurface->h / 2);
+	winx = int((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2);
+	winy = int((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2);
 }
 void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz){
 	//make sure that cameraPoint.z is not at 0
@@ -243,8 +243,8 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		float anchory = 0;
 		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z); 
 		if (flippedScreen){
-			anchorx = obj->getAnchorX()-1;
-			anchory = obj->getAnchorY()-1;
+			anchorx = 1- obj->getAnchorX();
+			anchory = 1- obj->getAnchorY();
 		}
 		else{
 			anchorx = obj->getAnchorX();
@@ -252,8 +252,10 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		}
 		float w = obj->getWidth()*proj / zoom;
 		float h = obj->getHeight()*proj / zoom;
-		float r = obj->rotation * M_PI/180;
+		float r = obj->getRotation() * M_PI/180;
+		//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 		//SDL_RenderDrawRect(renderer, &pos);
+
 		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
 									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r),
 									 posx + (w*(1-anchorx))*cos(r) - (h*(1-anchory))*sin(r),
