@@ -10,6 +10,7 @@ GameWorld::GameWorld(){
 	physicsWorld = new b2World(gravity);
 	currTime = clock();
 }
+float worldScale = 20.0f;
 
 GameWorld::~GameWorld(){}
 

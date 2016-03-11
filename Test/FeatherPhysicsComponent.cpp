@@ -7,7 +7,6 @@ FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float init
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 	init(initX,  initY,  dx,  dy);
 }
-float worldScale = 20.0f;
 FeatherPhysicsComponent::~FeatherPhysicsComponent(){}
 
 void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy){
@@ -42,11 +41,8 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
 		{
-			gameObjectRef->setPos(-10000, 0);
 			//destroy self or return to object pool
-			
 			gameObjectRef->isAlive = false;
-			
 			break;
 		}
 		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
@@ -58,7 +54,14 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void FeatherPhysicsComponent::Update() {
-	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
-	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	if (gameObjectRef->isAlive){
+		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	}
+	else{
+		gameObjectRef->setPos(-10000, 0);
+		mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
+	}
+	
 	//mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);
 }
