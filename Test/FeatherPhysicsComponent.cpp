@@ -41,10 +41,16 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 			
 			gameObjectRef->isAlive = false;
 			
+			// call featherlogic to grant player 1 birdseed
+			// giveBirdseed(gameObjectRef->ID, 1);
+
 			break;
 		}
 		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 			//destroy self or return to object pool
+
+			// call featherlogic to grand player 3 birdseeds
+			// giveBirdseed(gameObjectRef->ID, 3);
 			break;
 		default:
 			break;

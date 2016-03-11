@@ -35,3 +35,11 @@ void FeatherLogicComponent::init(float posX, float posY, float dx, float dy){
 	gameObjectRef->rotation = atan(y / x) / M_PI * 180;
 	gameObjectRef->flipH = (x > 0) ? false : true;
 }
+
+void FeatherLogicComponent::setOwner(GameObject* ref) {
+	owner = ref;
+}
+
+void FeatherLogicComponent::giveBirdseed(int seeds) {
+	((PlayerLogicComponent*)owner->GetComponent(COMPONENT_LOGIC))->birdseed += seeds;
+}

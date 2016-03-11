@@ -8,4 +8,6 @@
 #include "FeatherRenderComponent.h"
 #include "FeatherObjectFactory.h"
 
+#include "PlayerLogicComponent.h"
+
 #endif

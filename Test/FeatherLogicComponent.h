@@ -19,6 +19,13 @@ public:
 
 	float x;
 	float y;
+
+	// reference to player gameObject
+	GameObject* owner;
+	void setOwner(GameObject* ref);
+
+	/// give birdseed to player function
+	void giveBirdseed(int seeds);
 };
 
 #endif
