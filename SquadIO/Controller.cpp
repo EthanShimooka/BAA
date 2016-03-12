@@ -118,6 +118,6 @@ void Controller::free(){
 	joystickButtonReleased.clear();
 	joystickDPad.clear();
 	if (haptic){
-		SDL_
+		SDL_HapticClose(haptic);
 	}
 }
