@@ -21,6 +21,8 @@ public:
 	std::vector<bool>joystickButtonReleased;
 	std::vector<double> joystickAnalogs;
 	SDL_Joystick *joystick;
+	SDL_Haptic *haptic;
+	bool rumbleSupport;
 	Controller();
 	~Controller();
 
@@ -55,6 +57,8 @@ public:
 
 	// get the value of right trigger
 	SQUADIO_API bool getRightBumper();
+
+	SQUADIO_API void rumble(float strength, int duration);
 
 	SQUADIO_API bool isDPadPressed(int pad);
 
