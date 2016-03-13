@@ -3,6 +3,7 @@
 
 Controller::Controller(){
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+	SDL_Init(SDL_INIT_HAPTIC);
 	SDL_JoystickEventState(SDL_ENABLE);
 	joystick = SDL_JoystickOpen(0);
 	if (joystick){
@@ -11,9 +12,14 @@ Controller::Controller(){
 		joystickButtonPressed.resize(SDL_JoystickNumButtons(joystick));
 		joystickButtonReleased.resize(SDL_JoystickNumButtons(joystick));
 		joystickDPad.resize(13);
-		;
+		haptic = SDL_HapticOpenFromJoystick(joystick);
+		if (SDL_HapticRumbleSupported(haptic) == SDL_TRUE){
+			SDL_HapticRumbleInit(haptic);
+			rumbleSupport = true;
+		}
+		else rumbleSupport = false;
 	}
-
+	
 }
 
 
@@ -97,6 +103,13 @@ void Controller::update(){
 	}
 }
 
+void Controller::rumble(float strength, int duration){
+	//Strength parameter is a float between 0 and 1 to determine how strong
+	//the vibration is. Duration is time in milliseconds to vibrate controller.
+	if (rumbleSupport)SDL_HapticRumblePlay(haptic, strength, duration);
+	else std::cout << "rumble not supported" << std::endl;
+}
+
 void Controller::free(){
 	SDL_JoystickClose(joystick);
 	joystickAnalogs.clear();
@@ -104,4 +117,7 @@ void Controller::free(){
 	joystickButtonPressed.clear();
 	joystickButtonReleased.clear();
 	joystickDPad.clear();
+	if (haptic){
+		SDL_HapticClose(haptic);
+	}
 }

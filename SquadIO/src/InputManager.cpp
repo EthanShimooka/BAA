@@ -89,7 +89,6 @@ void InputManager::update() {
 			this->mouseY = ev.motion.y;
 			break;
 		case SDL_JOYBUTTONDOWN:
-			cout << (int)ev.jbutton.button << endl;
 			controller->joystickButtonPressed[ev.jbutton.button] = true;
 			controller->joystickButtonHeld[ev.jbutton.button] = true;
 			break;

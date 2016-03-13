@@ -53,6 +53,7 @@ void PlayerInputComponent::Update(){
 		}
 
 		if (controller->getLeftTrigger() > 0.8){	
+			controller->rumble(1, 750);
 			//renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
 			int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX();
 			int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY();
