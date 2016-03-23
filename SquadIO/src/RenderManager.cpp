@@ -33,7 +33,7 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 		return false;
 	}
 	zoom = 1;
-	minZoom = .05;
+	minZoom = .05f;
 	cameraPoint = { 0, 0 , -10};
 	flippedScreen = false;
 	//Get window surface
@@ -223,14 +223,14 @@ void RenderManager::renderBackground(){
 void RenderManager::worldCoordToWindowCoord(int &winx, int &winy, float worx, float wory, float worz){
 	// make sure that worz does not equal cameraPoint.z
 	float proj = -cameraPoint.z / (worz - cameraPoint.z);
-	float flip = (flippedScreen) ? -1 : 1;
+	float flip = (flippedScreen) ? -1.0f : 1.0f;
 	winx = int((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2);
 	winy = int((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2);
 }
 void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz){
 	//make sure that cameraPoint.z is not at 0
 	float proj = (worz - cameraPoint.z) / (-cameraPoint.z);
-	float flip = (flippedScreen) ? -1 : 1;
+	float flip = (flippedScreen) ? -1.0f : 1.0f;
 	worx = (float(winx) - windowSurface->w / 2)*zoom*proj*flip + cameraPoint.x;
 	wory = (float(winy) - windowSurface->h / 2)*zoom*proj*flip + cameraPoint.y;
 }
@@ -254,34 +254,34 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		}
 		float w = obj->getWidth()*proj / zoom;
 		float h = obj->getHeight()*proj / zoom;
-		float r = obj->getRotation() * M_PI/180;
+		float r = obj->getRotation() * (float)( M_PI/180);
 		//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 		//SDL_RenderDrawRect(renderer, &pos);
 
-		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
-									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r),
-									 posx + (w*(1-anchorx))*cos(r) - (h*(1-anchory))*sin(r),
-									 posy + (w*(1-anchorx))*sin(r) + (h*(1-anchory))*cos(r)	 );
-		SDL_RenderDrawLine(renderer, posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r),
-									 posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r),
-									 posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r),
-									 posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r));
-		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
-									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r),
-									 posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r),
-									 posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r));
-		SDL_RenderDrawLine(renderer, posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r),
-									 posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r),
-									 posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r),
-									 posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r));
-		SDL_RenderDrawLine(renderer, posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r),
-									 posy + (w*(1-anchorx))*sin(r) + (h*(1 - anchory))*cos(r),
-									 posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r),
-									 posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r));
-		SDL_RenderDrawLine(renderer, posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r),
-									 posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r),
-									 posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r),
-									 posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r));
+		SDL_RenderDrawLine(renderer,(int) (posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+									(int) (posx + (w*(1-anchorx))*cos(r) - (h*(1-anchory))*sin(r)),
+									(int) (posy + (w*(1-anchorx))*sin(r) + (h*(1-anchory))*cos(r))	 );
+		SDL_RenderDrawLine(renderer,(int) (posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)),
+								    (int) (posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)),
+									(int) (posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)),
+									(int) (posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)));
+		SDL_RenderDrawLine(renderer,(int) (posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+									(int) (posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)),
+									(int) (posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)));
+		SDL_RenderDrawLine(renderer,(int) (posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)),
+									(int) (posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)),
+									(int) (posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+									(int) (posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)));
+		SDL_RenderDrawLine(renderer,(int) (posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+									(int) (posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+									(int) (posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)),
+									(int) (posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)));
+		SDL_RenderDrawLine(renderer,(int) (posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)),
+									(int) (posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)),
+									(int) (posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
@@ -299,8 +299,8 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY(), obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*obj->getAnchorX()/zoom), int(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
 		}
-		pos.w = obj->getWidth()*proj/zoom;
-		pos.h = obj->getHeight()*proj/zoom;
+		pos.w = (int) (obj->getWidth()*proj/zoom);
+		pos.h = (int) (obj->getHeight()*proj/zoom);
 		//uses the object's anchor value as a general position, and multiplies it with the proper w and h
 		//flip the sprite based on some bool values
 		SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : SDL_FLIP_NONE;
@@ -365,7 +365,7 @@ void RenderManager::renderScene() { //will need modification to support more fla
 
 						//TODO: replace NULL parameters with meaningful SDL_Rects
 						//uses the object's anchor value as a general position, and multiplies it with the proper w and h
-						SDL_Point anchor = { (*obj_it)->renderRect.w*(*obj_it)->anchor.x, (*obj_it)->renderRect.h*(*obj_it)->anchor.y };
+						SDL_Point anchor = { (int) ((*obj_it)->renderRect.w*(*obj_it)->anchor.x), (int) ((*obj_it)->renderRect.h*(*obj_it)->anchor.y) };
 						SDL_RendererFlip flip = (flippedScreen) ? SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL): SDL_FLIP_NONE;
 						if ((*obj_it)->flipH){ flip = (flippedScreen) ? SDL_FLIP_VERTICAL : SDL_FLIP_HORIZONTAL; }
 						if ((*obj_it)->flipV){ flip = (flippedScreen) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_VERTICAL; }
