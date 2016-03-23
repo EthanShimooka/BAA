@@ -20,7 +20,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-	int numPlayers = 4;
+	int numPlayers = 1;
 
 	// don't need to change this line
 	int numLobbyPlayer = 0;
@@ -242,6 +242,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
+	// Loop freeing memoru
+	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+	}
 	std::cout << renderMan << endl;
 
 	log->close();

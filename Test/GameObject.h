@@ -91,6 +91,9 @@ public:
 	/// Set postion of gameObject
 	void setPos(float x, float y);
 
+	/// Frees memory of all components attached to gameobject
+	static void FreeComponents(GameObject* toFree);
+
 	/// To Be Implemented
 
 ///	void AttachComponent(ComponentType, argumentList, name);

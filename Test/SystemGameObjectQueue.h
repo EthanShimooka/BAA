@@ -21,9 +21,8 @@ public:
 
 	GameObject* AddObject(GameObject * obj);
 
-	void DeleteObject(int g_id);
-
-
+	/// Loops deleting all gameobjects in alive_objects vector
+	void DeleteObjects(int g_id);
 };
 
 //GLOBAL INSTANCE OF SYSTEMGAMEOBJECTQUEUE. Anywhere that includes this file can just use GameObjects like a local variable.
