@@ -4,10 +4,10 @@
 
 SDLRenderObject::SDLRenderObject(){
 	//initialize values
-	posX = 0.0;
-	posY = 0.0;
-	width = 1.0;
-	height = 1.0;
+	posX = 0.0f;
+	posY = 0.0f;
+	width = 1.0f;
+	height = 1.0f;
 	rotation = 0.0;
 	//anchor point 0,0 = top left corner,1,1 = bottom right corner 
 	anchor = { 0.5, 0.5 };
@@ -71,11 +71,11 @@ void SDLRenderObject::setParent(SDLRenderObject * par){
 
 float SDLRenderObject::getPosX(){ 
 	if (parent){
-		float flipH = (parent->isFlippedH()) ? -1.0 : 1.0;
-		float flipV = (parent->isFlippedV()) ? -1.0 : 1.0;
+		float flipH = (parent->isFlippedH()) ? -1.0f : 1.0f;
+		float flipV = (parent->isFlippedV()) ? -1.0f : 1.0f;
 		float x = posX;
 		float y = posY;
-		float r = parent->getRotation()*flipH*flipV * (M_PI / 180);
+		float r = parent->getRotation()*flipH*flipV * (float)(M_PI / 180);
 		float sx = parent->getScaleX();
 		float sy = parent->getScaleY();
 		return parent->getPosX() + (sx*cos(r)*x - sy*sin(r)*y)*flipH;
@@ -84,11 +84,11 @@ float SDLRenderObject::getPosX(){
 }
 float SDLRenderObject::getPosY(){
 	if (parent){
-		float flipH = (parent->isFlippedH()) ? -1 : 1;
-		float flipV = (parent->isFlippedV()) ? -1 : 1;
+		float flipH = (parent->isFlippedH()) ? -1.0f : 1.0f;
+		float flipV = (parent->isFlippedV()) ? -1.0f : 1.0f;
 		float x =  posX;
 		float y =  posY;
-		float r = parent->getRotation()*flipH*flipV * (M_PI / 180);
+		float r = parent->getRotation()*flipH*flipV * (float)(M_PI / 180);
 		float sx = parent->getScaleX();
 		float sy = parent->getScaleY();
 		return parent->getPosY() + (sx*sin(r)*x + sy*cos(r)*y)*flipV;
@@ -131,10 +131,10 @@ void SDLRenderObject::setScale(float sx,float sy){
 	width = sy;
 }
 int SDLRenderObject::getWidth(){
-	return (frameWidth>0) ? renderRect.w*getScaleX() / frameWidth : renderRect.w*getScaleX();
+	return (frameWidth>0) ? (int)(renderRect.w*getScaleX() / frameWidth) :(int) (renderRect.w*getScaleX());
 }
 int SDLRenderObject::getHeight(){
-	return (frameHeight>0) ? renderRect.h*getScaleY() / frameHeight : renderRect.h*getScaleY();
+	return (frameHeight>0) ? (int) (renderRect.h*getScaleY() / frameHeight) : (int) (renderRect.h*getScaleY());
 }
 void SDLRenderObject::getSize(int &w, int &h){w = getWidth(); h = getHeight();}
 
@@ -160,10 +160,10 @@ void SDLRenderObject::toggleIfRenderImage(){ ifRenderImage = !ifRenderImage; }
 float SDLRenderObject::getRotation(){
 	if (parent){
 		bool h = isFlippedH(), v = isFlippedV();
-		float flip = ((h || v) && !(h && v)) ? -1 : 1;
-		return  rotation * flip + parent->getRotation();
+		float flip = ((h || v) && !(h && v)) ? -1.0f : 1.0f;
+		return (float) (rotation * flip + parent->getRotation());
 	}
-	return rotation; 
+	return (float) rotation; 
 }
 void SDLRenderObject::setRotation(float degrees){ rotation = degrees; }
 
@@ -198,7 +198,7 @@ float SDLRenderObject::getAnchorY(){
 }
 
 void SDLRenderObject::getAnchor(float &a, float &b){ a = getAnchorX(); b = getAnchorY(); }
-void SDLRenderObject::setAnchor(double a, double b){ anchor.x = a; anchor.y = b; }
+void SDLRenderObject::setAnchor(double a, double b){ anchor.x = (float) a; anchor.y = (float) b; }
 /*void SDLRenderObject::setAnchor(int x, int y){ 
 	anchor.x = anchor.x + (x-posX)/renderRect.w; 
 	anchor.y = anchor.y + (y-posY)/renderRect.h; 
@@ -211,16 +211,18 @@ unsigned int SDLRenderObject::getCurrentFrame(){
 	return frameCurrent;
 }
 void SDLRenderObject::setCurrentFrame(unsigned int f){
-	frameCurrent = (f>=frameTotal) ? 0 :f;
+	frameCurrent = (f>=frameTotal) ? 0 : f;
 }
 SDL_Rect SDLRenderObject::getRenderRect(){
 	SDL_Rect rect;
 	rect.w = renderRect.w / frameWidth;
 	rect.h = renderRect.h / frameHeight;
 	rect.x = (frameCurrent%frameWidth)*rect.w;
-	rect.y = roundf(frameCurrent / frameWidth)*rect.h;
+	rect.y = (float) ( roundf(frameCurrent / frameWidth)*rect.h);
 	return rect;
 }
+
+
 void SDLRenderObject::setFrames(unsigned int w, unsigned int h, unsigned int totalFrames){
 	frameWidth = w;
 	frameHeight = h;
