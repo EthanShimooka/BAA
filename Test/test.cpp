@@ -242,6 +242,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
+	// Loop freeing memoru
+	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+	}
 	std::cout << renderMan << endl;
 
 	log->close();

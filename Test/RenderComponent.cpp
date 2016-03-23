@@ -12,6 +12,13 @@ RenderComponent::RenderComponent()
 
 RenderComponent::~RenderComponent()
 {
+	/* Written but untested, don't know where to call
+	while (!allObjs.empty()){
+		SDLRenderObject* curr = allObjs.back();
+		delete curr;
+		allObjs.pop_back();
+	}
+	*/
 }
 
 /// Assign a Diffrent SDL render Object
