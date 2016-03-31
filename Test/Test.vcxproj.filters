@@ -270,6 +270,12 @@
     <ClInclude Include="MidPlatShieldPhysicsComponent.h">
       <Filter>Header Files\Component\MidPlatShield Component</Filter>
     </ClInclude>
+    <ClInclude Include="MidPlatComponentIncludes.h">
+      <Filter>Header Files\Component\MidPlat Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -433,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="MidPlatShieldPhysicsComponent.cpp">
       <Filter>Source Files\Component\MidPlatShieldComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

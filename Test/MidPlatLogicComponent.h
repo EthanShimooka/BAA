@@ -4,7 +4,7 @@ class MidPlatLogicComponent :
 	public LogicComponent
 {
 public:
-	MidPlatLogicComponent();
+	MidPlatLogicComponent(GameObject* platform);
 	~MidPlatLogicComponent();
 };
 

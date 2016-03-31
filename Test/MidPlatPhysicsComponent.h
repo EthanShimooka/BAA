@@ -4,7 +4,7 @@ class MidPlatPhysicsComponent :
 	public PhysicsComponent
 {
 public:
-	MidPlatPhysicsComponent();
+	MidPlatPhysicsComponent(GameObject* platform);
 	~MidPlatPhysicsComponent();
 };
 

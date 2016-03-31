@@ -98,7 +98,9 @@
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="LogicComponent.h" />
+    <ClInclude Include="MidPlatComponentIncludes.h" />
     <ClInclude Include="MidPlatLogicComponent.h" />
+    <ClInclude Include="MidPlatObjectFactory.h" />
     <ClInclude Include="MidPlatPhysicsComponent.h" />
     <ClInclude Include="MidPlatRenderComponent.h" />
     <ClInclude Include="MidPlatShieldLogicComponent.h" />
@@ -159,6 +161,7 @@
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="LogicComponent.cpp" />
     <ClCompile Include="MidPlatLogicComponent.cpp" />
+    <ClCompile Include="MidPlatObjectFactory.cpp" />
     <ClCompile Include="MidPlatPhysicsComponent.cpp" />
     <ClCompile Include="MidPlatRenderComponent.cpp" />
     <ClCompile Include="MidPlatShieldLogicComponent.cpp" />
