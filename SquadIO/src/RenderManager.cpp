@@ -320,7 +320,69 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
 	return lhs->posZ > rhs->posZ;
 }
-
+bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
+	if (x < l) return false;
+	if (x > r) return false;
+	if (y < t) return false;
+	if (y > b) return false;
+	return true;
+}
+bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
+	//SDL_Rect pos;
+	int posx = 0;
+	int posy = 0;
+	worldCoordToWindowCoord(posx, posy, obj->getPosX(), obj->getPosY(), obj->getPosZ());
+	float anchorx = 0;
+	float anchory = 0;
+	float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
+	if (flippedScreen){
+		anchorx = 1 - obj->getAnchorX();
+		anchory = 1 - obj->getAnchorY();
+	}
+	else{
+		anchorx = obj->getAnchorX();
+		anchory = obj->getAnchorY();
+	}
+	float w = obj->getWidth()*proj / zoom;
+	float h = obj->getHeight()*proj / zoom;
+	float r = obj->getRotation() * (float)(M_PI / 180);
+	int wWidth = 0;
+	int wHeight = 0;
+	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);//width and height of the window
+	//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
+	//SDL_RenderDrawRect(renderer, &pos);
+	//check if any of the 4 corners of an object are within the window's dimensions
+	/*return ((0 <= round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)) && //top left corner
+		round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)) <= wWidth &&
+		0 <= round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)) &&
+		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)) <= wHeight) ||
+		(0 <= round(posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)) && //bottom left corner
+		round(posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)) <= wWidth &&
+		0 <= round(posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)) &&
+		round(posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)) <= wHeight) ||
+		(0 <= round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)) && //bottom right corner
+		round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)) <= wWidth &&
+		0 <= round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)) &&
+		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)) <= wHeight) ||
+		(0 <= round(posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)) && //top right corner
+		round(posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)) <= wWidth &&
+		0 <= round(posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)) &&
+		round(posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)) <= wHeight));
+		*/
+	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	return false;
+}
 void RenderManager::renderAllObjects(){
 	//NOTE: this list might need to be changed to be pointers
 	//NOTE: May have to be based on a subset of renderobjects, not all of them
@@ -330,8 +392,10 @@ void RenderManager::renderAllObjects(){
 	std::list<SDLRenderObject*>::iterator iter;
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
-			if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
-			if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
+			if (isObjOnScreen(*iter)){
+				if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
+				if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
+			}
 		}
 	}
 }
