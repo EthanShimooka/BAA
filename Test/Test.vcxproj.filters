@@ -67,6 +67,30 @@
     <Filter Include="Source Files\Component\Power-Shield Component">
       <UniqueIdentifier>{a6f81836-19c5-4450-bfb0-5e685d603492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\MidPlat Component">
+      <UniqueIdentifier>{3b75e1a7-95f4-4b10-9871-2bfd2cfb3b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\MidPlat Component">
+      <UniqueIdentifier>{20d25bb4-0d45-41a9-bcee-b7463fcf2f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\MidPlatSwitch Component">
+      <UniqueIdentifier>{aa82bb12-83eb-4bd1-a13b-09e55f079647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\MidPlatSwitchComponent">
+      <UniqueIdentifier>{8090369c-0a2c-418c-bcf3-b085829dab92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\MidBase Component">
+      <UniqueIdentifier>{20679eb2-2ff2-44c9-adae-c2396a0c1872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\MidBase Component">
+      <UniqueIdentifier>{4d803032-a2fa-4bbf-91bc-b21bf061867f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\MidPlatShield Component">
+      <UniqueIdentifier>{0e24d0df-bf05-4fbc-a864-b39c6cc98a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\MidPlatShieldComponent">
+      <UniqueIdentifier>{4b24c945-2fc5-41d9-b7f5-e4b875c851d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test.h">
@@ -210,6 +234,48 @@
     <ClInclude Include="PowerShieldNetworkComponent.h">
       <Filter>Header Files\Component\Power-Shield Component</Filter>
     </ClInclude>
+    <ClInclude Include="MidPlatLogicComponent.h">
+      <Filter>Header Files\Component\MidPlat Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatRenderComponent.h">
+      <Filter>Header Files\Component\MidPlat Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatPhysicsComponent.h">
+      <Filter>Header Files\Component\MidPlat Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBaseLogicComponent.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBaseRenderComponent.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBasePhysicsComponent.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatSwitchRenderComponent.h">
+      <Filter>Header Files\Component\MidPlatSwitch Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatSwitchPhysicsComponent.h">
+      <Filter>Header Files\Component\MidPlatSwitch Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatSwitchLogicComponent.h">
+      <Filter>Header Files\Component\MidPlatSwitch Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatShieldRenderComponent.h">
+      <Filter>Header Files\Component\MidPlatShield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatShieldLogicComponent.h">
+      <Filter>Header Files\Component\MidPlatShield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatShieldPhysicsComponent.h">
+      <Filter>Header Files\Component\MidPlatShield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatComponentIncludes.h">
+      <Filter>Header Files\Component\MidPlat Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -308,9 +374,6 @@
     <ClCompile Include="FeatherObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="GameWorld.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -337,6 +400,48 @@
     </ClCompile>
     <ClCompile Include="PowerShieldNetworkComponent.cpp">
       <Filter>Source Files\Component\Power-Shield Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatLogicComponent.cpp">
+      <Filter>Source Files\Component\MidPlat Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatRenderComponent.cpp">
+      <Filter>Source Files\Component\MidPlat Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatPhysicsComponent.cpp">
+      <Filter>Source Files\Component\MidPlat Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBaseLogicComponent.cpp">
+      <Filter>Source Files\Component\MidBase Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBaseRenderComponent.cpp">
+      <Filter>Source Files\Component\MidBase Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBasePhysicsComponent.cpp">
+      <Filter>Source Files\Component\MidBase Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatSwitchRenderComponent.cpp">
+      <Filter>Source Files\Component\MidPlatSwitchComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatSwitchPhysicsComponent.cpp">
+      <Filter>Source Files\Component\MidPlatSwitchComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatSwitchLogicComponent.cpp">
+      <Filter>Source Files\Component\MidPlatSwitchComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatShieldRenderComponent.cpp">
+      <Filter>Source Files\Component\MidPlatShieldComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatShieldLogicComponent.cpp">
+      <Filter>Source Files\Component\MidPlatShieldComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatShieldPhysicsComponent.cpp">
+      <Filter>Source Files\Component\MidPlatShieldComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MidPlatObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
