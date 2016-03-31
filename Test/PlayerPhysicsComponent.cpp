@@ -7,7 +7,9 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player)
 	init();
 }
 
-PlayerPhysicsComponent::~PlayerPhysicsComponent(){}
+PlayerPhysicsComponent::~PlayerPhysicsComponent(){
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+}
 
 void PlayerPhysicsComponent::init(){
 	b2BodyDef bodyDef;

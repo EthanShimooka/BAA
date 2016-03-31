@@ -1,3 +1,4 @@
+#include "vld.h"
 #include "test.h"
 #include <functional>
 #include <crtdbg.h>
@@ -175,6 +176,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 	Animation * runWater = new Animation(20,motions);
 	int aniCounter = 0;
 
+	//Single minion spawn for memleak debugging
+	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
+
 	while (gameloop) {
 
 		runWater->animate(float(aniCounter)/20);
@@ -193,6 +197,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (input->isKeyDown(KEY_E)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
+
+		/*if (input->isKeyDown(KEY_K)){
+			player->GetComponent()
+		}*/
 		
 		mousecounter++;
 		////////////////////////////////////
@@ -225,6 +233,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			gameloop = false;
 
 		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
+		/*MINION SPAWNING BELOW
 		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
 			spawnTimer1 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
@@ -232,7 +241,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
 			spawnTimer2 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, 0, 200, true));
-		}
+		}*/
 
 		input->update();
 
@@ -242,10 +251,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	// Loop freeing memoru
 	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+		if (!GameObjects.alive_objects[i]->isAlive){
+			GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+		}
 	}
+	// Loop freeing memoru
+	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+	//}
 	std::cout << renderMan << endl;
 
 	log->close();

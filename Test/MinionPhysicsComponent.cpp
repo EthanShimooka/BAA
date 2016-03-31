@@ -9,9 +9,9 @@ MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initia
 
 MinionPhysicsComponent::~MinionPhysicsComponent(){
 	std::cout << "calling minion physics destructor" << std::endl;
-	GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 	//not sure if next line is needed;
-	delete this;
+	//delete this;
 
 }
 

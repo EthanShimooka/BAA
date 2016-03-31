@@ -1,4 +1,6 @@
 #include "GameObject.h"
+#include "AllComponentIncludes.h"
+
 
 /// Constructor
 GameObject::GameObject(){
@@ -29,6 +31,122 @@ GameObject::~GameObject(){
 		delete &currComp;
 	}
 	std::cout << "end of gameobject destructor" << std::endl;*/
+	
+	//for (int i = 0; i < g_components.size(); i++){
+	//	//if (type == OBJECT_PLAYER) {
+	//		//if (g_components[i].type == COMPONENT_RENDER) {
+	//		//	dynamic_cast<PlayerRenderCom
+	//		//}
+	//	//}
+	//	if (g_components[i].type == 0){
+	//		std::cout << g_components[i].type << std::endl;
+	//	}
+	//	delete g_components[i].component;
+	//}
+	LogManager* log = LogManager::GetLogManager();
+	log->logBuffer << type << std::endl;
+	log->flush();
+	switch (type){
+	case OBJECT_PLAYER :
+		for (int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER :
+				delete dynamic_cast<PlayerRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_LOGIC:
+				delete dynamic_cast<PlayerLogicComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<PlayerPhysicsComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_INPUT:
+				delete dynamic_cast<PlayerInputComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_NETWORK :
+				delete dynamic_cast<PlayerNetworkComponent*>(g_components[i].component);
+				break;
+			default :
+				break;
+			}
+		}
+		break;
+	case OBJECT_FEATHER:
+		for (int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<FeatherRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_LOGIC:
+				delete dynamic_cast<FeatherLogicComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<FeatherPhysicsComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_NETWORK:
+				delete dynamic_cast<FeatherNetworkComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+	case OBJECT_MINION:
+		for (int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<MinionRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_LOGIC:
+				delete dynamic_cast<MinionLogicComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<MinionPhysicsComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_NETWORK:
+				delete dynamic_cast<MinionNetworkComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+	case OBJECT_PLATFORM:
+		for (int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<PlatformRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<PlatformPhysicsComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+	case OBJECT_POWERSHIELD:
+		for (int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<PowerShieldRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_LOGIC:
+				delete dynamic_cast<PowerShieldLogicComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<PowerShieldPhysicsComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_NETWORK:
+				delete dynamic_cast<PowerShieldNetworkComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+	default :
+		break;
+	}
 }
 
 
@@ -77,8 +195,8 @@ Component* GameObject::GetComponent(int c_type) {
 	return nullptr;
 }
 
-void GameObject::FreeComponents(GameObject* toFree){
-	for (int i = 0; i < toFree->g_components.size(); i++){
+void GameObject::FreeComponents(GameObject* toFree){ //no longer being used. can be deleted?
+	/*for (int i = 0; i < toFree->g_components.size(); i++){
 		delete toFree->g_components[i].component;
-	}
+	}*/
 }

@@ -18,6 +18,8 @@ GameObject* PowerShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY
 
 	shield->ID = PID;
 	shield->setPos(posX, posY);
+	shield->isAlive = true;
+	shield->type = GAMEOBJECT_TYPE::OBJECT_POWERSHIELD;
 
 	// Shield Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag

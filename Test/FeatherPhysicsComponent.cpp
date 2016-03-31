@@ -7,7 +7,9 @@ FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float init
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 	init(initX,  initY,  dx,  dy);
 }
-FeatherPhysicsComponent::~FeatherPhysicsComponent(){}
+FeatherPhysicsComponent::~FeatherPhysicsComponent(){
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+}
 
 void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy){
 	b2BodyDef bodyDef;
@@ -63,7 +65,13 @@ void FeatherPhysicsComponent::Update() {
 	}
 	else{
 		gameObjectRef->setPos(-10000, 0);
-		mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
+		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
+		/*for (int i = 0; i < GameObjects.alive_objects.size(); i++){
+			if (GameObjects.alive_objects[i] == gameObjectRef){
+				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+				break;
+			}
+		}*/
 	}
 	
 	//mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), gameObjectRef->rotation / 180.0 * M_PI);

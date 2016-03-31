@@ -210,6 +210,9 @@
     <ClInclude Include="PowerShieldNetworkComponent.h">
       <Filter>Header Files\Component\Power-Shield Component</Filter>
     </ClInclude>
+    <ClInclude Include="AllComponentIncludes.h">
+      <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">

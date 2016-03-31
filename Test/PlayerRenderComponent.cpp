@@ -65,6 +65,9 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 
 PlayerRenderComponent::~PlayerRenderComponent()
 {
+	for (auto i = animations.begin(); i != animations.end(); i++){
+		delete i->second;
+	}
 }
 
 /*void PlayerRenderComponent::RenderPhysics(){
