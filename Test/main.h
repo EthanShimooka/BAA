@@ -1,6 +1,6 @@
 #pragma once
-#ifndef TEST_H_INCLUDED
-#define TEST_H_INCLUDED
+#ifndef MAIN_H_INCLUDED
+#define MAIN_H_INCLUDED
 
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
@@ -44,13 +44,7 @@
 #include "SystemPhysicsUpdater.h"
 #include "SystemUIUpdater.h"
 #include "lobby.h"
-
-class test
-{
-public:
-
-	test();
-	~test();
-};
+#include "start.h"
+#include "game.h"
 
 #endif

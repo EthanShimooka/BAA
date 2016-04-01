@@ -1,20 +1,23 @@
+#pragma once
 #ifndef LOBBY_H
 #define LOBBY_H
 
-#include "test.h"
+#include "main.h"
+#include "UIObject.h"
+#include "WorldObjectFactory.h"
+// Component Includes
+#include "Component.h"
+#include "UIRenderComponent.h"
+#include "UIInputComponent.h"
+#include "UIComponent.h"
 
-class Lobby{
+class Lobby
+{
 public:
 	Lobby();
 	~Lobby();
 
-	void mainMenu();
-
-	void joinLobby();
-	void play();
-	void inLobby();
+	void runLobby();
 };
-
-
 
 #endif

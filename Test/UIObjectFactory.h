@@ -33,6 +33,7 @@ public:
 
 	/// Creates a new UI Object
 	UIObject * Spawn(UIType PID);
+	UIObject * Spawn(UIType PID, float x, float y);
 
 };
 

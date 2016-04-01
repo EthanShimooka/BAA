@@ -1,4 +1,4 @@
-#include "test.h"
+#include "main.h"
 #include <functional>
 #include <crtdbg.h>
 
@@ -31,7 +31,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	// don't need to change this line
 	int numLobbyPlayer = 0;
 
-
+/*
 	if (numPlayers != 1){
 		if (!GamerServices::StaticInit())
 			std::cout << "Failed to initialize Steam" << "\n";
@@ -56,15 +56,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 			}
 		}
 	}
-
+	*/
 
 	InputManager* input = InputManager::getInstance();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(800, 300, false, "Birds At Arms");
-	renderMan->setBackground("tempbackground.png");
+	renderMan->init(1600, 900, false, "Birds At Arms");
+	//renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
 
@@ -95,10 +95,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 
-	Lobby menu;
+	Start menu;
 	menu.mainMenu();
 
-	std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
+	Lobby lobby;
+
+
+	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
 	GameObject * player = NULL;
 

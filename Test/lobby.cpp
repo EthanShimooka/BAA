@@ -1,13 +1,15 @@
 #include "lobby.h"
 
+
 Lobby::Lobby(){
+	runLobby();
 }
+
 
 Lobby::~Lobby(){
 }
 
-void Lobby::mainMenu(){
-
+void Lobby::runLobby(){
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
@@ -17,37 +19,37 @@ void Lobby::mainMenu(){
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
-	UIObjectFactory playButton;
-	UIObjectFactory joinButton;
 
-	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
+	bool isReady = false;
+	int playersReady = 0;
+	int numPlayers = 0;
+	int classSize = 6;
+
+	numPlayers = NetworkManager::sInstance->GetPlayerCount();
+
+	for (int i = 0; i < 8; i++){
+		//build lobby player slots
 	
-	queue.AddObject(playButton.Spawn(PLAY_BUTTON));
-	queue.AddObject(joinButton.Spawn(JOIN_BUTTON));
-
-	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
-
-		renderMan->zoom = 0.5;
-		input->update();
-
-		sysUI.UIUpdate(queue.alive_objects);
-		sysInput.InputUpdate(queue.alive_objects);
-		sysRend.RenderUpdate(queue.alive_objects);
-
-		input->update();
-
-		sceneMan->AssembleScene();
 	}
-	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
-		queue.alive_objects[i]->visible = false;
+
+	for (int i = 0; i < classSize; i++){
+		//build class slots
+
 	}
-	sysRend.RenderUpdate(queue.alive_objects);
-	sceneMan->AssembleScene();
-	queue.DeleteObjects();
-	play();
+
+	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
+
+		numPlayers = NetworkManager::sInstance->GetPlayerCount();
+		//all players ready and teams are even
+		if (playersReady == numPlayers && playersReady % 2 == 0){
+			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_Starting);
+		}
+
+	}
+
 }
 
-void Lobby::play(){
+/*void lobby::(){
 	switch (NetworkManager::sInstance->GetState()){
 	case NetworkManager::NMS_Searching:
 		while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
@@ -60,9 +62,4 @@ void Lobby::play(){
 		break;
 	}
 
-}
-
-void Lobby::inLobby(){
-	std::cout << GamerServices::sInstance->GetLocalPlayerName() << std::endl;
-
-}
+}*/

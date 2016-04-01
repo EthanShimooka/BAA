@@ -16,7 +16,6 @@ void UIInputComponent::Update(){
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
 		}
 		else if (isMouseHovering()){
-			uiObjectRef->scale = .5f;
 			std::cout << "Hovering!" << std::endl;
 		}
 		break;

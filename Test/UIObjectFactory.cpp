@@ -51,7 +51,15 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case BACK_BUTTON:
 		rend->createUIType(BACK_BUTTON);
 		break;
+	case OPTIONS_BUTTON:
+		//change when button is created
+		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
+		rend->createUIType(PLAY_BUTTON);
+		break;
 	case SCORE:
+		break;
+	case READY_BUTTON:
+
 		break;
 	case TIMER:
 		break;
@@ -59,4 +67,32 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	uiObject->AddComponent(COMPONENT_RENDER, rend);
 
 	return uiObject;
+}
+
+UIObject* UIObjectFactory::Spawn(UIType PID, float x, float y){
+
+	UIObject* uiObject = new UIObject();
+
+	uiObject->ID = PID;
+
+	// Input Component nessasary for Local only.
+	// Will need to differentiate eventually
+	RenderManager* rendMan = RenderManager::getRenderManager();
+
+	int w, h;
+	rendMan->getWindowSize(&w, &h);
+
+	UIComponent* comp = new UIComponent();
+	comp->uiObjectRef = uiObject;
+	uiObject->AddComponent(COMPONENT_UI, comp);
+
+	UIInputComponent* input = new UIInputComponent();
+	input->uiObjectRef = uiObject;
+	uiObject->AddComponent(COMPONENT_INPUT, input);
+
+	// Player Specific Render Component. In future will have flag
+	// for type of class,  which will instatiate based on flag
+
+	UIRenderComponent* rend = new UIRenderComponent();
+	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 }

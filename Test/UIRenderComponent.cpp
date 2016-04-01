@@ -6,8 +6,6 @@ UIRenderComponent::UIRenderComponent(){
 }
 
 UIRenderComponent::~UIRenderComponent(){
-	this->objRef->visible = false;
-	this->objRef->unrender();
 }
 
 void UIRenderComponent::createUIType(UIType ID){
@@ -33,6 +31,17 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case JOIN_BUTTON:
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 24, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case OPTIONS_BUTTON:
+		//change when button is created
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case READY_BUTTON:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 25, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;

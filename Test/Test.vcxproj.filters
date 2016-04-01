@@ -67,11 +67,6 @@
     <Filter Include="Source Files\Component\Power-Shield Component">
       <UniqueIdentifier>{a6f81836-19c5-4450-bfb0-5e685d603492}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Component\UI Component">
-      <UniqueIdentifier>{11e9f11f-ac96-429c-ae2d-c69c8248aff2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Component\UI Component">
-      <UniqueIdentifier>{9f447462-bae6-4c1e-a8ee-10c845f5a9dd}</UniqueIdentifier>
     <Filter Include="Source Files\Component\MidPlat Component">
       <UniqueIdentifier>{3b75e1a7-95f4-4b10-9871-2bfd2cfb3b15}</UniqueIdentifier>
     </Filter>
@@ -96,11 +91,14 @@
     <Filter Include="Source Files\Component\MidPlatShieldComponent">
       <UniqueIdentifier>{4b24c945-2fc5-41d9-b7f5-e4b875c851d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{d903de67-5353-48e8-ac33-168baf317e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{f1a862ad-3c75-4df3-a4fb-fab49b640b07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Header Files\Component\Abstract Component</Filter>
     </ClInclude>
@@ -239,34 +237,6 @@
     <ClInclude Include="PowerShieldNetworkComponent.h">
       <Filter>Header Files\Component\Power-Shield Component</Filter>
     </ClInclude>
-    <ClInclude Include="UIRenderComponent.h">
-      <Filter>Header Files\Component\UI Component</Filter>
-    </ClInclude>
-    <ClInclude Include="UIInputComponent.h">
-      <Filter>Header Files\Component\UI Component</Filter>
-    </ClInclude>
-    <ClInclude Include="UIComponent.h">
-      <Filter>Header Files\Component\Abstract Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderUIComponent.h">
-      <Filter>Header Files\Component\Abstract Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemUIObjectQueue.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemUIUpdater.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="UIObject.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldObjectFactory.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="UIObjectFactory.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="lobby.h">
     <ClInclude Include="MidPlatLogicComponent.h">
       <Filter>Header Files\Component\MidPlat Component</Filter>
     </ClInclude>
@@ -309,11 +279,47 @@
     <ClInclude Include="MidPlatObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RenderUIComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemUIObjectQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemUIUpdater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIInputComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="start.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="lobby.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
@@ -434,35 +440,6 @@
     <ClCompile Include="PowerShieldNetworkComponent.cpp">
       <Filter>Source Files\Component\Power-Shield Component</Filter>
     </ClCompile>
-    <ClCompile Include="lobby.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UIObjectFactory.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldObjectFactory.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemUIObjectQueue.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemUIUpdater.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="UIObject.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="UIComponent.cpp">
-      <Filter>Source Files\Component\Abstract Component</Filter>
-    </ClCompile>
-    <ClCompile Include="UIRenderComponent.cpp">
-      <Filter>Source Files\Component\UI Component</Filter>
-    </ClCompile>
-    <ClCompile Include="UIInputComponent.cpp">
-      <Filter>Source Files\Component\UI Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderUIComponent.cpp">
-      <Filter>Source Files\Component\Abstract Component</Filter>
     <ClCompile Include="MidPlatLogicComponent.cpp">
       <Filter>Source Files\Component\MidPlat Component</Filter>
     </ClCompile>
@@ -504,6 +481,45 @@
     </ClCompile>
     <ClCompile Include="MidPlatObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUIComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemUIObjectQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemUIUpdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIInputComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="start.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="lobby.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

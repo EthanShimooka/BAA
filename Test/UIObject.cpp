@@ -1,7 +1,7 @@
 #include "UIObject.h"
 
 /// Constructor
-UIObject::UIObject() : posX(0), posY(0), rotation(0), scale(0){
+UIObject::UIObject() : posX(0), posY(0), rotation(0), scale(1){
 
 	visible = true;
 	component_count = 0;
