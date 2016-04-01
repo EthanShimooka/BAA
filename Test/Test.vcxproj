@@ -83,6 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="MidBaseLogicComponent.h" />
+    <ClInclude Include="MidBasePhysicsComponent.h" />
+    <ClInclude Include="MidBaseRenderComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="FeatherComponentIncludes.h" />
     <ClInclude Include="FeatherLogicComponent.h" />
@@ -96,6 +99,17 @@
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="LogicComponent.h" />
+    <ClInclude Include="MidPlatComponentIncludes.h" />
+    <ClInclude Include="MidPlatLogicComponent.h" />
+    <ClInclude Include="MidPlatObjectFactory.h" />
+    <ClInclude Include="MidPlatPhysicsComponent.h" />
+    <ClInclude Include="MidPlatRenderComponent.h" />
+    <ClInclude Include="MidPlatShieldLogicComponent.h" />
+    <ClInclude Include="MidPlatShieldPhysicsComponent.h" />
+    <ClInclude Include="MidPlatShieldRenderComponent.h" />
+    <ClInclude Include="MidPlatSwitchLogicComponent.h" />
+    <ClInclude Include="MidPlatSwitchPhysicsComponent.h" />
+    <ClInclude Include="MidPlatSwitchRenderComponent.h" />
     <ClInclude Include="MinionComponentIncludes.h" />
     <ClInclude Include="MinionLogicComponent.h" />
     <ClInclude Include="MinionNetworkComponent.h" />
@@ -142,6 +156,9 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MidBaseLogicComponent.cpp" />
+    <ClCompile Include="MidBasePhysicsComponent.cpp" />
+    <ClCompile Include="MidBaseRenderComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="FeatherLogicComponent.cpp" />
     <ClCompile Include="FeatherNetworkComponent.cpp" />
@@ -154,6 +171,16 @@
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="LogicComponent.cpp" />
+    <ClCompile Include="MidPlatLogicComponent.cpp" />
+    <ClCompile Include="MidPlatObjectFactory.cpp" />
+    <ClCompile Include="MidPlatPhysicsComponent.cpp" />
+    <ClCompile Include="MidPlatRenderComponent.cpp" />
+    <ClCompile Include="MidPlatShieldLogicComponent.cpp" />
+    <ClCompile Include="MidPlatShieldPhysicsComponent.cpp" />
+    <ClCompile Include="MidPlatShieldRenderComponent.cpp" />
+    <ClCompile Include="MidPlatSwitchLogicComponent.cpp" />
+    <ClCompile Include="MidPlatSwitchPhysicsComponent.cpp" />
+    <ClCompile Include="MidPlatSwitchRenderComponent.cpp" />
     <ClCompile Include="MinionLogicComponent.cpp" />
     <ClCompile Include="MinionNetworkComponent.cpp" />
     <ClCompile Include="MinionObjectFactory.cpp" />

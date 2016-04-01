@@ -27,6 +27,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	if (!NetworkManager::StaticInit()){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
+
+	// don't need to change this line
 	int numLobbyPlayer = 0;
 
 
@@ -255,7 +257,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//int mousecounter = 5;
 
 
-	//audioMan->playByName("bgmfostershome.ogg");
+	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
 
@@ -354,6 +356,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
+	// Loop freeing memoru
+	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+	}
 	std::cout << renderMan << endl;
 
 	log->close();

@@ -90,6 +90,8 @@ public:
 	SQUADIO_API bool isReadyToQuit();
 	
 
+	bool isObjOnScreen(SDLRenderObject * obj);
+	bool isPointInBounds(int x, int y, int l, int r, int t, int b);
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
 	// not implemented, but may be useful later if you want the camera to ignore anything out of bounds
 	SQUADIO_API void setWorldSize(unsigned int width, unsigned int height);
