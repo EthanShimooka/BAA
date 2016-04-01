@@ -67,13 +67,11 @@
     <Filter Include="Source Files\Component\Power-Shield Component">
       <UniqueIdentifier>{a6f81836-19c5-4450-bfb0-5e685d603492}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
     <Filter Include="Header Files\Component\UI Component">
       <UniqueIdentifier>{11e9f11f-ac96-429c-ae2d-c69c8248aff2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Component\UI Component">
       <UniqueIdentifier>{9f447462-bae6-4c1e-a8ee-10c845f5a9dd}</UniqueIdentifier>
-=======
     <Filter Include="Source Files\Component\MidPlat Component">
       <UniqueIdentifier>{3b75e1a7-95f4-4b10-9871-2bfd2cfb3b15}</UniqueIdentifier>
     </Filter>
@@ -97,7 +95,6 @@
     </Filter>
     <Filter Include="Source Files\Component\MidPlatShieldComponent">
       <UniqueIdentifier>{4b24c945-2fc5-41d9-b7f5-e4b875c851d7}</UniqueIdentifier>
->>>>>>> aba0aba96842cbc6221689aec5e2d645a51f98e4
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -242,7 +239,6 @@
     <ClInclude Include="PowerShieldNetworkComponent.h">
       <Filter>Header Files\Component\Power-Shield Component</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="UIRenderComponent.h">
       <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
@@ -271,7 +267,6 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="lobby.h">
-=======
     <ClInclude Include="MidPlatLogicComponent.h">
       <Filter>Header Files\Component\MidPlat Component</Filter>
     </ClInclude>
@@ -312,7 +307,6 @@
       <Filter>Header Files\Component\MidPlat Component</Filter>
     </ClInclude>
     <ClInclude Include="MidPlatObjectFactory.h">
->>>>>>> aba0aba96842cbc6221689aec5e2d645a51f98e4
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -440,7 +434,6 @@
     <ClCompile Include="PowerShieldNetworkComponent.cpp">
       <Filter>Source Files\Component\Power-Shield Component</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="lobby.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -470,7 +463,6 @@
     </ClCompile>
     <ClCompile Include="RenderUIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
-=======
     <ClCompile Include="MidPlatLogicComponent.cpp">
       <Filter>Source Files\Component\MidPlat Component</Filter>
     </ClCompile>
@@ -512,7 +504,6 @@
     </ClCompile>
     <ClCompile Include="MidPlatObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
->>>>>>> aba0aba96842cbc6221689aec5e2d645a51f98e4
     </ClCompile>
   </ItemGroup>
 </Project>
