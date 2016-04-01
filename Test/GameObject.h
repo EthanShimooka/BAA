@@ -42,7 +42,7 @@ private:
 	/// Dynamic List of components
 	std::vector<t_component> g_components;
 	/// Number of Components Bound to GameObject
-	int component_count;
+	//int component_count;
 protected:
 
 public:

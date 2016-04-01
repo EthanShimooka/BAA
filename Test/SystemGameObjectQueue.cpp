@@ -17,10 +17,10 @@ SystemGameObjectQueue::~SystemGameObjectQueue()
 	std::cout << "--------------------------------" << std::endl;
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
 		std::cout << "alive " << i << std::endl;
-		if (i == 15){
-			std::cout << alive_objects[i]->ID << std::endl;
-		}
-		delete alive_objects[i];
+		if (alive_objects[i])
+			delete alive_objects[i];
+		else
+			std::cout << "asdfsdafsdafsdafdsafdsaf" << std::endl;
 	}
 	for (unsigned int i = 0; i < dead_feathers.size(); i++){
 		std::cout << "dead_f " << i << std::endl;

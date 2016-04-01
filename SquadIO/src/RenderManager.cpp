@@ -432,3 +432,9 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 	setCameraPoint(x, y);
 	setCameraZ(z);
 }
+
+void RenderManager::cursorToCrosshair(){
+	SDL_Cursor* cursor;
+	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	SDL_SetCursor(cursor);
+}

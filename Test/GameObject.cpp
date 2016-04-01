@@ -5,7 +5,7 @@
 /// Constructor
 GameObject::GameObject(){
 
-	component_count = 0;
+	//component_count = 0;
 
 	posX = 0.0;
 	posY = 0.0;
@@ -18,9 +18,7 @@ GameObject::GameObject(){
 
 /// Constructor
 GameObject::GameObject(float x, float y): posX(x), posY(y){
-
-	component_count = 0;
-
+	//component_count = 0;
 }
 
 /// Destructor
@@ -149,7 +147,6 @@ GameObject::~GameObject(){
 	}
 }
 
-
 void GameObject::setPos(float x, float y){
 	posX = x;
 	posY = y;
@@ -166,21 +163,21 @@ void GameObject::AddComponent(int c_type, Component* comp){
 	/// Push back onto GameObjects struct
 	g_components.push_back(tcomp);
 	/// Add number of total components
-	component_count++;
+	//component_count++;
 	
 }
 
 
 void GameObject::UpdateComponents(){
 
-	for (int i = 0; i < component_count; i++){
+	for (int i = 0; i < g_components.size(); i++){
 		g_components[i].component->Update();
 	}
 }
 
 void GameObject::UpdateComponentByType(int c_type){
 
-	for (int i = 0; i < component_count; i++){
+	for (int i = 0; i < g_components.size(); i++){
 	
 		if (g_components[i].type == c_type)
 			g_components[i].component->Update();
@@ -188,7 +185,7 @@ void GameObject::UpdateComponentByType(int c_type){
 }
 
 Component* GameObject::GetComponent(int c_type) {
-	for (int i = 0; i < component_count; i++){
+	for (int i = 0; i < g_components.size(); i++){
 		if (g_components[i].type == c_type)
 			return g_components[i].component;
 	}

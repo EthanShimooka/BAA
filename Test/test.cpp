@@ -179,6 +179,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	//Single minion spawn for memleak debugging
 	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
 
+	renderMan->cursorToCrosshair();
 	while (gameloop) {
 
 		runWater->animate(float(aniCounter)/20);
@@ -257,6 +258,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 		if (!GameObjects.alive_objects[i]->isAlive){
+			cout << "ID: " << GameObjects.alive_objects[i]->ID << endl;
 			GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
 		}
 	}
@@ -267,7 +269,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	std::cout << renderMan << endl;
 
 	log->close();
-	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
+	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
 	return 0;
 }

@@ -117,7 +117,8 @@ public:
 	SQUADIO_API void renderAllObjects();
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
-
+	/// Changes the mouse cursor to crosshair
+	SQUADIO_API void cursorToCrosshair();
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED

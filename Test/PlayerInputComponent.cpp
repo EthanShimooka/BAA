@@ -49,6 +49,8 @@ void PlayerInputComponent::Update(){
 			if (chargeTime > maxCharge)
 				chargeTime = maxCharge;
 			isChargingAttack = false;
+			// for testing 
+			chargeTime = 1300;
 			//std::cout << "Charge time: " << chargeTime << std::endl;
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			float dx, dy;
