@@ -352,23 +352,6 @@ bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
 	//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 	//SDL_RenderDrawRect(renderer, &pos);
 	//check if any of the 4 corners of an object are within the window's dimensions
-	/*return ((0 <= round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)) && //top left corner
-		round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)) <= wWidth &&
-		0 <= round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)) &&
-		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)) <= wHeight) ||
-		(0 <= round(posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)) && //bottom left corner
-		round(posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r)) <= wWidth &&
-		0 <= round(posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)) &&
-		round(posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r)) <= wHeight) ||
-		(0 <= round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)) && //bottom right corner
-		round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)) <= wWidth &&
-		0 <= round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)) &&
-		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)) <= wHeight) ||
-		(0 <= round(posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)) && //top right corner
-		round(posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r)) <= wWidth &&
-		0 <= round(posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)) &&
-		round(posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r)) <= wHeight));
-		*/
 	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
 		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
 		0, wWidth, 0, wHeight)) return true;
