@@ -79,7 +79,8 @@ void PlayerNetworkComponent::Update(){
 			packet.Read(initialY);
 			packet.Read(destX);
 			packet.Read(destY);
-			logic->spawnFeather(ID, initialX, initialY, destX, destY);
+			/// have to fix the charge time
+			logic->spawnFeather(ID, initialX, initialY, destX, destY, 0);
 			break;
 		case COMMAND_TYPE::CM_ABILITY:
 			//handle 

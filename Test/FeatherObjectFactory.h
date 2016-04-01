@@ -21,7 +21,7 @@ public:
 	~FeatherObjectFactory();
 
 	/// Creates a new feather GameObject
-	GameObject * Spawn(uint64_t PID, float posX, float posY, float dx, float dy);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, float dx, float dy, float chargeTime);
 };
 
 #endif

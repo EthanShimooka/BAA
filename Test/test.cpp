@@ -93,9 +93,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
-		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
 
-		for (auto &iter : loby){
+		for (auto &iter : lobby){
 			bool local = false;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
@@ -198,9 +198,13 @@ int _tmain(int argc, _TCHAR* argv[]){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
 
-		/*if (input->isKeyDown(KEY_K)){
-			player->GetComponent()
-		}*/
+		if (input->isKeyDown(KEY_F)){
+			cout << "Number of feathers: " << GameObjects.dead_feathers.size() << endl;
+		}
+
+		if (input->isKeyDown(KEY_M)){
+			cout << "Number of minions: " << GameObjects.dead_minions.size() << endl;
+		}
 		
 		mousecounter++;
 		////////////////////////////////////

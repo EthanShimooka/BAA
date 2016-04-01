@@ -26,6 +26,12 @@ public:
 	void Update();
 
 	InputManager* input;
+
+private:
+	/// True if player currently charging a feather
+	bool isChargingAttack = false;
+	/// the top bound for feather timer
+	float maxCharge = 1300;
 };
 
 #endif

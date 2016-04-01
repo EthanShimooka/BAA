@@ -44,7 +44,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 			gameObjectRef->setPos(-10000, 0);
 			//setCollisionFilter(COLLISION_MINION, 0);
 			gameObjectRef->isAlive = false;
-
+			//GameObjects.dead_feathers.push_back(gameObjectRef);
 			break;
 
 		case GAMEOBJECT_TYPE::OBJECT_MINION:
