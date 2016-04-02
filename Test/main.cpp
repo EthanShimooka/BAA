@@ -284,7 +284,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, -250, i));
 		}
 	}
-	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005);
+	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
 	fount->setScale(0.5);
 	list<motion> motions;

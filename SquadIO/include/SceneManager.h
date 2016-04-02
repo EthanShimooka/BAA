@@ -125,6 +125,8 @@ public:
 	std::string m_Name;
 	/// list of SceneObjects assigned to layer instance
 	std::list<SDLRenderObject*> m_SceneObjects;
+	/// list of SceneObjects that render according to window coords instead of world coords
+	std::list<SDLRenderObject*> m_WindowObjects;
 	/// Layer update function not implemented
 	void update();
 }; //end class Layer
