@@ -31,6 +31,14 @@
 <resource UID="3" type="text" filename="text.txt" scenescope="0"></resource>
 <resource UID="4" type="audio" filename="meow.ogg" scenescope="2"></resource>
 <resource UID="5" type="audio" filename="bear.wav" scenescope="0"></resource>
+<resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
+<resource UID="24" type="graphic" filename="join.png" scenescope="0"></resource>
+<resource UID="22" type="graphic" filename="cancel.png" scenescope="0"></resource>
+<resource UID="23" type="graphic" filename="back.png" scenescope="0"></resource>
+<resource UID="25" type="graphic" filename="ready.png" scenescope="0"></resource>
+<resource UID="26" type="graphic" filename="notReady.png" scenescope="0"></resource>
+<resource UID="27" type="graphic" filename="playerReady.png" scenescope="0"></resource>
+<resource UID="28" type="graphic" filename="playerSlot.png" scenescope="0"></resource>
 <resource UID="60" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
 
 </resources>

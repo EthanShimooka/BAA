@@ -21,6 +21,7 @@
 #include "include\InputManager.h"
 #include "include\network\MemoryBitStream.h"
 #include "GameObject.h"
+#include "UIObject.h"
 
 class InputComponent : public Component
 {

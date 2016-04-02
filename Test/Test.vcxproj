@@ -14,6 +14,7 @@
     <ProjectGuid>{3AAE2282-DC0B-4B6F-AE00-B207CA1D886F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Test</RootNamespace>
+    <ProjectName>BAA</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -83,6 +84,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="game.h" />
+    <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseLogicComponent.h" />
     <ClInclude Include="MidBasePhysicsComponent.h" />
     <ClInclude Include="MidBaseRenderComponent.h" />
@@ -93,6 +96,7 @@
     <ClInclude Include="FeatherObjectFactory.h" />
     <ClInclude Include="FeatherPhysicsComponent.h" />
     <ClInclude Include="FeatherRenderComponent.h" />
+    <ClInclude Include="start.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameWorld.h" />
@@ -137,15 +141,26 @@
     <ClInclude Include="PowerShieldPhysicsComponent.h" />
     <ClInclude Include="PowerShieldRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="RenderUIComponent.h" />
     <ClInclude Include="SystemGameObjectQueue.h" />
     <ClInclude Include="SystemInputUpdater.h" />
     <ClInclude Include="SystemLogicUpdater.h" />
     <ClInclude Include="SystemNetworkUpdater.h" />
     <ClInclude Include="SystemPhysicsUpdater.h" />
     <ClInclude Include="SystemRenderUpdater.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="SystemUIObjectQueue.h" />
+    <ClInclude Include="SystemUIUpdater.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="UIComponent.h" />
+    <ClInclude Include="UIInputComponent.h" />
+    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UIObjectFactory.h" />
+    <ClInclude Include="UIRenderComponent.h" />
+    <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
     <ClCompile Include="MidBasePhysicsComponent.cpp" />
     <ClCompile Include="MidBaseRenderComponent.cpp" />
@@ -155,6 +170,7 @@
     <ClCompile Include="FeatherObjectFactory.cpp" />
     <ClCompile Include="FeatherPhysicsComponent.cpp" />
     <ClCompile Include="FeatherRenderComponent.cpp" />
+    <ClCompile Include="start.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameWorld.cpp" />
@@ -194,13 +210,22 @@
     <ClCompile Include="PowerShieldPhysicsComponent.cpp" />
     <ClCompile Include="PowerShieldRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="RenderUIComponent.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />
     <ClCompile Include="SystemInputUpdater.cpp" />
     <ClCompile Include="SystemLogicUpdater.cpp" />
     <ClCompile Include="SystemNetworkUpdater.cpp" />
     <ClCompile Include="SystemPhysicsUpdater.cpp" />
     <ClCompile Include="SystemRenderUpdater.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="SystemUIObjectQueue.cpp" />
+    <ClCompile Include="SystemUIUpdater.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="UIComponent.cpp" />
+    <ClCompile Include="UIInputComponent.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIObjectFactory.cpp" />
+    <ClCompile Include="UIRenderComponent.cpp" />
+    <ClCompile Include="WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SquadIO\SquadIO.vcxproj">

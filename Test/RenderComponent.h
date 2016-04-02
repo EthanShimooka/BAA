@@ -23,6 +23,7 @@
 #include "MovementComponent.h"
 #include "PhysicsComponent.h"
 #include "GameObject.h"
+#include "UIObject.h"
 #include <time.h>
 #include <string>
 #include <unordered_map>
@@ -44,6 +45,8 @@ public:
 	//hash <animation> animations;
 	GameObject* gameObjectRef;
 
+	/// UIobjects ref
+	UIObject* uiObjectRef;
 
 
 	/// Renderer Visibility Flag

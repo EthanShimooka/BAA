@@ -25,8 +25,6 @@ public:
 	NetworkComponent();
 	~NetworkComponent();
 
-	
-
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;
 

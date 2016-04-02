@@ -24,7 +24,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef enum {SE_TIMER_EXPIRED=0}SCENE_EVENT_TYPE;
+typedef enum { SE_TIMER_EXPIRED = 0 }SCENE_EVENT_TYPE;
 
 class SceneManager; //definition lower down in this file
 
@@ -36,7 +36,7 @@ class SceneManager; //definition lower down in this file
 *
 */
 class SceneListener : public EngineObject {
-public:	
+public:
 	SCENE_EVENT_TYPE m_ListenFor;
 
 	/// Abstract fucntion to handle event. To be overridden depending
@@ -51,7 +51,7 @@ public:
 /**
 *   ***DEFINED IN HEADER (SceneManager.h)***
 *  The Timer class is used for keying events in the
- Scenelistnert class.
+Scenelistnert class.
 *
 */
 class Timer : public EngineObject {
@@ -78,7 +78,7 @@ public:
 
 	/// Sets a start time and begins interval.
 	void start() {
-//		m_StartTime = timeGetTime();
+		//		m_StartTime = timeGetTime();
 		m_Expired = false;
 	}
 
@@ -87,11 +87,11 @@ public:
 	void update(){
 		if (m_Expired)
 			return;
-		
+
 		//DWORD ElapsedTime = timeGetTime() - m_StartTime;
 
 		/*if (ElapsedTime >= m_Interval){
-			m_Expired = true;
+		m_Expired = true;
 		}*/
 	}
 }; //end class Timer

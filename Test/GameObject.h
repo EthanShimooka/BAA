@@ -93,7 +93,6 @@ public:
 
 	/// Frees memory of all components attached to gameobject
 	static void FreeComponents(GameObject* toFree);
-
 	/// To Be Implemented
 
 ///	void AttachComponent(ComponentType, argumentList, name);

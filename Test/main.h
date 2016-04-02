@@ -1,6 +1,6 @@
 #pragma once
-#ifndef TEST_H_INCLUDED
-#define TEST_H_INCLUDED
+#ifndef MAIN_H_INCLUDED
+#define MAIN_H_INCLUDED
 
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
@@ -24,27 +24,27 @@
 #include <math.h>
 #include <list>
 
+
+
 #include "GameObject.h"
 #include "GameWorld.h"
 #include "PlayerObjectFactory.h"
 #include "MinionObjectFactory.h"
 #include "FeatherObjectFactory.h"
+#include "UIObjectFactory.h"
 #include "PlatformObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"
 #include "SystemRenderUpdater.h"
 #include "SystemGameObjectQueue.h"
+#include "SystemUIObjectQueue.h"
 #include "SystemLogicUpdater.h"
 #include "SystemNetworkUpdater.h"
 #include "SystemPhysicsUpdater.h"
-
-class test
-{
-public:
-
-	test();
-	~test();
-};
+#include "SystemUIUpdater.h"
+#include "lobby.h"
+#include "start.h"
+#include "game.h"
 
 #endif
