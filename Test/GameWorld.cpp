@@ -32,7 +32,7 @@ void GameWorld::update(){
 	// more precise, but more computationally intensive
 	double fps = clock() - currTime;
 	if (fps == 0)fps++;//prevents dividing by zero
-	fps/= (double)(CLOCKS_PER_SEC / 1000);
+	fps/= (double)(CLOCKS_PER_SEC);
 	currTime = clock();
-	physicsWorld->Step(1/fps,5,5);
+	physicsWorld->Step(fps,5,5);
 }
