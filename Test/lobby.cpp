@@ -35,8 +35,10 @@ void Lobby::runLobby(){
 
 	for (int i = 0; i < 8; i++){
 		//build lobby player slots 
-		int x = (w / 2 + (w * 0.1f)) * i;
-		int y = (h / 2 + (h * 0.1f)) * i;
+		int x, y;
+		x = w / 4;
+		y = h / 2;
+		h /= 2;
 		UIObjectFactory* playerSlot = new UIObjectFactory();
 		queue.AddObject(playerSlot->Spawn(PLAYER_SLOT, x, y));
 	}

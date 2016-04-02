@@ -36,11 +36,11 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 	switch (PID){
 	case PLAY_BUTTON:
-		rend->uiObjectRef->setPos(w/2 - 125, h/2 - 25);
+		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
 		rend->createUIType(PLAY_BUTTON);
 		break;
 	case JOIN_BUTTON:
-		rend->uiObjectRef->setPos(w/2 + 25, h/2 - 25);
+		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
 		rend->createUIType(JOIN_BUTTON);
 		// in here we will want to add some functionallity to
 		// join a lobby or set a flag to join a lobby.
@@ -54,7 +54,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case OPTIONS_BUTTON:
 		//change when button is created
 		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
-		rend->createUIType(PLAY_BUTTON);
+		rend->createUIType(OPTIONS_BUTTON);
 		break;
 	case SCORE:
 		break;

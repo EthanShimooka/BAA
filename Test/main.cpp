@@ -66,7 +66,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	renderMan->init(800, 450, false, "Birds At Arms");
 	//renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
-	renderMan->zoom = 0.25;
+	renderMan->zoom = 0.5;
 
 	audioMan->loadAllAudio();
 	std::cout << audioMan->audioObjects.size() << std::endl;
@@ -95,10 +95,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 
-	/*Start menu;
+	Start menu;
 	menu.mainMenu();
-
-	Lobby lobby;*/
+	
+	Lobby lobby;
 
 
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;

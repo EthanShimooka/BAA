@@ -35,8 +35,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		allObjs.push_back(play);
 		break;
 	case OPTIONS_BUTTON:
-		//change when button is created
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 29, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
