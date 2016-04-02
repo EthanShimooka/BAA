@@ -69,10 +69,10 @@ int game::run(){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 
-	/*Start menu;
+	Start menu;
 	menu.mainMenu();
 
-	Lobby lobby;*/
+	Lobby lobby;
 
 
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
@@ -164,7 +164,7 @@ int game::run(){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, -250, i));
 		}
 	}
-	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005);
+	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
 	fount->setScale(0.5);
 	list<motion> motions;

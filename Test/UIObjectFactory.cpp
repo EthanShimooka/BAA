@@ -36,7 +36,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 	switch (PID){
 	case PLAY_BUTTON:
-		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
+		rend->uiObjectRef->setPos(w / 2 + 25, h / 2 - 25);
 		rend->createUIType(PLAY_BUTTON);
 		break;
 	case JOIN_BUTTON:
@@ -52,8 +52,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 		rend->createUIType(BACK_BUTTON);
 		break;
 	case OPTIONS_BUTTON:
-		//change when button is created
-		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
+		rend->uiObjectRef->setPos(w / 2 + 25, h / 2 - 25);
 		rend->createUIType(OPTIONS_BUTTON);
 		break;
 	case SCORE:

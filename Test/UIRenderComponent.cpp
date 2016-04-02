@@ -40,7 +40,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		allObjs.push_back(play);
 		break;
 	case READY_BUTTON:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 25, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 26, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;

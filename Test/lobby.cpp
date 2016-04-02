@@ -31,24 +31,39 @@ void Lobby::runLobby(){
 
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
-	
+	int z = h;
+	std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
-	for (int i = 0; i < 8; i++){
+	for (int i = 0; i < 4; i++){
 		//build lobby player slots 
 		int x, y;
 		x = w / 4;
 		y = h / 2;
-		h /= 2;
+		h -= 100;
 		UIObjectFactory* playerSlot = new UIObjectFactory();
+		UIObjectFactory* readyButton = new UIObjectFactory();
 		queue.AddObject(playerSlot->Spawn(PLAYER_SLOT, x, y));
+		queue.AddObject(readyButton->Spawn(READY_BUTTON, x + 50, y));
 	}
 
+	h = z;
+	for (int i = 0; i < 4; i++){
+		int x, y;
+		x = (3 * w) / 4;
+		y = h / 2;
+		h -= 100;
+		UIObjectFactory* playerSlot = new UIObjectFactory();
+		UIObjectFactory* readyButton = new UIObjectFactory();
+		queue.AddObject(playerSlot->Spawn(PLAYER_SLOT, x, y));
+		queue.AddObject(readyButton->Spawn(READY_BUTTON, x + 50, y));
+	}
 
-
+	h = z;
 	for (int i = 0; i < classSize; i++){
 		//build class slots
-		//UIObjectFactory* readyButton;
-
+		/*UIObjectFactory* readyButton;
+		int x, y;
+		x = w / 2;*/
 	}
 
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
