@@ -1,3 +1,12 @@
+/**
+*  GameSession.cpp
+*  Authors:
+*  Date 4/2/2016
+*  Description :
+ MAIN LOOP
+
+*/
+
 #include "GameSession.h"
 
 
@@ -11,34 +20,44 @@ GameSession::~GameSession(){
 }
 
 
+// Loads non-player Objects
+
+void GameSession::LoadWorld(){
+
+	PlatformObjectFactory plFactory;
+
+	for (int i = 0; i < 3; i++){
+		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
+	}
+}
+
+// Loads player Objects from session arguments (instantiated player list).
+// Chara selections are transfered into object factory calls. 
+
+void GameSession::LoadPlayers(){
+
+}
+
 
 int GameSession::Run(){
 
-	//implement somewhere in config later
-	int SCREEN_HEIGHT = 900;
-	int SCREEN_WIDTH = 1600;
-
+	// temp
+	int numLobbyPlayer = 0;
+	int numPlayers = 1;
+	//
 
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
-
-	int numPlayers = 1;
-	if (!GamerServices::StaticInit())
-		std::cout << "Failed to initialize Steam" << "\n";
-
-	if (!NetworkManager::StaticInit()){
-		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
-	}
-
-	// don't need to change this line
-	int numLobbyPlayer = 0;
-
 	InputManager* input = InputManager::getInstance();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	//renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+
+
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -50,6 +69,8 @@ int GameSession::Run(){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
+
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
@@ -68,13 +89,7 @@ int GameSession::Run(){
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
-	PlatformObjectFactory plFactory;
-
-	/*Start menu;
-	menu.mainMenu();
-
-	Lobby lobby;*/
-
+	
 
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
@@ -102,21 +117,6 @@ int GameSession::Run(){
 	}
 
 
-	for (int i = 0; i < 3; i++){
-
-		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
-		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
-
-
-	}
-
-
-
-
-	//GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
-
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
@@ -139,6 +139,12 @@ int GameSession::Run(){
 	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
+
+
+	//World Loading
+	GameSession::LoadWorld();
+
+
 
 	///*auto spawning minion variables
 
@@ -249,13 +255,3 @@ int GameSession::Run(){
 }
 
 
-
-void Load(){
-
-
-
-
-
-
-
-}
