@@ -11,8 +11,8 @@ configurations.
 
 #pragma once
 
-#ifndef GAME_H_INCLUDED
-#define GAME_H_INCLUDED
+#ifndef GAMESESSION_H_INCLUDED
+#define GAMESESSION_H_INCLUDED
 
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
@@ -58,16 +58,21 @@ configurations.
 #include "lobby.h"
 #include "start.h"
 
-class game
+class GameSession
 {
 public:
-	game();
-	~game();
+	GameSession();
+	~GameSession();
 
-	int run();
+	int Run();
 	// int run ( std::list playerlist);
 
+	/// Load non player objects, on multiplayer from serializable list.
+	void LoadWorld();
 
+	/// Load Player Objects from
+	void LoadPlayers();
+	// void LoadPlayers( stdlist playerlist);
 };
 
 #endif

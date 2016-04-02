@@ -1,43 +1,66 @@
-#include "game.h"
+/**
+*  GameSession.cpp
+*  Authors:
+*  Date 4/2/2016
+*  Description :
+ MAIN LOOP
 
+*/
 
-game::game(){
+#include "GameSession.h"
+
+// Constructor
+
+GameSession::GameSession(){
+}
+
+// Destructor
+
+GameSession::~GameSession(){
+}
+
+// Loads non-player Objects
+
+void GameSession::LoadWorld(){
+
+	PlatformObjectFactory plFactory;
+
+	for (int i = 0; i < 3; i++){
+		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
+	}
+}
+
+// Loads player Objects from session arguments (instantiated player list).
+// Chara selections are transfered into object factory calls. 
+
+void GameSession::LoadPlayers(){
 
 }
 
+// Run contains the main Gameloop
+// TODO: create arguements once lobby system is implemented.
 
-game::~game(){
+int GameSession::Run(){
 
-}
+	// temp
+	int numLobbyPlayer = 0;
+	int numPlayers = 1;
+	//
 
 
-int game::run(){
-
-	//implement somewhere in config later
-	int SCREEN_HEIGHT = 900;
-	int SCREEN_WIDTH = 1600;
-
+	/// MANAGERS
 
 	LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
-
-	int numPlayers = 1;
-	if (!GamerServices::StaticInit())
-		std::cout << "Failed to initialize Steam" << "\n";
-
-	if (!NetworkManager::StaticInit()){
-		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
-	}
-
-	// don't need to change this line
-	int numLobbyPlayer = 0;
-
 	InputManager* input = InputManager::getInstance();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+
+	log->create("log.txt");
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -49,6 +72,8 @@ int game::run(){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
+
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
@@ -61,8 +86,6 @@ int game::run(){
 	SystemPhysicsUpdater sysPhysics;
 
 
-	//SystemGameObjectQueue world;
-
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
@@ -74,6 +97,7 @@ int game::run(){
 
 	Lobby lobby;
 
+	
 
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
@@ -101,34 +125,13 @@ int game::run(){
 	}
 
 
-	for (int i = 0; i < 3; i++){
-
-		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
-		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
-
-
-	}
-
-
-
-
-	//GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
-
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
+
 	bool gameloop = true;
 	int var = 0;
-
-	/*
-	auto up = rotateTransform(arm, 0, 180);
-	auto down = rotateTransform(arm, 180, 0);
-	auto arcarm = moveEllipseArc(arm, 12, 14, 0, 4, -180, 360);
-	auto arcbody = moveEllipseArc(armor, 0, 0, 5, 2, 0, -360);
-	*/
 	renderMan->zoom = 0.5;
 
 	float size = 6;
@@ -138,11 +141,15 @@ int game::run(){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-
-
 	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
+
+
+	//World Loading
+	GameSession::LoadWorld();
+	//Game Session::LoadPlayers();
+
 
 	///*auto spawning minion variables
 
@@ -233,9 +240,7 @@ int game::run(){
 		}
 
 		input->update();
-
 		sceneMan->AssembleScene();
-
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
@@ -251,6 +256,5 @@ int game::run(){
 
 	return 0;
 }
-
 
 

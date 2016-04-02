@@ -84,7 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="game.h" />
+    <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseLogicComponent.h" />
     <ClInclude Include="MidBasePhysicsComponent.h" />
@@ -159,7 +159,7 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
     <ClCompile Include="MidBasePhysicsComponent.cpp" />
