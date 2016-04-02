@@ -45,7 +45,7 @@
 #include "SystemUIUpdater.h"
 #include "lobby.h"
 #include "start.h"
-#include "game.h"
+#include "GameSession.h"
 
 
 
