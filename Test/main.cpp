@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(1600, 900, false, "Birds At Arms");
+	renderMan->init(800, 450, false, "Birds At Arms");
 	//renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -95,10 +95,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 
-	Start menu;
+	/*Start menu;
 	menu.mainMenu();
 
-	Lobby lobby;
+	Lobby lobby;*/
 
 
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
@@ -294,6 +294,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	while (gameloop) {
 
+		std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter)/20);
 		aniCounter++;
 		aniCounter = aniCounter % 20;

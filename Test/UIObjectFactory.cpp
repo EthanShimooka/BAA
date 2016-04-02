@@ -58,9 +58,6 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 		break;
 	case SCORE:
 		break;
-	case READY_BUTTON:
-
-		break;
 	case TIMER:
 		break;
 	}
@@ -69,7 +66,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	return uiObject;
 }
 
-UIObject* UIObjectFactory::Spawn(UIType PID, float x, float y){
+UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 
 	UIObject* uiObject = new UIObject();
 
@@ -95,4 +92,19 @@ UIObject* UIObjectFactory::Spawn(UIType PID, float x, float y){
 
 	UIRenderComponent* rend = new UIRenderComponent();
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
+
+	switch (PID){
+	case READY_BUTTON:
+		rend->uiObjectRef->setPos(x, y);
+		rend->createUIType(READY_BUTTON);
+		break;
+	case PLAYER_SLOT:
+		rend->uiObjectRef->setPos(x, y);
+		rend->createUIType(PLAYER_SLOT);
+		break;
+	}
+
+	uiObject->AddComponent(COMPONENT_RENDER, rend);
+
+	return uiObject;
 }

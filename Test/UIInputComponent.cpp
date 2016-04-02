@@ -27,6 +27,9 @@ void UIInputComponent::Update(){
 		if (isButtonPressed()){
 			std::cout << "Join!" << std::endl;
 			NetworkManager::sInstance->startLobbySearch();
+			while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
+				GamerServices::sInstance->Update();
+			}
 		}
 		else if (isMouseHovering()){
 			uiObjectRef->scale = .5f;
