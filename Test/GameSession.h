@@ -11,8 +11,8 @@ configurations.
 
 #pragma once
 
-#ifndef GAME_H_INCLUDED
-#define GAME_H_INCLUDED
+#ifndef GAMESESSION_H_INCLUDED
+#define GAMESESSION_H_INCLUDED
 
 
 
@@ -69,8 +69,12 @@ public:
 	int Run();
 	// int run ( std::list playerlist);
 
-	void Load();
+	/// Load non player objects, on multiplayer from serializable list.
+	void LoadWorld();
 
+	/// Load Player Objects from
+	void LoadPlayers();
+	// void LoadPlayers( stdlist playerlist);
 };
 
 #endif
