@@ -9,16 +9,15 @@
 
 #include "GameSession.h"
 
+// Constructor
 
 GameSession::GameSession(){
-
 }
 
+// Destructor
 
 GameSession::~GameSession(){
-
 }
-
 
 // Loads non-player Objects
 
@@ -41,6 +40,8 @@ void GameSession::LoadPlayers(){
 
 }
 
+// Run contains the main Gameloop
+// TODO: create arguements once lobby system is implemented.
 
 int GameSession::Run(){
 
@@ -49,15 +50,17 @@ int GameSession::Run(){
 	int numPlayers = 1;
 	//
 
+
+	/// MANAGERS
+
 	LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
 	InputManager* input = InputManager::getInstance();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-
+	log->create("log.txt");
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -82,8 +85,6 @@ int GameSession::Run(){
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
 
-
-	//SystemGameObjectQueue world;
 
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
@@ -121,10 +122,9 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
+
 	bool gameloop = true;
 	int var = 0;
-
-
 	renderMan->zoom = 0.5;
 
 	float size = 6;
@@ -134,8 +134,6 @@ int GameSession::Run(){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-
-
 	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
@@ -143,7 +141,7 @@ int GameSession::Run(){
 
 	//World Loading
 	GameSession::LoadWorld();
-
+	//Game Session::LoadPlayers();
 
 
 	///*auto spawning minion variables
@@ -235,9 +233,7 @@ int GameSession::Run(){
 		}
 
 		input->update();
-
 		sceneMan->AssembleScene();
-
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
