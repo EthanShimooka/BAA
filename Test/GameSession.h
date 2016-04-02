@@ -60,15 +60,16 @@ configurations.
 #include "lobby.h"
 #include "start.h"
 
-class game
+class GameSession
 {
 public:
-	game();
-	~game();
+	GameSession();
+	~GameSession();
 
-	int run();
+	int Run();
 	// int run ( std::list playerlist);
 
+	void Load();
 
 };
 

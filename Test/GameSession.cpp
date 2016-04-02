@@ -1,17 +1,18 @@
-#include "game.h"
+#include "GameSession.h"
 
 
-game::game(){
-
-}
-
-
-game::~game(){
+GameSession::GameSession(){
 
 }
 
 
-int game::run(){
+GameSession::~GameSession(){
+
+}
+
+
+
+int GameSession::Run(){
 
 	//implement somewhere in config later
 	int SCREEN_HEIGHT = 900;
@@ -37,7 +38,7 @@ int game::run(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+	//renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -123,12 +124,7 @@ int game::run(){
 	bool gameloop = true;
 	int var = 0;
 
-	/*
-	auto up = rotateTransform(arm, 0, 180);
-	auto down = rotateTransform(arm, 180, 0);
-	auto arcarm = moveEllipseArc(arm, 12, 14, 0, 4, -180, 360);
-	auto arcbody = moveEllipseArc(armor, 0, 0, 5, 2, 0, -360);
-	*/
+
 	renderMan->zoom = 0.5;
 
 	float size = 6;
@@ -254,3 +250,12 @@ int game::run(){
 
 
 
+void Load(){
+
+
+
+
+
+
+
+}
