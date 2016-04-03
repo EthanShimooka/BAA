@@ -22,6 +22,8 @@ for component access and the overall objects "world position".
 
 const int BUTTON_WIDTH = 100;
 const int BUTTON_HEIGHT = 50;
+const int READY_BUTTON_WIDTH = 25;
+const int READY_BUTTON_HEIGHT = 12;
 
 enum UIType{
 	PLAY_BUTTON = 1,
@@ -34,6 +36,7 @@ enum UIType{
 	OPTIONS_BUTTON = 8,
 	READY_BUTTON = 9,
 	PLAYER_SLOT = 10,
+	BIRD = 11,
 };
 
 /// t_component struct contains a component and a int enumerating its type
@@ -72,6 +75,8 @@ public:
 
 	/// Visible
 	bool visible;
+
+	bool changePicture = false;
 
 	/// virtual update function
 	virtual void update(){};

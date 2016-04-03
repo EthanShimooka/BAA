@@ -14,8 +14,6 @@ configurations.
 #ifndef GAMESESSION_H_INCLUDED
 #define GAMESESSION_H_INCLUDED
 
-
-
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"

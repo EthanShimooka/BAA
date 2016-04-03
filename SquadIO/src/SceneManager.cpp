@@ -322,6 +322,9 @@ void SceneManager::AssembleScene(){
 	//get reference to network manager
 	renderMan->renderObjects.clear();
 	for (std::list<Layer*>::iterator lay_it = m_Layers.begin(); lay_it != m_Layers.end(); lay_it++) {
+		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_WindowObjects.begin(); obj_it != (*lay_it)->m_WindowObjects.end(); obj_it++) {
+			renderMan->windowObjects.push_back((*obj_it));
+		}
 		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_SceneObjects.begin(); obj_it != (*lay_it)->m_SceneObjects.end(); obj_it++) {
 			//cout << "item:" << &(*obj_it) << "x=" << (*obj_it)->posX << endl;
 			/*
@@ -356,6 +359,22 @@ SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, f
 	layer->m_SceneObjects.push_back(object);
 	return object;
 }
+
+SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y, bool windowObj){
+
+	SDLRenderObject* object = new SDLRenderObject();
+
+	ResourceManager* ResMan = ResourceManager::GetResourceManager();
+	object->setResourceObject((RenderResource*)ResMan->findResourcebyID(resourceID));
+
+	object->posX = x;
+	object->posY = y;
+
+	layer->m_WindowObjects.push_back(object);
+
+	return object;
+}
+
 SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, float y, int w, int h, float z){
 
 	SDLRenderObject* object = new SDLRenderObject();

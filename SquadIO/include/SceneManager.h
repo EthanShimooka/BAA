@@ -125,6 +125,8 @@ public:
 	std::string m_Name;
 	/// list of SceneObjects assigned to layer instance
 	std::list<SDLRenderObject*> m_SceneObjects;
+	/// list of SceneObjects that render according to window coords instead of world coords
+	std::list<SDLRenderObject*> m_WindowObjects;
 	/// Layer update function not implemented
 	void update();
 }; //end class Layer
@@ -183,6 +185,8 @@ public:
 	SQUADIO_API void AssembleScene();
 	/// Creates an object and adds it to specified layer
 	SQUADIO_API SDLRenderObject* InstantiateObject(Layer* layer, int resourceID, float x, float y, float z = 0.0);
+	/// Creates an object for screen coords, not world.
+	SQUADIO_API SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, float x, float y, bool windowObj);
 	/// Creates an object with no set image, and adds it to specified layer
 	SQUADIO_API SDLRenderObject* InstantiateBlankObject(Layer* layer, float x, float y, int w, int h, float z = 0.0);
 	/// Deletes object specified, must pass in the objects layer to properly remove.

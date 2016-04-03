@@ -11,12 +11,9 @@ void UIInputComponent::Update(){
 
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
-		if (isButtonPressed()){
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
 			std::cout << "Play!" << std::endl;
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
-		}
-		else if (isMouseHovering()){
-			std::cout << "Hovering!" << std::endl;
 		}
 		break;
 	case CANCEL_BUTTON:
@@ -24,27 +21,29 @@ void UIInputComponent::Update(){
 	case BACK_BUTTON:
 		break;
 	case JOIN_BUTTON:
-		if (isButtonPressed()){
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
 			std::cout << "Join!" << std::endl;
 			NetworkManager::sInstance->startLobbySearch();
 			while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
 				GamerServices::sInstance->Update();
 			}
 		}
-		else if (isMouseHovering()){
-			uiObjectRef->scale = .5f;
-			std::cout << "Hovering!" << std::endl;
-		}
 		break;
 	case SCORE:
 		break;
 	case TIMER:
 		break;
+	case READY_BUTTON:
+		if (isButtonPressed(READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT)){
+			std::cout << "click" << std::endl;
+			this->uiObjectRef->changePicture = true;
+		}
+		break;
 			
 	}
 }
 
-bool UIInputComponent::isButtonPressed(){
+bool UIInputComponent::isButtonPressed(int width, int height){
 
 	InputManager* input = InputManager::getInstance();
 	if (input->isMouseDown(MOUSE_LEFT)){
@@ -57,13 +56,13 @@ bool UIInputComponent::isButtonPressed(){
 		if (x < uiObjectRef->posX)
 			return false;
 		//mouse is right of the button
-		else if (x > uiObjectRef->posX + BUTTON_WIDTH)
+		else if (x > uiObjectRef->posX + width)
 			return false;
 		//mouse above the button
 		else if (y < uiObjectRef->posY)
 			return false;
 		//mouse below the button
-		else if (y > uiObjectRef->posY + BUTTON_HEIGHT)
+		else if (y > uiObjectRef->posY + height)
 			return false;
 		else{
 			return true;

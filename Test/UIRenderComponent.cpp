@@ -35,18 +35,22 @@ void UIRenderComponent::createUIType(UIType ID){
 		allObjs.push_back(play);
 		break;
 	case OPTIONS_BUTTON:
-		//change when button is created
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 19, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 29, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case READY_BUTTON:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 25, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 26, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case PLAYER_SLOT:
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 28, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case BIRD:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 16, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
@@ -58,5 +62,9 @@ void UIRenderComponent::createUIType(UIType ID){
 }
 
 void UIRenderComponent::Update(){
+	if (uiObjectRef->changePicture){
+		ResourceManager* ResMan = ResourceManager::GetResourceManager();
+		objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(27));
+	}
 	RenderUIComponent::Update();
 }

@@ -11,7 +11,6 @@ RenderUIComponent::~RenderUIComponent(){
 
 
 /// Assign a Diffrent SDL render Object
-
 void RenderUIComponent::AssignSprite(SDLRenderObject* rend){
 
 	objRef = rend;
@@ -31,7 +30,6 @@ void RenderUIComponent::Update(){
 	objRef->rotation = uiObjectRef->rotation;
 	objRef->visible = uiObjectRef->visible;
 	objRef->setScale(uiObjectRef->scale);
-	
 
 	//there is most likely more attributes to send over. update as needed
 }
