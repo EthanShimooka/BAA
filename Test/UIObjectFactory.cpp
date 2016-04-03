@@ -101,6 +101,10 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 		rend->uiObjectRef->setPos(x, y);
 		rend->createUIType(PLAYER_SLOT);
 		break;
+	case BIRD:
+		rend->uiObjectRef->setPos(x, y);
+		rend->createUIType(BIRD);
+		break;
 	}
 
 	uiObject->AddComponent(COMPONENT_RENDER, rend);

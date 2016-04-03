@@ -49,7 +49,6 @@ void UIObject::AddComponent(int c_type, Component* comp){
 
 }
 
-
 void UIObject::UpdateComponents(){
 
 	for (int i = 0; i < component_count; i++){

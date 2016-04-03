@@ -36,6 +36,7 @@ enum UIType{
 	OPTIONS_BUTTON = 8,
 	READY_BUTTON = 9,
 	PLAYER_SLOT = 10,
+	BIRD = 11,
 };
 
 /// t_component struct contains a component and a int enumerating its type
@@ -74,6 +75,8 @@ public:
 
 	/// Visible
 	bool visible;
+
+	bool changePicture = false;
 
 	/// virtual update function
 	virtual void update(){};

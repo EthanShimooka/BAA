@@ -15,9 +15,6 @@ void UIInputComponent::Update(){
 			std::cout << "Play!" << std::endl;
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
 		}
-		else if (isMouseHovering()){
-			std::cout << "Hovering!" << std::endl;
-		}
 		break;
 	case CANCEL_BUTTON:
 		break;
@@ -31,18 +28,15 @@ void UIInputComponent::Update(){
 				GamerServices::sInstance->Update();
 			}
 		}
-		else if (isMouseHovering()){
-			uiObjectRef->scale = .5f;
-			std::cout << "Hovering!" << std::endl;
-		}
 		break;
 	case SCORE:
 		break;
 	case TIMER:
 		break;
 	case READY_BUTTON:
-		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+		if (isButtonPressed(READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT)){
 			std::cout << "click" << std::endl;
+			this->uiObjectRef->changePicture = true;
 		}
 		break;
 			
