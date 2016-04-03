@@ -172,6 +172,8 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
+	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
+
 	while (gameloop) {
 
 		std::cout << NetworkManager::sInstance->GetState() << std::endl;
@@ -242,6 +244,7 @@ int GameSession::Run(){
 	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
 	}
+	renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();

@@ -501,3 +501,91 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 	setCameraPoint(x, y);
 	setCameraZ(z);
 }
+
+SDL_Cursor* RenderManager::cursorToCrosshair(){
+	SDL_Cursor* cursor;
+	//cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	static const char *arrow[] = {
+		/* width height num_colors chars_per_pixel */
+		"    32    32        3            1",
+		/* colors */
+		"X c #000000",
+		". c None",
+		"  c None",
+		/* pixels */
+		"              XXXX              ",
+		"          XXXXXXXXXXXX          ",
+		"        XXXXXXXXXXXXXXXX        ",
+		"       XXXXXXXXXXXXXXXXXX       ",
+		"      XXXXXXXXX  XXXXXXXXX      ",
+		"     XXXXXXX        XXXXXXX     ",
+		"    XXXXXX            XXXXXX    ",
+		"   XXXXX                XXXXX   ",
+		"  XXXXX                  XXXXX  ",
+		"  XXXXX                  XXXXX  ",
+		" XXXXX                    XXXXX ",
+		" XXXXX                    XXXXX ",
+		" XXXX                      XXXX ",
+		" XXXX                      XXXX ",
+		"XXXXX                      XXXXX",
+		"XXXX                        XXXX",//halfway down
+		"XXXX                        XXXX",
+		"XXXXX                      XXXXX",
+		" XXXX                      XXXX ",
+		" XXXX                      XXXX ",
+		" XXXXX                    XXXXX ",
+		" XXXXX                    XXXXX ",
+		"  XXXXX                  XXXXX  ",
+		"  XXXXX                  XXXXX  ",
+		"   XXXXX                XXXXX   ",
+		"    XXXXXX            XXXXXX    ",
+		"     XXXXXXX        XXXXXXX     ",
+		"      XXXXXXXXX  XXXXXXXXX      ",
+		"       XXXXXXXXXXXXXXXXXX       ",
+		"        XXXXXXXXXXXXXXXX        ",
+		"          XXXXXXXXXXXX          ",
+		"              XXXX              ",
+		"0,0"
+	};
+	cursor = initCursorCrosshair(arrow);
+	SDL_SetCursor(cursor);
+	return cursor;
+}
+
+SDL_Cursor* RenderManager::initCursorCrosshair(const char *image[]){
+	int i, row, col;
+	Uint8 data[4 * 32];
+	Uint8 mask[4 * 32];
+	int hot_x, hot_y;
+
+	i = -1;
+	for (row = 0; row<32; ++row) {
+		for (col = 0; col<32; ++col) {
+			if (col % 8) {
+				data[i] <<= 1;
+				mask[i] <<= 1;
+			}
+			else {
+				++i;
+				data[i] = mask[i] = 0;
+			}
+			switch (image[4 + row][col]) {
+			case 'X':
+				data[i] |= 0x01;
+				mask[i] |= 0x01;
+				break;
+			case '.':
+				mask[i] |= 0x01;
+				break;
+			case ' ':
+				break;
+			}
+		}
+	}
+	sscanf(image[4 + row], "%d,%d", &hot_x, &hot_y);
+	return SDL_CreateCursor(data, mask, 32, 32, hot_x, hot_y);
+}
+
+void RenderManager::freeCursor(SDL_Cursor* cursor){
+	SDL_FreeCursor(cursor);
+}
