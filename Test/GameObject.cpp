@@ -191,9 +191,3 @@ Component* GameObject::GetComponent(int c_type) {
 	}
 	return nullptr;
 }
-
-void GameObject::FreeComponents(GameObject* toFree){ //no longer being used. can be deleted?
-	/*for (int i = 0; i < toFree->g_components.size(); i++){
-		delete toFree->g_components[i].component;
-	}*/
-}

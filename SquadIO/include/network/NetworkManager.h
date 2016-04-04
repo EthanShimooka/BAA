@@ -16,6 +16,9 @@ public:
 	static const uint32_t	kStartCC = 'STRT';
 	/// Used to ping a peer when in delay
 	static const uint32_t	kDelayCC = 'DELY';
+
+	static const uint32_t	kPosCC = 'POSI';
+
 	static const int		kMaxPacketsPerFrameCount = 10;
 	/// Enum describing different states the networkmanager can enter. Uninit, Searching, Lobby, Ready are all pre-game/lobby/connection
 	enum NetworkManagerState
@@ -24,15 +27,17 @@ public:
 		NMS_Searching,
 		NMS_Lobby,
 		NMS_Ready,
+		NMS_MainMenu,
 		//everything above this should be the pre-game/lobby/connection
 		NMS_Starting,
 		NMS_Playing,
 		NMS_Delay,
+		NMS_SinglePlayer,
 	};
 
 
 	/////////////////////////////
-	static const uint32_t	kPosCC = 'POSI';
+	
 	SQUADIO_API void sendPacketToAllPeers(OutputMemoryBitStream& outData);
 	SQUADIO_API void HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	///////////////////////
@@ -47,6 +52,8 @@ public:
 
 	/// Initializes networkmanager
 	SQUADIO_API static bool	StaticInit();
+	/// Initialize lobby search
+	SQUADIO_API void startLobbySearch();
 	/// Constructor
 	SQUADIO_API NetworkManager();
 	/// Destructor
@@ -57,6 +64,8 @@ public:
 	SQUADIO_API void	SendOutgoingPackets();
 	/// Updates everything when state is delay
 	SQUADIO_API void	UpdateDelay();
+	/// Sets the current network state
+	SQUADIO_API void	SetState(NetworkManagerState state);
 private:
 	SQUADIO_API void	UpdateSayingHello(bool inForce = false);
 	SQUADIO_API void	SendHelloPacket();
@@ -89,6 +98,8 @@ private:
 	/// Attempts to start the game
 	SQUADIO_API void	TryStartGame();
 public:
+	/// Gets Lobby Id
+	SQUADIO_API uint64_t GetLobbyId();
 	/// Handles player disconnecting mid-game
 	SQUADIO_API void	HandleConnectionReset(uint64_t inFromPlayer);
 	/// Calls Gamerservices to send reliable packet

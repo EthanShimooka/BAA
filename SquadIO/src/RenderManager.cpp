@@ -321,6 +321,52 @@ bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
 	return lhs->posZ > rhs->posZ;
 }
 
+bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
+	if (x < l) return false;
+	if (x > r) return false;
+	if (y < t) return false;
+	if (y > b) return false;
+	return true;
+}
+bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
+	//SDL_Rect pos;
+	int posx = 0;
+	int posy = 0;
+	worldCoordToWindowCoord(posx, posy, obj->getPosX(), obj->getPosY(), obj->getPosZ());
+	float anchorx = 0;
+	float anchory = 0;
+	float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
+	if (flippedScreen){
+		anchorx = 1 - obj->getAnchorX();
+		anchory = 1 - obj->getAnchorY();
+	}
+	else{
+		anchorx = obj->getAnchorX();
+		anchory = obj->getAnchorY();
+	}
+	float w = obj->getWidth()*proj / zoom;
+	float h = obj->getHeight()*proj / zoom;
+	float r = obj->getRotation() * (float)(M_PI / 180);
+	int wWidth = 0;
+	int wHeight = 0;
+	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);//width and height of the window
+	//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
+	//SDL_RenderDrawRect(renderer, &pos);
+	//check if any of the 4 corners of an object are within the window's dimensions
+	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+		0, wWidth, 0, wHeight)) return true;
+	return false;
+}
 void RenderManager::renderAllObjects(){
 	//NOTE: this list might need to be changed to be pointers
 	//NOTE: May have to be based on a subset of renderobjects, not all of them
@@ -328,10 +374,28 @@ void RenderManager::renderAllObjects(){
 	float z = 1 / zoom; //maybe invert
 	renderObjects.sort(sortRendObj);
 	std::list<SDLRenderObject*>::iterator iter;
+	for (iter = windowObjects.begin(); iter != windowObjects.end(); iter++){
+		if ((*iter)->visible){
+			SDL_Rect pos;
+			pos.x = int((*iter)->posX);
+			pos.y = int((*iter)->posY);
+			pos.w = (*iter)->renderRect.w;
+			pos.h = (*iter)->renderRect.h;
+			SDL_Point anchor = { (*iter)->renderRect.w*(*iter)->anchor.x, (*iter)->renderRect.h*(*iter)->anchor.y };
+			SDL_RendererFlip flip = SDL_FLIP_NONE;
+			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
+			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
+			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
+			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
+		}
+	}
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
-			if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
-			if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
+			if (isObjOnScreen(*iter)){
+				if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
+				if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
+			}
 		}
 	}
 }
@@ -420,6 +484,12 @@ bool RenderManager::isReadyToQuit(){
 	return false;
 }
 
+void RenderManager::getWindowSize(int *w, int *h){
+
+	*w = SDL_GetWindowSurface(renderWindow)->w;
+	*h = SDL_GetWindowSurface(renderWindow)->h;
+}
+
 
 void RenderManager::setCameraZ(float z){
 	cameraPoint.z = z;
@@ -433,8 +503,95 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 	setCameraZ(z);
 }
 
-void RenderManager::cursorToCrosshair(){
+//void RenderManager::cursorToCrosshair(){
+//	SDL_Cursor* cursor;
+//	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+//	SDL_SetCursor(cursor);
+
+SDL_Cursor* RenderManager::cursorToCrosshair(){
 	SDL_Cursor* cursor;
-	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	//cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	static const char *arrow[] = {
+		/* width height num_colors chars_per_pixel */
+		"    32    32        3            1",
+		/* colors */
+		"X c #000000",
+		". c None",
+		"  c None",
+		/* pixels */
+		"              XXXX              ",
+		"          XXXXXXXXXXXX          ",
+		"        XXXXXXXXXXXXXXXX        ",
+		"       XXXXXXXXXXXXXXXXXX       ",
+		"      XXXXXXXXX  XXXXXXXXX      ",
+		"     XXXXXXX        XXXXXXX     ",
+		"    XXXXXX            XXXXXX    ",
+		"   XXXXX                XXXXX   ",
+		"  XXXXX                  XXXXX  ",
+		"  XXXXX                  XXXXX  ",
+		" XXXXX                    XXXXX ",
+		" XXXXX                    XXXXX ",
+		" XXXX                      XXXX ",
+		" XXXX                      XXXX ",
+		"XXXXX                      XXXXX",
+		"XXXX                        XXXX",//halfway down
+		"XXXX                        XXXX",
+		"XXXXX                      XXXXX",
+		" XXXX                      XXXX ",
+		" XXXX                      XXXX ",
+		" XXXXX                    XXXXX ",
+		" XXXXX                    XXXXX ",
+		"  XXXXX                  XXXXX  ",
+		"  XXXXX                  XXXXX  ",
+		"   XXXXX                XXXXX   ",
+		"    XXXXXX            XXXXXX    ",
+		"     XXXXXXX        XXXXXXX     ",
+		"      XXXXXXXXX  XXXXXXXXX      ",
+		"       XXXXXXXXXXXXXXXXXX       ",
+		"        XXXXXXXXXXXXXXXX        ",
+		"          XXXXXXXXXXXX          ",
+		"              XXXX              ",
+		"0,0"
+	};
+	cursor = initCursorCrosshair(arrow);
 	SDL_SetCursor(cursor);
+	return cursor;
+}
+
+SDL_Cursor* RenderManager::initCursorCrosshair(const char *image[]){
+	int i, row, col;
+	Uint8 data[4 * 32];
+	Uint8 mask[4 * 32];
+	int hot_x, hot_y;
+
+	i = -1;
+	for (row = 0; row<32; ++row) {
+		for (col = 0; col<32; ++col) {
+			if (col % 8) {
+				data[i] <<= 1;
+				mask[i] <<= 1;
+			}
+			else {
+				++i;
+				data[i] = mask[i] = 0;
+			}
+			switch (image[4 + row][col]) {
+			case 'X':
+				data[i] |= 0x01;
+				mask[i] |= 0x01;
+				break;
+			case '.':
+				mask[i] |= 0x01;
+				break;
+			case ' ':
+				break;
+			}
+		}
+	}
+	sscanf(image[4 + row], "%d,%d", &hot_x, &hot_y);
+	return SDL_CreateCursor(data, mask, 32, 32, hot_x, hot_y);
+}
+
+void RenderManager::freeCursor(SDL_Cursor* cursor){
+	SDL_FreeCursor(cursor);
 }

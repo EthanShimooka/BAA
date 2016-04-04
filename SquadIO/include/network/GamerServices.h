@@ -1,5 +1,6 @@
 #ifndef GAMERSERVICES_H_INCLUDED
 #define GAMERSERVICES_H_INCLUDED
+
 class GamerServices
 {
 public:

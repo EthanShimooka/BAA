@@ -19,3 +19,12 @@ void SystemInputUpdater::InputUpdate(std::vector<GameObject*> obj)
 
 	}
 }
+
+void SystemInputUpdater::InputUpdate(std::vector<UIObject*> obj)
+{
+
+	for (unsigned int i = 0; i < obj.size(); i++){
+		obj[i]->UpdateComponentByType(COMPONENT_INPUT);
+
+	}
+}

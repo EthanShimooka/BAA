@@ -17,14 +17,11 @@ SystemGameObjectQueue::~SystemGameObjectQueue()
 	std::cout << "--------------------------------" << std::endl;
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
 		std::cout << "alive " << i << std::endl;
-		if (alive_objects[i])
-			delete alive_objects[i];
-		else
-			std::cout << "asdfsdafsdafsdafdsafdsaf" << std::endl;
+		delete alive_objects[i];
 	}
 	for (unsigned int i = 0; i < dead_feathers.size(); i++){
 		std::cout << "dead_f " << i << std::endl;
-		//delete dead_feathers[i];
+		delete dead_feathers[i];
 	}
 	for (unsigned int i = 0; i < dead_minions.size(); i++){
 		std::cout << "dead_m " << i << std::endl;
@@ -44,11 +41,18 @@ GameObject* SystemGameObjectQueue::AddObject(GameObject * obj){
 	return obj;
 }
 
-void SystemGameObjectQueue::DeleteObjects(int g_id){
+void SystemGameObjectQueue::DeleteObject(uint64_t g_id){
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
-		if (alive_objects[i]->ID == g_id){
-			//GameObject::FreeComponents(alive_objects[i]);
-			delete alive_objects[i];
-		}
+		//if (alive_objects[i]->ID == g_id)
 	}
+}
+
+//no longer used
+void SystemGameObjectQueue::DeleteObjects(int g_id){
+	//for (unsigned int i = 0; i < alive_objects.size(); i++){
+	//	if (alive_objects[i]->ID == g_id){
+	//		//GameObject::FreeComponents(alive_objects[i]);
+	//		delete alive_objects[i];
+	//	}
+	//}
 }

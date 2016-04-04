@@ -19,8 +19,7 @@
 #include "GameWorld.h"
 #include <vector>
 
-class PhysicsComponent :
-	public Component
+class PhysicsComponent : public Component
 {
 public:
 	PhysicsComponent();

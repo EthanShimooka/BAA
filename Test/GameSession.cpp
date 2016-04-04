@@ -1,64 +1,68 @@
 #include "vld.h"
-#include "test.h"
+#include "GameSession.h"
 #include <functional>
 #include <crtdbg.h>
+/**
+*  GameSession.cpp
+*  Authors:
+*  Date 4/2/2016
+*  Description :
+ MAIN LOOP
 
-//#include "include\network\NetIncludes.h"
+*/
 
+// Constructor
 
-using namespace std;
-
-void update();
-void render(RenderManager*);
-long double getCurrentTime();
-
-int main() {
-
-	return 0;
+GameSession::GameSession(){
 }
 
-int _tmain(int argc, _TCHAR* argv[]){
-	LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
+// Destructor
 
-	int numPlayers = 1;
+GameSession::~GameSession(){
+}
 
-	// don't need to change this line
-	int numLobbyPlayer = 0;
+// Loads non-player Objects
 
+void GameSession::LoadWorld(){
 
-	if (numPlayers != 1){
-		if (!GamerServices::StaticInit())
-			std::cout << "Failed to initialize Steam" << "\n";
+	PlatformObjectFactory plFactory;
 
-		if (!NetworkManager::StaticInit())
-			std::cout << "NetworkManager::StaticInit() failed!" << "\n";
-
-		while (true){
-			GamerServices::sInstance->Update();
-			NetworkManager::sInstance->ProcessIncomingPackets();
-			if (numLobbyPlayer != NetworkManager::sInstance->GetPlayerCount()){
-				numLobbyPlayer = NetworkManager::sInstance->GetPlayerCount();
-				NetworkManager::sInstance->GetAllPlayersInLobby();
-				cout << endl << endl;
-			}
-			//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-			if (NetworkManager::sInstance->GetState() == 4)
-				break;
-			if (NetworkManager::sInstance->GetPlayerCount() == numPlayers){
-				//NetworkManager::sInstance->GetAllPlayersInLobby();
-				NetworkManager::sInstance->TryReadyGame();
-			}
-		}
+	for (int i = 0; i < 3; i++){
+		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
 	}
+}
+
+// Loads player Objects from session arguments (instantiated player list).
+// Chara selections are transfered into object factory calls. 
+
+void GameSession::LoadPlayers(){
+
+}
+
+// Run contains the main Gameloop
+// TODO: create arguements once lobby system is implemented.
+
+int GameSession::Run(){
+
+	// temp
+	int numLobbyPlayer = 0;
+	int numPlayers = 1;
+	//
 
 
+	/// MANAGERS
+
+	LogManager* log = LogManager::GetLogManager();
 	InputManager* input = InputManager::getInstance();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	renderMan->init(1600, 900, false, "Birds At Arms");
+
+	log->create("log.txt");
 	renderMan->setBackground("tempbackground.png");
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
@@ -70,6 +74,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
+
+
 	/////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,13 +88,21 @@ int _tmain(int argc, _TCHAR* argv[]){
 	SystemPhysicsUpdater sysPhysics;
 
 
-	//SystemGameObjectQueue world;
-
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
+
+	/*Start menu;
+	menu.mainMenu();
+
+	Lobby lobby;*/
+
+	
+
+	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
+
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
@@ -99,7 +113,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			bool local = false;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
-				cout << "Local Player ID: " << iter.second << ", " << iter.first << endl;
+				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
 				player = GameObjects.AddObject(pFactory.Spawn(iter.first, local));
 			}
 			else{
@@ -112,28 +126,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 		player = GameObjects.AddObject(pFactory.Spawn(10000, true));
 	}
 
-	for (int i = 0; i < 3; i++){
-
-		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
-		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
-
-
-	}
-
-
-
-
-	//GameObjects.AddObject(mFactory.Spawn(2000, -100, -100, 200, true));
 
 
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
+
 	bool gameloop = true;
 	int var = 0;
-
+	renderMan->zoom = 0.5;
 
 	float size = 6;
 	float ratio = 0.7;
@@ -142,11 +143,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-
-
 	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6;
+
+
+	//World Loading
+	GameSession::LoadWorld();
+	//Game Session::LoadPlayers();
+
 
 	///*auto spawning minion variables
 
@@ -168,24 +173,28 @@ int _tmain(int argc, _TCHAR* argv[]){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, -250, i));
 		}
 	}
-	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005);
+	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
 	fount->setScale(0.5);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
-	Animation * runWater = new Animation(20,motions);
+	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
 	//Single minion spawn for memleak debugging
 	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
 
-	renderMan->cursorToCrosshair();
+	//renderMan->cursorToCrosshair();
+
+	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
+
 	while (gameloop) {
 
-		runWater->animate(float(aniCounter)/20);
+		std::cout << NetworkManager::sInstance->GetState() << std::endl;
+		runWater->animate(float(aniCounter) / 20);
 		aniCounter++;
 		aniCounter = aniCounter % 20;
-		
+
 
 		if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
@@ -200,11 +209,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}
 
 		if (input->isKeyDown(KEY_F)){
-			cout << "Number of feathers: " << GameObjects.dead_feathers.size() << endl;
+			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
 		}
 
 		if (input->isKeyDown(KEY_M)){
-			cout << "Number of minions: " << GameObjects.dead_minions.size() << endl;
+			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
 		}
 		
 		mousecounter++;
@@ -237,6 +246,21 @@ int _tmain(int argc, _TCHAR* argv[]){
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
+		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+			if (!GameObjects.alive_objects[i]->isAlive){
+				std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
+				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER){
+					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
+				}
+				else if (GameObjects.alive_objects[i]->type == OBJECT_MINION){
+					GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
+				}
+				else {
+					GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
+				}
+				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			}
+		}
 		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
 		/*MINION SPAWNING BELOW
 		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
@@ -249,40 +273,24 @@ int _tmain(int argc, _TCHAR* argv[]){
 		}*/
 
 		input->update();
-
 		sceneMan->AssembleScene();
-
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-		if (!GameObjects.alive_objects[i]->isAlive){
-			cout << "ID: " << GameObjects.alive_objects[i]->ID << endl;
-			GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
-		}
-	}
+	
 	// Loop freeing memoru
 	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
 	//}
-	std::cout << renderMan << endl;
+	std::cout << renderMan << std::endl;
+	renderMan->freeCursor(cursor);
+	std::cout << renderMan << std::endl;
 
 	log->close();
 	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
 	return 0;
 }
-void init(){
 
-}
-void render(RenderManager* renderMan) {
-	renderMan->update();
-}
 
-long double getCurrentTime(){
-	long double sysTime = time(0);
-	long double sysTimeMS = sysTime * 1000;
-
-	return sysTimeMS;
-}

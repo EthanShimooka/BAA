@@ -1,91 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\network\BirdMath.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\Command.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\CommandList.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\GamerServicesSteam.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\MemoryBitStream.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\NetworkManager.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\RandGen.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\Timing.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\TurnData.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
     <ClCompile Include="src\AudioManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="src\AudioResource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gameResource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LogManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderResource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SceneManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SDLAudioObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SDLRenderObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SquadIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tinyxml2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\DeliveryNotificationManager.cpp">
-      <Filter>Source Files\network</Filter>
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="src\AnimationLibrary.cpp">
-      <Filter>Source Files\network</Filter>
+      <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\BirdMath.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Command.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\CommandList.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\DeliveryNotificationManager.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\MemoryBitStream.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\NetworkManager.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\RandGen.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\Timing.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\TurnData.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\GamerServicesSteam.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManager.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LogManager.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDLAudioObject.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SquadIO.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cException.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderManager.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineObject.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameResource.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderResource.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDLRenderObject.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml2.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneManager.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\network\NetworkManager.h">
-      <Filter>Header Files\Network Classes</Filter>
+    <ClInclude Include="zlib\include\zconf.h" />
+    <ClInclude Include="zlib\include\zlib.h" />
+    <ClInclude Include="include\AnimationLibrary.h">
+      <Filter>Header Files\Animation Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AudioManager.h">
+      <Filter>Header Files\Audio Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AudioResource.h">
+      <Filter>Header Files\Audio Classes</Filter>
     </ClInclude>
     <ClInclude Include="include\network\BirdMath.h">
       <Filter>Header Files\Network Classes</Filter>
@@ -99,16 +107,16 @@
     <ClInclude Include="include\network\DeliveryNotificationManager.h">
       <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
-    <ClInclude Include="include\network\MemoryBitStream.h">
+    <ClInclude Include="include\network\GamerServices.h">
       <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
     <ClInclude Include="include\network\NetIncludes.h">
       <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
-    <ClInclude Include="include\network\Timing.h">
+    <ClInclude Include="include\network\RandGen.h">
       <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
-    <ClInclude Include="include\network\RandGen.h">
+    <ClInclude Include="include\network\Timing.h">
       <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
     <ClInclude Include="include\network\WeightedTimedMovingAverage.h">
@@ -117,20 +125,11 @@
     <ClInclude Include="include\network\TurnData.h">
       <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
-    <ClInclude Include="zlib\include\zlib.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\tinyxml2.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="zlib\include\zconf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AudioManager.h">
-      <Filter>Header Files\Audio Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AudioResource.h">
-      <Filter>Header Files\Audio Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SDLAudioObject.h">
-      <Filter>Header Files\Audio Classes</Filter>
+    <ClInclude Include="include\SquadIO.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="include\InputMap.h">
       <Filter>Header Files\Input Classes</Filter>
@@ -138,41 +137,38 @@
     <ClInclude Include="include\InputManager.h">
       <Filter>Header Files\Input Classes</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderManager.h">
-      <Filter>Header Files\Render Classes</Filter>
-    </ClInclude>
     <ClInclude Include="include\RenderResource.h">
-      <Filter>Header Files\Render Classes</Filter>
+      <Filter>Header Files\Renderer Classes</Filter>
     </ClInclude>
-    <ClInclude Include="include\SDLRenderObject.h">
-      <Filter>Header Files\Render Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ResourceManager.h">
-      <Filter>Header Files\Resource Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SquadIO.h">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tinyxml2.h">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EngineObject.h">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SceneManager.h">
-      <Filter>Header Files\Util</Filter>
+    <ClInclude Include="include\RenderManager.h">
+      <Filter>Header Files\Renderer Classes</Filter>
     </ClInclude>
     <ClInclude Include="include\LogManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="include\network\GamerServices.h">
-      <Filter>Header Files\Network Classes</Filter>
+    <ClInclude Include="include\SceneManager.h">
+      <Filter>Header Files\Scene Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SDLAudioObject.h">
+      <Filter>Header Files\Audio Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineObject.h">
+      <Filter>Header Files\Resource Classes</Filter>
     </ClInclude>
     <ClInclude Include="include\gameResource.h">
       <Filter>Header Files\Resource Classes</Filter>
     </ClInclude>
-    <ClInclude Include="include\AnimationLibrary.h">
-      <Filter>Header Files\Render Classes</Filter>
+    <ClInclude Include="include\ResourceManager.h">
+      <Filter>Header Files\Resource Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SDLRenderObject.h">
+      <Filter>Header Files\Renderer Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\NetworkManager.h">
+      <Filter>Header Files\Network Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\MemoryBitStream.h">
+      <Filter>Header Files\Network Classes</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Header Files\Input Classes</Filter>
@@ -182,32 +178,59 @@
     <Library Include="zlib\lib\zdll.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{818c96a5-31eb-4f11-a5ed-e2edf6cd1e58}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{b0ec63c8-7abf-40a3-826f-3ae5a52ba918}</UniqueIdentifier>
+      <UniqueIdentifier>{9f1b17bd-7477-4188-bea5-5df86ff62f81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\network">
-      <UniqueIdentifier>{bbcccf6b-2b7b-4ac5-b686-96ebd8a2650a}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d60ff218-4eed-4ca8-b7aa-bb44706789f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Audio Classes">
-      <UniqueIdentifier>{ad56e010-8604-4e80-8b0c-b58d1f1a852d}</UniqueIdentifier>
+    <Filter Include="Header Files\Animation Classes">
+      <UniqueIdentifier>{a76fc911-f6ce-4f7e-a76b-6a6bc200ccce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer Classes">
+      <UniqueIdentifier>{0b04aa1e-5b84-4958-b4b3-e5f6d76ed0db}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Network Classes">
-      <UniqueIdentifier>{1225a64d-e5c3-443a-872d-a175eec9ee47}</UniqueIdentifier>
+      <UniqueIdentifier>{87008624-8739-4093-9716-30f057992598}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Input Classes">
-      <UniqueIdentifier>{cc4a3e64-a8de-4b50-bf6a-bc87f2c186d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Render Classes">
-      <UniqueIdentifier>{e9592129-fbb9-46db-8046-b8de136f3bc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Resource Classes">
-      <UniqueIdentifier>{9b71e817-9df4-4332-892a-07efb897e0a8}</UniqueIdentifier>
+    <Filter Include="Header Files\Audio Classes">
+      <UniqueIdentifier>{5ba86078-7eac-49ad-8748-f04bc0956f43}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Util">
-      <UniqueIdentifier>{80c0a29e-c91f-48f0-a55b-9093504e84f0}</UniqueIdentifier>
+      <UniqueIdentifier>{29a231f0-0943-429b-983b-36c16daf22ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input Classes">
+      <UniqueIdentifier>{fc7a87d6-101c-4ac8-9a37-b48c9138d0c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene Classes">
+      <UniqueIdentifier>{7c4f6dfa-acda-4a8c-9c7a-a5c16491aed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource Classes">
+      <UniqueIdentifier>{b9b84b02-3898-4d84-9d79-0fc989177770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Audio">
+      <UniqueIdentifier>{cba4ae7a-46fb-43fc-ae80-eca1a1e67a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Render">
+      <UniqueIdentifier>{21bc65fa-f70c-4951-a9fe-6964e4643bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animation">
+      <UniqueIdentifier>{906e7af3-6246-42b9-86e1-f370db734e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{0139bff4-145e-4fa5-896c-798d51dc2bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{17fb1ccf-95f0-48df-a4b1-31c8789241ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{3daf8e10-ca2c-46de-8bb3-a8d87582c67c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resource">
+      <UniqueIdentifier>{c010a6ad-5b4c-4472-b85b-ad1778dbf27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{28a1f8fa-1216-460d-aa10-9e04ff619bfd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

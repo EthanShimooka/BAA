@@ -11,6 +11,6 @@ NetworkComponent::~NetworkComponent()
 }
 
 
-void NetworkComponent::Update()
-{
+void NetworkComponent::Update(){
+	
 }

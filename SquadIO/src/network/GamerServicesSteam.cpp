@@ -313,7 +313,7 @@ string GamerServices::GetRemotePlayerName(uint64_t inPlayerId)
 
 void GamerServices::LobbySearchAsync()
 {
-	//make sure it's the right game!
+	//make sure it's the right game!S
 	SteamMatchmaking()->AddRequestLobbyListStringFilter("game", kGameName, k_ELobbyComparisonEqual);
 	//only need one result
 	SteamMatchmaking()->AddRequestLobbyListResultCountFilter(1);
