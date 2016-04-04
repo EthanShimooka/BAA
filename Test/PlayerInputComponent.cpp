@@ -57,7 +57,7 @@ void PlayerInputComponent::Update(){
 			renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
 			uint64_t id = logic->spawnFeather(dx, dy, chargeTime);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			net->createFeatherPacket(id, dx, dy);
+			net->createFeatherPacket(id, dx, dy, chargeTime);
 		}
 
 		//if (controller->getLeftTrigger() > 0.8){	

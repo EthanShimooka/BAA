@@ -26,7 +26,7 @@ public:
 	void Update();
 
 
-	void createFeatherPacket(uint64_t ID, int finalX, int finalY);
+	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float chargeTime);
 	void createMovementPacket(float x, float y);
 
 	/// Pointer to the player logic component
