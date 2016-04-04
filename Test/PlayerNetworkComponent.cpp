@@ -14,7 +14,7 @@ PlayerNetworkComponent::~PlayerNetworkComponent()
 {
 }
 
-void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int finalY){
+void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int finalY, float chargeTime){
 	OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
 	featherPacket->Write(NetworkManager::sInstance->kPosCC);
 	featherPacket->Write(gameObjectRef->ID);
@@ -24,6 +24,7 @@ void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int fi
 	featherPacket->Write(gameObjectRef->posY);
 	featherPacket->Write(finalX);
 	featherPacket->Write(finalY);
+	featherPacket->Write(chargeTime);
 	//cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
 	outgoingPackets.push(featherPacket);
 }
@@ -74,12 +75,15 @@ void PlayerNetworkComponent::Update(){
 			uint64_t ID;
 			float initialX, initialY;
 			int destX, destY;
+			float chargeTime;
 			packet.Read(ID);
 			packet.Read(initialX);
 			packet.Read(initialY);
 			packet.Read(destX);
 			packet.Read(destY);
-			logic->spawnFeather(ID, initialX, initialY, destX, destY);
+			packet.Read(chargeTime);
+			/// have to fix the charge time
+			logic->spawnFeather(ID, initialX, initialY, destX, destY, chargeTime);
 			break;
 		case COMMAND_TYPE::CM_ABILITY:
 			//handle 

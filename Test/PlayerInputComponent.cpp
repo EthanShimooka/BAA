@@ -41,29 +41,38 @@ void PlayerInputComponent::Update(){
 			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed));
 		}
 		//shoot feather
-		if (input->isMouseDown(MOUSE_LEFT)){
+		if (input->isMouseLeftPressed()){
+			isChargingAttack = true;
+		}
+		if (isChargingAttack && input->isMouseLeftReleased()){
+			double chargeTime = input->getMousePressDuration();
+			if (chargeTime > maxCharge)
+				chargeTime = maxCharge;
+			isChargingAttack = false;
+			// for testing 
+			chargeTime = 1300;
+			//std::cout << "Charge time: " << chargeTime << std::endl;
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			float dx, dy;
-			renderMan->windowCoordToWorldCoord(dx,dy,input->getMouseX(), input->getMouseY());
-			std::cout << atan(dy / dx) / M_PI * 180 << std::endl;
-			uint64_t id = logic->spawnFeather(dx,dy);
+			renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
+			uint64_t id = logic->spawnFeather(dx, dy, chargeTime);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			//std::cout << "x=" << input->getMouseX() << " y=" << input->getMouseY() << std::endl;
-			net->createFeatherPacket(id, dx, dy);
+			net->createFeatherPacket(id, dx, dy, chargeTime);
 		}
 
-		if (controller->getLeftTrigger() > 0.8){	
-			controller->rumble(1, 750);
-			//renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
-			int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX();
-			int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY();
-			std::cout << "xdir=" << xDir << " ydir=" << std::endl;
-			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			uint64_t id = logic->spawnFeather(xDir, yDir);
-			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			//not working yet
-			net->createFeatherPacket(id, xDir, yDir);
-		}
+		//if (controller->getLeftTrigger() > 0.8){	
+		//	controller->rumble(1, 750);
+		//	//renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
+		//	int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX();
+		//	int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY();
+		//	std::cout << "xdir=" << xDir << " ydir=" << std::endl;
+		//	PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		//	uint64_t id = logic->spawnFeather(xDir, yDir, chargeTime);
+		//	PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+		//	//not working yet
+		//	net->createFeatherPacket(id, xDir, yDir);
+		//}
+
 		//change direction of player sprite if needed
 		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;

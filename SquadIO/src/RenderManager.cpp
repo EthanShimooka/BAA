@@ -320,6 +320,7 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
 	return lhs->posZ > rhs->posZ;
 }
+
 bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
 	if (x < l) return false;
 	if (x > r) return false;
@@ -501,6 +502,11 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 	setCameraPoint(x, y);
 	setCameraZ(z);
 }
+
+//void RenderManager::cursorToCrosshair(){
+//	SDL_Cursor* cursor;
+//	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+//	SDL_SetCursor(cursor);
 
 SDL_Cursor* RenderManager::cursorToCrosshair(){
 	SDL_Cursor* cursor;

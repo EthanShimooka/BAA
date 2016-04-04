@@ -80,6 +80,10 @@ Animation::Animation(float d, std::list<motion> m){
 	motions = m;
 }
 
+Animation::~Animation(){
+	std::cout << "Animation destructor called" << std::endl;
+}
+
 
 bool Animation::animate(float i){
 	for (auto mot = motions.begin(); mot != motions.end(); mot++){

@@ -1,3 +1,7 @@
+#include "vld.h"
+#include "GameSession.h"
+#include <functional>
+#include <crtdbg.h>
 /**
 *  GameSession.cpp
 *  Authors:
@@ -6,8 +10,6 @@
  MAIN LOOP
 
 */
-
-#include "GameSession.h"
 
 // Constructor
 
@@ -92,10 +94,10 @@ int GameSession::Run(){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 
-	Start menu;
+	/*Start menu;
 	menu.mainMenu();
 
-	Lobby lobby;
+	Lobby lobby;*/
 
 	
 
@@ -105,9 +107,9 @@ int GameSession::Run(){
 
 	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
-		map< uint64_t, string > loby = NetworkManager::sInstance->getLobbyMap();
+		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
 
-		for (auto &iter : loby){
+		for (auto &iter : lobby){
 			bool local = false;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
@@ -179,6 +181,11 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
+	//Single minion spawn for memleak debugging
+	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
+
+	//renderMan->cursorToCrosshair();
+
 	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	while (gameloop) {
@@ -201,6 +208,14 @@ int GameSession::Run(){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}
 
+		if (input->isKeyDown(KEY_F)){
+			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
+		}
+
+		if (input->isKeyDown(KEY_M)){
+			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
+		}
+		
 		mousecounter++;
 		////////////////////////////////////
 
@@ -231,7 +246,23 @@ int GameSession::Run(){
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
+		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+			if (!GameObjects.alive_objects[i]->isAlive){
+				std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
+				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER){
+					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
+				}
+				else if (GameObjects.alive_objects[i]->type == OBJECT_MINION){
+					GameObjects.dead_minions.push_back(GameObjects.alive_objects[i]);
+				}
+				else {
+					GameObjects.dead_objects.push_back(GameObjects.alive_objects[i]);
+				}
+				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			}
+		}
 		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
+		/*MINION SPAWNING BELOW
 		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
 			spawnTimer1 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
@@ -239,7 +270,7 @@ int GameSession::Run(){
 		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
 			spawnTimer2 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, 0, 200, true));
-		}
+		}*/
 
 		input->update();
 		sceneMan->AssembleScene();
@@ -247,15 +278,17 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
+	
 	// Loop freeing memoru
-	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
-	}
+	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+	//}
+	std::cout << renderMan << std::endl;
 	renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();
-	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
+	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
 	return 0;
 }

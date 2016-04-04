@@ -9,9 +9,9 @@ MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initia
 
 MinionPhysicsComponent::~MinionPhysicsComponent(){
 	std::cout << "calling minion physics destructor" << std::endl;
-	GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 	//not sure if next line is needed;
-	delete this;
+	//delete this;
 
 }
 
@@ -44,7 +44,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 			gameObjectRef->setPos(-10000, 0);
 			//setCollisionFilter(COLLISION_MINION, 0);
 			gameObjectRef->isAlive = false;
-
+			//GameObjects.dead_feathers.push_back(gameObjectRef);
 			break;
 
 		case GAMEOBJECT_TYPE::OBJECT_MINION:

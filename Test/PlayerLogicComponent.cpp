@@ -15,27 +15,28 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 void PlayerLogicComponent::Update(){
 	InputManager* input = InputManager::getInstance();
-	if (input->isMouseLeftPressed()){
+	/*if (input->isMouseLeftPressed()){
 		isChargingAttack = true;
 	}
-	if (isChargingAttack&&input->isMouseLeftReleased()){
+	if (isChargingAttack && input->isMouseLeftReleased()){
 		double chargeTime = input->getMousePressDuration();
-		std::cout << chargeTime << std::endl;
-	}
+		std::cout << "Charge time: " << chargeTime << std::endl;
+	}*/
 	//check if on top or bottom of screen
 	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
 	else gameObjectRef->flipV = false;
 }
 
-
-uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy){
-	GameObject* newFeather = fFactory.Spawn(featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy);
+/// For spawning local feathers
+uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float chargeTime){
+	GameObject* newFeather = fFactory.Spawn(featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy, chargeTime);
 	GameObjects.AddObject(newFeather);
 	return featherNum - 1;
 }
 
-void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY){
-	GameObjects.AddObject(fFactory.Spawn(ID, initialX, initialY, destX, destY));
+/// For spawning networked feathers
+void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime){
+	GameObjects.AddObject(fFactory.Spawn(ID, initialX, initialY, destX, destY, chargeTime));
 }
 
 

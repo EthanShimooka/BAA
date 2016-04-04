@@ -31,9 +31,9 @@ public:
 	/// Update Function
 	void Update();
 	/// Spawn Feather Function
-	uint64_t spawnFeather(int mouseX, int mouseY);
+	uint64_t spawnFeather(int mouseX, int mouseY, float chargeTime);
 	/// Spawn Feather (networked)
-	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY);
+	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime);
 	/// Spawn Hero Class Power
 	void spawnShield();
 
@@ -44,7 +44,7 @@ public:
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
 
-	bool isChargingAttack = false;
+	//bool isChargingAttack = false;
 };
 
 #endif

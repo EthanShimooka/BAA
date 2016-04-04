@@ -243,6 +243,9 @@
     <ClInclude Include="PowerShieldNetworkComponent.h">
       <Filter>Header Files\Component\Power-Shield Component</Filter>
     </ClInclude>
+    <ClInclude Include="AllComponentIncludes.h">
+      <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
     <ClInclude Include="MidPlatLogicComponent.h">
       <Filter>Header Files\Component\MidPlat Component</Filter>
     </ClInclude>
