@@ -44,7 +44,9 @@ public:
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
 
-	//bool isChargingAttack = false;
+	int currBirdseed=0;
+	int maxsBirdseed=5;
+	
 };
 
 #endif
