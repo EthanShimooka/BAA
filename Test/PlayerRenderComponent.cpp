@@ -46,20 +46,25 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	//box->setParent(base);
 	allObjs["box"] = box;
 
-	////////////////////////////////////
-	//Animations//
-	//Animation* idle = new Animation();
-	//idle->duration = 20;
+	/////// IDLE ANIMATION
 	list<motion> motions;
 	motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
 	motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	motions.push_back(makeMotion(rotateTransform(legR, 0, 0), 0, 0));
+	motions.push_back(makeMotion(rotateTransform(legL, 0, 0), 0, 0));
 	Animation* idle = new Animation(400,motions);
 	animations["idle"] = idle;
-	auto ani = animations["idle"];
-	auto ani2 = &animations["idle"];
 	//auto mot = idle.motions.begin();
-	currentAnimation = idle;
-	//currentAnimation;
+	//currentAnimation = idle;
+	////// WALKING ANIMATION 
+	list<motion> motions2;
+	motions2.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
+	motions2.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(legL, -30, 60), 0, 0.5, ease_QuadOut));
+	motions2.push_back(makeMotion(rotateTransform(legR, 30, -60), 0, 0.5, ease_QuadOut));
+	motions2.push_back(makeMotion(rotateTransform(legL, 30, -60), 0.5, 0.5, ease_QuadIn));
+	motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
+	animations["walk"] = new Animation(400, motions2);
 }
 
 
@@ -70,33 +75,6 @@ PlayerRenderComponent::~PlayerRenderComponent()
 	}
 }
 
-/*void PlayerRenderComponent::RenderPhysics(){
-	PlayerPhysicsComponent* physics = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
-	//PlayerPhysicsComponent* physics = gameObjectRef->GetComponent(COMPONENT_PHYSICS)
-	//allObjs["box"]->setRenderRect((physics->mBody->GetUserData()).getWidth(), (physics->mBody->GetUserData()).getHeight() );
-	b2AABB aabb;
-	b2Transform t;
-	t.SetIdentity();
-	aabb.lowerBound = b2Vec2(FLT_MAX, FLT_MAX);
-	aabb.upperBound = b2Vec2(-FLT_MAX, -FLT_MAX);
-	b2Fixture* fixture = physics->mBody->GetFixtureList();
-	while (fixture != NULL)
-	{
-		//aabb.Combine(aabb, fixture->GetAABB());
-		const b2Shape *shape = fixture->GetShape();
-		const int childCount = shape->GetChildCount();
-		for (int child = 0; child < childCount; ++child) {
-			const b2Vec2 r(shape->m_radius, shape->m_radius);
-			b2AABB shapeAABB;
-			shape->ComputeAABB(&shapeAABB, t, child);
-			shapeAABB.lowerBound = shapeAABB.lowerBound + r;
-			shapeAABB.upperBound = shapeAABB.upperBound - r;
-			aabb.Combine(shapeAABB);
-		}
-		fixture = fixture->GetNext();
-	}
-	allObjs["box"]->setRenderRect(round(aabb.upperBound.x - aabb.lowerBound.x), round(aabb.upperBound.y- aabb.lowerBound.y));
-}*/
 
 void PlayerRenderComponent::Update(){
 	RenderComponent::Update();

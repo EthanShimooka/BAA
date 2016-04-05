@@ -71,7 +71,7 @@ std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, unsigned int st
 
 
 
-motion makeMotion(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
+motion makeMotion(std::function<void(float)> trans, float start, float duration, std::function<float(float)> ease){
 	motion m = { trans, ease, start, duration };
 	return m;
 }

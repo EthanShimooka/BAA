@@ -15,6 +15,7 @@ PlayerInputComponent::~PlayerInputComponent()
 
 void PlayerInputComponent::Update(){
 	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
+	PlayerRenderComponent* renderComp = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		InputManager* input = InputManager::getInstance();
@@ -26,10 +27,12 @@ void PlayerInputComponent::Update(){
 		//keyboard move right
 		if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
+			renderComp->setAnimation("walk");
 		}
 		//keyboard move left
 		if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
+			renderComp->setAnimation("walk");
 		}
 		//keyboard jump
 		if (input->isKeyDown(KEY_SPACE)||controller->isJoystickPressed(JOYSTICK_A)) {
@@ -76,6 +79,7 @@ void PlayerInputComponent::Update(){
 		//change direction of player sprite if needed
 		if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 		else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
+		if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 		//spawn shield
 		if (input->isMouseDown(MOUSE_RIGHT)) {
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));

@@ -36,10 +36,10 @@ SQUADIO_API std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, uns
 struct motion{
 	std::function<void(float)> trans;
 	std::function<float(float)> ease;
-	int start; //a value from 0 to 1
-	int duration; //a value from 1-start to 0
+	float start; //a value from 0 to 1
+	float duration; //a value from 1-start to 0
 };
-SQUADIO_API motion makeMotion(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease = ease_linear);
+SQUADIO_API motion makeMotion(std::function<void(float)> trans, float start, float duration, std::function<float(float)> ease = ease_linear);
 class Animation{
 	std::list <motion> motions;
 public:

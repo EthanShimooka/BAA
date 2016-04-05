@@ -43,6 +43,7 @@ void PlayerNetworkComponent::createMovementPacket(float x, float y){
 void PlayerNetworkComponent::Update(){
 	while (!incomingPackets.empty()){
 		PlayerLogicComponent *logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		PlayerRenderComponent *render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		InputMemoryBitStream packet = incomingPackets.front();
 		int mCommand;
 
@@ -58,7 +59,8 @@ void PlayerNetworkComponent::Update(){
 			//if (testNum < t){
 			float x;
 			packet.Read(x);
-			
+			if (gameObjectRef->posX != 0) render->setAnimation("walk");
+			else render->setAnimation("idle");
 			if (gameObjectRef->posX > x){
 				gameObjectRef->flipH = true;
 			}

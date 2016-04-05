@@ -10,8 +10,8 @@ using namespace std;
 void update();
 
 //implement somewhere in config later
-int SCREEN_HEIGHT = 450;
-int SCREEN_WIDTH = 800;
+int SCREEN_HEIGHT = 1200;
+int SCREEN_WIDTH = 900;
 
 
 int main() {
