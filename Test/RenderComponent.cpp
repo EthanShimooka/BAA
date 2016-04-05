@@ -39,7 +39,11 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 
 void RenderComponent::setAnimation(std::string name){
 	if (animations.count(name)){
-		nextAnimation = animations[name];
+		if (currentAnimation != animations[name]){
+			currentAnimation = animations[name];
+			progress = 0;
+			lasttime = clock();
+		}
 	}
 }
 
