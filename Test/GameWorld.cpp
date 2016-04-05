@@ -12,7 +12,10 @@ GameWorld::GameWorld(){
 }
 float worldScale = 20.0f;
 
-GameWorld::~GameWorld(){}
+GameWorld::~GameWorld(){
+	physicsWorld->~b2World();
+	
+}
 
 GameWorld* GameWorld::getInstance() {
 	// if gameWorld is nullptr
