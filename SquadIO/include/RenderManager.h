@@ -25,6 +25,7 @@
 #include "Tinyxml2.h"
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_image.h"
+#include "sdl2\SDL_ttf.h"
 #include "SceneManager.h"
 
 
