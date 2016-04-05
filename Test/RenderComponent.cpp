@@ -1,4 +1,5 @@
 #include "RenderComponent.h"
+#include "include\RenderManager.h"
 
 
 RenderComponent::RenderComponent()
@@ -111,6 +112,24 @@ void RenderComponent::Update(){
 	//Updates the related SDLRenderObject with the player's values
 	//The SDLRenderObject is was is showed on screen, but is only 
 	//a 'figurehead' for the player object 
+	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
+	RenderManager* renMan = RenderManager::getRenderManager();
+	int width = 10;
+	int height = 10;
+	int left, right, top, bot;
+	left = right = top = bot = 0;
+	std::cout << objRef->ID << ": " << left << ", " << top << std::endl;
+
+	renMan->worldCoordToWindowCoord(left, top, objRef->posX, objRef->posY, objRef->posZ);
+	renMan->worldCoordToWindowCoord(right, bot, (objRef->posX + objRef->width), (objRef->posY + objRef->height), objRef->posZ);
+	std::cout << objRef->ID << ": " << left << ", " << top << std::endl;
+	if ((right < -width / 2) || (left > width / 2) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
+	//if (renMan->isObjOnScreen(objRef)) {
+		objRef->setVisible(true);
+	}
+	else{
+		objRef->setVisible(false);
+	}
 
 	objRef->posX = gameObjectRef->posX;
 	objRef->posY = gameObjectRef->posY;
@@ -118,7 +137,7 @@ void RenderComponent::Update(){
 	objRef->flipV = gameObjectRef->flipV;
 	objRef->setScale(gameObjectRef->scaleX, gameObjectRef->scaleY);
 	objRef->rotation = gameObjectRef->rotation;
-	objRef->visible = visible;
+	//objRef->visible = visible;
 
 	//there is most likely more attributes to send over. update as needed
 }
