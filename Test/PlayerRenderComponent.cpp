@@ -8,7 +8,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	RenderComponent::RenderComponent();
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-
+	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
 	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
@@ -42,7 +42,8 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	allObjs["armR"] = armR;
 	
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setIfRenderRect(true);
+	box->setResourceObject(renderMan->renderText("box"));
+	//box->setIfRenderRect(true);
 	//box->setParent(base);
 	allObjs["box"] = box;
 

@@ -236,10 +236,32 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
-void renderText(){
-	TTF_Font * font = TTF_OpenFont("BowlbyOneSC-Regular.ttf", 28);
-	SDL_Color color = { 0, 0, 0 };
+RenderResource * renderText(char* text, SDL_Color color, TTF_Font * font){
+	font = TTF_OpenFont("resources/BowlbyOneSC-Regular.ttf", 28);
+	color = { 0, 0, 0 };
 	TTF_RenderText_Solid(font, "Hello", color);
+	RenderResource* resource = new RenderResource(); 
+	resource->height = 1;
+	resource->width = 1;
+	resource->max = 1;
+	SDL_Surface *tempSurface = TTF_RenderText_Solid(font, text, color); //load image as surface
+	if (tempSurface){
+		//if surface is loaded correctly, then make texture
+		SDL_Texture*tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+		//free old buffer
+		SDL_FreeSurface(tempSurface);
+		if (tempTexture){
+			//if texture is made correctly, free old background data, and replace with new one
+			if (resource->mTexture){
+				SDL_DestroyTexture(resource->mTexture);
+			}
+			resource->mTexture = tempTexture;
+		}
+	}
+	else{
+		//printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
+	}
+	return resource;
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 	if (obj->getPosZ() > cameraPoint.z){
