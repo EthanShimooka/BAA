@@ -26,12 +26,19 @@ GameSession::~GameSession(){
 void GameSession::LoadWorld(){
 
 	PlatformObjectFactory plFactory;
+	MidPlatObjectFactory mpFactory;
 
 	for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
-		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((501000 + i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((503000 + i), (-i * 340), -240, 0));
+
+		GameObjects.AddObject(mpFactory.Spawn(504000 + i, -i * 350, 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(505000 + i, i * 350, 0, 0));
+
+
+
 	}
 }
 
@@ -139,6 +146,7 @@ int GameSession::Run(){
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
+	MidPlatObjectFactory mpFactory;
 
 	/*Start menu;
 	menu.mainMenu();

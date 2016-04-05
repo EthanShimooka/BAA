@@ -45,6 +45,7 @@ configurations.
 #include "FeatherObjectFactory.h"
 #include "UIObjectFactory.h"
 #include "PlatformObjectFactory.h"
+#include "MidPlatObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"

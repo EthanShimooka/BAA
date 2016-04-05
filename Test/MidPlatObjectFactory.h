@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef PLATFORMOBJECTFACTORY_H_INCLUDED
-#define PLATFORMOBJECTFACTORY_H_INCLUDED
+#ifndef MIDPLATOBJECTFACTORY_H_INCLUDED
+#define MIDPLATOBJECTFACTORY_H_INCLUDED
 
 #include "GameObject.h"
 #include "GameObjectFactory.h"
