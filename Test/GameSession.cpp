@@ -39,7 +39,10 @@ void GameSession::LoadWorld(){
 // Chara selections are transfered into object factory calls. 
 
 void GameSession::LoadPlayers(){
-
+	SystemUIObjectQueue queue;
+	UIObjectFactory joinButton;
+	queue.AddObject(joinButton.Spawn(BIRDSEED_SHELL));
+	queue.AddObject(joinButton.Spawn(BIRDSEED_BAR));
 }
 
 // Run contains the main Gameloop
@@ -150,7 +153,7 @@ int GameSession::Run(){
 
 	//World Loading
 	GameSession::LoadWorld();
-	//Game Session::LoadPlayers();
+	GameSession::LoadPlayers();
 
 
 	///*auto spawning minion variables

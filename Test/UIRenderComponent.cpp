@@ -58,6 +58,16 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case TIMER:
 		break;
+	case BIRDSEED_BAR:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 31, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case BIRDSEED_SHELL:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 30, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
 	}
 }
 
