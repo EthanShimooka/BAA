@@ -73,6 +73,10 @@ public:
 	/// Load Player Objects from
 	void LoadPlayers();
 	// void LoadPlayers( stdlist playerlist);
+	/// Generates the HUD for the player. NOTE: Most likely remove the parameter,
+	/// since it currently exists to work with the hardcoded instantiation of the local player.
+	/// Once we actually use LoadPlayers, we can get rid of the parameter
+	void LoadHUD(GameObject* player);
 };
 
 #endif

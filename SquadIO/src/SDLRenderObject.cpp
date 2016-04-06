@@ -219,10 +219,10 @@ void SDLRenderObject::setCurrentFrame(unsigned int f){
 }
 SDL_Rect SDLRenderObject::getRenderRect(){
 	SDL_Rect rect;
-	rect.w = renderRect.w / frameWidth;
-	rect.h = renderRect.h / frameHeight;
-	rect.x = (frameCurrent%frameWidth)*rect.w;
-	rect.y = (float) ( roundf(frameCurrent / frameWidth)*rect.h);
+	rect.w =  renderRect.w / frameWidth;
+	rect.h =  renderRect.h / frameHeight;
+	rect.x = renderRect.x + (frameCurrent%frameWidth)*rect.w;
+	rect.y = renderRect.y + (float)(roundf(frameCurrent / frameWidth)*rect.h);
 	return rect;
 }
 
