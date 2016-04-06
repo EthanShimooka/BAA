@@ -41,8 +41,8 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	allObjs["armL"] = armL;
 	allObjs["armR"] = armR;
 	
-	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setResourceObject(renderMan->renderText("box"));
+	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 100, 100);
+	box->setResourceObject(renderMan->renderText("box", 0, 0, 0));
 	//box->setIfRenderRect(true);
 	//box->setParent(base);
 	allObjs["box"] = box;

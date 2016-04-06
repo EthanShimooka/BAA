@@ -236,9 +236,11 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
-RenderResource * renderText(char* text, SDL_Color color, TTF_Font * font){
-	font = TTF_OpenFont("resources/BowlbyOneSC-Regular.ttf", 28);
-	color = { 0, 0, 0 };
+RenderResource * RenderManager::renderText(char* text, int r, int g, int b,TTF_Font * font){
+	// where is call to TTF_Init(); ?
+	TTF_Init();
+	font = TTF_OpenFont("resources/BowlbyOneSC-Regular.ttf", 28); // change function to take fontname in string version
+	SDL_Color color = { r, g, b };
 	TTF_RenderText_Solid(font, "Hello", color);
 	RenderResource* resource = new RenderResource(); 
 	resource->height = 1;
@@ -261,6 +263,7 @@ RenderResource * renderText(char* text, SDL_Color color, TTF_Font * font){
 	else{
 		//printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
 	}
+	TTF_Quit();
 	return resource;
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
