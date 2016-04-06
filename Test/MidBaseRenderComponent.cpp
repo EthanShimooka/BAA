@@ -26,6 +26,7 @@ MidBaseRenderComponent::~MidBaseRenderComponent()
 void MidBaseRenderComponent::Update(){
 
 
-
+	RenderComponent::Update();
+	RenderBoundingBox((allObjs["box"]));
 
 }

@@ -46,6 +46,7 @@ configurations.
 #include "UIObjectFactory.h"
 #include "PlatformObjectFactory.h"
 #include "MidPlatObjectFactory.h"
+#include "MidBaseObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"

@@ -327,6 +327,12 @@
     <ClInclude Include="UIObject.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="MidBaseObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBaseComponentIncludes.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -529,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="UIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBaseObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

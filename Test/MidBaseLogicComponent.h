@@ -4,7 +4,7 @@ class MidBaseLogicComponent :
 	public LogicComponent
 {
 public:
-	MidBaseLogicComponent();
+	MidBaseLogicComponent(GameObject * base);
 	~MidBaseLogicComponent();
 };
 

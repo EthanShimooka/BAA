@@ -27,6 +27,7 @@ void GameSession::LoadWorld(){
 
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
+	MidBaseObjectFactory mbFactory;
 
 	for (int i = 0; i < 3; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (i * 340), 240, 0));
@@ -40,6 +41,10 @@ void GameSession::LoadWorld(){
 
 
 	}
+
+	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
+	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
+
 }
 
 // Loads player Objects from session arguments (instantiated player list).
