@@ -235,6 +235,7 @@ int GameSession::Run(){
 	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	bool firstTime = true;
+	Timing::sInstance.SetCountdownStart();
 
 	while (gameloop) {
 
@@ -322,7 +323,7 @@ int GameSession::Run(){
 			spawnTimer2 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -5 00, 0, 200, true));
 		}*/
-
+		bool spawnMinions = Timing::sInstance.Update();
 		input->update();
 		sceneMan->AssembleScene();
 

@@ -1,4 +1,5 @@
 #include "include\network\NetIncludes.h"
+#include <iostream>
 
 float kDesiredFrameTime = 0.03333333f;
 #if !_WIN32
@@ -8,8 +9,7 @@ using namespace std::chrono;
 
 Timing	Timing::sInstance;
 
-namespace
-{
+namespace{
 #if _WIN32
 	LARGE_INTEGER sStartTime = { 0 };
 #else
@@ -17,8 +17,7 @@ namespace
 #endif
 }
 
-Timing::Timing()
-{
+Timing::Timing(){
 #if _WIN32
 	LARGE_INTEGER perfFreq;
 	QueryPerformanceFrequency(&perfFreq);
@@ -32,9 +31,7 @@ Timing::Timing()
 #endif
 }
 
-void Timing::Update()
-{
-
+bool Timing::Update(){
 	double currentTime = GetTime();
 
 	mDeltaTime = (float)(currentTime - mLastFrameStartTime);
@@ -42,6 +39,7 @@ void Timing::Update()
 	//frame lock at 30fps
 	while (mDeltaTime < kDesiredFrameTime)
 	{
+		//std::cout << "mDeltaTime = " << mDeltaTime << std::endl;
 		currentTime = GetTime();
 
 		mDeltaTime = (float)(currentTime - mLastFrameStartTime);
@@ -54,11 +52,21 @@ void Timing::Update()
 
 	mLastFrameStartTime = currentTime;
 	mFrameStartTimef = static_cast< float > (mLastFrameStartTime);
+	return true;
+}
+
+void Timing::SetCountdownStart(){
+	startTimeInSeconds = time(NULL);
+	std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
+}
+
+// Want this function to return current minutes and seconds so that we can display on clock
+void Timing::StartCountdown(){
+	double now = GetTime();
 
 }
 
-double Timing::GetTime() const
-{
+double Timing::GetTime() const{
 #if _WIN32
 	LARGE_INTEGER curTime, timeSinceStart;
 	QueryPerformanceCounter(&curTime);
