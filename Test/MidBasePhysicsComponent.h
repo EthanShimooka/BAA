@@ -6,5 +6,7 @@ class MidBasePhysicsComponent :
 public:
 	MidBasePhysicsComponent();
 	~MidBasePhysicsComponent();
+
+	
 };
 
