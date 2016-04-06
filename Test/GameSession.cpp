@@ -42,7 +42,6 @@ void GameSession::LoadPlayers(){
 	
 }
 
-<<<<<<< HEAD
 void GameSession::LoadHUD(GameObject* player){
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
@@ -54,7 +53,6 @@ void GameSession::LoadHUD(GameObject* player){
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
 }
-=======
 void cullObjects(){
 	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
@@ -90,7 +88,6 @@ void cullObjects(){
 }
 
 
->>>>>>> refs/remotes/origin/master
 // Run contains the main Gameloop
 // TODO: create arguements once lobby system is implemented.
 
