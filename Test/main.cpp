@@ -11,7 +11,8 @@ void update();
 
 //implement somewhere in config later
 int SCREEN_HEIGHT = 900;
-int SCREEN_WIDTH = 1200;
+int SCREEN_WIDTH = 1600;
+
 
 
 int main() {
