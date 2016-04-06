@@ -40,6 +40,8 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
+	// Initialize TTF
+	TTF_Init();
 	return true;
 }
 
@@ -236,12 +238,13 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
-RenderResource * RenderManager::renderText(char* text, int r, int g, int b,TTF_Font * font){
-	// where is call to TTF_Init(); ?
-	TTF_Init();
-	font = TTF_OpenFont("resources/BowlbyOneSC-Regular.ttf", 28); // change function to take fontname in string version
+RenderResource * RenderManager::renderText(char* text, int r, int g, int b, int fontsize, std::string fontname){
+	std::string path = "resources/" + fontname + ".ttf";
+	TTF_Font* font = TTF_OpenFont(path.c_str(), fontsize); // change function to take fontname in string version
+	if (!font) { // error opening file, use default computer font instead
+		// font = TTF_OpenFont();
+	}
 	SDL_Color color = { r, g, b };
-	TTF_RenderText_Solid(font, "Hello", color);
 	RenderResource* resource = new RenderResource(); 
 	resource->height = 1;
 	resource->width = 1;
@@ -263,7 +266,7 @@ RenderResource * RenderManager::renderText(char* text, int r, int g, int b,TTF_F
 	else{
 		//printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
 	}
-	TTF_Quit();
+	// need to call TTF_Quit(); in destructor
 	return resource;
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){

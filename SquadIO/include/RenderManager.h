@@ -111,7 +111,7 @@ public:
 	SQUADIO_API float zoomRatio(float x1, float y1, float minSize = 1, float scaling = 1);
 	/// function renders the background image, tiling starting from the origin, and cut along the edges of the window
 	SQUADIO_API void renderBackground();
-	SQUADIO_API RenderResource * renderText(char* text, int r, int g, int b, TTF_Font * font = NULL);
+	SQUADIO_API RenderResource * renderText(char* text, int r, int g, int b, int fontsize, std::string fontname);
 	/// change the point where the camera renders from
 	SQUADIO_API void setCameraZ(float z);
 	SQUADIO_API void setCameraPoint(float x, float y);
