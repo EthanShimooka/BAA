@@ -1,6 +1,5 @@
 #include "RenderComponent.h"
 
-
 RenderComponent::RenderComponent()
 {
 	visible = true;
@@ -118,7 +117,7 @@ void RenderComponent::Update(){
 	objRef->flipV = gameObjectRef->flipV;
 	objRef->setScale(gameObjectRef->scaleX, gameObjectRef->scaleY);
 	objRef->rotation = gameObjectRef->rotation;
-	objRef->visible = visible;
+	//objRef->visible = visible;
 
 	//there is most likely more attributes to send over. update as needed
 }
