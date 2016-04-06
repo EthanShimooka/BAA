@@ -45,7 +45,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	// changing the values in InstantiateBlankObject does not stop the text from being stretched
 	// need fixing (to not stretch text to fill box)
 	// text, R, G, B, fontsize, fontname
-	box->setResourceObject(renderMan->renderText("box", 0, 0, 0, 10, "BowlbyOneSC-Regular"));
+	box->setResourceObject(renderMan->renderText("box", 0, 0, 0, 50, "BowlbyOneSC-Regular"));
 	//box->setIfRenderRect(true);
 	//box->setParent(base);
 	allObjs["box"] = box;
