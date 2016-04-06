@@ -15,16 +15,17 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 void PlayerLogicComponent::Update(){
 	InputManager* input = InputManager::getInstance();
-	/*if (input->isMouseLeftPressed()){
-		isChargingAttack = true;
-	}
-	if (isChargingAttack && input->isMouseLeftReleased()){
-		double chargeTime = input->getMousePressDuration();
-		std::cout << "Charge time: " << chargeTime << std::endl;
-	}*/
-	//check if on top or bottom of screen
+	//update orientation
 	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
 	else gameObjectRef->flipV = false;
+	//update HUD
+	int w, h;
+	birdseedHUD->getSize(w, h);
+	float meterPercent = (currBirdseed / (float)maxsBirdseed);
+	SDL_Rect rect = birdseedHUD->getRenderRect();
+	SDL_Rect seedRect = { defaultRect.x, defaultRect.x, defaultRect.w, defaultRect.h*meterPercent };
+	birdseedHUD->setRenderRect(seedRect);
+	rect = birdseedHUD->getRenderRect();
 }
 
 /// For spawning local feathers

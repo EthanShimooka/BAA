@@ -72,9 +72,5 @@ void UIRenderComponent::createUIType(UIType ID){
 }
 
 void UIRenderComponent::Update(){
-	if (uiObjectRef->changePicture){
-		ResourceManager* ResMan = ResourceManager::GetResourceManager();
-		objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(27));
-	}
 	RenderUIComponent::Update();
 }
