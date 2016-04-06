@@ -39,9 +39,20 @@ void GameSession::LoadWorld(){
 // Chara selections are transfered into object factory calls. 
 
 void GameSession::LoadPlayers(){
-
+	
 }
 
+void GameSession::LoadHUD(GameObject* player){
+	SystemUIObjectQueue queue;
+	UIObjectFactory HUDFactory;
+	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
+	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
+	queue.AddObject(birdseedMeter);
+	//add the HUD reference to player logic
+	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
+	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+}
 void cullObjects(){
 	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
@@ -185,8 +196,8 @@ int GameSession::Run(){
 
 	//World Loading
 	GameSession::LoadWorld();
-	//Game Session::LoadPlayers();
-
+	GameSession::LoadPlayers();
+	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
 
@@ -227,7 +238,7 @@ int GameSession::Run(){
 
 	while (gameloop) {
 
-		std::cout << NetworkManager::sInstance->GetState() << std::endl;
+		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter) / 20);
 		aniCounter++;
 		aniCounter = aniCounter % 20;

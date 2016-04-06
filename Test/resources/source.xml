@@ -40,6 +40,8 @@
 <resource UID="27" type="graphic" filename="playerReady.png" scenescope="0"></resource>
 <resource UID="28" type="graphic" filename="playerSlot.png" scenescope="0"></resource>
 <resource UID="29" type="graphic" filename="options.png" scenescope="0"></resource>
+<resource UID="30" type="graphic" filename="birdseed_counter_shell.png" scenescope="0"></resource>
+<resource UID="31" type="graphic" filename="birdseed_counter_gradient.png" scenescope="0"></resource>
 <resource UID="60" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
 

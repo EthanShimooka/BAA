@@ -1,4 +1,5 @@
 #include "FeatherLogicComponent.h"
+#include "PlayerLogicComponent.h"
 #include <math.h> 
 
 FeatherLogicComponent::FeatherLogicComponent(GameObject* feather)
@@ -41,3 +42,7 @@ void FeatherLogicComponent::Update(){
 
 void FeatherLogicComponent::init(){
 }
+
+void FeatherLogicComponent::giveBirdseed(int numSeeds) {
+	dynamic_cast<PlayerLogicComponent*>(owner->GetComponent(COMPONENT_LOGIC))->currBirdseed += numSeeds;
+} 
