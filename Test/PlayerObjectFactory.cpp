@@ -14,7 +14,7 @@ PlayerObjectFactory::~PlayerObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
+GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 {
 
 	GameObject* player = new GameObject();

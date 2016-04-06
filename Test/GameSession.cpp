@@ -86,6 +86,8 @@ int GameSession::Run(){
 	SystemInputUpdater sysInput;
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
+	SystemClassUpdater sysClass;
+	
 
 
 	/// ENTITIES
@@ -114,16 +116,16 @@ int GameSession::Run(){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
 			}
 		}
 	}
 	/// create a local player with ID of 10000
 	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
 	}
 
 
@@ -242,6 +244,7 @@ int GameSession::Run(){
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
 		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
+		sysClass.ClassUpdate(GameObjects.alive_objects);
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
