@@ -59,11 +59,18 @@ void UIRenderComponent::createUIType(UIType ID){
 	case TIMER:
 		break;
 	case BIRDSEED_BAR:
+		//TODO: these hardcoded positions are to put it a bit away from the borders of the screen.
+		//We'll need to store them as variables, since PlayerLogicComponent->update has hardcoded
+		//values to match
+		uiObjectRef->posX = 30;
+		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 31, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case BIRDSEED_SHELL:
+		uiObjectRef->posX = 30;
+		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 30, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);

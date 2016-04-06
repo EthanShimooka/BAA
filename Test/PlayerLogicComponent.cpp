@@ -23,7 +23,8 @@ void PlayerLogicComponent::Update(){
 	birdseedHUD->getSize(w, h);
 	float meterPercent = (currBirdseed / (float)maxsBirdseed);
 	SDL_Rect rect = birdseedHUD->getRenderRect();
-	SDL_Rect seedRect = { defaultRect.x, defaultRect.x, defaultRect.w, defaultRect.h*meterPercent };
+	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
+	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
 	rect = birdseedHUD->getRenderRect();
 }
