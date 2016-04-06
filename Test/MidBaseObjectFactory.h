@@ -1,21 +1,21 @@
 #pragma once
 
-#ifndef MIDPLATOBJECTFACTORY_H_INCLUDED
-#define MIDPLATOBJECTFACTORY_H_INCLUDED
+#ifndef MIDBASEOBJECTFACTORY_H_INCLUDED
+#define MIDBASEOBJECTFACTORY_H_INCLUDED
 
 #include "GameObject.h"
 #include "GameObjectFactory.h"
 
 #include "Component.h"
-#include "MidPlatComponentIncludes.h"
+#include "MidBaseComponentIncludes.h"
 
 
-class MidPlatObjectFactory :
+class MidBaseObjectFactory :
 	public GameObjectFactory
 {
 public:
-	MidPlatObjectFactory();
-	~MidPlatObjectFactory();
+	MidBaseObjectFactory();
+	~MidBaseObjectFactory();
 
 	GameObject * Spawn(uint64_t PID, float posX, float posY, float length);
 };
