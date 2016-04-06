@@ -42,13 +42,17 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	allObjs["armR"] = armR;
 	
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+	box->setIfRenderRect(true);
+	//box->setParent(base);
+	allObjs["box"] = box;
+	SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	// changing the values in InstantiateBlankObject does not stop the text from being stretched
 	// need fixing (to not stretch text to fill box)
 	// text, R, G, B, fontsize, fontname
-	box->setResourceObject(renderMan->renderText("box", 0, 0, 0, 50, "BowlbyOneSC-Regular"));
-	//box->setIfRenderRect(true);
-	//box->setParent(base);
-	allObjs["box"] = box;
+	name->setResourceObject(renderMan->renderText("chicken", 0, 200, 0, 20, "BowlbyOneSC-Regular"));
+	name->setParent(base);
+	name->setPos(0,-60);
+	allObjs["name"] = name;
 
 	/////// IDLE ANIMATION
 	list<motion> motions;
