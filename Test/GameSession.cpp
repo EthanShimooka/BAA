@@ -43,16 +43,25 @@ void GameSession::LoadPlayers(){
 }
 
 void GameSession::LoadHUD(GameObject* player){
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	RenderManager* renderMan = RenderManager::getRenderManager();
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
+	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
 	queue.AddObject(birdseedMeter);
-	//add the HUD reference to player logic
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	//add a timer to top of screen
+	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
+	queue.AddObject(HUDFactory.Spawn(TIMER));
+	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 }
+
+//////////////////////////////////////////////////////////////////////////
+
 void cullObjects(){
 	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);

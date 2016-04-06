@@ -238,7 +238,7 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
-RenderResource * RenderManager::renderText(char* text, int r, int g, int b, int fontsize, std::string fontname){
+RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname){
 	std::string path = "resources/" + fontname + ".ttf";
 	TTF_Font* font = TTF_OpenFont(path.c_str(), fontsize); // change function to take fontname in string version
 	if (!font) { // error opening file, use default computer font instead
