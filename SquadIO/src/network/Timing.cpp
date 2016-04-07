@@ -65,17 +65,20 @@ int Timing::GetTimeRemainingS(){
 	double timeRemaining = 0;
 	time_t now = time(NULL);
 	time_t timeElapsed = now - startTimeInSeconds;
+	if (timeElapsed < 0 || NULL) return 0;
 	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ timeElapsed = " << timeElapsed << std::endl;
 	//std::cout << "@@@@@@@@@@@@@@@@@ timeElapsed as int = " << (int)timeElapsed << std::endl;
 	return gameLengthInSeconds - (int)timeElapsed;
 }
 
-int Timing::GetMinutesLeft(int timeRemainingInSec){
-	return floor(timeRemainingInSec / 60);
+string Timing::GetMinutesLeftAsString(int timeRemainingInSec){
+	int min = floor(timeRemainingInSec / 60);
+	return std::to_string(min);
 }
 
-int Timing::GetSecondsLeft(int timeRemainingInSec){
-	return timeRemainingInSec % 60;
+string Timing::GetSecondsLeftAsString(int timeRemainingInSec){
+	int sec = timeRemainingInSec % 60;
+	return std::to_string(sec);
 }
 
 double Timing::GetTime() const{

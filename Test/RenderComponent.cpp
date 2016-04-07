@@ -56,10 +56,8 @@ void RenderComponent::animate(){
 			progress -= currentAnimation->duration;
 			if (nextAnimation){
 				currentAnimation = nextAnimation;
+				nextAnimation = NULL;
 				//queue next animation through a switch statement
-			}
-			else{
-				currentAnimation = animations["idle"];
 			}
 		}
 		float curr = currentAnimation->lengthConversion(progress);

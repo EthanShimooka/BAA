@@ -18,12 +18,14 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	bodyDef.angle = 0;// ... which direction it's facing
 
 	GameWorld* gameWorld = GameWorld::getInstance();
-	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+	if (!mBody)
+		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 	b2PolygonShape box;
 	box.SetAsBox(1, 1); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
-	mFixture = mBody->CreateFixture(&boxFixtureDef);
+	if (!mFixture)
+		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 
 	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION);
@@ -32,7 +34,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	gameObjectRef->posX = initX;
 	gameObjectRef->posY =  initY;
 	float xAngle = dx - initX;
-	if (xAngle == 0)xAngle == 0.00001;
+	if (xAngle == 0)xAngle = 0.00001;
 	gameObjectRef->rotation = atan((dy - initY) / (xAngle)) / M_PI * 180;
 	gameObjectRef->flipH = !(dx-initX > 0);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), gameObjectRef->rotation / 180.0 * M_PI);

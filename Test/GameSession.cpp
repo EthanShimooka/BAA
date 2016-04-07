@@ -26,13 +26,22 @@ GameSession::~GameSession(){
 void GameSession::LoadWorld(){
 
 	PlatformObjectFactory plFactory;
+	MidPlatObjectFactory mpFactory;
+	MidBaseObjectFactory mbFactory;
 
-	for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
-		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
+	for (int i = 0; i < 4; i++){
+		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((501000 + i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((503000 + i), (-i * 340), -240, 0));
 	}
+	for (int i = 0; i < 3; i++){
+		GameObjects.AddObject(mpFactory.Spawn(504000 + i, -i * 350, 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(505000 + i, i * 350, 0, 0));
+	}
+	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
+	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
+
 }
 
 // Loads player Objects from session arguments (instantiated player list).
@@ -43,16 +52,26 @@ void GameSession::LoadPlayers(){
 }
 
 void GameSession::LoadHUD(GameObject* player){
+	//initialize HUD info for the player. Should only be called once
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	RenderManager* renderMan = RenderManager::getRenderManager();
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
+	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
 	queue.AddObject(birdseedMeter);
-	//add the HUD reference to player logic
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	//add a timer to top of screen
+	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
+	queue.AddObject(countdownTimer);
+	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 }
+
+//////////////////////////////////////////////////////////////////////////
+
 void cullObjects(){
 	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
@@ -139,6 +158,7 @@ int GameSession::Run(){
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
+	MidPlatObjectFactory mpFactory;
 
 	/*Start menu;
 	menu.mainMenu();
@@ -294,9 +314,12 @@ int GameSession::Run(){
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
+
+		//OBJECT POOLING - moves recently dead objects to respective dead pool
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
-				std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
+				//object has died this last gameloop. send it to the object pool
+				//std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
 				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER){
 					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
 				}
@@ -344,5 +367,6 @@ int GameSession::Run(){
 	log->close();
 	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
+	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }

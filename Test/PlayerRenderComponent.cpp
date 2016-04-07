@@ -8,7 +8,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	RenderComponent::RenderComponent();
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-
+	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
 	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
@@ -32,7 +32,12 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	armR->setParent(body);
 	legL->setParent(body);
 	legR->setParent(body);
-	body->setScale(0.1);
+
+	//body->setScale(0.1);
+	//body->calcScale(50,50);
+	body->setScale(body->calcXScale(90));
+	//body->setScale(body->calcXScale(90));
+
 	objRef = base;
 	allObjs["base"] = base;
 	allObjs["body"] = body;
@@ -41,10 +46,18 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	allObjs["armL"] = armL;
 	allObjs["armR"] = armR;
 	
-	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
+	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	box->setIfRenderRect(true);
 	//box->setParent(base);
 	allObjs["box"] = box;
+	SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+	// changing the values in InstantiateBlankObject does not stop the text from being stretched
+	// need fixing (to not stretch text to fill box)
+	// text, R, G, B, fontsize, fontname
+	name->setResourceObject(renderMan->renderText("Player name", 200, 0, 200, 20, "BowlbyOneSC-Regular"));
+	//name->setParent(base);
+	name->setPos(0,-60);
+	allObjs["name"] = name;
 
 	/////// IDLE ANIMATION
 	list<motion> motions;
@@ -60,10 +73,11 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	list<motion> motions2;
 	motions2.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
 	motions2.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
-	motions2.push_back(makeMotion(rotateTransform(legL, -30, 60), 0, 0.5, ease_QuadOut));
-	motions2.push_back(makeMotion(rotateTransform(legR, 30, -60), 0, 0.5, ease_QuadOut));
-	motions2.push_back(makeMotion(rotateTransform(legL, 30, -60), 0.5, 0.5, ease_QuadIn));
-	motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
+	motions2.push_back(makeMotion(rotateTransform(legR, -60, 120), 0, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(legR, 60, -120), 0.5, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(legL, 60, -120), 0, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(legL, -60, 120), 0.5, 0.5, ease_QuadInOut));
+	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);
 }
 
@@ -81,6 +95,7 @@ void PlayerRenderComponent::Update(){
 	RenderBoundingBox((allObjs["box"]));
 	ApplyPhysicsRotation(allObjs["base"]);
 	RenderComponent::animate();
+	allObjs["name"]->setPos(allObjs["base"]->getPosX(), -60 + allObjs["base"]->getPosY());
 }
 
 

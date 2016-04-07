@@ -40,6 +40,8 @@ bool RenderManager::init(unsigned int width, unsigned int height, bool fullScree
 	SDL_Surface* screenSurface = SDL_GetWindowSurface(renderWindow);
 	//Fill the surface white 
 	SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0, 0, 0 ) ); 
+	// Initialize TTF
+	TTF_Init();
 	return true;
 }
 
@@ -54,7 +56,7 @@ void RenderManager::update(){
 	//interate through renderables, and generate the current frame
 	renderAllObjects(); //SHOULD BE UPDATED TO BE RENDERSCENE
 
-	SDL_UpdateWindowSurface(renderWindow);
+	//SDL_UpdateWindowSurface(renderWindow);
 
 	SDL_RenderPresent(renderer);
 
@@ -169,54 +171,6 @@ void RenderManager::renderBackground(){
 	if (background){
 		SDL_Rect wholeWindow = { 0, 0, windowSurface->w, windowSurface->h};
 		SDL_RenderCopy(renderer, background, NULL, &wholeWindow);
-		/*//maybe invert z = 1/zoom
-		float z = 1 / zoom;
-		int textWidth;
-		int textHeight;
-		SDL_QueryTexture(background, NULL, NULL, &textWidth, &textHeight);
-		//offset is for how the background tiles tile. it tells you the offset of the centermost tile 
-		//it should give the illusion that the tiling begins at (0,0)
-		float centerOffsetX = windowSurface->w / 2 - (int(cameraPoint.x) % textWidth)*z;
-		float centerOffsetY = windowSurface->h / 2 - (int(cameraPoint.y) % textHeight)*z;
-		float WorldTextWidth = textWidth* z;//the size of the texture after being multiplied by zoom
-		float WorldTextHeight = textHeight* z;//>1 means zoom in, <1 means zoom out
-		//tiling the image
-		SDL_Rect srcrect = { 0, 0, textWidth, textHeight };
-		SDL_Rect dstrect = { 0, 0, WorldTextWidth, WorldTextHeight };
-		//float start = 0;
-		//for (float x = centerOffsetX - ceil(centerOffsetX / (WorldTextWidth))*WorldTextWidth; x < windowSurface->w; x += dstrect.w){
-		for (float x = 0; x < windowSurface->w; x += dstrect.w){
-			//x = the offset - the number of times the background needs to be repeated from the offset point and (0,0) on the window and keep the background static
-			dstrect.x = round(x);//rounding to make it less jagged
-			if (x==0){
-				dstrect.w = ceil(centerOffsetX - floor(centerOffsetX / (WorldTextWidth))*WorldTextWidth);
-				if (dstrect.w == 0) dstrect.w = WorldTextWidth;
-				srcrect.w = ceil(dstrect.w / z);
-				srcrect.x = textWidth - srcrect.w;
-			}
-			else if (x + WorldTextWidth > windowSurface->w){
-				dstrect.w = ceil(windowSurface->w - x);
-				srcrect.x = 0;
-				srcrect.w = ceil(dstrect.w/z);
-			}
-			else {
-				dstrect.w = WorldTextWidth;
-				srcrect.x = 0;
-				srcrect.w = textWidth;
-			}
-			for (float y = centerOffsetY - ceil(centerOffsetY / (WorldTextHeight))*WorldTextHeight; y < windowSurface->h; y += dstrect.h){
-				dstrect.y = round(y);
-				if (y + WorldTextHeight > windowSurface->h){
-					dstrect.h = ceil(windowSurface->h - y);
-					srcrect.h = ceil(dstrect.h / z);
-				}
-				else {
-					dstrect.h = WorldTextHeight;
-					srcrect.h = textHeight;
-				}
-				SDL_RenderCopy(renderer, background, &srcrect, &dstrect);
-			}
-		}*/
 	}
 }
 
@@ -283,6 +237,37 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
+}
+RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname){
+	std::string path = "resources/" + fontname + ".ttf";
+	TTF_Font* font = TTF_OpenFont(path.c_str(), fontsize); // change function to take fontname in string version
+	if (!font) { // error opening file, use default computer font instead
+		// font = TTF_OpenFont();
+	}
+	SDL_Color color = { r, g, b };
+	RenderResource* resource = new RenderResource(); 
+	resource->height = 1;
+	resource->width = 1;
+	resource->max = 1;
+	SDL_Surface *tempSurface = TTF_RenderText_Solid(font, text, color); //load image as surface
+	if (tempSurface){
+		//if surface is loaded correctly, then make texture
+		SDL_Texture*tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);
+		//free old buffer
+		SDL_FreeSurface(tempSurface);
+		if (tempTexture){
+			//if texture is made correctly, free old background data, and replace with new one
+			if (resource->mTexture){
+				SDL_DestroyTexture(resource->mTexture);
+			}
+			resource->mTexture = tempTexture;
+		}
+	}
+	else{
+		//printf("Unable to load the image %s! SDL_image Error: %s\n", filename, IMG_GetError());
+	}
+	// need to call TTF_Quit(); in destructor
+	return resource;
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 	if (obj->getPosZ() > cameraPoint.z){

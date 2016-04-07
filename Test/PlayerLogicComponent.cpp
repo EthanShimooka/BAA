@@ -26,7 +26,15 @@ void PlayerLogicComponent::Update(){
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
-	rect = birdseedHUD->getRenderRect();
+
+	//update the countdown timer
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
+	string minutes = Timing::sInstance.GetMinutesLeftAsString(timeRemaininginSeconds);
+	string seconds = Timing::sInstance.GetSecondsLeftAsString(timeRemaininginSeconds);
+	if (seconds.length() == 1)seconds = "0" + seconds;
+	std::string title = minutes + ":" + seconds; //concat on the time remaining here!
+	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 }
 
 /// For spawning local feathers
