@@ -14,6 +14,9 @@ public:
 	MidBasePhysicsComponent(GameObject * base);
 	~MidBasePhysicsComponent();
 
+	void Init();
+	void Update();
+
 	
 };
 
