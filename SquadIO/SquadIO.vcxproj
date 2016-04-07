@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\SDL2_ttf-2.0.14\include;$(ProjectDir)\SDL2-2.0.4\include;$(ProjectDir)\include\sdl2;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\lib;$(ProjectDir)\SDL2-2.0.4\lib\x86;$(ProjectDir)\SDL2_ttf-2.0.14\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -55,13 +55,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;SQUADIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)SquadIO\zlib\include;$(SolutionDir)SquadIO\include\network;$(SolutionDir)SquadIO\Debug\;$(SolutionDir)\SquadIO\;$(SolutionDir)\Debug\;%(AdditionalIncludeDirectories);$(SolutionDir)SquadIO\include\ButtonManager.h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SquadIO\include\sdl2;$(SolutionDir)SquadIO\zlib\include;$(SolutionDir)SquadIO\include\network;$(SolutionDir)SquadIO\Debug\;$(SolutionDir)\SquadIO\;$(SolutionDir)\Debug\;%(AdditionalIncludeDirectories);$(SolutionDir)SquadIO\include\ButtonManager.h</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;lib\SDL2_mixer.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\zlib\lib;$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\SquadIO.lib;lib\SDL2.lib;lib\SDL2main.lib;lib\SDL2_image.lib;lib\SDL2_mixer.lib;lib\SDL2_ttf.lib;%(AdditionalDependencies);steam_api.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SquadIO\zlib\lib;$(SolutionDir)\SquadIO\steam\api;C:\Users\blauwill\Downloads\SDL2-devel-2.0.4-VC\SDL2-2.0.4\lib\x86;C:\SDL2-2.0.4\SDL2_ttf-2.0.14\lib\x86;C:\Users\blauwill\Downloads\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

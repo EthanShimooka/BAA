@@ -56,8 +56,17 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case SCORE:
 		break;
-	case TIMER:
+	case TIMER:{
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		uiObjectRef->posX = 600;
+		uiObjectRef->posY = 30;
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
+		play->setResourceObject(renderMan->renderText("Timer:", 255, 255, 0, 50, "BowlbyOneSC-Regular"));
+
+		objRef = play;
+		allObjs.push_back(play);
 		break;
+	}
 	case BIRDSEED_BAR:
 		//TODO: these hardcoded positions are to put it a bit away from the borders of the screen.
 		//We'll need to store them as variables, since PlayerLogicComponent->update has hardcoded

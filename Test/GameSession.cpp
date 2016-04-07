@@ -52,16 +52,26 @@ void GameSession::LoadPlayers(){
 }
 
 void GameSession::LoadHUD(GameObject* player){
+	//initialize HUD info for the player. Should only be called once
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	RenderManager* renderMan = RenderManager::getRenderManager();
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
+	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
 	queue.AddObject(birdseedMeter);
-	//add the HUD reference to player logic
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	//add a timer to top of screen
+	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
+	queue.AddObject(countdownTimer);
+	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 }
+
+//////////////////////////////////////////////////////////////////////////
+
 void cullObjects(){
 	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
@@ -306,7 +316,8 @@ int GameSession::Run(){
 
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
-				std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
+				//object has died this last gameloop. send it to the object pool
+				//std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
 				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER){
 					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
 				}

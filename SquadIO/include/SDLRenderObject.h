@@ -65,6 +65,9 @@ public:
 	bool ifRenderRect;
 	/// render the image
 	bool ifRenderImage;
+	/// render text
+	bool ifRenderText;
+	char * text;
 	/// Total number of frames
 	unsigned int frameTotal;
 	/// current frame of the animation sheet
@@ -141,6 +144,12 @@ public:
 	/// Set if the object should be rendered as an image
 	SQUADIO_API void setIfRenderImage(bool flag);
 	SQUADIO_API void toggleIfRenderImage();
+
+	/// Set if the object should be rendered as an image
+	SQUADIO_API void setIfRenderText(bool flag);
+	SQUADIO_API void setIfRenderText(bool flag, char * tex);
+	SQUADIO_API void toggleIfRenderText();
+	SQUADIO_API void setText(char* tex);
 
 
 	/// Get the object's rotation

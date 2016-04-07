@@ -48,6 +48,8 @@ public:
 	int maxsBirdseed=5;
 	SDLRenderObject* birdseedHUD;
 	SDL_Rect defaultRect;
+
+	SDLRenderObject* timerHUD;
 };
 
 #endif
