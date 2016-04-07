@@ -73,14 +73,14 @@ void UIRenderComponent::createUIType(UIType ID){
 		//values to match
 		uiObjectRef->posX = 30;
 		uiObjectRef->posY = 30;
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 31, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1101, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case BIRDSEED_SHELL:
 		uiObjectRef->posX = 30;
 		uiObjectRef->posY = 30;
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 30, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1100, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
