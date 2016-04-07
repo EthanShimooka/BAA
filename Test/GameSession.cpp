@@ -29,19 +29,16 @@ void GameSession::LoadWorld(){
 	MidPlatObjectFactory mpFactory;
 	MidBaseObjectFactory mbFactory;
 
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 4; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (i * 340), 240, 0));
 		GameObjects.AddObject(plFactory.Spawn((501000 + i), (i * 340), -240, 0));
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (-i * 340), 240, 0));
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (-i * 340), -240, 0));
-
+	}
+	for (int i = 0; i < 3; i++){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, -i * 350, 0, 0));
 		GameObjects.AddObject(mpFactory.Spawn(505000 + i, i * 350, 0, 0));
-
-
-
 	}
-
 	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
 	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
 
