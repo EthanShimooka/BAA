@@ -21,7 +21,7 @@ std::function<float(float)> getBezier(float x0, float x1, float x2, float x3){
 	};
 }
 std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, double end){
-	return [=](float i) {obj->rotation = (end - start)*i + start; };
+	return [=](float i) {obj->rotation = end*i + start; };
 }
 
 std::function<void(float)> moveCircArc(SDLRenderObject* obj, float centerx, float centery, double radius, double start_angle, double end_angle){
