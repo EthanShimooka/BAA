@@ -26,12 +26,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 	player->type = GAMEOBJECT_TYPE::OBJECT_PLAYER;
 //	player->isNetworkControlled = !local;
 
-	if (local){
-		PlayerInputComponent* input = new PlayerInputComponent(player);
-		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player);
-	}
-
-	ClassComponent* classComp;
+	ClassComponent* classComp = nullptr;
 	switch (classType){
 	case CLASS_CHICKEN:
 		classComp = new ChickenClassComponent(player);
@@ -60,6 +55,12 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 		break;
 	}
 
+	if (local){
+		PlayerInputComponent* input = new PlayerInputComponent(player);
+		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
+	}
+
+	
 	PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player);

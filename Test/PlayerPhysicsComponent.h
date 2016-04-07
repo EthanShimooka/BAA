@@ -8,12 +8,12 @@
 class PlayerPhysicsComponent : public PhysicsComponent {
 public:
 	/// Constructor
-	PlayerPhysicsComponent(GameObject* player);
+	PlayerPhysicsComponent(GameObject* player, float height, float width);
 	/// Destructor
 	~PlayerPhysicsComponent();
 	/// Update
 	void Update();
-	void init();
+	void init(float height, float width);
 	void handleCollision(GameObject* otherObj);
 };
 

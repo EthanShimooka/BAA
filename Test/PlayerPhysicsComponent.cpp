@@ -1,17 +1,17 @@
 #include "PlayerPhysicsComponent.h"
 
-PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player)
+PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player, float height, float width)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init();
+	init(height, width);
 }
 
 PlayerPhysicsComponent::~PlayerPhysicsComponent(){
 	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 }
 
-void PlayerPhysicsComponent::init(){
+void PlayerPhysicsComponent::init(float height, float width){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.fixedRotation = true;
@@ -23,7 +23,7 @@ void PlayerPhysicsComponent::init(){
 
 	b2PolygonShape box;
 	//box.SetAsBox(471, 480); // look up other functions for polygons
-	box.SetAsBox(2.7, 2.7);
+	box.SetAsBox(height, width);
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
