@@ -25,9 +25,9 @@ public:
 	/// Returns the number of seconds left on the game clock, used for displaying countdown timer
 	SQUADIO_API int GetTimeRemainingS();
 	/// Takes the time remaining in seconds and returns the minutes to be displayed
-	SQUADIO_API int GetMinutesLeft(int timeRemainingInSec);
+	SQUADIO_API string GetMinutesLeftAsString(int timeRemainingInSec);
 	/// Takes the time remaining in seconds and returns the seconds to be displayed alongside minutes
-	SQUADIO_API int GetSecondsLeft(int timeRemainingInSec);
+	SQUADIO_API string GetSecondsLeftAsString(int timeRemainingInSec);
 
 private:
 	float		mDeltaTime;

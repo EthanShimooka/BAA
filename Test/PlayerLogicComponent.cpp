@@ -29,7 +29,10 @@ void PlayerLogicComponent::Update(){
 
 	//update the countdown timer
 	RenderManager* renderMan = RenderManager::getRenderManager();
-	std::string title = "Timer: "; //concat on the time remaining here!
+	int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
+	string minutes = Timing::sInstance.GetMinutesLeftAsString(timeRemaininginSeconds);
+	string seconds = Timing::sInstance.GetSecondsLeftAsString(timeRemaininginSeconds);
+	std::string title = "Timer: " + minutes + ":" + seconds; //concat on the time remaining here!
 	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 125, 0, 70, "BowlbyOneSC-Regular"));
 }
 
