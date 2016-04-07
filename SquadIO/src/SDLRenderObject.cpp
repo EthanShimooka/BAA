@@ -130,6 +130,15 @@ void SDLRenderObject::setScale(float sx,float sy){
 	height = sx;
 	width = sy;
 }
+float SDLRenderObject::calcXScale(float w){
+	return w * frameWidth / renderRect.w;
+}
+float SDLRenderObject::calcYScale(float h){
+	return h * frameHeight / renderRect.h;
+}
+void SDLRenderObject::calcScale(float w, float h){
+	setScale(calcXScale(w), calcYScale(h));
+}
 int SDLRenderObject::getWidth(){
 	return (frameWidth>0) ? (int)(renderRect.w*getScaleX() / frameWidth) :(int) (renderRect.w*getScaleX());
 }

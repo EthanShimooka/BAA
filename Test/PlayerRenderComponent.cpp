@@ -32,7 +32,12 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	armR->setParent(body);
 	legL->setParent(body);
 	legR->setParent(body);
-	body->setScale(0.1);
+
+	//body->setScale(0.1);
+	//body->calcScale(50,50);
+	body->setScale(body->calcXScale(90));
+	//body->setScale(body->calcXScale(90));
+
 	objRef = base;
 	allObjs["base"] = base;
 	allObjs["body"] = body;

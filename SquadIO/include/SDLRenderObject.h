@@ -116,7 +116,10 @@ public:
 	SQUADIO_API void setScale(float s);
 	/// Set object's size multiplier
 	SQUADIO_API void setScale(float sx, float sy);
-
+	SQUADIO_API float calcXScale(float w);
+	SQUADIO_API float calcYScale(float h);
+	/// Calculate and set object's size multiplier using a width and height
+	SQUADIO_API void calcScale(float w, float h);
 
 	/// Get object's width
 	SQUADIO_API int getWidth();
