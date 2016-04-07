@@ -19,6 +19,7 @@ namespace{
 
 Timing::Timing(){
 #if _WIN32
+	gameLengthInSeconds = 240;
 	LARGE_INTEGER perfFreq;
 	QueryPerformanceFrequency(&perfFreq);
 	mPerfCountDuration = 1.0 / perfFreq.QuadPart;
@@ -57,13 +58,16 @@ bool Timing::Update(){
 
 void Timing::SetCountdownStart(){
 	startTimeInSeconds = time(NULL);
-	std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
+	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
 }
 
-// Want this function to return current minutes and seconds so that we can display on clock
-void Timing::StartCountdown(){
-	double now = GetTime();
-
+double Timing::GetTimeRemainingS(){
+	double timeRemaining = 0;
+	time_t now = time(NULL);
+	time_t timeElapsed = now - startTimeInSeconds;
+	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ timeElapsed = " << timeElapsed << std::endl;
+	//std::cout << "@@@@@@@@@@@@@@@@@ timeElapsed as double = " << (double)timeElapsed << std::endl;
+	return gameLengthInSeconds - (double)timeElapsed;
 }
 
 double Timing::GetTime() const{
