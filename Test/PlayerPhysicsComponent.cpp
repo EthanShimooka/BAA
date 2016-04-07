@@ -8,7 +8,8 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player)
 }
 
 PlayerPhysicsComponent::~PlayerPhysicsComponent(){
-	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+
+	GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 }
 
 void PlayerPhysicsComponent::init(){
@@ -19,14 +20,16 @@ void PlayerPhysicsComponent::init(){
 	bodyDef.angle = 0;// ... which direction it's facing
 
 	GameWorld* gameWorld = GameWorld::getInstance();
-	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+	if (!mBody)
+		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
 	//box.SetAsBox(471, 480); // look up other functions for polygons
 	box.SetAsBox(2.7, 2.7);
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
-	mFixture = mBody->CreateFixture(&boxFixtureDef);
+	if (!mFixture)
+		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 

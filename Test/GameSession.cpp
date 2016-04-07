@@ -314,6 +314,8 @@ int GameSession::Run(){
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
+
+		//OBJECT POOLING - moves recently dead objects to respective dead pool
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
 				//object has died this last gameloop. send it to the object pool
@@ -365,5 +367,6 @@ int GameSession::Run(){
 	log->close();
 	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
+	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
