@@ -43,6 +43,7 @@ void GameSession::LoadPlayers(){
 }
 
 void GameSession::LoadHUD(GameObject* player){
+	//initialize HUD info for the player. Should only be called once
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SystemUIObjectQueue queue;
