@@ -69,7 +69,8 @@ void UIRenderComponent::createUIType(UIType ID){
 		//it's still being rendered
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, uiObjectRef->posX, uiObjectRef->posY, true);
 		//play = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer1"), uiObjectRef->posX, uiObjectRef->posY, 0, 0);
-		play->setResourceObject(renderMan->renderText("first:", 255, 125, 0, 50, "BowlbyOneSC-Regular"));
+		play->setResourceObject(renderMan->renderText("first:", 0, 125, 0, 50, "BowlbyOneSC-Regular"));
+		play->setResourceObject(renderMan->renderText("second:", 0, 0,125, 50, "BowlbyOneSC-Regular"));
 		objRef = play;
 		allObjs.push_back(play);
 		break;
