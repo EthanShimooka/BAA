@@ -49,8 +49,9 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
 	//probably destroy itself, maybe trigger a sound?
 	switch (otherObj->type){
-		case GAMEOBJECT_TYPE::OBJECT_MINION:
-		{
+		case GAMEOBJECT_TYPE::OBJECT_MINION:{
+			//give birdseed
+			dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
 			//destroy self or return to object pool
 			gameObjectRef->isAlive = false;
 			break;

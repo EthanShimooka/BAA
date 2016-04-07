@@ -374,6 +374,15 @@ void RenderManager::renderAllObjects(){
 	float z = 1 / zoom; //maybe invert
 	renderObjects.sort(sortRendObj);
 	std::list<SDLRenderObject*>::iterator iter;
+	
+	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
+		if ((*iter)->isVisible()){
+			if (isObjOnScreen(*iter)){
+				if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
+				if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
+			}
+		}
+	}
 	for (iter = windowObjects.begin(); iter != windowObjects.end(); iter++){
 		if ((*iter)->visible){
 			SDL_Rect pos;
@@ -387,15 +396,9 @@ void RenderManager::renderAllObjects(){
 			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
 			if ((*iter)->flipH && (*iter)->flipV){ flip = SDL_RendererFlip(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL); }
 			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
-			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, NULL, &pos, (*iter)->rotation, &anchor, flip);
-		}
-	}
-	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
-		if ((*iter)->isVisible()){
-			if (isObjOnScreen(*iter)){
-				if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
-				if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
-			}
+
+			SDL_Rect rect = (*iter)->getRenderRect();
+			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, &rect, &pos, (*iter)->rotation, &anchor, flip);
 		}
 	}
 }

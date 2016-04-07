@@ -1,6 +1,5 @@
 #include "RenderComponent.h"
 
-
 RenderComponent::RenderComponent()
 {
 	visible = true;
@@ -39,7 +38,11 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 
 void RenderComponent::setAnimation(std::string name){
 	if (animations.count(name)){
-		nextAnimation = animations[name];
+		if (currentAnimation != animations[name]){
+			currentAnimation = animations[name];
+			progress = 0;
+			lasttime = clock();
+		}
 	}
 }
 
@@ -114,7 +117,7 @@ void RenderComponent::Update(){
 	objRef->flipV = gameObjectRef->flipV;
 	objRef->setScale(gameObjectRef->scaleX, gameObjectRef->scaleY);
 	objRef->rotation = gameObjectRef->rotation;
-	objRef->visible = visible;
+	//objRef->visible = visible;
 
 	//there is most likely more attributes to send over. update as needed
 }

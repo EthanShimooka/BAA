@@ -37,6 +37,8 @@ enum UIType{
 	READY_BUTTON = 9,
 	PLAYER_SLOT = 10,
 	BIRD = 11,
+	BIRDSEED_SHELL = 12,
+	BIRDSEED_BAR = 13,
 };
 
 /// t_component struct contains a component and a int enumerating its type

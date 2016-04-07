@@ -1,6 +1,6 @@
 #include "GameWorld.h"
 
-GameWorld* GameWorld::gameWorld = nullptr;
+GameWorld GameWorld::gameWorld;
 
 GameWorld::GameWorld(){
 	//initialize the class here
@@ -18,11 +18,7 @@ GameWorld::~GameWorld(){
 }
 
 GameWorld* GameWorld::getInstance() {
-	// if gameWorld is nullptr
-	if (!gameWorld) {
-		gameWorld = new GameWorld();
-	}
-	return gameWorld;
+	return &gameWorld;
 }
 
 b2World* GameWorld::getPhysicsWorld(){

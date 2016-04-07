@@ -15,28 +15,30 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 void PlayerLogicComponent::Update(){
 	InputManager* input = InputManager::getInstance();
-	/*if (input->isMouseLeftPressed()){
-		isChargingAttack = true;
-	}
-	if (isChargingAttack && input->isMouseLeftReleased()){
-		double chargeTime = input->getMousePressDuration();
-		std::cout << "Charge time: " << chargeTime << std::endl;
-	}*/
-	//check if on top or bottom of screen
+	//update orientation
 	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
 	else gameObjectRef->flipV = false;
+	//update HUD
+	int w, h;
+	birdseedHUD->getSize(w, h);
+	float meterPercent = (currBirdseed / (float)maxsBirdseed);
+	SDL_Rect rect = birdseedHUD->getRenderRect();
+	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
+	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
+	birdseedHUD->setRenderRect(seedRect);
+	rect = birdseedHUD->getRenderRect();
 }
 
 /// For spawning local feathers
 uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float chargeTime){
-	GameObject* newFeather = fFactory.Spawn(featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy, chargeTime);
+	GameObject* newFeather = fFactory.Spawn(gameObjectRef, featherNum++, gameObjectRef->posX, gameObjectRef->posY, dx, dy, chargeTime);
 	GameObjects.AddObject(newFeather);
 	return featherNum - 1;
 }
 
 /// For spawning networked feathers
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime){
-	GameObjects.AddObject(fFactory.Spawn(ID, initialX, initialY, destX, destY, chargeTime));
+	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, destX, destY, chargeTime));
 }
 
 
