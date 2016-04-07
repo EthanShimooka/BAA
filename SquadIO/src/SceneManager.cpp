@@ -344,7 +344,7 @@ void SceneManager::AssembleScene(){
 	}
 
 	renderMan->update();
-	SDL_Delay(15);
+	//SDL_Delay(25);
 
 }
 

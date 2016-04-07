@@ -56,7 +56,7 @@ void RenderManager::update(){
 	//interate through renderables, and generate the current frame
 	renderAllObjects(); //SHOULD BE UPDATED TO BE RENDERSCENE
 
-	SDL_UpdateWindowSurface(renderWindow);
+	//SDL_UpdateWindowSurface(renderWindow);
 
 	SDL_RenderPresent(renderer);
 
