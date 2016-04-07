@@ -350,6 +350,7 @@ int GameSession::Run(){
 		input->update();
 		sceneMan->AssembleScene();
 
+		if (Timing::sInstance.GetTimeRemainingS() == 0) break;
 		firstTime = false;
 	}
 	/////////////////////////////////////////////////////
