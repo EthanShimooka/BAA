@@ -10,9 +10,14 @@ using namespace std;
 void update();
 
 //implement somewhere in config later
+<<<<<<< HEAD
 int SCREEN_HEIGHT = 900;
 int SCREEN_WIDTH = 1600;
 
+=======
+int SCREEN_HEIGHT = 800;
+int SCREEN_WIDTH = 1200;
+>>>>>>> origin/Ricardo-text
 
 
 int main() {
