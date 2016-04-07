@@ -22,17 +22,12 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, bool local)
 	player->isAlive = true;
 	player->type = GAMEOBJECT_TYPE::OBJECT_PLAYER;
 //	player->isNetworkControlled = !local;
-
+	PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 	if (local){
 		PlayerInputComponent* input = new PlayerInputComponent(player);
 		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player);
 	}
-
-	PlayerRenderComponent* rend = new PlayerRenderComponent(player);
-
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player);
-
-	
 
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
 	player->setPos(player->posX, 200);
