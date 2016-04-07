@@ -87,7 +87,9 @@
     <ClInclude Include="AllComponentIncludes.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
+    <ClInclude Include="MidBaseComponentIncludes.h" />
     <ClInclude Include="MidBaseLogicComponent.h" />
+    <ClInclude Include="MidBaseObjectFactory.h" />
     <ClInclude Include="MidBasePhysicsComponent.h" />
     <ClInclude Include="MidBaseRenderComponent.h" />
     <ClInclude Include="Component.h" />
@@ -163,6 +165,7 @@
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
+    <ClCompile Include="MidBaseObjectFactory.cpp" />
     <ClCompile Include="MidBasePhysicsComponent.cpp" />
     <ClCompile Include="MidBaseRenderComponent.cpp" />
     <ClCompile Include="Component.cpp" />
