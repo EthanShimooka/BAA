@@ -39,7 +39,7 @@ public:
 
 	float speed;
 	float width, height;
-	int   seedAmount;
+	int   seedRequired;
 	float featherSpeed;
 	float featherWidth, featherHeight;
 	float abilityCooldown;

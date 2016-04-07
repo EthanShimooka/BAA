@@ -6,7 +6,7 @@ ClassComponent::ClassComponent()
 	speed = 15;
 	width = 2.7;
 	height = 2.7;
-	seedAmount = 5;
+	seedRequired = 5;
 	featherSpeed = 1.0 / 7.0;
 	featherWidth = 1;
 	featherHeight = 1;

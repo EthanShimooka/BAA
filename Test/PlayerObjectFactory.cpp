@@ -56,7 +56,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 	}
 
 	if (local){
-		PlayerInputComponent* input = new PlayerInputComponent(player);
+		PlayerInputComponent* input = new PlayerInputComponent(player, classComp->speed, classComp->featherSpeed);
 		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
 	}
 
@@ -64,8 +64,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 	PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player);
-
-	
+	//logic->setFeatherSpeed(classComp->featherSpeed);
 
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
 	player->setPos(player->posX, 200);

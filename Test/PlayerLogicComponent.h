@@ -31,9 +31,9 @@ public:
 	/// Update Function
 	void Update();
 	/// Spawn Feather Function
-	uint64_t spawnFeather(int mouseX, int mouseY, float chargeTime);
+	uint64_t spawnFeather(int mouseX, int mouseY, float chargeTime, float speed);
 	/// Spawn Feather (networked)
-	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime);
+	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime, float speed);
 	/// Spawn Hero Class Power
 	void spawnShield();
 
