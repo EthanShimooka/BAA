@@ -7,5 +7,6 @@
 #include "PlatformComponentIncludes.h"
 #include "PlayerComponentIncludes.h"
 #include "PowerShieldIncludes.h"
+#include "ClassComponentIncludes.h"
 
 #endif

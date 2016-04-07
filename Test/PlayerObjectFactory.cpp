@@ -1,4 +1,7 @@
 #include "PlayerObjectFactory.h"
+//#include "ClassComponentIncludes.h"
+//#include "ClassComponent.h"
+ 
 
 PlayerObjectFactory::PlayerObjectFactory()
 {
@@ -26,6 +29,35 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 	if (local){
 		PlayerInputComponent* input = new PlayerInputComponent(player);
 		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player);
+	}
+
+	ClassComponent* classComp;
+	switch (classType){
+	case CLASS_CHICKEN:
+		classComp = new ChickenClassComponent(player);
+		// for testing
+		std::cout << "Class speed " << classComp->speed << std::endl;
+		break;
+	case CLASS_EAGLE:
+		//classComp = new EagleClassComponent(player);
+		break;
+	case CLASS_PEACOCK:
+		//classComp = new PeacockClassComponent(player);
+		break;
+	case CLASS_FLAMINGO:
+		//classComp = new FlamingoClassComponent(player);
+		break;
+	case CLASS_TURKEY:
+		//classComp = new TurkeyClassComponent(player);
+		break;
+	case CLASS_QUAIL:
+		//classComp = new QuailClassComponent(player);
+		break;
+	default:
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Bad enum chosen for class\n";
+		log->flush();
+		break;
 	}
 
 	PlayerRenderComponent* rend = new PlayerRenderComponent(player);

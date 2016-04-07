@@ -85,7 +85,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllComponentIncludes.h" />
+    <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
+    <ClInclude Include="ClassComponentIncludes.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseLogicComponent.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="lobby.cpp" />

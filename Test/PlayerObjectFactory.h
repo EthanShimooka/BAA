@@ -22,6 +22,7 @@
 #include "Component.h"
 #include "MovementComponent.h"
 #include "PlayerComponentIncludes.h"
+#include "ClassComponentIncludes.h"
 
 
 

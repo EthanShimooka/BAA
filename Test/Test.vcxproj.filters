@@ -339,6 +339,12 @@
     <ClInclude Include="SystemClassUpdater.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="ChickenClassComponent.h">
+      <Filter>Header Files\Component\Player Component\Class Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassComponentIncludes.h">
+      <Filter>Header Files\Component\Player Component\Class Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -547,6 +553,9 @@
     </ClCompile>
     <ClCompile Include="SystemClassUpdater.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\Class Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
