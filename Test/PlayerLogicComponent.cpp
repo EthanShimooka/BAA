@@ -33,8 +33,8 @@ void PlayerLogicComponent::Update(){
 	string minutes = Timing::sInstance.GetMinutesLeftAsString(timeRemaininginSeconds);
 	string seconds = Timing::sInstance.GetSecondsLeftAsString(timeRemaininginSeconds);
 	if (seconds.length() == 1)seconds = "0" + seconds;
-	std::string title = "Timer: " + minutes + ":" + seconds; //concat on the time remaining here!
-	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 125, 0, 70, "BowlbyOneSC-Regular"));
+	std::string title = minutes + ":" + seconds; //concat on the time remaining here!
+	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 }
 
 /// For spawning local feathers

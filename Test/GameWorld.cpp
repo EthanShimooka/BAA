@@ -13,7 +13,7 @@ GameWorld::GameWorld(){
 float worldScale = 20.0f;
 
 GameWorld::~GameWorld(){
-	physicsWorld->~b2World();
+	//physicsWorld->~b2World();
 	
 }
 

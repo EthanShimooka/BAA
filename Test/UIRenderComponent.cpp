@@ -61,7 +61,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		uiObjectRef->posX = 600;
 		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
-		play->setResourceObject(renderMan->renderText("Timer:", 255, 255, 0, 50, "BowlbyOneSC-Regular"));
+		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
 		objRef = play;
 		allObjs.push_back(play);
