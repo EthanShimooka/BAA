@@ -9,7 +9,7 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player)
 
 PlayerPhysicsComponent::~PlayerPhysicsComponent(){
 
-	GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 }
 
 void PlayerPhysicsComponent::init(){
