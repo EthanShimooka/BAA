@@ -66,7 +66,7 @@ void GameSession::LoadHUD(GameObject* player){
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
-	queue.AddObject(HUDFactory.Spawn(TIMER));
+	queue.AddObject(countdownTimer);
 	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
@@ -315,7 +315,8 @@ int GameSession::Run(){
 
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
-				std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
+				//object has died this last gameloop. send it to the object pool
+				//std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
 				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER){
 					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
 				}

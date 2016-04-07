@@ -58,18 +58,11 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();
+
 		uiObjectRef->posX = 600;
 		uiObjectRef->posY = 30;
-		//I'm using this just to make the object, then reassigning it at setResourceObject
-		//the problem is that the first image I used is still being rendered. It needs to be
-		//freed.
-		//I wanted to use InstantiateBlankObject, but then the image is given world coordinates and 
-		//is an object in the world rather than a HUD element
-		//I also recommend checking out SDLRenderObject::setRenderResource, and have it release the previous texture since 
-		//it's still being rendered
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 0, uiObjectRef->posX, uiObjectRef->posY, true);
-		//play = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer1"), uiObjectRef->posX, uiObjectRef->posY, 0, 0);
-		play->setResourceObject(renderMan->renderText("first:", 255, 125, 0, 50, "BowlbyOneSC-Regular"));
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
+		play->setResourceObject(renderMan->renderText("Timer:", 255, 255, 0, 50, "BowlbyOneSC-Regular"));
 		objRef = play;
 		allObjs.push_back(play);
 		break;
