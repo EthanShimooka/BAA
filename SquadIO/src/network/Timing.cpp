@@ -61,13 +61,21 @@ void Timing::SetCountdownStart(){
 	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
 }
 
-double Timing::GetTimeRemainingS(){
+int Timing::GetTimeRemainingS(){
 	double timeRemaining = 0;
 	time_t now = time(NULL);
 	time_t timeElapsed = now - startTimeInSeconds;
 	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ timeElapsed = " << timeElapsed << std::endl;
-	//std::cout << "@@@@@@@@@@@@@@@@@ timeElapsed as double = " << (double)timeElapsed << std::endl;
-	return gameLengthInSeconds - (double)timeElapsed;
+	//std::cout << "@@@@@@@@@@@@@@@@@ timeElapsed as int = " << (int)timeElapsed << std::endl;
+	return gameLengthInSeconds - (int)timeElapsed;
+}
+
+int Timing::GetMinutesLeft(int timeRemainingInSec){
+	return floor(timeRemainingInSec / 60);
+}
+
+int Timing::GetSecondsLeft(int timeRemainingInSec){
+	return timeRemainingInSec % 60;
 }
 
 double Timing::GetTime() const{
