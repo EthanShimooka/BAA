@@ -58,6 +58,8 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 			//destroy self or return to object pool
+			dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
+			gameObjectRef->isAlive = false;
 			break;
 		default:
 			break;

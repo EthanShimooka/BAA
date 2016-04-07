@@ -45,7 +45,8 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//do nothing or push past each other
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		//take damage on self, maybe make a sqauaking sound?
+		//signal self death and turn to egg
+		
 		break;
 	default:
 		break;
