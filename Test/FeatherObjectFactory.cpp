@@ -13,7 +13,7 @@ FeatherObjectFactory::~FeatherObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float posX, float posY, float dx, float dy, float chargeTime)
+GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float posX, float posY, float dx, float dy, float chargeTime, float speed)
 {
 	GameObject* feather;
 	FeatherRenderComponent* rend;
@@ -29,7 +29,8 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		feather->setPos(posX, posY);
 		rend = new FeatherRenderComponent(feather);
 		logic = new FeatherLogicComponent(feather);
-		physics = new FeatherPhysicsComponent(feather, posX, posY, dx, dy, chargeTime);
+
+		physics = new FeatherPhysicsComponent(feather, posX, posY, dx, dy, chargeTime, speed);
 		logic->owner = owner;
 
 	} else { //reuse feather from pool
@@ -39,7 +40,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		feather->ID = PID;
 		feather->isAlive = true;
 		feather->setPos(posX, posY);
-		dynamic_cast<FeatherPhysicsComponent*>(feather->GetComponent(COMPONENT_PHYSICS))->init(posX, posY, dx, dy, chargeTime);
+		dynamic_cast<FeatherPhysicsComponent*>(feather->GetComponent(COMPONENT_PHYSICS))->init(posX, posY, dx, dy, chargeTime, speed);
 	}
 
 	// Feather Specific Render Component. In future will have flag

@@ -57,6 +57,7 @@ configurations.
 #include "SystemNetworkUpdater.h"
 #include "SystemPhysicsUpdater.h"
 #include "SystemUIUpdater.h"
+#include "SystemClassUpdater.h"
 #include "lobby.h"
 #include "start.h"
 

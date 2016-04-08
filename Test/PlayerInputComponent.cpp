@@ -1,10 +1,12 @@
 #include "PlayerInputComponent.h"
 
 
-PlayerInputComponent::PlayerInputComponent(GameObject* player)
+PlayerInputComponent::PlayerInputComponent(GameObject* player, float _playerSpeed, float _featherSpeed)
 {
 	input = InputManager::getInstance();
 	gameObjectRef = player;
+	playerSpeed = _playerSpeed;
+	featherSpeed = _featherSpeed;
 	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
 }
 
@@ -22,26 +24,25 @@ void PlayerInputComponent::Update(){
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		Controller* controller = input->controller;
 		//handle input for moving
-		float speed = 15.0f;
-		body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*speed, body->GetLinearVelocity().y));
+		body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*playerSpeed, body->GetLinearVelocity().y));
 		//keyboard move right
 		if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
-			body->SetLinearVelocity(b2Vec2(speed, body->GetLinearVelocity().y));
+			body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 			renderComp->setAnimation("walk");
 		}
 		//keyboard move left
 		if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
-			body->SetLinearVelocity(b2Vec2(-speed, body->GetLinearVelocity().y));
+			body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 			renderComp->setAnimation("walk");
 		}
 		//keyboard jump
 		if (input->isKeyDown(KEY_SPACE)||controller->isJoystickPressed(JOYSTICK_A)) {
-			if (gameObjectRef->posY>0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -speed/2));
-			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed / 2));
+			if (gameObjectRef->posY>0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed/2));
+			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed / 2));
 		}
 		////keyboard move down (not really needed)
 		if (input->isKeyDown(KEY_S) || input->isKeyDown(KEY_DOWN)) {
-			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, speed));
+			body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 		}
 		//shoot feather
 		if (input->isMouseLeftPressed()){
@@ -58,7 +59,7 @@ void PlayerInputComponent::Update(){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			float dx, dy;
 			renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-			uint64_t id = logic->spawnFeather(dx, dy, chargeTime);
+			uint64_t id = logic->spawnFeather(dx, dy, chargeTime, featherSpeed);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			net->createFeatherPacket(id, dx, dy, chargeTime);
 		}
