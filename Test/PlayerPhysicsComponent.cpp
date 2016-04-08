@@ -46,12 +46,14 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		//signal self death and turn to egg
-		
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
 		break;
 	default:
 		break;
 	}
 }
+
+
 
 void PlayerPhysicsComponent::Update(){
 	b2Vec2 vel = mBody->GetLinearVelocity();

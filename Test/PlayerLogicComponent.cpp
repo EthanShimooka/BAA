@@ -51,7 +51,23 @@ void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initi
 
 
 void PlayerLogicComponent::spawnShield(){
+	if (currBirdseed == maxsBirdseed){
+		GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		currBirdseed = 0;
+	}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+	}
+}
 
-	GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+void PlayerLogicComponent::becomeEgg(){
+	//change texture to egg
+	PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	SDLRenderObject* eggSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 74, gameObjectRef->posX, gameObjectRef->posY);
+	renderComp->AssignSprite(eggSprite);
+	//ignore input and roll to base
+	PlayerInputComponent* inputComp = dynamic_cast<PlayerInputComponent*>(gameObjectRef->GetComponent(COMPONENT_INPUT));
+	inputComp->isEgg = true;
 
 }
