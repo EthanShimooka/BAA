@@ -52,5 +52,8 @@
 #include "GameSession.h"
 
 //temp
+#include "config.h"
+
+
 
 #endif
