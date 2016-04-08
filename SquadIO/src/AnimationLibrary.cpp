@@ -64,7 +64,7 @@ std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, unsigned int st
 		if (i < 0) { obj->frameCurrent = startFrame; }
 		else if (i >= 1){ obj->frameCurrent = endFrame; }
 		else {
-			obj->frameCurrent = round(float(endFrame - startFrame)*i) + startFrame;
+			obj->frameCurrent = (unsigned int)round(float(endFrame - startFrame)*i) + startFrame;
 		}
 	};
 }
@@ -76,7 +76,7 @@ motion makeMotion(std::function<void(float)> trans, float start, float duration,
 	return m;
 }
 Animation::Animation(float d, std::list<motion> m){
-	duration = d;
+	duration = (unsigned int)d;
 	motions = m;
 }
 

@@ -30,14 +30,14 @@ void GameSession::LoadWorld(){
 	MidBaseObjectFactory mbFactory;
 
 	for (int i = 0; i < 4; i++){
-		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (i * 340), (SCREEN_HEIGHT/3.1f), 0));
-		GameObjects.AddObject(plFactory.Spawn((501000 + i), (i * 340), -(SCREEN_HEIGHT / 3.1f), 0));
-		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (-i * 340), (SCREEN_HEIGHT / 3.1f), 0));
-		GameObjects.AddObject(plFactory.Spawn((503000 + i), (-i * 340), -(SCREEN_HEIGHT / 3.1f), 0));
+		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 340), (SCREEN_HEIGHT / 3.1f), 0));
+		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 340), -(SCREEN_HEIGHT / 3.1f), 0));
+		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 340), (SCREEN_HEIGHT / 3.1f), 0));
+		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 340), -(SCREEN_HEIGHT / 3.1f), 0));
 	}
 	for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(mpFactory.Spawn(504000 + i, -i * 350, 0, 0));
-		GameObjects.AddObject(mpFactory.Spawn(505000 + i, i * 350, 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
 	}
 	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
 	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
@@ -73,13 +73,13 @@ void GameSession::LoadHUD(GameObject* player){
 //////////////////////////////////////////////////////////////////////////
 
 void cullObjects(){
-	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
+	for (unsigned int i = 0; i < GameObjects.dead_objects.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
 	}
-	for (int i = 0; i < GameObjects.dead_feathers.size(); i++) {
+	for (unsigned int i = 0; i < GameObjects.dead_feathers.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_feathers[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
 	}
-	for (int i = 0; i < GameObjects.dead_minions.size(); i++) {
+	for (unsigned int i = 0; i < GameObjects.dead_minions.size(); i++) {
 		dynamic_cast<RenderComponent*>(GameObjects.dead_minions[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
 	}
 
@@ -90,7 +90,7 @@ void cullObjects(){
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
-	for (int i = 0; i < GameObjects.alive_objects.size(); i++) {
+	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++) {
 		left = right = top = bot = 0;
 		SDLRenderObject* obj = dynamic_cast<RenderComponent*>(GameObjects.alive_objects[i]->GetComponent(COMPONENT_RENDER))->objRef;
 
@@ -205,15 +205,15 @@ int GameSession::Run(){
 	renderMan->zoom = 0.5;
 
 	float size = 6;
-	float ratio = 0.7;
-	int armswing = size;
+	float ratio = 0.7f;
+	int armswing = (int)size;
 	int moveSpd = 1;
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
 	audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
-	renderMan->zoom = 0.6;
+	renderMan->zoom = 0.6f;
 
 
 	//World Loading
@@ -231,14 +231,14 @@ int GameSession::Run(){
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
-		for (float i = 0.01; i <= 8; i += 3){
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, j, 0, i))->setScale(.25);
+		for (float i = 0.01f; i <= 8; i += 3){
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, (float)j, 0, i))->setScale(.25);
 		}
 	}
 	for (int j = -340 * 2; j <= 340 * 2; j += 340){
 		for (float i = 3; i <= 8; i += 3){
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, 250, i));
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, j, -250, i));
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, 250, i));
+			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
@@ -289,7 +289,7 @@ int GameSession::Run(){
 			renderMan->setCameraPoint(player->posX, 0);
 		}
 		int length = 20;
-		float loop = (var % length);
+		float loop = (float)(var % length);
 
 		//physics testing stuff
 		PhysicsListener listener;

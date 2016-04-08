@@ -4,10 +4,10 @@
 ClassComponent::ClassComponent()
 {
 	speed = 15;
-	width = 2.7;
-	height = 2.7;
+	width = 2.7f;
+	height = 2.7f;
 	seedRequired = 5;
-	featherSpeed = 1.0 / 7.0;
+	featherSpeed = 1.0f / 7.0f;
 	featherWidth = 1;
 	featherHeight = 1;
 	abilityCooldown = 15;
