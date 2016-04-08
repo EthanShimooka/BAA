@@ -51,9 +51,13 @@ void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initi
 
 
 void PlayerLogicComponent::spawnShield(){
-
-	GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
-
+	if (currBirdseed == maxsBirdseed){
+		GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		currBirdseed = 0;
+	}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+	}
 }
 
 void PlayerLogicComponent::becomeEgg(){

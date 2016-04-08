@@ -96,6 +96,7 @@ void PlayerInputComponent::Update(){
 			}
 		}
 		else{
+			//roll the egg back to base
 			body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 		}
 
