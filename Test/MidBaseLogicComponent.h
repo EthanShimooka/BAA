@@ -6,5 +6,12 @@ class MidBaseLogicComponent :
 public:
 	MidBaseLogicComponent(GameObject * base);
 	~MidBaseLogicComponent();
+
+
+	int base_health;
+	int team;
+	
+
+
 };
 

@@ -59,6 +59,8 @@ public:
 	bool isAlive;
 	/// type of game object
 	int type;
+	/// Object team
+	int team;
 	///World X Position
 	float posX;
 	///World Y Position
@@ -115,6 +117,7 @@ enum GAMEOBJECT_TYPE {
 	OBJECT_SWTICH = 3,
 	OBJECT_FEATHER = 4,
 	OBJECT_POWERSHIELD = 5,
+	OBJECT_BASE = 6
 	//we can keep on adding more as needed
 };
 

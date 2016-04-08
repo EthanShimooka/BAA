@@ -13,6 +13,9 @@ class MidBasePhysicsComponent :
 public:
 	MidBasePhysicsComponent(GameObject * base);
 	~MidBasePhysicsComponent();
+	
+	
+	void handleCollision(GameObject* otherObj);
 
 	void Init();
 	void Update();
