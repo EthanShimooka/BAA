@@ -28,11 +28,13 @@ public:
 	SQUADIO_API string GetMinutesLeftAsString(int timeRemainingInSec);
 	/// Takes the time remaining in seconds and returns the seconds to be displayed alongside minutes
 	SQUADIO_API string GetSecondsLeftAsString(int timeRemainingInSec);
-
+	/// Returns true if minions should be spawned
+	SQUADIO_API bool SpawnMinions();
 private:
 	float		mDeltaTime;
 	uint64_t	mDeltaTick;
 
+	int			minionCounter;
 	int			gameLengthInSeconds;
 	time_t		startTimeInSeconds;
 	double		mLastFrameStartTime;
