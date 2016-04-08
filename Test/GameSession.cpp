@@ -249,11 +249,6 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
-	//Single minion spawn for memleak debugging
-	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
-
-	//renderMan->cursorToCrosshair();
-
 	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	bool firstTime = true;
@@ -349,10 +344,14 @@ int GameSession::Run(){
 			spawnTimer2 = time(0);
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -5 00, 0, 200, true));
 		}*/
-		bool spawnMinions = Timing::sInstance.Update();
+		//Every 5 seconds, spawn a wave of 3 minions, each minion spawning 1 sec apart
+		if (Timing::sInstance.SpawnMinions()){
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -835, 0, 200, true));
+		}
 		input->update();
 		sceneMan->AssembleScene();
 
+		if (Timing::sInstance.GetTimeRemainingS() == 0) break;
 		firstTime = false;
 	}
 	/////////////////////////////////////////////////////
