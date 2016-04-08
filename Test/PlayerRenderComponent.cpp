@@ -54,7 +54,8 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	// changing the values in InstantiateBlankObject does not stop the text from being stretched
 	// need fixing (to not stretch text to fill box)
 	// text, R, G, B, fontsize, fontname
-	name->setResourceObject(renderMan->renderText("Player name", 200, 0, 200, 20, "BowlbyOneSC-Regular"));
+	std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
+	name->setResourceObject(renderMan->renderText(playerName.c_str(), 200, 0, 200, 20, "BowlbyOneSC-Regular"));
 	//name->setParent(base);
 	name->setPos(0,-60);
 	allObjs["name"] = name;
