@@ -36,11 +36,11 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 	switch (PID){
 	case PLAY_BUTTON:
-		rend->uiObjectRef->setPos(w / 2 + 25, h / 2 - 25);
+		rend->uiObjectRef->setPos((float)w / 2 + 25, (float)h / 2 - 25);
 		rend->createUIType(PLAY_BUTTON);
 		break;
 	case JOIN_BUTTON:
-		rend->uiObjectRef->setPos(w / 2 - 125, h / 2 - 25);
+		rend->uiObjectRef->setPos((float)w / 2 - 125, (float)h / 2 - 25);
 		rend->createUIType(JOIN_BUTTON);
 		// in here we will want to add some functionallity to
 		// join a lobby or set a flag to join a lobby.
@@ -52,7 +52,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 		rend->createUIType(BACK_BUTTON);
 		break;
 	case OPTIONS_BUTTON:
-		rend->uiObjectRef->setPos(w / 2 + 25, h / 2 - 25);
+		rend->uiObjectRef->setPos((float)w / 2 + 25, (float)h / 2 - 25);
 		rend->createUIType(OPTIONS_BUTTON);
 		break;
 	case SCORE:
@@ -101,15 +101,15 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 
 	switch (PID){
 	case READY_BUTTON:
-		rend->uiObjectRef->setPos(x, y);
+		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(READY_BUTTON);
 		break;
 	case PLAYER_SLOT:
-		rend->uiObjectRef->setPos(x, y);
+		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(PLAYER_SLOT);
 		break;
 	case BIRD:
-		rend->uiObjectRef->setPos(x, y);
+		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(BIRD);
 		break;
 	}

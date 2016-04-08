@@ -24,7 +24,7 @@ void PlayerInputComponent::Update(){
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		Controller* controller = input->controller;
 		//handle input for moving
-		body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*playerSpeed, body->GetLinearVelocity().y));
+		body->SetLinearVelocity(b2Vec2((float)controller->getLeftThumbX()*playerSpeed, body->GetLinearVelocity().y));
 		//keyboard move right
 		if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 			body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
@@ -59,9 +59,9 @@ void PlayerInputComponent::Update(){
 			PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			float dx, dy;
 			renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-			uint64_t id = logic->spawnFeather(dx, dy, chargeTime, featherSpeed);
+			uint64_t id = logic->spawnFeather((int)dx, (int)dy, (float)chargeTime, featherSpeed);
 			PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			net->createFeatherPacket(id, dx, dy, chargeTime);
+			net->createFeatherPacket(id, (int)dx, (int)dy, (float)chargeTime);
 		}
 
 		//if (controller->getLeftTrigger() > 0.8){	

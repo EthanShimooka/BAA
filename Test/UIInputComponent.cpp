@@ -68,6 +68,7 @@ bool UIInputComponent::isButtonPressed(int width, int height){
 			return true;
 		}
 	}
+	return false;
 }
 
 bool UIInputComponent::isMouseHovering(){
