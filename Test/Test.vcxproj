@@ -85,6 +85,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllComponentIncludes.h" />
+    <ClInclude Include="ChickenClassComponent.h" />
+    <ClInclude Include="ClassComponent.h" />
+    <ClInclude Include="ClassComponentIncludes.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseComponentIncludes.h" />
@@ -145,6 +149,7 @@
     <ClInclude Include="PowerShieldRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderUIComponent.h" />
+    <ClInclude Include="SystemClassUpdater.h" />
     <ClInclude Include="SystemGameObjectQueue.h" />
     <ClInclude Include="SystemInputUpdater.h" />
     <ClInclude Include="SystemLogicUpdater.h" />
@@ -162,6 +167,8 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChickenClassComponent.cpp" />
+    <ClCompile Include="ClassComponent.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
@@ -215,6 +222,7 @@
     <ClCompile Include="PowerShieldRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderUIComponent.cpp" />
+    <ClCompile Include="SystemClassUpdater.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />
     <ClCompile Include="SystemInputUpdater.cpp" />
     <ClCompile Include="SystemLogicUpdater.cpp" />

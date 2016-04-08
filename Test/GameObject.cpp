@@ -48,7 +48,7 @@ GameObject::~GameObject(){
 	case OBJECT_PLAYER :
 		for (int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
-			case COMPONENT_RENDER :
+			case COMPONENT_RENDER:
 				delete dynamic_cast<PlayerRenderComponent*>(g_components[i].component);
 				break;
 			case COMPONENT_LOGIC:
@@ -60,10 +60,12 @@ GameObject::~GameObject(){
 			case COMPONENT_INPUT:
 				delete dynamic_cast<PlayerInputComponent*>(g_components[i].component);
 				break;
-			case COMPONENT_NETWORK :
+			case COMPONENT_NETWORK:
 				delete dynamic_cast<PlayerNetworkComponent*>(g_components[i].component);
 				break;
-			default :
+			case COMPONENT_CLASS:
+				delete dynamic_cast<ClassComponent*>(g_components[i].component);
+			default:
 				break;
 			}
 		}
