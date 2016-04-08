@@ -33,5 +33,5 @@ void GameWorld::update(){
 	if (fps == 0)fps++;//prevents dividing by zero
 	fps/= (double)(CLOCKS_PER_SEC);
 	currTime = clock();
-	physicsWorld->Step(fps,5,5);
+	physicsWorld->Step((float32)fps,5,5);
 }

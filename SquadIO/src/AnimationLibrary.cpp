@@ -26,14 +26,14 @@ std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, d
 
 std::function<void(float)> moveCircArc(SDLRenderObject* obj, float centerx, float centery, double radius, double start_angle, double end_angle){
 	return [=](float i) {
-		obj->posX = centerx + radius * cos(M_PI*(end_angle*i + start_angle) / 180);
-		obj->posY = centery + radius * sin(M_PI*(end_angle*i + start_angle) / 180);
+		obj->posX = centerx + (float)(radius * cos(M_PI*(end_angle*i + start_angle) / 180));
+		obj->posY = centery + (float)(radius * sin(M_PI*(end_angle*i + start_angle) / 180));
 	};
 }
 std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, float centerx, float centery, double height, double width, double start_angle, double end_angle){
 	return [=](float i) {
-		obj->posX = centerx + width / 2 * cos(M_PI*(end_angle*i + start_angle) / 180);
-		obj->posY = centery + height / 2 * sin(M_PI*(end_angle*i + start_angle) / 180);
+		obj->posX = centerx + (float)(width / 2 * cos(M_PI*(end_angle*i + start_angle) / 180));
+		obj->posY = centery + (float)(height / 2 * sin(M_PI*(end_angle*i + start_angle) / 180));
 	};
 }
 

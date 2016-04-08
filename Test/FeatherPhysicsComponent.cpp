@@ -34,8 +34,8 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	gameObjectRef->posX = initX;
 	gameObjectRef->posY =  initY;
 	float xAngle = dx - initX;
-	if (xAngle == 0)xAngle = 0.00001;
-	gameObjectRef->rotation = atan((dy - initY) / (xAngle)) / M_PI * 180;
+	if (xAngle == 0)xAngle = 0.00001f;
+	gameObjectRef->rotation = (float)(atan((dy - initY) / (xAngle)) / M_PI * 180);
 	gameObjectRef->flipH = !(dx-initX > 0);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), gameObjectRef->rotation / (float)(180.0 * M_PI));
 
