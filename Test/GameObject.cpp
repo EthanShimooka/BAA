@@ -46,7 +46,7 @@ GameObject::~GameObject(){
 	log->flush();
 	switch (type){
 	case OBJECT_PLAYER :
-		for (int i = 0; i < g_components.size(); i++) {
+		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
 			case COMPONENT_RENDER:
 				delete dynamic_cast<PlayerRenderComponent*>(g_components[i].component);
@@ -71,7 +71,7 @@ GameObject::~GameObject(){
 		}
 		break;
 	case OBJECT_FEATHER:
-		for (int i = 0; i < g_components.size(); i++) {
+		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
 			case COMPONENT_RENDER:
 				delete dynamic_cast<FeatherRenderComponent*>(g_components[i].component);
@@ -91,7 +91,7 @@ GameObject::~GameObject(){
 		}
 		break;
 	case OBJECT_MINION:
-		for (int i = 0; i < g_components.size(); i++) {
+		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
 			case COMPONENT_RENDER:
 				delete dynamic_cast<MinionRenderComponent*>(g_components[i].component);
@@ -111,7 +111,7 @@ GameObject::~GameObject(){
 		}
 		break;
 	case OBJECT_PLATFORM:
-		for (int i = 0; i < g_components.size(); i++) {
+		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
 			case COMPONENT_RENDER:
 				delete dynamic_cast<PlatformRenderComponent*>(g_components[i].component);
@@ -125,7 +125,7 @@ GameObject::~GameObject(){
 		}
 		break;
 	case OBJECT_POWERSHIELD:
-		for (int i = 0; i < g_components.size(); i++) {
+		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
 			case COMPONENT_RENDER:
 				delete dynamic_cast<PowerShieldRenderComponent*>(g_components[i].component);
@@ -172,14 +172,14 @@ void GameObject::AddComponent(int c_type, Component* comp){
 
 void GameObject::UpdateComponents(){
 
-	for (int i = 0; i < g_components.size(); i++){
+	for (unsigned int i = 0; i < g_components.size(); i++){
 		g_components[i].component->Update();
 	}
 }
 
 void GameObject::UpdateComponentByType(int c_type){
 
-	for (int i = 0; i < g_components.size(); i++){
+	for (unsigned int i = 0; i < g_components.size(); i++){
 	
 		if (g_components[i].type == c_type)
 			g_components[i].component->Update();
@@ -187,7 +187,7 @@ void GameObject::UpdateComponentByType(int c_type){
 }
 
 Component* GameObject::GetComponent(int c_type) {
-	for (int i = 0; i < g_components.size(); i++){
+	for (unsigned int i = 0; i < g_components.size(); i++){
 		if (g_components[i].type == c_type)
 			return g_components[i].component;
 	}

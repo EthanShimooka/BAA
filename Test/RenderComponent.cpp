@@ -101,7 +101,7 @@ void RenderComponent::RenderBoundingBox(SDLRenderObject* boxRender){
 void RenderComponent::ApplyPhysicsRotation(SDLRenderObject* render){
 	PhysicsComponent* physics = dynamic_cast<PhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	if (!physics)return;
-	render->setRotation(physics->mBody->GetAngle() * 180 / M_PI);
+	render->setRotation(physics->mBody->GetAngle() * (float)(180 / M_PI));
 }
 void RenderComponent::Update(){
 

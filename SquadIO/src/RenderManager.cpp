@@ -338,17 +338,17 @@ bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
 	//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 	//SDL_RenderDrawRect(renderer, &pos);
 	//check if any of the 4 corners of an object are within the window's dimensions
-	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
-		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+	if (isPointInBounds((int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+		(int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
 		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds(round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
-		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+	if (isPointInBounds((int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
+		(int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
 		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds(round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
-		round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
+	if (isPointInBounds((int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+		(int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
 		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds(round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
-		round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
+	if (isPointInBounds((int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
+		(int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
 		0, wWidth, 0, wHeight)) return true;
 	return false;
 }
