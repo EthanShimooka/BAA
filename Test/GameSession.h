@@ -14,6 +14,8 @@ configurations.
 #ifndef GAMESESSION_H_INCLUDED
 #define GAMESESSION_H_INCLUDED
 
+
+
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
@@ -60,6 +62,9 @@ configurations.
 #include "SystemClassUpdater.h"
 #include "lobby.h"
 #include "start.h"
+
+//temp
+#include "config.h"
 
 class GameSession
 {
