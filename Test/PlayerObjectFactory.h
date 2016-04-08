@@ -22,6 +22,7 @@
 #include "Component.h"
 #include "MovementComponent.h"
 #include "PlayerComponentIncludes.h"
+#include "ClassComponentIncludes.h"
 
 
 
@@ -32,8 +33,17 @@ public:
 	~PlayerObjectFactory();
 
 	/// Creates a new player GameObject
-	GameObject * Spawn(uint64_t PID, bool local);
+	GameObject * Spawn(uint64_t PID, int classType, bool local);
 	
+};
+
+enum classType {
+	CLASS_CHICKEN = 1,
+	CLASS_PEACOCK = 2,
+	CLASS_EAGLE = 3,
+	CLASS_QUAIL = 4,
+	CLASS_TURKEY = 5,
+	CLASS_FLAMINGO = 6,
 };
 
 #endif

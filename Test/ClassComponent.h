@@ -34,6 +34,15 @@ public:
 
 	/// update object Positions from Input
 	virtual void Update();
+	/// returns true if the ability was used, else returns false
+	//virtual bool UseAbility();
+
+	float speed;
+	float width, height;
+	int   seedRequired;
+	float featherSpeed;
+	float featherWidth, featherHeight;
+	float abilityCooldown;
 };
 
 #endif

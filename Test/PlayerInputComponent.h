@@ -20,7 +20,7 @@ Only the local player GameObject should have this component.
 class PlayerInputComponent : public InputComponent
 {
 public:
-	PlayerInputComponent(GameObject* player);
+	PlayerInputComponent(GameObject* player, float _playerSpeed, float _featherSpeed);
 	~PlayerInputComponent();
 
 	void Update();
@@ -32,6 +32,8 @@ private:
 	bool isChargingAttack = false;
 	/// the top bound for feather timer
 	float maxCharge = 1300;
+	float playerSpeed;
+	float featherSpeed;
 };
 
 #endif
