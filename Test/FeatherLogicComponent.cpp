@@ -44,5 +44,7 @@ void FeatherLogicComponent::init(){
 }
 
 void FeatherLogicComponent::giveBirdseed(int numSeeds) {
-	dynamic_cast<PlayerLogicComponent*>(owner->GetComponent(COMPONENT_LOGIC))->currBirdseed += numSeeds;
+	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(owner->GetComponent(COMPONENT_LOGIC));
+	if (logicComp->currBirdseed + numSeeds <= logicComp->maxsBirdseed)logicComp->currBirdseed += numSeeds;
+	else logicComp->currBirdseed = logicComp->maxsBirdseed;
 } 

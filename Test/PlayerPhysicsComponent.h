@@ -15,6 +15,7 @@ public:
 	void Update();
 	void init(float height, float width);
 	void handleCollision(GameObject* otherObj);
+
 };
 
 #endif
