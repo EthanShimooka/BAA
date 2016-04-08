@@ -44,7 +44,12 @@ public:
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
 
-	//bool isChargingAttack = false;
+	int currBirdseed=1;
+	int maxsBirdseed=5;
+	SDLRenderObject* birdseedHUD;
+	SDL_Rect defaultRect;
+
+	SDLRenderObject* timerHUD;
 };
 
 #endif

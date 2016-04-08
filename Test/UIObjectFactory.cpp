@@ -58,6 +58,13 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case SCORE:
 		break;
 	case TIMER:
+		rend->createUIType(TIMER);
+		break;
+	case BIRDSEED_BAR:
+		rend->createUIType(BIRDSEED_BAR);
+		break;
+	case BIRDSEED_SHELL:
+		rend->createUIType(BIRDSEED_SHELL);
 		break;
 	}
 	uiObject->AddComponent(COMPONENT_RENDER, rend);

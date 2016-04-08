@@ -130,6 +130,15 @@ void SDLRenderObject::setScale(float sx,float sy){
 	height = sx;
 	width = sy;
 }
+float SDLRenderObject::calcXScale(float w){
+	return w * frameWidth / renderRect.w;
+}
+float SDLRenderObject::calcYScale(float h){
+	return h * frameHeight / renderRect.h;
+}
+void SDLRenderObject::calcScale(float w, float h){
+	setScale(calcXScale(w), calcYScale(h));
+}
 int SDLRenderObject::getWidth(){
 	return (frameWidth>0) ? (int)(renderRect.w*getScaleX() / frameWidth) :(int) (renderRect.w*getScaleX());
 }
@@ -156,6 +165,10 @@ void SDLRenderObject::setIfRenderRect(bool flag){ ifRenderRect = flag; }
 void SDLRenderObject::toggleIfRenderRect(){ ifRenderRect = !ifRenderRect; }
 void SDLRenderObject::setIfRenderImage(bool flag){ ifRenderImage = flag; }
 void SDLRenderObject::toggleIfRenderImage(){ ifRenderImage = !ifRenderImage; }
+void SDLRenderObject::setIfRenderText(bool flag){ ifRenderText = flag; }
+void SDLRenderObject::setIfRenderText(bool flag, char* tex){ ifRenderText = flag; text = tex; }
+void SDLRenderObject::toggleIfRenderText(){ ifRenderText = !ifRenderText; }
+void SDLRenderObject::setText(char* tex) { text = tex; }
 
 float SDLRenderObject::getRotation(){
 	if (parent){
@@ -215,10 +228,10 @@ void SDLRenderObject::setCurrentFrame(unsigned int f){
 }
 SDL_Rect SDLRenderObject::getRenderRect(){
 	SDL_Rect rect;
-	rect.w = renderRect.w / frameWidth;
-	rect.h = renderRect.h / frameHeight;
-	rect.x = (frameCurrent%frameWidth)*rect.w;
-	rect.y = (float) ( roundf(frameCurrent / frameWidth)*rect.h);
+	rect.w =  renderRect.w / frameWidth;
+	rect.h =  renderRect.h / frameHeight;
+	rect.x = renderRect.x + (frameCurrent%frameWidth)*rect.w;
+	rect.y = renderRect.y + (float)(roundf(frameCurrent / frameWidth)*rect.h);
 	return rect;
 }
 

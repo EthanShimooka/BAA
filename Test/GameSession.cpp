@@ -26,21 +26,86 @@ GameSession::~GameSession(){
 void GameSession::LoadWorld(){
 
 	PlatformObjectFactory plFactory;
+	MidPlatObjectFactory mpFactory;
+	MidBaseObjectFactory mbFactory;
 
-	for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(plFactory.Spawn((321556 + (i)), (i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543543 + i), (i * 340), -240, 0));
-		GameObjects.AddObject(plFactory.Spawn((322556 + (i)), (-i * 340), 240, 0));
-		GameObjects.AddObject(plFactory.Spawn((543643 + i), (-i * 340), -240, 0));
+	for (int i = 0; i < 4; i++){
+		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((501000 + i), (i * 340), -240, 0));
+		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (-i * 340), 240, 0));
+		GameObjects.AddObject(plFactory.Spawn((503000 + i), (-i * 340), -240, 0));
 	}
+	for (int i = 0; i < 3; i++){
+		GameObjects.AddObject(mpFactory.Spawn(504000 + i, -i * 350, 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(505000 + i, i * 350, 0, 0));
+	}
+	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
+	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
+
 }
 
 // Loads player Objects from session arguments (instantiated player list).
 // Chara selections are transfered into object factory calls. 
 
 void GameSession::LoadPlayers(){
-
+	
 }
+
+void GameSession::LoadHUD(GameObject* player){
+	//initialize HUD info for the player. Should only be called once
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	SystemUIObjectQueue queue;
+	UIObjectFactory HUDFactory;
+	//add the birdseed reference to player logic
+	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
+	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
+	queue.AddObject(birdseedMeter);
+	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
+	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	//add a timer to top of screen
+	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
+	queue.AddObject(countdownTimer);
+	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void cullObjects(){
+	for (int i = 0; i < GameObjects.dead_objects.size(); i++) {
+		dynamic_cast<RenderComponent*>(GameObjects.dead_objects[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
+	}
+	for (int i = 0; i < GameObjects.dead_feathers.size(); i++) {
+		dynamic_cast<RenderComponent*>(GameObjects.dead_feathers[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
+	}
+	for (int i = 0; i < GameObjects.dead_minions.size(); i++) {
+		dynamic_cast<RenderComponent*>(GameObjects.dead_minions[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
+	}
+
+	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
+	RenderManager* renMan = RenderManager::getRenderManager();
+	int width = 3000;
+	int height = 2000;
+	int left, right, top, bot;
+	left = right = top = bot = 0;
+
+	for (int i = 0; i < GameObjects.alive_objects.size(); i++) {
+		left = right = top = bot = 0;
+		SDLRenderObject* obj = dynamic_cast<RenderComponent*>(GameObjects.alive_objects[i]->GetComponent(COMPONENT_RENDER))->objRef;
+
+		renMan->worldCoordToWindowCoord(left, top, obj->posX, obj->posY, obj->posZ);
+		renMan->worldCoordToWindowCoord(right, bot, (obj->posX + obj->width), (obj->posY + obj->height), obj->posZ);
+
+		if ((right < -width / 2) || (left > width / 2) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
+			obj->setVisible(false);
+		}
+		else{
+			obj->setVisible(true);
+		}
+	}
+}
+
 
 // Run contains the main Gameloop
 // TODO: create arguements once lobby system is implemented.
@@ -95,6 +160,7 @@ int GameSession::Run(){
 	MinionObjectFactory mFactory;
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
+	MidPlatObjectFactory mpFactory;
 
 	/*Start menu;
 	menu.mainMenu();
@@ -152,8 +218,8 @@ int GameSession::Run(){
 
 	//World Loading
 	GameSession::LoadWorld();
-	//Game Session::LoadPlayers();
-
+	GameSession::LoadPlayers();
+	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
 
@@ -190,13 +256,15 @@ int GameSession::Run(){
 
 	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
+	bool firstTime = true;
+	Timing::sInstance.SetCountdownStart();
+
 	while (gameloop) {
 
-		std::cout << NetworkManager::sInstance->GetState() << std::endl;
+		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter) / 20);
 		aniCounter++;
 		aniCounter = aniCounter % 20;
-
 
 		if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
@@ -249,9 +317,12 @@ int GameSession::Run(){
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
+
+		//OBJECT POOLING - moves recently dead objects to respective dead pool
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){
-				std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
+				//object has died this last gameloop. send it to the object pool
+				//std::cout << "ID: " << GameObjects.alive_objects[i]->ID << std::endl;
 				if (GameObjects.alive_objects[i]->type == OBJECT_FEATHER){
 					GameObjects.dead_feathers.push_back(GameObjects.alive_objects[i]);
 				}
@@ -264,6 +335,10 @@ int GameSession::Run(){
 				GameObjects.alive_objects.erase(GameObjects.alive_objects.begin() + i);
 			}
 		}
+		
+		if (!firstTime) //allows culling to start after all initialization happens
+			cullObjects();
+
 		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
 		/*MINION SPAWNING BELOW
 		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
@@ -272,11 +347,13 @@ int GameSession::Run(){
 		}
 		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
 			spawnTimer2 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, 0, 200, true));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -5 00, 0, 200, true));
 		}*/
-
+		bool spawnMinions = Timing::sInstance.Update();
 		input->update();
 		sceneMan->AssembleScene();
+
+		firstTime = false;
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
@@ -293,7 +370,6 @@ int GameSession::Run(){
 	log->close();
 	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
+	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
-
-

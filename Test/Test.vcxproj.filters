@@ -103,11 +103,11 @@
     <Filter Include="Source Files\Component\UI Component">
       <UniqueIdentifier>{eb62d946-e2cf-4471-be5e-0fb9ce22dac1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Component\Player Component\Class Component">
-      <UniqueIdentifier>{666dc817-8e24-4278-a32b-1aadf4af45a7}</UniqueIdentifier>
+    <Filter Include="Header Files\Component\Player Component\ClassComponent">
+      <UniqueIdentifier>{9928a041-1263-4c98-8a00-2185344054b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Component\Player Component\Class Component">
-      <UniqueIdentifier>{e16d61e2-677b-4760-868b-1b30e093baa9}</UniqueIdentifier>
+    <Filter Include="Source Files\Component\Player Component\ClassComponent">
+      <UniqueIdentifier>{eb8117af-ad80-4467-9ad1-5d352ee41627}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -203,9 +203,6 @@
     </ClInclude>
     <ClInclude Include="FeatherObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWorld.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsListener.h">
       <Filter>Header Files</Filter>
@@ -333,17 +330,26 @@
     <ClInclude Include="UIObject.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="MidBaseObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBaseComponentIncludes.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ChickenClassComponent.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
+    </ClInclude>
     <ClInclude Include="ClassComponent.h">
       <Filter>Header Files\Component\Abstract Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassComponentIncludes.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
     </ClInclude>
     <ClInclude Include="SystemClassUpdater.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="ChickenClassComponent.h">
-      <Filter>Header Files\Component\Player Component\Class Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ClassComponentIncludes.h">
-      <Filter>Header Files\Component\Player Component\Class Component</Filter>
+    <ClInclude Include="GameWorld.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +494,6 @@
     <ClCompile Include="MidPlatSwitchRenderComponent.cpp">
       <Filter>Source Files\Component\MidPlatSwitchComponent</Filter>
     </ClCompile>
-    <ClCompile Include="GameWorld.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MidPlatSwitchPhysicsComponent.cpp">
       <Filter>Source Files\Component\MidPlatSwitchComponent</Filter>
     </ClCompile>
@@ -548,14 +551,20 @@
     <ClCompile Include="UIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
+    <ClCompile Include="MidBaseObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ChickenClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
     <ClCompile Include="ClassComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="SystemClassUpdater.cpp">
       <Filter>Source Files\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="ChickenClassComponent.cpp">
-      <Filter>Source Files\Component\Player Component\Class Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

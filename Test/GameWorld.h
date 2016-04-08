@@ -13,7 +13,7 @@ protected:
 	void operator=(GameWorld const&) {};
 
 	// single instance of InputManager
-	static GameWorld* gameWorld;
+	static GameWorld gameWorld;
 public:
 	b2World* physicsWorld;
 	static GameWorld* getInstance();

@@ -65,6 +65,9 @@ public:
 	bool ifRenderRect;
 	/// render the image
 	bool ifRenderImage;
+	/// render text
+	bool ifRenderText;
+	char * text;
 	/// Total number of frames
 	unsigned int frameTotal;
 	/// current frame of the animation sheet
@@ -113,7 +116,10 @@ public:
 	SQUADIO_API void setScale(float s);
 	/// Set object's size multiplier
 	SQUADIO_API void setScale(float sx, float sy);
-
+	SQUADIO_API float calcXScale(float w);
+	SQUADIO_API float calcYScale(float h);
+	/// Calculate and set object's size multiplier using a width and height
+	SQUADIO_API void calcScale(float w, float h);
 
 	/// Get object's width
 	SQUADIO_API int getWidth();
@@ -141,6 +147,12 @@ public:
 	/// Set if the object should be rendered as an image
 	SQUADIO_API void setIfRenderImage(bool flag);
 	SQUADIO_API void toggleIfRenderImage();
+
+	/// Set if the object should be rendered as an image
+	SQUADIO_API void setIfRenderText(bool flag);
+	SQUADIO_API void setIfRenderText(bool flag, char * tex);
+	SQUADIO_API void toggleIfRenderText();
+	SQUADIO_API void setText(char* tex);
 
 
 	/// Get the object's rotation
