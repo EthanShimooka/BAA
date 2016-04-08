@@ -14,11 +14,11 @@ SystemNetworkUpdater::~SystemNetworkUpdater()
 
 void SystemNetworkUpdater::NetworkUpdate(std::vector<GameObject*> obj)
 {
-	for (int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
+	for (unsigned int i = 0; i < NetworkManager::sInstance->test.size(); ++i){
 		uint64_t UID;
 		NetworkManager::sInstance->test.front().Read(UID);
 
-		for (int i = 0; i < obj.size(); ++i){
+		for (unsigned int i = 0; i < obj.size(); ++i){
 			if (obj[i]->ID == UID){
 				NetworkComponent* net = dynamic_cast<NetworkComponent*>(obj[i]->GetComponent(COMPONENT_NETWORK));
 				if (net)
