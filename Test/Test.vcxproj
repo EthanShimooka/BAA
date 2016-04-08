@@ -88,6 +88,7 @@
     <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseComponentIncludes.h" />
