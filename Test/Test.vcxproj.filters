@@ -354,6 +354,12 @@
     <ClInclude Include="config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MidPlatShieldComponentIncludes.h">
+      <Filter>Header Files\Component\MidPlatShield Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidPlatSwitchComponentIncludes.h">
+      <Filter>Header Files\Component\MidPlatSwitch Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">

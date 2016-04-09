@@ -3,15 +3,31 @@
 
 MidBaseLogicComponent::MidBaseLogicComponent(GameObject * base)
 {
-	int base_health = 5;
-	//?
-	int team = 1;
-
-
 
 }
 
 
 MidBaseLogicComponent::~MidBaseLogicComponent()
 {
+}
+
+void MidBaseLogicComponent::health(){
+
+	
+
+}
+
+
+void MidBaseLogicComponent::attacked()
+{
+	
+	std::cout << "ded /n" << std::endl;
+	gameObjectRef->isAlive = false;
+
+}
+
+void MidBaseLogicComponent::Update(){
+
+
+
 }

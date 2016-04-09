@@ -9,11 +9,9 @@ MidBasePhysicsComponent::MidBasePhysicsComponent(GameObject * base)
 
 }
 
-
 MidBasePhysicsComponent::~MidBasePhysicsComponent()
 {
 }
-
 
 void MidBasePhysicsComponent::Init(){
 
@@ -29,7 +27,7 @@ void MidBasePhysicsComponent::Init(){
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(5.5f, 12.7f); // look up other functions for polygons
+	box.SetAsBox(5.5, 12.7); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
@@ -38,29 +36,25 @@ void MidBasePhysicsComponent::Init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
-
-
-
+	setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER | COLLISION_MINION);
 
 }
-
 
 void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
 	//probably destroy itself, maybe trigger a sound?
 	switch (otherObj->type){
-	case GAMEOBJECT_TYPE::OBJECT_MINION:{
-
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
 											// chack to see if it is of opposing minion type
-											if otherObj()
+										//	if (otherObj->team != gameObjectRef->team){
+											 std::cout << "Funk Season \n" << std::endl;
 
+											dynamic_cast<MidBaseLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->base_health--;
 
-											//give birdseed
-											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
-											//destroy self or return to object pool
-											gameObjectRef->isAlive = false;
-											break;
+												//
+									//		}
+								
+							         		break;
 	}
 
 	default:
@@ -68,14 +62,3 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 }
 
-
-
-
-void MidBasePhysicsComponent::Update(){
-
-
-
-
-
-
-}
