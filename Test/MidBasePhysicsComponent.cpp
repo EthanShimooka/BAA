@@ -48,9 +48,8 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											// chack to see if it is of opposing minion type
 										//	if (otherObj->team != gameObjectRef->team){
 											 std::cout << "Funk Season \n" << std::endl;
-
-											dynamic_cast<MidBaseLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->base_health--;
-
+											 base_hit = true;
+											
 												//
 									//		}
 								
@@ -62,3 +61,10 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 }
 
+void MidBasePhysicsComponent::Update(){
+
+
+
+
+
+}

@@ -15,12 +15,14 @@ public:
 	MidBasePhysicsComponent(GameObject * base);
 	~MidBasePhysicsComponent();
 	
-	
+	bool base_hit = false;
+
+
 	void handleCollision(GameObject* otherObj);
 
 	void Init();
 
-
+	void Update();
 	
 };
 

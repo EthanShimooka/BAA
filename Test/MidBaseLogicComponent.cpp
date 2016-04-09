@@ -1,4 +1,6 @@
 #include "MidBaseLogicComponent.h"
+#include "MidBasePhysicsComponent.h"
+
 
 
 MidBaseLogicComponent::MidBaseLogicComponent(GameObject * base)
@@ -20,14 +22,16 @@ void MidBaseLogicComponent::health(){
 
 void MidBaseLogicComponent::attacked()
 {
+
+		base_health--;
 	
-	std::cout << "ded /n" << std::endl;
-	gameObjectRef->isAlive = false;
 
 }
 
 void MidBaseLogicComponent::Update(){
 
-
+	if (base_health == 0){
+		gameObjectRef->isAlive = false;
+	}
 
 }
