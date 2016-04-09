@@ -74,7 +74,7 @@ Component* UIObject::GetComponent(int c_type) {
 }
 
 void UIObject::DetachComponent(){
-	for (unsigned int i = 0; i < component_count; i++){
+	for (int i = 0; i < component_count; i++){
 		delete g_components[i].component;
 		component_count--;
 	}

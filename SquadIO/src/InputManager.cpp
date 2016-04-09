@@ -38,7 +38,7 @@ void InputManager::update() {
 		controller->joystickButtonPressed[i] = false;
 		controller->joystickButtonReleased[i] = false;
 	}
-	for (int i = 0; i < controller->joystickDPad.size(); i++){
+	for (unsigned int i = 0; i < controller->joystickDPad.size(); i++){
 		controller->joystickDPad[i] = false;
 	}
 	mouseLeftPressed = false;
@@ -106,7 +106,7 @@ void InputManager::update() {
 				else controller->joystickAnalogs[0] = 0;
 			}//Y axis motion
 			
-			for (int i = 0; i < controller->joystickAnalogs.size(); i++){
+			for (unsigned int i = 0; i < controller->joystickAnalogs.size(); i++){
 				if (ev.jaxis.axis == i){
 					//Below of dead zone
 					if (abs(ev.jaxis.value) > JOYSTICK_DEAD_ZONE){

@@ -26,14 +26,14 @@ std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, d
 
 std::function<void(float)> moveCircArc(SDLRenderObject* obj, float centerx, float centery, double radius, double start_angle, double end_angle){
 	return [=](float i) {
-		obj->posX = centerx + radius * cos(M_PI*(end_angle*i + start_angle) / 180);
-		obj->posY = centery + radius * sin(M_PI*(end_angle*i + start_angle) / 180);
+		obj->posX = centerx + (float)(radius * cos(M_PI*(end_angle*i + start_angle) / 180));
+		obj->posY = centery + (float)(radius * sin(M_PI*(end_angle*i + start_angle) / 180));
 	};
 }
 std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, float centerx, float centery, double height, double width, double start_angle, double end_angle){
 	return [=](float i) {
-		obj->posX = centerx + width / 2 * cos(M_PI*(end_angle*i + start_angle) / 180);
-		obj->posY = centery + height / 2 * sin(M_PI*(end_angle*i + start_angle) / 180);
+		obj->posX = centerx + (float)(width / 2 * cos(M_PI*(end_angle*i + start_angle) / 180));
+		obj->posY = centery + (float)(height / 2 * sin(M_PI*(end_angle*i + start_angle) / 180));
 	};
 }
 
@@ -64,7 +64,7 @@ std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, unsigned int st
 		if (i < 0) { obj->frameCurrent = startFrame; }
 		else if (i >= 1){ obj->frameCurrent = endFrame; }
 		else {
-			obj->frameCurrent = round(float(endFrame - startFrame)*i) + startFrame;
+			obj->frameCurrent = (unsigned int)round(float(endFrame - startFrame)*i) + startFrame;
 		}
 	};
 }
@@ -76,7 +76,7 @@ motion makeMotion(std::function<void(float)> trans, float start, float duration,
 	return m;
 }
 Animation::Animation(float d, std::list<motion> m){
-	duration = d;
+	duration = (unsigned int)d;
 	motions = m;
 }
 
