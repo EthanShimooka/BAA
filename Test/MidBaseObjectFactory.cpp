@@ -18,7 +18,7 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 	base->ID = PID;
 	base->setPos(posX, posY);
 	base->isAlive = true;
-	base->type = GAMEOBJECT_TYPE::OBJECT_PLATFORM;
+	base->type = GAMEOBJECT_TYPE::OBJECT_BASE;
 
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
