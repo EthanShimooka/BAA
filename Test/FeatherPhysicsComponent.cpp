@@ -1,4 +1,6 @@
 #include "FeatherPhysicsComponent.h"
+#include "MidBaseLogicComponent.h"
+
 
 
 FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float initX, float initY, float dx, float dy, float chargeTime, float speed)
@@ -28,7 +30,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 
-	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION);
+	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE);
 	
 	//handle init stuff for positions
 	gameObjectRef->posX = initX;
@@ -48,21 +50,33 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
 	//probably destroy itself, maybe trigger a sound?
 	switch (otherObj->type){
-		case GAMEOBJECT_TYPE::OBJECT_MINION:{
-			//give birdseed
-			dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
-			//destroy self or return to object pool
-			gameObjectRef->isAlive = false;
-			break;
-		}
-		case GAMEOBJECT_TYPE::OBJECT_PLAYER:
-			//destroy self or return to object pool
-			dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
-			gameObjectRef->isAlive = false;
-			break;
-		default:
-			break;
+	case GAMEOBJECT_TYPE::OBJECT_MINION:{
+											//give birdseed
+											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
+											//destroy self or return to object pool
+											gameObjectRef->isAlive = false;
+											break;
 	}
+	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
+											//destroy self or return to object pool
+											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
+											gameObjectRef->isAlive = false;
+											break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_BASE:{
+										  //destroy self or return to object pool
+										// dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->attacked();
+
+										  gameObjectRef->isAlive = false;
+										  break;
+	}
+
+	default:
+		break;
+}
+
+
+
 }
 
 void FeatherPhysicsComponent::Update() {

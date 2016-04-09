@@ -8,5 +8,9 @@
 #include "PlayerComponentIncludes.h"
 #include "PowerShieldIncludes.h"
 #include "ClassComponentIncludes.h"
+#include "MidPlatComponentIncludes.h"
+#include "MidBaseComponentIncludes.h"
+#include "MidPlatSwitchComponentIncludes.h"
+#include "MidPlatShieldComponentIncludes.h"
 
 #endif

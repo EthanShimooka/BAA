@@ -103,6 +103,8 @@
     <ClInclude Include="FeatherObjectFactory.h" />
     <ClInclude Include="FeatherPhysicsComponent.h" />
     <ClInclude Include="FeatherRenderComponent.h" />
+    <ClInclude Include="MidPlatShieldComponentIncludes.h" />
+    <ClInclude Include="MidPlatSwitchComponentIncludes.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
