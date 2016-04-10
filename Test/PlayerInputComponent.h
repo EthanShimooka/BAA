@@ -32,7 +32,8 @@ public:
 private:
 	/// True if player currently charging a feather
 	bool isChargingAttack = false;
-	
+	/// True if the player attack is not on cooldown
+	bool canFire = true;
 	/// the top bound for feather timer
 	float maxCharge = 1300;
 	float playerSpeed;
