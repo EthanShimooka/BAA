@@ -62,6 +62,10 @@ void Timing::SetCountdownStart(){
 	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
 }
 
+void Timing::StartAttackCooldown(){
+	attackCooldown = time(NULL);
+}
+
 int Timing::GetTimeRemainingS(){
 	double timeRemaining = 0;
 	time_t now = time(NULL);
@@ -80,6 +84,14 @@ string Timing::GetMinutesLeftAsString(int timeRemainingInSec){
 string Timing::GetSecondsLeftAsString(int timeRemainingInSec){
 	int sec = timeRemainingInSec % 60;
 	return std::to_string(sec);
+}
+
+bool Timing::AttackCooldownEnded(){
+	time_t now = time(NULL);
+	time_t timeElapsed = now - attackCooldown;
+	//attackCooldown = time(NULL);
+	if (timeElapsed >= 2) return true;
+	else return false;
 }
 
 bool Timing::SpawnMinions(){

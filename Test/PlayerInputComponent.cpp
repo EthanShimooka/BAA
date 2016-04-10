@@ -46,7 +46,7 @@ void PlayerInputComponent::Update(){
 				body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			//shoot feather
-			if (input->isMouseLeftPressed()){
+			if (input->isMouseLeftPressed() && canFire){
 				isChargingAttack = true;
 			}
 			if (isChargingAttack && input->isMouseLeftReleased()){
@@ -57,6 +57,9 @@ void PlayerInputComponent::Update(){
 				// for testing 
 				//chargeTime = 1300;
 				//std::cout << "Charge time: " << chargeTime << std::endl;
+				
+				Timing::sInstance.StartAttackCooldown();
+				canFire = false;
 				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 				float dx, dy;
 				renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
@@ -67,6 +70,10 @@ void PlayerInputComponent::Update(){
 			if (input->isKeyDown(KEY_O)){
 				//THIS IS FOR PLAYER DEATH TESTING!!!! REMOVE WHEN DONE!!
 				dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+			}
+			//2 Sec delay on feather firing, need some visual representation of cd
+			if (Timing::sInstance.AttackCooldownEnded()){
+				canFire = true;
 			}
 
 			//if (controller->getLeftTrigger() > 0.8){	
