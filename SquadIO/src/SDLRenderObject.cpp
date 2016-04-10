@@ -231,7 +231,7 @@ SDL_Rect SDLRenderObject::getRenderRect(){
 	rect.w =  renderRect.w / frameWidth;
 	rect.h =  renderRect.h / frameHeight;
 	rect.x = renderRect.x + (frameCurrent%frameWidth)*rect.w;
-	rect.y = renderRect.y + (float)(roundf(frameCurrent / frameWidth)*rect.h);
+	rect.y = renderRect.y + (int)(roundf((float)(frameCurrent / frameWidth)*rect.h));
 	return rect;
 }
 

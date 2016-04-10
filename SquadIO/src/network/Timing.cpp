@@ -20,6 +20,7 @@ namespace{
 Timing::Timing(){
 #if _WIN32
 	gameLengthInSeconds = 240;
+	minionCounter = 0;
 	LARGE_INTEGER perfFreq;
 	QueryPerformanceFrequency(&perfFreq);
 	mPerfCountDuration = 1.0 / perfFreq.QuadPart;
@@ -61,6 +62,10 @@ void Timing::SetCountdownStart(){
 	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
 }
 
+void Timing::StartAttackCooldown(){
+	attackCooldown = time(NULL);
+}
+
 int Timing::GetTimeRemainingS(){
 	double timeRemaining = 0;
 	time_t now = time(NULL);
@@ -72,13 +77,50 @@ int Timing::GetTimeRemainingS(){
 }
 
 string Timing::GetMinutesLeftAsString(int timeRemainingInSec){
-	int min = floor(timeRemainingInSec / 60);
+	int min = (int)floor(timeRemainingInSec / 60);
 	return std::to_string(min);
 }
 
 string Timing::GetSecondsLeftAsString(int timeRemainingInSec){
 	int sec = timeRemainingInSec % 60;
 	return std::to_string(sec);
+}
+
+bool Timing::AttackCooldownEnded(){
+	time_t now = time(NULL);
+	time_t timeElapsed = now - attackCooldown;
+	//attackCooldown = time(NULL);
+	if (timeElapsed >= 2) return true;
+	else return false;
+}
+
+bool Timing::SpawnMinions(){
+	int timeLeft = GetTimeRemainingS();
+	if (timeLeft >= gameLengthInSeconds - 4){ // Delay first wave
+		return false;
+	}
+	if (timeLeft % 5 == 0 && minionCounter == 0){
+		minionCounter = 1;
+		//std::cout << "timeLeft = " << timeLeft << std::endl;
+		return true;
+	}
+	else if (timeLeft % 5 == 4 && minionCounter == 1){
+		minionCounter = 2;
+		//std::cout << "timeLeft = " << timeLeft << std::endl;
+		return true;
+	}
+	else if (timeLeft % 5 == 3 && minionCounter == 2){
+		minionCounter = 3;
+		//std::cout << "timeLeft = " << timeLeft << std::endl;
+		return true;
+	}
+	else if (minionCounter == 3){
+		minionCounter = 0;
+		return false;
+	}
+	else{
+		return false;
+	}
 }
 
 double Timing::GetTime() const{

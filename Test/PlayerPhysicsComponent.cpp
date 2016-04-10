@@ -46,21 +46,23 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		//signal self death and turn to egg
-		
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
 		break;
 	default:
 		break;
 	}
 }
 
+
+
 void PlayerPhysicsComponent::Update(){
 	b2Vec2 vel = mBody->GetLinearVelocity();
 	if (gameObjectRef->posY < 0){
 		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
-		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.5));
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.5f));
 	}
 	else{
-		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5));
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5f));
 		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;

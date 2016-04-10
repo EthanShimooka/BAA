@@ -5,6 +5,7 @@
 
 
 #include "PhysicsComponent.h"
+#include "MidBaseLogicComponent.h"
 
 
 class MidBasePhysicsComponent :
@@ -13,10 +14,15 @@ class MidBasePhysicsComponent :
 public:
 	MidBasePhysicsComponent(GameObject * base);
 	~MidBasePhysicsComponent();
+	
+	bool base_hit = false;
+
+
+	void handleCollision(GameObject* otherObj);
 
 	void Init();
-	void Update();
 
+	void Update();
 	
 };
 

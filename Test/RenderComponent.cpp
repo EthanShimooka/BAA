@@ -94,14 +94,14 @@ void RenderComponent::RenderBoundingBox(SDLRenderObject* boxRender){
 		}
 		fixture = fixture->GetNext();
 	}
-	boxRender->setRenderRect(round(worldScale * (aabb.upperBound.x - aabb.lowerBound.x)), round(worldScale * (aabb.upperBound.y - aabb.lowerBound.y)));
+	boxRender->setRenderRect((int)round(worldScale * (aabb.upperBound.x - aabb.lowerBound.x)), (int)round(worldScale * (aabb.upperBound.y - aabb.lowerBound.y)));
 	boxRender->setPos(physics->mBody->GetPosition().x*worldScale, physics->mBody->GetPosition().y*worldScale);
 	ApplyPhysicsRotation(boxRender);
 }
 void RenderComponent::ApplyPhysicsRotation(SDLRenderObject* render){
 	PhysicsComponent* physics = dynamic_cast<PhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	if (!physics)return;
-	render->setRotation(physics->mBody->GetAngle() * 180 / M_PI);
+	render->setRotation(physics->mBody->GetAngle() * (float)(180 / M_PI));
 }
 void RenderComponent::Update(){
 

@@ -9,11 +9,9 @@ MidBasePhysicsComponent::MidBasePhysicsComponent(GameObject * base)
 
 }
 
-
 MidBasePhysicsComponent::~MidBasePhysicsComponent()
 {
 }
-
 
 void MidBasePhysicsComponent::Init(){
 
@@ -38,15 +36,32 @@ void MidBasePhysicsComponent::Init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
-
-
-
+	setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER | COLLISION_MINION);
 
 }
 
-void MidBasePhysicsComponent::Update(){
+void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
+	//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << std::endl;
+	//probably destroy itself, maybe trigger a sound?
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
+											// chack to see if it is of opposing minion type
+										//	if (otherObj->team != gameObjectRef->team){
+											 std::cout << "Funk Season \n" << std::endl;
+											 base_hit = true;
+											
+												//
+									//		}
+								
+							         		break;
+	}
 
+	default:
+		break;
+	}
+}
+
+void MidBasePhysicsComponent::Update(){
 
 
 

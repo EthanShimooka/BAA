@@ -2,6 +2,10 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 
+
+
+
+
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
@@ -46,6 +50,9 @@
 #include "lobby.h"
 #include "start.h"
 #include "GameSession.h"
+
+//temp
+#include "config.h"
 
 
 

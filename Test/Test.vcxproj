@@ -88,6 +88,7 @@
     <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseComponentIncludes.h" />
@@ -102,6 +103,8 @@
     <ClInclude Include="FeatherObjectFactory.h" />
     <ClInclude Include="FeatherPhysicsComponent.h" />
     <ClInclude Include="FeatherRenderComponent.h" />
+    <ClInclude Include="MidPlatShieldComponentIncludes.h" />
+    <ClInclude Include="MidPlatSwitchComponentIncludes.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
