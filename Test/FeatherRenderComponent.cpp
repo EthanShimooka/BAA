@@ -22,5 +22,8 @@ FeatherRenderComponent::~FeatherRenderComponent()
 
 void FeatherRenderComponent::Update(){
 	RenderComponent::Update();
-	RenderBoundingBox((allObjs["box"]));
+	if(gameObjectRef->isAlive)RenderBoundingBox((allObjs["box"]));
+	else{
+		allObjs["box"]->visible = false;
+	}
 }
