@@ -193,13 +193,13 @@ int GameSession::Run(){
 				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
 			}
 		}
 	}
 	/// create a local player with ID of 10000
 	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_PEACOCK, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
 	}
 
 

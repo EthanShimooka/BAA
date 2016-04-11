@@ -1,12 +1,11 @@
 #pragma once
 #include "ClassComponent.h"
-
-class ChickenClassComponent :
+class TurkeyClassComponent :
 	public ClassComponent
 {
 public:
-	ChickenClassComponent(GameObject* player);
-	~ChickenClassComponent();
+	TurkeyClassComponent(GameObject* player);
+	~TurkeyClassComponent();
 	void Update();
 	bool UseAbility();
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);

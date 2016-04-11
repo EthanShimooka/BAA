@@ -4,11 +4,11 @@
 
 #include "ClassComponent.h"
 #include "ChickenClassComponent.h"
-//#include "EagleClassComponent.h"
+#include "EagleClassComponent.h"
 #include "PeacockClassComponent.h"
-//#include "FlamingoClassComponent.h"
-//#include "QuailClassComponent.h"
-//#include "TurkeyClassComponent.h"
+#include "FlamingoClassComponent.h"
+#include "QuailClassComponent.h"
+#include "TurkeyClassComponent.h"
 
 
 #endif

@@ -1,7 +1,4 @@
 #include "ChickenClassComponent.h"
-//#include "include/network/GamerServices.h"
-
-
 
 ChickenClassComponent::ChickenClassComponent(GameObject* player)
 {	
@@ -20,9 +17,8 @@ void ChickenClassComponent::Update()
 {
 }
 
-void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
-	
-
+void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)
+{
 	//Use These Assets
 	/*
 
@@ -105,10 +101,6 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 
 	*/
 
-
-
-	
-	
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
