@@ -10,7 +10,6 @@ public:
 	~ChickenClassComponent();
 	void Update();
 	bool UseAbility();
-	void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
-
+	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 };
 
