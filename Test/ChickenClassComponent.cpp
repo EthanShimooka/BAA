@@ -135,7 +135,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 
 	//body->setScale(0.1);
 	//body->calcScale(50,50);
-	body->setScale(body->calcXScale(90));
+	body->setScale(body->calcXScale(50));
 	//body->setScale(body->calcXScale(90));
 
 	*objRef = base;

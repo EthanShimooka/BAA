@@ -360,6 +360,9 @@
     <ClInclude Include="MidPlatSwitchComponentIncludes.h">
       <Filter>Header Files\Component\MidPlatSwitch Component</Filter>
     </ClInclude>
+    <ClInclude Include="PeacockClassComponent.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -574,6 +577,9 @@
     </ClCompile>
     <ClCompile Include="SystemClassUpdater.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PeacockClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
