@@ -21,7 +21,7 @@ void Start::mainMenu(){
 	UIObjectFactory joinButton;
 
 	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
-	
+
 	queue.AddObject(playButton.Spawn(OPTIONS_BUTTON));
 	queue.AddObject(joinButton.Spawn(JOIN_BUTTON));
 

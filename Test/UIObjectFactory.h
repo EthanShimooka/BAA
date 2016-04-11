@@ -31,6 +31,7 @@ public:
 	UIObjectFactory();
 	~UIObjectFactory();
 
+	uint64_t player = 0;
 	/// Creates a new UI Object
 	UIObject * Spawn(UIType PID);
 	UIObject * Spawn(UIType PID, int x, int y);

@@ -12,7 +12,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 
 	UIObject* uiObject = new UIObject();
 
-	uiObject->ID = PID;
+	uiObject->ID = PID;	
 
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually

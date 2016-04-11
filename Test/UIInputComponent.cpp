@@ -9,6 +9,7 @@ UIInputComponent::~UIInputComponent(){
 
 void UIInputComponent::Update(){	
 
+	uint64_t me = NetworkManager::sInstance->GetMyPlayerId();
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
@@ -35,11 +36,10 @@ void UIInputComponent::Update(){
 		break;
 	case READY_BUTTON:
 		if (isButtonPressed(READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT)){
-			std::cout << "click" << std::endl;
+			//std::cout << "click" << std::endl;
 			this->uiObjectRef->changePicture = true;
 		}
 		break;
-			
 	}
 }
 

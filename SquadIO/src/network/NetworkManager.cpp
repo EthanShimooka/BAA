@@ -9,7 +9,7 @@ namespace
 	const float kTimeBetweenDelayHeartbeat = 1.f;
 	const float kStartDelay = 3.0f;
 	const int	kSubTurnsPerTurn = 3;
-	const int	kMaxPlayerCount = 4;
+	const int	kMaxPlayerCount = 8;
 }
 
 bool NetworkManager::StaticInit()

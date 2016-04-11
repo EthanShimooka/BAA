@@ -2,6 +2,8 @@
 #ifndef LOBBY_H
 #define LOBBY_H
 
+
+
 #include "main.h"
 #include "UIObject.h"
 #include "WorldObjectFactory.h"
@@ -11,13 +13,37 @@
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 
-class Lobby
-{
+enum TEAM{
+	RED = 1,
+	BLUE = 2,
+	NOTEAM = 3,
+};
+
+struct player{
+	uint64_t playerId;
+	string name;
+	bool ready = false;
+	int x, y;
+	TEAM team;
+	UIObjectFactory* playerSlot = new UIObjectFactory();
+	UIObjectFactory* readyButton = new UIObjectFactory();
+	UIObjectFactory* birdClass = new UIObjectFactory();
+};
+
+class Lobby{
 public:
 	Lobby();
 	~Lobby();
 
+	vector<player*> players;
 	void runLobby();
+private:
+	void addPlayers(SystemUIObjectQueue &q);
+	int playersReady;
+	int numPlayers;
+	int maxPlayers = 8;
+	void assignPlayers();
+	void updateLobby();
 };
 
 #endif

@@ -78,6 +78,8 @@ public:
 
 	bool changePicture = false;
 
+	uint64_t player = 0;
+
 	/// virtual update function
 	virtual void update(){};
 
