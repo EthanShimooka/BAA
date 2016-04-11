@@ -18,7 +18,7 @@ void ChickenClassComponent::Update()
 {
 }
 
-void ChickenClassComponent::animation(SDLRenderObject* objRef, map_obj& allObjs, map_anim& animations){
+void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
@@ -50,7 +50,7 @@ void ChickenClassComponent::animation(SDLRenderObject* objRef, map_obj& allObjs,
 	body->setScale(body->calcXScale(90));
 	//body->setScale(body->calcXScale(90));
 
-	objRef = base;
+	*objRef = base;
 	allObjs["base"] = base;
 	allObjs["body"] = body;
 	allObjs["legL"] = legL;

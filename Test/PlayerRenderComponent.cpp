@@ -8,7 +8,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player)
 	RenderComponent::RenderComponent();
 	ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 
-	classComp->animation(objRef, allObjs, animations);
+	classComp->animation(&objRef, allObjs, animations);
 	std::cout << "objRef " <<  objRef->getScaleX() << std::endl;
 
 	//SceneManager* sceneMan = SceneManager::GetSceneManager();
