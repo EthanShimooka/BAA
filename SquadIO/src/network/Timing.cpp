@@ -19,7 +19,8 @@ namespace{
 
 Timing::Timing(){
 #if _WIN32
-	gameLengthInSeconds = 240;
+	//GAME TIMER LENGTH
+	gameLengthInSeconds = 120;
 	minionCounter = 0;
 	LARGE_INTEGER perfFreq;
 	QueryPerformanceFrequency(&perfFreq);
