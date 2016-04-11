@@ -23,3 +23,7 @@ void ClassComponent::Update()
 {
 
 }
+
+void ClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
+
+}
