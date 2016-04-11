@@ -1,6 +1,7 @@
 #include "PeacockClassComponent.h"
 
-
+//Does not compile, not sure why it doesn't
+/*
 PeacockClassComponent::PeacockClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
@@ -14,7 +15,6 @@ PeacockClassComponent::~PeacockClassComponent()
 {
 }
 
-/*
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
