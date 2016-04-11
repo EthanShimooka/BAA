@@ -42,7 +42,7 @@ private:
 	/// Dynamic List of components
 	std::vector<t_component> g_components;
 	/// Number of Components Bound to GameObject
-	int component_count;
+	//int component_count;
 protected:
 
 public:
@@ -59,6 +59,8 @@ public:
 	bool isAlive;
 	/// type of game object
 	int type;
+	/// Object team
+	int team;
 	///World X Position
 	float posX;
 	///World Y Position
@@ -73,6 +75,8 @@ public:
 	bool flipH ;
 	///Vertical Flip
 	bool flipV ;
+	/// Health
+	int health;
 	/// virtual update function
 	virtual void update(){};
 
@@ -109,11 +113,13 @@ public:
 };
 
 enum GAMEOBJECT_TYPE {
-	OBJECT_PLAYER,
-	OBJECT_MINION,
-	OBJECT_PLATFORM,
-	OBJECT_SWTICH,
-	OBJECT_FEATHER,
+	OBJECT_PLAYER = 0,
+	OBJECT_MINION = 1,
+	OBJECT_PLATFORM = 2,
+	OBJECT_SWTICH = 3,
+	OBJECT_FEATHER = 4,
+	OBJECT_POWERSHIELD = 5,
+	OBJECT_BASE = 6
 	//we can keep on adding more as needed
 };
 

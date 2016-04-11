@@ -1,4 +1,5 @@
 #include "include\network\NetIncludes.h"
+#include <iostream>
 
 float kDesiredFrameTime = 0.03333333f;
 #if !_WIN32
@@ -8,8 +9,7 @@ using namespace std::chrono;
 
 Timing	Timing::sInstance;
 
-namespace
-{
+namespace{
 #if _WIN32
 	LARGE_INTEGER sStartTime = { 0 };
 #else
@@ -17,9 +17,10 @@ namespace
 #endif
 }
 
-Timing::Timing()
-{
+Timing::Timing(){
 #if _WIN32
+	gameLengthInSeconds = 240;
+	minionCounter = 0;
 	LARGE_INTEGER perfFreq;
 	QueryPerformanceFrequency(&perfFreq);
 	mPerfCountDuration = 1.0 / perfFreq.QuadPart;
@@ -32,9 +33,7 @@ Timing::Timing()
 #endif
 }
 
-void Timing::Update()
-{
-
+bool Timing::Update(){
 	double currentTime = GetTime();
 
 	mDeltaTime = (float)(currentTime - mLastFrameStartTime);
@@ -42,6 +41,7 @@ void Timing::Update()
 	//frame lock at 30fps
 	while (mDeltaTime < kDesiredFrameTime)
 	{
+		//std::cout << "mDeltaTime = " << mDeltaTime << std::endl;
 		currentTime = GetTime();
 
 		mDeltaTime = (float)(currentTime - mLastFrameStartTime);
@@ -54,11 +54,76 @@ void Timing::Update()
 
 	mLastFrameStartTime = currentTime;
 	mFrameStartTimef = static_cast< float > (mLastFrameStartTime);
-
+	return true;
 }
 
-double Timing::GetTime() const
-{
+void Timing::SetCountdownStart(){
+	startTimeInSeconds = time(NULL);
+	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Start Time(since epoch) = " << startTimeInSeconds << std::endl;
+}
+
+void Timing::StartAttackCooldown(){
+	attackCooldown = time(NULL);
+}
+
+int Timing::GetTimeRemainingS(){
+	double timeRemaining = 0;
+	time_t now = time(NULL);
+	time_t timeElapsed = now - startTimeInSeconds;
+	if (timeElapsed < 0 || NULL) return 0;
+	//std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@ timeElapsed = " << timeElapsed << std::endl;
+	//std::cout << "@@@@@@@@@@@@@@@@@ timeElapsed as int = " << (int)timeElapsed << std::endl;
+	return gameLengthInSeconds - (int)timeElapsed;
+}
+
+string Timing::GetMinutesLeftAsString(int timeRemainingInSec){
+	int min = (int)floor(timeRemainingInSec / 60);
+	return std::to_string(min);
+}
+
+string Timing::GetSecondsLeftAsString(int timeRemainingInSec){
+	int sec = timeRemainingInSec % 60;
+	return std::to_string(sec);
+}
+
+bool Timing::AttackCooldownEnded(){
+	time_t now = time(NULL);
+	time_t timeElapsed = now - attackCooldown;
+	//attackCooldown = time(NULL);
+	if (timeElapsed >= 2) return true;
+	else return false;
+}
+
+bool Timing::SpawnMinions(){
+	int timeLeft = GetTimeRemainingS();
+	if (timeLeft >= gameLengthInSeconds - 4){ // Delay first wave
+		return false;
+	}
+	if (timeLeft % 5 == 0 && minionCounter == 0){
+		minionCounter = 1;
+		//std::cout << "timeLeft = " << timeLeft << std::endl;
+		return true;
+	}
+	else if (timeLeft % 5 == 4 && minionCounter == 1){
+		minionCounter = 2;
+		//std::cout << "timeLeft = " << timeLeft << std::endl;
+		return true;
+	}
+	else if (timeLeft % 5 == 3 && minionCounter == 2){
+		minionCounter = 3;
+		//std::cout << "timeLeft = " << timeLeft << std::endl;
+		return true;
+	}
+	else if (minionCounter == 3){
+		minionCounter = 0;
+		return false;
+	}
+	else{
+		return false;
+	}
+}
+
+double Timing::GetTime() const{
 #if _WIN32
 	LARGE_INTEGER curTime, timeSinceStart;
 	QueryPerformanceCounter(&curTime);

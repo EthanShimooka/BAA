@@ -1,6 +1,5 @@
 #include "RenderComponent.h"
 
-
 RenderComponent::RenderComponent()
 {
 	visible = true;
@@ -12,13 +11,14 @@ RenderComponent::RenderComponent()
 
 RenderComponent::~RenderComponent()
 {
-	/* Written but untested, don't know where to call
+	/*Written but untested, don't know where to call
 	while (!allObjs.empty()){
 		SDLRenderObject* curr = allObjs.back();
 		delete curr;
 		allObjs.pop_back();
 	}
 	*/
+	std::cout << "Render COmponent destructor" << std::endl;
 }
 
 /// Assign a Diffrent SDL render Object
@@ -38,7 +38,11 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 
 void RenderComponent::setAnimation(std::string name){
 	if (animations.count(name)){
-		nextAnimation = animations[name];
+		if (currentAnimation != animations[name]){
+			currentAnimation = animations[name];
+			progress = 0;
+			lasttime = clock();
+		}
 	}
 }
 
@@ -52,10 +56,8 @@ void RenderComponent::animate(){
 			progress -= currentAnimation->duration;
 			if (nextAnimation){
 				currentAnimation = nextAnimation;
+				nextAnimation = NULL;
 				//queue next animation through a switch statement
-			}
-			else{
-				currentAnimation = animations["idle"];
 			}
 		}
 		float curr = currentAnimation->lengthConversion(progress);
@@ -92,14 +94,14 @@ void RenderComponent::RenderBoundingBox(SDLRenderObject* boxRender){
 		}
 		fixture = fixture->GetNext();
 	}
-	boxRender->setRenderRect(round(worldScale * (aabb.upperBound.x - aabb.lowerBound.x)), round(worldScale * (aabb.upperBound.y - aabb.lowerBound.y)));
+	boxRender->setRenderRect((int)round(worldScale * (aabb.upperBound.x - aabb.lowerBound.x)), (int)round(worldScale * (aabb.upperBound.y - aabb.lowerBound.y)));
 	boxRender->setPos(physics->mBody->GetPosition().x*worldScale, physics->mBody->GetPosition().y*worldScale);
 	ApplyPhysicsRotation(boxRender);
 }
 void RenderComponent::ApplyPhysicsRotation(SDLRenderObject* render){
 	PhysicsComponent* physics = dynamic_cast<PhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	if (!physics)return;
-	render->setRotation(physics->mBody->GetAngle() * 180 / M_PI);
+	render->setRotation(physics->mBody->GetAngle() * (float)(180 / M_PI));
 }
 void RenderComponent::Update(){
 
@@ -113,7 +115,7 @@ void RenderComponent::Update(){
 	objRef->flipV = gameObjectRef->flipV;
 	objRef->setScale(gameObjectRef->scaleX, gameObjectRef->scaleY);
 	objRef->rotation = gameObjectRef->rotation;
-	objRef->visible = visible;
+	//objRef->visible = visible;
 
 	//there is most likely more attributes to send over. update as needed
 }

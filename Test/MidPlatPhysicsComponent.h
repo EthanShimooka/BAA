@@ -6,5 +6,8 @@ class MidPlatPhysicsComponent :
 public:
 	MidPlatPhysicsComponent(GameObject* platform);
 	~MidPlatPhysicsComponent();
+
+	void init();
+	void Update();
 };
 

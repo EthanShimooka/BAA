@@ -82,4 +82,6 @@ public:
 	void animate();
 };
 
+using map_obj = std::unordered_map<std::string, SDLRenderObject*>;
+using map_anim = std::unordered_map<std::string, Animation*>;
 #endif

@@ -23,7 +23,7 @@ public:
 
 	void DeleteObject(uint64_t g_id);
 
-
+	GameObject* SystemGameObjectQueue::GetGameObject(int g_id);
 	/// Loops deleting all gameobjects in alive_objects vector
 	void DeleteObjects(int g_id);
 };

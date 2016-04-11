@@ -9,8 +9,8 @@ PowerShieldPhysicsComponent::PowerShieldPhysicsComponent(GameObject* shield)
 }
 
 
-PowerShieldPhysicsComponent::~PowerShieldPhysicsComponent()
-{
+PowerShieldPhysicsComponent::~PowerShieldPhysicsComponent(){
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 }
 
 void PowerShieldPhysicsComponent::init()

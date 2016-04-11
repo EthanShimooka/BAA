@@ -27,27 +27,27 @@ Controller::~Controller(){}
 
 
 bool Controller::isJoystickPressed(int b) {
-	if (b < 0 || b >= joystickButtonPressed.size()-1||!joystick) return false;
+	if (b < 0 || (unsigned int)b >= joystickButtonPressed.size()-1||!joystick) return false;
 	return this->joystickButtonPressed[b];
 }
 
 bool Controller::isJoystickReleased(int b) {
-	if (b < 0 || b >= joystickButtonReleased.size() - 1 || !joystick) return false;
+	if (b < 0 || (unsigned int)b >= joystickButtonReleased.size() - 1 || !joystick) return false;
 	return this->joystickButtonReleased[b];
 }
 
 bool Controller::isJoystickUp(int b) {
-	if (b < 0 || b >= joystickButtonHeld.size() - 1 || !joystick) return false;
+	if (b < 0 || (unsigned int)b >= joystickButtonHeld.size() - 1 || !joystick) return false;
 	return !joystickButtonHeld[b];
 }
 
 bool Controller::isJoystickDown(int b) {
-	if (b < 0 || b >= joystickButtonHeld.size() - 1 || !joystick) return false;
+	if (b < 0 || (unsigned int)b >= joystickButtonHeld.size() - 1 || !joystick) return false;
 	return this->joystickButtonHeld[b];
 }
 
 bool Controller::isDPadPressed(int pad){
-	if (pad>joystickDPad.size() - 1 || !joystick)return false;
+	if ((unsigned int)pad>joystickDPad.size() - 1 || !joystick)return false;
 	return joystickDPad[pad];
 }
 
@@ -80,13 +80,13 @@ double Controller::getRightTrigger(){
 
 bool Controller::getLeftBumper(){
 	if (!joystick)return false;
-	return SDL_JoystickGetButton(joystick, JOYSTICK_LEFTSHOULDER);
+	return SDL_JoystickGetButton(joystick, JOYSTICK_LEFTSHOULDER)?true:false;
 }
 
 // get  value of right trigger
 bool Controller::getRightBumper(){
 	if (!joystick)return false;
-	return SDL_JoystickGetButton(joystick, JOYSTICK_RIGHTSHOULDER);
+	return SDL_JoystickGetButton(joystick, JOYSTICK_RIGHTSHOULDER)?true:false;
 }
 
 void Controller::update(){

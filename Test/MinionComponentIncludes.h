@@ -7,5 +7,6 @@
 #include "MinionNetworkComponent.h"
 #include "MinionPhysicsComponent.h"
 #include "MinionRenderComponent.h"
+#include "MinionObjectFactory.h"
 
 #endif

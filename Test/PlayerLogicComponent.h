@@ -31,12 +31,15 @@ public:
 	/// Update Function
 	void Update();
 	/// Spawn Feather Function
-	uint64_t spawnFeather(int mouseX, int mouseY);
+	uint64_t spawnFeather(int mouseX, int mouseY, float chargeTime, float speed);
 	/// Spawn Feather (networked)
-	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY);
+	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime, float speed);
 	/// Spawn Hero Class Power
 	void spawnShield();
-
+	/// When the player is hit by a feather, turn into an egg and roll back to base.
+	/// This function reaches into each component and makes appropriate changes to
+	/// turn the player into an egg
+	void becomeEgg();
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
 	PowerShieldObjectFactory sFactory;
@@ -44,7 +47,12 @@ public:
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
 
-	bool isChargingAttack = false;
+	int currBirdseed=0;
+	int maxsBirdseed=5;
+	SDLRenderObject* birdseedHUD;
+	SDL_Rect defaultRect;
+
+	SDLRenderObject* timerHUD;
 };
 
 #endif

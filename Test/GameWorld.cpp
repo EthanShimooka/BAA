@@ -1,6 +1,6 @@
 #include "GameWorld.h"
 
-GameWorld* GameWorld::gameWorld = nullptr;
+GameWorld GameWorld::gameWorld;
 
 GameWorld::GameWorld(){
 	//initialize the class here
@@ -12,14 +12,13 @@ GameWorld::GameWorld(){
 }
 float worldScale = 20.0f;
 
-GameWorld::~GameWorld(){}
+GameWorld::~GameWorld(){
+	//physicsWorld->~b2World();
+	
+}
 
 GameWorld* GameWorld::getInstance() {
-	// if gameWorld is nullptr
-	if (!gameWorld) {
-		gameWorld = new GameWorld();
-	}
-	return gameWorld;
+	return &gameWorld;
 }
 
 b2World* GameWorld::getPhysicsWorld(){
@@ -34,5 +33,5 @@ void GameWorld::update(){
 	if (fps == 0)fps++;//prevents dividing by zero
 	fps/= (double)(CLOCKS_PER_SEC);
 	currTime = clock();
-	physicsWorld->Step(fps,5,5);
+	physicsWorld->Step((float32)fps,5,5);
 }

@@ -9,10 +9,6 @@ using namespace std;
 
 void update();
 
-//implement somewhere in config later
-int SCREEN_HEIGHT = 450;
-int SCREEN_WIDTH = 800;
-
 
 int main() {
 
@@ -48,13 +44,12 @@ int _tmain(int argc, _TCHAR* argv[]){
 
 
 	/////////////////////////////////////////////////////
-	// Loop freeing memoru
-	for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-		GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
-	}
+	// Loop freeing memory NOW MOVED TO DESTRUCTOROF SYSTEMGAMEOBJECTQUEUE
+	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
+		//GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
+	//}
 
 	log->close();
-	printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
 
 	return 0;
 }

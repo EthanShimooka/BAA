@@ -1,15 +1,18 @@
 #include "PlayerPhysicsComponent.h"
 
-PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player)
+PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player, float height, float width)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init();
+	init(height, width);
 }
 
-PlayerPhysicsComponent::~PlayerPhysicsComponent(){}
+PlayerPhysicsComponent::~PlayerPhysicsComponent(){
 
-void PlayerPhysicsComponent::init(){
+	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+}
+
+void PlayerPhysicsComponent::init(float height, float width){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.fixedRotation = true;
@@ -17,14 +20,16 @@ void PlayerPhysicsComponent::init(){
 	bodyDef.angle = 0;// ... which direction it's facing
 
 	GameWorld* gameWorld = GameWorld::getInstance();
-	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+	if (!mBody)
+		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
 	//box.SetAsBox(471, 480); // look up other functions for polygons
-	box.SetAsBox(2.7, 2.7);
+	box.SetAsBox(width, height);
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
-	mFixture = mBody->CreateFixture(&boxFixtureDef);
+	if (!mFixture)
+		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
@@ -40,21 +45,27 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//do nothing or push past each other
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		//take damage on self, maybe make a sqauaking sound?
+		//signal self death and turn to egg
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+		break;
+	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
+		inAir = false;
 		break;
 	default:
 		break;
 	}
 }
 
+
+
 void PlayerPhysicsComponent::Update(){
 	b2Vec2 vel = mBody->GetLinearVelocity();
 	if (gameObjectRef->posY < 0){
 		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
-		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.5));
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.5f));
 	}
 	else{
-		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5));
+		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5f));
 		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;

@@ -14,6 +14,8 @@ configurations.
 #ifndef GAMESESSION_H_INCLUDED
 #define GAMESESSION_H_INCLUDED
 
+
+
 #include "include\SquadIO.h"
 #include "include\network\NetIncludes.h"
 #include "include\LogManager.h"
@@ -45,6 +47,8 @@ configurations.
 #include "FeatherObjectFactory.h"
 #include "UIObjectFactory.h"
 #include "PlatformObjectFactory.h"
+#include "MidPlatObjectFactory.h"
+#include "MidBaseObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"
@@ -55,8 +59,12 @@ configurations.
 #include "SystemNetworkUpdater.h"
 #include "SystemPhysicsUpdater.h"
 #include "SystemUIUpdater.h"
+#include "SystemClassUpdater.h"
 #include "lobby.h"
 #include "start.h"
+
+//temp
+#include "config.h"
 
 class GameSession
 {
@@ -73,6 +81,10 @@ public:
 	/// Load Player Objects from
 	void LoadPlayers();
 	// void LoadPlayers( stdlist playerlist);
+	/// Generates the HUD for the player. NOTE: Most likely remove the parameter,
+	/// since it currently exists to work with the hardcoded instantiation of the local player.
+	/// Once we actually use LoadPlayers, we can get rid of the parameter
+	void LoadHUD(GameObject* player);
 };
 
 #endif

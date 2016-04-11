@@ -3,6 +3,7 @@
 #define MINIONPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
 #include "MinionComponentIncludes.h"
+#include "MidBaseLogicComponent.h"
 
 class MinionPhysicsComponent :
 	public PhysicsComponent

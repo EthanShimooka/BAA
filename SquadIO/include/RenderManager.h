@@ -25,6 +25,7 @@
 #include "Tinyxml2.h"
 #include "sdl2\SDL.h"
 #include "sdl2\SDL_image.h"
+#include "sdl2\SDL_ttf.h"
 #include "SceneManager.h"
 
 
@@ -90,7 +91,7 @@ public:
 	SQUADIO_API bool isReadyToQuit();
 	
 
-	bool isObjOnScreen(SDLRenderObject * obj);
+	SQUADIO_API bool isObjOnScreen(SDLRenderObject * obj);
 	bool isPointInBounds(int x, int y, int l, int r, int t, int b);
 	SQUADIO_API gameResource* loadResourceFromXML(tinyxml2::XMLElement* element);
 	// not implemented, but may be useful later if you want the camera to ignore anything out of bounds
@@ -110,6 +111,7 @@ public:
 	SQUADIO_API float zoomRatio(float x1, float y1, float minSize = 1, float scaling = 1);
 	/// function renders the background image, tiling starting from the origin, and cut along the edges of the window
 	SQUADIO_API void renderBackground();
+	SQUADIO_API RenderResource * renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname);
 	/// change the point where the camera renders from
 	SQUADIO_API void setCameraZ(float z);
 	SQUADIO_API void setCameraPoint(float x, float y);
@@ -123,6 +125,10 @@ public:
 
 	/// Render Objects is the list of pointers to SDLRenderObjects.
 	std::list<SDLRenderObject*> renderObjects;
+
+	/// Changes the mouse cursor to crosshair
+	//SQUADIO_API void cursorToCrosshair();
+
 	std::list<SDLRenderObject*> windowObjects;
 
 	/// Changes the mouse cursor to crosshair
@@ -131,6 +137,7 @@ public:
 	static SDL_Cursor* initCursorCrosshair(const char *image[]);
 
 	SQUADIO_API void freeCursor(SDL_Cursor* cursor);
+
 };
 
 #endif SDL2DRENDERMANAGER_H_INCLUDED
