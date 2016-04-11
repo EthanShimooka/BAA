@@ -4,8 +4,8 @@
 ClassComponent::ClassComponent()
 {
 	speed = 15;
-	width = 2.7f;
-	height = 2.7f;
+	width = 1.33f;
+	height = 1.35f;
 	seedRequired = 5;
 	featherSpeed = 1.0f / 7.0f;
 	featherWidth = 1;

@@ -15,7 +15,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 	//name->setParent(base);
 	name->setPos(0, -60);
 	allObjs["name"] = name;
-
+	if (allObjs["box"])allObjs["box"]->visible = true;
 	//ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 	//classComp->animation(&objRef, allObjs, animations);
 
@@ -36,7 +36,10 @@ void PlayerRenderComponent::Update(){
 	RenderBoundingBox((allObjs["box"]));
 	ApplyPhysicsRotation(allObjs["base"]);
 	RenderComponent::animate();
-	allObjs["name"]->setPos(allObjs["base"]->getPosX(), -60 + allObjs["base"]->getPosY());
+	allObjs["name"]->setPos(allObjs["base"]->getPosX(), -40 + allObjs["base"]->getPosY());
+	if (!gameObjectRef->isAlive){
+		if (allObjs["box"])allObjs["box"]->visible = false;
+	}
 }
 
 
