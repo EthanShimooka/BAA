@@ -25,7 +25,6 @@ public:
 	/// GameObject Container Reference
 	GameObject* gameObjectRef;
 
-
 	/// Virtual Update function
 	virtual void Update();
 

@@ -66,7 +66,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  //destroy self or return to object pool
 										// dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->attacked();
-
+										  
 										  gameObjectRef->isAlive = false;
 										  break;
 	}

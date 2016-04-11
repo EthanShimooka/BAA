@@ -75,6 +75,8 @@ public:
 	bool flipH ;
 	///Vertical Flip
 	bool flipV ;
+	/// Health
+	int health;
 	/// virtual update function
 	virtual void update(){};
 

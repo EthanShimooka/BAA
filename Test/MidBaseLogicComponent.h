@@ -17,7 +17,7 @@ public:
 	~MidBaseLogicComponent();
 
 	void Update();
-	void health();
+	//void health();
 	void attacked();
 
 	

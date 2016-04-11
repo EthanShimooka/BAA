@@ -18,6 +18,7 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 	base->ID = PID;
 	base->setPos(posX, posY);
 	base->isAlive = true;
+	base->health = 5;
 	base->type = GAMEOBJECT_TYPE::OBJECT_BASE;
 
 	// Minion Specific Render Component. In future will have flag
@@ -29,11 +30,5 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 
 	MidBaseLogicComponent* logic = new MidBaseLogicComponent(base);
 
-
-
 	return base;
-
-
-
-
 }

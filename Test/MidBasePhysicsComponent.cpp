@@ -49,7 +49,10 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 										//	if (otherObj->team != gameObjectRef->team){
 											 std::cout << "Funk Season \n" << std::endl;
 											 base_hit = true;
-											
+											// MidBaseLogicComponent* logicComponent = dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+											// logicComponent->attacked();
+											gameObjectRef->health--;
+											 std::cout << "Health = " << gameObjectRef->health << std::endl;
 												//
 									//		}
 								
