@@ -26,12 +26,19 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 	player->type = GAMEOBJECT_TYPE::OBJECT_PLAYER;
 //	player->isNetworkControlled = !local;
 
+	PlayerRenderComponent* rend = nullptr;
+
 	ClassComponent* classComp = nullptr;
+	
+	classComp = new ChickenClassComponent(player);
+	//ChickenClassComponent* chickenClassComp;// = dynamic_cast<ChickenClassComponent*>(classComp);
+
 	switch (classType){
 	case CLASS_CHICKEN:
 		classComp = new ChickenClassComponent(player);
+		rend = new PlayerRenderComponent(player, ChickenClassComponent::animation);
 		// for testing
-		std::cout << "Class speed " << classComp->speed << std::endl;
+		//std::cout << "Class speed " << classComp->speed << std::endl;
 		break;
 	case CLASS_EAGLE:
 		//classComp = new EagleClassComponent(player);
@@ -55,7 +62,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 		break;
 	}
 
-	PlayerRenderComponent* rend = new PlayerRenderComponent(player);
+	//PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
 	if (local){
 		PlayerInputComponent* input = new PlayerInputComponent(player, classComp->speed, classComp->featherSpeed);
