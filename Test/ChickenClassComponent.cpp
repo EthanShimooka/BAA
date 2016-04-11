@@ -1,4 +1,6 @@
 #include "ChickenClassComponent.h"
+//#include "include/network/GamerServices.h"
+
 
 
 ChickenClassComponent::ChickenClassComponent(GameObject* player)
@@ -62,16 +64,16 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	box->setIfRenderRect(true);
 	//box->setParent(base);
 	allObjs["box"] = box;
-	SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+	//SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	// changing the values in InstantiateBlankObject does not stop the text from being stretched
 	// need fixing (to not stretch text to fill box)
 	// text, R, G, B, fontsize, fontname
 
 	//std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
-	name->setResourceObject(renderMan->renderText("alksdfasfd", 200, 0, 200, 20, "BowlbyOneSC-Regular"));
+	//name->setResourceObject(renderMan->renderText(playerName.c_str(), 200, 0, 200, 20, "BowlbyOneSC-Regular"));
 	//name->setParent(base);
-	name->setPos(0, -60);
-	allObjs["name"] = name;
+	//name->setPos(0, -60);
+	//allObjs["name"] = name;
 
 	/////// IDLE ANIMATION
 	std::list<motion> motions;

@@ -21,6 +21,7 @@ Class Components are derived.
 #include "GameObject.h"
 #include "RenderComponent.h"
 
+
 class ClassComponent :
 	public Component
 {
@@ -36,7 +37,7 @@ public:
 	/// update object Positions from Input
 	virtual void Update();
 
-	virtual void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
+	//virtual void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	/// returns true if the ability was used, else returns false
 	//virtual bool UseAbility();
 
