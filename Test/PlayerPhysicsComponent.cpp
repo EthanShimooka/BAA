@@ -48,6 +48,9 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//signal self death and turn to egg
 		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
 		break;
+	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
+		inAir = false;
+		break;
 	default:
 		break;
 	}

@@ -37,9 +37,10 @@ void PlayerInputComponent::Update(){
 				renderComp->setAnimation("walk");
 			}
 			//keyboard jump
-			if (input->isKeyDown(KEY_SPACE) || controller->isJoystickPressed(JOYSTICK_A)) {
-				if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed / 2));
-				else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed / 2));
+			if ((input->isKeyDown(KEY_SPACE) || controller->isJoystickPressed(JOYSTICK_A)) && !physicsComp->inAir) {
+				physicsComp->inAir = true;
+				if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
+				else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			////keyboard move down (not really needed)
 			if (input->isKeyDown(KEY_S) || input->isKeyDown(KEY_DOWN)) {

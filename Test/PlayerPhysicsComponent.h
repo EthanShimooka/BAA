@@ -16,6 +16,8 @@ public:
 	void init(float height, float width);
 	void handleCollision(GameObject* otherObj);
 
+	/// boolean to keep track of the players jumping
+	bool inAir;
 };
 
 #endif
