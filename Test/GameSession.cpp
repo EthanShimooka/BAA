@@ -21,6 +21,12 @@ GameSession::GameSession(){
 GameSession::~GameSession(){
 }
 
+//variables used to keep track of bases and for camera shaking
+GameObject* leftBase;
+GameObject* rightBase;
+bool shaking = false;
+float startShake;
+float shakeTimer = 1;
 // Loads non-player Objects
 
 void GameSession::LoadWorld(){
@@ -39,8 +45,10 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
 		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
 	}
-	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
-	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
+	rightBase = mbFactory.Spawn(506001, 975, -40, 0);
+	leftBase = mbFactory.Spawn(506002, -975, -40, 0);
+	GameObjects.AddObject(rightBase);
+	GameObjects.AddObject(leftBase);
 
 }
 
@@ -285,9 +293,14 @@ int GameSession::Run(){
 		////////////////////////////////////
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
+
+		//CAMERA MOVEMENT - based on player position
 		if (player){
+			if (!rightBase->isAlive)
 			renderMan->setCameraPoint(player->posX, 0);
+			
 		}
+		
 		int length = 20;
 		float loop = (float)(var % length);
 
