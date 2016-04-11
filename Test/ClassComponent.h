@@ -19,6 +19,7 @@ Class Components are derived.
 ///#include "include\InputManager.h"
 ///#include "include\network\MemoryBitStream.h"
 #include "GameObject.h"
+#include "RenderComponent.h"
 
 class ClassComponent :
 	public Component
@@ -34,6 +35,8 @@ public:
 
 	/// update object Positions from Input
 	virtual void Update();
+
+	virtual void animation(SDLRenderObject* objRef, map_obj& allObjs, map_anim& animations);
 	/// returns true if the ability was used, else returns false
 	//virtual bool UseAbility();
 
@@ -43,6 +46,7 @@ public:
 	float featherSpeed;
 	float featherWidth, featherHeight;
 	float abilityCooldown;
+
 };
 
 #endif
