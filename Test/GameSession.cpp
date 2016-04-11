@@ -190,16 +190,16 @@ int GameSession::Run(){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
 			}
 		}
 	}
 	/// create a local player with ID of 10000
 	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_PEACOCK, true));
 	}
 
 
