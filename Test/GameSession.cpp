@@ -77,6 +77,15 @@ void GameSession::LoadHUD(GameObject* player){
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	
+	// add charge meter reference to player logic
+	UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR);
+	UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL);
+	queue.AddObject(chargeMeter);
+	queue.AddObject(chargeShell);
+	playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
+	
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
 	queue.AddObject(countdownTimer);

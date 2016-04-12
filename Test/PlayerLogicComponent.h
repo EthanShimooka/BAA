@@ -49,8 +49,14 @@ public:
 
 	int currBirdseed=0;
 	int maxsBirdseed=5;
+
+	int currCharge = 0;
+	int maxCharge = 100;
+
 	SDLRenderObject* birdseedHUD;
+	SDLRenderObject* chargeHUD;
 	SDL_Rect defaultRect;
+	SDL_Rect chargeRect;
 
 	SDLRenderObject* timerHUD;
 };
