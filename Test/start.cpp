@@ -11,6 +11,11 @@ void Start::mainMenu(){
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	//ResourceManager* resMan = ResourceManager::GetResourceManager();
+
+	/*resMan->loadFromXMLFile("source.xml");
+	resMan->setCurrentScope(0);
+	sceneMan->loadFromXMLFile("SceneTree.xml");*/
 
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;

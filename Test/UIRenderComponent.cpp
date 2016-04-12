@@ -50,7 +50,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		allObjs.push_back(play);
 		break;
 	case BIRD:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 16, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 3000, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
@@ -88,6 +88,14 @@ void UIRenderComponent::createUIType(UIType ID){
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, 0, 0, true);
 		objRef = play;
 		allObjs.push_back(play);
+		break;
+	case MENU_NAME:
+		std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+		name->setResourceObject(renderMan->renderText(playerName.c_str(), 200, 0, 200, 20, "BowlbyOneSC-Regular"));
+		name->setPos(uiObjectRef->posX, uiObjectRef->posY);
+		allObjs.push_back(name);
 		break;
 	}
 }

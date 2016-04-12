@@ -42,8 +42,9 @@ private:
 	int playersReady;
 	int numPlayers;
 	int maxPlayers = 8;
-	void assignPlayers();
+	void assignPlayers(SceneManager* scene, RenderManager* rendMan);
 	void updateLobby();
+	void drawBirds(SystemUIObjectQueue &q);
 };
 
 #endif

@@ -115,6 +115,10 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(BIRD);
 		break;
+	case MENU_NAME:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(MENU_NAME);
+		break;
 	}
 
 	uiObject->AddComponent(COMPONENT_RENDER, rend);

@@ -180,10 +180,11 @@ int GameSession::Run(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 
-	/*Start menu;
+	Start menu;
 	menu.mainMenu();
 
-	Lobby lobby;*/
+	Lobby lobby;
+	lobby.runLobby();
 
 	
 

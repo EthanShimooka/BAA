@@ -23,31 +23,10 @@ void Lobby::runLobby(){
 	SystemUIObjectQueue queue;
 
 	int inLobbyNow = 0;
-	int classSize = 6;
 
 	addPlayers(queue);
-	assignPlayers();
-
-	/*for (int i = 0; i < classSize / 2; i++){
-		//build class slots
-		int x, y;
-		x = w / 2;
-		y = h / 2;
-		h -= 100;
-		UIObjectFactory* birdClass = new UIObjectFactory();
-		queue.AddObject(birdClass->Spawn(BIRD, x, y));
-	}
-
-	h = z;
-	for (int i = 0; i < classSize / 2; i++){
-		//build class slots
-		int x, y;
-		x = w / 2;
-		y = h / 2;
-		h -= 100;
-		UIObjectFactory* birdClass = new UIObjectFactory();
-		queue.AddObject(birdClass->Spawn(BIRD, x + 50, y));
-	}*/
+	drawBirds(queue);
+	assignPlayers(sceneMan, renderMan);
 
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
 
@@ -71,36 +50,57 @@ void Lobby::runLobby(){
 
 }
 
+void Lobby::drawBirds(SystemUIObjectQueue &queue){
+	RenderManager* rendMan = RenderManager::getRenderManager();
+	int w, h;
+	int classSize = 6;
+
+	rendMan->getWindowSize(&w, &h);
+	int x, y;
+	x = w / 4;
+	y = h / 2;
+	for (int i = 0; i < classSize; i++){
+		//build class slots
+		UIObjectFactory* birdClass = new UIObjectFactory();
+		queue.AddObject(birdClass->Spawn(BIRD, x, y));
+		x += 75;
+	}
+}
+
 void Lobby::addPlayers(SystemUIObjectQueue &queue){
 
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
-	int z = h;
-
+	int x = w / 5;
 	for (int i = 0; i < maxPlayers; i++){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";
 		p->team = NOTEAM;
 		if (i % 2 == 0){
-			p->x = w / 4;
-			p->y = z / 2;
-			z -= 100;
+			p->x = 0 + x;
+			p->y = 0;
 		}
 		else{
-			p->x = (3 * w) / 4;
-			p->y = h / 2;
-			h += 100;
+			p->x = 0 + x;
+			p->y = h - 25;
+			x += w / 5;
 		}
+		
+		/*UIObjectFactory name;
+		queue.AddObject(name.Spawn(MENU_NAME, w / 2, w / 2));*/
 		queue.AddObject(p->playerSlot->Spawn(PLAYER_SLOT, p->x, p->y));
-		queue.AddObject(p->readyButton->Spawn(READY_BUTTON, p->x + 50, p->y));
 		players.push_back(p);
 	}
 }
 
-void Lobby::assignPlayers(){
+void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
 	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
+
+	int w, h;
+	renderMan->getWindowSize(&w, &h);
+
 	int i = 0;
 	for (std::map<uint64_t, string>::iterator it = lobby.begin(); it != lobby.end(); it++){
 		if (players[i]->playerId == NULL){
