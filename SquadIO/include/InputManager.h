@@ -45,6 +45,11 @@ public:
 	SQUADIO_API int getMouseX();
 	SQUADIO_API int getMouseY();
 
+	/// set mouse x and y positions. Originally made to allow
+	/// controllers to move the mouse and crosshair around
+	SQUADIO_API void setMouseX(int x);
+	SQUADIO_API void setMouseY(int y);
+
 	// lock and unlock input
 	SQUADIO_API void lock();
 	SQUADIO_API void unlock();
