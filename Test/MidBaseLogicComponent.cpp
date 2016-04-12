@@ -34,7 +34,6 @@ void MidBaseLogicComponent::Update(){
 
 	if (gameObjectRef->health < 1){
 		gameObjectRef->isAlive = false;
-		std::cout << "TRIGGERED!!!!!!!!!!" << std::endl;
 		//Call function to end game
 	}
 

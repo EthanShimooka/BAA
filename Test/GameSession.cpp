@@ -372,7 +372,13 @@ int GameSession::Run(){
 		input->update();
 		sceneMan->AssembleScene();
 
-		if (Timing::sInstance.GetTimeRemainingS() == 0) break;
+		//triggers endgame screen
+		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			GameEnd end = GameEnd::GameEnd();
+			end.runGameEnd();
+			gameloop = false;
+		}
+
 		firstTime = false;
 	}
 	/////////////////////////////////////////////////////

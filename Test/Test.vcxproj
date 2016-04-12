@@ -91,6 +91,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="EagleClassComponent.h" />
     <ClInclude Include="FlamingoClassComponent.h" />
+    <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseComponentIncludes.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="ClassComponent.cpp" />
     <ClCompile Include="EagleClassComponent.cpp" />
     <ClCompile Include="FlamingoClassComponent.cpp" />
+    <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
