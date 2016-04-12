@@ -67,8 +67,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		//Currently destroys minions and updates base health logic
 		gameObjectRef->setPos(-10000, 0);
 		gameObjectRef->isAlive = false;
-		MidBaseLogicComponent* baseLogicComponent = dynamic_cast<MidBaseLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		baseLogicComponent->attacked();
+
 		break;
 	}
 		default:
@@ -87,23 +86,9 @@ void MinionPhysicsComponent::Update(){
 	}
 	//temp testing code from here down
 	if (gameObjectRef->team = 1){
-
-		if (gameObjectRef->posX > 400){
-			mBody->SetLinearVelocity(b2Vec2(-10, 0));
-		}
-		else if (gameObjectRef->posX < -400){
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
-		}
-
-	}
-	else{
-		if (gameObjectRef->posX > 400){
-			mBody->SetLinearVelocity(b2Vec2(10, 0));
-		}
-		else if (gameObjectRef->posX < -400){
+	}else{
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
-		}
-
 	}
 }
 

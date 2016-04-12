@@ -40,6 +40,11 @@ void PlayerRenderComponent::Update(){
 	if (!gameObjectRef->isAlive){
 		if (allObjs["box"])allObjs["box"]->visible = false;
 	}
+	//update mouse position
+	InputManager* inputMan = InputManager::getInstance();
+	crosshairRef->posX = inputMan->getMouseX();
+	crosshairRef->posY = inputMan->getMouseY();
+	
 }
 
 

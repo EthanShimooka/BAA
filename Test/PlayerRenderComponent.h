@@ -29,6 +29,8 @@ public:
 	void Update();
 	/// variable that decides where to aim
 	float aimRotation;
+	/// Reference to the crosshair UIObject's image
+	SDLRenderObject* crosshairRef;
 };
 
 

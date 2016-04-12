@@ -77,25 +77,35 @@ void PlayerInputComponent::Update(){
 				canFire = true;
 			}
 
-			//if (controller->getLeftTrigger() > 0.8){	
-			//	controller->rumble(1, 750);
-			//	//renderMan->worldCoordToWindowCoord(xDir, yDir, gameObjectRef->posX, gameObjectRef->posY);
-			//	int xDir = gameObjectRef->posX + 200 * controller->getRightThumbX();
-			//	int yDir = gameObjectRef->posY + 200 * controller->getRightThumbY();
-			//	std::cout << "xdir=" << xDir << " ydir=" << std::endl;
-			//	PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			//	uint64_t id = logic->spawnFeather(xDir, yDir, chargeTime);
-			//	PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			//	//not working yet
-			//	net->createFeatherPacket(id, xDir, yDir);
-			//}
+			if (controller->isControllerOn()){
+				//controller aiming
+				int controllerSensitivity = 10;
+				input->setMouseX(input->getMouseX() + controller->getRightThumbX() * controllerSensitivity);
+				input->setMouseY(input->getMouseY() + controller->getRightThumbY() * controllerSensitivity);
 
+				//firing with controller
+
+				if (controller->getRightTrigger() < 0.8&& canFire&&isChargingAttack){
+					canFire = false;
+					isChargingAttack = false;
+					controller->rumble(1, 200);
+					float xDir, yDir;
+					renderMan->windowCoordToWorldCoord(xDir, yDir, renderComp->crosshairRef->posX, renderComp->crosshairRef->posY);
+					//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
+					PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+					uint64_t id = logic->spawnFeather(xDir, yDir, 150, featherSpeed);
+					PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+					//not working yet
+					net->createFeatherPacket(id, xDir, yDir, 100);
+				}
+				if (controller->getRightTrigger() > 0.8)isChargingAttack = true;
+			}
 			//change direction of player sprite if needed
 			if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 			else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
 			if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 			//spawn shield
-			if (input->isMouseDown(MOUSE_RIGHT)) {
+			if (input->isMouseDown(MOUSE_RIGHT)||controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) {
 				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 				logic->spawnShield();
 				//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());

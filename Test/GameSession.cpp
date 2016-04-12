@@ -81,6 +81,11 @@ void GameSession::LoadHUD(GameObject* player){
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
 	queue.AddObject(countdownTimer);
 	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
+	//load crosshair
+	UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR);
+	queue.AddObject(crosshair);
+	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
+	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -262,7 +267,7 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
-	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
+	//SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
@@ -361,7 +366,7 @@ int GameSession::Run(){
 
 		if (Timing::sInstance.SpawnMinions()){
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
 
 		}
 		input->update();
@@ -379,7 +384,7 @@ int GameSession::Run(){
 	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
 	//}
 	std::cout << renderMan << std::endl;
-	renderMan->freeCursor(cursor);
+	//renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();

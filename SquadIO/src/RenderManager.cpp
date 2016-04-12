@@ -532,6 +532,8 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 //	SDL_SetCursor(cursor);
 
 SDL_Cursor* RenderManager::cursorToCrosshair(){
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	SDL_Cursor* cursor;
 	//cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 	static const char *arrow[] = {

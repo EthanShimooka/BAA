@@ -25,6 +25,10 @@ Controller::Controller(){
 
 Controller::~Controller(){}
 
+bool Controller::isControllerOn(){
+	return joystick ? true : false;
+}
+
 
 bool Controller::isJoystickPressed(int b) {
 	if (b < 0 || (unsigned int)b >= joystickButtonPressed.size()-1||!joystick) return false;
