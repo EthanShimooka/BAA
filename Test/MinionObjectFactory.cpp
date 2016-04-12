@@ -14,7 +14,7 @@ MinionObjectFactory::~MinionObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, float length, bool direction)
+GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, int team)
 {
 
 	GameObject* minion;
@@ -30,9 +30,12 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, flo
 		minion->isAlive = true;
 		minion->type = GAMEOBJECT_TYPE::OBJECT_MINION;
 		minion->setPos(posX, posY);
-		rend = new MinionRenderComponent(minion);
-		logic = new MinionLogicComponent(minion, posX, posY, length, direction);
-		physics = new MinionPhysicsComponent(minion, posX, posY, length, direction);
+		minion->team = team;
+		std::cout << "Value of our minion team : " << minion->team << "\n" << std::endl;
+
+		rend = new MinionRenderComponent(minion, team);
+		logic = new MinionLogicComponent(minion);
+		physics = new MinionPhysicsComponent(minion, posX, posY, team);
 		net = new MinionNetworkComponent(minion);
 	//} else { //reuse minion from pool
 	//	minion = GameObjects.dead_minions.back();

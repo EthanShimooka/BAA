@@ -10,7 +10,7 @@ class MinionPhysicsComponent :
 {
 public:
 	/// Constructor
-	MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, float _length, bool _walkRight);
+	MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team);
 	/// Destructor
 	~MinionPhysicsComponent();
 	/// Update
