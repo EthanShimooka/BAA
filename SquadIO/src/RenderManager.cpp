@@ -72,8 +72,8 @@ void RenderManager::update(){
 void RenderManager::ShakeScreen(float length, float intensity){
 	if (!shaking){
 		shaking = true;
-		startShake = time(0) * 1000;
-		shakeTimer = (time_t)(length * 1000);
+		startShake = clock();
+		shakeTimer = (clock_t)(length * 1000);
 		std::cout << "shakeTimer: " << shakeTimer << std::endl;
 		if (intensity > 1) intensity = 1; //limit intensity so that it is between .1 and 1
 		if (intensity < .1) intensity = .1;
@@ -85,10 +85,10 @@ void RenderManager::ShakeScreen(float length, float intensity){
 void RenderManager::UpdateShake(){
 	if (shaking){
 		//InputManager* inputMan = InputManager::getInstance()->controller->rumble(strength 0-1,duration in millis);
-		if ((startShake + shakeTimer) < (time(0) * 1000)) {
+		if ((startShake + shakeTimer) < (clock())) {
 			shaking = false;
-			std::cout << "ended screen shake, start shake: " << startShake << ", shaketimer: " << shakeTimer << ", time(0): " << time(0) * 1000 << std::endl;
-			std::cout << "difference: " << (startShake + shakeTimer) - (time(0) * 1000) << std::endl;
+			std::cout << "ended screen shake, start shake: " << startShake << ", shaketimer: " << shakeTimer << ", time(0): " << clock() << std::endl;
+			std::cout << "difference: " << (startShake + shakeTimer) - (clock()) << std::endl;
 		}
 		else {
 			//under the assumption that each frame has its camera position set based on player previous to this being called...

@@ -143,8 +143,8 @@ public:
 	SQUADIO_API void ShakeScreen(float length, float intensity);
 
 	bool shaking;
-	time_t startShake;
-	time_t shakeTimer;
+	clock_t startShake;
+	clock_t shakeTimer;
 	float shakeIntensity;
 
 };
