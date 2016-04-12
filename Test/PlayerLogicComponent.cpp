@@ -27,6 +27,16 @@ void PlayerLogicComponent::Update(){
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
 
+	// set render rectangle for charge bar HUD
+	/*
+	chargeHUD->getSize(w, h);
+	float percentage = (currCharge / (float)maxCharge);
+	if (percentage > 1) percentage = 1;
+	SDL_Rect cRect = { chargeRect.x, chargeRect.y + chargeRect.h*(1 - percentage), chargeRect.w, chargeRect.h*percentage };
+	chargeHUD->posY = 30 + chargeRect.h * (1 - percentage);
+	chargeHUD->setRenderRect(cRect);
+	*/
+
 	//update the countdown timer
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();

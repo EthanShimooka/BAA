@@ -51,7 +51,7 @@ public:
 	int maxsBirdseed=5;
 
 	int currCharge = 0;
-	int maxCharge = 100;
+	int maxCharge = 1300;
 
 	SDLRenderObject* birdseedHUD;
 	SDLRenderObject* chargeHUD;
