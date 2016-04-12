@@ -375,6 +375,9 @@
     <ClInclude Include="TurkeyClassComponent.h">
       <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
     </ClInclude>
+    <ClInclude Include="GameEnd.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -604,6 +607,9 @@
     </ClCompile>
     <ClCompile Include="TurkeyClassComponent.cpp">
       <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEnd.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
