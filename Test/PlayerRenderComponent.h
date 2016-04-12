@@ -13,13 +13,14 @@ PlayerRenderComponent represents the Player-specific Render class
 #include "RenderComponent.h"
 #include "include\SceneManager.h"
 #include "PlayerComponentIncludes.h"
-#include "ChickenClassComponent.h"
+
+using function_t = void(*)(SDLRenderObject**, map_obj&, map_anim&);
 
 class PlayerRenderComponent : public RenderComponent
 {
 public:
 	/// Constructor
-	PlayerRenderComponent(GameObject* player);
+	PlayerRenderComponent(GameObject* player, function_t func);
 	/// Destructor
 	~PlayerRenderComponent();
 	/// render various physics
@@ -28,6 +29,9 @@ public:
 	void Update();
 	/// variable that decides where to aim
 	float aimRotation;
+	/// Reference to the crosshair UIObject's image
+	SDLRenderObject* crosshairRef;
 };
+
 
 #endif

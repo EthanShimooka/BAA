@@ -66,6 +66,9 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case BIRDSEED_SHELL:
 		rend->createUIType(BIRDSEED_SHELL);
 		break;
+	case CROSSHAIR:
+		rend->createUIType(CROSSHAIR);
+		break;
 	}
 	uiObject->AddComponent(COMPONENT_RENDER, rend);
 

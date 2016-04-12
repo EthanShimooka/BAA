@@ -89,6 +89,9 @@
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="EagleClassComponent.h" />
+    <ClInclude Include="FlamingoClassComponent.h" />
+    <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseComponentIncludes.h" />
@@ -106,6 +109,7 @@
     <ClInclude Include="MidPlatShieldComponentIncludes.h" />
     <ClInclude Include="MidPlatSwitchComponentIncludes.h" />
     <ClInclude Include="PeacockClassComponent.h" />
+    <ClInclude Include="QuailClassComponent.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
@@ -162,6 +166,7 @@
     <ClInclude Include="SystemUIObjectQueue.h" />
     <ClInclude Include="SystemUIUpdater.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="TurkeyClassComponent.h" />
     <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIInputComponent.h" />
     <ClInclude Include="UIObject.h" />
@@ -172,6 +177,9 @@
   <ItemGroup>
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
+    <ClCompile Include="EagleClassComponent.cpp" />
+    <ClCompile Include="FlamingoClassComponent.cpp" />
+    <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
@@ -185,6 +193,7 @@
     <ClCompile Include="FeatherPhysicsComponent.cpp" />
     <ClCompile Include="FeatherRenderComponent.cpp" />
     <ClCompile Include="PeacockClassComponent.cpp" />
+    <ClCompile Include="QuailClassComponent.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
@@ -236,6 +245,7 @@
     <ClCompile Include="SystemUIObjectQueue.cpp" />
     <ClCompile Include="SystemUIUpdater.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TurkeyClassComponent.cpp" />
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIInputComponent.cpp" />
     <ClCompile Include="UIObject.cpp" />

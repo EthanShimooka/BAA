@@ -13,6 +13,11 @@
 
 // Constructor
 
+
+
+
+
+
 GameSession::GameSession(){
 }
 
@@ -21,6 +26,12 @@ GameSession::GameSession(){
 GameSession::~GameSession(){
 }
 
+//variables used to keep track of bases and for camera shaking
+GameObject* leftBase;
+GameObject* rightBase;
+bool endedBaseShake = false;
+//time_t startShake;
+//time_t shakeTimer = 1;
 // Loads non-player Objects
 
 void GameSession::LoadWorld(){
@@ -39,8 +50,10 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
 		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
 	}
-	GameObjects.AddObject(mbFactory.Spawn(506001, 975, -40, 0));
-	GameObjects.AddObject(mbFactory.Spawn(506002, -975, -40, 0));
+	rightBase = mbFactory.Spawn(506001, 975, -40, 0);
+	leftBase = mbFactory.Spawn(506002, -975, -40, 0);
+	GameObjects.AddObject(rightBase);
+	GameObjects.AddObject(leftBase);
 
 }
 
@@ -68,6 +81,11 @@ void GameSession::LoadHUD(GameObject* player){
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
 	queue.AddObject(countdownTimer);
 	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
+	//load crosshair
+	UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR);
+	queue.AddObject(crosshair);
+	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
+	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -182,7 +200,7 @@ int GameSession::Run(){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
 			}
 			else{
 				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
@@ -249,7 +267,7 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
-	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
+	//SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
@@ -280,14 +298,26 @@ int GameSession::Run(){
 		if (input->isKeyDown(KEY_M)){
 			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
 		}
+		if (input->isKeyDown(KEY_Y)) {
+			renderMan->ShakeScreen(.2, .5);
+		}
 		
 		mousecounter++;
 		////////////////////////////////////
 
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
+
+		//CAMERA MOVEMENT - based on player position
 		if (player){
+			//Camera Shake
+			if ((!rightBase->isAlive || !leftBase->isAlive) && !endedBaseShake) {
+				endedBaseShake = true;
+				renderMan->ShakeScreen(1, 1);
+			}
 			renderMan->setCameraPoint(player->posX, 0);
+			
 		}
+		
 		int length = 20;
 		float loop = (float)(var % length);
 
@@ -334,24 +364,21 @@ int GameSession::Run(){
 		if (!firstTime) //allows culling to start after all initialization happens
 			cullObjects();
 
-		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
-		/*MINION SPAWNING BELOW
-		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
-			spawnTimer1 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
-		}
-		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
-			spawnTimer2 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -5 00, 0, 200, true));
-		}*/
-		//Every 5 seconds, spawn a wave of 3 minions, each minion spawning 1 sec apart
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -835, 0, 200, true));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+
 		}
 		input->update();
 		sceneMan->AssembleScene();
 
-		if (Timing::sInstance.GetTimeRemainingS() == 0) break;
+		//triggers endgame screen
+		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			GameEnd end = GameEnd::GameEnd();
+			end.runGameEnd();
+			gameloop = false;
+		}
+
 		firstTime = false;
 	}
 	/////////////////////////////////////////////////////
@@ -363,7 +390,7 @@ int GameSession::Run(){
 	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
 	//}
 	std::cout << renderMan << std::endl;
-	renderMan->freeCursor(cursor);
+	//renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();

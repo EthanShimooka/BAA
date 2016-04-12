@@ -363,6 +363,21 @@
     <ClInclude Include="PeacockClassComponent.h">
       <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
     </ClInclude>
+    <ClInclude Include="QuailClassComponent.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="EagleClassComponent.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="FlamingoClassComponent.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="TurkeyClassComponent.h">
+      <Filter>Header Files\Component\Player Component\ClassComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEnd.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -580,6 +595,21 @@
     </ClCompile>
     <ClCompile Include="PeacockClassComponent.cpp">
       <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="QuailClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="EagleClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="FlamingoClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TurkeyClassComponent.cpp">
+      <Filter>Source Files\Component\Player Component\ClassComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEnd.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

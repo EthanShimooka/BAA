@@ -62,6 +62,7 @@ configurations.
 #include "SystemClassUpdater.h"
 #include "lobby.h"
 #include "start.h"
+#include "GameEnd.h"
 
 //temp
 #include "config.h"

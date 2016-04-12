@@ -45,6 +45,7 @@ protected:
 	/// Static instance of RenderManager class
 	static RenderManager renderManager;
 	void renderScene();
+	void UpdateShake();
 public:
 	/// Singlelton accessor fuinction for RenderManager class.
 	SQUADIO_API static RenderManager* getRenderManager();
@@ -137,6 +138,14 @@ public:
 	static SDL_Cursor* initCursorCrosshair(const char *image[]);
 
 	SQUADIO_API void freeCursor(SDL_Cursor* cursor);
+
+	/// Causes intense screen shaking, intensity should be a float between 0-1
+	SQUADIO_API void ShakeScreen(float length, float intensity);
+
+	bool shaking;
+	clock_t startShake;
+	clock_t shakeTimer;
+	float shakeIntensity;
 
 };
 

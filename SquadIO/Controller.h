@@ -27,6 +27,9 @@ public:
 	~Controller();
 
 	// return true if joystick input up
+	SQUADIO_API bool isControllerOn();
+
+	// return true if joystick input up
 	SQUADIO_API bool isJoystickUp(int b);
 
 	// return true if joystick input up

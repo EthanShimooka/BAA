@@ -24,29 +24,35 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 	player->ID = PID;
 	player->isAlive = true;
 	player->type = GAMEOBJECT_TYPE::OBJECT_PLAYER;
-//	player->isNetworkControlled = !local;
 
+	PlayerRenderComponent* rend = nullptr;
 	ClassComponent* classComp = nullptr;
+
+
 	switch (classType){
 	case CLASS_CHICKEN:
 		classComp = new ChickenClassComponent(player);
-		// for testing
-		std::cout << "Class speed " << classComp->speed << std::endl;
+		rend = new PlayerRenderComponent(player, ChickenClassComponent::animation);
 		break;
 	case CLASS_EAGLE:
-		//classComp = new EagleClassComponent(player);
+		classComp = new EagleClassComponent(player);
+		rend = new PlayerRenderComponent(player, EagleClassComponent::animation);
 		break;
 	case CLASS_PEACOCK:
-		//classComp = new PeacockClassComponent(player);
+		classComp = new PeacockClassComponent(player);
+		rend = new PlayerRenderComponent(player, PeacockClassComponent::animation);
 		break;
 	case CLASS_FLAMINGO:
-		//classComp = new FlamingoClassComponent(player);
+		classComp = new FlamingoClassComponent(player);
+		rend = new PlayerRenderComponent(player, FlamingoClassComponent::animation);
 		break;
 	case CLASS_TURKEY:
-		//classComp = new TurkeyClassComponent(player);
+		classComp = new TurkeyClassComponent(player);
+		rend = new PlayerRenderComponent(player, TurkeyClassComponent::animation);
 		break;
 	case CLASS_QUAIL:
-		//classComp = new QuailClassComponent(player);
+		classComp = new QuailClassComponent(player);
+		rend = new PlayerRenderComponent(player, QuailClassComponent::animation);
 		break;
 	default:
 		LogManager* log = LogManager::GetLogManager();
@@ -55,7 +61,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, bool local)
 		break;
 	}
 
-	PlayerRenderComponent* rend = new PlayerRenderComponent(player);
+	//PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
 	if (local){
 		PlayerInputComponent* input = new PlayerInputComponent(player, classComp->speed, classComp->featherSpeed);
