@@ -20,12 +20,9 @@ void GameEnd::runGameEnd(){
 	text = "Defeat!";
 	}*/
 	text = "Victory!";
-	std::cout << "Before textHUD calls" << std::endl;
 	//Position currently hard-coded, needs to be fixed once we have global screen width/height variables
 	textHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7000, 250, 300, true);
 	textHUD->setResourceObject(renderMan->renderText(text.c_str(), 160, 32, 240, 70, "BowlbyOneSC-Regular"));
-	std::cout << "Before assemblescene call" << std::endl;
 	sceneMan->AssembleScene();
-	std::cout << "Before sleep call" << std::endl;
 	Sleep(3000);
 }
