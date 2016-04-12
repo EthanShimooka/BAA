@@ -33,6 +33,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
 
+	/*Start mainMenu;
+	mainMenu.mainMenu();
+	Lobby lobby;
+	lobby.runLobby();*/
+
 	// don't need to change this line
 	int numLobbyPlayer = 0;
 
