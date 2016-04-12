@@ -57,15 +57,15 @@ void UIRenderComponent::createUIType(UIType ID){
 	case SCORE:
 		break;
 	case TIMER:{
-		RenderManager* renderMan = RenderManager::getRenderManager();
-		uiObjectRef->posX = 600;
-		uiObjectRef->posY = 30;
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
-		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+				   RenderManager* renderMan = RenderManager::getRenderManager();
+				   uiObjectRef->posX = 600;
+				   uiObjectRef->posY = 30;
+				   play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
+				   play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
-		objRef = play;
-		allObjs.push_back(play);
-		break;
+				   objRef = play;
+				   allObjs.push_back(play);
+				   break;
 	}
 	case BIRDSEED_BAR:
 		//TODO: these hardcoded positions are to put it a bit away from the borders of the screen.
@@ -86,6 +86,23 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case CROSSHAIR:
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, 0, 0, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	// CHARGE BAR needs to follow player posX/posY at a slight offset
+	// using 1102 and 1103 for object IDs
+	// position is currently hardcoded, need to move to follow the player sprite location
+	case CHARGE_BAR:
+		uiObjectRef->posX = 400;
+		uiObjectRef->posY = 30;
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, 0, 0, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case CHARGE_SHELL:
+		uiObjectRef->posX = 400;
+		uiObjectRef->posY = 30;
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, 0, 0, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
