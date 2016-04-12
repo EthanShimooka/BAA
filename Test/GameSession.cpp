@@ -365,7 +365,20 @@ int GameSession::Run(){
 		input->update();
 		sceneMan->AssembleScene();
 
-		if (Timing::sInstance.GetTimeRemainingS() == 0) break;
+		// if this returns true or if base health is 0, call GameEndRun() then when that returns set gameLoop = false
+		//figure out how to get reference to correct gameobject from ids 506001 and 506002
+		//GameObject* base1 = GameObjects.GetGameObject(506001);
+		//GameObject* base2 = GameObjects.GetGameObject(506002);
+		//MidBaseLogicComponent* firstBaseLogic = dynamic_cast<MidBaseLogicComponent*>(base1->GetComponent(COMPONENT_LOGIC));
+		//MidBaseLogicComponent* secondBaseLogic = dynamic_cast<MidBaseLogicComponent*>(base2->GetComponent(COMPONENT_LOGIC));
+		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			std::cout << "ENTERED IF!!!!!!!!!" << std::endl;
+			GameEnd end = GameEnd::GameEnd();
+			std::cout << "Before runGameEnd call" << std::endl;
+			end.runGameEnd();
+			gameloop = false;
+		}
+
 		firstTime = false;
 	}
 	/////////////////////////////////////////////////////
