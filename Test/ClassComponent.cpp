@@ -1,6 +1,5 @@
 #include "ClassComponent.h"
 
-
 ClassComponent::ClassComponent()
 {
 	speed = 15;
@@ -12,7 +11,6 @@ ClassComponent::ClassComponent()
 	featherHeight = 1;
 	abilityCooldown = 15;
 }
-
 
 ClassComponent::~ClassComponent()
 {

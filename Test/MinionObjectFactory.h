@@ -21,7 +21,7 @@ public:
 	~MinionObjectFactory();
 
 	/// Creates a new minion GameObject
-	GameObject * Spawn(uint64_t PID, float posX, float posY, float length, bool direction);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, int team);
 
 };
 
