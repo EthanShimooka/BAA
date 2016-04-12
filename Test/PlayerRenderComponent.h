@@ -31,6 +31,8 @@ public:
 	float aimRotation;
 	/// Reference to the crosshair UIObject's image
 	SDLRenderObject* crosshairRef;
+	// Reference to charge bar that follows player
+	SDLRenderObject* chargebarRef;
 };
 
 

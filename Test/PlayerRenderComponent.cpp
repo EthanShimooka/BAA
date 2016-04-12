@@ -45,6 +45,9 @@ void PlayerRenderComponent::Update(){
 	crosshairRef->posX = inputMan->getMouseX();
 	crosshairRef->posY = inputMan->getMouseY();
 	
+	// update charge bar position (DOESN'T WORK RIGHT NOW)
+	// chargebarRef->posX = gameObjectRef->posX;
+	// chargebarRef->posY = gameObjectRef->posY;
 }
 
 
