@@ -85,7 +85,7 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	//temp testing code from here down
-	if (gameObjectRef->team = 1){
+	if (gameObjectRef->team == 1){
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
 	}else{
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
