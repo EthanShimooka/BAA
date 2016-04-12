@@ -66,6 +66,14 @@ void PlayerLogicComponent::becomeEgg(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	SDLRenderObject* eggSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 74, gameObjectRef->posX, gameObjectRef->posY);
 	renderComp->AssignSprite(eggSprite);
+
+	//turn all sprites of player invisible
+	for (auto obj : renderComp->allObjs)obj.second->visible = false;
+
+	//convert collider to be a circle
+	PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	physicsComp->mBody->SetFixedRotation(false);
+	
 	//ignore input and roll to base
 	PlayerInputComponent* inputComp = dynamic_cast<PlayerInputComponent*>(gameObjectRef->GetComponent(COMPONENT_INPUT));
 	inputComp->isEgg = true;

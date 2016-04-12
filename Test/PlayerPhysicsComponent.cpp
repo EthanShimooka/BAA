@@ -23,9 +23,10 @@ void PlayerPhysicsComponent::init(float height, float width){
 	if (!mBody)
 		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
-	b2PolygonShape box;
+	b2CircleShape box;
 	//box.SetAsBox(471, 480); // look up other functions for polygons
-	box.SetAsBox(width, height);
+	//box.SetAsBox(width, height);
+	box.m_radius = width;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	if (!mFixture)
@@ -70,5 +71,10 @@ void PlayerPhysicsComponent::Update(){
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
-	//std::cout << "x=" << gameObjectRef->posX << "y=" << gameObjectRef->posY << std::endl;
+	//dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+	PlayerInputComponent* inputComp = dynamic_cast<PlayerInputComponent*>(gameObjectRef->GetComponent(COMPONENT_INPUT));
+	if (inputComp->isEgg){
+		mBody->SetAngularVelocity(1);
+		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
+	}
 }

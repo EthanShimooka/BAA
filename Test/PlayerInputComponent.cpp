@@ -113,11 +113,6 @@ void PlayerInputComponent::Update(){
 				//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 			}
 		}
-		else{
-			//roll the egg back to base
-			body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
-		}
-
 	}
 }
 
