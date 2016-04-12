@@ -1,9 +1,10 @@
 #include "MinionPhysicsComponent.h"
 
-MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, float _length, bool _walkRight)
+MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
+	gameObjectRef->team = team;
 	init();
 }
 
@@ -32,7 +33,7 @@ void MinionPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(50, 0));
-	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_PLATFORM | COLLISION_BASE);
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -49,6 +50,17 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 
 	case GAMEOBJECT_TYPE::OBJECT_MINION:
 		//just push each other around. Most likely done for us by box2d already
+		//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
+		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
+		if (otherObj->team != gameObjectRef->team){
+			std::cout << "shig buzz \n" << std::endl;
+			gameObjectRef->setPos(-10000, 0);
+			gameObjectRef->isAlive = false;
+		
+		}
+
+
+		gameObjectRef->isAlive = false;
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 		//Still need to trigger shake effect, visually update dmg to base
@@ -74,11 +86,24 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	//temp testing code from here down
-	if (gameObjectRef->posX > 400){
-		mBody->SetLinearVelocity(b2Vec2(-10, 0));
+	if (gameObjectRef->team = 1){
+
+		if (gameObjectRef->posX > 400){
+			mBody->SetLinearVelocity(b2Vec2(-10, 0));
+		}
+		else if (gameObjectRef->posX < -400){
+			mBody->SetLinearVelocity(b2Vec2(10, 0));
+		}
+
 	}
-	else if (gameObjectRef->posX < -400){
-		mBody->SetLinearVelocity(b2Vec2(10, 0));
+	else{
+		if (gameObjectRef->posX > 400){
+			mBody->SetLinearVelocity(b2Vec2(10, 0));
+		}
+		else if (gameObjectRef->posX < -400){
+			mBody->SetLinearVelocity(b2Vec2(-10, 0));
+		}
+
 	}
 }
 

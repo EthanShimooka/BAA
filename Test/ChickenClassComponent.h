@@ -1,6 +1,5 @@
 #pragma once
 #include "ClassComponent.h"
-//#include "RenderComponent.h"
 
 class ChickenClassComponent :
 	public ClassComponent

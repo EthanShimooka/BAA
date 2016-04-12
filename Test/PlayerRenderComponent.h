@@ -13,7 +13,6 @@ PlayerRenderComponent represents the Player-specific Render class
 #include "RenderComponent.h"
 #include "include\SceneManager.h"
 #include "PlayerComponentIncludes.h"
-#include "ChickenClassComponent.h"
 
 using function_t = void(*)(SDLRenderObject**, map_obj&, map_anim&);
 

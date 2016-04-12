@@ -9,13 +9,7 @@ class MinionLogicComponent : public LogicComponent
 public:
 	/// Constructor
 	MinionLogicComponent(GameObject* minion);
-	/// Constructor
-	MinionLogicComponent(GameObject* minion, float _initialX, float _initialY, float _length, bool _walkRight)
-		: initialX(_initialX), initialY(_initialY), length(_length), walkRight(true)
-	{
-		gameObjectRef = minion;
-		gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
-	}
+	
 	/// Destructor
 	~MinionLogicComponent();
 	/// Update Function

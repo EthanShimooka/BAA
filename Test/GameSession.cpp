@@ -13,6 +13,11 @@
 
 // Constructor
 
+
+
+
+
+
 GameSession::GameSession(){
 }
 
@@ -195,7 +200,7 @@ int GameSession::Run(){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
 			}
 			else{
 				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
@@ -301,7 +306,7 @@ int GameSession::Run(){
 
 		//CAMERA MOVEMENT - based on player position
 		if (player){
-			//if (!rightBase->isAlive)
+
 			renderMan->setCameraPoint(player->posX, 0);
 			
 		}
@@ -352,19 +357,10 @@ int GameSession::Run(){
 		if (!firstTime) //allows culling to start after all initialization happens
 			cullObjects();
 
-		//cout << "spawnTimer1 + spawnEvery1: " << (spawnTimer1 + spawnEvery1) << " currenttime: " << time(0) << endl;
-		/*MINION SPAWNING BELOW
-		if ((spawnTimer1 + spawnEvery1) <= time(0)) {
-			spawnTimer1 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -500, -100, 200, true));
-		}
-		if ((spawnTimer2 + spawnEvery2) <= time(0)) {
-			spawnTimer2 = time(0);
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -5 00, 0, 200, true));
-		}*/
-		//Every 5 seconds, spawn a wave of 3 minions, each minion spawning 1 sec apart
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -835, 0, 200, true));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+
 		}
 		input->update();
 		sceneMan->AssembleScene();

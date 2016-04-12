@@ -1,8 +1,7 @@
-#include "PeacockClassComponent.h"
+#include "QuailClassComponent.h"
 
-//Does not compile, not sure why it doesn't
 
-PeacockClassComponent::PeacockClassComponent(GameObject* player)
+QuailClassComponent::QuailClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
 	//speed = 10000;
@@ -11,16 +10,16 @@ PeacockClassComponent::PeacockClassComponent(GameObject* player)
 }
 
 
-PeacockClassComponent::~PeacockClassComponent()
+QuailClassComponent::~QuailClassComponent()
 {
 }
 
-void PeacockClassComponent::Update()
+void QuailClassComponent::Update()
 {
 }
 
-void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
-
+void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)
+{
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
@@ -49,7 +48,7 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 
 	//body->setScale(0.1);
 	//body->calcScale(50,50);
-	body->setScale(body->calcXScale(90));
+	body->setScale(body->calcXScale(50));
 	//body->setScale(body->calcXScale(90));
 
 	*objRef = base;
@@ -65,13 +64,13 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	//box->setParent(base);
 	allObjs["box"] = box;
 	//SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
-	//// changing the values in InstantiateBlankObject does not stop the text from being stretched
-	//// need fixing (to not stretch text to fill box)
-	//// text, R, G, B, fontsize, fontname
+	// changing the values in InstantiateBlankObject does not stop the text from being stretched
+	// need fixing (to not stretch text to fill box)
+	// text, R, G, B, fontsize, fontname
 
-	////std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
-	//name->setResourceObject(renderMan->renderText("alksdfasfd", 200, 0, 200, 20, "BowlbyOneSC-Regular"));
-	////name->setParent(base);
+	//std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
+	//name->setResourceObject(renderMan->renderText(playerName.c_str(), 200, 0, 200, 20, "BowlbyOneSC-Regular"));
+	//name->setParent(base);
 	//name->setPos(0, -60);
 	//allObjs["name"] = name;
 
@@ -95,5 +94,4 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	motions2.push_back(makeMotion(rotateTransform(legL, -60, 120), 0.5, 0.5, ease_QuadInOut));
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);
-
 }

@@ -1,11 +1,11 @@
 #pragma once
 #include "ClassComponent.h"
-class PeacockClassComponent :
+class FlamingoClassComponent :
 	public ClassComponent
 {
 public:
-	PeacockClassComponent(GameObject* player);
-	~PeacockClassComponent();
+	FlamingoClassComponent(GameObject* player);
+	~FlamingoClassComponent();
 	void Update();
 	bool UseAbility();
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
