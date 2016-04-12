@@ -71,10 +71,13 @@ void PlayerPhysicsComponent::Update(){
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
-	//dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
-	PlayerInputComponent* inputComp = dynamic_cast<PlayerInputComponent*>(gameObjectRef->GetComponent(COMPONENT_INPUT));
-	if (inputComp->isEgg){
-		mBody->SetAngularVelocity(1);
+	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	if (logicComp->isEgg){
+		mBody->SetAngularVelocity(3);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
+		//check if back at base yet
+		if (abs(gameObjectRef->posX) > 900){
+			logicComp->hatchBird();
+		}
 	}
 }
