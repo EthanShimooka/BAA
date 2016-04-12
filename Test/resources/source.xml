@@ -42,6 +42,7 @@
 <resource UID="29" type="graphic" filename="options.png" scenescope="0"></resource>
 <resource UID="1100" type="graphic" filename="birdseed_counter_shell.png" scenescope="0"></resource>
 <resource UID="1101" type="graphic" filename="birdseed_counter_gradient.png" scenescope="0"></resource>
+<resource UID="1109" type="graphic" filename="Game_UI_Crosshair_Default.png" scenescope="0"></resource>
 <resource UID="60" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>

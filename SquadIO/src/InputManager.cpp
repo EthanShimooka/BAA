@@ -181,6 +181,14 @@ int InputManager::getMouseY() {
 	return this->mouseY;
 }
 
+void InputManager::setMouseX(int x) {
+	this->mouseX = x;
+}
+
+void InputManager::setMouseY(int y) {
+	this->mouseY = y;
+}
+
 void InputManager::lock() {
 	this->locked = true;
 }

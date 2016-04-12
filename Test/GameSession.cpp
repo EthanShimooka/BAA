@@ -76,6 +76,11 @@ void GameSession::LoadHUD(GameObject* player){
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
 	queue.AddObject(countdownTimer);
 	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
+	//load crosshair
+	UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR);
+	queue.AddObject(crosshair);
+	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
+	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -257,7 +262,7 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
-	SDL_Cursor* cursor = renderMan->cursorToCrosshair();
+	//SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
@@ -296,7 +301,7 @@ int GameSession::Run(){
 
 		//CAMERA MOVEMENT - based on player position
 		if (player){
-			if (!rightBase->isAlive)
+			//if (!rightBase->isAlive)
 			renderMan->setCameraPoint(player->posX, 0);
 			
 		}
@@ -376,7 +381,7 @@ int GameSession::Run(){
 	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
 	//}
 	std::cout << renderMan << std::endl;
-	renderMan->freeCursor(cursor);
+	//renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();

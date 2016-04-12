@@ -84,6 +84,11 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
+	case CROSSHAIR:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, 0, 0, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
 	}
 }
 
