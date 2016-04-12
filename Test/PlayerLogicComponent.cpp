@@ -75,7 +75,25 @@ void PlayerLogicComponent::becomeEgg(){
 	physicsComp->mBody->SetFixedRotation(false);
 	
 	//ignore input and roll to base
-	PlayerInputComponent* inputComp = dynamic_cast<PlayerInputComponent*>(gameObjectRef->GetComponent(COMPONENT_INPUT));
-	inputComp->isEgg = true;
+	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	logicComp->isEgg = true;
 
+}
+
+void PlayerLogicComponent::hatchBird(){
+	PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	//reset sprites
+	for (auto obj : renderComp->allObjs)obj.second->visible = true;
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	sceneMan->RemoveObject(renderComp->objRef, sceneMan->findLayer("layer1"));
+	renderComp->objRef = renderComp->allObjs["base"];
+	//reset positions
+	renderComp->allObjs["base"]->posX = gameObjectRef->posX;
+	renderComp->allObjs["base"]->posY = gameObjectRef->posY;
+	gameObjectRef->posY>0 ? renderComp->objRef->rotation = 180 : renderComp->objRef->rotation = 0;
+	//reset rotation
+	PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	physicsComp->mBody->SetFixedRotation(true);
+	gameObjectRef->posY>0 ? gameObjectRef->rotation = 180 : gameObjectRef->rotation = 0;
+	isEgg = false;
 }
