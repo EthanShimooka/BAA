@@ -359,7 +359,7 @@ int GameSession::Run(){
 
 		if (Timing::sInstance.SpawnMinions()){
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
 
 		}
 		input->update();
