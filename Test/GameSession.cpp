@@ -187,7 +187,7 @@ int GameSession::Run(){
 	lobby.runLobby();
 
 	
-
+	//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
 	GameObject * player = NULL;
@@ -272,6 +272,7 @@ int GameSession::Run(){
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
+	NetworkManager::sInstance->SetState(NetworkManager::NMS_Playing);
 
 	while (gameloop) {
 

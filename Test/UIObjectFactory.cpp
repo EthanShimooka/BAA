@@ -60,6 +60,9 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case TIMER:
 		rend->createUIType(TIMER);
 		break;
+	case LOBBY_TIMER:
+		rend->createUIType(LOBBY_TIMER);
+		break;
 	case BIRDSEED_BAR:
 		rend->createUIType(BIRDSEED_BAR);
 		break;

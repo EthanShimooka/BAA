@@ -37,13 +37,13 @@ void UIInputComponent::Update(){
 	case READY_BUTTON:
 		if (isButtonPressed(READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT)){
 			//std::cout << "click" << std::endl;
-			this->uiObjectRef->changePicture = true;
 		}
 		break;
 	case BIRD:
 		if (isButtonPressed(66, 67)){
 			std::cout << "click" << std::endl;
 			uiObjectRef->ready = true;
+			
 		}
 		if (isMouseHovering(66, 67)){
 			//std::cout << "hovering" << std::endl;

@@ -67,6 +67,19 @@ void UIRenderComponent::createUIType(UIType ID){
 		allObjs.push_back(play);
 		break;
 	}
+	case LOBBY_TIMER:{
+		RenderManager* renderMan = RenderManager::getRenderManager();
+
+		int x, y;
+		renderMan->getWindowSize(&x, &y);
+
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	}
 	case BIRDSEED_BAR:
 		//TODO: these hardcoded positions are to put it a bit away from the borders of the screen.
 		//We'll need to store them as variables, since PlayerLogicComponent->update has hardcoded
@@ -93,9 +106,12 @@ void UIRenderComponent::createUIType(UIType ID){
 		std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
-		name->setResourceObject(renderMan->renderText(playerName.c_str(), 200, 0, 200, 20, "BowlbyOneSC-Regular"));
-		name->setPos(uiObjectRef->posX, uiObjectRef->posY);
-		allObjs.push_back(name);
+		int x, y;
+		renderMan->getWindowSize(&x, &y);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play->setResourceObject(renderMan->renderText(playerName.c_str(), 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+
+		allObjs.push_back(play);
 		break;
 	}
 }

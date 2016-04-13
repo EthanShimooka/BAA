@@ -1,9 +1,8 @@
 #include "lobby.h"
 
 
-Lobby::Lobby(): playersReady(0){
+Lobby::Lobby(): playersReady(0), teamRed(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
-	runLobby();
 }
 
 
@@ -30,8 +29,8 @@ void Lobby::runLobby(){
 	assignPlayers(sceneMan, renderMan);
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 
-	player* me;
-	for (int i = 0; i < players.size(); i++){
+	player* me = new player();
+	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
 			me = players[i];
 	}
@@ -41,6 +40,14 @@ void Lobby::runLobby(){
 		input->update();
 
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
+
+		for (unsigned int i = 0; i < Birds.size(); i++){
+			if (Birds[i]->ready && !me->ready){
+				me->playerChoice = Birds[i]->ID;
+				me->playerSlot->changePicture = true;
+				NetworkManager::sInstance->TryReadyGame();
+			}
+		}
 
 		//all players ready and teams are even
 		if (playersReady == numPlayers && playersReady % 2 == 0){
@@ -57,6 +64,59 @@ void Lobby::runLobby(){
 
 	}
 
+	cleanUP(queue);
+
+	countdown(queue);
+	cleanUP(queue);
+
+}
+
+void Lobby::cleanUP(SystemUIObjectQueue &q){
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	SystemRenderUpdater sysRend;
+	for (unsigned int i = 0; i < q.alive_objects.size(); i++){
+		q.alive_objects[i]->visible = false;
+	}
+	sysRend.RenderUpdate(q.alive_objects);
+	sceneMan->AssembleScene();
+	q.DeleteObjects();
+
+}
+
+void Lobby::countdown(SystemUIObjectQueue &q){
+
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+
+	SystemRenderUpdater sysRend;
+	UIObjectFactory countdown;
+	UIObject* timer = countdown.Spawn(LOBBY_TIMER);
+
+	q.AddObject(timer);
+	Timing::sInstance.SetLobbyCountdown();
+	Timing::sInstance.SetCountdownStart();
+
+	SDLRenderObject* timerHUD = new SDLRenderObject();
+	timerHUD = dynamic_cast<UIRenderComponent*>(timer->GetComponent(COMPONENT_RENDER))->objRef;
+
+	while (true){
+
+		sysRend.RenderUpdate(q.alive_objects);
+		sceneMan->AssembleScene();
+
+		int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
+		string minutes = Timing::sInstance.GetMinutesLeftAsString(timeRemaininginSeconds);
+		string seconds = Timing::sInstance.GetSecondsLeftAsString(timeRemaininginSeconds);
+		if (seconds.length() == 1){
+			seconds = "0" + seconds;
+		}
+		if (timeRemaininginSeconds == 0){
+			Timing::sInstance.SetGamePlayCountdown();
+			return;
+		}
+		std::string title = minutes + ":" + seconds; //concat on the time remaining here!
+		timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+	}
 }
 
 void Lobby::drawBirds(SystemUIObjectQueue &queue){
@@ -100,7 +160,7 @@ void Lobby::addPlayers(SystemUIObjectQueue &queue){
 		}
 		
 		/*UIObjectFactory name;
-		queue.AddObject(name.Spawn(MENU_NAME, w / 2, w / 2));*/
+		queue.AddObject(name.Spawn(MENU_NAME));*/
 		UIObjectFactory* slot = new UIObjectFactory();
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
 		queue.AddObject(p->playerSlot);
@@ -120,6 +180,12 @@ void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
 			players[i]->playerId = it->first;
 			players[i]->name = it->second;
 			players[i]->playerSlot->player = it->first;
+			if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
+				players[i]->team = RED;
+			}
+			else{
+				players[i]->team = BLUE;
+			}
 			i++;
 		}
 	}
@@ -127,7 +193,7 @@ void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
 
 void Lobby::updateLobby(){
 	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
-	for (int i = 0; i < players.size(); i++){
+	for (unsigned int i = 0; i < players.size(); i++){
 		std::map<uint64_t, string>::iterator it;
 		it = lobby.find(players[i]->playerId);
 		if (it == lobby.end()){

@@ -40,6 +40,7 @@ enum UIType{
 	BIRDSEED_SHELL = 12,
 	BIRDSEED_BAR = 13,
 	CROSSHAIR = 14,
+	LOBBY_TIMER = 15,
 };
 
 /// t_component struct contains a component and a int enumerating its type

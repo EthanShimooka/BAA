@@ -13,6 +13,8 @@
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 
+
+
 enum TEAM{
 	RED = 1,
 	BLUE = 2,
@@ -27,20 +29,23 @@ struct player{
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
 	UIObjectFactory* readyButton = new UIObjectFactory();
-	classType playerChoice;
-	UIObjectFactory* playerSlot = new UIObjectFactory();
+	int playerChoice;
 	UIObjectFactory* birdClass = new UIObjectFactory();
-	int classType = CLASS_CHICKEN;
 };
+
+
 
 class Lobby{
 public:
 	Lobby();
 	~Lobby();
 
-	vector<player*> players;
 	void runLobby();
+	void countdown(SystemUIObjectQueue &q);
+	void cleanUP(SystemUIObjectQueue &q);
+
 private:
+	vector<player*> players;
 	void addPlayers(SystemUIObjectQueue &q);
 	int playersReady;
 	int numPlayers;
@@ -49,6 +54,7 @@ private:
 	void updateLobby();
 	void drawBirds(SystemUIObjectQueue &q);
 	vector<UIObject*> Birds;
+	int teamRed;
 };
 
 #endif
