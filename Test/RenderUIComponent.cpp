@@ -24,7 +24,7 @@ void RenderUIComponent::Update(){
 	//Updates the related SDLRenderObject with the player's values
 	//The SDLRenderObject is was is showed on screen, but is only 
 	//a 'figurehead' for the player object 
-
+	
 	objRef->posX = uiObjectRef->posX;
 	objRef->posY = uiObjectRef->posY;
 	objRef->rotation = uiObjectRef->rotation;

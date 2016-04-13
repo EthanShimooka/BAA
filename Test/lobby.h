@@ -25,9 +25,10 @@ struct player{
 	bool ready = false;
 	int x, y;
 	TEAM team;
-	UIObjectFactory* playerSlot = new UIObjectFactory();
+	UIObject* playerSlot = new UIObject();
 	UIObjectFactory* readyButton = new UIObjectFactory();
 	UIObjectFactory* birdClass = new UIObjectFactory();
+	classType playerChoice;
 };
 
 class Lobby{
@@ -41,10 +42,11 @@ private:
 	void addPlayers(SystemUIObjectQueue &q);
 	int playersReady;
 	int numPlayers;
-	int maxPlayers = 8;
+	int maxPlayers = 4;
 	void assignPlayers(SceneManager* scene, RenderManager* rendMan);
 	void updateLobby();
 	void drawBirds(SystemUIObjectQueue &q);
+	vector<UIObject*> Birds;
 };
 
 #endif

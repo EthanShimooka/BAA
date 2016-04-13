@@ -27,12 +27,20 @@ void Lobby::runLobby(){
 	addPlayers(queue);
 	drawBirds(queue);
 	assignPlayers(sceneMan, renderMan);
+	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
+
+	player* me;
+	for (int i = 0; i < players.size(); i++){
+		if (players[i]->playerId == myId)
+			me = players[i];
+	}
 
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
 
 		input->update();
 
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
+
 		//all players ready and teams are even
 		if (playersReady == numPlayers && playersReady % 2 == 0){
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_Starting);
@@ -53,16 +61,18 @@ void Lobby::runLobby(){
 void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
-	int classSize = 6;
+	int classSize = 1;
 
 	rendMan->getWindowSize(&w, &h);
 	int x, y;
-	x = w / 4;
+	x = w / 2;
 	y = h / 2;
 	for (int i = 0; i < classSize; i++){
 		//build class slots
 		UIObjectFactory* birdClass = new UIObjectFactory();
-		queue.AddObject(birdClass->Spawn(BIRD, x, y));
+		UIObject* bird = birdClass->Spawn(BIRD, x - 33, y);
+		Birds.push_back(bird);
+		queue.AddObject(bird);
 		x += 75;
 	}
 }
@@ -72,7 +82,7 @@ void Lobby::addPlayers(SystemUIObjectQueue &queue){
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
-	int x = w / 5;
+	int x = w / 4;
 	for (int i = 0; i < maxPlayers; i++){
 		player *p = new player();
 		p->playerId = NULL;
@@ -85,12 +95,14 @@ void Lobby::addPlayers(SystemUIObjectQueue &queue){
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
-			x += w / 5;
+			x += w / 2;
 		}
 		
 		/*UIObjectFactory name;
 		queue.AddObject(name.Spawn(MENU_NAME, w / 2, w / 2));*/
-		queue.AddObject(p->playerSlot->Spawn(PLAYER_SLOT, p->x, p->y));
+		UIObjectFactory* slot = new UIObjectFactory();
+		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
+		queue.AddObject(p->playerSlot);
 		players.push_back(p);
 	}
 }
