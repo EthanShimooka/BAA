@@ -123,6 +123,7 @@ private:
 	std::vector<uiT_component> g_components;
 	/// Number of Components Bound to GameObject
 	int component_count;
+	int width, height;
 };
 
 #endif
