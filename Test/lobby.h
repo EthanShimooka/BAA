@@ -41,8 +41,8 @@ public:
 	~Lobby();
 
 	void runLobby();
-	void countdown(SystemUIObjectQueue &q);
-	void cleanUP(SystemUIObjectQueue &q);
+
+
 
 private:
 	vector<player*> players;
@@ -55,6 +55,8 @@ private:
 	void drawBirds(SystemUIObjectQueue &q);
 	vector<UIObject*> Birds;
 	int teamRed;
+	void countdown(SystemUIObjectQueue &q);
+	void cleanUP(SystemUIObjectQueue &q);
 };
 
 #endif

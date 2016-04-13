@@ -314,7 +314,7 @@ void NetworkManager::HandleReadyPacket(InputMemoryBitStream& inInputStream, uint
 		SendReadyPacketsToPeers();
 		//I'm ready now also, so an extra increment here
 		mReadyCount++;
-		mState = NMS_Ready;
+		//mState = NMS_Ready;
 	}
 
 	mReadyCount++;
@@ -672,7 +672,7 @@ void NetworkManager::UpdateLobbyPlayers()
 
 void NetworkManager::TryStartGame()
 {
-	if (mState == NMS_Ready && IsMasterPeer() && mPlayerCount == mReadyCount)
+	if (mState == NMS_Lobby && IsMasterPeer() && mPlayerCount == mReadyCount)
 	{
 		LogManager* log = LogManager::GetLogManager();
 		log->logBuffer << "Starting! NetworkManager::TryStartGame";
@@ -715,9 +715,18 @@ void NetworkManager::TryReadyGame()
 		SendReadyPacketsToPeers();
 
 		mReadyCount = 1;
-		mState = NMS_Ready;
+		//mState = NMS_Ready;
 
 		//we might be ready to start
+		TryStartGame();
+	}
+	else if (mState == NMS_Lobby && !IsMasterPeer()){
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
+		log->flush();
+		
+		SendReadyPacketsToPeers();
+		mReadyCount = 1;
 		TryStartGame();
 	}
 }

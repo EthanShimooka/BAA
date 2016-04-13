@@ -57,15 +57,15 @@ void UIRenderComponent::createUIType(UIType ID){
 	case SCORE:
 		break;
 	case TIMER:{
-				   RenderManager* renderMan = RenderManager::getRenderManager();
-				   uiObjectRef->posX = 600;
-				   uiObjectRef->posY = 30;
-				   play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
-				   play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		uiObjectRef->posX = 600;
+		uiObjectRef->posY = 30;
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
+		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
-				   objRef = play;
-				   allObjs.push_back(play);
-				   break;
+		objRef = play;
+		allObjs.push_back(play);
+		break;
 	}
 	case LOBBY_TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();
@@ -74,7 +74,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		renderMan->getWindowSize(&x, &y);
 
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
-		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		play->setResourceObject(renderMan->renderText("", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
 		objRef = play;
 		allObjs.push_back(play);

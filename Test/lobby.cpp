@@ -38,9 +38,9 @@ void Lobby::runLobby(){
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
 
 		input->update();
-
+		
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
-
+		
 		for (unsigned int i = 0; i < Birds.size(); i++){
 			if (Birds[i]->ready && !me->ready){
 				me->playerChoice = Birds[i]->ID;
@@ -139,7 +139,7 @@ void Lobby::addPlayers(SystemUIObjectQueue &queue){
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
 	int x = w / 4;
-	for (int i = 0; i < maxPlayers; i++){
+	for (int i = 0; i < NetworkManager::sInstance->GetPlayerCount(); i++){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";

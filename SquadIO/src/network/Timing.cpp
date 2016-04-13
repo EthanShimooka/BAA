@@ -59,7 +59,7 @@ bool Timing::Update(){
 }
 
 void Timing::SetLobbyCountdown(){
-	gameLengthInSeconds = 5;
+	gameLengthInSeconds = 6;
 }
 
 void Timing::SetGamePlayCountdown(){
