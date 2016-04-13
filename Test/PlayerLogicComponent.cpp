@@ -27,6 +27,12 @@ void PlayerLogicComponent::Update(){
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
 
+	// set render rectangle for charge bar HUD
+	chargeHUD->getSize(w, h);
+	SDL_Rect cRect = { chargeRect.x, chargeRect.y + chargeRect.h*(1 - currChargePercentage), chargeRect.w, chargeRect.h*currChargePercentage };
+	chargeHUD->posY = chargeRect.h * (1 - currChargePercentage);
+	chargeHUD->setRenderRect(cRect);
+
 	//update the countdown timer
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
@@ -107,4 +113,12 @@ void PlayerLogicComponent::hatchBird(){
 		}
 		isEgg = false;
 	}
+}
+
+void PlayerLogicComponent::startCharge() {
+	charging = true;
+}
+
+void PlayerLogicComponent::endCharge() {
+	charging = false;
 }

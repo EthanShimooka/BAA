@@ -77,6 +77,7 @@ void GameSession::LoadHUD(GameObject* player){
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
 	queue.AddObject(countdownTimer);
@@ -86,6 +87,17 @@ void GameSession::LoadHUD(GameObject* player){
 	queue.AddObject(crosshair);
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
+
+	// add charge meter reference to player logic
+	// also needs playerrendercomponent for xpos/ypos
+	UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR);
+	UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL);
+	queue.AddObject(chargeMeter);
+	queue.AddObject(chargeShell);
+	playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
+	playerRender->chargebarMeterRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
 //////////////////////////////////////////////////////////////////////////
