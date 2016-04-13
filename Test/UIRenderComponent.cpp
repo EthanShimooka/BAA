@@ -93,16 +93,12 @@ void UIRenderComponent::createUIType(UIType ID){
 	// using 1102 and 1103 for object IDs
 	// position is currently hardcoded, need to move to follow the player sprite location
 	case CHARGE_BAR:
-		uiObjectRef->posX = 400;
-		uiObjectRef->posY = 30;
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, 0, 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, 500, 0, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case CHARGE_SHELL:
-		uiObjectRef->posX = 400;
-		uiObjectRef->posY = 30;
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, 0, 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, 500, 0, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;

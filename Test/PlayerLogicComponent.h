@@ -43,6 +43,10 @@ public:
 	/// Once the player has rolled back to base and enough time has elapsed,
 	/// turn the player back into a bird and re-init stuff
 	void hatchBird();
+	/// Start charge and end charge are called to change the value charging
+	/// in order to update charge bar appropriately
+	void startCharge();
+	void endCharge();
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
 	PowerShieldObjectFactory sFactory;
@@ -53,6 +57,7 @@ public:
 	int currBirdseed=0;
 	int maxsBirdseed=5;
 
+	bool charging = false;
 	int currCharge = 0;
 	int maxCharge = 1300;
 

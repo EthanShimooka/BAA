@@ -51,14 +51,14 @@ void PlayerInputComponent::Update(){
 			//shoot feather
 			if (input->isMouseLeftPressed() && canFire){
 				isChargingAttack = true;
-				logicComp->currCharge += 10; // need to synchronize charge bar "animation" wtih actual charging time
+				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 			}
 			if (isChargingAttack && input->isMouseLeftReleased()){
 				double chargeTime = input->getMousePressDuration();
 				if (chargeTime > maxCharge)
 					chargeTime = maxCharge;
 				isChargingAttack = false;
-				logicComp->currCharge = 0;
+				logicComp->endCharge();
 				// for testing 
 				//chargeTime = 1300;
 				//std::cout << "Charge time: " << chargeTime << std::endl;
