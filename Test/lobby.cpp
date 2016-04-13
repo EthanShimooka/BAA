@@ -49,11 +49,6 @@ void Lobby::runLobby(){
 			}
 		}
 
-		//all players ready and teams are even
-		if (playersReady == numPlayers && playersReady % 2 == 0){
-			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_Starting);
-		}
-
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
@@ -64,9 +59,9 @@ void Lobby::runLobby(){
 
 	}
 
-	cleanUP(queue);
 
 	countdown(queue);
+
 	cleanUP(queue);
 
 }

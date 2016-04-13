@@ -102,7 +102,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
-	case MENU_NAME:
+	case MENU_NAME:{
 		std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
@@ -111,6 +111,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
 		play->setResourceObject(renderMan->renderText(playerName.c_str(), 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 		break;
+	}
 	// CHARGE BAR needs to follow player posX/posY at a slight offset
 	// using 1102 and 1103 for object IDs
 	// position is currently hardcoded, need to move to follow the player sprite location
