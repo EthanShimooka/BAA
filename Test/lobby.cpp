@@ -21,6 +21,7 @@ void Lobby::runLobby(){
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
+	
 
 	int inLobbyNow = 0;
 
@@ -45,7 +46,7 @@ void Lobby::runLobby(){
 		if (playersReady == numPlayers && playersReady % 2 == 0){
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_Starting);
 		}
-		
+
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
@@ -67,7 +68,7 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	int x, y;
 	x = w / 2;
 	y = h / 2;
-	for (int i = 0; i < classSize; i++){
+	for (int i = 0; i < 1; i++){
 		//build class slots
 		UIObjectFactory* birdClass = new UIObjectFactory();
 		UIObject* bird = birdClass->Spawn(BIRD, x - 33, y);
@@ -119,7 +120,6 @@ void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
 			players[i]->playerId = it->first;
 			players[i]->name = it->second;
 			players[i]->playerSlot->player = it->first;
-			players[i]->readyButton->player = it->first;
 			i++;
 		}
 	}

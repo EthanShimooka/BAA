@@ -27,8 +27,10 @@ struct player{
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
 	UIObjectFactory* readyButton = new UIObjectFactory();
-	UIObjectFactory* birdClass = new UIObjectFactory();
 	classType playerChoice;
+	UIObjectFactory* playerSlot = new UIObjectFactory();
+	UIObjectFactory* birdClass = new UIObjectFactory();
+	int classType = CLASS_CHICKEN;
 };
 
 class Lobby{
