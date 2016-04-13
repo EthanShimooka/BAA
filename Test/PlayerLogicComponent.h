@@ -58,8 +58,7 @@ public:
 	int maxsBirdseed=5;
 
 	bool charging = false;
-	int currCharge = 0;
-	int maxCharge = 1300;
+	float currChargePercentage = 0;
 
 	SDLRenderObject* birdseedHUD;
 	SDLRenderObject* chargeHUD;

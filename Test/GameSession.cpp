@@ -96,7 +96,8 @@ void GameSession::LoadHUD(GameObject* player){
 	queue.AddObject(chargeShell);
 	playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
-	playerRender->chargebarRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerRender->chargebarMeterRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
 //////////////////////////////////////////////////////////////////////////

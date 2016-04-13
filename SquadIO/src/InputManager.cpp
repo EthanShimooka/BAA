@@ -206,5 +206,6 @@ bool InputManager::isMouseLeftReleased(){
 }
 
 double InputManager::getMousePressDuration(){
-	return mousePressTime;
+	//return mousePressTime;
+	return (clock() - mousePressClock) / (CLOCKS_PER_SEC / 1000);
 }
