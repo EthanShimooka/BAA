@@ -6,6 +6,7 @@ RenderManager RenderManager::renderManager;
 
 RenderManager::RenderManager(){
 	ID = 1;
+	shaking = false;
 }
 
 RenderManager* RenderManager::getRenderManager(){
@@ -53,6 +54,10 @@ void RenderManager::update(){
 	SDL_FillRect(windowSurface, NULL, SDL_MapRGB(windowSurface->format, 0, 0, 0));
 	SDL_RenderClear(renderer);
 	renderBackground();
+	
+	//check for screen shaking and apply shakes if needed
+	UpdateShake();
+
 	//interate through renderables, and generate the current frame
 	renderAllObjects(); //SHOULD BE UPDATED TO BE RENDERSCENE
 
@@ -61,6 +66,36 @@ void RenderManager::update(){
 	SDL_RenderPresent(renderer);
 
 	//SDL_Delay(20); //needs to be taken out?
+}
+
+
+void RenderManager::ShakeScreen(float length, float intensity){
+	if (!shaking){
+		shaking = true;
+		startShake = clock();
+		shakeTimer = (clock_t)(length * 1000);
+		std::cout << "shakeTimer: " << shakeTimer << std::endl;
+		if (intensity > 1) intensity = 1; //limit intensity so that it is between .1 and 1
+		if (intensity < .1) intensity = .1;
+		shakeIntensity = intensity;
+		//InputManager::getInstance()->controller->rumble(intensity, length);
+	}
+}
+
+void RenderManager::UpdateShake(){
+	if (shaking){
+		//InputManager* inputMan = InputManager::getInstance()->controller->rumble(strength 0-1,duration in millis);
+		if ((startShake + shakeTimer) < (clock())) {
+			shaking = false;
+			std::cout << "ended screen shake, start shake: " << startShake << ", shaketimer: " << shakeTimer << ", time(0): " << clock() << std::endl;
+			std::cout << "difference: " << (startShake + shakeTimer) - (clock()) << std::endl;
+		}
+		else {
+			//under the assumption that each frame has its camera position set based on player previous to this being called...
+			cameraPoint.x += ((rand() % 100) - 50) * shakeIntensity; //gives random number between -50 and 50 then multiplies by intensity
+			cameraPoint.y += ((rand() % 100) - 50) * shakeIntensity;
+		}
+	}
 }
 
 //TODO: this function is necessary, but we need a resource manager first

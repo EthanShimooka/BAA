@@ -29,9 +29,9 @@ GameSession::~GameSession(){
 //variables used to keep track of bases and for camera shaking
 GameObject* leftBase;
 GameObject* rightBase;
-bool shaking = false;
-float startShake;
-float shakeTimer = 1;
+bool endedBaseShake = false;
+//time_t startShake;
+//time_t shakeTimer = 1;
 // Loads non-player Objects
 
 void GameSession::LoadWorld(){
@@ -309,6 +309,9 @@ int GameSession::Run(){
 		if (input->isKeyDown(KEY_M)){
 			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
 		}
+		if (input->isKeyDown(KEY_Y)) {
+			renderMan->ShakeScreen(.2, .5);
+		}
 		
 		mousecounter++;
 		////////////////////////////////////
@@ -317,7 +320,11 @@ int GameSession::Run(){
 
 		//CAMERA MOVEMENT - based on player position
 		if (player){
-
+			//Camera Shake
+			if ((!rightBase->isAlive || !leftBase->isAlive) && !endedBaseShake) {
+				endedBaseShake = true;
+				renderMan->ShakeScreen(1, 1);
+			}
 			renderMan->setCameraPoint(player->posX, 0);
 			
 		}
@@ -376,7 +383,13 @@ int GameSession::Run(){
 		input->update();
 		sceneMan->AssembleScene();
 
-		if (Timing::sInstance.GetTimeRemainingS() == 0) break;
+		//triggers endgame screen
+		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			GameEnd end = GameEnd::GameEnd();
+			end.runGameEnd();
+			gameloop = false;
+		}
+
 		firstTime = false;
 	}
 	/////////////////////////////////////////////////////

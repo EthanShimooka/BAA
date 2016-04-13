@@ -18,10 +18,11 @@ PlayerInputComponent::~PlayerInputComponent()
 void PlayerInputComponent::Update(){
 	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
 	PlayerRenderComponent* renderComp = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
-	PlayerLogicComponent* logicComp = (PlayerLogicComponent*)gameObjectRef->GetComponent(COMPONENT_LOGIC);
+	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
-		if (!isEgg){
+		if (!logicComp->isEgg){
 			InputManager* input = InputManager::getInstance();
 			RenderManager* renderMan = RenderManager::getRenderManager();
 			Controller* controller = input->controller;
@@ -64,10 +65,9 @@ void PlayerInputComponent::Update(){
 				
 				Timing::sInstance.StartAttackCooldown();
 				canFire = false;
-				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 				float dx, dy;
 				renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-				uint64_t id = logic->spawnFeather(dx, dy, chargeTime, featherSpeed);
+				uint64_t id = logicComp->spawnFeather(dx, dy, chargeTime, featherSpeed);
 				PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 				net->createFeatherPacket(id, dx, dy, chargeTime);
 			}
@@ -80,27 +80,29 @@ void PlayerInputComponent::Update(){
 				canFire = true;
 			}
 
-			//controller aiming
-			int controllerSensitivity = 10;
-			input->setMouseX(input->getMouseX() + controller->getRightThumbX() * controllerSensitivity);
-			input->setMouseY(input->getMouseY() + controller->getRightThumbY() * controllerSensitivity);
-			
-			//firing with controller
-			if (controller->getRightTrigger() < 0.8&& canFire&&isChargingAttack){	
-				canFire = false;
-				isChargingAttack = false;
-				controller->rumble(1, 200);
-				float xDir, yDir;
-				renderMan->windowCoordToWorldCoord(xDir, yDir, renderComp->crosshairRef->posX, renderComp->crosshairRef->posY);
-				//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
-				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-				uint64_t id = logic->spawnFeather(xDir, yDir, 150,featherSpeed);
-				PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-				//not working yet
-				net->createFeatherPacket(id, xDir, yDir, 100);
-			}
-			if (controller->getRightTrigger() > 0.8)isChargingAttack = true;
+			if (controller->isControllerOn()){
+				//controller aiming
+				int controllerSensitivity = 10;
+				input->setMouseX(input->getMouseX() + controller->getRightThumbX() * controllerSensitivity);
+				input->setMouseY(input->getMouseY() + controller->getRightThumbY() * controllerSensitivity);
 
+				//firing with controller
+
+				if (controller->getRightTrigger() < 0.8&& canFire&&isChargingAttack){
+					canFire = false;
+					isChargingAttack = false;
+					controller->rumble(1, 200);
+					float xDir, yDir;
+					renderMan->windowCoordToWorldCoord(xDir, yDir, renderComp->crosshairRef->posX, renderComp->crosshairRef->posY);
+					//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
+					PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+					uint64_t id = logic->spawnFeather(xDir, yDir, 150, featherSpeed);
+					PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+					//not working yet
+					net->createFeatherPacket(id, xDir, yDir, 100);
+				}
+				if (controller->getRightTrigger() > 0.8)isChargingAttack = true;
+			}
 			//change direction of player sprite if needed
 			if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 			else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
@@ -114,11 +116,6 @@ void PlayerInputComponent::Update(){
 				//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 			}
 		}
-		else{
-			//roll the egg back to base
-			body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
-		}
-
 	}
 }
 

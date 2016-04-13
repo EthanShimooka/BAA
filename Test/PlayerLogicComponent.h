@@ -40,6 +40,9 @@ public:
 	/// This function reaches into each component and makes appropriate changes to
 	/// turn the player into an egg
 	void becomeEgg();
+	/// Once the player has rolled back to base and enough time has elapsed,
+	/// turn the player back into a bird and re-init stuff
+	void hatchBird();
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
 	PowerShieldObjectFactory sFactory;
@@ -59,6 +62,10 @@ public:
 	SDL_Rect chargeRect;
 
 	SDLRenderObject* timerHUD;
+
+	/// Boolean used to restrict input during gameplay. Only perform actions
+	/// (i.e. jumping, shooting, moving) in game if true.
+	bool isEgg = false;
 };
 
 #endif

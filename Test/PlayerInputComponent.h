@@ -26,9 +26,7 @@ public:
 	void Update();
 
 	InputManager* input;
-	/// Boolean used to restrict input during gameplay. Only perform actions
-	/// (i.e. jumping, shooting, moving) in game if true.
-	bool isEgg = false;
+
 private:
 	/// True if player currently charging a feather
 	bool isChargingAttack = false;
