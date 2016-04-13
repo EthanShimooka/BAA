@@ -72,6 +72,11 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case CROSSHAIR:
 		rend->createUIType(CROSSHAIR);
 		break;
+	case CHARGE_BAR:
+		rend->createUIType(CHARGE_BAR);
+		break;
+	case CHARGE_SHELL:
+		rend->createUIType(CHARGE_SHELL);
 	}
 	uiObject->AddComponent(COMPONENT_RENDER, rend);
 

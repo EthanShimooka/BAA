@@ -19,6 +19,7 @@ void PlayerInputComponent::Update(){
 	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
 	PlayerRenderComponent* renderComp = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		if (!logicComp->isEgg){
@@ -50,12 +51,20 @@ void PlayerInputComponent::Update(){
 			//shoot feather
 			if (input->isMouseLeftPressed() && canFire){
 				isChargingAttack = true;
+				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
+			}
+			if (isChargingAttack) {
+				if (input->getMousePressDuration() < maxCharge) {
+					logicComp->currChargePercentage = input->getMousePressDuration() / maxCharge;
+					// std::cout << logicComp->currChargePercentage << std::endl;
+				}
 			}
 			if (isChargingAttack && input->isMouseLeftReleased()){
 				double chargeTime = input->getMousePressDuration();
 				if (chargeTime > maxCharge)
 					chargeTime = maxCharge;
 				isChargingAttack = false;
+				logicComp->currChargePercentage = 0;
 				// for testing 
 				//chargeTime = 1300;
 				//std::cout << "Charge time: " << chargeTime << std::endl;
