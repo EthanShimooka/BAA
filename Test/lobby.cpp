@@ -38,7 +38,7 @@ void Lobby::runLobby(){
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
 
 		input->update();
-		addPlayers(queue);
+		NetworkManager::sInstance->ProcessIncomingPackets();
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 		
 		for (unsigned int i = 0; i < Birds.size(); i++){
