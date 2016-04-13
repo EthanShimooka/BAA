@@ -55,6 +55,12 @@
 <resource UID="3003" type="graphic" filename="Player_Chicken_Leg_1.png" scenescope="0"></resource>
 <resource UID="3004" type="graphic" filename="Player_Chicken_Leg_2.png" scenescope="0"></resource>
 <resource UID="3005" type="graphic" filename="Player_Chicken_Throw_1.png" scenescope="0"></resource>
+<resource UID="3100" type="graphic" filename="Player_Peacock_Body.png" scenescope="0"></resource>
+<resource UID="3101" type="graphic" filename="Player_Peacock_Arm_1.png" scenescope="0"></resource>
+<resource UID="3102" type="graphic" filename="Player_Peacock_Arm_2.png" scenescope="0"></resource>
+<resource UID="3103" type="graphic" filename="Player_Peacock_Leg_1.png" scenescope="0"></resource>
+<resource UID="3104" type="graphic" filename="Player_Peacock_Leg_2.png" scenescope="0"></resource>
+<resource UID="3105" type="graphic" filename="Player_Peacock_Throw_1.png" scenescope="0"></resource>
 
 
 
