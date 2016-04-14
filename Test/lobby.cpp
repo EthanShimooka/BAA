@@ -38,7 +38,7 @@ void Lobby::runLobby(){
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
 
 		input->update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
+		NetworkManager::sInstance->ProcessIncomingPackets();		
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 		
 		for (unsigned int i = 0; i < Birds.size(); i++){
@@ -48,7 +48,9 @@ void Lobby::runLobby(){
 				NetworkManager::sInstance->TryReadyGame();
 			}
 		}
-
+		if (me->ready){
+			NetworkManager::sInstance->TryReadyGame();
+		}
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);

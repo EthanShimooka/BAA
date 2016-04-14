@@ -697,9 +697,9 @@ void NetworkManager::TryStartGame()
 		mTimeToStart = kStartDelay;
 		mState = NMS_Starting;
 	}
-	else{
+	/*else{
 		mState = NMS_Lobby;
-	}
+	}*/
 }
 
 void NetworkManager::TryReadyGame()
