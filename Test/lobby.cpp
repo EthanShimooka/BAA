@@ -36,6 +36,7 @@ void Lobby::runLobby(){
 
 	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
 		std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
+		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;
 		input->update();
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();		
