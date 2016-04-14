@@ -20,11 +20,8 @@ void Lobby::runLobby(){
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
-	
 
-	int inLobbyNow = 0;
-
-	addPlayers(queue);
+	addSlots(queue);
 	drawBirds(queue);
 	assignPlayers(sceneMan, renderMan);
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
@@ -35,12 +32,20 @@ void Lobby::runLobby(){
 			me = players[i];
 	}
 
+	int inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+
 	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
 
 		input->update();
 		NetworkManager::sInstance->ProcessIncomingPackets();		
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
-		
+
+		//check for new players added.
+		if (NetworkManager::sInstance->GetPlayerCount() > inLobbyNow){
+			addNewPlayers();
+			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+		}
+
 		for (unsigned int i = 0; i < Birds.size(); i++){
 			if (Birds[i]->ready && !me->ready){
 				me->playerChoice = Birds[i]->ID;
@@ -48,10 +53,13 @@ void Lobby::runLobby(){
 				NetworkManager::sInstance->TryReadyGame();
 			}
 		}
-		std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		if (me->ready){
+		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
+
+		//only master peer can start game
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
 			NetworkManager::sInstance->TryReadyGame();
 		}
+
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
@@ -137,7 +145,7 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	}
 }
 
-void Lobby::addPlayers(SystemUIObjectQueue &queue){
+void Lobby::addSlots(SystemUIObjectQueue &queue){
 
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
@@ -162,6 +170,8 @@ void Lobby::addPlayers(SystemUIObjectQueue &queue){
 		queue.AddObject(name.Spawn(MENU_NAME));*/
 		UIObjectFactory* slot = new UIObjectFactory();
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
+		p->visible = false;
+		p->playerSlot->visible = p->visible;
 		queue.AddObject(p->playerSlot);
 		players.push_back(p);
 	}
@@ -176,9 +186,11 @@ void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
 	int i = 0;
 	for (std::map<uint64_t, string>::iterator it = lobby.begin(); it != lobby.end(); it++){
 		if (players[i]->playerId == NULL){
+			players[i]->visible = true;
 			players[i]->playerId = it->first;
 			players[i]->name = it->second;
 			players[i]->playerSlot->player = it->first;
+			players[i]->playerSlot->visible = players[i]->visible;
 			if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
 				players[i]->team = RED;
 			}
@@ -200,6 +212,46 @@ void Lobby::updateLobby(){
 			players[i]->name = "";
 			players[i]->team = NOTEAM;
 			players[i]->ready = false;
+			players[i]->visible = false;
+			players[i]->playerSlot->visible = players[i]->visible;
 		}
 	}
+}
+
+void Lobby::addNewPlayers(){
+
+	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
+	std::map<uint64_t, string>::iterator it = lobby.begin();
+	bool found = false;
+
+	for (it; it != lobby.end(); it++){
+
+		for (unsigned int i = 0; i < players.size(); i++){
+			if (players[i]->playerId == it->first){
+				found = true;
+			}
+		}
+		if (!found){
+			for (unsigned int i = 0; i < players.size(); i++){
+				if (players[i]->playerId == NULL){
+					players[i]->visible = true;
+					players[i]->playerSlot->visible = players[i]->visible;
+					players[i]->playerId = it->first;
+					players[i]->name = it->second;
+					if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
+						players[i]->team = RED;
+					}
+					else{
+						players[i]->team = BLUE;
+					}
+				}
+			}
+		}
+		else{
+			found = false;
+		}
+	}
+
+	
+	
 }

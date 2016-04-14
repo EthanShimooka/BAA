@@ -23,6 +23,7 @@ struct player{
 	uint64_t playerId;
 	string name;
 	bool ready = false;
+	bool visible;
 	int x, y;
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
@@ -44,12 +45,13 @@ public:
 
 private:
 	vector<player*> players;
-	void addPlayers(SystemUIObjectQueue &q);
+	void addSlots(SystemUIObjectQueue &q);
 	int playersReady;
 	int numPlayers;
 	int maxPlayers = 4;
 	void assignPlayers(SceneManager* scene, RenderManager* rendMan);
 	void updateLobby();
+	void addNewPlayers();
 	void drawBirds(SystemUIObjectQueue &q);
 	vector<UIObject*> Birds;
 	int teamRed;
