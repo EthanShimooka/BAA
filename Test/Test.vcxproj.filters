@@ -109,6 +109,12 @@
     <Filter Include="Source Files\Component\Player Component\ClassComponent">
       <UniqueIdentifier>{eb8117af-ad80-4467-9ad1-5d352ee41627}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Mine Component">
+      <UniqueIdentifier>{c545be84-08f7-4fc5-b82f-cc9f7fe3f71a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\MineComponent">
+      <UniqueIdentifier>{b72429a6-c7c3-4bd6-a034-11617e206199}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -378,6 +384,21 @@
     <ClInclude Include="GameEnd.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="MineObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MinePhysicsComponent.h">
+      <Filter>Header Files\Component\MineComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="MineRenderComponent.h">
+      <Filter>Header Files\Component\MineComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="MineLogicComponent.h">
+      <Filter>Header Files\Component\MineComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="MineComponentIncludes.h">
+      <Filter>Header Files\Component\MineComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -610,6 +631,18 @@
     </ClCompile>
     <ClCompile Include="GameEnd.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MinePhysicsComponent.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MineObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MineRenderComponent.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MineLogicComponent.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
