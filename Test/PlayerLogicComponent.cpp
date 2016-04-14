@@ -14,6 +14,8 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 
 void PlayerLogicComponent::Update(){
+	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+		return;
 	InputManager* input = InputManager::getInstance();
 	//update orientation
 	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
