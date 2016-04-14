@@ -23,7 +23,7 @@ void Lobby::runLobby(){
 
 	addSlots(queue);
 	drawBirds(queue);
-	assignPlayers(sceneMan, renderMan);
+	assignPlayers(renderMan);
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 
 	player* me = new player();
@@ -37,6 +37,7 @@ void Lobby::runLobby(){
 	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
 
 		input->update();
+		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();		
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 
@@ -177,7 +178,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 	}
 }
 
-void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
+void Lobby::assignPlayers(RenderManager* renderMan){
 	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
 
 	int w, h;
@@ -193,6 +194,7 @@ void Lobby::assignPlayers(SceneManager* sceneMan, RenderManager* renderMan){
 			players[i]->playerSlot->visible = players[i]->visible;
 			if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
 				players[i]->team = RED;
+				teamRed++;
 			}
 			else{
 				players[i]->team = BLUE;
@@ -210,6 +212,9 @@ void Lobby::updateLobby(){
 		if (it == lobby.end()){
 			players[i]->playerId = NULL;
 			players[i]->name = "";
+			if (players[i]->team == RED){
+				teamRed--;
+			}
 			players[i]->team = NOTEAM;
 			players[i]->ready = false;
 			players[i]->visible = false;
@@ -235,11 +240,13 @@ void Lobby::addNewPlayers(){
 			for (unsigned int i = 0; i < players.size(); i++){
 				if (players[i]->playerId == NULL){
 					players[i]->visible = true;
-					players[i]->playerSlot->visible = players[i]->visible;
 					players[i]->playerId = it->first;
 					players[i]->name = it->second;
+					players[i]->playerSlot->player = it->first;
+					players[i]->playerSlot->visible = players[i]->visible;
 					if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
 						players[i]->team = RED;
+						teamRed++;
 					}
 					else{
 						players[i]->team = BLUE;
