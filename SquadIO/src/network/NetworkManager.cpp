@@ -717,7 +717,7 @@ void NetworkManager::TryReadyGame()
 		//we might be ready to start
 		TryStartGame();
 	}
-	else if (mState == NMS_Lobby && !IsMasterPeer()){
+	else {
 		LogManager* log = LogManager::GetLogManager();
 		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
 		log->flush();
