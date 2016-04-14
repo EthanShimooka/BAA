@@ -59,7 +59,8 @@ void Lobby::runLobby(){
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
 		//only master peer can start game
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		if (NetworkManager::sInstance->GetPlayerCount() == 2){
+		//if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
