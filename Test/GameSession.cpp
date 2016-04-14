@@ -13,10 +13,7 @@
 
 // Constructor
 
-
-
-
-
+std::unordered_map<uint64_t, player*> playersInLobby;
 
 GameSession::GameSession(){
 }
@@ -182,7 +179,7 @@ int GameSession::Run(){
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
 	SystemClassUpdater sysClass;
-	
+
 
 
 	/// ENTITIES
@@ -192,13 +189,16 @@ int GameSession::Run(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 
-	Start menu;
-	menu.mainMenu();
+	while (NetworkManager::sInstance->GetState() != NetworkManager::NMS_Starting){
+		Start menu;
+		menu.mainMenu();
 
-	Lobby lobby;
-	lobby.runLobby();
+		Lobby lobby;
+		lobby.runLobby();
+	}
 
-	
+
+	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
@@ -213,7 +213,7 @@ int GameSession::Run(){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
 			}
 			else{
 				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));

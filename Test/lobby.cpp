@@ -35,7 +35,7 @@ void Lobby::runLobby(){
 			me = players[i];
 	}
 
-	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_Lobby){
+	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
 
 		input->update();
 		NetworkManager::sInstance->ProcessIncomingPackets();		
@@ -57,13 +57,14 @@ void Lobby::runLobby(){
 		sysRend.RenderUpdate(queue.alive_objects);
 
 		input->update();
-
+		
 		sceneMan->AssembleScene();
 
 	}
 
-
-	countdown(queue);
+	if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting){
+		countdown(queue);
+	}
 
 	cleanUP(queue);
 

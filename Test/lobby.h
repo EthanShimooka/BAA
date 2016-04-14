@@ -13,8 +13,6 @@
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 
-
-
 enum TEAM{
 	RED = 1,
 	BLUE = 2,
@@ -33,7 +31,7 @@ struct player{
 	UIObjectFactory* birdClass = new UIObjectFactory();
 };
 
-
+extern std::unordered_map<uint64_t, player*> playersInLobby;
 
 class Lobby{
 public:
