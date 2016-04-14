@@ -35,7 +35,7 @@ void Lobby::runLobby(){
 	int inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 
 	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
-
+		std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		input->update();
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();		
