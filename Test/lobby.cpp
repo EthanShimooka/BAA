@@ -48,6 +48,7 @@ void Lobby::runLobby(){
 				NetworkManager::sInstance->TryReadyGame();
 			}
 		}
+		std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		if (me->ready){
 			NetworkManager::sInstance->TryReadyGame();
 		}
