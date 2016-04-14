@@ -660,7 +660,7 @@ void NetworkManager::UpdateLobbyPlayers()
 		//am I the master peer now?
 		if (mMasterPeerId == mPlayerId)
 		{
-			mIsMasterPeer = true;
+			mIsMasterPeer = true; 
 		}
 
 		GamerServices::sInstance->GetLobbyPlayerMap(mLobbyId, mPlayerNameMap);
