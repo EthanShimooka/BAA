@@ -672,7 +672,7 @@ void NetworkManager::UpdateLobbyPlayers()
 
 void NetworkManager::TryStartGame()
 {
-	if (mState == NMS_Lobby && IsMasterPeer() && mPlayerCount == mReadyCount)
+	if (mState == NMS_Lobby /*&& IsMasterPeer()*/ && mPlayerCount == mReadyCount)
 	{
 		LogManager* log = LogManager::GetLogManager();
 		log->logBuffer << "Starting! NetworkManager::TryStartGame";
