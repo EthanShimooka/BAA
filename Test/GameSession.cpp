@@ -189,7 +189,7 @@ int GameSession::Run(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 
-	while (NetworkManager::sInstance->GetState() != NetworkManager::NMS_Starting){
+	while (NetworkManager::sInstance->GetState() < NetworkManager::NMS_Starting){
 		Start menu;
 		menu.mainMenu();
 
