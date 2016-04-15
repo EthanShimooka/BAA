@@ -34,6 +34,10 @@ public:
 	SQUADIO_API bool AttackCooldownEnded();
 	/// Returns true if minions should be spawned
 	SQUADIO_API bool SpawnMinions();
+
+	SQUADIO_API void SetLobbyCountdown();
+
+	SQUADIO_API void SetGamePlayCountdown();
 private:
 	float		mDeltaTime;
 	uint64_t	mDeltaTick;
@@ -45,6 +49,6 @@ private:
 	double		mLastFrameStartTime;
 	float		mFrameStartTimef;
 	double		mPerfCountDuration;
-
+	int			playTimeLengthInSecs = 120;
 };
 #endif

@@ -24,10 +24,10 @@ public:
 	enum NetworkManagerState
 	{
 		NMS_Unitialized,
+		NMS_MainMenu,
 		NMS_Searching,
 		NMS_Lobby,
 		NMS_Ready,
-		NMS_MainMenu,
 		//everything above this should be the pre-game/lobby/connection
 		NMS_Starting,
 		NMS_Playing,
@@ -53,7 +53,7 @@ public:
 	/// Initializes networkmanager
 	SQUADIO_API static bool	StaticInit();
 	/// Initialize lobby search
-	SQUADIO_API void startLobbySearch();
+	SQUADIO_API void StartLobbySearch();
 	/// Constructor
 	SQUADIO_API NetworkManager();
 	/// Destructor

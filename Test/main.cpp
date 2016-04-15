@@ -19,7 +19,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	
 	
 	RenderManager* renderMan = RenderManager::getRenderManager();
-	renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+	renderMan->init(1600/2, 900/2, false, "Birds At Arms");
 
 
 	LogManager* log = LogManager::GetLogManager();
@@ -32,6 +32,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 	if (!NetworkManager::StaticInit()){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
+
+	/*Start mainMenu;
+	mainMenu.mainMenu();
+	Lobby lobby;
+	lobby.runLobby();*/
 
 	// don't need to change this line
 	int numLobbyPlayer = 0;

@@ -50,22 +50,35 @@ void UIRenderComponent::createUIType(UIType ID){
 		allObjs.push_back(play);
 		break;
 	case BIRD:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 16, uiObjectRef->posX, uiObjectRef->posY, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 3000, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case SCORE:
 		break;
 	case TIMER:{
-				   RenderManager* renderMan = RenderManager::getRenderManager();
-				   uiObjectRef->posX = 600;
-				   uiObjectRef->posY = 30;
-				   play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
-				   play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		uiObjectRef->posX = 600;
+		uiObjectRef->posY = 30;
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
+		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
-				   objRef = play;
-				   allObjs.push_back(play);
-				   break;
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	}
+	case LOBBY_TIMER:{
+		RenderManager* renderMan = RenderManager::getRenderManager();
+
+		int x, y;
+		renderMan->getWindowSize(&x, &y);
+
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play->setResourceObject(renderMan->renderText("", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+
+		objRef = play;
+		allObjs.push_back(play);
+		break;
 	}
 	case BIRDSEED_BAR:
 		//TODO: these hardcoded positions are to put it a bit away from the borders of the screen.
@@ -89,6 +102,16 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
+	case MENU_NAME:{
+		std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+		int x, y;
+		renderMan->getWindowSize(&x, &y);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play->setResourceObject(renderMan->renderText(playerName.c_str(), 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		break;
+	}
 	// CHARGE BAR needs to follow player posX/posY at a slight offset
 	// using 1102 and 1103 for object IDs
 	// position is currently hardcoded, need to move to follow the player sprite location
