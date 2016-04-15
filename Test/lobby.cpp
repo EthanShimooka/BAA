@@ -1,7 +1,7 @@
 #include "lobby.h"
 
 
-Lobby::Lobby(): playersReady(0), teamRed(0){
+Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 }
 
@@ -32,7 +32,8 @@ void Lobby::runLobby(){
 			me = players[i];
 	}
 
-	int inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+	NetworkManager::sInstance->UpdateLobbyPlayers();
+	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
@@ -52,7 +53,7 @@ void Lobby::runLobby(){
 		}
 
 		updateLobby();
-		inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+		
 		if (!me->ready){
 			for (unsigned int i = 0; i < Birds.size(); i++){
 				if (Birds[i]->ready){
@@ -227,6 +228,7 @@ void Lobby::updateLobby(){
 			players[i]->visible = false;
 			players[i]->playerSlot->visible = players[i]->visible;
 			NetworkManager::sInstance->UpdateLobbyPlayers();
+			inLobbyNow--;
 
 		}
 	}

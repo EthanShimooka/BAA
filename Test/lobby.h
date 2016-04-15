@@ -27,9 +27,8 @@ struct player{
 	int x, y;
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
-	UIObjectFactory* readyButton = new UIObjectFactory();
-	int playerChoice;
 	UIObjectFactory* birdClass = new UIObjectFactory();
+	int playerChoice;
 };
 
 extern std::unordered_map<uint64_t, player*> playersInLobby;
@@ -49,6 +48,7 @@ private:
 	int playersReady;
 	int numPlayers;
 	int maxPlayers = 4;
+	int inLobbyNow;
 	void assignPlayers(RenderManager* rendMan);
 	void updateLobby();
 	void addNewPlayers();
