@@ -368,6 +368,12 @@ bool GamerServices::SendP2PUnreliable(const OutputMemoryBitStream& inOutputStrea
 		inOutputStream.GetByteLength(), k_EP2PSendUnreliable);
 }
 
+bool GamerServices::SendP2PReliable(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer)
+{
+	return SteamNetworking()->SendP2PPacket(inToPlayer, inOutputStream.GetBufferPtr(),
+		inOutputStream.GetByteLength(), k_EP2PSendReliable);
+}
+
 bool GamerServices::IsP2PPacketAvailable(uint32_t& outPacketSize)
 {
 	return SteamNetworking()->IsP2PPacketAvailable(&outPacketSize);
