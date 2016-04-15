@@ -148,8 +148,8 @@ void NetworkManager::UpdateSendTurnPacket()
 	{
 		//create our turn data
 		//TO DO: code to get the command list
-		TurnData data(mPlayerId, RandGen::sInstance->GetRandomUInt32(0, UINT32_MAX),
-			ComputeGlobalCRC(), mCommandList);
+		/*TurnData data(mPlayerId, RandGen::sInstance->GetRandomUInt32(0, UINT32_MAX),
+			ComputeGlobalCRC(), mCommandList);*/
 
 		//we need to send a turn packet to all of our peers
 		OutputMemoryBitStream packet;
@@ -157,7 +157,7 @@ void NetworkManager::UpdateSendTurnPacket()
 		//we're sending data for 2 turns from now
 		packet.Write(mTurnNumber + 2);
 		packet.Write(mPlayerId);
-		data.Write(packet);
+		//data.Write(packet);
 
 		for (auto &iter : mPlayerNameMap)
 		{
@@ -168,14 +168,14 @@ void NetworkManager::UpdateSendTurnPacket()
 		}
 
 		//save our turn data for turn + 2
-		mTurnData[mTurnNumber + 2].emplace(mPlayerId, data);
+		//mTurnData[mTurnNumber + 2].emplace(mPlayerId, data);
 		//TO DO: code to clear the command list
 		mCommandList.Clear();
 		//InputManager::sInstance->ClearCommandList();
 
 		if (mTurnNumber >= 0)
 		{
-			TryAdvanceTurn();
+			//TryAdvanceTurn();
 		}
 		else
 		{
@@ -400,10 +400,10 @@ void NetworkManager::HandleTurnPacket(InputMemoryBitStream& inInputStream, uint6
 		return;
 	}
 
-	TurnData data;
+	/*TurnData data;
 	data.Read(inInputStream);
 
-	mTurnData[turnNum].emplace(playerId, data);
+	mTurnData[turnNum].emplace(playerId, data);*/
 }
 
 void NetworkManager::ProcessPacketsDelay(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer)
