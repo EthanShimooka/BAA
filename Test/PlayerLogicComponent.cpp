@@ -58,7 +58,9 @@ void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initi
 
 void PlayerLogicComponent::spawnShield(){
 	if (currBirdseed == maxsBirdseed){
-		GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		PowerShieldObjectFactory sFactory;
+		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		else GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
 		currBirdseed = 0;
 	}
 	else{
@@ -68,7 +70,9 @@ void PlayerLogicComponent::spawnShield(){
 
 void PlayerLogicComponent::spawnMine(){
 	if (currBirdseed == maxsBirdseed){
-		GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		MineObjectFactory mFactory;
+		if (gameObjectRef->posY>0)GameObjects.AddObject(mFactory.Spawn(featherNum++, gameObjectRef));
+		else GameObjects.AddObject(mFactory.Spawn(featherNum++, gameObjectRef));
 		currBirdseed = 0;
 	}
 	else{

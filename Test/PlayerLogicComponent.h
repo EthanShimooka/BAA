@@ -20,6 +20,7 @@ Only the local player GameObject should have this component.
 #include "include\InputManager.h"
 
 #include "PowerShieldObjectFactory.h"
+#include "MineObjectFactory.h"
 
 class PlayerLogicComponent :  public LogicComponent
 {
@@ -50,7 +51,7 @@ public:
 	void endCharge();
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
-	PowerShieldObjectFactory sFactory;
+	//PowerShieldObjectFactory sFactory;
 
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
