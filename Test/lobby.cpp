@@ -59,10 +59,14 @@ void Lobby::runLobby(){
 				if (Birds[i]->ready){
 					me->playerChoice = Birds[i]->ID;
 					me->playerSlot->changePicture = true;
+					me->playerSlot->changeTo = Birds[i]->ID;
 					me->ready = true;
+					break;
 				}
 				if (Birds[i]->hoverPicture){
 					me->playerSlot->hoverPicture = true;
+					me->playerSlot->changeTo = Birds[i]->ID;
+					break;
 				}
 				else{
 					me->playerSlot->hoverPicture = false;
@@ -154,13 +158,13 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 		//build class slots
 		UIObjectFactory* chx = new UIObjectFactory();
 		UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
-		UIObjectFactory* pCock = new UIObjectFactory();
+		//UIObjectFactory* pCock = new UIObjectFactory();
 		x += 75;
-		UIObject* bird2 = pCock->Spawn(PEACOCK, x - 33, y);
+		//UIObject* bird2 = pCock->Spawn(PEACOCK, x - 33, y);
 		Birds.push_back(bird);
-		Birds.push_back(bird2);
+		//Birds.push_back(bird2);
 		queue.AddObject(bird);
-		queue.AddObject(bird2);
+		//queue.AddObject(bird2);
 	}
 }
 

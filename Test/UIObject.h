@@ -68,6 +68,7 @@ public:
 
 	/// Object ID
 	UIType ID;
+	UIType changeTo;
 
 	///Screen X Position
 	float posX;
