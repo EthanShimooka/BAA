@@ -16,7 +16,6 @@
 enum TEAM{
 	RED = 1,
 	BLUE = 2,
-	NOTEAM = 3,
 };
 
 struct player{
