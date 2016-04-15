@@ -369,7 +369,7 @@ void NetworkManager::HandleStartPacket(InputMemoryBitStream& inInputStream, uint
 		//for now, assume that we're one frame off, but ideally we would RTT to adjust
 		//the time to start, based on latency/jitter
 		mState = NMS_Starting;
-		mTimeToStart = kStartDelay - Timing::sInstance.GetDeltaTime();
+		//mTimeToStart = kStartDelay - Timing::sInstance.GetDeltaTime();
 	}
 }
 
