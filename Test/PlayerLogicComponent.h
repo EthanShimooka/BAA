@@ -36,6 +36,7 @@ public:
 	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime, float speed);
 	/// Spawn Hero Class Power
 	void spawnShield();
+	void spawnMine();
 	/// When the player is hit by a feather, turn into an egg and roll back to base.
 	/// This function reaches into each component and makes appropriate changes to
 	/// turn the player into an egg

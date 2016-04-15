@@ -63,7 +63,7 @@
 <resource UID="3103" type="graphic" filename="Player_Peacock_Leg_1.png" scenescope="0"></resource>
 <resource UID="3104" type="graphic" filename="Player_Peacock_Leg_2.png" scenescope="0"></resource>
 <resource UID="3105" type="graphic" filename="Player_Peacock_Throw_1.png" scenescope="0"></resource>
-
+<resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
 
 
 </resources>

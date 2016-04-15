@@ -15,5 +15,7 @@ public:
 	/// Signals the blow up sequence to start. Once sequence finishes, either
 	/// destroy the object or send it to the object pool
 	void blowUp();
+
+	GameObject* spawner;
 };
 #endif
