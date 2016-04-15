@@ -63,6 +63,8 @@ void Lobby::runLobby(){
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 		}
 
+		updateLobby();
+		inLobbyNow = 
 		if (!me->ready){
 			for (unsigned int i = 0; i < Birds.size(); i++){
 				if (Birds[i]->ready){
@@ -171,7 +173,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
 	int x = w / 4;
-	for (int i = 0; i < NetworkManager::sInstance->GetPlayerCount(); i++){
+	for (int i = 0; i < 4; i++){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";
@@ -238,6 +240,8 @@ void Lobby::updateLobby(){
 			players[i]->ready = false;
 			players[i]->visible = false;
 			players[i]->playerSlot->visible = players[i]->visible;
+			NetworkManager::sInstance->UpdateLobbyPlayers();
+
 		}
 	}
 }
@@ -270,6 +274,7 @@ void Lobby::addNewPlayers(){
 					else{
 						players[i]->team = BLUE;
 					}
+					break;
 				}
 			}
 		}
