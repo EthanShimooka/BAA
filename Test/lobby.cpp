@@ -34,65 +34,64 @@ void Lobby::runLobby(){
 
 	int inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 
-	while (true){
-		GamerServices::sInstance->Update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
-		//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-		if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting)
-			break;
-		if (NetworkManager::sInstance->GetPlayerCount() == 2){
-			//NetworkManager::sInstance->GetAllPlayersInLobby();
-			NetworkManager::sInstance->TryReadyGame();
-		}
-	}
-
-	//while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
-	//	std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
-	//	std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;
-	//	input->update();
-	//	
-	//	/*GamerServices::sInstance->Update();
-	//	NetworkManager::sInstance->ProcessIncomingPackets();		
-	//	NetworkManager::sInstance->UpdateLobbyPlayers();*/
-
-	//	numPlayers = NetworkManager::sInstance->GetPlayerCount();
-	//	//check for new players added.
-	//	if (numPlayers > inLobbyNow){
-	//		addNewPlayers();
-	//		NetworkManager::sInstance->UpdateLobbyPlayers();
-	//		inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-	//	}
-
-	//	for (unsigned int i = 0; i < Birds.size(); i++){
-	//		if (Birds[i]->ready && !me->ready){
-	//			me->playerChoice = Birds[i]->ID;
-	//			me->playerSlot->changePicture = true;
-	//			NetworkManager::sInstance->TryReadyGame();
-	//		}
-	//	}
-	//	//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-
-	//	//only master peer can start game
+	//while (true){
+	//	GamerServices::sInstance->Update();
+	//	NetworkManager::sInstance->ProcessIncomingPackets();
+	//	//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
+	//	if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting)
+	//		break;
 	//	if (NetworkManager::sInstance->GetPlayerCount() == 2){
-	//	//if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+	//		//NetworkManager::sInstance->GetAllPlayersInLobby();
 	//		NetworkManager::sInstance->TryReadyGame();
 	//	}
-
-	//	sysUI.UIUpdate(queue.alive_objects);
-	//	sysInput.InputUpdate(queue.alive_objects);
-	//	sysRend.RenderUpdate(queue.alive_objects);
-
-	//	input->update();
-	//	
-	//	sceneMan->AssembleScene();
-
 	//}
 
-	//if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting){
-	//	countdown(queue);
-	//}
+	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
+		std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
+		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;
+		input->update();
+		
+		GamerServices::sInstance->Update();
+		NetworkManager::sInstance->ProcessIncomingPackets();		
+		NetworkManager::sInstance->UpdateLobbyPlayers();
+		numPlayers = NetworkManager::sInstance->GetPlayerCount();
+		//check for new players added.
+		if (numPlayers > inLobbyNow){
+			addNewPlayers();
+			NetworkManager::sInstance->UpdateLobbyPlayers();
+			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+		}
+		
+		for (unsigned int i = 0; i < Birds.size(); i++){
+			if (Birds[i]->ready && !me->ready){
+				me->playerChoice = Birds[i]->ID;
+				me->playerSlot->changePicture = true;
+				NetworkManager::sInstance->TryReadyGame();
+			}
+		}
+		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-	//cleanUP(queue);
+		//only master peer can start game
+		//if (NetworkManager::sInstance->GetPlayerCount() == 2){
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+			NetworkManager::sInstance->TryReadyGame();
+		}
+
+		sysUI.UIUpdate(queue.alive_objects);
+		sysInput.InputUpdate(queue.alive_objects);
+		sysRend.RenderUpdate(queue.alive_objects);
+
+		input->update();
+		
+		sceneMan->AssembleScene();
+
+	}
+
+	if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting){
+		countdown(queue);
+	}
+
+	cleanUP(queue);
 
 }
 
