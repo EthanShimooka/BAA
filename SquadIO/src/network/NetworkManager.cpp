@@ -314,7 +314,7 @@ void NetworkManager::HandleReadyPacket(InputMemoryBitStream& inInputStream, uint
 		SendReadyPacketsToPeers();
 		//I'm ready now also, so an extra increment here
 		mReadyCount++;
-		//mState = NMS_Ready;
+		mState = NMS_Ready;
 	}
 
 	mReadyCount++;
