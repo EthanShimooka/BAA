@@ -24,10 +24,7 @@ void UIInputComponent::Update(){
 	case JOIN_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
 			std::cout << "Join!" << std::endl;
-			NetworkManager::sInstance->startLobbySearch();
-			while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
-				GamerServices::sInstance->Update();
-			}
+			NetworkManager::sInstance->StartLobbySearch();
 		}
 		break;
 	case SCORE:

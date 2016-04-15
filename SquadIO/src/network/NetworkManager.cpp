@@ -48,29 +48,22 @@ NetworkManager::~NetworkManager()
 {
 }
 
-
-//NetworkManager* NetworkManager::GetNetworkManager()
-//{
-//	return &networkManager;
-//}
-
-
 bool NetworkManager::Init()
 {
 	//set my player info from steam
 	mPlayerId = GamerServices::sInstance->GetLocalPlayerId();
 	mName = GamerServices::sInstance->GetLocalPlayerName();
 
-	//begin the search for a lobby
-	//mState = NMS_Searching;
-	//GamerServices::sInstance->LobbySearchAsync();
-
 	return true;
 }
 
-void NetworkManager::startLobbySearch(){
+void NetworkManager::StartLobbySearch(){
 	mState = NMS_Searching;
 	GamerServices::sInstance->LobbySearchAsync();
+	//update until lobby found or created
+	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
+		GamerServices::sInstance->Update();
+	}
 }
 
 void NetworkManager::ProcessIncomingPackets()
@@ -518,67 +511,9 @@ void NetworkManager::EnterPlayingState()
 	GamerServices::sInstance->LeaveLobby(mLobbyId);
 
 	LogManager* log = LogManager::GetLogManager();
-	log->logBuffer << "Succesfully entered EnterPlayingState!: Still to implement\n";
+	log->logBuffer << "Succesfully entered EnterPlayingState!\n";
 	log->flush();
-	/*
-	//create scoreboard entry for each player
-	for (auto& iter : mPlayerNameMap)
-	{
-	ScoreBoardManager::sInstance->AddEntry(iter.first, iter.second);
-	//everyone gets a score of 3 cause 3 cats
-	ScoreBoardManager::sInstance->GetEntry(iter.first)->SetScore(3);
-	}
-	//spawn a cat for each player
-	float halfWidth = kWorldWidth / 2.0f;
-	float halfHeight = kWorldHeight / 2.0f;
-	// ( pos.x, pos.y, rot )
-	std::array<Vector3, 4> spawnLocs = {
-	Vector3(-halfWidth + halfWidth / 5, -halfHeight + halfHeight / 5, 2.35f), // UP-LEFT
-	Vector3(-halfWidth + halfWidth / 5, halfHeight - halfHeight / 4, -5.49f), // DOWN-LEFT
-	Vector3(halfWidth - halfWidth / 5, halfHeight - halfHeight / 4, -0.78f), // DOWN-RIGHT
-	Vector3(halfWidth - halfWidth / 5, -halfHeight + halfHeight / 4, -2.35f), // UP-RIGHT
-	};
-	//use this to randomize location of cats
-	std::array<int, 4> indices = { 0, 1, 2, 3 };
-	std::shuffle(indices.begin(), indices.end(), RandGen::sInstance->GetGeneratorRef());
-	const float kCatOffset = 1.0f;
-	int i = 0;
-	for (auto& iter : mPlayerNameMap)
-	{
-	Vector3 spawnVec = spawnLocs[indices[i]];
-	//spawn 3 cats per player
-	SpawnCat(iter.first, spawnVec);
-	if (spawnVec.mX > 0.0f)
-	{
-	SpawnCat(iter.first, Vector3(spawnVec.mX - kCatOffset, spawnVec.mY, spawnVec.mZ));
-	}
-	else
-	{
-	SpawnCat(iter.first, Vector3(spawnVec.mX + kCatOffset, spawnVec.mY, spawnVec.mZ));
-	}
-	if (spawnVec.mY > 0.0f)
-	{
-	SpawnCat(iter.first, Vector3(spawnVec.mX, spawnVec.mY - kCatOffset, spawnVec.mZ));
-	}
-	else
-	{
-	SpawnCat(iter.first, Vector3(spawnVec.mX, spawnVec.mY + kCatOffset, spawnVec.mZ));
-	}
-	i++;
-	}
-	//Increment games played stat
-	GamerServices::sInstance->AddToStat(GamerServices::Stat_NumGames, 1);*/
 }
-
-/*Placeholder, we shouldn't need this at all:
-void NetworkManager::SpawnCat(uint64_t inPlayerId, const Vector3& inSpawnVec)
-{
-RoboCatPtr cat = std::static_pointer_cast< RoboCat >(GameObjectRegistry::sInstance->CreateGameObject('RCAT'));
-cat->SetColor(ScoreBoardManager::sInstance->GetEntry(inPlayerId)->GetColor());
-cat->SetPlayerId(inPlayerId);
-cat->SetLocation(Vector3(inSpawnVec.mX, inSpawnVec.mY, 0.0f));
-cat->SetRotation(inSpawnVec.mZ);
-}*/
 
 void NetworkManager::CheckForAchievements()
 {
@@ -737,34 +672,7 @@ mFromPlayer(inFromPlayer),
 mPacketBuffer(ioInputMemoryBitStream)
 {
 }
-/*No GameObject class yet
-GameObjectPtr NetworkManager::GetGameObject(uint32_t inNetworkId) const
-{
-auto gameObjectIt = mNetworkIdToGameObjectMap.find(inNetworkId);
-if (gameObjectIt != mNetworkIdToGameObjectMap.end())
-{
-return gameObjectIt->second;
-}
-else
-{
-return GameObjectPtr();
-}
-}
-GameObjectPtr NetworkManager::RegisterAndReturn(GameObject* inGameObject)
-{
-GameObjectPtr toRet(inGameObject);
-RegisterGameObject(toRet);
-return toRet;
-}
-void NetworkManager::UnregisterGameObject(GameObject* inGameObject)
-{
-int networkId = inGameObject->GetNetworkId();
-auto iter = mNetworkIdToGameObjectMap.find(networkId);
-if (iter != mNetworkIdToGameObjectMap.end())
-{
-mNetworkIdToGameObjectMap.erase(iter);
-}
-}*/
+
 
 bool NetworkManager::IsPlayerInGame(uint64_t inPlayerId)
 {
@@ -777,23 +685,6 @@ bool NetworkManager::IsPlayerInGame(uint64_t inPlayerId)
 		return false;
 	}
 }
-/*No GameOjbect class yet
-void NetworkManager::AddToNetworkIdToGameObjectMap(GameObjectPtr inGameObject)
-{
-mNetworkIdToGameObjectMap[inGameObject->GetNetworkId()] = inGameObject;
-}
-void NetworkManager::RemoveFromNetworkIdToGameObjectMap(GameObjectPtr inGameObject)
-{
-mNetworkIdToGameObjectMap.erase(inGameObject->GetNetworkId());
-}
-void NetworkManager::RegisterGameObject(GameObjectPtr inGameObject)
-{
-//assign network id
-int newNetworkId = GetNewNetworkId();
-inGameObject->SetNetworkId(newNetworkId);
-//add mapping from network id to game object
-mNetworkIdToGameObjectMap[newNetworkId] = inGameObject;
-}*/
 
 uint32_t NetworkManager::GetNewNetworkId()
 {
@@ -836,6 +727,7 @@ void NetworkManager::sendPacketToAllPeers(OutputMemoryBitStream& outData){
 void NetworkManager::HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
 	test.push(inInputStream);
 }
+
 uint64_t NetworkManager::GetLobbyId(){
 	return mLobbyId;
 }

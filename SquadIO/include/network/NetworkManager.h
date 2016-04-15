@@ -53,7 +53,7 @@ public:
 	/// Initializes networkmanager
 	SQUADIO_API static bool	StaticInit();
 	/// Initialize lobby search
-	SQUADIO_API void startLobbySearch();
+	SQUADIO_API void StartLobbySearch();
 	/// Constructor
 	SQUADIO_API NetworkManager();
 	/// Destructor
