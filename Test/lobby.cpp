@@ -160,19 +160,20 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
 	int x = w / 4;
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < maxPlayers; i++){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";
-		p->team = NOTEAM;
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
+			p->team = RED;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
+			p->team = BLUE;
 		}
 		
 		/*UIObjectFactory name;
@@ -200,13 +201,6 @@ void Lobby::assignPlayers(RenderManager* renderMan){
 			players[i]->name = it->second;
 			players[i]->playerSlot->player = it->first;
 			players[i]->playerSlot->visible = players[i]->visible;
-			if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
-				players[i]->team = RED;
-				teamRed++;
-			}
-			else{
-				players[i]->team = BLUE;
-			}
 			i++;
 		}
 	}
@@ -220,10 +214,6 @@ void Lobby::updateLobby(){
 		if (it == lobby.end()){
 			players[i]->playerId = NULL;
 			players[i]->name = "";
-			if (players[i]->team == RED){
-				teamRed--;
-			}
-			players[i]->team = NOTEAM;
 			players[i]->ready = false;
 			players[i]->visible = false;
 			players[i]->playerSlot->visible = players[i]->visible;
@@ -255,13 +245,6 @@ void Lobby::addNewPlayers(){
 					players[i]->name = it->second;
 					players[i]->playerSlot->player = it->first;
 					players[i]->playerSlot->visible = players[i]->visible;
-					if (teamRed % 2 == 0 && players[i]->team == NOTEAM){
-						players[i]->team = RED;
-						teamRed++;
-					}
-					else{
-						players[i]->team = BLUE;
-					}
 					break;
 				}
 			}
