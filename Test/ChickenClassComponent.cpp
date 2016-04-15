@@ -3,7 +3,14 @@
 ChickenClassComponent::ChickenClassComponent(GameObject* player)
 {	
 	ClassComponent::ClassComponent();
-	//speed = 10000;
+	//speed = 15;
+	//width = 1.33f;
+	//height = 1.35f;
+	//seedRequired = 5;
+	//featherSpeed = 1.0f / 7.0f;
+	//featherWidth = 1;
+	//featherHeight = 1;
+	//abilityCooldown = 15;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
