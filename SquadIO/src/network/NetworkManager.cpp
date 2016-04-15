@@ -140,11 +140,12 @@ void NetworkManager::UpdateDelay()
 
 void NetworkManager::UpdateStarting()
 {
-	mTimeToStart -= Timing::sInstance.GetDeltaTime();
+	/*mTimeToStart -= Timing::sInstance.GetDeltaTime();
 	if (mTimeToStart <= 0.0f)
 	{
-		EnterPlayingState();
-	}
+		
+	}*/
+	EnterPlayingState();
 }
 
 void NetworkManager::UpdateSendTurnPacket()
