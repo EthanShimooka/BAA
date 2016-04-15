@@ -53,7 +53,7 @@ void Lobby::runLobby(){
 
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
-		NetworkManager::sInstance->SendOutgoingPackets();
+		//NetworkManager::sInstance->SendOutgoingPackets();
 		NetworkManager::sInstance->UpdateLobbyPlayers();
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 		//check for new players added.

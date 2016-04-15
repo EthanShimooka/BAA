@@ -61,7 +61,7 @@ void NetworkManager::StartLobbySearch(){
 	mState = NMS_Searching;
 	GamerServices::sInstance->LobbySearchAsync();
 	//update until lobby found or created
-	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
+	while (GetState() != NMS_Lobby){
 		GamerServices::sInstance->Update();
 	}
 }
