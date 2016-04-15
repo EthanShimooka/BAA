@@ -36,7 +36,8 @@ enum UIType{
 	OPTIONS_BUTTON = 8,
 	READY_BUTTON = 9,
 	PLAYER_SLOT = 10,
-	BIRD = 11,
+	CHICKEN = 3000,
+	PEACOCK = 3100,
 	BIRDSEED_SHELL = 12,
 	BIRDSEED_BAR = 13,
 	CROSSHAIR = 14,
@@ -81,6 +82,8 @@ public:
 
 	/// Visible
 	bool visible;
+
+	bool hoverPicture = false;
 
 	bool changePicture = false;
 

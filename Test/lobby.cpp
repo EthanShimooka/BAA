@@ -61,6 +61,12 @@ void Lobby::runLobby(){
 					me->playerSlot->changePicture = true;
 					me->ready = true;
 				}
+				if (Birds[i]->hoverPicture){
+					me->playerSlot->hoverPicture = true;
+				}
+				else{
+					me->playerSlot->hoverPicture = false;
+				}
 			}
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
@@ -146,11 +152,15 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	y = h / 2;
 	for (int i = 0; i < 1; i++){
 		//build class slots
-		UIObjectFactory* birdClass = new UIObjectFactory();
-		UIObject* bird = birdClass->Spawn(BIRD, x - 33, y);
-		Birds.push_back(bird);
-		queue.AddObject(bird);
+		UIObjectFactory* chx = new UIObjectFactory();
+		UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
+		UIObjectFactory* pCock = new UIObjectFactory();
 		x += 75;
+		UIObject* bird2 = pCock->Spawn(PEACOCK, x - 33, y);
+		Birds.push_back(bird);
+		Birds.push_back(bird2);
+		queue.AddObject(bird);
+		queue.AddObject(bird2);
 	}
 }
 

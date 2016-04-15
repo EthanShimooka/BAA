@@ -119,9 +119,13 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(PLAYER_SLOT);
 		break;
-	case BIRD:
+	case CHICKEN:
 		rend->uiObjectRef->setPos((float)x, (float)y);
-		rend->createUIType(BIRD);
+		rend->createUIType(CHICKEN);
+		break;
+	case PEACOCK:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(PEACOCK);
 		break;
 	case MENU_NAME:
 		rend->uiObjectRef->setPos((float)x, (float)y);
