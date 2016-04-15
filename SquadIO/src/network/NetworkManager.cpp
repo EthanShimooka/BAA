@@ -694,7 +694,7 @@ void NetworkManager::TryStartGame()
 			}
 		}
 
-		mTimeToStart = kStartDelay;
+		//mTimeToStart = kStartDelay;
 		mState = NMS_Starting;
 	}
 }
@@ -715,15 +715,6 @@ void NetworkManager::TryReadyGame()
 		mState = NMS_Ready;
 
 		//we might be ready to start
-		TryStartGame();
-	}
-	else {
-		/*LogManager* log = LogManager::GetLogManager();
-		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
-		log->flush();
-		
-		SendReadyPacketsToPeers();
-		mReadyCount = 1;*/
 		TryStartGame();
 	}
 }
