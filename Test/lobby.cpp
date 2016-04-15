@@ -47,12 +47,13 @@ void Lobby::runLobby(){
 	//}
 
 	while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Starting){
-		std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
-		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;
+		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
+		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
 		input->update();
-		
+
 		GamerServices::sInstance->Update();
-		NetworkManager::sInstance->ProcessIncomingPackets();		
+		NetworkManager::sInstance->ProcessIncomingPackets();
+		NetworkManager::sInstance->SendOutgoingPackets();
 		NetworkManager::sInstance->UpdateLobbyPlayers();
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 		//check for new players added.
@@ -61,12 +62,14 @@ void Lobby::runLobby(){
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 		}
-		
-		for (unsigned int i = 0; i < Birds.size(); i++){
-			if (Birds[i]->ready && !me->ready){
-				me->playerChoice = Birds[i]->ID;
-				me->playerSlot->changePicture = true;
-				NetworkManager::sInstance->TryReadyGame();
+
+		if (!me->ready){
+			for (unsigned int i = 0; i < Birds.size(); i++){
+				if (Birds[i]->ready){
+					me->playerChoice = Birds[i]->ID;
+					me->playerSlot->changePicture = true;
+					me->ready = true;
+				}
 			}
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
@@ -274,7 +277,4 @@ void Lobby::addNewPlayers(){
 			found = false;
 		}
 	}
-
-	
-	
 }
