@@ -90,7 +90,7 @@ void Lobby::runLobby(){
 
 	}
 
-	if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting){
+	if (NetworkManager::sInstance->GetState() > NetworkManager::NMS_Starting){
 		countdown(queue);
 	}
 
