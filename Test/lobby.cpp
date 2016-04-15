@@ -34,18 +34,6 @@ void Lobby::runLobby(){
 
 	int inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 
-	//while (true){
-	//	GamerServices::sInstance->Update();
-	//	NetworkManager::sInstance->ProcessIncomingPackets();
-	//	//cout << "state: " << NetworkManager::sInstance->GetState() << endl;
-	//	if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_Starting)
-	//		break;
-	//	if (NetworkManager::sInstance->GetPlayerCount() == 2){
-	//		//NetworkManager::sInstance->GetAllPlayersInLobby();
-	//		NetworkManager::sInstance->TryReadyGame();
-	//	}
-	//}
-
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
@@ -76,8 +64,6 @@ void Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		//only master peer can start game
-		//if (NetworkManager::sInstance->GetPlayerCount() == 2){
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
 			NetworkManager::sInstance->TryReadyGame();
 		}
