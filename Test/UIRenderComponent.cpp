@@ -49,8 +49,13 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
-	case BIRD:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 3000, uiObjectRef->posX, uiObjectRef->posY, true);
+	case CHICKEN:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), CHICKEN, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case PEACOCK:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), PEACOCK, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;

@@ -136,7 +136,7 @@ void NetworkManager::UpdateStarting()
 	/*mTimeToStart -= Timing::sInstance.GetDeltaTime();
 	if (mTimeToStart <= 0.0f)
 	{
-		
+
 	}*/
 	EnterPlayingState();
 }
@@ -149,7 +149,7 @@ void NetworkManager::UpdateSendTurnPacket()
 		//create our turn data
 		//TO DO: code to get the command list
 		/*TurnData data(mPlayerId, RandGen::sInstance->GetRandomUInt32(0, UINT32_MAX),
-			ComputeGlobalCRC(), mCommandList);*/
+		ComputeGlobalCRC(), mCommandList);*/
 
 		//we need to send a turn packet to all of our peers
 		OutputMemoryBitStream packet;
@@ -271,12 +271,74 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 
 	switch (packetType)
 	{
+	case kSelectionCC:
+		HandleSelectionPacket(inInputStream, inFromPlayer);
+		break;
+	case kReadyUpCC:
+		handleReadyUpPacket(inInputStream, inFromPlayer);
+		break;
 	case kReadyCC:
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
 	default:
 		//ignore anything else
 		break;
+	}
+}
+
+void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer)
+{
+	int ready;
+	inInputStream.Read(ready);
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.ready = ready;
+	}
+}
+
+void NetworkManager::SendRdyUpPacketToPeers(int ready)
+{
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.ready = ready;
+	}
+	OutputMemoryBitStream outPacket;
+	outPacket.Write(kReadyUpCC);
+	outPacket.Write(ready);
+	for (auto& iter : mPlayerNameMap)
+	{
+		if (iter.first != mPlayerId)
+		{
+			SendReliablePacket(outPacket, iter.first);
+		}
+	}
+}
+
+void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer)
+{
+	int classType;
+	inInputStream.Read(classType);
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.classType = classType;
+	}
+}
+
+void NetworkManager::SendSelectPacketToPeers(int classType)
+{
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.classType = classType;
+	}
+	OutputMemoryBitStream outPacket;
+	outPacket.Write(kSelectionCC);
+	outPacket.Write(classType);
+	for (auto& iter : mPlayerNameMap)
+	{
+		if (iter.first != mPlayerId)
+		{
+			SendReliablePacket(outPacket, iter.first);
+		}
 	}
 }
 
@@ -430,6 +492,7 @@ void NetworkManager::HandleConnectionReset(uint64_t inFromPlayer)
 		log->logBuffer << "Player %llu disconnected. NetworkManager::HandleConnectionReset\n", inFromPlayer;
 		log->flush();
 		mPlayerNameMap.erase(inFromPlayer);
+		lobbyInfoMap.erase(inFromPlayer);
 		//Commented out: Code to update scoreboard
 		//ScoreBoardManager::sInstance->RemoveEntry(inFromPlayer);
 
@@ -579,6 +642,11 @@ void NetworkManager::SendPacket(const OutputMemoryBitStream& inOutputStream, uin
 	GamerServices::sInstance->SendP2PUnreliable(inOutputStream, inToPlayer);
 }
 
+void NetworkManager::SendReliablePacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer)
+{
+	GamerServices::sInstance->SendP2PReliable(inOutputStream, inToPlayer);
+}
+
 void NetworkManager::EnterLobby(uint64_t inLobbyId)
 {
 	mLobbyId = inLobbyId;
@@ -596,10 +664,34 @@ void NetworkManager::UpdateLobbyPlayers()
 		//am I the master peer now?
 		if (mMasterPeerId == mPlayerId)
 		{
-			mIsMasterPeer = true; 
+			mIsMasterPeer = true;
 		}
 
 		GamerServices::sInstance->GetLobbyPlayerMap(mLobbyId, mPlayerNameMap);
+		for (auto& iter : mPlayerNameMap)
+		{
+			if (lobbyInfoMap.find(iter.first) == lobbyInfoMap.end()){
+				PlayerInfo pInfo;
+				pInfo.classType = (int)iter.first;
+				lobbyInfoMap.emplace(iter.first, pInfo);
+			}
+		}
+		if (mPlayerNameMap.size() != lobbyInfoMap.size()){
+			for (auto it = lobbyInfoMap.begin(); it != lobbyInfoMap.end();) {
+				if (mPlayerNameMap.find(it->first) == mPlayerNameMap.end()) {
+					it = lobbyInfoMap.erase(it);
+				}
+				else
+					++it;
+			}
+		}
+
+		//std::cout << "--------------------------------------" << std::endl;
+		//for (auto& iter : lobbyInfoMap)
+		//{
+		//	std::cout << iter.first << " " << iter.second.classType << std::endl;
+		//}
+		//std::cout << "--------------------------------------" << std::endl;
 
 		//this might allow us to start
 		TryStartGame();
