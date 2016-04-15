@@ -64,7 +64,7 @@ void Lobby::runLobby(){
 		}
 
 		updateLobby();
-		inLobbyNow = 
+		inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 		if (!me->ready){
 			for (unsigned int i = 0; i < Birds.size(); i++){
 				if (Birds[i]->ready){
