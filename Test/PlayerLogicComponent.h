@@ -33,7 +33,7 @@ public:
 	/// Spawn Feather Function
 	uint64_t spawnFeather(int mouseX, int mouseY, float chargeTime, float speed);
 	/// Spawn Feather (networked)
-	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime, float speed);
+	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed);
 	/// Spawn Hero Class Power
 	void spawnShield();
 	/// When the player is hit by a feather, turn into an egg and roll back to base.
