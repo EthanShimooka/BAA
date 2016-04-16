@@ -84,7 +84,10 @@ void PlayerInputComponent::Update(){
 			}
 			//2 Sec delay on feather firing, need some visual representation of cd
 			if (Timing::sInstance.AttackCooldownEnded()){
+				if (!canFire)
+					input->resetMousePressClock();
 				canFire = true;
+				
 				if (input->mouseDown[MOUSE_LEFT])
 					std::cout << "asdfasdfasdfasdfdsaf " << std::endl;
 			}
