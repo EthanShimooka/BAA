@@ -31,7 +31,7 @@ GameObject* MinionObjectFactory::Spawn(uint64_t PID, float posX, float posY, int
 		minion->type = GAMEOBJECT_TYPE::OBJECT_MINION;
 		minion->setPos(posX, posY);
 		minion->team = team;
-		std::cout << "Value of our minion team : " << minion->team << "\n" << std::endl;
+		//std::cout << "Value of our \ : " << minion->team << "\n" << std::endl;
 
 		rend = new MinionRenderComponent(minion, team);
 		logic = new MinionLogicComponent(minion);
