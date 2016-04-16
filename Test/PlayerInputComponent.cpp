@@ -87,9 +87,6 @@ void PlayerInputComponent::Update(){
 				if (!canFire)
 					input->resetMousePressClock();
 				canFire = true;
-				
-				if (input->mouseDown[MOUSE_LEFT])
-					std::cout << "asdfasdfasdfasdfdsaf " << std::endl;
 			}
 
 			if (controller->isControllerOn()){
