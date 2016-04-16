@@ -49,7 +49,8 @@ void PlayerInputComponent::Update(){
 				body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			//shoot feather
-			if (input->isMouseDown(MOUSE_LEFT) && canFire){
+			//if (input->isMouseDown(MOUSE_LEFT) && canFire){ //old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
+			if (input->getMousePressDuration() > 0 && canFire){
 				isChargingAttack = true;
 				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 			}
