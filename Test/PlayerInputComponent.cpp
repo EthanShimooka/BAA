@@ -49,7 +49,7 @@ void PlayerInputComponent::Update(){
 				body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			//shoot feather
-			if (input->isMouseLeftPressed() && canFire){
+			if (input->isMouseDown(MOUSE_LEFT) && canFire){
 				isChargingAttack = true;
 				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 			}
@@ -84,6 +84,8 @@ void PlayerInputComponent::Update(){
 			//2 Sec delay on feather firing, need some visual representation of cd
 			if (Timing::sInstance.AttackCooldownEnded()){
 				canFire = true;
+				if (input->mouseDown[MOUSE_LEFT])
+					std::cout << "asdfasdfasdfasdfdsaf " << std::endl;
 			}
 
 			if (controller->isControllerOn()){
