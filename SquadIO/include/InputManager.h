@@ -66,8 +66,6 @@ public:
 	/// resets the time for the mouse pressed down clock
 	SQUADIO_API void resetMousePressClock();
 
-	std::vector<int> mouseDown;
-
 protected:
 	// constructor only called by getInstance()
 	InputManager();
@@ -88,7 +86,7 @@ private:
 	int mouseX, mouseY;
 
 	// mouse states
-	
+	std::vector<int> mouseDown;
 	std::vector<int> mouseUp;
 
 	clock_t mousePressClock;
