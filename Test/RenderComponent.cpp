@@ -18,7 +18,7 @@ RenderComponent::~RenderComponent()
 		allObjs.pop_back();
 	}
 	*/
-	std::cout << "Render COmponent destructor" << std::endl;
+	//std::cout << "Render COmponent destructor" << std::endl;
 }
 
 /// Assign a Diffrent SDL render Object

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef NETWORKMANAGER_H_INCLUDED
 #define NETWORKMANAGER_H_INCLUDED
 /**
@@ -5,11 +7,22 @@
 * and communicates with SceneManager to send and receive packets. It communicates with GamerServices to handle the initial connection.
 *
 */
+
+struct PlayerInfo{
+	bool ready = false;
+	int classType = NULL;
+	int team = NULL;
+};
+
 class NetworkManager
 {
 public:
 	/// Contains data for a particular turn
 	static const uint32_t	kTurnCC = 'TURN';
+	/// Choosing character
+	static const uint32_t	kSelectionCC = 'SELC';
+	/// Notification used to ready up individual players
+	static const uint32_t	kReadyUpCC = 'RDUP';
 	/// Notification used to ready up
 	static const uint32_t	kReadyCC = 'REDY';
 	/// Notifies peers that the game will be starting soon
@@ -24,10 +37,10 @@ public:
 	enum NetworkManagerState
 	{
 		NMS_Unitialized,
+		NMS_MainMenu,
 		NMS_Searching,
 		NMS_Lobby,
 		NMS_Ready,
-		NMS_MainMenu,
 		//everything above this should be the pre-game/lobby/connection
 		NMS_Starting,
 		NMS_Playing,
@@ -37,7 +50,7 @@ public:
 
 
 	/////////////////////////////
-	
+
 	SQUADIO_API void sendPacketToAllPeers(OutputMemoryBitStream& outData);
 	SQUADIO_API void HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	///////////////////////
@@ -53,7 +66,7 @@ public:
 	/// Initializes networkmanager
 	SQUADIO_API static bool	StaticInit();
 	/// Initialize lobby search
-	SQUADIO_API void startLobbySearch();
+	SQUADIO_API void StartLobbySearch();
 	/// Constructor
 	SQUADIO_API NetworkManager();
 	/// Destructor
@@ -85,6 +98,10 @@ private:
 	SQUADIO_API void	ProcessPacketsReady(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Handles transitioning to ready state
 	SQUADIO_API void	HandleReadyPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	/// Handles selection packet
+	SQUADIO_API void	HandleSelectionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	/// Handles ready packets for individual players
+	SQUADIO_API void	handleReadyUpPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Sends a ready packet to all peers
 	SQUADIO_API void	SendReadyPacketsToPeers();
 	/// Handles start if start packet received from master peer
@@ -98,12 +115,18 @@ private:
 	/// Attempts to start the game
 	SQUADIO_API void	TryStartGame();
 public:
+	/// Sends selection packet
+	SQUADIO_API void	SendSelectPacketToPeers(int classType);
+	/// Sends ready up packet
+	SQUADIO_API void	SendRdyUpPacketToPeers(int ready);
 	/// Gets Lobby Id
 	SQUADIO_API uint64_t GetLobbyId();
 	/// Handles player disconnecting mid-game
 	SQUADIO_API void	HandleConnectionReset(uint64_t inFromPlayer);
-	/// Calls Gamerservices to send reliable packet
+	/// Calls Gamerservices to send unreliable packet
 	SQUADIO_API void	SendPacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer);
+	/// Calls Gamerservices to send reliable packet
+	SQUADIO_API void	SendReliablePacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer);
 	/// Sends hello world. For testing
 	SQUADIO_API void    SendHelloWorld();
 	/// Prints to cout all players in lobby
@@ -136,9 +159,9 @@ public:
 	//	void			UnregisterGameObject(GameObject* inGameObject);
 	SQUADIO_API map< uint64_t, string >  getLobbyMap() const { return mPlayerNameMap; }
 
-//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
-//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
-//	void			UnregisterGameObject(GameObject* inGameObject);
+	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
+	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
+	//	void			UnregisterGameObject(GameObject* inGameObject);
 	/// Returns networkmanager state
 	SQUADIO_API NetworkManagerState GetState() const { return mState; }
 	/// Returns number of players in lobby who are ready
@@ -210,6 +233,7 @@ private:
 	typedef map< uint64_t, string > Int64ToStrMap;
 	/// Map of ints to turndata
 	typedef map< uint64_t, TurnData > Int64ToTurnDataMap;
+	typedef unordered_map< uint64_t, PlayerInfo > LobbyInfoMap;
 	//	typedef map< uint32_t, GameObjectPtr > IntToGameObjectMap;
 	//	typedef map< uint32_t, GameObjectPtr > IntToGameObjectMap;
 	/// Data structure holding ints 1-8 mapped to player steam IDs
@@ -218,6 +242,7 @@ private:
 	bool	CheckSync(Int64ToTurnDataMap& inTurnMap);
 	/// Queue of received packets
 	queue< ReceivedPacket, list< ReceivedPacket > >	mPacketQueue;
+
 
 	//	IntToGameObjectMap			mNetworkIdToGameObjectMap;
 	Int64ToStrMap				mPlayerNameMap;
@@ -263,5 +288,8 @@ private:
 	bool			mIsMasterPeer;
 	/// Command list
 	CommandList		mCommandList;
+
+public:
+	LobbyInfoMap    lobbyInfoMap;
 };
 #endif

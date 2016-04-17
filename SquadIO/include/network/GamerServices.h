@@ -22,6 +22,7 @@ public:
 
 	//peer-to-peer networking
 	bool SendP2PUnreliable( const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer );
+	bool SendP2PReliable(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer);
 	bool IsP2PPacketAvailable( uint32_t& outPacketSize );
 	uint32_t ReadP2PPacket( void* inToReceive, uint32_t inMaxLength, uint64_t& outFromPlayer );
 

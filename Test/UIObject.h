@@ -32,16 +32,18 @@ enum UIType{
 	JOIN_BUTTON = 4,
 	SCORE = 5,
 	TIMER = 6,
-	BEGIN_MENU = 7,
+	MENU_NAME = 7,
 	OPTIONS_BUTTON = 8,
 	READY_BUTTON = 9,
 	PLAYER_SLOT = 10,
-	BIRD = 11,
+	CHICKEN = 3000,
+	PEACOCK = 3100,
 	BIRDSEED_SHELL = 12,
 	BIRDSEED_BAR = 13,
 	CROSSHAIR = 14,
 	CHARGE_SHELL = 15,
-	CHARGE_BAR = 16
+	CHARGE_BAR = 16,
+	LOBBY_TIMER = 17,
 };
 
 /// t_component struct contains a component and a int enumerating its type
@@ -66,6 +68,7 @@ public:
 
 	/// Object ID
 	UIType ID;
+	UIType changeTo;
 
 	///Screen X Position
 	float posX;
@@ -81,7 +84,13 @@ public:
 	/// Visible
 	bool visible;
 
+	bool hoverPicture = false;
+
 	bool changePicture = false;
+
+	bool ready = false;
+
+	uint64_t player = 0;
 
 	/// virtual update function
 	virtual void update(){};
@@ -123,6 +132,7 @@ private:
 	std::vector<uiT_component> g_components;
 	/// Number of Components Bound to GameObject
 	int component_count;
+	int width, height;
 };
 
 #endif
