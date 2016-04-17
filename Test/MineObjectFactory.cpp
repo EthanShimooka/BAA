@@ -9,7 +9,7 @@ MineObjectFactory::~MineObjectFactory(){
 }
 
 /// Creates a new mine GameObject
-GameObject * Spawn(uint64_t PID,GameObject* spawner){
+GameObject* MineObjectFactory::Spawn(uint64_t PID,GameObject* spawner){
 	GameObject* mine = new GameObject();
 	mine->ID = PID;
 	mine->isAlive = true;
