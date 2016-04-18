@@ -10,7 +10,7 @@ MineLogicComponent::MineLogicComponent(GameObject* player){
 MineLogicComponent::~MineLogicComponent(){
 }
 
-void MineLogicComponent::blowUp(){
+void MineLogicComponent::blowUp(GameObject* victim){
 	gameObjectRef->isAlive=false;
 }
 

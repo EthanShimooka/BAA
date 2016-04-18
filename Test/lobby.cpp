@@ -181,13 +181,13 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			p->team = RED;
+			p->team = TEAM_PURPLE;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			p->team = BLUE;
+			p->team = TEAM_YELLOW;
 		}
 		
 		/*UIObjectFactory name;

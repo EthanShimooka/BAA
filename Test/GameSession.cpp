@@ -212,17 +212,18 @@ int GameSession::Run(){
 			bool local = false;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
-				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
 			}
 		}
 	}
 	/// create a local player with ID of 10000
 	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
 	}
 
 

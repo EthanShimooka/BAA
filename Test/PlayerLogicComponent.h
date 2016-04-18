@@ -26,7 +26,7 @@ class PlayerLogicComponent :  public LogicComponent
 {
 public:
 	/// Constructor
-	PlayerLogicComponent(GameObject* player);
+	PlayerLogicComponent(GameObject* player,int team);
 	/// Destructor
 	~PlayerLogicComponent();
 	/// Update Function
@@ -72,6 +72,8 @@ public:
 	/// Boolean used to restrict input during gameplay. Only perform actions
 	/// (i.e. jumping, shooting, moving) in game if true.
 	bool isEgg = false;
+
+	
 };
 
 #endif

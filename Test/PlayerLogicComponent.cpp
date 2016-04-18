@@ -1,10 +1,11 @@
 #include "PlayerLogicComponent.h"
 
 
-PlayerLogicComponent::PlayerLogicComponent(GameObject* player)
+PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
+	gameObjectRef->team = team;
 }
 
 
@@ -72,15 +73,15 @@ void PlayerLogicComponent::spawnShield(){
 }
 
 void PlayerLogicComponent::spawnMine(){
-	if (currBirdseed == maxsBirdseed){
+	//if (currBirdseed == maxsBirdseed){
 		MineObjectFactory mFactory;
 		GameObject* mine = mFactory.Spawn(featherNum++, gameObjectRef);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
-	}
+	/*}
 	else{
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
-	}
+	}*/
 }
 
 void PlayerLogicComponent::becomeEgg(){

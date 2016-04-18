@@ -29,7 +29,9 @@ void MinePhysicsComponent::init(){
 		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2PolygonShape box;
-	box.SetAsBox(1, 1); // look up other functions for polygons
+	//with the image used, the mine is 3 times as wide as tall. We bump it up a little more
+	//that just 3 times for a larger proximity.
+	box.SetAsBox(0.2f, 1.0f); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	if (!mFixture)
@@ -37,19 +39,26 @@ void MinePhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_FEATHER, COLLISION_PLATFORM | COLLISION_MINION);
+	setCollisionFilter(COLLISION_MINE, COLLISION_PLATFORM | COLLISION_MINION);
 }
 
 
 
 void MinePhysicsComponent::handleCollision(GameObject* otherObj){
-	//std::cout << "PLAYER handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "MINE handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		break;
-	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
+	case  GAMEOBJECT_TYPE::OBJECT_MINION:
+		//check to see what team it's affiliated with, and detonate if needed
+		if (otherObj->team != gameObjectRef->team){
+			//if not on the same team, then explode
+			std::cout << "Mine should explode now" << std::endl;
+			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			logicComp->blowUp(otherObj);
+		}
 		break;
 	default:
 		break;
