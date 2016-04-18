@@ -31,21 +31,23 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100105, 30, 300);
-	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100101, 0, -18);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100104, 50, 300);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100102, 0, 0);
+	int bodyAX = 71;
+	int bodyAY = 50;
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3302, 88 - bodyAX, 66 - bodyAY);
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3304, 79 - bodyAX, 85 - bodyAY);
+	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3300, 0, -14);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3303, 70 - bodyAX, 80 - bodyAY);
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3301, 87 - bodyAX, 63 - bodyAY);
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
 
 	//objRef->setAnchor(0.5, 0.5);
-
-	armR->setAnchor(174 / double(armR->renderRect.w), 154 / double(armR->renderRect.h));
-	armL->setAnchor(178 / double(armL->renderRect.w), 168 / double(armL->renderRect.h));
-	legR->setAnchor(128 / double(legR->renderRect.w), 39 / double(legR->renderRect.h));
-	legL->setAnchor(253 / double(legL->renderRect.w), 62 / double(legL->renderRect.h));
+	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
+	armR->setAnchor(7 / double(armR->renderRect.w), 7 / double(armR->renderRect.h));
+	armL->setAnchor(6 / double(armL->renderRect.w), 18 / double(armL->renderRect.h));
+	legR->setAnchor(12 / double(legR->renderRect.w), 7 / double(legR->renderRect.h));
+	legL->setAnchor(8 / double(legL->renderRect.w), 6 / double(legL->renderRect.h));
 	//armR->setCurrentFrame(1);
 	body->setParent(base);
 	armL->setParent(body);
@@ -55,7 +57,7 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 
 	//body->setScale(0.1);
 	//body->calcScale(50,50);
-	body->setScale(body->calcXScale(50));
+	body->setScale(body->calcXScale(70));
 	//body->setScale(body->calcXScale(90));
 
 	*objRef = base;
@@ -83,18 +85,22 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 
 	/////// IDLE ANIMATION
 	std::list<motion> motions;
-	motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
-	motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	motions.push_back(makeMotion(moveCircArc(armR, 87 - bodyAX, 63 - bodyAY, 5, 0, 360), 0, 1));
+	motions.push_back(makeMotion(moveCircArc(armL, 87 - bodyAX, 63 - bodyAY, 5, 180, 360), 0, 1));
 	motions.push_back(makeMotion(rotateTransform(legR, 0, 0), 0, 0));
 	motions.push_back(makeMotion(rotateTransform(legL, 0, 0), 0, 0));
+	motions.push_back(makeMotion(rotateTransform(armR, 90, 0), 0, 0));
+	motions.push_back(makeMotion(rotateTransform(armL, 90, 0), 0, 0));
 	Animation* idle = new Animation(400, motions);
 	animations["idle"] = idle;
 	//auto mot = idle.motions.begin();
 	//currentAnimation = idle;
 	////// WALKING ANIMATION 
 	std::list<motion> motions2;
-	motions2.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
-	motions2.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(armR, 0, 0), 0, 0));
+	motions2.push_back(makeMotion(rotateTransform(armL, 0, 0), 0, 0));
+	motions2.push_back(makeMotion(moveCircArc(armR, 87 - bodyAX, 63 - bodyAY, 5, 0, 360), 0, 1));
+	motions2.push_back(makeMotion(moveCircArc(armL, 87 - bodyAX, 63 - bodyAY, 5, 180, 360), 0, 1));
 	motions2.push_back(makeMotion(rotateTransform(legR, -60, 120), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, 60, -120), 0.5, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, 60, -120), 0, 0.5, ease_QuadInOut));
