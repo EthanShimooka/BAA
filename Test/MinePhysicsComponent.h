@@ -11,7 +11,7 @@ public:
 	~MinePhysicsComponent();
 	/// Update
 	void Update();
-	void init(float height, float width);
+	void init();
 	void handleCollision(GameObject* otherObj);
 };
 

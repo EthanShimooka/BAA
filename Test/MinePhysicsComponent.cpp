@@ -4,6 +4,7 @@
 MinePhysicsComponent::MinePhysicsComponent(GameObject* player){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
+	init();
 }
 
 MinePhysicsComponent::~MinePhysicsComponent(){
@@ -13,10 +14,10 @@ MinePhysicsComponent::~MinePhysicsComponent(){
 MinePhysicsComponent::MinePhysicsComponent(GameObject* player, float height, float width){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init(height, width);
+	init();
 }
 
-void MinePhysicsComponent::init(float height, float width){
+void MinePhysicsComponent::init(){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.fixedRotation = true;
@@ -27,10 +28,8 @@ void MinePhysicsComponent::init(float height, float width){
 	if (!mBody)
 		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
-	b2CircleShape box;
-	//box.SetAsBox(471, 480); // look up other functions for polygons
-	//box.SetAsBox(width, height);
-	box.m_radius = width;
+	b2PolygonShape box;
+	box.SetAsBox(1, 1); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	if (!mFixture)
