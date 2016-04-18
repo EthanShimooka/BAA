@@ -112,8 +112,8 @@ void cullObjects(){
 
 	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
 	RenderManager* renMan = RenderManager::getRenderManager();
-	int width = 3000;
-	int height = 2000;
+	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
+	int height = SCREEN_HEIGHT;
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
@@ -124,7 +124,7 @@ void cullObjects(){
 		renMan->worldCoordToWindowCoord(left, top, obj->posX, obj->posY, obj->posZ);
 		renMan->worldCoordToWindowCoord(right, bot, (obj->posX + obj->width), (obj->posY + obj->height), obj->posZ);
 
-		if ((right < -width / 2) || (left > width / 2) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
+		if ((right < -width / 2) || (left > width) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
 			obj->setVisible(false);
 		}
 		else{

@@ -81,7 +81,7 @@ void MinePhysicsComponent::Update(){
 	//need to hover towards target position
 	b2Vec2 vel = targetPos - mBody->GetPosition();
 	std::cout << vel.Length() << std::endl;
-	if (vel.Length() < 0.03){
+	if (vel.Length() < 0.03f){
 		mBody->SetTransform(targetPos, mBody->GetAngle());
 		mBody->SetLinearVelocity(b2Vec2(0, 0));
 	}else{
