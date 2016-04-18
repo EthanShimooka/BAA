@@ -39,6 +39,7 @@ void MinionPhysicsComponent::init(){
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
+	setCollisionFilter(COLLISION_MINION, 0);
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 
@@ -63,11 +64,12 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		gameObjectRef->isAlive = false;
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
-		//Still need to trigger shake effect, visually update dmg to base
-		//Currently destroys minions and updates base health logic
+		//Still need to visually update dmg to base
+		//Currently destroys minions, updates base health logic, and shakes screen
 		gameObjectRef->setPos(-10000, 0);
 		gameObjectRef->isAlive = false;
-
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		renderMan->ShakeScreen(.3, .4);
 		break;
 	}
 		default:
