@@ -30,10 +30,10 @@ InputManager* InputManager::getInstance() {
 void InputManager::update() {
 	controller->update();
 	// reset mouse to neutral state, continue polling for up/down events
-	for (int i = 0; i < MOUSE_SIZE; i++) {
+	/*for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;
 		this->mouseUp[i] = 0;
-	}
+	}*/
 	for (int i = 0; i < SDL_JoystickNumButtons(controller->joystick); i++) {
 		controller->joystickButtonPressed[i] = false;
 		controller->joystickButtonReleased[i] = false;
@@ -58,25 +58,33 @@ void InputManager::update() {
 				mouseLeftPressed = true;
 				mousePressClock = clock();
 				this->mouseDown[MOUSE_LEFT] = 1;
+				this->mouseUp[MOUSE_LEFT] = 0;
 			}
 			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
 				this->mouseDown[MOUSE_MIDDLE] = 1;
+				this->mouseUp[MOUSE_MIDDLE] = 0;
 			}
 			else if (ev.button.button == SDL_BUTTON_RIGHT) {
 				this->mouseDown[MOUSE_RIGHT] = 1;
+				this->mouseUp[MOUSE_RIGHT] = 0;
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if (ev.button.button == SDL_BUTTON_LEFT) {
 				mouseLeftReleased = true;
 				mousePressTime = (clock() - mousePressClock) / (CLOCKS_PER_SEC / 1000);
+
 				this->mouseUp[MOUSE_LEFT] = 1;
+				this->mouseDown[MOUSE_LEFT] = 0;
+				
 			}
 			else if (ev.button.button == SDL_BUTTON_MIDDLE) {
 				this->mouseUp[MOUSE_MIDDLE] = 1;
+				this->mouseDown[MOUSE_MIDDLE] = 0;
 			}
 			else if (ev.button.button == SDL_BUTTON_RIGHT) {
 				this->mouseUp[MOUSE_RIGHT] = 1;
+				this->mouseDown[MOUSE_RIGHT] = 0;
 			}
 			break;
 			// SDL_MouseWheelEvent

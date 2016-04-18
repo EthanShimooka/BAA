@@ -49,8 +49,8 @@ void PlayerInputComponent::Update(){
 				body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			//shoot feather
-			//if (input->isMouseDown(MOUSE_LEFT) && canFire){ //old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
-			if (input->getMousePressDuration() > 0 && canFire){
+			if (input->isMouseDown(MOUSE_LEFT) && canFire){ //old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
+			//if (input->getMousePressDuration() > 0 && canFire && input->isMouseDown(MOUSE_LEFT)){
 				isChargingAttack = true;
 				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 			}
@@ -84,7 +84,7 @@ void PlayerInputComponent::Update(){
 			}
 			//2 Sec delay on feather firing, need some visual representation of cd
 			if (Timing::sInstance.AttackCooldownEnded()){
-				if (!canFire)
+				if (!canFire && input->getMousePressDuration() > 0)
 					input->resetMousePressClock();
 				canFire = true;
 			}
