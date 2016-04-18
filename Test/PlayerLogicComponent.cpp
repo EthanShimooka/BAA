@@ -73,7 +73,7 @@ void PlayerLogicComponent::spawnShield(){
 }
 
 void PlayerLogicComponent::spawnMine(){
-	if (currBirdseed == maxsBirdseed){
+	//if (currBirdseed == maxsBirdseed){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
@@ -82,10 +82,10 @@ void PlayerLogicComponent::spawnMine(){
 		GameObject* mine = mFactory.Spawn(featherNum++, gameObjectRef, (int)targetX, (int)targetY);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
-	}
+	/*}
 	else{
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
-	}
+	}*/
 }
 
 void PlayerLogicComponent::becomeEgg(){

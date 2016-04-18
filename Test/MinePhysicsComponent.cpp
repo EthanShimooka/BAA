@@ -41,7 +41,7 @@ void MinePhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_MINE, COLLISION_PLATFORM | COLLISION_MINION | COLLISION_PLAYER);
+	setCollisionFilter(COLLISION_MINE,  COLLISION_MINION | COLLISION_PLAYER);
 }
 
 
@@ -55,7 +55,7 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 			//if not on the same team, then explode
 			std::cout << "Mine should explode now" << std::endl;
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			logicComp->blowUp(otherObj);
+			logicComp->lightFuse();
 		}
 		else std::cout << "same team, don't explode" << std::endl;
 		break;
@@ -67,7 +67,7 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 			//if not on the same team, then explode
 			std::cout << "Mine should explode now" << std::endl;
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			logicComp->blowUp(otherObj);
+			logicComp->lightFuse();
 		}
 		break;
 	default:
@@ -80,7 +80,6 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 void MinePhysicsComponent::Update(){
 	//need to hover towards target position
 	b2Vec2 vel = targetPos - mBody->GetPosition();
-	std::cout << vel.Length() << std::endl;
 	if (vel.Length() < 0.03f){
 		mBody->SetTransform(targetPos, mBody->GetAngle());
 		mBody->SetLinearVelocity(b2Vec2(0, 0));

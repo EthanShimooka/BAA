@@ -15,8 +15,13 @@ public:
 	void Update();
 	/// Signals the blow up sequence to start. Once sequence finishes, either
 	/// destroy the object or send it to the object pool
-	void blowUp(GameObject* victim);
+	void blowUp();
+	/// Signals the 1 second delay before exploding
+	void lightFuse();
 
 	GameObject* spawner;
+	bool fuseLit = false;
+	clock_t timeSinceBirth;
+	clock_t timeSinceFuseLit;
 };
 #endif

@@ -33,7 +33,7 @@ void MinionPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(50, 0));
-	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE);
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -69,7 +69,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		gameObjectRef->setPos(-10000, 0);
 		gameObjectRef->isAlive = false;
 		RenderManager* renderMan = RenderManager::getRenderManager();
-		renderMan->ShakeScreen(.3, .4);
+		renderMan->ShakeScreen(0.3f, 0.4f);
 		break;
 	}
 		default:
