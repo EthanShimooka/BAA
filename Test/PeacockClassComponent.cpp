@@ -5,14 +5,7 @@
 PeacockClassComponent::PeacockClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	///speed = 15;
-	//width = 1.33f;
-	//height = 1.35f;
-	//seedRequired = 5;
-	//featherSpeed = 1.0f / 7.0f;
-	//featherWidth = 1;
-	//featherHeight = 1;
-	//abilityCooldown = 15;
+	//speed = 10000;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -28,26 +21,29 @@ void PeacockClassComponent::Update()
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
 
+	int bodyAX = 155;
+	int bodyAY = 81;
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3102, 48 - 24, 85 - 92);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3104, 25 - 24, 109 - 92);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3103, 33 - 24, 118 - 92);
-	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3100, 0, 0);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3101, 31 - 24, 95 - 92);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3102, 158 - bodyAX, 95 - bodyAY);
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3104, 163 - bodyAX, 109 - bodyAY);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3103, 156 - bodyAX, 117 - bodyAY);
+	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3100, 0, -8);
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3101, 140 - bodyAX, 85 - bodyAY);
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
 
 	//objRef->setAnchor(0.5, 0.5);
-	body->setAnchor(24 / double(body->renderRect.w), 92 / double(body->renderRect.h));
-	armR->setAnchor(77 / double(armR->renderRect.w), 9 / double(armR->renderRect.h));
-	armL->setAnchor(77 / double(armL->renderRect.w), 9 / double(armL->renderRect.h));
-	legR->setAnchor(8 / double(legR->renderRect.w), 6 / double(legR->renderRect.h));
-	legL->setAnchor(7 / double(legL->renderRect.w), 7 / double(legL->renderRect.h));
+	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
+	armR->setAnchor(9 / double(armR->renderRect.w), 7 / double(armR->renderRect.h));
+	armL->setAnchor(9 / double(armL->renderRect.w), 7 / double(armL->renderRect.h));
+	legR->setAnchor(15 / double(legR->renderRect.w), 6 / double(legR->renderRect.h));
+	legL->setAnchor(13 / double(legL->renderRect.w), 7 / double(legL->renderRect.h));
 	//armR->setCurrentFrame(1);
+	armR->toggleFlippedH();
 	body->setParent(base);
 	armL->setParent(body);
 	armR->setParent(body);
@@ -56,7 +52,7 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 
 	//body->setScale(0.1);
 	//body->calcScale(50,50);
-	body->setScale(body->calcXScale(50));
+	body->setScale(body->calcYScale(50));
 	//body->setScale(body->calcXScale(90));
 
 	*objRef = base;
@@ -97,11 +93,11 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	////// WALKING ANIMATION 
 	std::list<motion> motions2;
 	motions2.push_back(makeMotion(moveCircArc(armR, 0, 5, 5, 0, 360), 0, 1));
-	motions2.push_back(makeMotion(moveCircArc(armL, 0, 5, 5, 180, 360), 0, 1));
-	motions2.push_back(makeMotion(rotateTransform(armL, 0, 10), 0, 0.5));
-	motions2.push_back(makeMotion(rotateTransform(armL, 10, -10), 0.5, 0.5));
-	motions2.push_back(makeMotion(rotateTransform(armR, 0, 10), 0, 0.5));
-	motions2.push_back(makeMotion(rotateTransform(armR, 10, -10), 0.5, 0.5));
+	motions2.push_back(makeMotion(moveCircArc(armL, 0, 5, 5, 0, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(armL, -30, 10), 0, 0.5));
+	motions2.push_back(makeMotion(rotateTransform(armL, -20, -10), 0.5, 0.5));
+	motions2.push_back(makeMotion(rotateTransform(armR, -30, 10), 0, 0.5));
+	motions2.push_back(makeMotion(rotateTransform(armR, -20, -10), 0.5, 0.5));
 	motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, 30, -60), 0.5, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, 30, -60), 0, 0.5, ease_QuadInOut));
