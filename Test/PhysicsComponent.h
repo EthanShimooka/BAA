@@ -44,6 +44,7 @@ enum CollisionMasks {
 	COLLISION_SWTICH = 0x0008,
 	COLLISION_FEATHER = 0x0010,
 	COLLISION_BASE = 0x0020,
+	COLLISION_MINE = 0x0040,
 
 	COLLISION_ALL = 0xFFFF
 	//we can keep on adding more as needed

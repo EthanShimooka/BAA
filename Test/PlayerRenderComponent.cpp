@@ -45,8 +45,8 @@ void PlayerRenderComponent::Update(){
 	// ugly way of seeing if this is the local player
 	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
 		return;
-	crosshairRef->posX = inputMan->getMouseX();
-	crosshairRef->posY = inputMan->getMouseY();
+	crosshairRef->posX = inputMan->getMouseX() - crosshairRef->getWidth()/2;
+	crosshairRef->posY = inputMan->getMouseY() - crosshairRef->getHeight()/2;
 	
 	// update charge bar position (DOESN'T WORK RIGHT NOW)
 	//chargebarMeterRef->posX = gameObjectRef->posX;

@@ -35,7 +35,7 @@ void PlatformPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
+	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION | COLLISION_MINE);
 }
 
 void PlatformPhysicsComponent::handleCollision(GameObject* otherObj){
