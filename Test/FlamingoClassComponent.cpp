@@ -31,21 +31,23 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100103, 0, 0);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100105, 30, 300);
-	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100101, 0, -18);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100104, 50, 300);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 100102, 0, 0);
+	int bodyAX = 37;
+	int bodyAY = 65;
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3202, 49 - bodyAX, 55 - bodyAY);
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3204, 43 - bodyAX, 82 - bodyAY);
+	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3200, 0, -8);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3203, 43 - bodyAX, 82 - bodyAY);
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3201, 46 - bodyAX, 54 - bodyAY);
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
 
 	//objRef->setAnchor(0.5, 0.5);
-
-	armR->setAnchor(174 / double(armR->renderRect.w), 154 / double(armR->renderRect.h));
-	armL->setAnchor(178 / double(armL->renderRect.w), 168 / double(armL->renderRect.h));
-	legR->setAnchor(128 / double(legR->renderRect.w), 39 / double(legR->renderRect.h));
-	legL->setAnchor(253 / double(legL->renderRect.w), 62 / double(legL->renderRect.h));
+	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
+	armR->setAnchor(85 / double(armR->renderRect.w), 57 / double(armR->renderRect.h));
+	armL->setAnchor(10 / double(armL->renderRect.w), 57 / double(armL->renderRect.h));
+	legR->setAnchor(7 / double(legR->renderRect.w), 6 / double(legR->renderRect.h));
+	legL->setAnchor(6 / double(legL->renderRect.w), 5 / double(legL->renderRect.h));
 	//armR->setCurrentFrame(1);
 	body->setParent(base);
 	armL->setParent(body);
@@ -83,8 +85,8 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 
 	/////// IDLE ANIMATION
 	std::list<motion> motions;
-	motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
-	motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	//motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
+	//motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
 	motions.push_back(makeMotion(rotateTransform(legR, 0, 0), 0, 0));
 	motions.push_back(makeMotion(rotateTransform(legL, 0, 0), 0, 0));
 	Animation* idle = new Animation(400, motions);
@@ -93,12 +95,11 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	//currentAnimation = idle;
 	////// WALKING ANIMATION 
 	std::list<motion> motions2;
-	motions2.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
-	motions2.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
-	motions2.push_back(makeMotion(rotateTransform(legR, -60, 120), 0, 0.5, ease_QuadInOut));
-	motions2.push_back(makeMotion(rotateTransform(legR, 60, -120), 0.5, 0.5, ease_QuadInOut));
-	motions2.push_back(makeMotion(rotateTransform(legL, 60, -120), 0, 0.5, ease_QuadInOut));
-	motions2.push_back(makeMotion(rotateTransform(legL, -60, 120), 0.5, 0.5, ease_QuadInOut));
-	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
+	//motions2.push_back(makeMotion(moveCircArc(armR, 0, 5, 5, 0, 360), 0, 1));
+	//motions2.push_back(makeMotion(moveCircArc(armL, 0, 5, 5, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(legR, -20, 40), 0, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(legR, 20, -40), 0.5, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(legL, 20, -40), 0, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(legL, -20, 40), 0.5, 0.5, ease_QuadInOut));
 	animations["walk"] = new Animation(400, motions2);
 }
