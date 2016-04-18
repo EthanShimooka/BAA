@@ -16,5 +16,5 @@ MineRenderComponent::~MineRenderComponent(){
 }
 
 void MineRenderComponent::Update(){
-
+	RenderComponent::Update();
 }
