@@ -14,7 +14,8 @@ GameObject* MineObjectFactory::Spawn(uint64_t PID,GameObject* spawner){
 	mine->ID = PID;
 	mine->isAlive = true;
 	mine->setPos(spawner->posX, spawner->posY);
-	mine->type = GAMEOBJECT_TYPE::OBJECT_FEATHER;
+	mine->team = spawner->team;
+	mine->type = GAMEOBJECT_TYPE::OBJECT_MINE;
 
 	MineRenderComponent* rendComp = new MineRenderComponent(mine);
 

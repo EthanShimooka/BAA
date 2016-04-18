@@ -119,7 +119,8 @@ enum GAMEOBJECT_TYPE {
 	OBJECT_SWTICH = 3,
 	OBJECT_FEATHER = 4,
 	OBJECT_POWERSHIELD = 5,
-	OBJECT_BASE = 6
+	OBJECT_BASE = 6,
+	OBJECT_MINE = 7
 	//we can keep on adding more as needed
 };
 

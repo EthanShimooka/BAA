@@ -34,7 +34,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM);
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE);
 }
 
 
