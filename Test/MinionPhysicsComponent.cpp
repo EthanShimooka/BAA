@@ -39,7 +39,6 @@ void MinionPhysicsComponent::init(){
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
-	setCollisionFilter(COLLISION_MINION, 0);
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 
