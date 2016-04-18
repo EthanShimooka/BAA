@@ -7,6 +7,7 @@ PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player)
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	//PlayerLogicComponent *
 	//logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	//render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 }
 
 
@@ -14,7 +15,7 @@ PlayerNetworkComponent::~PlayerNetworkComponent()
 {
 }
 
-void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int finalY, float chargeTime){
+void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int finalY, float speed){
 	OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
 	featherPacket->Write(NetworkManager::sInstance->kPosCC);
 	featherPacket->Write(gameObjectRef->ID);
@@ -24,7 +25,7 @@ void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int fi
 	featherPacket->Write(gameObjectRef->posY);
 	featherPacket->Write(finalX);
 	featherPacket->Write(finalY);
-	featherPacket->Write(chargeTime);
+	featherPacket->Write(speed);
 	//cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
 	outgoingPackets.push(featherPacket);
 }
@@ -77,15 +78,14 @@ void PlayerNetworkComponent::Update(){
 			uint64_t ID;
 			float initialX, initialY;
 			int destX, destY;
-			float chargeTime;
+			float speed;
 			packet.Read(ID);
 			packet.Read(initialX);
 			packet.Read(initialY);
 			packet.Read(destX);
 			packet.Read(destY);
-			packet.Read(chargeTime);
-			/// have to fix the charge time
-			logic->spawnFeather(ID, initialX, initialY, destX, destY, chargeTime, 0);
+			packet.Read(speed);
+			logic->spawnFeather(ID, initialX, initialY, destX, destY, speed);
 			break;
 		case COMMAND_TYPE::CM_ABILITY:
 			//handle 
@@ -103,11 +103,12 @@ void PlayerNetworkComponent::Update(){
 		incomingPackets.pop();
 	}
 
+	// send outgoing packets
 	while (!outgoingPackets.empty()){
 		OutputMemoryBitStream* outData = outgoingPackets.front();
 		NetworkManager::sInstance->sendPacketToAllPeers(*outData);
-		delete outData;
 		outgoingPackets.pop();
+		delete outData;
 	}
 
 	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId()){

@@ -26,11 +26,13 @@ public:
 	void Update();
 
 
-	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float chargeTime);
+	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float speed);
 	void createMovementPacket(float x, float y);
 
 	/// Pointer to the player logic component
 	//PlayerLogicComponent *logic;
+	/// Pointer to the player render component
+	//PlayerRenderComponent *render;
 };
 
 #endif
