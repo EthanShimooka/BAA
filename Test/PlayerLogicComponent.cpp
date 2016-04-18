@@ -74,8 +74,8 @@ void PlayerLogicComponent::spawnShield(){
 void PlayerLogicComponent::spawnMine(){
 	if (currBirdseed == maxsBirdseed){
 		MineObjectFactory mFactory;
-		if (gameObjectRef->posY>0)GameObjects.AddObject(mFactory.Spawn(featherNum++, gameObjectRef));
-		else GameObjects.AddObject(mFactory.Spawn(featherNum++, gameObjectRef));
+		GameObject* mine = mFactory.Spawn(featherNum++, gameObjectRef);
+		GameObjects.AddObject(mine);
 		currBirdseed = 0;
 	}
 	else{
