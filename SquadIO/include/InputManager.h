@@ -63,6 +63,9 @@ public:
 	// returns the duration of the last left mouse press in milliseconds
 	SQUADIO_API double getMousePressDuration();
 
+	/// resets the time for the mouse pressed down clock
+	SQUADIO_API void resetMousePressClock();
+
 protected:
 	// constructor only called by getInstance()
 	InputManager();

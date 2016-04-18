@@ -9,6 +9,7 @@ UIInputComponent::~UIInputComponent(){
 
 void UIInputComponent::Update(){	
 
+	uint64_t me = NetworkManager::sInstance->GetMyPlayerId();
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
@@ -23,10 +24,7 @@ void UIInputComponent::Update(){
 	case JOIN_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
 			std::cout << "Join!" << std::endl;
-			NetworkManager::sInstance->startLobbySearch();
-			while (NetworkManager::sInstance->GetState() != NetworkManager::sInstance->NMS_Lobby){
-				GamerServices::sInstance->Update();
-			}
+			NetworkManager::sInstance->StartLobbySearch();
 		}
 		break;
 	case SCORE:
@@ -35,11 +33,37 @@ void UIInputComponent::Update(){
 		break;
 	case READY_BUTTON:
 		if (isButtonPressed(READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT)){
-			std::cout << "click" << std::endl;
-			this->uiObjectRef->changePicture = true;
+			//std::cout << "click" << std::endl;
 		}
 		break;
+	case CHICKEN:
+		if (isButtonPressed(66, 67)){
+			std::cout << "click" << std::endl;
+			uiObjectRef->ready = true;
 			
+		}
+		if (isMouseHovering(66, 67)){
+			//std::cout << "hovering" << std::endl;
+			uiObjectRef->hoverPicture = true;
+		}
+		else{
+			uiObjectRef->hoverPicture = false;
+		}
+		break;
+	case PEACOCK:
+		if (isButtonPressed(66, 67)){
+			std::cout << "click" << std::endl;
+			uiObjectRef->ready = true;
+
+		}
+		if (isMouseHovering(66, 67)){
+			//std::cout << "hovering" << std::endl;
+			uiObjectRef->hoverPicture = true;
+		}
+		else{
+			uiObjectRef->hoverPicture = false;
+		}
+		break;
 	}
 }
 
@@ -71,7 +95,7 @@ bool UIInputComponent::isButtonPressed(int width, int height){
 	return false;
 }
 
-bool UIInputComponent::isMouseHovering(){
+bool UIInputComponent::isMouseHovering(int width, int height){
 
 	InputManager* input = InputManager::getInstance();
 
@@ -82,13 +106,13 @@ bool UIInputComponent::isMouseHovering(){
 	if (x < uiObjectRef->posX)
 		return false;
 	//mouse is right of the button
-	else if (x > uiObjectRef->posX + BUTTON_WIDTH)
+	else if (x > uiObjectRef->posX + width)
 		return false;
 	//mouse above the button
 	else if (y < uiObjectRef->posY)
 		return false;
 	//mouse below the button
-	else if (y > uiObjectRef->posY + BUTTON_HEIGHT)
+	else if (y > uiObjectRef->posY + height)
 		return false;
 	else{
 		return true;

@@ -12,7 +12,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 
 	UIObject* uiObject = new UIObject();
 
-	uiObject->ID = PID;
+	uiObject->ID = PID;	
 
 	// Input Component nessasary for Local only.
 	// Will need to differentiate eventually
@@ -60,6 +60,9 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case TIMER:
 		rend->createUIType(TIMER);
 		break;
+	case LOBBY_TIMER:
+		rend->createUIType(LOBBY_TIMER);
+		break;
 	case BIRDSEED_BAR:
 		rend->createUIType(BIRDSEED_BAR);
 		break;
@@ -69,6 +72,11 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	case CROSSHAIR:
 		rend->createUIType(CROSSHAIR);
 		break;
+	case CHARGE_BAR:
+		rend->createUIType(CHARGE_BAR);
+		break;
+	case CHARGE_SHELL:
+		rend->createUIType(CHARGE_SHELL);
 	}
 	uiObject->AddComponent(COMPONENT_RENDER, rend);
 
@@ -111,9 +119,17 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(PLAYER_SLOT);
 		break;
-	case BIRD:
+	case CHICKEN:
 		rend->uiObjectRef->setPos((float)x, (float)y);
-		rend->createUIType(BIRD);
+		rend->createUIType(CHICKEN);
+		break;
+	case PEACOCK:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(PEACOCK);
+		break;
+	case MENU_NAME:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(MENU_NAME);
 		break;
 	}
 

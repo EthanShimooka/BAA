@@ -31,4 +31,5 @@ void SystemUIObjectQueue::DeleteObjects(){
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
 		delete alive_objects[i];
 	}
+	alive_objects.clear();
 }

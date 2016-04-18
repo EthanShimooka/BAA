@@ -49,8 +49,13 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
-	case BIRD:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 16, uiObjectRef->posX, uiObjectRef->posY, true);
+	case CHICKEN:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), CHICKEN, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case PEACOCK:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), PEACOCK, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
@@ -62,6 +67,19 @@ void UIRenderComponent::createUIType(UIType ID){
 		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
 		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	}
+	case LOBBY_TIMER:{
+		RenderManager* renderMan = RenderManager::getRenderManager();
+
+		int x, y;
+		renderMan->getWindowSize(&x, &y);
+
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play->setResourceObject(renderMan->renderText("", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
 		objRef = play;
 		allObjs.push_back(play);
@@ -86,6 +104,29 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case CROSSHAIR:
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, 0, 0, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case MENU_NAME:{
+		std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+		int x, y;
+		renderMan->getWindowSize(&x, &y);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play->setResourceObject(renderMan->renderText(playerName.c_str(), 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		break;
+	}
+	// CHARGE BAR needs to follow player posX/posY at a slight offset
+	// using 1102 and 1103 for object IDs
+	// position is currently hardcoded, need to move to follow the player sprite location
+	case CHARGE_BAR:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, 500, 0, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case CHARGE_SHELL:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, 500, 0, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;

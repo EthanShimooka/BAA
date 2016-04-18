@@ -20,7 +20,7 @@ namespace{
 Timing::Timing(){
 #if _WIN32
 	//GAME TIMER LENGTH
-	gameLengthInSeconds = 120;
+	gameLengthInSeconds = playTimeLengthInSecs;
 	minionCounter = 0;
 	LARGE_INTEGER perfFreq;
 	QueryPerformanceFrequency(&perfFreq);
@@ -56,6 +56,14 @@ bool Timing::Update(){
 	mLastFrameStartTime = currentTime;
 	mFrameStartTimef = static_cast< float > (mLastFrameStartTime);
 	return true;
+}
+
+void Timing::SetLobbyCountdown(){
+	gameLengthInSeconds = 1;
+}
+
+void Timing::SetGamePlayCountdown(){
+	gameLengthInSeconds = playTimeLengthInSecs;
 }
 
 void Timing::SetCountdownStart(){

@@ -42,9 +42,20 @@ void PlayerRenderComponent::Update(){
 	}
 	//update mouse position
 	InputManager* inputMan = InputManager::getInstance();
+	// ugly way of seeing if this is the local player
+	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+		return;
 	crosshairRef->posX = inputMan->getMouseX();
 	crosshairRef->posY = inputMan->getMouseY();
 	
+	// update charge bar position (DOESN'T WORK RIGHT NOW)
+	//chargebarMeterRef->posX = gameObjectRef->posX;
+	//chargebarMeterRef->posY = gameObjectRef->posY;
+	//chargebarShellRef->posX = gameObjectRef->posX;
+	//chargebarShellRef->posY = gameObjectRef->posY;
+	//chargebarMeterRef->posX = inputMan->getMouseX();
+	//chargebarMeterRef->posY = inputMan->getMouseY();
+
 }
 
 

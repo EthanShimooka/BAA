@@ -53,7 +53,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
 		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
 		if (otherObj->team != gameObjectRef->team){
-			std::cout << "shig buzz \n" << std::endl;
+			//std::cout << "shig buzz \n" << std::endl;
 			gameObjectRef->setPos(-10000, 0);
 			gameObjectRef->isAlive = false;
 		

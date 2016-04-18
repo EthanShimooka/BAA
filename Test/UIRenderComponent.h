@@ -12,6 +12,7 @@
 #define UIRENDERCOMPONENT_H_INCLUDED
 #include "RenderUIComponent.h"
 #include "include\SceneManager.h"
+#include "include\network\NetIncludes.h"
 
 class UIRenderComponent : public RenderUIComponent
 {

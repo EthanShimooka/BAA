@@ -19,6 +19,7 @@ void PlayerInputComponent::Update(){
 	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
 	PlayerRenderComponent* renderComp = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		if (!logicComp->isEgg){
@@ -48,14 +49,23 @@ void PlayerInputComponent::Update(){
 				body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			//shoot feather
-			if (input->isMouseLeftPressed() && canFire){
+			if (input->isMouseDown(MOUSE_LEFT) && canFire){ //old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
+			//if (input->getMousePressDuration() > 0 && canFire && input->isMouseDown(MOUSE_LEFT)){
 				isChargingAttack = true;
+				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
+			}
+			if (isChargingAttack) {
+				if (input->getMousePressDuration() < maxCharge) {
+					logicComp->currChargePercentage = input->getMousePressDuration() / maxCharge;
+					// std::cout << logicComp->currChargePercentage << std::endl;
+				}
 			}
 			if (isChargingAttack && input->isMouseLeftReleased()){
 				double chargeTime = input->getMousePressDuration();
 				if (chargeTime > maxCharge)
 					chargeTime = maxCharge;
 				isChargingAttack = false;
+				logicComp->currChargePercentage = 0;
 				// for testing 
 				//chargeTime = 1300;
 				//std::cout << "Charge time: " << chargeTime << std::endl;
@@ -74,6 +84,8 @@ void PlayerInputComponent::Update(){
 			}
 			//2 Sec delay on feather firing, need some visual representation of cd
 			if (Timing::sInstance.AttackCooldownEnded()){
+				if (!canFire && input->getMousePressDuration() > 0)
+					input->resetMousePressClock();
 				canFire = true;
 			}
 

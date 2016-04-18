@@ -13,10 +13,7 @@
 
 // Constructor
 
-
-
-
-
+std::unordered_map<uint64_t, player*> playersInLobby;
 
 GameSession::GameSession(){
 }
@@ -77,6 +74,7 @@ void GameSession::LoadHUD(GameObject* player){
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
 	queue.AddObject(countdownTimer);
@@ -86,6 +84,17 @@ void GameSession::LoadHUD(GameObject* player){
 	queue.AddObject(crosshair);
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
+
+	// add charge meter reference to player logic
+	// also needs playerrendercomponent for xpos/ypos
+	UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR);
+	UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL);
+	queue.AddObject(chargeMeter);
+	queue.AddObject(chargeShell);
+	playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
+	playerRender->chargebarMeterRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -170,7 +179,7 @@ int GameSession::Run(){
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
 	SystemClassUpdater sysClass;
-	
+
 
 
 	/// ENTITIES
@@ -180,13 +189,17 @@ int GameSession::Run(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 
-	/*Start menu;
-	menu.mainMenu();
+	while (NetworkManager::sInstance->GetState() < NetworkManager::NMS_Starting){
+		Start menu;
+		menu.mainMenu();
 
-	Lobby lobby;*/
+		Lobby lobby;
+		lobby.runLobby();
+	}
 
+
+	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
-
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 
 	GameObject * player = NULL;
@@ -200,7 +213,7 @@ int GameSession::Run(){
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_PEACOCK, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
 			}
 			else{
 				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
@@ -271,7 +284,8 @@ int GameSession::Run(){
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
-
+	NetworkManager::sInstance->SetState(NetworkManager::NMS_Playing);
+	std::cout << NetworkManager::sInstance->GetState() << std::endl;
 	while (gameloop) {
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;

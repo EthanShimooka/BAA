@@ -14,6 +14,8 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 
 void PlayerLogicComponent::Update(){
+	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+		return;
 	InputManager* input = InputManager::getInstance();
 	//update orientation
 	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
@@ -26,6 +28,12 @@ void PlayerLogicComponent::Update(){
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
+
+	// set render rectangle for charge bar HUD
+	chargeHUD->getSize(w, h);
+	SDL_Rect cRect = { chargeRect.x, chargeRect.y + chargeRect.h*(1 - currChargePercentage), chargeRect.w, chargeRect.h*currChargePercentage };
+	chargeHUD->posY = chargeRect.h * (1 - currChargePercentage);
+	chargeHUD->setRenderRect(cRect);
 
 	//update the countdown timer
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -45,8 +53,9 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float chargeTime, fl
 }
 
 /// For spawning networked feathers
-void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime, float speed){
-	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, chargeTime, speed));
+void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
+	// charge time is one because speed is the feather speed * chargeTime
+	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, 1, speed));
 }
 
 
@@ -107,4 +116,12 @@ void PlayerLogicComponent::hatchBird(){
 		}
 		isEgg = false;
 	}
+}
+
+void PlayerLogicComponent::startCharge() {
+	charging = true;
+}
+
+void PlayerLogicComponent::endCharge() {
+	charging = false;
 }
