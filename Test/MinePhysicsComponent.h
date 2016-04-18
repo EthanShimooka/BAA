@@ -14,6 +14,7 @@ public:
 	void Update();
 	void init();
 	void handleCollision(GameObject* otherObj);
+	b2Vec2 targetPos;
 };
 
 

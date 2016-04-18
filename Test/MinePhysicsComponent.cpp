@@ -11,9 +11,10 @@ MinePhysicsComponent::~MinePhysicsComponent(){
 }
 
 
-MinePhysicsComponent::MinePhysicsComponent(GameObject* player, float height, float width){
+MinePhysicsComponent::MinePhysicsComponent(GameObject* player, float targetX, float targetY){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
+	targetPos = b2Vec2(targetX/worldScale, targetY/worldScale);
 	init();
 }
 
@@ -77,14 +78,16 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 
 
 void MinePhysicsComponent::Update(){
-	b2Vec2 vel = mBody->GetLinearVelocity();
-	if (gameObjectRef->posY > 0){
-		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
-		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y - 0.5f));
-	}
-	else{
-		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5f));
-		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
+	//need to hover towards target position
+	b2Vec2 vel = targetPos - mBody->GetPosition();
+	std::cout << vel.Length() << std::endl;
+	if (vel.Length() < 0.03){
+		mBody->SetTransform(targetPos, mBody->GetAngle());
+		mBody->SetLinearVelocity(b2Vec2(0, 0));
+	}else{
+		vel.Normalize();
+		vel *= 3;
+		mBody->SetLinearVelocity(vel);
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;

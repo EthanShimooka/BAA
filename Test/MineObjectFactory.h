@@ -10,6 +10,6 @@ public:
 	MineObjectFactory();
 	~MineObjectFactory();
 	/// Creates a new player GameObject
-	GameObject * Spawn(uint64_t PID,GameObject* spawner);
+	GameObject * Spawn(uint64_t PID, GameObject* spawner, int targetX, int targetY);
 };
 #endif
