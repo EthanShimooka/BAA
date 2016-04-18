@@ -222,7 +222,7 @@ int GameSession::Run(){
 	}
 	/// create a local player with ID of 10000
 	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_QUAIL, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
 	}
 
 
