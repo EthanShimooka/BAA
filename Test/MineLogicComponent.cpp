@@ -15,5 +15,7 @@ void MineLogicComponent::blowUp(){
 }
 
 void MineLogicComponent::Update(){
+	std::cout << "posx=" << gameObjectRef->posX << " posy=" << gameObjectRef->posY;
+	std::cout << " spawnerX=" << spawner->posX << " spawnerY=" << spawner->posY << std::endl;
 
 }

@@ -21,7 +21,7 @@ void MinePhysicsComponent::init(){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.fixedRotation = true;
-	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
+	bodyDef.position.Set(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale);
 	bodyDef.angle = 0;// ... which direction it's facing
 
 	GameWorld* gameWorld = GameWorld::getInstance();
@@ -35,7 +35,7 @@ void MinePhysicsComponent::init(){
 	if (!mFixture)
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 	setCollisionFilter(COLLISION_FEATHER, COLLISION_PLATFORM | COLLISION_MINION);
 }
