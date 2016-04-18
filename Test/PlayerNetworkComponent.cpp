@@ -6,8 +6,8 @@ PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player)
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	//PlayerLogicComponent *
-	logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-	render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	//logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	//render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 }
 
 
@@ -43,8 +43,8 @@ void PlayerNetworkComponent::createMovementPacket(float x, float y){
 
 void PlayerNetworkComponent::Update(){
 	while (!incomingPackets.empty()){
-		//PlayerLogicComponent *logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		//PlayerRenderComponent *render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+		PlayerLogicComponent *logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		PlayerRenderComponent *render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		InputMemoryBitStream packet = incomingPackets.front();
 		int mCommand;
 
