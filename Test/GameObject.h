@@ -124,4 +124,11 @@ enum GAMEOBJECT_TYPE {
 	//we can keep on adding more as needed
 };
 
+//DO NOT CHANGE ENUM ORDER
+enum TEAM{
+	TEAM_NEUTRAL = 0,
+	TEAM_YELLOW = 1,
+	TEAM_PURPLE = 2,
+};
+
 #endif

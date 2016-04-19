@@ -87,9 +87,9 @@ void MinionPhysicsComponent::Update(){
 	}
 	//temp testing code from here down
 	if (gameObjectRef->team == 1){
-			mBody->SetLinearVelocity(b2Vec2(10, 0));
-	}else{
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
+	}else{
+			mBody->SetLinearVelocity(b2Vec2(10, 0));
 	}
 }
 
