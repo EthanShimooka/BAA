@@ -118,7 +118,7 @@ void cullObjects(){
 	//SCREEN WIDTH SCREEN HEIGHT, coordinates received from renMan seem to be offset so width and height are currently set larger than they should be.
 	RenderManager* renMan = RenderManager::getRenderManager();
 	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
-	int height = SCREEN_HEIGHT*2;
+	int height = SCREEN_HEIGHT * 2;
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
