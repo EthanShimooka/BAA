@@ -332,7 +332,7 @@ void NetworkManager::SendSelectPacketToPeers(int classType)
 	{
 		if (iter.first != mPlayerId)
 		{
-			SendReliablePacket(outPacket, iter.first);
+			SendPacket(outPacket, iter.first);
 		}
 	}
 }
