@@ -36,23 +36,28 @@ void MidPlatShieldPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_SWTICH, COLLISION_FEATHER | COLLISION_FEATHER);
+	setCollisionFilter(COLLISION_SWITCH, COLLISION_FEATHER);
 }
 
 void MidPlatShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
+										   std::cout << "shiggle buz" << std::endl;
 											gameObjectRef->isAlive = false;
 											break;
 	}
-
 	default:
 		break;
 	}
 }
 
 void MidPlatShieldPhysicsComponent::Update(){
+
+	if (gameObjectRef->isAlive){
+		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	}
 	
 }
 
