@@ -401,7 +401,6 @@ int GameSession::Run(){
 					myTeam = myPlayers[i]->team;
 				}
 			}
-			//need to figure out which team local player is on and pass that team in runGameEnd() call
 			GameEnd end = GameEnd::GameEnd();
 			end.runGameEnd(myTeam, leftBase, rightBase);
 			gameloop = false;
