@@ -109,6 +109,12 @@
     <Filter Include="Source Files\Component\Player Component\ClassComponent">
       <UniqueIdentifier>{eb8117af-ad80-4467-9ad1-5d352ee41627}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Mine Component">
+      <UniqueIdentifier>{ad5e6f4f-7d4f-430d-b13c-dd2e3d53aa69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Mine Component">
+      <UniqueIdentifier>{843b3c67-be3f-40a0-a2d9-32125f227937}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -384,6 +390,21 @@
     <ClInclude Include="MidPlatShieldObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="MineRenderComponent.h">
+      <Filter>Header Files\Component\Mine Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MineComponentIncludes.h">
+      <Filter>Header Files\Component\Mine Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MineLogicComponent.h">
+      <Filter>Header Files\Component\Mine Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MineObjectFactory.h">
+      <Filter>Header Files\Component\Mine Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MinePhysicsComponent.h">
+      <Filter>Header Files\Component\Mine Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -622,6 +643,18 @@
     </ClCompile>
     <ClCompile Include="MidPlatShieldObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MineRenderComponent.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MineLogicComponent.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MineObjectFactory.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MinePhysicsComponent.cpp">
+      <Filter>Source Files\Component\Mine Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
