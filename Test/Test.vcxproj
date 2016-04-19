@@ -108,6 +108,12 @@
     <ClInclude Include="FeatherRenderComponent.h" />
     <ClInclude Include="MidPlatShieldComponentIncludes.h" />
     <ClInclude Include="MidPlatSwitchComponentIncludes.h" />
+    <ClInclude Include="MineComponentIncludes.h" />
+    <ClInclude Include="MineLogicComponent.h" />
+    <ClInclude Include="MineObjectFactory.h" />
+    <ClInclude Include="MinePhysicsComponent.h" />
+    <ClInclude Include="MineRenderComponent.h" />
+    <ClInclude Include="ParticleRenderComponent.h" />
     <ClInclude Include="PeacockClassComponent.h" />
     <ClInclude Include="QuailClassComponent.h" />
     <ClInclude Include="start.h" />
@@ -192,6 +198,11 @@
     <ClCompile Include="FeatherObjectFactory.cpp" />
     <ClCompile Include="FeatherPhysicsComponent.cpp" />
     <ClCompile Include="FeatherRenderComponent.cpp" />
+    <ClCompile Include="MineLogicComponent.cpp" />
+    <ClCompile Include="MineObjectFactory.cpp" />
+    <ClCompile Include="MinePhysicsComponent.cpp" />
+    <ClCompile Include="MineRenderComponent.cpp" />
+    <ClCompile Include="ParticleRenderComponent.cpp" />
     <ClCompile Include="PeacockClassComponent.cpp" />
     <ClCompile Include="QuailClassComponent.cpp" />
     <ClCompile Include="start.cpp" />

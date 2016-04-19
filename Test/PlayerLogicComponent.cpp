@@ -1,10 +1,13 @@
 #include "PlayerLogicComponent.h"
+#include "include\network\GamerServices.h"
 
 
-PlayerLogicComponent::PlayerLogicComponent(GameObject* player)
+PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team, bool local)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
+	gameObjectRef->team = team;
+	isLocal = local;
 }
 
 
@@ -53,19 +56,38 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float chargeTime, fl
 }
 
 /// For spawning networked feathers
-void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float chargeTime, float speed){
-	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, chargeTime, speed));
+void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
+	// charge time is one because speed is the feather speed * chargeTime
+	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, 1, speed));
 }
 
 
 void PlayerLogicComponent::spawnShield(){
 	if (currBirdseed == maxsBirdseed){
-		GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		PowerShieldObjectFactory sFactory;
+		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		else GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
 		currBirdseed = 0;
 	}
 	else{
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 	}
+}
+
+void PlayerLogicComponent::spawnMine(){
+	//if (currBirdseed == maxsBirdseed){
+		MineObjectFactory mFactory;
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		float targetX, targetY;
+		renderMan->windowCoordToWorldCoord(targetX,targetY,input->getMouseX(),input->getMouseY());
+		GameObject* mine = mFactory.Spawn(featherNum++, gameObjectRef, (int)targetX, (int)targetY);
+		GameObjects.AddObject(mine);
+		currBirdseed = 0;
+	/*}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+	}*/
 }
 
 void PlayerLogicComponent::becomeEgg(){
@@ -86,6 +108,11 @@ void PlayerLogicComponent::becomeEgg(){
 		//ignore input and roll to base
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		logicComp->isEgg = true;
+
+		// if this is the local Player
+		if (logicComp->isLocal){
+			RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
+		}
 	}
 
 }

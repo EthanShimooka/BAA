@@ -33,7 +33,7 @@ void MinionPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(50, 0));
-	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE);
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -53,7 +53,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
 		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
 		if (otherObj->team != gameObjectRef->team){
-			std::cout << "shig buzz \n" << std::endl;
+			//std::cout << "shig buzz \n" << std::endl;
 			gameObjectRef->setPos(-10000, 0);
 			gameObjectRef->isAlive = false;
 		
@@ -63,11 +63,12 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		gameObjectRef->isAlive = false;
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
-		//Still need to trigger shake effect, visually update dmg to base
-		//Currently destroys minions and updates base health logic
+		//Still need to visually update dmg to base
+		//Currently destroys minions, updates base health logic, and shakes screen
 		gameObjectRef->setPos(-10000, 0);
 		gameObjectRef->isAlive = false;
-
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		renderMan->ShakeScreen(0.3f, 0.4f);
 		break;
 	}
 		default:

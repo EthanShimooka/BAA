@@ -49,7 +49,8 @@ void PlayerInputComponent::Update(){
 				body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 			}
 			//shoot feather
-			if (input->isMouseLeftPressed() && canFire){
+			if (input->isMouseDown(MOUSE_LEFT) && canFire){ //old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
+			//if (input->getMousePressDuration() > 0 && canFire && input->isMouseDown(MOUSE_LEFT)){
 				isChargingAttack = true;
 				logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 			}
@@ -83,6 +84,8 @@ void PlayerInputComponent::Update(){
 			}
 			//2 Sec delay on feather firing, need some visual representation of cd
 			if (Timing::sInstance.AttackCooldownEnded()){
+				if (!canFire && input->getMousePressDuration() > 0)
+					input->resetMousePressClock();
 				canFire = true;
 			}
 
@@ -114,9 +117,9 @@ void PlayerInputComponent::Update(){
 			else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
 			if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 			//spawn shield
-			if (input->isMouseDown(MOUSE_RIGHT)||controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) {
+			if ((input->isMouseDown(MOUSE_RIGHT)||controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) && (logicComp->currBirdseed == logicComp->maxsBirdseed)) {
 				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-				logic->spawnShield();
+				logic->spawnMine();
 				//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
 				//  PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 				//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());

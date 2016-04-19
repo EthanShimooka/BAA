@@ -112,8 +112,8 @@ void cullObjects(){
 
 	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
 	RenderManager* renMan = RenderManager::getRenderManager();
-	int width = 3000;
-	int height = 2000;
+	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
+	int height = SCREEN_HEIGHT;
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
@@ -124,7 +124,7 @@ void cullObjects(){
 		renMan->worldCoordToWindowCoord(left, top, obj->posX, obj->posY, obj->posZ);
 		renMan->worldCoordToWindowCoord(right, bot, (obj->posX + obj->width), (obj->posY + obj->height), obj->posZ);
 
-		if ((right < -width / 2) || (left > width / 2) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
+		if ((right < -width / 2) || (left > width) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
 			obj->setVisible(false);
 		}
 		else{
@@ -212,17 +212,18 @@ int GameSession::Run(){
 			bool local = false;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
-				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
 			}
 		}
 	}
 	/// create a local player with ID of 10000
 	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
 	}
 
 
@@ -242,7 +243,7 @@ int GameSession::Run(){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	audioMan->playByName("bgmfostershome.ogg");
+	//audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 

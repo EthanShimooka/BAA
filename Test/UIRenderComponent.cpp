@@ -1,4 +1,5 @@
 #include "UIRenderComponent.h"
+#include "config.h"
 
 
 
@@ -63,7 +64,7 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();
-		uiObjectRef->posX = 600;
+		uiObjectRef->posX = SCREEN_WIDTH - 200;
 		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
 		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
@@ -121,12 +122,12 @@ void UIRenderComponent::createUIType(UIType ID){
 	// using 1102 and 1103 for object IDs
 	// position is currently hardcoded, need to move to follow the player sprite location
 	case CHARGE_BAR:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, 500, 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, (SCREEN_WIDTH - 300), 0, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case CHARGE_SHELL:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, 500, 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, (SCREEN_WIDTH - 300), 0, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;

@@ -37,7 +37,7 @@ SystemGameObjectQueue::~SystemGameObjectQueue()
 GameObject* SystemGameObjectQueue::AddObject(GameObject * obj){
 
 	alive_objects.push_back(obj);
-	std::cout << "pushed back: " << alive_objects.back()->type << ": " << alive_objects.back()->ID << std::endl;
+	//std::cout << "pushed back: " << alive_objects.back()->type << ": " << alive_objects.back()->ID << std::endl;
 	return obj;
 }
 

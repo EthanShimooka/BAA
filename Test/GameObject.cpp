@@ -176,7 +176,6 @@ GameObject::~GameObject(){
 void GameObject::setPos(float x, float y){
 	posX = x;
 	posY = y;
-	
 }
 
 void GameObject::AddComponent(int c_type, Component* comp){
