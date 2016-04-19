@@ -212,19 +212,20 @@ int GameSession::Run(){
 	/// try to join a game and give each user a unique character in the game
 	if (numPlayers != 1){
 		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
-
+		int i = 0;
 		for (auto &iter : lobby){
 			bool local = false;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
 				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, (i % 2) + 1, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, (i % 2) + 1, local));
 			}
 		}
+		++i;
 	}
 	/// create a local player with ID of 10000
 	else{
