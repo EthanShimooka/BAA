@@ -118,7 +118,7 @@ void cullObjects(){
 	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
 	RenderManager* renMan = RenderManager::getRenderManager();
 	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
-	int height = SCREEN_HEIGHT;
+	int height = SCREEN_HEIGHT * 2;
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
