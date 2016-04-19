@@ -115,7 +115,7 @@ void cullObjects(){
 		dynamic_cast<RenderComponent*>(GameObjects.dead_minions[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
 	}
 
-	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
+	//SCREEN WIDTH SCREEN HEIGHT, coordinates received from renMan seem to be offset so width and height are currently set larger than they should be.
 	RenderManager* renMan = RenderManager::getRenderManager();
 	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
 	int height = SCREEN_HEIGHT * 2;
@@ -390,8 +390,8 @@ int GameSession::Run(){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
 
 		}
 		input->update();
