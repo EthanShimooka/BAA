@@ -18,7 +18,7 @@ MinionPhysicsComponent::~MinionPhysicsComponent(){
 
 void MinionPhysicsComponent::init(){
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_kinematicBody;
+	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
 	bodyDef.angle = 0;// ... which direction it's facing
 
