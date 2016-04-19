@@ -23,6 +23,8 @@ public:
 	MidPlatRenderComponent(GameObject* platform);
 	/// Deconstructor
 	~MidPlatRenderComponent();
+	
+
 };
 
 #endif

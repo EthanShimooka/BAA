@@ -60,6 +60,7 @@ void Lobby::runLobby(){
 					me->playerChoice = Birds[i]->ID;
 					me->playerSlot->changePicture = true;
 					me->playerSlot->changeTo = Birds[i]->ID;
+					//NetworkManager::sInstance->SendSelectPacketToPeers((int)Birds[i]->ID);
 					me->ready = true;
 					break;
 				}
@@ -75,7 +76,7 @@ void Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
@@ -181,13 +182,13 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			p->team = RED;
+			p->team = TEAM_PURPLE;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			p->team = BLUE;
+			p->team = TEAM_YELLOW;
 		}
 		
 		/*UIObjectFactory name;

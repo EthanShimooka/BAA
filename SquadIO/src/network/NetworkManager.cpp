@@ -133,11 +133,6 @@ void NetworkManager::UpdateDelay()
 
 void NetworkManager::UpdateStarting()
 {
-	/*mTimeToStart -= Timing::sInstance.GetDeltaTime();
-	if (mTimeToStart <= 0.0f)
-	{
-
-	}*/
 	EnterPlayingState();
 }
 
@@ -367,6 +362,7 @@ void NetworkManager::HandleReadyPacket(InputMemoryBitStream& inInputStream, uint
 	//if this is my first ready packet, I need to let everyone else know I'm ready
 	if (mReadyCount == 0)
 	{
+		//commenting the line below should stop the master peer from forcing all other peers to ready up
 		SendReadyPacketsToPeers();
 		//I'm ready now also, so an extra increment here
 		mReadyCount++;
@@ -700,6 +696,7 @@ void NetworkManager::UpdateLobbyPlayers()
 
 void NetworkManager::TryStartGame()
 {
+	//i am master peer and i have received ready's from all players
 	if (mState == NMS_Ready && IsMasterPeer() && mPlayerCount == mReadyCount)
 	{
 		LogManager* log = LogManager::GetLogManager();
@@ -729,6 +726,7 @@ void NetworkManager::TryStartGame()
 
 void NetworkManager::TryReadyGame()
 {
+	// i am master peer, ready-ing up and try to start the game
 	if (mState == NMS_Lobby && IsMasterPeer())
 	{
 		LogManager* log = LogManager::GetLogManager();
@@ -744,6 +742,18 @@ void NetworkManager::TryReadyGame()
 
 		//we might be ready to start
 		TryStartGame();
+	}
+	// i am not master peeer, send ready message to other peers
+	else if(mState == NMS_Lobby) {
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
+		log->flush();
+		//let the gamer services know we're readying up
+		GamerServices::sInstance->SetLobbyReady(mLobbyId);
+
+		SendReadyPacketsToPeers();
+
+		mState = NMS_Ready;
 	}
 }
 

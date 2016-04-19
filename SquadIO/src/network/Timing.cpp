@@ -58,8 +58,9 @@ bool Timing::Update(){
 	return true;
 }
 
+// lobby timer
 void Timing::SetLobbyCountdown(){
-	gameLengthInSeconds = 1;
+	gameLengthInSeconds = 3;
 }
 
 void Timing::SetGamePlayCountdown(){

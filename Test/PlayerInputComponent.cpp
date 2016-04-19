@@ -116,10 +116,10 @@ void PlayerInputComponent::Update(){
 			if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
 			else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
 			if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
-			//spawn shield
+			//spawn shield, checks for full birdseed in logic component
 			if (input->isMouseDown(MOUSE_RIGHT)||controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) {
 				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-				logic->spawnShield();
+				logic->spawnMine();
 				//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
 				//  PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 				//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());

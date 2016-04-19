@@ -16,7 +16,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.fixedRotation = true;
-	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
+	bodyDef.position.Set(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale);
 	bodyDef.angle = 0;// ... which direction it's facing
 
 	GameWorld* gameWorld = GameWorld::getInstance();
@@ -32,9 +32,9 @@ void PlayerPhysicsComponent::init(float height, float width){
 	if (!mFixture)
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM);
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE);
 }
 
 
@@ -51,6 +51,18 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
 		inAir = false;
+		break;
+	case  GAMEOBJECT_TYPE::OBJECT_MINE:
+		if (otherObj->team != gameObjectRef->team){
+			MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			if(mineLogicComp->fuseLit){
+				//using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
+				PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+				logicComp->becomeEgg();
+				
+
+			}
+		}
 		break;
 	default:
 		break;

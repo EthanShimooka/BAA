@@ -49,6 +49,7 @@ configurations.
 #include "PlatformObjectFactory.h"
 #include "MidPlatObjectFactory.h"
 #include "MidBaseObjectFactory.h"
+#include "MidPlatShieldObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"

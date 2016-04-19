@@ -27,7 +27,7 @@ void MidPlatPhysicsComponent::init(){
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(8.5f, 1.7f); // look up other functions for polygons
+	box.SetAsBox(8.5f, 1.1f); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
@@ -36,7 +36,7 @@ void MidPlatPhysicsComponent::init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
+	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION | COLLISION_MINE);
 }
 
 void MidPlatPhysicsComponent::Update(){

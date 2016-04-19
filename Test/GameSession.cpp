@@ -36,6 +36,7 @@ void GameSession::LoadWorld(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 	MidBaseObjectFactory mbFactory;
+	MidPlatShieldObjectFactory psFactory;
 
 	for (int i = 0; i < 4; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 340), (SCREEN_HEIGHT / 3.1f), 0));
@@ -47,6 +48,10 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
 		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
 	}
+
+	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
+
+
 	rightBase = mbFactory.Spawn(506001, 975, -40, 0);
 	leftBase = mbFactory.Spawn(506002, -975, -40, 0);
 	GameObjects.AddObject(rightBase);
@@ -110,10 +115,10 @@ void cullObjects(){
 		dynamic_cast<RenderComponent*>(GameObjects.dead_minions[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
 	}
 
-	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
+	//SCREEN WIDTH SCREEN HEIGHT, coordinates received from renMan seem to be offset so width and height are currently set larger than they should be.
 	RenderManager* renMan = RenderManager::getRenderManager();
-	int width = 3000;
-	int height = 2000;
+	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
+	int height = SCREEN_HEIGHT * 2;
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
@@ -124,7 +129,7 @@ void cullObjects(){
 		renMan->worldCoordToWindowCoord(left, top, obj->posX, obj->posY, obj->posZ);
 		renMan->worldCoordToWindowCoord(right, bot, (obj->posX + obj->width), (obj->posY + obj->height), obj->posZ);
 
-		if ((right < -width / 2) || (left > width / 2) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
+		if ((right < -width / 2) || (left > width) || (top > height / 2) || (bot < -height / 2)){ //if object is out of screen bounds, dont draw.
 			obj->setVisible(false);
 		}
 		else{
@@ -201,29 +206,35 @@ int GameSession::Run(){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
+	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+		std::cout << iter.first << std::endl;
+		std::cout << "\tClass:" << iter.second.classType << std::endl;
+	}*/
 
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
-	if (numPlayers != 1){
-		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
-
-		for (auto &iter : lobby){
-			bool local = false;
-			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-				local = true;
-				std::cout << "Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
-			}
-			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, local));
-			}
+	//if (numPlayers != 1){
+	map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
+	int i = 0;
+	bool local = true;
+	for (auto &iter : lobby){
+		//int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, local));
 		}
+		else{
+			GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !local));
+		}
+		++i;
 	}
+		
+	//}
 	/// create a local player with ID of 10000
-	else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, true));
-	}
+	/*else{
+		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
+	}*/
 
 
 
@@ -242,7 +253,7 @@ int GameSession::Run(){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	audioMan->playByName("bgmfostershome.ogg");
+	//audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 
@@ -379,8 +390,8 @@ int GameSession::Run(){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
 
 		}
 		input->update();

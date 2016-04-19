@@ -13,10 +13,6 @@
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 
-enum TEAM{
-	RED = 1,
-	BLUE = 2,
-};
 
 struct player{
 	uint64_t playerId;
