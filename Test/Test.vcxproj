@@ -107,6 +107,7 @@
     <ClInclude Include="FeatherPhysicsComponent.h" />
     <ClInclude Include="FeatherRenderComponent.h" />
     <ClInclude Include="MidPlatShieldComponentIncludes.h" />
+    <ClInclude Include="MidPlatShieldObjectFactory.h" />
     <ClInclude Include="MidPlatSwitchComponentIncludes.h" />
     <ClInclude Include="MineComponentIncludes.h" />
     <ClInclude Include="MineLogicComponent.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="FeatherObjectFactory.cpp" />
     <ClCompile Include="FeatherPhysicsComponent.cpp" />
     <ClCompile Include="FeatherRenderComponent.cpp" />
+    <ClCompile Include="MidPlatShieldObjectFactory.cpp" />
     <ClCompile Include="MineLogicComponent.cpp" />
     <ClCompile Include="MineObjectFactory.cpp" />
     <ClCompile Include="MinePhysicsComponent.cpp" />
