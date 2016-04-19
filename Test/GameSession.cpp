@@ -220,12 +220,13 @@ int GameSession::Run(){
 	bool local = true;
 	for (auto &iter : lobby){
 		int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType - 2999;
+		//int classType = 6;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, local));
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
 		}
 		else{
-			GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !local));
+			GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, !local));
 		}
 		++i;
 	}
