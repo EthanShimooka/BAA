@@ -36,6 +36,7 @@ void GameSession::LoadWorld(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 	MidBaseObjectFactory mbFactory;
+	MidPlatShieldObjectFactory psFactory;
 
 	for (int i = 0; i < 4; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 340), (SCREEN_HEIGHT / 3.1f), 0));
@@ -47,6 +48,10 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
 		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
 	}
+
+	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
+
+
 	rightBase = mbFactory.Spawn(506001, 975, -40, 0);
 	leftBase = mbFactory.Spawn(506002, -975, -40, 0);
 	GameObjects.AddObject(rightBase);
