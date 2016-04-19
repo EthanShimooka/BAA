@@ -116,9 +116,9 @@ private:
 	SQUADIO_API void	TryStartGame();
 public:
 	/// Sends selection packet
-	SQUADIO_API void	SendSelectPacketToPeers(int classType);
+	SQUADIO_API void	SendSelectPacket(int classType);
 	/// Sends ready up packet
-	SQUADIO_API void	SendRdyUpPacketToPeers(int ready);
+	SQUADIO_API void	SendRdyUpPacket(int ready);
 	/// Gets Lobby Id
 	SQUADIO_API uint64_t GetLobbyId();
 	/// Handles player disconnecting mid-game

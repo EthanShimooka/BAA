@@ -291,7 +291,7 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	}
 }
 
-void NetworkManager::SendRdyUpPacketToPeers(int ready)
+void NetworkManager::SendRdyUpPacket(int ready)
 {
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
@@ -319,7 +319,7 @@ void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, 
 	}
 }
 
-void NetworkManager::SendSelectPacketToPeers(int classType)
+void NetworkManager::SendSelectPacket(int classType)
 {
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
