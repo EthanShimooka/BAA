@@ -37,7 +37,7 @@ void UIInputComponent::Update(){
 		}
 		break;
 	case CHICKEN:
-		if (isButtonPressed(66, 67)){
+		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
 			std::cout << "click" << std::endl;
 			uiObjectRef->ready = true;
 			

@@ -52,11 +52,37 @@ void UIRenderComponent::createUIType(UIType ID){
 		break;
 	case CHICKEN:
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), CHICKEN, uiObjectRef->posX, uiObjectRef->posY, true);
+		uiObjectRef->setWidthAndHeight(play->getWidth(), play->getHeight());
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case PEACOCK:
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), PEACOCK, uiObjectRef->posX, uiObjectRef->posY, true);
+		uiObjectRef->setWidthAndHeight(play->getWidth(), play->getHeight());
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case FLAMINGO:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), FLAMINGO, uiObjectRef->posX, uiObjectRef->posY, true);
+		uiObjectRef->setWidthAndHeight(play->getWidth(), play->getHeight());
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case QUAIL:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), QUAIL, uiObjectRef->posX, uiObjectRef->posY, true);
+		uiObjectRef->setWidthAndHeight(play->getWidth(), play->getHeight());
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case TURKEY:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), TURKEY, uiObjectRef->posX, uiObjectRef->posY, true);
+		uiObjectRef->setWidthAndHeight(play->getWidth(), play->getHeight());
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case EAGLE:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), EAGLE, uiObjectRef->posX, uiObjectRef->posY, true);		
+		uiObjectRef->setWidthAndHeight(play->getWidth(), play->getHeight());
 		objRef = play;
 		allObjs.push_back(play);
 		break;
