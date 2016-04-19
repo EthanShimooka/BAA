@@ -76,7 +76,7 @@ void Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
