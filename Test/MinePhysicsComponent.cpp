@@ -29,10 +29,10 @@ void MinePhysicsComponent::init(){
 	if (!mBody)
 		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
-	b2PolygonShape box;
+	b2CircleShape box;
 	//with the image used, the mine is 3 times as wide as tall. We bump it up a little more
-	//that just 3 times for a larger proximity.
-	box.SetAsBox(1.0f, 0.2f); // look up other functions for polygons
+	//that just 3 times for a larger proximity. 0.6f is the width for current landmine texture
+	box.m_radius = 1.2f;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	boxFixtureDef.friction = 0.5;
@@ -53,19 +53,15 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 		//check to see what team it's affiliated with, and detonate if needed
 		if (otherObj->team != gameObjectRef->team){
 			//if not on the same team, then explode
-			std::cout << "Mine should explode now" << std::endl;
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			logicComp->lightFuse();
+			setCollisionFilter(COLLISION_MINE, 0);
 		}
-		else std::cout << "same team, don't explode" << std::endl;
-		break;
-	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
 		//check to see what team it's affiliated with, and detonate if needed
 		if (otherObj->team != gameObjectRef->team){
 			//if not on the same team, then explode
-			std::cout << "Mine should explode now" << std::endl;
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			logicComp->lightFuse();
 		}
