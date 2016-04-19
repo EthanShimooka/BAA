@@ -33,7 +33,7 @@ public:
 	Lobby();
 	~Lobby();
 
-	void runLobby();
+	vector<player*> runLobby();
 
 
 

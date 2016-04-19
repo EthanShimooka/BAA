@@ -9,7 +9,7 @@ Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 Lobby::~Lobby(){
 }
 
-void Lobby::runLobby(){
+vector<player*> Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -95,7 +95,7 @@ void Lobby::runLobby(){
 	}
 
 	cleanUP(queue);
-
+	return players;
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){
