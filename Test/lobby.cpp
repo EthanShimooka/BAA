@@ -51,7 +51,8 @@ vector<player*> Lobby::runLobby(){
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 			auto& iter = NetworkManager::sInstance->lobbyInfoMap.find(GamerServices::sInstance->GetLocalPlayerId());
-			NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
+			if (iter->second.classType)
+				NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
 		}
 
 		updateLobby();
