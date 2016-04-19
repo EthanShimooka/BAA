@@ -1,11 +1,13 @@
 #include "PlayerLogicComponent.h"
+#include "include\network\GamerServices.h"
 
 
-PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
+PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team, bool local)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
+	isLocal = local;
 }
 
 
@@ -106,6 +108,11 @@ void PlayerLogicComponent::becomeEgg(){
 		//ignore input and roll to base
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		logicComp->isEgg = true;
+
+		// if this is the local Player
+		if (logicComp->isLocal){
+			RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
+		}
 	}
 
 }

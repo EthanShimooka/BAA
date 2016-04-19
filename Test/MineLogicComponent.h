@@ -21,6 +21,7 @@ public:
 
 	GameObject* spawner;
 	bool fuseLit = false;
+	int blownUp = 0;
 	clock_t timeSinceBirth;
 	clock_t timeSinceFuseLit;
 };

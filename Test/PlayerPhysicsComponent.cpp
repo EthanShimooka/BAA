@@ -52,6 +52,18 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
 		inAir = false;
 		break;
+	case  GAMEOBJECT_TYPE::OBJECT_MINE:
+		if (otherObj->team != gameObjectRef->team){
+			MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			if(mineLogicComp->fuseLit){
+				//using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
+				PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+				logicComp->becomeEgg();
+				
+
+			}
+		}
+		break;
 	default:
 		break;
 	}
