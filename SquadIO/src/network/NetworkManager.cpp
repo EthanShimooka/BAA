@@ -363,7 +363,7 @@ void NetworkManager::HandleReadyPacket(InputMemoryBitStream& inInputStream, uint
 	if (mReadyCount == 0)
 	{
 		//commenting the line below should stop the master peer from forcing all other peers to ready up
-		//SendReadyPacketsToPeers();
+		SendReadyPacketsToPeers();
 		//I'm ready now also, so an extra increment here
 		mReadyCount++;
 		mState = NMS_Ready;
@@ -721,9 +721,6 @@ void NetworkManager::TryStartGame()
 
 		//mTimeToStart = kStartDelay;
 		mState = NMS_Starting;
-	}
-	else{
-
 	}
 }
 
