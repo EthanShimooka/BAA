@@ -14,6 +14,7 @@
 // Constructor
 
 std::unordered_map<uint64_t, player*> playersInLobby;
+std::vector<player*> myPlayers;
 
 GameSession::GameSession(){
 }
@@ -36,6 +37,7 @@ void GameSession::LoadWorld(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 	MidBaseObjectFactory mbFactory;
+	MidPlatShieldObjectFactory psFactory;
 
 	for (int i = 0; i < 4; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 340), (SCREEN_HEIGHT / 3.1f), 0));
@@ -47,8 +49,12 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
 		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
 	}
-	rightBase = mbFactory.Spawn(506001, 975, -40, 0);
-	leftBase = mbFactory.Spawn(506002, -975, -40, 0);
+
+	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
+
+
+	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
@@ -110,10 +116,10 @@ void cullObjects(){
 		dynamic_cast<RenderComponent*>(GameObjects.dead_minions[i]->GetComponent(COMPONENT_RENDER))->objRef->setVisible(false);
 	}
 
-	//SCREEN WIDTH SCREEN HEIGHT COME FIX WHEN CONFIG SETS THEM
+	//SCREEN WIDTH SCREEN HEIGHT, coordinates received from renMan seem to be offset so width and height are currently set larger than they should be.
 	RenderManager* renMan = RenderManager::getRenderManager();
 	int width = SCREEN_WIDTH + (SCREEN_WIDTH/2);
-	int height = SCREEN_HEIGHT;
+	int height = SCREEN_HEIGHT * 2;
 	int left, right, top, bot;
 	left = right = top = bot = 0;
 
@@ -194,37 +200,42 @@ int GameSession::Run(){
 		menu.mainMenu();
 
 		Lobby lobby;
-		lobby.runLobby();
+		myPlayers = lobby.runLobby();
 	}
 
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
+	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+		std::cout << iter.first << std::endl;
+		std::cout << "\tClass:" << iter.second.classType << std::endl;
+	}*/
 
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
-	if (numPlayers != 1){
-		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
-
-		for (auto &iter : lobby){
-			bool local = false;
-			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-				local = true;
-				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
-			}
-			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
-			}
+	//if (numPlayers != 1){
+	map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
+	int i = 0;
+	bool local = true;
+	for (auto &iter : lobby){
+		//int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, local));
 		}
+		else{
+			GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !local));
+		}
+		++i;
 	}
+		
+	//}
 	/// create a local player with ID of 10000
-	else{
+	/*else{
 		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
-	}
+	}*/
 
 
 
@@ -254,12 +265,7 @@ int GameSession::Run(){
 	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
-
 	int minionCounter = 0;
-	time_t spawnTimer1 = time(0);
-	time_t spawnEvery1 = 2;
-	time_t spawnTimer2 = time(0);
-	time_t spawnEvery2 = 3;
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
@@ -281,8 +287,6 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
 
-	//SDL_Cursor* cursor = renderMan->cursorToCrosshair();
-
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
 	NetworkManager::sInstance->SetState(NetworkManager::NMS_Playing);
@@ -294,7 +298,7 @@ int GameSession::Run(){
 		aniCounter++;
 		aniCounter = aniCounter % 20;
 
-		if (input->isKeyDown(KEY_Q)){
+		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
 				renderMan->cameraPoint.z += 1;
 			}
@@ -304,7 +308,7 @@ int GameSession::Run(){
 		}
 		if (input->isKeyDown(KEY_E)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
-		}
+		}*/
 
 		if (input->isKeyDown(KEY_F)){
 			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
@@ -314,7 +318,7 @@ int GameSession::Run(){
 			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
 		}
 		if (input->isKeyDown(KEY_Y)) {
-			renderMan->ShakeScreen(.2, .5);
+			renderMan->ShakeScreen(.2f, .5f);
 		}
 		
 		mousecounter++;
@@ -340,9 +344,6 @@ int GameSession::Run(){
 		PhysicsListener listener;
 		GameWorld* gameWorld = GameWorld::getInstance();
 		gameWorld->physicsWorld->SetContactListener(&listener);
-
-
-
 
 		gameWorld->update(); //update physics world
 		//end physics testing stuff
@@ -380,8 +381,8 @@ int GameSession::Run(){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, 1));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++,  800, 0, 2));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
 
 		}
 		input->update();
@@ -389,8 +390,14 @@ int GameSession::Run(){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			int myTeam;
+			for (unsigned int i = 0; i < myPlayers.size(); i++){
+				if (GamerServices::sInstance->GetLocalPlayerId() == myPlayers[i]->playerId){
+					myTeam = myPlayers[i]->team;
+				}
+			}
 			GameEnd end = GameEnd::GameEnd();
-			end.runGameEnd();
+			end.runGameEnd(myTeam, leftBase, rightBase);
 			gameloop = false;
 		}
 
@@ -399,13 +406,8 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	
-	// Loop freeing memoru
-	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
-	//}
+
 	std::cout << renderMan << std::endl;
-	//renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();

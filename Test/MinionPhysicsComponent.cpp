@@ -41,7 +41,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-
+		if (otherObj->team == gameObjectRef->team)break;
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
@@ -82,14 +82,14 @@ void MinionPhysicsComponent::Update(){
 		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 	}
 	else{
-		gameObjectRef->setPos(-10000, 0);
+		gameObjectRef->setPos(-10, 1000);
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	//temp testing code from here down
 	if (gameObjectRef->team == 1){
-			mBody->SetLinearVelocity(b2Vec2(10, 0));
-	}else{
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
+	}else{
+			mBody->SetLinearVelocity(b2Vec2(10, 0));
 	}
 }
 
