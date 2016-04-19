@@ -2,6 +2,8 @@
 #include "GameSession.h"
 #include <functional>
 #include <crtdbg.h>
+#include "include\sdl2\SDL_timer.h"
+
 /**
 *  GameSession.cpp
 *  Authors:
@@ -243,6 +245,7 @@ int GameSession::Run(){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 
+
 	bool gameloop = true;
 	int var = 0;
 	renderMan->zoom = 0.5;
@@ -292,6 +295,9 @@ int GameSession::Run(){
 	NetworkManager::sInstance->SetState(NetworkManager::NMS_Playing);
 	std::cout << NetworkManager::sInstance->GetState() << std::endl;
 	while (gameloop) {
+
+		Uint32 time = SDL_GetTicks();
+
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter) / 20);
@@ -402,6 +408,17 @@ int GameSession::Run(){
 		}
 
 		firstTime = false;
+
+
+
+
+
+		if (20>(SDL_GetTicks() - time))
+		{
+			SDL_Delay(20 - (SDL_GetTicks() - time)); //SDL_Delay pauses the execution.
+		}
+
+
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
