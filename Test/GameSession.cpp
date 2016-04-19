@@ -318,7 +318,7 @@ int GameSession::Run(){
 			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
 		}
 		if (input->isKeyDown(KEY_Y)) {
-			renderMan->ShakeScreen(.2, .5);
+			renderMan->ShakeScreen(.2f, .5f);
 		}
 		
 		mousecounter++;

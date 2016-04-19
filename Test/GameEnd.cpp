@@ -51,7 +51,8 @@ void GameEnd::runGameEnd(int localTeam, GameObject* leftBase, GameObject* rightB
 	}
 
 	textHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7000, (float)2 * SCREEN_WIDTH / 6, (float)3 * SCREEN_HEIGHT / 7, true);
-	textHUD->setResourceObject(renderMan->renderText(text.c_str(), 160, 32, 240, 70, "BowlbyOneSC-Regular"));
+	if (localTeam == TEAM_PURPLE) textHUD->setResourceObject(renderMan->renderText(text.c_str(), 160, 32, 240, 70, "BowlbyOneSC-Regular"));
+	else if (localTeam == TEAM_YELLOW) textHUD->setResourceObject(renderMan->renderText(text.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 	sceneMan->AssembleScene();
 	Sleep(3000);
 }
