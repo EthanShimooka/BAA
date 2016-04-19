@@ -265,12 +265,7 @@ int GameSession::Run(){
 	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
-
 	int minionCounter = 0;
-	time_t spawnTimer1 = time(0);
-	time_t spawnEvery1 = 2;
-	time_t spawnTimer2 = time(0);
-	time_t spawnEvery2 = 3;
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
@@ -411,11 +406,7 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	
-	// Loop freeing memoru
-	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
-	//}
+
 	std::cout << renderMan << std::endl;
 	std::cout << renderMan << std::endl;
 
