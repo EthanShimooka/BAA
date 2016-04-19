@@ -214,28 +214,27 @@ int GameSession::Run(){
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
-	if (numPlayers != 1){
+	//if (numPlayers != 1){
 		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
 		int i = 0;
+		bool network = true;
 		for (auto &iter : lobby){
-			bool local = false;
-			int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType - 2999;
+			int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-				local = true;
 				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !network));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, network));
 			}
+			++i;
 		}
-		++i;
-	}
+		
+	//}
 	/// create a local player with ID of 10000
-	else{
+	/*else{
 		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
-	}
+	}*/
 
 
 
