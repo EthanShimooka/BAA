@@ -41,7 +41,10 @@ void PlayerRenderComponent::Update(){
 	RenderBoundingBox((allObjs["box"]));
 	ApplyPhysicsRotation(allObjs["base"]);
 	RenderComponent::animate();
-	allObjs["name"]->setPos(allObjs["base"]->getPosX(), -40 + allObjs["base"]->getPosY());
+	//move the player's name next to the player
+	if(gameObjectRef->posY>0)allObjs["name"]->setPos(allObjs["base"]->getPosX(), -40 + allObjs["base"]->getPosY());
+	else allObjs["name"]->setPos(allObjs["base"]->getPosX(), +40 + allObjs["base"]->getPosY());
+	//draw hitbox
 	if (!gameObjectRef->isAlive){
 		if (allObjs["box"])allObjs["box"]->visible = false;
 	}
@@ -52,14 +55,6 @@ void PlayerRenderComponent::Update(){
 		return;
 	crosshairRef->posX = inputMan->getMouseX() - crosshairRef->getWidth()/2;
 	crosshairRef->posY = inputMan->getMouseY() - crosshairRef->getHeight()/2;
-	
-	// update charge bar position (DOESN'T WORK RIGHT NOW)
-	//chargebarMeterRef->posX = gameObjectRef->posX;
-	//chargebarMeterRef->posY = gameObjectRef->posY;
-	//chargebarShellRef->posX = gameObjectRef->posX;
-	//chargebarShellRef->posY = gameObjectRef->posY;
-	//chargebarMeterRef->posX = inputMan->getMouseX();
-	//chargebarMeterRef->posY = inputMan->getMouseY();
 
 }
 

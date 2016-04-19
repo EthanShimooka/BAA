@@ -17,7 +17,7 @@ public:
 	MidBaseObjectFactory();
 	~MidBaseObjectFactory();
 
-	GameObject * Spawn(uint64_t PID, float posX, float posY, float length);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, float length, int team);
 };
 
 #endif

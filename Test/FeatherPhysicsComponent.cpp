@@ -26,6 +26,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	box.SetAsBox(1, 1); // look up other functions for polygons
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
+	boxFixtureDef.isSensor = true;
 	if (!mFixture)
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
