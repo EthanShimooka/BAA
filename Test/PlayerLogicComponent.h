@@ -26,7 +26,7 @@ class PlayerLogicComponent :  public LogicComponent
 {
 public:
 	/// Constructor
-	PlayerLogicComponent(GameObject* player,int team);
+	PlayerLogicComponent(GameObject* player,int team, bool local);
 	/// Destructor
 	~PlayerLogicComponent();
 	/// Update Function
@@ -73,6 +73,8 @@ public:
 	/// (i.e. jumping, shooting, moving) in game if true.
 	bool isEgg = false;
 
+	/// Boolean used to say if this player is local or not
+	bool isLocal = false;
 	
 };
 
