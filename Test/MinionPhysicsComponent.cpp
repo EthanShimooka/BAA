@@ -41,7 +41,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-
+		if (otherObj->team == gameObjectRef->team)break;
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
