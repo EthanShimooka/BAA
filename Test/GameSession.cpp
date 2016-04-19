@@ -52,8 +52,8 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 
-	rightBase = mbFactory.Spawn(506001, 975, -40, 0);
-	leftBase = mbFactory.Spawn(506002, -975, -40, 0);
+	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
