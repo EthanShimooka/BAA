@@ -12,7 +12,7 @@ public:
 	/// Destructor
 	~GameEnd();
 	/// Displays respective win/loss screen then restarts GameSession
-	void runGameEnd();
+	void runGameEnd(int localTeam, GameObject* leftBase, GameObject* rightBase);
 	/// For drawing win/loss text
 	SDLRenderObject* textHUD;
 };
