@@ -10,7 +10,7 @@
 
 struct PlayerInfo{
 	bool ready = false;
-	int classType = 1;
+	int classType = NULL;
 	int team = NULL;
 };
 

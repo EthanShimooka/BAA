@@ -219,7 +219,7 @@ int GameSession::Run(){
 	int i = 0;
 	bool network = true;
 	for (auto &iter : lobby){
-		int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		//int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
 			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !network));
