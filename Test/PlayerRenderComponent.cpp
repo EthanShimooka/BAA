@@ -11,7 +11,12 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 	std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
 
 	SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
-	name->setResourceObject(renderMan->renderText(playerName.c_str(), 200, 0, 200, 20, "BowlbyOneSC-Regular"));
+	int r, g, b;
+	if (gameObjectRef->posY < 0){
+		r = 200, g=0, b = 200;
+	}
+	else r = 255, g = 255, b=0;
+	name->setResourceObject(renderMan->renderText(playerName.c_str(), r, g, b, 20, "BowlbyOneSC-Regular"));
 	//name->setParent(base);
 	name->setPos(0, -60);
 	allObjs["name"] = name;

@@ -52,6 +52,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_MINION:{
 											//give birdseed
+											if (otherObj->team == gameObjectRef->team)break;
 											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
 											//destroy self or return to object pool
 											gameObjectRef->isAlive = false;
@@ -59,6 +60,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
 											//destroy self or return to object pool
+											if (otherObj->team == gameObjectRef->team)break;
 											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
 											gameObjectRef->isAlive = false;
 											break;
@@ -66,7 +68,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  //destroy self or return to object pool
 										// dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->attacked();
-										  
+										  if (otherObj->team == gameObjectRef->team)break;
 										  gameObjectRef->isAlive = false;
 										  break;
 	}
