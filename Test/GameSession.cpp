@@ -206,30 +206,35 @@ int GameSession::Run(){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
+	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+		std::cout << iter.first << std::endl;
+		std::cout << "\tClass:" << iter.second.classType << std::endl;
+	}*/
 
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
-	if (numPlayers != 1){
-		map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
-
-		for (auto &iter : lobby){
-			bool local = false;
-			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-				local = true;
-				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
-			}
-			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, TEAM_PURPLE, local));
-			}
+	//if (numPlayers != 1){
+	map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
+	int i = 0;
+	bool local = true;
+	for (auto &iter : lobby){
+		//int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
+			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, local));
 		}
+		else{
+			GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !local));
+		}
+		++i;
 	}
+		
+	//}
 	/// create a local player with ID of 10000
-	else{
+	/*else{
 		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
-	}
+	}*/
 
 
 

@@ -60,6 +60,7 @@ void Lobby::runLobby(){
 					me->playerChoice = Birds[i]->ID;
 					me->playerSlot->changePicture = true;
 					me->playerSlot->changeTo = Birds[i]->ID;
+					//NetworkManager::sInstance->SendSelectPacketToPeers((int)Birds[i]->ID);
 					me->ready = true;
 					break;
 				}
@@ -75,7 +76,7 @@ void Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 

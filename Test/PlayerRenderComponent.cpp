@@ -8,7 +8,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 	RenderComponent::RenderComponent();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
-	std::string playerName = GamerServices::sInstance->GetLocalPlayerName();
+	std::string playerName = NetworkManager::sInstance->getLobbyMap().find(gameObjectRef->ID)->second;
 
 	SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	int r, g, b;

@@ -82,7 +82,7 @@ void MinionPhysicsComponent::Update(){
 		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 	}
 	else{
-		gameObjectRef->setPos(-10000, 0);
+		gameObjectRef->setPos(-10, 1000);
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	//temp testing code from here down

@@ -27,7 +27,13 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 
 	PlayerRenderComponent* rend = nullptr;
 	ClassComponent* classComp = nullptr;
-
+	if (team == 1){
+		player->setPos(0, 200);
+		std::cout << "TEAM: " << team << "\nplayerID: " << player->ID << std::endl;
+	}
+	else {
+		player->setPos(0, -200);
+	}
 
 	switch (classType){
 	case CLASS_CHICKEN:
@@ -70,9 +76,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 	
 
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team, local);
+	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);	
 
-	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
-	player->setPos(player->posX, 200);
-	
 	return player;
 }
