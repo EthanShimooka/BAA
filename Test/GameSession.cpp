@@ -14,6 +14,7 @@
 // Constructor
 
 std::unordered_map<uint64_t, player*> playersInLobby;
+std::vector<player*> myPlayers;
 
 GameSession::GameSession(){
 }
@@ -199,7 +200,7 @@ int GameSession::Run(){
 		menu.mainMenu();
 
 		Lobby lobby;
-		lobby.runLobby();
+		myPlayers = lobby.runLobby();
 	}
 
 
@@ -264,12 +265,7 @@ int GameSession::Run(){
 	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
-
 	int minionCounter = 0;
-	time_t spawnTimer1 = time(0);
-	time_t spawnEvery1 = 2;
-	time_t spawnTimer2 = time(0);
-	time_t spawnEvery2 = 3;
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
@@ -290,8 +286,6 @@ int GameSession::Run(){
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
 	Animation * runWater = new Animation(20, motions);
 	int aniCounter = 0;
-
-	//SDL_Cursor* cursor = renderMan->cursorToCrosshair();
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
@@ -351,9 +345,6 @@ int GameSession::Run(){
 		GameWorld* gameWorld = GameWorld::getInstance();
 		gameWorld->physicsWorld->SetContactListener(&listener);
 
-
-
-
 		gameWorld->update(); //update physics world
 		//end physics testing stuff
 
@@ -399,8 +390,14 @@ int GameSession::Run(){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			int myTeam;
+			for (unsigned int i = 0; i < myPlayers.size(); i++){
+				if (GamerServices::sInstance->GetLocalPlayerId() == myPlayers[i]->playerId){
+					myTeam = myPlayers[i]->team;
+				}
+			}
 			GameEnd end = GameEnd::GameEnd();
-			end.runGameEnd();
+			end.runGameEnd(myTeam, leftBase, rightBase);
 			gameloop = false;
 		}
 
@@ -409,13 +406,8 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	
-	// Loop freeing memoru
-	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-	//	GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
-	//}
+
 	std::cout << renderMan << std::endl;
-	//renderMan->freeCursor(cursor);
 	std::cout << renderMan << std::endl;
 
 	log->close();

@@ -9,7 +9,7 @@ Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 Lobby::~Lobby(){
 }
 
-void Lobby::runLobby(){
+vector<player*> Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -95,7 +95,7 @@ void Lobby::runLobby(){
 	}
 
 	cleanUP(queue);
-
+	return players;
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){
@@ -182,13 +182,13 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			p->team = TEAM_PURPLE;
+			p->team = TEAM_YELLOW;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			p->team = TEAM_YELLOW;
+			p->team = TEAM_PURPLE;
 		}
 		
 		/*UIObjectFactory name;
