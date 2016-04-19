@@ -60,6 +60,7 @@ void Lobby::runLobby(){
 					me->playerChoice = Birds[i]->ID;
 					me->playerSlot->changePicture = true;
 					me->playerSlot->changeTo = Birds[i]->ID;
+					NetworkManager::sInstance->SendSelectPacketToPeers((int)Birds[i]->ID);
 					me->ready = true;
 					break;
 				}

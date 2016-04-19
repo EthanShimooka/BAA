@@ -206,6 +206,10 @@ int GameSession::Run(){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
+	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+		std::cout << iter.first << std::endl;
+		std::cout << "\tClass:" << iter.second.classType << std::endl;
+	}
 
 	GameObject * player = NULL;
 
@@ -215,14 +219,15 @@ int GameSession::Run(){
 		int i = 0;
 		for (auto &iter : lobby){
 			bool local = false;
+			int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType - 2999;
 			if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 				local = true;
 				std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
 				std::cout << "Gamesession.cpp(215) hardcoded all teams to spawn as team purple for debug here" << std::endl;
-				player = GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, (i % 2) + 1, local));
+				player = GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
 			}
 			else{
-				GameObjects.AddObject(pFactory.Spawn(iter.first, CLASS_CHICKEN, (i % 2) + 1, local));
+				GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
 			}
 		}
 		++i;
