@@ -304,7 +304,7 @@ int GameSession::Run(){
 		aniCounter++;
 		aniCounter = aniCounter % 20;
 
-		if (input->isKeyDown(KEY_Q)){
+		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
 				renderMan->cameraPoint.z += 1;
 			}
@@ -314,7 +314,7 @@ int GameSession::Run(){
 		}
 		if (input->isKeyDown(KEY_E)){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
-		}
+		}*/
 
 		if (input->isKeyDown(KEY_F)){
 			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
