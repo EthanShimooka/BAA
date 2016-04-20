@@ -38,6 +38,10 @@ enum UIType{
 	PLAYER_SLOT = 10,
 	CHICKEN = 3000,
 	PEACOCK = 3100,
+	FLAMINGO = 3200,
+	QUAIL = 3300,
+	TURKEY = 3500,
+	EAGLE = 0,
 	BIRDSEED_SHELL = 12,
 	BIRDSEED_BAR = 13,
 	CROSSHAIR = 14,
@@ -122,6 +126,11 @@ public:
 
 	void DetachComponent();
 
+	void setWidthAndHeight(int w, int h);
+
+	int getWidth();
+
+	int getHeight();
 
 	///	void UpdateComponentType(ComponentType typeOfComponentToUpdate);
 

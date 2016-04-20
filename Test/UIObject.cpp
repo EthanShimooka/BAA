@@ -79,3 +79,16 @@ void UIObject::DetachComponent(){
 		component_count--;
 	}
 }
+
+void UIObject::setWidthAndHeight(int w, int h){
+	this->width = w;
+	this->height = h;
+}
+
+int UIObject::getWidth(){
+	return this->width;
+}
+
+int UIObject::getHeight(){
+	return this->width;
+}
