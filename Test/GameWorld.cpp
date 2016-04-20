@@ -14,7 +14,13 @@ float worldScale = 20.0f;
 
 GameWorld::~GameWorld(){
 	//physicsWorld->~b2World();
-	
+	b2Body* bodyList = physicsWorld->GetBodyList();
+	int bodyCount = physicsWorld->GetBodyCount();
+	for (int i = 0; i< bodyCount; i++){
+		b2Body* bodyToBeGone = bodyList;
+		bodyList = bodyList->GetNext();
+		physicsWorld->DestroyBody(bodyToBeGone);
+	}
 }
 
 GameWorld* GameWorld::getInstance() {
