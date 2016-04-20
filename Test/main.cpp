@@ -42,8 +42,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	/////////////////////////////////////////////////////
 	//  GAME CALL
 
-	GameSession session = GameSession::GameSession();
-	session.Run();
+	/*GameSession session = GameSession::GameSession();
+	session.Run();*/
 
 
 	/////////////////////////////////////////////////////

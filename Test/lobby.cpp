@@ -1,5 +1,6 @@
 #include "lobby.h"
 
+vector<player*> players;
 
 Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
@@ -9,7 +10,7 @@ Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 Lobby::~Lobby(){
 }
 
-vector<player*> Lobby::runLobby(){
+void Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -95,7 +96,6 @@ vector<player*> Lobby::runLobby(){
 			}
 		}*/
 
-
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
 			NetworkManager::sInstance->TryReadyGame();
 		}
@@ -115,7 +115,9 @@ vector<player*> Lobby::runLobby(){
 	}
 
 	cleanUP(queue);
-	return players;
+
+	GameSession session = GameSession::GameSession();
+	session.Run(players);
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){

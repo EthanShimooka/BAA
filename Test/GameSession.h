@@ -37,6 +37,7 @@ configurations.
 #include <iomanip>
 #include <math.h>
 #include <list>
+#include <vector>
 
 
 
@@ -68,13 +69,26 @@ configurations.
 //temp
 #include "config.h"
 
+struct player{
+	uint64_t playerId;
+	string name;
+	bool ready = false;
+	bool visible;
+	int x, y;
+	TEAM team;
+	UIObject* playerSlot = new UIObject();
+	int playerChoice;
+};
+
+extern vector<player*> players;
+
 class GameSession
 {
 public:
 	GameSession();
 	~GameSession();
 
-	int Run();
+	int Run(vector<player*> players);
 	// int run ( std::list playerlist);
 
 	/// Load non player objects, on multiplayer from serializable list.

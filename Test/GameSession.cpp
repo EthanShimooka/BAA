@@ -14,9 +14,6 @@
 
 // Constructor
 
-std::unordered_map<uint64_t, player*> playersInLobby;
-std::vector<player*> myPlayers;
-
 GameSession::GameSession(){
 }
 
@@ -144,7 +141,7 @@ void cullObjects(){
 // Run contains the main Gameloop
 // TODO: create arguements once lobby system is implemented.
 
-int GameSession::Run(){
+int GameSession::Run(vector<player*> players){
 
 	// temp
 	int numLobbyPlayer = 0;
@@ -184,14 +181,6 @@ int GameSession::Run(){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
-
-	/*while (NetworkManager::sInstance->GetState() < NetworkManager::NMS_Starting){
-		Start menu;
-		menu.mainMenu();
-
-		Lobby lobby;
-		myPlayers = lobby.runLobby();
-	}*/
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
@@ -382,9 +371,9 @@ int GameSession::Run(){
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
 			int myTeam;
-			for (unsigned int i = 0; i < myPlayers.size(); i++){
-				if (GamerServices::sInstance->GetLocalPlayerId() == myPlayers[i]->playerId){
-					myTeam = myPlayers[i]->team;
+			for (unsigned int i = 0; i < players.size(); i++){
+				if (GamerServices::sInstance->GetLocalPlayerId() == players[i]->playerId){
+					myTeam = players[i]->team;
 				}
 			}
 			GameEnd end = GameEnd::GameEnd();
