@@ -208,10 +208,10 @@ int GameSession::Run(){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
-	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 		std::cout << iter.first << std::endl;
 		std::cout << "\tClass:" << iter.second.classType << std::endl;
-	}*/
+	}
 
 	GameObject * player = NULL;
 
@@ -221,13 +221,14 @@ int GameSession::Run(){
 	int i = 0;
 	bool local = true;
 	for (auto &iter : lobby){
-		//int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType - 2999;
+		//int classType = 6;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, local));
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
 		}
 		else{
-			GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !local));
+			GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, !local));
 		}
 		++i;
 	}
