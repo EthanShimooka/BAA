@@ -360,18 +360,18 @@ void NetworkManager::ProcessPacketsReady(InputMemoryBitStream& inInputStream, ui
 void NetworkManager::HandleReadyPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer)
 {
 	//if this is my first ready packet, I need to let everyone else know I'm ready
-	//if (mReadyCount == 0)
-	//{
-	//	//commenting the line below should stop the master peer from forcing all other peers to ready up
-	//	SendReadyPacketsToPeers();
-	//	//I'm ready now also, so an extra increment here
-	//	mReadyCount++;
-	//	mState = NMS_Ready;
-	//}
+	if (mReadyCount == 0)
+	{
+		//commenting the line below should stop the master peer from forcing all other peers to ready up
+		SendReadyPacketsToPeers();
+		//I'm ready now also, so an extra increment here
+		mReadyCount++;
+		mState = NMS_Ready;
+	}
 
 	mReadyCount++;
 
-	//TryStartGame();
+	TryStartGame();
 }
 
 void NetworkManager::SendReadyPacketsToPeers()
@@ -742,6 +742,9 @@ void NetworkManager::TryReadyGame()
 		//we might be ready to start
 		TryStartGame();
 	}
+	/*else if (mState == NMS_Ready && IsMasterPeer()){
+		TryStartGame();
+	}*/
 	// i am not master peeer, send ready message to other peers
 	else if(mState == NMS_Lobby && !IsMasterPeer()) {
 		LogManager* log = LogManager::GetLogManager();

@@ -40,13 +40,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 	int numLobbyPlayer = 0;
 
 	/////////////////////////////////////////////////////
-	//  GAME CALL
-
-	/*GameSession session = GameSession::GameSession();
-	session.Run();*/
-
-
-	/////////////////////////////////////////////////////
 	// Loop freeing memory NOW MOVED TO DESTRUCTOROF SYSTEMGAMEOBJECTQUEUE
 	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 		//GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);

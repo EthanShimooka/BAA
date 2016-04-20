@@ -85,8 +85,8 @@ void Lobby::runLobby(){
 		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 			for (const auto& player : players){
 				if (player->playerId == iter.first){
-					//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
 					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+						std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
 						player->playerChoice = (UIType)iter.second.classType;
 						player->playerSlot->changePicture = true;
 						player->playerSlot->changeTo = (UIType)iter.second.classType;
