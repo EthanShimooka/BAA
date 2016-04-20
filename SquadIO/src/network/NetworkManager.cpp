@@ -743,7 +743,7 @@ void NetworkManager::TryReadyGame()
 		TryStartGame();
 	}
 	// i am not master peeer, send ready message to other peers
-	else if(mState == NMS_Lobby) {
+	else if(mState == NMS_Lobby && !IsMasterPeer()) {
 		LogManager* log = LogManager::GetLogManager();
 		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
 		log->flush();
