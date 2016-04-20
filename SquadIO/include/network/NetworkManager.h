@@ -10,8 +10,8 @@
 
 struct PlayerInfo{
 	bool ready = false;
-	int classType = 1;
-	int team = NULL;
+	int classType = -1;
+	int team = -1;
 };
 
 class NetworkManager

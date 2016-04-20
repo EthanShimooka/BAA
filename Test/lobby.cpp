@@ -79,6 +79,22 @@ vector<player*> Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
+		// showing what people selected 
+		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+			for (const auto& player : players){
+				if (player->playerId == iter.first){
+					std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+						player->playerChoice = (UIType)iter.second.classType;
+						player->playerSlot->changePicture = true;
+						player->playerSlot->changeTo = (UIType)iter.second.classType;
+						player->ready = true;
+					}
+				}
+			}
+		}
+
+
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
 			NetworkManager::sInstance->TryReadyGame();
 		}
