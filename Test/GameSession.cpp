@@ -2,6 +2,7 @@
 #include "GameSession.h"
 #include <functional>
 #include <crtdbg.h>
+
 /**
 *  GameSession.cpp
 *  Authors:
@@ -232,6 +233,7 @@ int GameSession::Run(){
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
 
+
 	bool gameloop = true;
 	int var = 0;
 	renderMan->zoom = 0.5;
@@ -391,6 +393,8 @@ int GameSession::Run(){
 		}
 
 		firstTime = false;
+
+
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////

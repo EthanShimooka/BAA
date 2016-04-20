@@ -29,6 +29,7 @@ public:
 	/// Update
 	void Update();
 
+	void ShieldToggle();
 
 };
 
