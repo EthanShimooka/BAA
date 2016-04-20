@@ -1,5 +1,6 @@
 #include "lobby.h"
 
+vector<player*> players;
 
 Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
@@ -9,7 +10,7 @@ Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 Lobby::~Lobby(){
 }
 
-vector<player*> Lobby::runLobby(){
+void Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -34,7 +35,7 @@ vector<player*> Lobby::runLobby(){
 
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-
+	int readyCount = 0;
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
@@ -65,6 +66,7 @@ vector<player*> Lobby::runLobby(){
 					me->playerSlot->changeTo = Birds[i]->ID;
 					NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
 					me->ready = true;
+					readyCount++;
 					break;
 				}
 				if (Birds[i]->hoverPicture){
@@ -84,19 +86,20 @@ vector<player*> Lobby::runLobby(){
 		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 			for (const auto& player : players){
 				if (player->playerId == iter.first){
-					//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
 					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+						std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
 						player->playerChoice = (UIType)iter.second.classType;
 						player->playerSlot->changePicture = true;
 						player->playerSlot->changeTo = (UIType)iter.second.classType;
 						player->ready = true;
+						readyCount++;
 					}
 				}
 			}
 		}
 
-
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		std::cout << readyCount << ", " << numPlayers << std::endl;
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
@@ -115,7 +118,9 @@ vector<player*> Lobby::runLobby(){
 	}
 
 	cleanUP(queue);
-	return players;
+
+	GameSession session = GameSession::GameSession();
+	session.Run(players);
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){

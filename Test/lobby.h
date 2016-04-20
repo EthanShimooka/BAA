@@ -4,8 +4,13 @@
 
 
 
-#include "main.h"
+//#include "main.h"
 #include "UIObject.h"
+#include "UIObjectFactory.h"
+#include "SystemInputUpdater.h"
+#include "SystemRenderUpdater.h"
+#include "SystemUIUpdater.h"
+#include "GameSession.h"
 #include "WorldObjectFactory.h"
 // Component Includes
 #include "Component.h"
@@ -14,16 +19,6 @@
 #include "UIComponent.h"
 
 
-struct player{
-	uint64_t playerId;
-	string name;
-	bool ready = false;
-	bool visible;
-	int x, y;
-	TEAM team;
-	UIObject* playerSlot = new UIObject();
-	int playerChoice;
-};
 
 struct bird{
 	UIType birdClass;
@@ -31,22 +26,19 @@ struct bird{
 	UIObject* birdPicture;
 };
 
-extern std::unordered_map<uint64_t, player*> playersInLobby;
+
 
 class Lobby{
 public:
 	Lobby();
 	~Lobby();
 
-	vector<player*> runLobby();
-
-
+	void runLobby();
 
 private:
-	vector<player*> players;
-	vector<bird*> birds;
+	//vector<player*> players;
 	void addSlots(SystemUIObjectQueue &q);
-	int playersReady;
+	int playersReady;	
 	int numPlayers;
 	int maxPlayers = 4;
 	int inLobbyNow;
