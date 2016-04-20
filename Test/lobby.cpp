@@ -1,5 +1,6 @@
 #include "lobby.h"
 
+vector<player*> players;
 
 Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
@@ -9,7 +10,7 @@ Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
 Lobby::~Lobby(){
 }
 
-vector<player*> Lobby::runLobby(){
+void Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
@@ -34,7 +35,7 @@ vector<player*> Lobby::runLobby(){
 
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-
+	int readyCount = 0;
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
@@ -50,6 +51,9 @@ vector<player*> Lobby::runLobby(){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+			auto& iter = NetworkManager::sInstance->lobbyInfoMap.find(GamerServices::sInstance->GetLocalPlayerId());
+			if (iter->second.classType)
+				NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
 		}
 
 		updateLobby();
@@ -60,8 +64,9 @@ vector<player*> Lobby::runLobby(){
 					me->playerChoice = Birds[i]->ID;
 					me->playerSlot->changePicture = true;
 					me->playerSlot->changeTo = Birds[i]->ID;
-					//NetworkManager::sInstance->SendSelectPacketToPeers((int)Birds[i]->ID);
+					NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
 					me->ready = true;
+					readyCount++;
 					break;
 				}
 				if (Birds[i]->hoverPicture){
@@ -76,7 +81,25 @@ vector<player*> Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
+		//if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		// showing what people selected 
+		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+			for (const auto& player : players){
+				if (player->playerId == iter.first){
+					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+						std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+						player->playerChoice = (UIType)iter.second.classType;
+						player->playerSlot->changePicture = true;
+						player->playerSlot->changeTo = (UIType)iter.second.classType;
+						player->ready = true;
+						readyCount++;
+					}
+				}
+			}
+		}
+
+		std::cout << readyCount << ", " << numPlayers << std::endl;
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
@@ -95,7 +118,9 @@ vector<player*> Lobby::runLobby(){
 	}
 
 	cleanUP(queue);
-	return players;
+
+	GameSession session = GameSession::GameSession();
+	session.Run(players);
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){
@@ -153,20 +178,36 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 
 	rendMan->getWindowSize(&w, &h);
 	int x, y;
-	x = w / 2;
+	x = w / 5;
 	y = h / 2;
-	for (int i = 0; i < 1; i++){
-		//build class slots
-		UIObjectFactory* chx = new UIObjectFactory();
-		UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
-		//UIObjectFactory* pCock = new UIObjectFactory();
-		x += 75;
-		//UIObject* bird2 = pCock->Spawn(PEACOCK, x - 33, y);
-		Birds.push_back(bird);
-		//Birds.push_back(bird2);
-		queue.AddObject(bird);
-		//queue.AddObject(bird2);
-	}
+	//build class slots
+	UIObjectFactory* chx = new UIObjectFactory();
+	UIObjectFactory* pCock = new UIObjectFactory();
+	UIObjectFactory* quail = new UIObjectFactory();
+	UIObjectFactory* turkey = new UIObjectFactory();
+	UIObjectFactory* flamingo = new UIObjectFactory();
+	UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
+	x += bird->getWidth();
+	UIObject* bird2 = pCock->Spawn(PEACOCK, x, y);
+	x += bird2->getWidth();
+	UIObject* bird3 = quail->Spawn(QUAIL, x, y);
+	x += bird3->getWidth();
+	UIObject* bird4 = turkey->Spawn(TURKEY, x, y);
+	x += bird4->getWidth();
+	UIObject* bird5 = flamingo->Spawn(FLAMINGO, x, y);
+
+
+	Birds.push_back(bird);
+	Birds.push_back(bird2);
+	Birds.push_back(bird3);
+	Birds.push_back(bird4);
+	Birds.push_back(bird5);
+
+	queue.AddObject(bird);
+	queue.AddObject(bird2);
+	queue.AddObject(bird3);
+	queue.AddObject(bird4);
+	queue.AddObject(bird5);
 }
 
 void Lobby::addSlots(SystemUIObjectQueue &queue){

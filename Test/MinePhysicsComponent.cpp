@@ -35,6 +35,7 @@ void MinePhysicsComponent::init(){
 	box.m_radius = 1.2f;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
+	boxFixtureDef.isSensor = true;
 	boxFixtureDef.friction = 0.5;
 	if (!mFixture)
 		mFixture = mBody->CreateFixture(&boxFixtureDef);

@@ -33,20 +33,11 @@ int _tmain(int argc, _TCHAR* argv[]){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
 
-	/*Start mainMenu;
+	Start mainMenu;
 	mainMenu.mainMenu();
-	Lobby lobby;
-	lobby.runLobby();*/
 
 	// don't need to change this line
 	int numLobbyPlayer = 0;
-
-	/////////////////////////////////////////////////////
-	//  GAME CALL
-
-	GameSession session = GameSession::GameSession();
-	session.Run();
-
 
 	/////////////////////////////////////////////////////
 	// Loop freeing memory NOW MOVED TO DESTRUCTOROF SYSTEMGAMEOBJECTQUEUE

@@ -28,8 +28,7 @@ void RenderUIComponent::Update(){
 		ResourceManager* ResMan = ResourceManager::GetResourceManager();
 		objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(uiObjectRef->changeTo));
 	}
-
-	if (uiObjectRef->hoverPicture && uiObjectRef->ID == PLAYER_SLOT){
+	else if (uiObjectRef->hoverPicture && uiObjectRef->ID == PLAYER_SLOT){
 		ResourceManager* ResMan = ResourceManager::GetResourceManager();
 		objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(uiObjectRef->changeTo));
 	}

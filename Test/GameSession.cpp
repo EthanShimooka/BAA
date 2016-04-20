@@ -2,6 +2,7 @@
 #include "GameSession.h"
 #include <functional>
 #include <crtdbg.h>
+
 /**
 *  GameSession.cpp
 *  Authors:
@@ -12,9 +13,6 @@
 */
 
 // Constructor
-
-std::unordered_map<uint64_t, player*> playersInLobby;
-std::vector<player*> myPlayers;
 
 GameSession::GameSession(){
 }
@@ -143,7 +141,7 @@ void cullObjects(){
 // Run contains the main Gameloop
 // TODO: create arguements once lobby system is implemented.
 
-int GameSession::Run(){
+int GameSession::Run(vector<player*> players){
 
 	// temp
 	int numLobbyPlayer = 0;
@@ -160,17 +158,6 @@ int GameSession::Run(){
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	log->create("log.txt");
-	renderMan->setBackground("tempbackground.png");
-	resourceMan->loadFromXMLFile("source.xml");
-	renderMan->zoom = 0.25;
-
-	audioMan->loadAllAudio();
-	std::cout << audioMan->audioObjects.size() << std::endl;
-	resourceMan->setCurrentScope(0);
-	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
-
-	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
 
 
@@ -195,22 +182,13 @@ int GameSession::Run(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 
-	while (NetworkManager::sInstance->GetState() < NetworkManager::NMS_Starting){
-		Start menu;
-		menu.mainMenu();
-
-		Lobby lobby;
-		myPlayers = lobby.runLobby();
-	}
-
-
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
-	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 		std::cout << iter.first << std::endl;
 		std::cout << "\tClass:" << iter.second.classType << std::endl;
-	}*/
+	}
 
 	GameObject * player = NULL;
 
@@ -220,13 +198,14 @@ int GameSession::Run(){
 	int i = 0;
 	bool local = true;
 	for (auto &iter : lobby){
-		//int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType - 2999;
+		//int classType = 6;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-			player = GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, local));
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, local));
 		}
 		else{
-			GameObjects.AddObject(pFactory.Spawn(iter.first, 1, (i % 2) + 1, !local));
+			GameObjects.AddObject(pFactory.Spawn(iter.first, classType, (i % 2) + 1, !local));
 		}
 		++i;
 	}
@@ -242,6 +221,7 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/*              * * * GAME LOOP * * *              */
 	/////////////////////////////////////////////////////
+
 
 	bool gameloop = true;
 	int var = 0;
@@ -391,9 +371,9 @@ int GameSession::Run(){
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
 			int myTeam;
-			for (unsigned int i = 0; i < myPlayers.size(); i++){
-				if (GamerServices::sInstance->GetLocalPlayerId() == myPlayers[i]->playerId){
-					myTeam = myPlayers[i]->team;
+			for (unsigned int i = 0; i < players.size(); i++){
+				if (GamerServices::sInstance->GetLocalPlayerId() == players[i]->playerId){
+					myTeam = players[i]->team;
 				}
 			}
 			GameEnd end = GameEnd::GameEnd();
@@ -402,6 +382,8 @@ int GameSession::Run(){
 		}
 
 		firstTime = false;
+
+
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////

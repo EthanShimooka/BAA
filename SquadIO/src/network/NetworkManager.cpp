@@ -291,7 +291,7 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	}
 }
 
-void NetworkManager::SendRdyUpPacketToPeers(int ready)
+void NetworkManager::SendRdyUpPacket(int ready)
 {
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
@@ -319,7 +319,7 @@ void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, 
 	}
 }
 
-void NetworkManager::SendSelectPacketToPeers(int classType)
+void NetworkManager::SendSelectPacket(int classType)
 {
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
@@ -332,7 +332,7 @@ void NetworkManager::SendSelectPacketToPeers(int classType)
 	{
 		if (iter.first != mPlayerId)
 		{
-			SendReliablePacket(outPacket, iter.first);
+			SendPacket(outPacket, iter.first);
 		}
 	}
 }
@@ -668,7 +668,6 @@ void NetworkManager::UpdateLobbyPlayers()
 		{
 			if (lobbyInfoMap.find(iter.first) == lobbyInfoMap.end()){
 				PlayerInfo pInfo;
-				pInfo.classType = (int)iter.first;
 				lobbyInfoMap.emplace(iter.first, pInfo);
 			}
 		}
@@ -744,17 +743,17 @@ void NetworkManager::TryReadyGame()
 		TryStartGame();
 	}
 	// i am not master peeer, send ready message to other peers
-	//else if(mState == NMS_Lobby) {
-	//	LogManager* log = LogManager::GetLogManager();
-	//	log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
-	//	log->flush();
-	//	//let the gamer services know we're readying up
-	//	GamerServices::sInstance->SetLobbyReady(mLobbyId);
+	else if(mState == NMS_Lobby && !IsMasterPeer()) {
+		LogManager* log = LogManager::GetLogManager();
+		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
+		log->flush();
+		//let the gamer services know we're readying up
+		GamerServices::sInstance->SetLobbyReady(mLobbyId);
 
-	//	SendReadyPacketsToPeers();
+		SendReadyPacketsToPeers();
 
-	//	mState = NMS_Ready;
-	//}
+		mState = NMS_Ready;
+	}
 }
 
 void NetworkManager::UpdateBytesSentLastFrame()
