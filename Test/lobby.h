@@ -22,8 +22,13 @@ struct player{
 	int x, y;
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
-	UIObjectFactory* birdClass = new UIObjectFactory();
 	int playerChoice;
+};
+
+struct bird{
+	UIType birdClass;
+	int x, y;
+	UIObject* birdPicture;
 };
 
 extern std::unordered_map<uint64_t, player*> playersInLobby;
@@ -39,6 +44,7 @@ public:
 
 private:
 	vector<player*> players;
+	vector<bird*> birds;
 	void addSlots(SystemUIObjectQueue &q);
 	int playersReady;
 	int numPlayers;

@@ -79,11 +79,12 @@ vector<player*> Lobby::runLobby(){
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
+		//if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
 		// showing what people selected 
 		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 			for (const auto& player : players){
 				if (player->playerId == iter.first){
-					std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+					//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
 					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
 						player->playerChoice = (UIType)iter.second.classType;
 						player->playerSlot->changePicture = true;
@@ -95,7 +96,7 @@ vector<player*> Lobby::runLobby(){
 		}
 
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
@@ -172,20 +173,36 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 
 	rendMan->getWindowSize(&w, &h);
 	int x, y;
-	x = w / 2;
+	x = w / 5;
 	y = h / 2;
-	for (int i = 0; i < 1; i++){
-		//build class slots
-		UIObjectFactory* chx = new UIObjectFactory();
-		UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
-		//UIObjectFactory* pCock = new UIObjectFactory();
-		x += 75;
-		//UIObject* bird2 = pCock->Spawn(PEACOCK, x - 33, y);
-		Birds.push_back(bird);
-		//Birds.push_back(bird2);
-		queue.AddObject(bird);
-		//queue.AddObject(bird2);
-	}
+	//build class slots
+	UIObjectFactory* chx = new UIObjectFactory();
+	UIObjectFactory* pCock = new UIObjectFactory();
+	UIObjectFactory* quail = new UIObjectFactory();
+	UIObjectFactory* turkey = new UIObjectFactory();
+	UIObjectFactory* flamingo = new UIObjectFactory();
+	UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
+	x += bird->getWidth();
+	UIObject* bird2 = pCock->Spawn(PEACOCK, x, y);
+	x += bird2->getWidth();
+	UIObject* bird3 = quail->Spawn(QUAIL, x, y);
+	x += bird3->getWidth();
+	UIObject* bird4 = turkey->Spawn(TURKEY, x, y);
+	x += bird4->getWidth();
+	UIObject* bird5 = flamingo->Spawn(FLAMINGO, x, y);
+
+
+	Birds.push_back(bird);
+	Birds.push_back(bird2);
+	Birds.push_back(bird3);
+	Birds.push_back(bird4);
+	Birds.push_back(bird5);
+
+	queue.AddObject(bird);
+	queue.AddObject(bird2);
+	queue.AddObject(bird3);
+	queue.AddObject(bird4);
+	queue.AddObject(bird5);
 }
 
 void Lobby::addSlots(SystemUIObjectQueue &queue){
