@@ -160,17 +160,6 @@ int GameSession::Run(){
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	log->create("log.txt");
-	renderMan->setBackground("tempbackground.png");
-	resourceMan->loadFromXMLFile("source.xml");
-	renderMan->zoom = 0.25;
-
-	audioMan->loadAllAudio();
-	std::cout << audioMan->audioObjects.size() << std::endl;
-	resourceMan->setCurrentScope(0);
-	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
-
-	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
 
 
@@ -195,14 +184,13 @@ int GameSession::Run(){
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
 
-	while (NetworkManager::sInstance->GetState() < NetworkManager::NMS_Starting){
+	/*while (NetworkManager::sInstance->GetState() < NetworkManager::NMS_Starting){
 		Start menu;
 		menu.mainMenu();
 
 		Lobby lobby;
 		myPlayers = lobby.runLobby();
-	}
-
+	}*/
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	

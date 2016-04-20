@@ -10,12 +10,27 @@ void Start::mainMenu(){
 
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	LogManager* log = LogManager::GetLogManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	//ResourceManager* resMan = ResourceManager::GetResourceManager();
+	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 
 	/*resMan->loadFromXMLFile("source.xml");
 	resMan->setCurrentScope(0);
 	sceneMan->loadFromXMLFile("SceneTree.xml");*/
+
+	log->create("log.txt");
+	renderMan->setBackground("tempbackground.png");
+	resourceMan->loadFromXMLFile("source.xml");
+	renderMan->zoom = 0.25;
+
+	audioMan->loadAllAudio();
+	std::cout << audioMan->audioObjects.size() << std::endl;
+	resourceMan->setCurrentScope(0);
+	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
+
+	sceneMan->loadFromXMLFile("SceneTree.xml");
+	input->update();
 
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
@@ -54,9 +69,7 @@ void Start::mainMenu(){
 	sysRend.RenderUpdate(queue.alive_objects);
 	sceneMan->AssembleScene();
 	queue.DeleteObjects();
-}
 
-void Start::inLobby(){
-	std::cout << GamerServices::sInstance->GetLocalPlayerName() << std::endl;
-
+	Lobby lobby;
+	lobby.runLobby();
 }

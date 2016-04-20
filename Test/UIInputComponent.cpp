@@ -37,26 +37,16 @@ void UIInputComponent::Update(){
 		}
 		break;
 	case CHICKEN:
-		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
-			std::cout << "click" << std::endl;
-			uiObjectRef->ready = true;
-			
-		}
-		if (isMouseHovering(66, 67)){
-			//std::cout << "hovering" << std::endl;
-			uiObjectRef->hoverPicture = true;
-		}
-		else{
-			uiObjectRef->hoverPicture = false;
-		}
-		break;
+	case EAGLE:
+	case TURKEY:
+	case QUAIL:
+	case FLAMINGO:
 	case PEACOCK:
-		if (isButtonPressed(66, 67)){
-			std::cout << "click" << std::endl;
+		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "click" << std::endl;
 			uiObjectRef->ready = true;
-
 		}
-		if (isMouseHovering(66, 67)){
+		if (isMouseHovering(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
 			//std::cout << "hovering" << std::endl;
 			uiObjectRef->hoverPicture = true;
 		}
