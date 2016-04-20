@@ -50,6 +50,9 @@ vector<player*> Lobby::runLobby(){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+			auto& iter = NetworkManager::sInstance->lobbyInfoMap.find(GamerServices::sInstance->GetLocalPlayerId());
+			if (iter->second.classType)
+				NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
 		}
 
 		updateLobby();
@@ -60,7 +63,7 @@ vector<player*> Lobby::runLobby(){
 					me->playerChoice = Birds[i]->ID;
 					me->playerSlot->changePicture = true;
 					me->playerSlot->changeTo = Birds[i]->ID;
-					//NetworkManager::sInstance->SendSelectPacketToPeers((int)Birds[i]->ID);
+					NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
 					me->ready = true;
 					break;
 				}
@@ -75,6 +78,22 @@ vector<player*> Lobby::runLobby(){
 			}
 		}
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
+
+		// showing what people selected 
+		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+			for (const auto& player : players){
+				if (player->playerId == iter.first){
+					std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+						player->playerChoice = (UIType)iter.second.classType;
+						player->playerSlot->changePicture = true;
+						player->playerSlot->changeTo = (UIType)iter.second.classType;
+						player->ready = true;
+					}
+				}
+			}
+		}
+
 
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && input->isKeyDown(KEY_R)){
 			NetworkManager::sInstance->TryReadyGame();

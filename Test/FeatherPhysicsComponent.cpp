@@ -31,7 +31,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 
-	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE);
+	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH);
 	
 	//handle init stuff for positions
 	gameObjectRef->posX = initX;
