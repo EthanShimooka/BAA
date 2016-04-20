@@ -10,27 +10,33 @@ MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initia
 
 MinionPhysicsComponent::~MinionPhysicsComponent(){
 	std::cout << "calling minion physics destructor" << std::endl;
-	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+	if (mBody){
+		//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
+	}
 	//not sure if next line is needed;
 	//delete this;
 
 }
 
 void MinionPhysicsComponent::init(){
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
-	bodyDef.angle = 0;// ... which direction it's facing
+	if (!mBody){
+		b2BodyDef bodyDef;
+		bodyDef.type = b2_dynamicBody;
+		bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
+		bodyDef.angle = 0;// ... which direction it's facing
 
-	GameWorld* gameWorld = GameWorld::getInstance();
-	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+		GameWorld* gameWorld = GameWorld::getInstance();
 
-	b2PolygonShape box;
-	box.SetAsBox(1, 1); // look up other functions for polygons
-	boxFixtureDef.shape = &box;
-	boxFixtureDef.density = 1;
-	mFixture = mBody->CreateFixture(&boxFixtureDef);
-	mBody->SetUserData(gameObjectRef);
+		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+
+
+		b2PolygonShape box;
+		box.SetAsBox(1, 1); // look up other functions for polygons
+		boxFixtureDef.shape = &box;
+		boxFixtureDef.density = 1;
+		mFixture = mBody->CreateFixture(&boxFixtureDef);
+		mBody->SetUserData(gameObjectRef);
+	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(50, 0));
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE);
