@@ -668,7 +668,6 @@ void NetworkManager::UpdateLobbyPlayers()
 		{
 			if (lobbyInfoMap.find(iter.first) == lobbyInfoMap.end()){
 				PlayerInfo pInfo;
-				pInfo.classType = (int)iter.first;
 				lobbyInfoMap.emplace(iter.first, pInfo);
 			}
 		}
