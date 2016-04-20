@@ -36,11 +36,13 @@ void MineLogicComponent::lightFuse(){
 
 void MineLogicComponent::Update(){
 	//if mine has been alive for too long, light the fuse so it doesn't stay forever
-	clock_t clockDiff = clock() - timeSinceFuseLit;
+	clock_t clockDiff = clock() - timeSinceBirth;
 	unsigned aliveTime = clockDiff / (CLOCKS_PER_SEC / 1000);
 	//all mines will light their fuses after 20 seconds
-	if (aliveTime > 20000)lightFuse();
-
+	if (aliveTime > 20000){
+		lightFuse();
+		std::cout << "boom!" << std::endl;
+	}
 	if (fuseLit){
 		clock_t clockDiff = clock() - timeSinceFuseLit;
 		unsigned timeElapsed = clockDiff / (CLOCKS_PER_SEC / 1000);
