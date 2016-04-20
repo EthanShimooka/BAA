@@ -77,12 +77,12 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 void MinePhysicsComponent::Update(){
 	//need to hover towards target position
 	b2Vec2 vel = targetPos - mBody->GetPosition();
-	if (vel.Length() < 0.03f){
+	if (vel.Length() < 0.12f){
 		mBody->SetTransform(targetPos, mBody->GetAngle());
 		mBody->SetLinearVelocity(b2Vec2(0, 0));
 	}else{
 		vel.Normalize();
-		vel *= 3;
+		vel *= 7;
 		mBody->SetLinearVelocity(vel);
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
