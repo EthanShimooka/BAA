@@ -35,7 +35,7 @@ void Lobby::runLobby(){
 
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-
+	int readyCount = 0;
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
@@ -66,6 +66,7 @@ void Lobby::runLobby(){
 					me->playerSlot->changeTo = Birds[i]->ID;
 					NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
 					me->ready = true;
+					readyCount++;
 					break;
 				}
 				if (Birds[i]->hoverPicture){
@@ -91,12 +92,14 @@ void Lobby::runLobby(){
 						player->playerSlot->changePicture = true;
 						player->playerSlot->changeTo = (UIType)iter.second.classType;
 						player->ready = true;
+						readyCount++;
 					}
 				}
 			}
 		}
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
+		std::cout << readyCount << ", " << numPlayers << std::endl;
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 
