@@ -10,8 +10,10 @@ MineRenderComponent::MineRenderComponent(GameObject* player){
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4000, 0, 0);
 }
 
-
 MineRenderComponent::~MineRenderComponent(){
+	for (auto i = animations.begin(); i != animations.end(); i++){
+		delete i->second;
+	}
 }
 
 void MineRenderComponent::Update(){
