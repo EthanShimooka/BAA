@@ -98,7 +98,7 @@ void Lobby::runLobby(){
 			}
 		}
 
-		std::cout << readyCount << ", " << numPlayers << std::endl;
+		//std::cout << readyCount << ", " << numPlayers << std::endl;
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
