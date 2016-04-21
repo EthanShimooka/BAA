@@ -40,10 +40,10 @@ public:
 enum classType {
 	CLASS_CHICKEN = 1,
 	CLASS_PEACOCK = 2,
-	CLASS_EAGLE = 3,
+	CLASS_FLAMINGO = 3,
 	CLASS_QUAIL = 4,
-	CLASS_TURKEY = 5,
-	CLASS_FLAMINGO = 6,
+	CLASS_TURKEY = 6,
+	CLASS_EAGLE = 7,
 };
 
 #endif
