@@ -1,17 +1,18 @@
 #pragma once
-#ifndef TIMER_H_INCLUDED
-#define TIMER_H_INCLUDED
+#ifndef INVOKE_H_INCLUDED
+#define INVOKE_H_INCLUDED
 
 #include <time.h>
 #include <vector>
+#include <iostream>
 
-class Timer
+class Invoke
 {
 public:
 	/// Constructor, should be only call you need to make to create a timer, DO NOT CALL IN AN UPDATE UNLESS YOU TAKE PRECAUTIONS SO THAT IT IS ONLY CALLED ONCE WHEN YOU NEED IT
-	Timer(float length, void(*functionToCall));
+	Invoke(float length, void (*functionToCall));
 	/// Deconstructor, removes itself(instance of timer class) from list of timers
-	~Timer();
+	~Invoke();
 	/// Updates this instance of a timer
 	void Update();
 	/// The saved initial time
@@ -23,7 +24,7 @@ public:
 	/// Saved function reference of the function to be called after timerLength time
 	void (*func);
 	/// Static list of all timers that need to be updated
-	static std::vector<Timer*> timers;
+	static std::vector<Invoke*> timers;
 	/// Updates all timers in list of timers. 
 	static void UpdateTimers();
 };

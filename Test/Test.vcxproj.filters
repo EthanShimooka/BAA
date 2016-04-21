@@ -408,7 +408,7 @@
     <ClInclude Include="SystemTimerUpdater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="Invoke.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -665,7 +665,7 @@
     <ClCompile Include="SystemTimerUpdater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="Invoke.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
