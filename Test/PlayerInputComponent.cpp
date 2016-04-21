@@ -70,14 +70,14 @@ void PlayerInputComponent::Update(){
 				// for testing 
 				//chargeTime = 1300;
 				//std::cout << "Charge time: " << chargeTime << std::endl;
-				
+
 				Timing::sInstance.StartAttackCooldown();
 				canFire = false;
 				float dx, dy;
 				renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-				uint64_t id = logicComp->spawnFeather(dx, dy, chargeTime, featherSpeed);
+				uint64_t id = logicComp->spawnFeather(dx, dy, chargeTime * featherSpeed);
 				//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-				netComp->createFeatherPacket(id, dx, dy, chargeTime);
+				netComp->createFeatherPacket(id, dx, dy, chargeTime * featherSpeed);
 			}
 			if (input->isKeyDown(KEY_O)){
 				//THIS IS FOR PLAYER DEATH TESTING!!!! REMOVE WHEN DONE!!
@@ -106,7 +106,7 @@ void PlayerInputComponent::Update(){
 					renderMan->windowCoordToWorldCoord(xDir, yDir, renderComp->crosshairRef->posX, renderComp->crosshairRef->posY);
 					//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
 					//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-					uint64_t id = logicComp->spawnFeather(xDir, yDir, 150, featherSpeed);
+					uint64_t id = logicComp->spawnFeather(xDir, yDir, 150 * featherSpeed);
 					//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 					//not working yet
 					netComp->createFeatherPacket(id, xDir, yDir, 100);

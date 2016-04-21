@@ -3,17 +3,17 @@
 
 
 
-FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float initX, float initY, float dx, float dy, float chargeTime, float speed)
+FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float initX, float initY, float dx, float dy, float speed)
 {
 	gameObjectRef = feather;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init(initX,  initY,  dx,  dy, chargeTime, speed);
+	init(initX,  initY,  dx,  dy, speed);
 }
 FeatherPhysicsComponent::~FeatherPhysicsComponent(){
 	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 }
 
-void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy, float chargeTime, float speed){
+void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy, float speed){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
@@ -44,7 +44,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 
 	// have to play with the ratio to find a good solution
 	float magnitude = sqrt(pow((dx - initX), 2) + pow((dy - initY), 2));
-	mBody->SetLinearVelocity(b2Vec2(((dx - initX) / magnitude) * chargeTime * speed, ((dy - initY) / magnitude) * chargeTime * speed));
+	mBody->SetLinearVelocity(b2Vec2(((dx - initX) / magnitude) * speed, ((dy - initY) / magnitude) * speed));
 }
 
 void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){

@@ -290,6 +290,9 @@ int GameSession::Run(vector<player*> players){
 			renderMan->flippedScreen = !renderMan->flippedScreen;
 		}*/
 
+		/*clock_t t;
+		t = clock();*/
+
 		if (input->isKeyDown(KEY_F)){
 			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
 		}
@@ -297,6 +300,11 @@ int GameSession::Run(vector<player*> players){
 		if (input->isKeyDown(KEY_M)){
 			std::cout << "Number of minions: " << GameObjects.dead_minions.size() << std::endl;
 		}
+
+		if (input->isKeyDown(KEY_L)){
+			std::cout << "Alive Objects: " << GameObjects.alive_objects.size() << std::endl;
+		} 
+
 		if (input->isKeyDown(KEY_Y)) {
 			renderMan->ShakeScreen(.2f, .5f);
 		}
@@ -382,7 +390,8 @@ int GameSession::Run(vector<player*> players){
 		}
 
 		firstTime = false;
-
+		/*t = clock() - t;
+		std::cout << ((float)t) / CLOCKS_PER_SEC << std::endl;*/
 
 	}
 	/////////////////////////////////////////////////////
@@ -393,7 +402,7 @@ int GameSession::Run(vector<player*> players){
 	std::cout << renderMan << std::endl;
 
 	log->close();
-	//printf(_CrtDumpMemoryLeaks() ? "Memory Leak\n" : "No Memory Leak\n");
+
 
 	GameWorld::getInstance()->~GameWorld();
 	return 0;
