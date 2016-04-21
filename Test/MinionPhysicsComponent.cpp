@@ -1,4 +1,5 @@
 #include "MinionPhysicsComponent.h"
+#include "ParticleRenderComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -45,13 +46,17 @@ void MinionPhysicsComponent::init(){
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
+
+	MinionRenderComponent * minRend = (MinionRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		//GameObjects.dead_feathers.push_back(gameObjectRef);
+		
 		if (otherObj->team == gameObjectRef->team)break;
+		createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
-		//GameObjects.dead_feathers.push_back(gameObjectRef);
 		break;
 
 	case GAMEOBJECT_TYPE::OBJECT_MINION:
@@ -60,6 +65,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
 		if (otherObj->team != gameObjectRef->team){
 			//std::cout << "shig buzz \n" << std::endl;
+			createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
 			gameObjectRef->setPos(-10000, 0);
 			gameObjectRef->isAlive = false;
 		
