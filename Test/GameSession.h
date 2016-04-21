@@ -78,6 +78,7 @@ struct player{
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
 	int playerChoice;
+	bool bottom = false;
 };
 
 extern vector<player*> players;

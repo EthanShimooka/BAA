@@ -98,7 +98,7 @@ void Lobby::runLobby(){
 			}
 		}
 
-		std::cout << readyCount << ", " << numPlayers << std::endl;
+		//std::cout << readyCount << ", " << numPlayers << std::endl;
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
@@ -132,6 +132,11 @@ void Lobby::cleanUP(SystemUIObjectQueue &q){
 	sysRend.RenderUpdate(q.alive_objects);
 	sceneMan->AssembleScene();
 	q.DeleteObjects();
+
+	for (unsigned int i = 0; i < Birds.size(); i++){
+		delete Birds[i];
+	}
+	Birds.clear();
 
 }
 
@@ -220,7 +225,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";
-		if (i % 2 == 0){
+		if (i % 2 == 1){
 			p->x = 0 + x;
 			p->y = 0;
 			p->team = TEAM_YELLOW;
@@ -230,6 +235,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 			p->y = h - 25;
 			x += w / 2;
 			p->team = TEAM_PURPLE;
+			p->bottom = true;
 		}
 		
 		/*UIObjectFactory name;
@@ -238,6 +244,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
 		p->visible = false;
 		p->playerSlot->visible = p->visible;
+		p->playerSlot->bottom = p->bottom;
 		queue.AddObject(p->playerSlot);
 		players.push_back(p);
 	}

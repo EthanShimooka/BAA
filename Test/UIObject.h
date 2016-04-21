@@ -93,6 +93,8 @@ public:
 	bool changePicture = false;
 
 	bool ready = false;
+	
+	bool bottom = false;
 
 	uint64_t player = 0;
 
