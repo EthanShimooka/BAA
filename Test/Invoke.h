@@ -24,7 +24,7 @@ public:
 	/// Saved function reference of the function to be called after timerLength time
 	void (*func);
 	/// Static list of all timers that need to be updated
-	static std::vector<Invoke*> timers;
+	static std::vector<Invoke*> timers; //may need to move this to a different file
 	/// Updates all timers in list of timers. 
 	static void UpdateTimers();
 };
