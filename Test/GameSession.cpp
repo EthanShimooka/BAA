@@ -71,6 +71,9 @@ void GameSession::LoadHUD(GameObject* player){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
+
+	renderMan->setBackground("tempbackground.png");
+
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));

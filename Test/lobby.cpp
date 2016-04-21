@@ -14,6 +14,10 @@ void Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
+
+	renderMan->setBackground("Lobby_bg.png");
+
+
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	SystemInputUpdater sysInput;
