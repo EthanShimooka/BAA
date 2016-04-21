@@ -274,7 +274,14 @@ int GameSession::Run(vector<player*> players){
 	Timing::sInstance.SetCountdownStart();
 	NetworkManager::sInstance->SetState(NetworkManager::NMS_Playing);
 	std::cout << NetworkManager::sInstance->GetState() << std::endl;
+
+
+	clock_t current_ticks, delta_ticks;
+	clock_t fps = 0;
+
+
 	while (gameloop) {
+		current_ticks = clock();
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter) / 20);
@@ -364,8 +371,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
+		//	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
 
 		}
 		input->update();
@@ -379,12 +386,22 @@ int GameSession::Run(vector<player*> players){
 					myTeam = players[i]->team;
 				}
 			}
-			GameEnd end = GameEnd::GameEnd();
-			end.runGameEnd(myTeam, leftBase, rightBase);
-			gameloop = false;
+
+			//GameEnd end = GameEnd::GameEnd();
+		//	end.runGameEnd(myTeam, leftBase, rightBase);
+		//	gameloop = false;
 		}
 
 		firstTime = false;
+
+
+		
+
+		delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
+		if (delta_ticks > 0)
+			fps = CLOCKS_PER_SEC / delta_ticks;
+		std::cout <<" FPS : " << fps << std::endl;
+
 
 
 	}

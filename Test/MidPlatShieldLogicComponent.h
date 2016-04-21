@@ -22,6 +22,8 @@ class MidPlatShieldLogicComponent :
 public:
 	MidPlatShieldLogicComponent();
 	~MidPlatShieldLogicComponent();
+	void ToggleShield();
+
 };
 
 #endif
