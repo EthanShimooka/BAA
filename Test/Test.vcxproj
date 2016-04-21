@@ -170,9 +170,11 @@
     <ClInclude Include="SystemNetworkUpdater.h" />
     <ClInclude Include="SystemPhysicsUpdater.h" />
     <ClInclude Include="SystemRenderUpdater.h" />
+    <ClInclude Include="SystemTimerUpdater.h" />
     <ClInclude Include="SystemUIObjectQueue.h" />
     <ClInclude Include="SystemUIUpdater.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="TurkeyClassComponent.h" />
     <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIInputComponent.h" />
@@ -255,9 +257,11 @@
     <ClCompile Include="SystemNetworkUpdater.cpp" />
     <ClCompile Include="SystemPhysicsUpdater.cpp" />
     <ClCompile Include="SystemRenderUpdater.cpp" />
+    <ClCompile Include="SystemTimerUpdater.cpp" />
     <ClCompile Include="SystemUIObjectQueue.cpp" />
     <ClCompile Include="SystemUIUpdater.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TurkeyClassComponent.cpp" />
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIInputComponent.cpp" />

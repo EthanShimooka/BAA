@@ -1,14 +1,17 @@
 #include "Timer.h"
 
 
-Timer::Timer(float length)
+Timer::Timer(float length, void (*functionToCall))
 {
-	timerLength = (clock_t)length * 1000
+	timerLength = (clock_t)length * 1000;
+	func = functionToCall;
+
 }
 
 
 Timer::~Timer()
 {
+
 }
 
 void Timer::Update(){
