@@ -85,6 +85,8 @@
 <resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
+<resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
+
 <resource UID="60" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
 
 </resources>
