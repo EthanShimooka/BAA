@@ -21,8 +21,6 @@ PlayerInputComponent::~PlayerInputComponent()
 }
 
 void PlayerInputComponent::Update(){
-	
-
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		if (!logicComp->isEgg){
