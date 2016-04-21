@@ -49,8 +49,8 @@ void PlayerLogicComponent::Update(){
 }
 
 /// For spawning local feathers
-uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float chargeTime, float speed){
-	GameObject* newFeather = fFactory.Spawn(gameObjectRef, featherNum++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, chargeTime, speed);
+uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
+	GameObject* newFeather = fFactory.Spawn(gameObjectRef, featherNum++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
 	GameObjects.AddObject(newFeather);
 	return featherNum - 1;
 }
@@ -58,7 +58,7 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float chargeTime, fl
 /// For spawning networked feathers
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
 	// charge time is one because speed is the feather speed * chargeTime
-	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, 1, speed));
+	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, speed));
 }
 
 
