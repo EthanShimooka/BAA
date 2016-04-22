@@ -14,6 +14,8 @@ typedef enum {
 }COMMAND_TYPE;
 
 
+class PlayerLogicComponent;
+class PlayerRenderComponent;
 
 class PlayerNetworkComponent : public NetworkComponent
 {
@@ -30,9 +32,9 @@ public:
 	void createMovementPacket(float x, float y);
 
 	/// Pointer to the player logic component
-	//PlayerLogicComponent *logic;
+	PlayerLogicComponent *logic;
 	/// Pointer to the player render component
-	//PlayerRenderComponent *render;
+	PlayerRenderComponent *render;
 };
 
 #endif
