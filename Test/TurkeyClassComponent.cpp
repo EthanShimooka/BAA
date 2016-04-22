@@ -109,3 +109,8 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);
 }
+
+int TurkeyClassComponent::useAbility(){
+	std::cout << "turkeyclasscomp->useAbility() not implemented yet" << std::endl;
+	return false;
+}

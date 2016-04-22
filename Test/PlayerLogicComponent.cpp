@@ -23,10 +23,12 @@ void PlayerLogicComponent::Update(){
 	//update orientation
 	if (gameObjectRef->posY < 0)gameObjectRef->flipV = true;
 	else gameObjectRef->flipV = false;
+
 	//update HUD
 	int w, h;
 	birdseedHUD->getSize(w, h);
-	float meterPercent = (currBirdseed / (float)maxsBirdseed);
+	ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+	float meterPercent = (classComp->currBirdseed / (float)classComp->maxsBirdseed);
 	SDL_Rect rect = birdseedHUD->getRenderRect();
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
@@ -59,35 +61,6 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
 	// charge time is one because speed is the feather speed * chargeTime
 	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, speed));
-}
-
-
-void PlayerLogicComponent::spawnShield(){
-	if (currBirdseed == maxsBirdseed){
-		PowerShieldObjectFactory sFactory;
-		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
-		else GameObjects.AddObject(sFactory.Spawn(featherNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
-		currBirdseed = 0;
-	}
-	else{
-		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
-	}
-}
-
-void PlayerLogicComponent::spawnMine(){
-	if (currBirdseed == maxsBirdseed){
-		MineObjectFactory mFactory;
-		InputManager* input = InputManager::getInstance();
-		RenderManager* renderMan = RenderManager::getRenderManager();
-		float targetX, targetY;
-		renderMan->windowCoordToWorldCoord(targetX,targetY,input->getMouseX(),input->getMouseY());
-		GameObject* mine = mFactory.Spawn(featherNum++, gameObjectRef, (int)targetX, (int)targetY);
-		GameObjects.AddObject(mine);
-		currBirdseed = 0;
-	}
-	/*else{
-		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
-	}*/
 }
 
 void PlayerLogicComponent::becomeEgg(){

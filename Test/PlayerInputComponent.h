@@ -21,11 +21,12 @@ class PlayerPhysicsComponent;
 class PlayerNetworkComponent;
 class PlayerLogicComponent;
 class PlayerRenderComponent;
+class ClassComponent;
 
 class PlayerInputComponent : public InputComponent
 {
 public:
-	PlayerInputComponent(GameObject* player, float _playerSpeed, float _featherSpeed);
+	PlayerInputComponent(GameObject* player, ClassComponent* classComp);
 	~PlayerInputComponent();
 
 	void Update();
@@ -46,6 +47,7 @@ private:
 	PlayerRenderComponent* renderComp;
 	PlayerLogicComponent* logicComp;
 	PlayerNetworkComponent* netComp;
+	ClassComponent* classComp;
 };
 
 #endif

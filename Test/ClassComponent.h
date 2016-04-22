@@ -39,7 +39,7 @@ public:
 
 	//virtual void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	/// returns true if the ability was used, else returns false
-	//virtual bool UseAbility();
+	virtual int useAbility();
 
 	float speed;
 	float width, height;
@@ -47,6 +47,11 @@ public:
 	float featherSpeed;
 	float featherWidth, featherHeight;
 	float abilityCooldown;
+
+	int currBirdseed = 0;
+	int maxsBirdseed = 5;
+
+	int powerNum=0;
 
 };
 
