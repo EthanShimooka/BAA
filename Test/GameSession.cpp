@@ -71,6 +71,9 @@ void GameSession::LoadHUD(GameObject* player){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
+
+	renderMan->setBackground("tempbackground.png");
+
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
@@ -271,7 +274,14 @@ int GameSession::Run(vector<player*> players){
 	Timing::sInstance.SetCountdownStart();
 	NetworkManager::sInstance->SetState(NetworkManager::NMS_Playing);
 	std::cout << NetworkManager::sInstance->GetState() << std::endl;
+
+
+	clock_t current_ticks, delta_ticks;
+	clock_t fps = 0;
+
+
 	while (gameloop) {
+		current_ticks = clock();
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter) / 20);
@@ -384,14 +394,24 @@ int GameSession::Run(vector<player*> players){
 					myTeam = players[i]->team;
 				}
 			}
-			GameEnd end = GameEnd::GameEnd();
-			end.runGameEnd(myTeam, leftBase, rightBase);
-			gameloop = false;
+
+		GameEnd end = GameEnd::GameEnd();
+		end.runGameEnd(myTeam, leftBase, rightBase);
+		gameloop = false;
 		}
 
 		firstTime = false;
 		/*t = clock() - t;
 		std::cout << ((float)t) / CLOCKS_PER_SEC << std::endl;*/
+
+		
+
+		delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
+		if (delta_ticks > 0)
+			fps = CLOCKS_PER_SEC / delta_ticks;
+		std::cout <<" FPS : " << fps << std::endl;
+
+
 
 	}
 	/////////////////////////////////////////////////////
