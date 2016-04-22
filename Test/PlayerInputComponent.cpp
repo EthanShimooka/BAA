@@ -1,12 +1,12 @@
 #include "PlayerInputComponent.h"
 
 
-PlayerInputComponent::PlayerInputComponent(GameObject* player, float _playerSpeed, float _featherSpeed)
-{
+PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _classComp){
 	input = InputManager::getInstance();
 	gameObjectRef = player;
-	playerSpeed = _playerSpeed;
-	featherSpeed = _featherSpeed;
+	playerSpeed = _classComp->speed;
+	featherSpeed = _classComp->featherSpeed;
+	classComp = _classComp;
 	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
 
 	physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
@@ -119,8 +119,7 @@ void PlayerInputComponent::Update(){
 			if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 			//spawn shield, checks for full birdseed in logic component
 			if (input->isMouseDown(MOUSE_RIGHT)||controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) {
-				//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-				logicComp->spawnMine();
+				int powerUsed = classComp->useAbility();
 				//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
 				 // PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 				//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());

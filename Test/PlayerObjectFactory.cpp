@@ -77,7 +77,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 
 	if (local){
 		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
-		PlayerInputComponent* input = new PlayerInputComponent(player, classComp->speed, classComp->featherSpeed);
+		PlayerInputComponent* input = new PlayerInputComponent(player, classComp);
 	}
 
 	return player;
