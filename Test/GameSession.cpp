@@ -409,7 +409,7 @@ int GameSession::Run(vector<player*> players){
 		delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
 		if (delta_ticks > 0)
 			fps = CLOCKS_PER_SEC / delta_ticks;
-		std::cout <<" FPS : " << fps << std::endl;
+		//std::cout <<" FPS : " << fps << std::endl;
 
 
 
