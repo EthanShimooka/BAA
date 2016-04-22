@@ -28,10 +28,15 @@ public:
 	void Update();
 
 
+	/// creating packets
 	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float speed);
-	void createMovementPacket(float x, float y);
+	void createMovementPacket();
+	void createAbilityPacket(uint64_t ID, int finalX, int finalY, float speed);
+
+	/// handling packets
 	void handleMovementPacket(InputMemoryBitStream& mPacket);
 	void handleFeatherPacket(InputMemoryBitStream& fPacket);
+	void handleAbilityPacket(InputMemoryBitStream& aPacket);
 	
 
 	/// Pointer to the player logic component
