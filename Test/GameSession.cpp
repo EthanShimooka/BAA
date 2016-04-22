@@ -2,7 +2,7 @@
 #include "GameSession.h"
 #include <functional>
 #include <crtdbg.h>
-
+#include "Invoke.h"
 /**
 *  GameSession.cpp
 *  Authors:
@@ -175,8 +175,6 @@ int GameSession::Run(vector<player*> players){
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
 	SystemClassUpdater sysClass;
-
-
 
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
@@ -353,6 +351,9 @@ int GameSession::Run(vector<player*> players){
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 		sysClass.ClassUpdate(GameObjects.alive_objects);
 
+		//updates all timers
+		Invoke::UpdateTimers();
+
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
@@ -427,3 +428,4 @@ int GameSession::Run(vector<player*> players){
 	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
+
