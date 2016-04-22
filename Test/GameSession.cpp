@@ -379,8 +379,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
-		//	GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
 
 		}
 		input->update();
@@ -395,9 +395,9 @@ int GameSession::Run(vector<player*> players){
 				}
 			}
 
-			//GameEnd end = GameEnd::GameEnd();
-		//	end.runGameEnd(myTeam, leftBase, rightBase);
-		//	gameloop = false;
+		GameEnd end = GameEnd::GameEnd();
+		end.runGameEnd(myTeam, leftBase, rightBase);
+		gameloop = false;
 		}
 
 		firstTime = false;
