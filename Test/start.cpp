@@ -20,7 +20,8 @@ void Start::mainMenu(){
 	sceneMan->loadFromXMLFile("SceneTree.xml");*/
 
 	log->create("log.txt");
-	renderMan->setBackground("tempbackground.png");
+	renderMan->setBackground("Menu_bg.png");
+
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
 

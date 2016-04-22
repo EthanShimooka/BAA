@@ -321,6 +321,7 @@ void SceneManager::AssembleScene(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	//get reference to network manager
 	renderMan->renderObjects.clear();
+	renderMan->windowObjects.clear();
 	for (std::list<Layer*>::iterator lay_it = m_Layers.begin(); lay_it != m_Layers.end(); lay_it++) {
 		for (std::list<SDLRenderObject*>::iterator obj_it = (*lay_it)->m_WindowObjects.begin(); obj_it != (*lay_it)->m_WindowObjects.end(); obj_it++) {
 			renderMan->windowObjects.push_back((*obj_it));

@@ -29,7 +29,7 @@ public:
 	/// Update
 	void Update();
 
-	void ShieldToggle();
+	void ToggleShield();
 
 };
 
