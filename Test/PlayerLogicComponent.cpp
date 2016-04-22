@@ -17,7 +17,7 @@ PlayerLogicComponent::~PlayerLogicComponent()
 
 
 void PlayerLogicComponent::Update(){
-	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+	if (!isLocal)
 		return;
 	InputManager* input = InputManager::getInstance();
 	//update orientation
