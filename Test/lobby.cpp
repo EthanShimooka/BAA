@@ -21,9 +21,10 @@ void Lobby::runLobby(){
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
+	SystemUIObjectQueue birdQueue;
 
 	addSlots(queue);
-	drawBirds(queue);
+	drawBirds(birdQueue);
 	assignPlayers(renderMan);
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 
@@ -79,10 +80,7 @@ void Lobby::runLobby(){
 				}
 			}
 		}
-		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		//if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
-		// showing what people selected 
 		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 			for (const auto& player : players){
 				if (player->playerId == iter.first){
@@ -98,7 +96,6 @@ void Lobby::runLobby(){
 			}
 		}
 
-		//std::cout << readyCount << ", " << numPlayers << std::endl;
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
@@ -106,6 +103,9 @@ void Lobby::runLobby(){
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
+		sysUI.UIUpdate(birdQueue.alive_objects);
+		sysInput.InputUpdate(birdQueue.alive_objects);
+		sysRend.RenderUpdate(birdQueue.alive_objects);
 
 		input->update();
 		
@@ -114,6 +114,7 @@ void Lobby::runLobby(){
 	}
 
 	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
+		deleteBirds(birdQueue);
 		countdown(queue);
 	}
 
@@ -121,6 +122,18 @@ void Lobby::runLobby(){
 
 	GameSession session = GameSession::GameSession();
 	session.Run(players);
+}
+
+void Lobby::deleteBirds(SystemUIObjectQueue &queue){
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	SystemRenderUpdater sysRend;
+	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
+		queue.alive_objects[i]->visible = false;
+	}
+	sysRend.RenderUpdate(queue.alive_objects);
+	sceneMan->AssembleScene();
+	queue.DeleteObjects();
+	Birds.clear();
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){
@@ -133,10 +146,7 @@ void Lobby::cleanUP(SystemUIObjectQueue &q){
 	sceneMan->AssembleScene();
 	q.DeleteObjects();
 
-	for (unsigned int i = 0; i < Birds.size(); i++){
-		delete Birds[i];
-	}
-	Birds.clear();
+	
 
 }
 
