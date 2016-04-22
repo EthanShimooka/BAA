@@ -350,6 +350,7 @@ int GameSession::Run(vector<player*> players){
 		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 		sysClass.ClassUpdate(GameObjects.alive_objects);
+
 		//updates all timers
 		Invoke::UpdateTimers();
 
@@ -427,3 +428,4 @@ int GameSession::Run(vector<player*> players){
 	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
+

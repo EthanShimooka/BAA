@@ -1,10 +1,11 @@
 #include "Invoke.h"
 
+std::vector<Invoke*> Invoke::timers; //initializes timers to get rid of unresolved external error
 
-Invoke::Invoke(float length, void(*functionToCall))
+Invoke::Invoke(float length, function_m functionToCall)
 {
 	timerLength = (clock_t)length * 1000;
-	func = &functionToCall;
+	func = functionToCall;
 	timers.push_back(this);
 	timing = true;
 	startTime = clock();
@@ -26,8 +27,8 @@ void Invoke::Update(){
 	if (timing){
 		if ((startTime + timerLength) < (clock())) {
 			timing = false;
-			std::cout << "call function\n";
-			this->~Invoke();
+			func();
+			delete(this);
 
 		}
 		else {
