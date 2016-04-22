@@ -51,6 +51,7 @@ private:
 	int teamRed;
 	void countdown(SystemUIObjectQueue &q);
 	void cleanUP(SystemUIObjectQueue &q);
+	void createButtons(SystemUIObjectQueue &q);
 };
 
 #endif

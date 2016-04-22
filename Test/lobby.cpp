@@ -38,6 +38,8 @@ void Lobby::runLobby(){
 			me = players[i];
 	}
 
+	createButtons(queue);
+
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 	int readyCount = 0;
@@ -140,6 +142,17 @@ void Lobby::deleteBirds(SystemUIObjectQueue &queue){
 	Birds.clear();
 }
 
+void Lobby::createButtons(SystemUIObjectQueue &q){
+
+	RenderManager* rendMan = RenderManager::getRenderManager();
+	int w, h;
+
+	rendMan->getWindowSize(&w, &h);
+	UIObjectFactory* invite = new UIObjectFactory();
+	UIObject* inviteButton = invite->Spawn(INVITE_BUTTON, 0, h/2);
+	q.AddObject(inviteButton);
+}
+
 void Lobby::cleanUP(SystemUIObjectQueue &q){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	SystemRenderUpdater sysRend;
@@ -193,10 +206,10 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
-	int classSize = 1;
 
 	rendMan->getWindowSize(&w, &h);
 	int x, y;
+
 	x = w / 5;
 	y = h / 2;
 	//build class slots
