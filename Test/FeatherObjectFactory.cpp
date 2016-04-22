@@ -44,9 +44,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		feather->setPos(posX, posY);
 		feather->team = owner->team;
 		dynamic_cast<FeatherPhysicsComponent*>(feather->GetComponent(COMPONENT_PHYSICS))->init(posX, posY, dx, dy, speed);
-		std::cout << "Old Owner: " << dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->owner << std::endl;
 		dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->owner = owner;
-		std::cout << "New Owner: " << dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->owner << std::endl;
 	}
 
 	// Feather Specific Render Component. In future will have flag
