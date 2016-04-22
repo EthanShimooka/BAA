@@ -103,3 +103,20 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	motions2.push_back(makeMotion(rotateTransform(legL, -20, 40), 0.5, 0.5, ease_QuadInOut));
 	animations["walk"] = new Animation(400, motions2);
 }
+
+int FlamingoClassComponent::useAbility(){
+	if (currBirdseed == maxsBirdseed){
+		MineObjectFactory mFactory;
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		float targetX, targetY;
+		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
+		GameObject* mine = mFactory.Spawn(powerNum++, gameObjectRef, (int)targetX, (int)targetY);
+		GameObjects.AddObject(mine);
+		currBirdseed = 0;
+		return true;
+	}else{
+	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		return false;
+	}
+}

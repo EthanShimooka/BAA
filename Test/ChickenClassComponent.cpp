@@ -181,7 +181,19 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	motions2.push_back(makeMotion(rotateTransform(legL, 60, -120), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, -60, 120), 0.5, 0.5, ease_QuadInOut));
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
-	animations["walk"] = new Animation(400, motions2);
+	animations["walk"] = new Animation(400, motions2);	
+}
 
-	
+int ChickenClassComponent::useAbility(){
+	if (currBirdseed == maxsBirdseed){
+		PowerShieldObjectFactory sFactory;
+		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
+		currBirdseed = 0;
+		return true;
+	}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		return false;
+	}
 }
