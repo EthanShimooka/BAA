@@ -8,6 +8,11 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, float _playerSpee
 	playerSpeed = _playerSpeed;
 	featherSpeed = _featherSpeed;
 	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
+
+	physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	netComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 }
 
 
@@ -16,10 +21,6 @@ PlayerInputComponent::~PlayerInputComponent()
 }
 
 void PlayerInputComponent::Update(){
-	PlayerPhysicsComponent* physicsComp = (PlayerPhysicsComponent*)gameObjectRef->GetComponent(COMPONENT_PHYSICS);
-	PlayerRenderComponent* renderComp = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
-	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-
 	if (physicsComp){
 		b2Body* body = physicsComp->mBody;
 		if (!logicComp->isEgg){
@@ -69,18 +70,18 @@ void PlayerInputComponent::Update(){
 				// for testing 
 				//chargeTime = 1300;
 				//std::cout << "Charge time: " << chargeTime << std::endl;
-				
+
 				Timing::sInstance.StartAttackCooldown();
 				canFire = false;
 				float dx, dy;
 				renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-				uint64_t id = logicComp->spawnFeather(dx, dy, chargeTime, featherSpeed);
-				PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-				net->createFeatherPacket(id, dx, dy, chargeTime);
+				uint64_t id = logicComp->spawnFeather(dx, dy, chargeTime * featherSpeed);
+				//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+				netComp->createFeatherPacket(id, dx, dy, chargeTime * featherSpeed);
 			}
 			if (input->isKeyDown(KEY_O)){
 				//THIS IS FOR PLAYER DEATH TESTING!!!! REMOVE WHEN DONE!!
-				dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+				logicComp->becomeEgg();
 			}
 			//2 Sec delay on feather firing, need some visual representation of cd
 			if (Timing::sInstance.AttackCooldownEnded()){
@@ -104,11 +105,11 @@ void PlayerInputComponent::Update(){
 					float xDir, yDir;
 					renderMan->windowCoordToWorldCoord(xDir, yDir, renderComp->crosshairRef->posX, renderComp->crosshairRef->posY);
 					//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
-					PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-					uint64_t id = logic->spawnFeather(xDir, yDir, 150, featherSpeed);
-					PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+					//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+					uint64_t id = logicComp->spawnFeather(xDir, yDir, 150 * featherSpeed);
+					//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 					//not working yet
-					net->createFeatherPacket(id, xDir, yDir, 100);
+					netComp->createFeatherPacket(id, xDir, yDir, 100);
 				}
 				if (controller->getRightTrigger() > 0.8)isChargingAttack = true;
 			}
@@ -118,10 +119,10 @@ void PlayerInputComponent::Update(){
 			if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 			//spawn shield, checks for full birdseed in logic component
 			if (input->isMouseDown(MOUSE_RIGHT)||controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) {
-				PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-				logic->spawnMine();
+				//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+				logicComp->spawnMine();
 				//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
-				//  PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+				 // PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 				//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 			}
 		}

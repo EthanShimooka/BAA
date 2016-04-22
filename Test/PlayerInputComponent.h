@@ -17,6 +17,11 @@ Only the local player GameObject should have this component.
 #include "InputComponent.h"
 #include "PlayerComponentIncludes.h"
 
+class PlayerPhysicsComponent;
+class PlayerNetworkComponent;
+class PlayerLogicComponent;
+class PlayerRenderComponent;
+
 class PlayerInputComponent : public InputComponent
 {
 public:
@@ -36,6 +41,11 @@ private:
 	float maxCharge = 1300;
 	float playerSpeed;
 	float featherSpeed;
+
+	PlayerPhysicsComponent* physicsComp;
+	PlayerRenderComponent* renderComp;
+	PlayerLogicComponent* logicComp;
+	PlayerNetworkComponent* netComp;
 };
 
 #endif

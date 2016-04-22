@@ -69,14 +69,16 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 
 	//PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
-	if (local){
-		PlayerInputComponent* input = new PlayerInputComponent(player, classComp->speed, classComp->featherSpeed);
-		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
-	}
+	
 	
 
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team, local);
-	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);	
+	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
+
+	if (local){
+		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
+		PlayerInputComponent* input = new PlayerInputComponent(player, classComp->speed, classComp->featherSpeed);
+	}
 
 	return player;
 }

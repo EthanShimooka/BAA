@@ -14,6 +14,10 @@ void Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
+
+	renderMan->setBackground("Lobby_bg.png");
+
+
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	SystemInputUpdater sysInput;
@@ -98,7 +102,7 @@ void Lobby::runLobby(){
 			}
 		}
 
-		std::cout << readyCount << ", " << numPlayers << std::endl;
+		//std::cout << readyCount << ", " << numPlayers << std::endl;
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
