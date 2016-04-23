@@ -5,7 +5,7 @@ MinionNetworkComponent::MinionNetworkComponent(GameObject* minion)
 {
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
-	physComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	physComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 }
 
 
