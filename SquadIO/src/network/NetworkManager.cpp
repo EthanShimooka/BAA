@@ -438,6 +438,10 @@ void NetworkManager::ProcessPacketsPlaying(InputMemoryBitStream& inInputStream, 
 		break;
 	case kPosCC:
 		HandlePosPacket(inInputStream, inFromPlayer);
+		break;
+	case kMinDeathCC:
+		HandleMinionPacket(inInputStream, inFromPlayer);
+		break;
 	default:
 		//ignore anything else
 		break;
@@ -827,6 +831,10 @@ void NetworkManager::sendPacketToAllPeers(OutputMemoryBitStream& outData){
 }
 
 void NetworkManager::HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
+	test.push(inInputStream);
+}
+
+void NetworkManager::HandleMinionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
 	test.push(inInputStream);
 }
 

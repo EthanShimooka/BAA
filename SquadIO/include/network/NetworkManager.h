@@ -57,6 +57,11 @@ public:
 	SQUADIO_API void HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	///////////////////////
 
+	//////////////////////
+	SQUADIO_API void HandleMinionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	//////////////////////
+
+
 	//SQUADIO_API static NetworkManager networkManager; //local singleton instance of class
 
 

@@ -24,6 +24,15 @@ void MinionNetworkComponent::Update(){
 			HandleMenionDeath(packet);
 			break;
 		}
+
+		incomingPackets.pop();
+	}
+
+	while (!outgoingPackets.empty()){
+		OutputMemoryBitStream* outData = outgoingPackets.front();
+		NetworkManager::sInstance->sendPacketToAllPeers(*outData);
+		outgoingPackets.pop();
+		delete outData;
 	}
 }
 
