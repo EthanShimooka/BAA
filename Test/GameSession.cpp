@@ -347,9 +347,9 @@ int GameSession::Run(vector<player*> players){
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
-		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 		sysClass.ClassUpdate(GameObjects.alive_objects);
+		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 
 		//updates all timers
 		Invoke::UpdateTimers();
