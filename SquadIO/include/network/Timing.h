@@ -38,17 +38,26 @@ public:
 	SQUADIO_API void SetLobbyCountdown();
 
 	SQUADIO_API void SetGamePlayCountdown();
+	/// Starts the timer for the explosion effect
+	SQUADIO_API void StartExplosionTimer();
+	/// Returns true if the explosion timer's time is up and the explosion should be removed
+	SQUADIO_API bool ExplosionTimerEnded();
 private:
-	float		mDeltaTime;
-	uint64_t	mDeltaTick;
+	float			mDeltaTime;
+	uint64_t		mDeltaTick;
 
-	int			minionCounter;
-	int			gameLengthInSeconds;
-	time_t		startTimeInSeconds;
-	time_t		attackCooldown;
-	double		mLastFrameStartTime;
-	float		mFrameStartTimef;
-	double		mPerfCountDuration;
-	int			playTimeLengthInSecs = 120;
+	int				minionCounter;
+	int				gameLengthInSeconds;
+	time_t			startTimeInSeconds;
+	time_t			attackCooldown;
+
+	clock_t			explosionStart;
+
+	double			mLastFrameStartTime;
+	float			mFrameStartTimef;
+	double			mPerfCountDuration;
+
+	unsigned int	explosionLengthInMS = 150;
+	int				playTimeLengthInSecs = 120;
 };
 #endif

@@ -16,6 +16,7 @@ public:
 	void Update();
 	/// Gets rid of the effect
 	void DestroyEffect();
+	bool explosionTriggered = false;
 };
 
 #endif

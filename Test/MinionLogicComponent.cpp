@@ -13,7 +13,6 @@ MinionLogicComponent::~MinionLogicComponent()
 }
 
 void MinionLogicComponent::Update(){
-
 }
 
 void MinionLogicComponent::MinionDeath(){
