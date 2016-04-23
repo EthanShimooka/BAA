@@ -14,6 +14,8 @@ public:
 	~MinionLogicComponent();
 	/// Update Function
 	void Update();
+	/// Remove minion after being hit enemy with feather
+	void DestroyMinion(uint64_t ID);
 
 	/// indicates how far the minion should travel before going back
 	float length;

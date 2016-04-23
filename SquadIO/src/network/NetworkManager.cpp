@@ -276,23 +276,9 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 	case kReadyCC:
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
-	case kTeamCC:
-		HandleTeamPacket(inInputStream, inFromPlayer);
-		break;
 	default:
 		//ignore anything else
 		break;
-	}
-}
-
-void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
-	int team;
-	inInputStream.Read(team);
-	LobbyInfoMap::iterator iter = lobbyInfoMap.find(GetMyPlayerId());
-	if (iter != lobbyInfoMap.end()){
-		iter->second.team = team;
-		mTeamSelected = true;
-		myTeam = team;
 	}
 }
 
@@ -332,15 +318,6 @@ void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, 
 	if (iter != lobbyInfoMap.end()){
 		iter->second.classType = classType;
 	}
-}
-
-void NetworkManager::SendTeamInfo(int team, uint64_t playerToSendTo){
-
-	OutputMemoryBitStream outPacket;
-	outPacket.Write(kTeamCC);
-	outPacket.Write(team);
-	SendPacket(outPacket, playerToSendTo);
-
 }
 
 void NetworkManager::SendSelectPacket(int classType)

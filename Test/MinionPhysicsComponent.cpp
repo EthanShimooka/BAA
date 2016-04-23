@@ -51,6 +51,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
+		dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath(gameObjectRef->ID);
 		//GameObjects.dead_feathers.push_back(gameObjectRef);
 		break;
 
