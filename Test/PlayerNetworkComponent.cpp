@@ -61,7 +61,7 @@ void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket)
 	//if (testNum < t){
 	float x;
 	mPacket.Read(x);
-	if (gameObjectRef->posX != 0) render->setAnimation("walk");
+	if (gameObjectRef->posX != x) render->setAnimation("walk");
 	else render->setAnimation("idle");
 	if (gameObjectRef->posX > x){
 		gameObjectRef->flipH = true;
