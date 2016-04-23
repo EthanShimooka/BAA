@@ -16,10 +16,7 @@ void MinionLogicComponent::Update(){
 
 }
 
-void MinionLogicComponent::DestroyMinion(uint64_t ID){
-
-	if (gameObjectRef->ID == ID){
-		gameObjectRef->setPos(-10000, 0);
-		gameObjectRef->isAlive = false;
-	}
+void MinionLogicComponent::DestroyMinion(){
+	gameObjectRef->setPos(-10000, 0);
+	gameObjectRef->isAlive = false;
 }
