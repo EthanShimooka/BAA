@@ -33,11 +33,11 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 	base->toggleIfRenderImage();
 	int bodyAX = 71;
 	int bodyAY = 50;
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3302, 88 - bodyAX, 66 - bodyAY);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3304, 79 - bodyAX, 85 - bodyAY);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3302, (float)(88 - bodyAX), (float)(66 - bodyAY));
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3304, (float)(79 - bodyAX), (float)(85 - bodyAY));
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3300, 0, -14);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3303, 70 - bodyAX, 80 - bodyAY);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3301, 87 - bodyAX, 63 - bodyAY);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3303, (float)(70 - bodyAX), (float)(80 - bodyAY));
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3301, (float)(87 - bodyAX), (float)(63 - bodyAY));
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
@@ -85,8 +85,8 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 
 	/////// IDLE ANIMATION
 	std::list<motion> motions;
-	motions.push_back(makeMotion(moveCircArc(armR, 87 - bodyAX, 63 - bodyAY, 5, 0, 360), 0, 1));
-	motions.push_back(makeMotion(moveCircArc(armL, 87 - bodyAX, 63 - bodyAY, 5, 180, 360), 0, 1));
+	motions.push_back(makeMotion(moveCircArc(armR, (float)(87 - bodyAX), (float)(63 - bodyAY), 5, 0, 360), 0, 1));
+	motions.push_back(makeMotion(moveCircArc(armL, (float)(87 - bodyAX), (float)(63 - bodyAY), 5, 180, 360), 0, 1));
 	motions.push_back(makeMotion(rotateTransform(legR, 0, 0), 0, 0));
 	motions.push_back(makeMotion(rotateTransform(legL, 0, 0), 0, 0));
 	motions.push_back(makeMotion(rotateTransform(armR, 90, 0), 0, 0));
@@ -99,8 +99,8 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 	std::list<motion> motions2;
 	motions2.push_back(makeMotion(rotateTransform(armR, 0, 0), 0, 0));
 	motions2.push_back(makeMotion(rotateTransform(armL, 0, 0), 0, 0));
-	motions2.push_back(makeMotion(moveCircArc(armR, 87 - bodyAX, 63 - bodyAY, 5, 0, 360), 0, 1));
-	motions2.push_back(makeMotion(moveCircArc(armL, 87 - bodyAX, 63 - bodyAY, 5, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(moveCircArc(armR, (float)(87 - bodyAX), (float)(63 - bodyAY), 5, 0, 360), 0, 1));
+	motions2.push_back(makeMotion(moveCircArc(armL, (float)(87 - bodyAX), (float)(63 - bodyAY), 5, 180, 360), 0, 1));
 	motions2.push_back(makeMotion(rotateTransform(legR, -60, 120), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, 60, -120), 0.5, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, 60, -120), 0, 0.5, ease_QuadInOut));
