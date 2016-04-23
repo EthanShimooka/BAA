@@ -43,24 +43,14 @@ void MidPlatShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
-										   std::cout << "shiggle buz" << std::endl;
-											gameObjectRef->isAlive = false;
-											MidPlatShieldLogicComponent* logicComponent = dynamic_cast<MidPlatShieldLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-										    logicComponent->ToggleShield();
-											gameObjectRef->isAlive = false;
-
-
-											break;
+											 MidPlatShieldLogicComponent* logicComponent = dynamic_cast<MidPlatShieldLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											 logicComponent->toggleShield();
+											 break;
 	}
 	default:
 		break;
 	}
 }
-
-
-
-
-
 
 void MidPlatShieldPhysicsComponent::Update(){
 
@@ -68,6 +58,6 @@ void MidPlatShieldPhysicsComponent::Update(){
 		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 	}
-	
+
 }
 

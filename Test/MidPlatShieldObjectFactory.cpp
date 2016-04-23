@@ -18,21 +18,24 @@ MidPlatShieldObjectFactory::~MidPlatShieldObjectFactory()
 
 GameObject * MidPlatShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY, float length){
 
-	GameObject* platform = new GameObject();
+	GameObject* shield = new GameObject();
 
-	platform->ID = PID;
-	platform->setPos(posX, posY);
-	platform->isAlive = true;
-	platform->type = GAMEOBJECT_TYPE::OBJECT_SWITCH;
+	shield->ID = PID;
+	shield->setPos(posX, posY);
+	shield->isAlive = true;
+	shield->type = GAMEOBJECT_TYPE::OBJECT_SWITCH;
 
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
-	MidPlatShieldRenderComponent* rend = new MidPlatShieldRenderComponent(platform);
+	MidPlatShieldRenderComponent* rend = new MidPlatShieldRenderComponent(shield);
 
-	MidPlatShieldPhysicsComponent* physics = new MidPlatShieldPhysicsComponent(platform);
+	MidPlatShieldPhysicsComponent* physics = new MidPlatShieldPhysicsComponent(shield);
 
-	return platform;
+	MidPlatShieldLogicComponent* logic = new MidPlatShieldLogicComponent(shield);
+
+
+	return shield;
 
 
 
