@@ -110,7 +110,7 @@ void PlayerNetworkComponent::Update(){
 			handleMovementPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_ATTACK:
-			//shandleFeatherPacket(packet);
+			handleFeatherPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_ABILITY:
 			handleAbilityPacket(packet);
