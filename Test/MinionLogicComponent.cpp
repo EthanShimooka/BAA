@@ -15,8 +15,3 @@ MinionLogicComponent::~MinionLogicComponent()
 void MinionLogicComponent::Update(){
 
 }
-
-void MinionLogicComponent::DestroyMinion(){
-	gameObjectRef->setPos(-10000, 0);
-	gameObjectRef->isAlive = false;
-}

@@ -90,7 +90,7 @@ void MinionPhysicsComponent::Update(){
 	}
 	else{
 		gameObjectRef->setPos(-10, 1000);
-		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
+		
 	}
 	//temp testing code from here down
 	if (gameObjectRef->team == 1){
@@ -100,4 +100,9 @@ void MinionPhysicsComponent::Update(){
 	}
 }
 
+void MinionPhysicsComponent::DestroyMinion(){
+	gameObjectRef->setPos(-10000, 0);
+	gameObjectRef->isAlive = false;
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
+}
 	
