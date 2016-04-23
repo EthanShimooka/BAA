@@ -36,7 +36,8 @@ mDelayHeartbeat(kTimeBetweenDelayHeartbeat),
 mTimeToStart(-1.0f),
 //we always start on turn -2 b/c we need 2 frames before we can actually play
 mTurnNumber(-2),
-mSubTurnNumber(0)
+mSubTurnNumber(0),
+mTeamSelected(false)
 {
 	//this is enough for a 16.6 minute game...
 	//so let's avoid realloc/copies and just construct all the empty maps, too
@@ -275,9 +276,23 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 	case kReadyCC:
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
+	case kTeamCC:
+		HandleTeamPacket(inInputStream, inFromPlayer);
+		break;
 	default:
 		//ignore anything else
 		break;
+	}
+}
+
+void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
+	int team;
+	inInputStream.Read(team);
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(GetMyPlayerId());
+	if (iter != lobbyInfoMap.end()){
+		iter->second.team = team;
+		mTeamSelected = true;
+		myTeam = team;
 	}
 }
 
@@ -317,6 +332,15 @@ void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, 
 	if (iter != lobbyInfoMap.end()){
 		iter->second.classType = classType;
 	}
+}
+
+void NetworkManager::SendTeamInfo(int team, uint64_t playerToSendTo){
+
+	OutputMemoryBitStream outPacket;
+	outPacket.Write(kTeamCC);
+	outPacket.Write(team);
+	SendPacket(outPacket, playerToSendTo);
+
 }
 
 void NetworkManager::SendSelectPacket(int classType)

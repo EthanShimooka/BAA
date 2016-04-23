@@ -29,6 +29,8 @@ public:
 	static const uint32_t	kStartCC = 'STRT';
 	/// Used to ping a peer when in delay
 	static const uint32_t	kDelayCC = 'DELY';
+	/// Notification used to determine team
+	static const uint32_t	kTeamCC = 'TEAM';
 
 	static const uint32_t	kPosCC = 'POSI';
 
@@ -102,6 +104,8 @@ private:
 	SQUADIO_API void	HandleSelectionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Handles ready packets for individual players
 	SQUADIO_API void	handleReadyUpPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	/// Handles team packet for individual players
+	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Sends a ready packet to all peers
 	SQUADIO_API void	SendReadyPacketsToPeers();
 	/// Handles start if start packet received from master peer
@@ -119,6 +123,8 @@ public:
 	SQUADIO_API void	SendSelectPacket(int classType);
 	/// Sends ready up packet
 	SQUADIO_API void	SendRdyUpPacket(int ready);
+	/// Sends new player their assigned team
+	SQUADIO_API void	SendTeamInfo(int team, uint64_t playerToSendTo);
 	/// Gets Lobby Id
 	SQUADIO_API uint64_t GetLobbyId();
 	/// Handles player disconnecting mid-game
@@ -137,6 +143,8 @@ public:
 	SQUADIO_API void	UpdateLobbyPlayers();
 	/// Attempts to set lobby to ready
 	SQUADIO_API void	TryReadyGame();
+	/// Returns my team if not master peer
+	SQUADIO_API int		ReturnTeam(uint64_t myId);
 	/// Returns bytes received per second
 	SQUADIO_API const WeightedTimedMovingAverage& GetBytesReceivedPerSecond()	const	{ return mBytesReceivedPerSecond; }
 	/// Returns bytes sent per second
@@ -153,6 +161,8 @@ public:
 	SQUADIO_API bool	IsMasterPeer() const { return mIsMasterPeer; }
 	/// Returns time to start
 	SQUADIO_API float	GetTimeToStart() const { return mTimeToStart; }
+
+	SQUADIO_API bool	TeamSelected() const { return mTeamSelected; }
 
 	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
 	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
@@ -286,8 +296,12 @@ private:
 	int				mSubTurnNumber;
 	/// isMasterPeer
 	bool			mIsMasterPeer;
+	/// team picked
+	bool			mTeamSelected;
 	/// Command list
 	CommandList		mCommandList;
+	/// My team
+	int				myTeam;
 
 public:
 	LobbyInfoMap    lobbyInfoMap;

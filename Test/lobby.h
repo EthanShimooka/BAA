@@ -43,7 +43,8 @@ private:
 	int numPlayers;
 	int maxPlayers = 4;
 	int inLobbyNow;
-	void assignPlayers(RenderManager* rendMan);
+	void assignPlayers();
+	void updatePlayers();
 	void updateLobby();
 	void addNewPlayers();
 	void drawBirds(SystemUIObjectQueue &q);
