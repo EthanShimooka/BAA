@@ -668,9 +668,6 @@
     <ClCompile Include="MineLogicComponent.cpp">
       <Filter>Source Files\Component\Mine Component</Filter>
     </ClCompile>
-    <ClCompile Include="MineObjectFactory.cpp">
-      <Filter>Source Files\Component\Mine Component</Filter>
-    </ClCompile>
     <ClCompile Include="MinePhysicsComponent.cpp">
       <Filter>Source Files\Component\Mine Component</Filter>
     </ClCompile>
@@ -685,6 +682,9 @@
     </ClCompile>
     <ClCompile Include="EffectRenderComponent.cpp">
       <Filter>Source Files\Component\Effect Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MineObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
