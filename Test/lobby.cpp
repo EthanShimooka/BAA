@@ -351,7 +351,6 @@ void Lobby::addNewPlayers(){
 					players[i]->playerSlot->player = it->first;
 					players[i]->playerSlot->visible = players[i]->visible;
 					int team = players[i]->team;
-					NetworkManager::sInstance->SendTeamInfo(team, it->first);
 					break;
 				}
 			}

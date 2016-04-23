@@ -5,8 +5,10 @@
 #include "MinionComponentIncludes.h"
 
 typedef enum {
-	CM_DIE = 1,
-}COMMAND_TYPE;
+	DIE = 1,
+}COMMAND;
+
+class MinionLogicComponent;
 
 class MinionNetworkComponent : public NetworkComponent
 {
@@ -24,7 +26,7 @@ public:
 	///Handle menion death
 	void HandleMenionDeath(InputMemoryBitStream& inPacket);
 
-	MinionLogicComponent* logic;
+	MinionLogicComponent *logic;
 };
 
 #endif

@@ -20,7 +20,7 @@ void MinionNetworkComponent::Update(){
 
 		packet.Read(mCommand);
 		switch (mCommand){
-		case COMMAND_TYPE::CM_DIE:
+		case COMMAND::DIE:
 			HandleMenionDeath(packet);
 			break;
 		}
