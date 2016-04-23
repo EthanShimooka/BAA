@@ -52,8 +52,9 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
-		if (dynamic_cast<FeatherLogicComponent*>(otherObj)->owner->ID == GamerServices::sInstance->GetLocalPlayerId())
-			dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
+		//std::cout << dynamic_cast<FeatherLogicComponent*>(otherObj)->owner->ID << std::endl;
+		//if (dynamic_cast<FeatherLogicComponent*>(otherObj)->owner->ID == 1)
+		dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
 		//GameObjects.dead_feathers.push_back(gameObjectRef);
 		break;
 
