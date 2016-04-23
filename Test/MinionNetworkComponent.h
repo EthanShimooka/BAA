@@ -5,7 +5,7 @@
 #include "MinionComponentIncludes.h"
 
 typedef enum {
-	DIE = 1,
+	MIN_DIE = 1,
 }COMMAND;
 
 class MinionLogicComponent;
@@ -22,9 +22,9 @@ public:
 	void Update();
 
 	///Send menion death
-	void SendMenionDeath(uint64_t ID);
+	void SendMenionDeath();
 	///Handle menion death
-	void HandleMenionDeath(InputMemoryBitStream& inPacket);
+	void HandleMenionDeath();
 
 	MinionLogicComponent *logic;
 };

@@ -20,8 +20,8 @@ void MinionNetworkComponent::Update(){
 
 		packet.Read(mCommand);
 		switch (mCommand){
-		case COMMAND::DIE:
-			HandleMenionDeath(packet);
+		case COMMAND::MIN_DIE:
+			HandleMenionDeath();
 			break;
 		}
 
@@ -36,17 +36,14 @@ void MinionNetworkComponent::Update(){
 	}
 }
 
-void MinionNetworkComponent::SendMenionDeath(uint64_t ID){
+void MinionNetworkComponent::SendMenionDeath(){
 	OutputMemoryBitStream* deathPacket = new OutputMemoryBitStream();
-	deathPacket->Write(NetworkManager::sInstance->kMinDeathCC);
-	deathPacket->Write(ID);
+	deathPacket->Write(NetworkManager::sInstance->kPosCC);
+	deathPacket->Write(gameObjectRef->ID);
+	deathPacket->Write((int)MIN_DIE);
 	outgoingPackets.push(deathPacket);
 }
 
-void MinionNetworkComponent::HandleMenionDeath(InputMemoryBitStream& inPacket){
-	
-	uint64_t ID;
-	inPacket.Read(ID);
-
-	logic->DestroyMinion(ID);
+void MinionNetworkComponent::HandleMenionDeath(){
+	logic->DestroyMinion();
 }

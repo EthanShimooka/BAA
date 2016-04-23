@@ -1,4 +1,5 @@
 #include "MinionPhysicsComponent.h"
+#include "FeatherLogicComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -51,7 +52,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
-		dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath(gameObjectRef->ID);
+		if (dynamic_cast<FeatherLogicComponent*>(otherObj)->owner->ID == GamerServices::sInstance->GetLocalPlayerId())
+			dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
 		//GameObjects.dead_feathers.push_back(gameObjectRef);
 		break;
 
