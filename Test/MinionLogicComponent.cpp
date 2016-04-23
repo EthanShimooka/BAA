@@ -15,3 +15,18 @@ MinionLogicComponent::~MinionLogicComponent()
 void MinionLogicComponent::Update(){
 
 }
+
+void MinionLogicComponent::MinionDeath(){
+	EffectObjectFactory efFactory;
+	//Visual cues first
+	//MinionRenderComponent* renderComp = dynamic_cast<MinionRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	//SceneManager* sceneMan = SceneManager::GetSceneManager();
+	//renderComp->objRef->unrender();
+	//SDLRenderObject* poofSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4001, gameObjectRef->posX, gameObjectRef->posY);
+	//renderComp->AssignSprite(poofSprite);
+	MinionPhysicsComponent* physicsComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	physicsComp->setCollisionFilter(COLLISION_MINION, 0);
+	// Need to make minion sprite invisible/gone, instantiate poofsprite at correct x,y , then 
+	// start 1second timer, which destroys poof object when it runs out (set gameObjectRef->isAlive = false)
+	GameObjects.AddObject(efFactory.Spawn(gameObjectRef->posX, gameObjectRef->posY, EFFECT_EXPLOSION));
+}
