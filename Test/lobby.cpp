@@ -33,13 +33,13 @@ void Lobby::runLobby(){
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 	player* me = new player();
 
-	if (NetworkManager::sInstance->IsMasterPeer()){
+	//if (NetworkManager::sInstance->IsMasterPeer()){
 		assignPlayers();
-	}
+	//}
 	//wait for master peer to assigne us a team
-	else{
+	/*else{
 		waitForTeam();
-	}
+	}*/
 		
 	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
@@ -274,23 +274,13 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			if (NetworkManager::sInstance->IsMasterPeer()){
-				p->team = TEAM_YELLOW;
-			}
-			else{
-				p->team = TEAM_NEUTRAL;
-			}
+			p->team = TEAM_YELLOW;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			if (NetworkManager::sInstance->IsMasterPeer()){
-				p->team = TEAM_PURPLE;
-			}
-			else{
-				p->team = TEAM_NEUTRAL;
-			}
+			p->team = TEAM_PURPLE;
 			p->bottom = true;
 		}
 		
