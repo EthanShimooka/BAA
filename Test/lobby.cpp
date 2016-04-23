@@ -2,7 +2,7 @@
 
 vector<player*> players;
 
-Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
+Lobby::Lobby(): playersReady(0), inLobbyNow(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 }
 
@@ -33,7 +33,13 @@ void Lobby::runLobby(){
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 	player* me = new player();
 
-	assignPlayers();
+	if (NetworkManager::sInstance->IsMasterPeer()){
+		assignPlayers();
+	}
+	//wait for master peer to assigne us a team
+	else{
+		waitForTeam();
+	}
 		
 	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
@@ -59,7 +65,7 @@ void Lobby::runLobby(){
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 
 		//check for new players joining.
-		if (numPlayers > inLobbyNow){
+		if (numPlayers > inLobbyNow && NetworkManager::sInstance->IsMasterPeer()){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
@@ -133,6 +139,10 @@ void Lobby::runLobby(){
 
 	GameSession session = GameSession::GameSession();
 	session.Run(players);
+}
+
+void Lobby::waitForTeam(){
+
 }
 
 void Lobby::deleteBirds(SystemUIObjectQueue &queue){
@@ -350,7 +360,8 @@ void Lobby::addNewPlayers(){
 					players[i]->name = it->second;
 					players[i]->playerSlot->player = it->first;
 					players[i]->playerSlot->visible = players[i]->visible;
-					int team = players[i]->team;
+					TEAM team = players[i]->team;
+					SendTeamPacket(it->first, team);
 					break;
 				}
 			}
@@ -359,4 +370,8 @@ void Lobby::addNewPlayers(){
 			found = false;
 		}
 	}
+}
+
+void Lobby::SendTeamPacket(uint64_t ID, TEAM team){
+	NetworkManager::sInstance->SendTeamToPeers(ID, team);
 }

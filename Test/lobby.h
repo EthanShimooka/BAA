@@ -49,10 +49,11 @@ private:
 	void addNewPlayers();
 	void drawBirds(SystemUIObjectQueue &q);
 	vector<UIObject*> Birds;
-	int teamRed;
 	void countdown(SystemUIObjectQueue &q);
 	void cleanUP(SystemUIObjectQueue &q);
 	void createButtons(SystemUIObjectQueue &q);
+	void waitForTeam();
+	void SendTeamPacket(uint64_t ID, TEAM team);
 };
 
 #endif
