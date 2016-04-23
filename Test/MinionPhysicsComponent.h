@@ -13,6 +13,10 @@ public:
 	MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team);
 	/// Destructor
 	~MinionPhysicsComponent();
+
+	/// Remove minion after being hit enemy with feather
+	void DestroyMinion();
+
 	/// Update
 	void Update();
 	void init();

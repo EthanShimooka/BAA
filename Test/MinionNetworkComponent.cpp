@@ -5,7 +5,7 @@ MinionNetworkComponent::MinionNetworkComponent(GameObject* minion)
 {
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
-	logic = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	physComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 }
 
 
@@ -45,5 +45,5 @@ void MinionNetworkComponent::SendMenionDeath(){
 }
 
 void MinionNetworkComponent::HandleMenionDeath(){
-	logic->DestroyMinion();
+	physComp->DestroyMinion();
 }

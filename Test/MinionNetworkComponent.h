@@ -8,7 +8,7 @@ typedef enum {
 	MIN_DIE = 1,
 }COMMAND;
 
-class MinionLogicComponent;
+class MinionPhysicsComponent;
 
 class MinionNetworkComponent : public NetworkComponent
 {
@@ -26,7 +26,7 @@ public:
 	///Handle menion death
 	void HandleMenionDeath();
 
-	MinionLogicComponent *logic;
+	MinionPhysicsComponent *physComp;
 };
 
 #endif
