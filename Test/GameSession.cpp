@@ -2,7 +2,7 @@
 #include "GameSession.h"
 #include <functional>
 #include <crtdbg.h>
-
+#include "Invoke.h"
 /**
 *  GameSession.cpp
 *  Authors:
@@ -176,8 +176,6 @@ int GameSession::Run(vector<player*> players){
 	SystemPhysicsUpdater sysPhysics;
 	SystemClassUpdater sysClass;
 
-
-
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
 	MinionObjectFactory mFactory;
@@ -349,9 +347,12 @@ int GameSession::Run(vector<player*> players){
 		sysInput.InputUpdate(GameObjects.alive_objects);
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
-		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 		sysClass.ClassUpdate(GameObjects.alive_objects);
+		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
+
+		//updates all timers
+		Invoke::UpdateTimers();
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
@@ -409,7 +410,7 @@ int GameSession::Run(vector<player*> players){
 		delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
 		if (delta_ticks > 0)
 			fps = CLOCKS_PER_SEC / delta_ticks;
-		std::cout <<" FPS : " << fps << std::endl;
+		//std::cout <<" FPS : " << fps << std::endl;
 
 
 
@@ -427,3 +428,4 @@ int GameSession::Run(vector<player*> players){
 	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
+

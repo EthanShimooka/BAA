@@ -9,4 +9,11 @@
 #include "PlayerPhysicsComponent.h"
 #include "PlayerRenderComponent.h"
 
+#include "ChickenClassComponent.h"
+#include "EagleClassComponent.h"
+#include "FlamingoClassComponent.h"
+#include "PeacockClassComponent.h"
+#include "QuailClassComponent.h"
+#include "TurkeyClassComponent.h"
+
 #endif

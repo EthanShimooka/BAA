@@ -107,3 +107,8 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 
 
 }
+
+int PeacockClassComponent::useAbility(){
+	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
+	return false;
+}
