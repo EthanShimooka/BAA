@@ -53,7 +53,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		//GameObjects.dead_feathers.push_back(gameObjectRef);
 		
 		if (otherObj->team == gameObjectRef->team)break;
-		createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
+		createParticle(minRend->allObjs["base"], 10, gameObjectRef->posX, gameObjectRef->posY);
 		gameObjectRef->setPos(-10000, 0);
 		//setCollisionFilter(COLLISION_MINION, 0);
 		gameObjectRef->isAlive = false;
@@ -65,7 +65,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
 		if (otherObj->team != gameObjectRef->team){
 			//std::cout << "shig buzz \n" << std::endl;
-			createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
+			createParticle(minRend->allObjs["base"], 10, gameObjectRef->posX, gameObjectRef->posY);
 			gameObjectRef->setPos(-10000, 0);
 			gameObjectRef->isAlive = false;
 		

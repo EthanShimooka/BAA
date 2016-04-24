@@ -24,8 +24,8 @@ ParticleRenderComponent::ParticleRenderComponent(SDLRenderObject * base, unsigne
 		std::list<motion> movements;
 		movements.push_back(makeMotion(moveLinearXY(sprite, centerX, centerY, centerX + cos(angle) * 300, centerY+sin(angle) * 300), 0, 1, ease_QuadOut));
 		movements.push_back(makeMotion(rotateTransform(sprite,rand()%360,(rand()%90)-45), 0, 1, ease_QuadOut));
-		Animation * movement = new Animation(1000,movements);
-		int maxtime = 100000; //in seconds
+		Animation * movement = new Animation(1000-(rand()%200),movements);
+		//int maxtime = 100000; //in seconds
 		//std:list<motion> motions;
 		particle p;
 		p.animations = movement;
@@ -46,12 +46,13 @@ ParticleRenderComponent::~ParticleRenderComponent()
 void ParticleRenderComponent::Update(){
 	unsigned int currenttime = clock();
 	progress += currenttime - lasttime;
-	for (auto iter = particles.begin(); iter != particles.end(); iter++){	
+	for (auto iter = particles.begin(); iter != particles.end(); iter++){
 		float curr = iter->animations->lengthConversion(progress);
-		auto len = iter->animations->duration;
-		iter->animations->animate(curr);
+		if (curr >= 1.0) iter->sprite->setIfRenderImage(false);
+		else iter->animations->animate(curr);
 	}
 	lasttime = currenttime;
+	
 }
 
 void createParticle(SDLRenderObject * base, unsigned int numParticles, float x, float y){
