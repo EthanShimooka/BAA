@@ -164,7 +164,10 @@ void PlayerInputComponent::Update(){
 			float chargePercent = controller->getRightTriggerDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
 		}
-		else logicComp->currChargePercentage = input->getMousePressDuration() / maxCharge;
+		else{
+			float chargePercent = input->getMousePressDuration() / maxCharge;
+			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
+		}
 	}
 }
 
