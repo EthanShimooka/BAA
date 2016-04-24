@@ -97,7 +97,6 @@ void PlayerPhysicsComponent::Update(){
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(3);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
-		std::cout << gameObjectRef->rotation << std::endl;
 		//check if back at base yet
 		if (abs(gameObjectRef->posX) > 900){
 			logicComp->hatchBird();

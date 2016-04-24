@@ -106,8 +106,16 @@ void PlayerLogicComponent::hatchBird(){
 		physicsComp->mBody->SetFixedRotation(true);
 		b2Vec2 pos = physicsComp->mBody->GetPosition();
 		if (gameObjectRef->posY > 0){ 
-			gameObjectRef->rotation = 180;
-			physicsComp->mBody->SetTransform(pos, 180);
+			if (gameObjectRef->isLocal){
+				gameObjectRef->rotation = 180;
+				physicsComp->mBody->SetTransform(pos, 180);
+				renderComp->allObjs["base"]->rotation = 180;
+			}
+			else{
+				gameObjectRef->rotation = 0;
+				physicsComp->mBody->SetTransform(pos, 0);
+				renderComp->allObjs["base"]->rotation = 0;
+			}
 		}else{
 			physicsComp->mBody->SetTransform(pos, 0);
 			gameObjectRef->rotation = 0;
