@@ -51,7 +51,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//signal self death and turn to egg
 		if (otherObj->isLocal){
 			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
-			// also send the death packet to everyone
+			dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->createDeathPacket();
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
