@@ -127,6 +127,7 @@ void PlayerNetworkComponent::Update(){
 			handleAbilityPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_DIE:
+			handleDeathPacket();
 			//handle 
 			break;
 		case COMMAND_TYPE::CM_JUMP:
