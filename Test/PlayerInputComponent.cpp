@@ -81,8 +81,11 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 	}
 	//keyboard move left
-	if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
+	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+	}
+	else{
+		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 	}
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
