@@ -71,6 +71,8 @@ struct GamerServices::Impl
 	//Call results when a leaderboard is downloaded
 	CCallResult<Impl, LeaderboardScoresDownloaded_t> mLeaderDownloadResult;
 	void OnLeaderDownloadCallback(LeaderboardScoresDownloaded_t* inCallback, bool inIOFailure);
+	CCallResult<Impl, GameLobbyJoinRequested_t> mFriendInAnotherGameresult;
+	void IfFriendIsInAnotherGameCallback(GameLobbyJoinRequested_t inCallback, bool inIOFailure);
 
 	//Callback when a user leaves/enters lobby
 	STEAM_CALLBACK(Impl, OnLobbyChatUpdate, LobbyChatUpdate_t, mChatDataUpdateCallback);
@@ -142,6 +144,10 @@ void GamerServices::Impl::OnLobbyMatchListCallback(LobbyMatchList_t* inCallback,
 		SteamAPICall_t call = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 4);
 		mLobbyCreateResult.Set(call, this, &Impl::OnLobbyCreateCallback);
 	}
+}
+
+void GamerServices::InviteFriendsFromOverlay(){
+	SteamFriends()->ActivateGameOverlay("LobbyInvite");
 }
 
 void GamerServices::Impl::OnLobbyCreateCallback(LobbyCreated_t* inCallback, bool inIOFailure)

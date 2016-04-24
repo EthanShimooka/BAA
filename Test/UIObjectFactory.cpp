@@ -55,8 +55,6 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 		rend->uiObjectRef->setPos((float)w / 2 + 25, (float)h / 2 - 25);
 		rend->createUIType(OPTIONS_BUTTON);
 		break;
-	case SCORE:
-		break;
 	case TIMER:
 		rend->createUIType(TIMER);
 		break;
@@ -146,6 +144,10 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case MENU_NAME:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(MENU_NAME);
+		break;
+	case INVITE_BUTTON:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(INVITE_BUTTON);
 		break;
 	}
 

@@ -36,7 +36,8 @@ mDelayHeartbeat(kTimeBetweenDelayHeartbeat),
 mTimeToStart(-1.0f),
 //we always start on turn -2 b/c we need 2 frames before we can actually play
 mTurnNumber(-2),
-mSubTurnNumber(0)
+mSubTurnNumber(0),
+mTeamSelected(false)
 {
 	//this is enough for a 16.6 minute game...
 	//so let's avoid realloc/copies and just construct all the empty maps, too
@@ -437,6 +438,10 @@ void NetworkManager::ProcessPacketsPlaying(InputMemoryBitStream& inInputStream, 
 		break;
 	case kPosCC:
 		HandlePosPacket(inInputStream, inFromPlayer);
+		break;
+	case kMinDeathCC:
+		HandleMinionPacket(inInputStream, inFromPlayer);
+		break;
 	default:
 		//ignore anything else
 		break;
@@ -742,9 +747,6 @@ void NetworkManager::TryReadyGame()
 		//we might be ready to start
 		TryStartGame();
 	}
-	/*else if (mState == NMS_Ready && IsMasterPeer()){
-		TryStartGame();
-	}*/
 	// i am not master peeer, send ready message to other peers
 	else if(mState == NMS_Lobby && !IsMasterPeer()) {
 		LogManager* log = LogManager::GetLogManager();
@@ -829,6 +831,10 @@ void NetworkManager::sendPacketToAllPeers(OutputMemoryBitStream& outData){
 }
 
 void NetworkManager::HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
+	test.push(inInputStream);
+}
+
+void NetworkManager::HandleMinionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
 	test.push(inInputStream);
 }
 
