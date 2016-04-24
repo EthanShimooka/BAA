@@ -20,11 +20,11 @@ void MidPlatShieldLogicComponent::toggleShield(){
 		MidPlatShieldPhysicsComponent* physicsComp = dynamic_cast<MidPlatShieldPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 		//physicsComp->setCollisionFilter(COLLISION_PLATFORM, 0);
 		physicsComp->setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER);
+		physicsComp->changeShape();
+
 		timeSinceToggle = clock();
 
 		//b2Shape* shape = physicsComp->mFixture->GetShape();
-
-
 
 		//turn all sprites of player invisible
 		MidPlatShieldRenderComponent* renderComp = dynamic_cast<MidPlatShieldRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));

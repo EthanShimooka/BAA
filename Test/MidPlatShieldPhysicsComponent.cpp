@@ -5,8 +5,17 @@ MidPlatShieldPhysicsComponent::MidPlatShieldPhysicsComponent(GameObject * platfo
 {
 	gameObjectRef = platform;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init();
+	init(1.5f);
 }
+
+
+MidPlatShieldPhysicsComponent::MidPlatShieldPhysicsComponent(GameObject * platform, int size)
+{
+	gameObjectRef = platform;
+	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
+	init(size);
+}
+
 
 
 MidPlatShieldPhysicsComponent::~MidPlatShieldPhysicsComponent()
@@ -14,7 +23,7 @@ MidPlatShieldPhysicsComponent::~MidPlatShieldPhysicsComponent()
 }
 
 
-void MidPlatShieldPhysicsComponent::init(){
+void MidPlatShieldPhysicsComponent::init(float size){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(gameObjectRef->posX, gameObjectRef->posY);
@@ -23,14 +32,17 @@ void MidPlatShieldPhysicsComponent::init(){
 
 	GameWorld* gameWorld = GameWorld::getInstance();
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
-
 	/// Hitbox instantiation
-	b2PolygonShape box;
+	b2CircleShape box;
 	/// Set Box Shape
-	box.SetAsBox(3, 3); // look up other functions for polygons
+	box.m_radius = size;
+
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
+
+
+	//
 	// Create Fixture 
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
@@ -51,6 +63,12 @@ void MidPlatShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	}
 }
+
+void MidPlatShieldPhysicsComponent::changeShape(){
+
+
+}
+
 
 void MidPlatShieldPhysicsComponent::Update(){
 

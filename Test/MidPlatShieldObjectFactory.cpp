@@ -40,3 +40,25 @@ GameObject * MidPlatShieldObjectFactory::Spawn(uint64_t PID, float posX, float p
 
 
 }
+
+GameObject * MidPlatShieldObjectFactory::Collider(uint64_t PID, float posX, float posY, float length){
+
+	GameObject* shield = new GameObject();
+
+	shield->ID = PID;
+	shield->setPos(posX, posY);
+	shield->isAlive = true;
+	shield->type = GAMEOBJECT_TYPE::OBJECT_SWITCH;
+	int size = 4;
+
+	// Minion Specific Render Component. In future will have flag
+	// for type of class,  which will instatiate based on flag
+
+	MidPlatShieldPhysicsComponent* physics = new MidPlatShieldPhysicsComponent(shield);
+
+	MidPlatShieldLogicComponent* logic = new MidPlatShieldLogicComponent(shield);
+
+
+	return shield;
+
+}
