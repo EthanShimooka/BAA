@@ -32,11 +32,13 @@ public:
 	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float speed);
 	void createMovementPacket();
 	void createAbilityPacket(uint64_t ID, int finalX, int finalY, float speed);
+	void createDeathPacket();
 
 	/// handling packets
 	void handleMovementPacket(InputMemoryBitStream& mPacket);
 	void handleFeatherPacket(InputMemoryBitStream& fPacket);
 	void handleAbilityPacket(InputMemoryBitStream& aPacket);
+	void handleDeathPacket();
 	
 
 	/// Pointer to the player logic component
