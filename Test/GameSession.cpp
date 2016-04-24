@@ -385,7 +385,7 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
 
 		}

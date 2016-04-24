@@ -38,7 +38,8 @@ void MinionPhysicsComponent::init(){
 		mBody->SetUserData(gameObjectRef);
 	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
-	mBody->SetLinearVelocity(b2Vec2(50, 0));
+	//mBody->SetLinearVelocity(b2Vec2(50, 0));
+	mBody->ApplyForce(b2Vec2(0, 1), mBody->GetWorldCenter(), true);
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN);
 }
 
@@ -119,11 +120,14 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	//temp testing code from here down
+
+
+	/*
 	if (gameObjectRef->team == 1){
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
 	}else{
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
-	}
+	}*/
 }
 
 void MinionPhysicsComponent::DestroyMinion(){
