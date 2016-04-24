@@ -19,11 +19,12 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 PlayerInputComponent::~PlayerInputComponent(){
 }
 
-void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, InputManager* input, Controller* controller, b2Body* body){
+void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, InputManager* input, Controller* controller){
 	//precondition checking
 	if (!controller->isControllerOn())return;
 
 	//handle movement
+	b2Body* body = physicsComp->mBody;
 	body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*playerSpeed, body->GetLinearVelocity().y));
 
 	//handle jumping
@@ -35,9 +36,15 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 
 	//handle firing
 	//controller aiming
-	int controllerSensitivity = 10;
-	input->setMouseX(input->getMouseX() + controller->getRightThumbX() * controllerSensitivity);
-	input->setMouseY(input->getMouseY() + controller->getRightThumbY() * controllerSensitivity);
+	int controllerSensitivity = 12;
+	int mouseX = input->getMouseX() + controller->getRightThumbX() * controllerSensitivity;
+	int mouseY = input->getMouseY() + controller->getRightThumbY() * controllerSensitivity;
+	if (mouseX > SCREEN_WIDTH)mouseX = SCREEN_WIDTH;
+	else if (mouseX < 0)mouseX = 0;
+	if (mouseY > SCREEN_HEIGHT)mouseY = SCREEN_HEIGHT;
+	else if (mouseY < 0)mouseY = 0;
+	input->setMouseX(mouseX);
+	input->setMouseY(mouseY);
 
 	//firing with controller
 	if (controller->getRightTrigger() < 0.75&& controller->lastRightTriggerValue>0.75&& canFire&&isChargingAttack){
@@ -66,8 +73,9 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 
 }
 
-void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller, b2Body* body){
+void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller){
 	if (logicComp->isEgg)return;
+	b2Body* body = physicsComp->mBody;
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
@@ -125,15 +133,13 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 void PlayerInputComponent::Update(){
 	//get needed stuff
 	Controller* controller = input->controller;
-	b2Body* body = physicsComp->mBody;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
-
-	std::cout << controller->getRightTriggerDuration() << std::endl;
+	b2Body* body = physicsComp->mBody;
 
 	//handle input from sources
-	handleControllerInput(renderMan, input, controller, body);
-	handleKeyboardInput(renderMan, input, controller, body);
+	handleControllerInput(renderMan, input, controller);
+	handleKeyboardInput(renderMan, input, controller);
 	//handle input bounds stuff here to make sure you don't double up on inputs from both
 
 	//2 Sec delay on feather firing, need some visual representation of cd

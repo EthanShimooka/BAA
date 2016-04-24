@@ -16,6 +16,7 @@ Only the local player GameObject should have this component.
 
 #include "InputComponent.h"
 #include "PlayerComponentIncludes.h"
+#include "config.h"
 
 class PlayerPhysicsComponent;
 class PlayerNetworkComponent;
@@ -35,8 +36,8 @@ public:
 
 private:
 
-	void handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller, b2Body* body);
-	void handleControllerInput(RenderManager* renderMan, InputManager* input, Controller* controller, b2Body* body);
+	void handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller);
+	void handleControllerInput(RenderManager* renderMan, InputManager* input, Controller* controller);
 	/// True if player currently charging a feather
 	bool isChargingAttack = false;
 	/// True if the player attack is not on cooldown
