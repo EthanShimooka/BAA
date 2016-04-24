@@ -34,6 +34,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
+
 	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER);
 }
 
@@ -47,7 +48,10 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		//signal self death and turn to egg
-		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+		if (otherObj->isLocal){
+			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+			// also send the death packet to everyone
+		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
 		inAir = false;
