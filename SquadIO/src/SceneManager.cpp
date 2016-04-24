@@ -389,11 +389,10 @@ SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, flo
 void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
 	if (!layer || !object)
 		return;
-	for (std::list<SDLRenderObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
-		if (&(*obj_it) == &object) {
-			layer->m_SceneObjects.erase(obj_it);//probably causes memleak, need to kill all the scene object values first?
-			break;
-		}
-	}
+	//for (std::list<SDLRenderObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
+		//if (obj_it == &object) {
+	std::list<SDLRenderObject*>::iterator findIter = std::find(layer->m_SceneObjects.begin(), layer->m_SceneObjects.end(), object);
+	
+	layer->m_SceneObjects.erase(findIter);//probably causes memleak, need to kill all the scene object values first?
 
 }
