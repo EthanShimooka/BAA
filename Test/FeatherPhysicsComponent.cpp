@@ -30,8 +30,11 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	if (!mFixture)
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-
-	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH);
+	
+	if (gameObjectRef->isLocal)
+		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH);
+	else
+		setCollisionFilter(COLLISION_FEATHER, COLLISION_BASE | COLLISION_SWITCH);
 	
 	//handle init stuff for positions
 	gameObjectRef->posX = initX;

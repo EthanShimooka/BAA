@@ -29,6 +29,8 @@ public:
 	static const uint32_t	kStartCC = 'STRT';
 	/// Used to ping a peer when in delay
 	static const uint32_t	kDelayCC = 'DELY';
+	/// Notification used to kill minion
+	static const uint32_t	kMinDeathCC = 'MDTH';
 
 	static const uint32_t	kPosCC = 'POSI';
 
@@ -54,6 +56,11 @@ public:
 	SQUADIO_API void sendPacketToAllPeers(OutputMemoryBitStream& outData);
 	SQUADIO_API void HandlePosPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	///////////////////////
+
+	//////////////////////
+	SQUADIO_API void HandleMinionPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	//////////////////////
+
 
 	//SQUADIO_API static NetworkManager networkManager; //local singleton instance of class
 
@@ -137,6 +144,8 @@ public:
 	SQUADIO_API void	UpdateLobbyPlayers();
 	/// Attempts to set lobby to ready
 	SQUADIO_API void	TryReadyGame();
+	/// Returns my team if not master peer
+	SQUADIO_API int		ReturnTeam(uint64_t myId);
 	/// Returns bytes received per second
 	SQUADIO_API const WeightedTimedMovingAverage& GetBytesReceivedPerSecond()	const	{ return mBytesReceivedPerSecond; }
 	/// Returns bytes sent per second
@@ -153,6 +162,8 @@ public:
 	SQUADIO_API bool	IsMasterPeer() const { return mIsMasterPeer; }
 	/// Returns time to start
 	SQUADIO_API float	GetTimeToStart() const { return mTimeToStart; }
+
+	SQUADIO_API bool	TeamSelected() const { return mTeamSelected; }
 
 	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
 	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
@@ -286,8 +297,12 @@ private:
 	int				mSubTurnNumber;
 	/// isMasterPeer
 	bool			mIsMasterPeer;
+	/// team picked
+	bool			mTeamSelected;
 	/// Command list
 	CommandList		mCommandList;
+	/// My team
+	int				myTeam;
 
 public:
 	LobbyInfoMap    lobbyInfoMap;

@@ -13,6 +13,8 @@ Render Component class for the midPlatform
 
 #include "PhysicsComponent.h"
 #include "MidPlatShieldComponentIncludes.h"
+#include "MidPlatShieldObjectFactory.h"
+
 
 class MidPlatShieldPhysicsComponent :
 	public PhysicsComponent
@@ -20,16 +22,18 @@ class MidPlatShieldPhysicsComponent :
 public:
 	/// Constructor
 	MidPlatShieldPhysicsComponent(GameObject* platform);
+	MidPlatShieldPhysicsComponent(GameObject* platform, int size);
+
 	/// Destructor
 	~MidPlatShieldPhysicsComponent();
 	/// setup function
-	void init();
+	void init(float size);
 	/// collision handling
 	void handleCollision(GameObject* otherObj);
 	/// Update
 	void Update();
 
-	void ToggleShield();
+	void changeShape();
 
 };
 

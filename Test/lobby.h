@@ -38,11 +38,13 @@ public:
 private:
 	//vector<player*> players;
 	void addSlots(SystemUIObjectQueue &q);
+	void deleteBirds(SystemUIObjectQueue &q);
 	int playersReady;	
 	int numPlayers;
 	int maxPlayers = 4;
 	int inLobbyNow;
-	void assignPlayers(RenderManager* rendMan);
+	void assignPlayers();
+	void updatePlayers();
 	void updateLobby();
 	void addNewPlayers();
 	void drawBirds(SystemUIObjectQueue &q);
@@ -50,6 +52,7 @@ private:
 	int teamRed;
 	void countdown(SystemUIObjectQueue &q);
 	void cleanUP(SystemUIObjectQueue &q);
+	void createButtons(SystemUIObjectQueue &q);
 };
 
 #endif

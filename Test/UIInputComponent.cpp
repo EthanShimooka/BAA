@@ -27,13 +27,15 @@ void UIInputComponent::Update(){
 			NetworkManager::sInstance->StartLobbySearch();
 		}
 		break;
-	case SCORE:
-		break;
-	case TIMER:
-		break;
 	case READY_BUTTON:
 		if (isButtonPressed(READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT)){
 			//std::cout << "click" << std::endl;
+		}
+		break;
+	case INVITE_BUTTON:
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+			//std::cout << "click" << std::endl;
+			GamerServices::sInstance->InviteFriendsFromOverlay();
 		}
 		break;
 	case CHICKEN:

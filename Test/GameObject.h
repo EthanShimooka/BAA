@@ -57,6 +57,8 @@ public:
 	uint64_t ID;
 	/// Alive state
 	bool isAlive;
+	/// True if the local player made this object
+	bool isLocal;
 	/// type of game object
 	int type;
 	/// Object team
