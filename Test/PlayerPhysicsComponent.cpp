@@ -81,8 +81,13 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5f));
 		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
 	}
-	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
-	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	if (gameObjectRef->isLocal){
+		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	}
+	else{
+		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale),0);
+	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(3);
