@@ -54,6 +54,8 @@
 <resource UID="2007" type="graphic" filename="Game_Base_1.png" scenescope="0"></resource>
 <resource UID="2010" type="graphic" filename="Game_minion_1.png" scenescope="0"></resource>
 <resource UID="2011" type="graphic" filename="Game_minion_2.png" scenescope="0"></resource>
+<resource UID="2013" type="graphic" filename="Game_platform_yellow.png" scenescope="0"></resource>
+<resource UID="2014" type="graphic" filename="Game_platform_purple.png" scenescope="0"></resource>
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>
 <resource UID="3002" type="graphic" filename="Player_Chicken_Arm_2.png" scenescope="0"></resource>
