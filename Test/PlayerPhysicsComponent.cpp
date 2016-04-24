@@ -47,6 +47,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//do nothing or push past each other
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		if (otherObj->team == gameObjectRef->team)break;
 		//signal self death and turn to egg
 		if (otherObj->isLocal){
 			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
