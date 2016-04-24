@@ -281,7 +281,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 			x += w / 2;
 			p->team = TEAM_PURPLE;
 			p->bottom = true;
-		}
+		} 
 		
 		UIObjectFactory* slot = new UIObjectFactory();
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
@@ -304,7 +304,7 @@ void Lobby::assignPlayers(){
 			players[i]->playerId = it->first;
 			players[i]->name = it->second;
 			players[i]->playerSlot->player = it->first;
-			players[i]->playerSlot->visible = players[i]->visible;
+			players[i]->playerSlot->visible = players[i]->visible;  
 			i++;
 		}
 	}

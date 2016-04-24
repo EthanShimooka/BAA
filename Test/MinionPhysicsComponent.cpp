@@ -47,57 +47,55 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
-											 if (otherObj->team == gameObjectRef->team)break;
-											 //Cue Audio/Visual death (UPDATE: Audio is placeholder)
-											 AudioManager* audioMan = AudioManager::getAudioInstance();
-											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
-											dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
-											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-											 logicComp->MinionDeath();
+		if (otherObj->team == gameObjectRef->team)break;
+		//Cue Audio/Visual death (UPDATE: Audio is placeholder)
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+		dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
+		MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		logicComp->MinionDeath();
 
-											 gameObjectRef->setPos(-10000, 0);
-											 //setCollisionFilter(COLLISION_MINION, 0);
-											 gameObjectRef->isAlive = false;
-											 //GameObjects.dead_feathers.push_back(gameObjectRef);
-											 break;
+		gameObjectRef->setPos(-10000, 0);
+		//setCollisionFilter(COLLISION_MINION, 0);
+		gameObjectRef->isAlive = false;
+		//GameObjects.dead_feathers.push_back(gameObjectRef);
+		break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_MINION:{
-											//just push each other around. Most likely done for us by box2d already
-											//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
-											//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
-											if (otherObj->team != gameObjectRef->team){
-												//std::cout << "shig buzz \n" << std::endl;
-												//Cue Audio/Visual death (UPDATE: Audio is placeholder)
-												AudioManager* audioMan = AudioManager::getAudioInstance();
-												std::cout << "MINION ON MINION COLLISION" << std::endl;
-												audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+		//just push each other around. Most likely done for us by box2d already
+		//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
+		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
+		if (otherObj->team != gameObjectRef->team){
+			//std::cout << "shig buzz \n" << std::endl;
+			//Cue Audio/Visual death (UPDATE: Audio is placeholder)
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			std::cout << "MINION ON MINION COLLISION" << std::endl;
+			audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 
-												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-												logicComp->MinionDeath();
-												gameObjectRef->setPos(-10000, 0);
-												gameObjectRef->isAlive = false;
+			MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			logicComp->MinionDeath();
+			gameObjectRef->setPos(-10000, 0);
+			gameObjectRef->isAlive = false;
 
-											}
-
-
-											//gameObjectRef->isAlive = false;//currently setting the poof to dead,
-											//w/o this obj keeps moving around
-											break;
+		}
+		//gameObjectRef->isAlive = false;//currently setting the poof to dead,
+		//w/o this obj keeps moving around
+		break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
-										  //Still need to visually update dmg to base
-										  //Currently destroys minions, updates base health logic, and shakes screen
-										  AudioManager* audioMan = AudioManager::getAudioInstance();
-										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+		//Still need to visually update dmg to base
+		//Currently destroys minions, updates base health logic, and shakes screen
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 
-										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										  logicComp->MinionDeath();
+		MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		logicComp->MinionDeath();
 
-										  gameObjectRef->setPos(-10000, 0);
-										  gameObjectRef->isAlive = false;
-										  RenderManager* renderMan = RenderManager::getRenderManager();
-										  renderMan->ShakeScreen(0.3f, 0.4f);
-										  break;
+		gameObjectRef->setPos(-10000, 0);
+		gameObjectRef->isAlive = false;
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		renderMan->ShakeScreen(0.3f, 0.4f);
+		break;
 	}
 	default:
 		break;
