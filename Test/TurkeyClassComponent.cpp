@@ -33,11 +33,11 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	base->toggleIfRenderImage();
 	int bodyAX = 107;
 	int bodyAY = 100;
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, 175 - bodyAX, 78 - bodyAY);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3504, 127 - bodyAX, 114 - bodyAY);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(175 - bodyAX), (float)(78 - bodyAY));
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3504, (float)(127 - bodyAX), (float)(114 - bodyAY));
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3500, 0, -8);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3503, 96 - bodyAX, 128 - bodyAY);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3501, 81 - bodyAX, 83 - bodyAY);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3503, (float)(96 - bodyAX), (float)(128 - bodyAY));
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3501, (float)(81 - bodyAX), (float)(83 - bodyAY));
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
@@ -95,8 +95,8 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	//currentAnimation = idle;
 	////// WALKING ANIMATION 
 	std::list<motion> motions2;
-	motions2.push_back(makeMotion(moveEllipseArc(legR, 96 - bodyAX, 128 - bodyAY, 14, 2, 180, 360), 0, 1));
-	motions2.push_back(makeMotion(moveEllipseArc(legL, 127 - bodyAX, 114 - bodyAY, 14, 2, 0, 360), 0, 1));
+	motions2.push_back(makeMotion(moveEllipseArc(legR, (float)(96 - bodyAX), (float)(128 - bodyAY), 14, 2, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(moveEllipseArc(legL, (float)(127 - bodyAX), (float)(114 - bodyAY), 14, 2, 0, 360), 0, 1));
 	motions2.push_back(makeMotion(moveEllipseArc(body, 0, -8, 4, 1, 90, 360), 0, 1));
 	motions2.push_back(makeMotion(rotateTransform(legR, 10, -20), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, -10, 20), 0.5, 0.5, ease_QuadInOut));
@@ -108,4 +108,9 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	motions2.push_back(makeMotion(rotateTransform(armR, -10, 20), 0.5, 0.5, ease_QuadInOut));
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);
+}
+
+int TurkeyClassComponent::useAbility(){
+	std::cout << "turkeyclasscomp->useAbility() not implemented yet" << std::endl;
+	return false;
 }

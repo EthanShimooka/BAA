@@ -2,17 +2,20 @@
 #include "PlatformRenderComponent.h"
 
 
-PlatformRenderComponent::PlatformRenderComponent(GameObject* platform){
+PlatformRenderComponent::PlatformRenderComponent(GameObject* platform, int team){
 	gameObjectRef = platform;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	//objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 9991, 0, 0);
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 101001, 0, 0);
-	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setIfRenderRect(true);
-	allObjs["box"] = box;
+	if (team == 1){
+		objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2013, 0, 0);
+	} else{
+	 objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2014, 0, 0);
+
+	}
+	
 	allObjs["base"] = objRef;
 }
 
@@ -23,5 +26,4 @@ PlatformRenderComponent::~PlatformRenderComponent()
 
 void PlatformRenderComponent::Update(){
 	RenderComponent::Update();
-	RenderBoundingBox((allObjs["box"]));
 }

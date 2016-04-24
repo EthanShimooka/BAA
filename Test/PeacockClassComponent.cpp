@@ -27,11 +27,11 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
 	base->toggleIfRenderImage();
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3102, 158 - bodyAX, 95 - bodyAY);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3104, 163 - bodyAX, 109 - bodyAY);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3103, 156 - bodyAX, 117 - bodyAY);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3102, (float)(158 - bodyAX), (float)(95 - bodyAY));
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3104, (float)(163 - bodyAX), (float)(109 - bodyAY));
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3103, (float)(156 - bodyAX), (float)(117 - bodyAY));
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3100, 0, -8);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3101, 140 - bodyAX, 85 - bodyAY);
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3101, (float)(140 - bodyAX), (float)(85 - bodyAY));
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
@@ -106,4 +106,9 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	animations["walk"] = new Animation(800, motions2);
 
 
+}
+
+int PeacockClassComponent::useAbility(){
+	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
+	return false;
 }

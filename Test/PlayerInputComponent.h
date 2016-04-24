@@ -16,16 +16,18 @@ Only the local player GameObject should have this component.
 
 #include "InputComponent.h"
 #include "PlayerComponentIncludes.h"
+#include "config.h"
 
 class PlayerPhysicsComponent;
 class PlayerNetworkComponent;
 class PlayerLogicComponent;
 class PlayerRenderComponent;
+class ClassComponent;
 
 class PlayerInputComponent : public InputComponent
 {
 public:
-	PlayerInputComponent(GameObject* player, float _playerSpeed, float _featherSpeed);
+	PlayerInputComponent(GameObject* player, ClassComponent* classComp);
 	~PlayerInputComponent();
 
 	void Update();
@@ -33,6 +35,9 @@ public:
 	InputManager* input;
 
 private:
+
+	void handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller);
+	void handleControllerInput(RenderManager* renderMan, InputManager* input, Controller* controller);
 	/// True if player currently charging a feather
 	bool isChargingAttack = false;
 	/// True if the player attack is not on cooldown
@@ -46,6 +51,7 @@ private:
 	PlayerRenderComponent* renderComp;
 	PlayerLogicComponent* logicComp;
 	PlayerNetworkComponent* netComp;
+	ClassComponent* classComp;
 };
 
 #endif

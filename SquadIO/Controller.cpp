@@ -93,6 +93,11 @@ bool Controller::getRightBumper(){
 	return SDL_JoystickGetButton(joystick, JOYSTICK_RIGHTSHOULDER)?true:false;
 }
 
+double Controller::getRightTriggerDuration(){
+	if (getRightTrigger() < 0.75)return 0;
+	return (clock() - rightTriggerHoldClock) / (CLOCKS_PER_SEC / 1000);
+}
+
 void Controller::update(){
 	if (!joystick&&SDL_NumJoysticks()==1){
 		//initialize controller
@@ -105,6 +110,10 @@ void Controller::update(){
 		//what it's referencing is actually freed
 		joystick = NULL;
 	}
+	if (getRightTrigger() > 0.75&&lastRightTriggerValue < 0.75){
+		rightTriggerHoldClock = clock();
+	}
+	lastRightTriggerValue= getRightTrigger();
 }
 
 void Controller::rumble(float strength, int duration){

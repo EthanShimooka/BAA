@@ -7,13 +7,15 @@ GameObject::GameObject(){
 
 	//component_count = 0;
 
-	posX = 0.0;
-	posY = 0.0;
+	//posX = 0.0;
+	//posY = 0.0;
+	isLocal = false;
 	rotation = 0;
 	scaleX = 1.0;
 	scaleY = 1.0;
 	flipH = false;
 	flipV = false;
+
 }
 
 /// Constructor
@@ -165,8 +167,39 @@ GameObject::~GameObject(){
 			}
 		}
 		break;
+	case OBJECT_EFFECT:
+		for (unsigned int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<EffectRenderComponent*>(g_components[i].component);
 
+				break;
+			default:
+				break;
+			}
+		}
+		break;
 
+	case OBJECT_FAN:
+		for (unsigned int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<MidBaseRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_LOGIC:
+				delete dynamic_cast<MidBaseLogicComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<MidBasePhysicsComponent*>(g_components[i].component);
+				break;
+			//	case COMPONENT_NETWORK:
+			//	delete dynamic_cast<PowerShieldNetworkComponent*>(g_components[i].component);
+			//	break;
+			default:
+				break;
+			}
+		}
+		break;
 
 	default :
 		break;

@@ -15,6 +15,8 @@ public:
 	~MidPlatShieldObjectFactory();
 
 	GameObject * Spawn(uint64_t PID, float posX, float posY, float length);
+	/// spawns physics collider
+	GameObject * Collider(uint64_t PID, float posX, float posY, float length);
 
 };
 

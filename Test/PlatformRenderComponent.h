@@ -9,7 +9,7 @@ class PlatformRenderComponent : public RenderComponent
 {
 public:
 	/// Constructor
-	PlatformRenderComponent(GameObject* platform);
+	PlatformRenderComponent(GameObject* platform, int team);
 	/// Destructor
 	~PlatformRenderComponent();
 	/// Update

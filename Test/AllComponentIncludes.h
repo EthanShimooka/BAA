@@ -13,5 +13,6 @@
 #include "MidPlatSwitchComponentIncludes.h"
 #include "MidPlatShieldComponentIncludes.h"
 #include "ParticleRenderComponent.h"
+#include "FanComponentIncludes.h"
 
 #endif

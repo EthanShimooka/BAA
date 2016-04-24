@@ -51,6 +51,7 @@ configurations.
 #include "MidPlatObjectFactory.h"
 #include "MidBaseObjectFactory.h"
 #include "MidPlatShieldObjectFactory.h"
+#include "FanObjectFactory.h"
 #include "PhysicsListener.h"
 
 #include "SystemInputUpdater.h"
@@ -78,6 +79,7 @@ struct player{
 	TEAM team;
 	UIObject* playerSlot = new UIObject();
 	int playerChoice;
+	bool bottom = false;
 };
 
 extern vector<player*> players;

@@ -26,7 +26,7 @@ class PlayerLogicComponent :  public LogicComponent
 {
 public:
 	/// Constructor
-	PlayerLogicComponent(GameObject* player,int team, bool local);
+	PlayerLogicComponent(GameObject* player,int team);
 	/// Destructor
 	~PlayerLogicComponent();
 	/// Update Function
@@ -35,9 +35,6 @@ public:
 	uint64_t spawnFeather(int mouseX, int mouseY, float speed);
 	/// Spawn Feather (networked)
 	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed);
-	/// Spawn Hero Class Power
-	void spawnShield();
-	void spawnMine();
 	/// When the player is hit by a feather, turn into an egg and roll back to base.
 	/// This function reaches into each component and makes appropriate changes to
 	/// turn the player into an egg
@@ -56,8 +53,7 @@ public:
 	FeatherObjectFactory fFactory;
 	uint64_t featherNum = 0;
 
-	int currBirdseed=0;
-	int maxsBirdseed=5;
+	
 
 	bool charging = false;
 	float currChargePercentage = 0;
@@ -74,7 +70,7 @@ public:
 	bool isEgg = false;
 
 	/// Boolean used to say if this player is local or not
-	bool isLocal = false;
+	//bool isLocal = false;
 	
 };
 

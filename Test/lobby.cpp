@@ -25,21 +25,28 @@ void Lobby::runLobby(){
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
+	SystemUIObjectQueue birdQueue;
 
 	addSlots(queue);
-	drawBirds(queue);
-	assignPlayers(renderMan);
-	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
+	drawBirds(birdQueue);
 
+	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 	player* me = new player();
+
+	assignPlayers();
+		
 	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
 			me = players[i];
 	}
 
+	createButtons(queue);
+
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 	int readyCount = 0;
+
+	//while loop running lobby
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
@@ -50,7 +57,8 @@ void Lobby::runLobby(){
 		NetworkManager::sInstance->SendOutgoingPackets();
 		NetworkManager::sInstance->UpdateLobbyPlayers();
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
-		//check for new players added.
+
+		//check for new players joining.
 		if (numPlayers > inLobbyNow){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
@@ -83,15 +91,12 @@ void Lobby::runLobby(){
 				}
 			}
 		}
-		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 
-		//if (me->ready && NetworkManager::sInstance->IsMasterPeer()){
-		// showing what people selected 
 		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 			for (const auto& player : players){
 				if (player->playerId == iter.first){
 					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
-						std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+						//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
 						player->playerChoice = (UIType)iter.second.classType;
 						player->playerSlot->changePicture = true;
 						player->playerSlot->changeTo = (UIType)iter.second.classType;
@@ -102,7 +107,6 @@ void Lobby::runLobby(){
 			}
 		}
 
-		//std::cout << readyCount << ", " << numPlayers << std::endl;
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
 		}
@@ -110,6 +114,9 @@ void Lobby::runLobby(){
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
+		sysUI.UIUpdate(birdQueue.alive_objects);
+		sysInput.InputUpdate(birdQueue.alive_objects);
+		sysRend.RenderUpdate(birdQueue.alive_objects);
 
 		input->update();
 		
@@ -118,6 +125,7 @@ void Lobby::runLobby(){
 	}
 
 	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
+		deleteBirds(birdQueue);
 		countdown(queue);
 	}
 
@@ -127,16 +135,41 @@ void Lobby::runLobby(){
 	session.Run(players);
 }
 
-void Lobby::cleanUP(SystemUIObjectQueue &q){
+void Lobby::deleteBirds(SystemUIObjectQueue &queue){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	SystemRenderUpdater sysRend;
+	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
+		queue.alive_objects[i]->visible = false;
+	}
+	sysRend.RenderUpdate(queue.alive_objects);
+	sceneMan->AssembleScene();
+	queue.DeleteObjects();
+	Birds.clear();
+}
+
+void Lobby::createButtons(SystemUIObjectQueue &q){
+
+	RenderManager* rendMan = RenderManager::getRenderManager();
+	int w, h;
+
+	rendMan->getWindowSize(&w, &h);
+	UIObjectFactory* invite = new UIObjectFactory();
+	UIObject* inviteButton = invite->Spawn(INVITE_BUTTON, 0, h/2);
+	q.AddObject(inviteButton);
+}
+
+void Lobby::cleanUP(SystemUIObjectQueue &q){
+
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	SystemRenderUpdater sysRend;
+
 	for (unsigned int i = 0; i < q.alive_objects.size(); i++){
 		q.alive_objects[i]->visible = false;
 	}
+
 	sysRend.RenderUpdate(q.alive_objects);
 	sceneMan->AssembleScene();
 	q.DeleteObjects();
-
 }
 
 void Lobby::countdown(SystemUIObjectQueue &q){
@@ -152,8 +185,7 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 	Timing::sInstance.SetLobbyCountdown();
 	Timing::sInstance.SetCountdownStart();
 
-	SDLRenderObject* timerHUD = new SDLRenderObject();
-	timerHUD = dynamic_cast<UIRenderComponent*>(timer->GetComponent(COMPONENT_RENDER))->objRef;
+	SDLRenderObject* timerHUD = dynamic_cast<UIRenderComponent*>(timer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	while (true){
 
@@ -163,13 +195,16 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 		int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
 		string minutes = Timing::sInstance.GetMinutesLeftAsString(timeRemaininginSeconds);
 		string seconds = Timing::sInstance.GetSecondsLeftAsString(timeRemaininginSeconds);
+
 		if (seconds.length() == 1){
 			seconds = "0" + seconds;
 		}
+
 		if (timeRemaininginSeconds == 0){
 			Timing::sInstance.SetGamePlayCountdown();
 			return;
 		}
+
 		std::string title = minutes + ":" + seconds; //concat on the time remaining here!
 		timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 	}
@@ -178,10 +213,10 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
-	int classSize = 1;
 
 	rendMan->getWindowSize(&w, &h);
 	int x, y;
+
 	x = w / 5;
 	y = h / 2;
 	//build class slots
@@ -220,6 +255,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
 	int x = w / 4;
+
 	for (int i = 0; i < maxPlayers; i++){
 		player *p = new player();
 		p->playerId = NULL;
@@ -227,31 +263,39 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			p->team = TEAM_YELLOW;
+			if (NetworkManager::sInstance->IsMasterPeer()){
+				p->team = TEAM_YELLOW;
+			}
+			else{
+				p->team = TEAM_NEUTRAL;
+			}
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			p->team = TEAM_PURPLE;
+			if (NetworkManager::sInstance->IsMasterPeer()){
+				p->team = TEAM_PURPLE;
+			}
+			else{
+				p->team = TEAM_NEUTRAL;
+			}
+			p->bottom = true;
 		}
 		
-		/*UIObjectFactory name;
-		queue.AddObject(name.Spawn(MENU_NAME));*/
 		UIObjectFactory* slot = new UIObjectFactory();
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
 		p->visible = false;
 		p->playerSlot->visible = p->visible;
+		p->playerSlot->bottom = p->bottom;
 		queue.AddObject(p->playerSlot);
 		players.push_back(p);
 	}
 }
 
-void Lobby::assignPlayers(RenderManager* renderMan){
-	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
+void Lobby::assignPlayers(){
 
-	int w, h;
-	renderMan->getWindowSize(&w, &h);
+	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
 
 	int i = 0;
 	for (std::map<uint64_t, string>::iterator it = lobby.begin(); it != lobby.end(); it++){
@@ -267,6 +311,7 @@ void Lobby::assignPlayers(RenderManager* renderMan){
 }
 
 void Lobby::updateLobby(){
+
 	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
 	for (unsigned int i = 0; i < players.size(); i++){
 		std::map<uint64_t, string>::iterator it;
@@ -279,7 +324,6 @@ void Lobby::updateLobby(){
 			players[i]->playerSlot->visible = players[i]->visible;
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow--;
-
 		}
 	}
 }
@@ -305,6 +349,7 @@ void Lobby::addNewPlayers(){
 					players[i]->name = it->second;
 					players[i]->playerSlot->player = it->first;
 					players[i]->playerSlot->visible = players[i]->visible;
+					int team = players[i]->team;
 					break;
 				}
 			}

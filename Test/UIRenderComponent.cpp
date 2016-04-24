@@ -86,7 +86,10 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
-	case SCORE:
+	case INVITE_BUTTON:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 29, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
 		break;
 	case TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();

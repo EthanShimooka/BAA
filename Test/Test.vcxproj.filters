@@ -115,6 +115,18 @@
     <Filter Include="Source Files\Component\Mine Component">
       <UniqueIdentifier>{843b3c67-be3f-40a0-a2d9-32125f227937}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Effect Component">
+      <UniqueIdentifier>{21966f28-28ab-4bec-9818-73c691236d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Effect Component">
+      <UniqueIdentifier>{3573d329-9b55-472d-8901-4b673983827d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Fan Component">
+      <UniqueIdentifier>{e5752f12-cb86-4fe6-80c8-37021245bdc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Fan Component">
+      <UniqueIdentifier>{1e3412cd-7e12-4268-bedd-5e394e2d3949}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -399,11 +411,38 @@
     <ClInclude Include="MineLogicComponent.h">
       <Filter>Header Files\Component\Mine Component</Filter>
     </ClInclude>
-    <ClInclude Include="MineObjectFactory.h">
-      <Filter>Header Files\Component\Mine Component</Filter>
-    </ClInclude>
     <ClInclude Include="MinePhysicsComponent.h">
       <Filter>Header Files\Component\Mine Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemTimerUpdater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Invoke.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectRenderComponent.h">
+      <Filter>Header Files\Component\Effect Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FanObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FanRenderComponent.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FanPhysicsComponent.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MineObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FanComponentIncludes.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FanLogicComponent.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -650,11 +689,35 @@
     <ClCompile Include="MineLogicComponent.cpp">
       <Filter>Source Files\Component\Mine Component</Filter>
     </ClCompile>
-    <ClCompile Include="MineObjectFactory.cpp">
-      <Filter>Source Files\Component\Mine Component</Filter>
-    </ClCompile>
     <ClCompile Include="MinePhysicsComponent.cpp">
       <Filter>Source Files\Component\Mine Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemTimerUpdater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Invoke.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectRenderComponent.cpp">
+      <Filter>Source Files\Component\Effect Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MineObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FanObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FanRenderComponent.cpp">
+      <Filter>Source Files\Component\Fan Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FanPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Fan Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FanLogicComponent.cpp">
+      <Filter>Source Files\Component\Fan Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

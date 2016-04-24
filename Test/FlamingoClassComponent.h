@@ -1,5 +1,10 @@
 #pragma once
+#ifndef FLAMINGOCLASSCOMPONENT_H_INCLUDED
+#define FLAMINGOCLASSCOMPONENT_H_INCLUDED
+
 #include "ClassComponent.h"
+#include "MineObjectFactory.h"
+
 class FlamingoClassComponent :
 	public ClassComponent
 {
@@ -7,7 +12,8 @@ public:
 	FlamingoClassComponent(GameObject* player);
 	~FlamingoClassComponent();
 	void Update();
-	bool UseAbility();
+	int useAbility();
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 };
 
+#endif

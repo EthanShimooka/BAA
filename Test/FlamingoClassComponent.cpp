@@ -33,11 +33,11 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	base->toggleIfRenderImage();
 	int bodyAX = 37;
 	int bodyAY = 65;
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3202, 49 - bodyAX, 55 - bodyAY);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3204, 43 - bodyAX, 82 - bodyAY);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3202, (float)(49 - bodyAX), (float)(55 - bodyAY));
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3204, (float)(43 - bodyAX), (float)(82 - bodyAY));
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3200, 0, -8);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3203, 43 - bodyAX, 82 - bodyAY);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3201, 46 - bodyAX, 54 - bodyAY);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3203, (float)(43 - bodyAX), (float)(82 - bodyAY));
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3201, (float)(46 - bodyAX), (float)(54 - bodyAY));
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
@@ -102,4 +102,21 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	motions2.push_back(makeMotion(rotateTransform(legL, 20, -40), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, -20, 40), 0.5, 0.5, ease_QuadInOut));
 	animations["walk"] = new Animation(400, motions2);
+}
+
+int FlamingoClassComponent::useAbility(){
+	if (currBirdseed == maxsBirdseed){
+		MineObjectFactory mFactory;
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		float targetX, targetY;
+		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
+		GameObject* mine = mFactory.Spawn(powerNum++, gameObjectRef, (int)targetX, (int)targetY);
+		GameObjects.AddObject(mine);
+		currBirdseed = 0;
+		return true;
+	}else{
+	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		return false;
+	}
 }

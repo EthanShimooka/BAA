@@ -18,12 +18,6 @@ int main() {
 int _tmain(int argc, _TCHAR* argv[]){
 	
 	
-	RenderManager* renderMan = RenderManager::getRenderManager();
-	renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
-
-
-	LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
 
 	int numPlayers = 1;
 	if (!GamerServices::StaticInit())
@@ -32,6 +26,14 @@ int _tmain(int argc, _TCHAR* argv[]){
 	if (!NetworkManager::StaticInit()){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
+
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+
+
+	LogManager* log = LogManager::GetLogManager();
+	log->create("log.txt");
+
 
 	Start mainMenu;
 	mainMenu.mainMenu();

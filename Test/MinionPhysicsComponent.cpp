@@ -40,7 +40,7 @@ void MinionPhysicsComponent::init(){
 	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(50, 0));
-	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE);
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -49,42 +49,66 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 
 	MinionRenderComponent * minRend = (MinionRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	switch (otherObj->type){
-	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		//GameObjects.dead_feathers.push_back(gameObjectRef);
-		
-		if (otherObj->team == gameObjectRef->team)break;
-		createParticle(minRend->allObjs["base"], 10, gameObjectRef->posX, gameObjectRef->posY);
-		gameObjectRef->setPos(-10000, 0);
-		//setCollisionFilter(COLLISION_MINION, 0);
-		gameObjectRef->isAlive = false;
-		break;
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
+											 if (otherObj->team == gameObjectRef->team)break;
+											 //Cue Audio/Visual death (UPDATE: Audio is placeholder)
+											 AudioManager* audioMan = AudioManager::getAudioInstance();
+											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+											dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
+											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											 logicComp->MinionDeath();
 
-	case GAMEOBJECT_TYPE::OBJECT_MINION:
-		//just push each other around. Most likely done for us by box2d already
-		//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
-		//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
-		if (otherObj->team != gameObjectRef->team){
-			//std::cout << "shig buzz \n" << std::endl;
-			createParticle(minRend->allObjs["base"], 10, gameObjectRef->posX, gameObjectRef->posY);
-			gameObjectRef->setPos(-10000, 0);
-			gameObjectRef->isAlive = false;
-		
-		}
-
-
-		gameObjectRef->isAlive = false;
-		break;
-	case GAMEOBJECT_TYPE::OBJECT_BASE:{
-		//Still need to visually update dmg to base
-		//Currently destroys minions, updates base health logic, and shakes screen
-		gameObjectRef->setPos(-10000, 0);
-		gameObjectRef->isAlive = false;
-		RenderManager* renderMan = RenderManager::getRenderManager();
-		renderMan->ShakeScreen(0.3f, 0.4f);
-		break;
+											 gameObjectRef->setPos(-10000, 0);
+											 //setCollisionFilter(COLLISION_MINION, 0);
+											 gameObjectRef->isAlive = false;
+											 //GameObjects.dead_feathers.push_back(gameObjectRef);
+											 break;
 	}
-		default:
-			break;
+	case GAMEOBJECT_TYPE::OBJECT_MINION:{
+											//just push each other around. Most likely done for us by box2d already
+											//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
+											//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
+											if (otherObj->team != gameObjectRef->team){
+												//std::cout << "shig buzz \n" << std::endl;
+												//Cue Audio/Visual death (UPDATE: Audio is placeholder)
+												AudioManager* audioMan = AudioManager::getAudioInstance();
+												std::cout << "MINION ON MINION COLLISION" << std::endl;
+												audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+
+												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+												logicComp->MinionDeath();
+												gameObjectRef->setPos(-10000, 0);
+												gameObjectRef->isAlive = false;
+
+											}
+
+
+											//gameObjectRef->isAlive = false;//currently setting the poof to dead,
+											//w/o this obj keeps moving around
+											break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_BASE:{
+										  //Still need to visually update dmg to base
+										  //Currently destroys minions, updates base health logic, and shakes screen
+										  AudioManager* audioMan = AudioManager::getAudioInstance();
+										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+
+										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+										  logicComp->MinionDeath();
+
+										  gameObjectRef->setPos(-10000, 0);
+										  gameObjectRef->isAlive = false;
+										  RenderManager* renderMan = RenderManager::getRenderManager();
+										  renderMan->ShakeScreen(0.3f, 0.4f);
+										  break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_FAN:{
+										 //otherObj;
+										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
+										  break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -105,4 +129,9 @@ void MinionPhysicsComponent::Update(){
 	}
 }
 
+void MinionPhysicsComponent::DestroyMinion(){
+	gameObjectRef->setPos(-10, 1000);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
+	gameObjectRef->isAlive = false;
+}
 	

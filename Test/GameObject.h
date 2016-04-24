@@ -57,6 +57,8 @@ public:
 	uint64_t ID;
 	/// Alive state
 	bool isAlive;
+	/// True if the local player made this object
+	bool isLocal;
 	/// type of game object
 	int type;
 	/// Object team
@@ -121,7 +123,9 @@ enum GAMEOBJECT_TYPE {
 	OBJECT_POWERSHIELD = 5,
 	OBJECT_BASE = 6,
 	OBJECT_MINE = 7,
-	OBJECT_PARTICLE = 8 //change later, maybe
+	OBJECT_EFFECT = 8,
+	OBJECT_FAN = 9,
+	OBJECT_PARTICLE = 10 //change later, maybe
 	//we can keep on adding more as needed
 };
 
