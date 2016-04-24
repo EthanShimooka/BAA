@@ -37,7 +37,7 @@ void FanPhysicsComponent::init()
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_FAN, COLLISION_MINION);
+	setCollisionFilter(COLLISION_FAN, COLLISION_MINION | COLLISION_FEATHER);
 }
 
 
@@ -49,4 +49,8 @@ void FanPhysicsComponent::handleCollision(GameObject* otherObj){
 	default:
 		break;
 	}
+}
+
+void FanPhysicsComponent::Update(){
+	
 }

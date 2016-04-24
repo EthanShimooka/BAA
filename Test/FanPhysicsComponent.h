@@ -1,18 +1,8 @@
 #pragma once
-#include "PhysicsComponent.h"
-class FanPhysicsComponent :
-	public PhysicsComponent
-{
-public:
-	FanPhysicsComponent();
-	~FanPhysicsComponent();
-};
-
-#pragma once
 #ifndef FANPHYSICSCOMPONENT_H_INCLUDED
 #define FANPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
-#include "FanIncludes.h"
+#include "FanComponentIncludes.h"
 class FanPhysicsComponent :	public PhysicsComponent
 {
 public:

@@ -182,6 +182,7 @@ int GameSession::Run(vector<player*> players){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
+	FanObjectFactory fanFactory;
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
@@ -260,6 +261,7 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
 	fount->setScale(0.5);
@@ -277,6 +279,8 @@ int GameSession::Run(vector<player*> players){
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
 
+
+	GameObjects.AddObject(fanFactory.Spawn(54001, -500, -200, 0.0));
 
 	while (gameloop) {
 		current_ticks = clock();

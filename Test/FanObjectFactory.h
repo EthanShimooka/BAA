@@ -3,7 +3,7 @@
 #define FANOBJECTFACTORY_H_INCLUDED
 
 // Component Includes
-#include "FanIncludes.h"
+#include "FanComponentIncludes.h"
 
 #include "Component.h"
 #include "GameObject.h"
@@ -22,7 +22,7 @@ public:
 	/// Destructor
 	~FanObjectFactory();
 	/// Spawn Function
-	GameObject * Spawn(uint64_t PID, float posX, float posY, double rotation);
+	GameObject* Spawn(uint64_t PID, float posX, float posY, double rotation);
 
 };
 
