@@ -2,12 +2,11 @@
 #include "include\network\GamerServices.h"
 
 
-PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team, bool local)
+PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
-	isLocal = local;
 }
 
 
@@ -83,7 +82,7 @@ void PlayerLogicComponent::becomeEgg(){
 		logicComp->isEgg = true;
 
 		// if this is the local Player
-		if (logicComp->isLocal){
+		if (gameObjectRef->isLocal){
 			RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
 		}
 	}

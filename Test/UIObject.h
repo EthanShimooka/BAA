@@ -30,7 +30,7 @@ enum UIType{
 	CANCEL_BUTTON = 2,
 	BACK_BUTTON = 3,
 	JOIN_BUTTON = 4,
-	SCORE = 5,
+	INVITE_BUTTON= 5,
 	TIMER = 6,
 	MENU_NAME = 7,
 	OPTIONS_BUTTON = 8,
@@ -93,6 +93,8 @@ public:
 	bool changePicture = false;
 
 	bool ready = false;
+	
+	bool bottom = false;
 
 	uint64_t player = 0;
 
