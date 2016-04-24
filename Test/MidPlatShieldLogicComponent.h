@@ -20,9 +20,22 @@ class MidPlatShieldLogicComponent :
 	public LogicComponent
 {
 public:
-	MidPlatShieldLogicComponent();
+	MidPlatShieldLogicComponent(GameObject * shield);
 	~MidPlatShieldLogicComponent();
-	void ToggleShield();
+
+	GameObject* spawner;
+	bool shieldtoggle = false;
+
+	clock_t timeSinceToggle;
+
+
+	/// called from MidPlatShieldPhysicsComponent
+	void toggleShield();
+	/// Resets Shield Button
+	void resetShield();
+	/// Update function
+	void Update();
+
 
 };
 

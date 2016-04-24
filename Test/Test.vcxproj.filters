@@ -121,6 +121,12 @@
     <Filter Include="Source Files\Component\Effect Component">
       <UniqueIdentifier>{3573d329-9b55-472d-8901-4b673983827d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Fan Component">
+      <UniqueIdentifier>{e5752f12-cb86-4fe6-80c8-37021245bdc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Fan Component">
+      <UniqueIdentifier>{1e3412cd-7e12-4268-bedd-5e394e2d3949}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -405,9 +411,6 @@
     <ClInclude Include="MineLogicComponent.h">
       <Filter>Header Files\Component\Mine Component</Filter>
     </ClInclude>
-    <ClInclude Include="MineObjectFactory.h">
-      <Filter>Header Files\Component\Mine Component</Filter>
-    </ClInclude>
     <ClInclude Include="MinePhysicsComponent.h">
       <Filter>Header Files\Component\Mine Component</Filter>
     </ClInclude>
@@ -422,6 +425,24 @@
     </ClInclude>
     <ClInclude Include="EffectRenderComponent.h">
       <Filter>Header Files\Component\Effect Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FanObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FanRenderComponent.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FanPhysicsComponent.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MineObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FanComponentIncludes.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FanLogicComponent.h">
+      <Filter>Header Files\Component\Fan Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -685,6 +706,18 @@
     </ClCompile>
     <ClCompile Include="MineObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FanObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FanRenderComponent.cpp">
+      <Filter>Source Files\Component\Fan Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FanPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Fan Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FanLogicComponent.cpp">
+      <Filter>Source Files\Component\Fan Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

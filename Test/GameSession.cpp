@@ -36,12 +36,14 @@ void GameSession::LoadWorld(){
 	MidPlatObjectFactory mpFactory;
 	MidBaseObjectFactory mbFactory;
 	MidPlatShieldObjectFactory psFactory;
+	FanObjectFactory fanFactory;
+
 
 	for (int i = 0; i < 4; i++){
-		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 340), (SCREEN_HEIGHT / 3.1f), 0));
-		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 340), -(SCREEN_HEIGHT / 3.1f), 0));
-		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 340), (SCREEN_HEIGHT / 3.1f), 0));
-		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 340), -(SCREEN_HEIGHT / 3.1f), 0));
+		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));
+		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
+		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));
+		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	for (int i = 0; i < 3; i++){
 		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
@@ -53,6 +55,9 @@ void GameSession::LoadWorld(){
 
 	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
 	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
+
+	//GameObjects.AddObject(fanFactory.Spawn(54001, -400, 0, 0.0));
+
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
@@ -260,6 +265,7 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
 	fount->setScale(0.5);
@@ -276,7 +282,6 @@ int GameSession::Run(vector<player*> players){
 
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
-
 
 	while (gameloop) {
 		current_ticks = clock();

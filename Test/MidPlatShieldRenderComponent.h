@@ -21,6 +21,7 @@ public:
 	MidPlatShieldRenderComponent(GameObject* platform);
 	~MidPlatShieldRenderComponent();
 	/// Void Update function
+
 	void Update();
 };
 

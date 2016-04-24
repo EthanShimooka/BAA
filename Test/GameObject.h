@@ -123,7 +123,9 @@ enum GAMEOBJECT_TYPE {
 	OBJECT_POWERSHIELD = 5,
 	OBJECT_BASE = 6,
 	OBJECT_MINE = 7,
-	OBJECT_EFFECT = 8
+	OBJECT_EFFECT = 8,
+	OBJECT_FAN = 9,
+	OBJECT_PARTICLE = 10 //change later, maybe
 	//we can keep on adding more as needed
 };
 

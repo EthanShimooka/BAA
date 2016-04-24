@@ -92,6 +92,11 @@
     <ClInclude Include="EagleClassComponent.h" />
     <ClInclude Include="EffectObjectFactory.h" />
     <ClInclude Include="EffectRenderComponent.h" />
+    <ClInclude Include="FanComponentIncludes.h" />
+    <ClInclude Include="FanLogicComponent.h" />
+    <ClInclude Include="FanObjectFactory.h" />
+    <ClInclude Include="FanPhysicsComponent.h" />
+    <ClInclude Include="FanRenderComponent.h" />
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
@@ -191,6 +196,10 @@
     <ClCompile Include="EagleClassComponent.cpp" />
     <ClCompile Include="EffectObjectFactory.cpp" />
     <ClCompile Include="EffectRenderComponent.cpp" />
+    <ClCompile Include="FanLogicComponent.cpp" />
+    <ClCompile Include="FanObjectFactory.cpp" />
+    <ClCompile Include="FanPhysicsComponent.cpp" />
+    <ClCompile Include="FanRenderComponent.cpp" />
     <ClCompile Include="FlamingoClassComponent.cpp" />
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />
