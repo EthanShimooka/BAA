@@ -36,6 +36,8 @@ void GameSession::LoadWorld(){
 	MidPlatObjectFactory mpFactory;
 	MidBaseObjectFactory mbFactory;
 	MidPlatShieldObjectFactory psFactory;
+	FanObjectFactory fanFactory;
+
 
 	for (int i = 0; i < 4; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 340), (SCREEN_HEIGHT / 3.1f), 0));
@@ -53,6 +55,9 @@ void GameSession::LoadWorld(){
 
 	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
 	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
+
+	//GameObjects.AddObject(fanFactory.Spawn(54001, -400, 0, 0.0));
+
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
@@ -182,7 +187,6 @@ int GameSession::Run(vector<player*> players){
 	FeatherObjectFactory fFactory;
 	PlatformObjectFactory plFactory;
 	MidPlatObjectFactory mpFactory;
-	FanObjectFactory fanFactory;
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
@@ -278,9 +282,6 @@ int GameSession::Run(vector<player*> players){
 
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
-
-
-	GameObjects.AddObject(fanFactory.Spawn(54001, -250, 0, 0.0));
 
 	while (gameloop) {
 		current_ticks = clock();

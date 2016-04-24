@@ -15,22 +15,19 @@ FanPhysicsComponent::~FanPhysicsComponent(){
 void FanPhysicsComponent::init()
 {
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
+	bodyDef.type = b2_staticBody;
 	bodyDef.fixedRotation = true;
 	bodyDef.position.Set(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale);
 	bodyDef.angle = 0;// ... which direction it's facing
 
 	GameWorld* gameWorld = GameWorld::getInstance();
-	if (!mBody)
-		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
+
+	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2CircleShape box;
-	//with the image used, the mine is 3 times as wide as tall. We bump it up a little more
-	//that just 3 times for a larger proximity. 0.6f is the width for current landmine texture
-	box.m_radius = 2.0f;
+	box.m_radius = 3.0f;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1.0f;
-	boxFixtureDef.friction = 0.5f;
 	boxFixtureDef.isSensor = true;
 	if (!mFixture)
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -39,9 +36,10 @@ void FanPhysicsComponent::init()
 
 	// fan force variables
 	forceStrength = 5.0f;
-	forceVec = b2Vec2(0, -50);
+	forceVec = b2Vec2(0, -500.0f);
 
-	setCollisionFilter(COLLISION_FAN, COLLISION_MINION | COLLISION_FEATHER);
+	setCollisionFilter(COLLISION_FAN, COLLISION_MINION);
+
 }
 
 
