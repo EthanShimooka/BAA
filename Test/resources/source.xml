@@ -87,6 +87,6 @@
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 
-<resource UID="60" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
-
+<resource UID="6000" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
+<resource UID="6001" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
 </resources>

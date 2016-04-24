@@ -115,6 +115,12 @@
     <Filter Include="Source Files\Component\Mine Component">
       <UniqueIdentifier>{843b3c67-be3f-40a0-a2d9-32125f227937}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Effect Component">
+      <UniqueIdentifier>{21966f28-28ab-4bec-9818-73c691236d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Effect Component">
+      <UniqueIdentifier>{3573d329-9b55-472d-8901-4b673983827d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -411,6 +417,12 @@
     <ClInclude Include="Invoke.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EffectObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectRenderComponent.h">
+      <Filter>Header Files\Component\Effect Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -664,6 +676,12 @@
     </ClCompile>
     <ClCompile Include="Invoke.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectRenderComponent.cpp">
+      <Filter>Source Files\Component\Effect Component</Filter>
     </ClCompile>
     <ClCompile Include="MineObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>

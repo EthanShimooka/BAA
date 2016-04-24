@@ -4,6 +4,7 @@
 
 #include "LogicComponent.h"
 #include "MinionComponentIncludes.h"
+#include "EffectObjectFactory.h"
 class MinionLogicComponent : public LogicComponent
 {
 public:
@@ -14,7 +15,8 @@ public:
 	~MinionLogicComponent();
 	/// Update Function
 	void Update();
-
+	/// Visual cues for minion death
+	void MinionDeath();
 	/// indicates how far the minion should travel before going back
 	float length;
 	float initialX;

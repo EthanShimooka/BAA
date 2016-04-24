@@ -185,8 +185,7 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 	Timing::sInstance.SetLobbyCountdown();
 	Timing::sInstance.SetCountdownStart();
 
-	SDLRenderObject* timerHUD = new SDLRenderObject();
-	timerHUD = dynamic_cast<UIRenderComponent*>(timer->GetComponent(COMPONENT_RENDER))->objRef;
+	SDLRenderObject* timerHUD = dynamic_cast<UIRenderComponent*>(timer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	while (true){
 

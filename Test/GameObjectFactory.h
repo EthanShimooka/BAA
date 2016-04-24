@@ -37,6 +37,11 @@ public:
 
 };
 
+enum EFFECT_TYPE{
+	EFFECT_EXPLOSION = 0,
+	EFFECT_PLACEHOLDER = 1
+};
+
 #endif
 
 
