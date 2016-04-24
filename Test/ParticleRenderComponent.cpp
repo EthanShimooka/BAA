@@ -39,17 +39,31 @@ ParticleRenderComponent::ParticleRenderComponent(SDLRenderObject * base, unsigne
 ParticleRenderComponent::~ParticleRenderComponent()
 {
 	for (auto iter = particles.begin(); iter != particles.end(); iter++){
-		delete iter->animations;
 	}
 }
 
 void ParticleRenderComponent::Update(){
 	unsigned int currenttime = clock();
 	progress += currenttime - lasttime;
-	for (auto iter = particles.begin(); iter != particles.end(); iter++){
+	if (particles.empty()){
+		//delete self and remove GameObject from list of objects
+	}
+	for (auto iter = particles.begin(); iter != particles.end();){
 		float curr = iter->animations->lengthConversion(progress);
-		if (curr >= 1.0) iter->sprite->setIfRenderImage(false);
-		else iter->animations->animate(curr);
+		//if (curr >= 1.0) iter->sprite->setIfRenderImage(false);
+		if (curr >= 1.0){
+			//iter->sprite->setIfRenderImage(false);
+			delete iter->animations;
+			SceneManager* sceneMan = SceneManager::GetSceneManager();
+			sceneMan->RemoveObject(iter->sprite, sceneMan->findLayer("layer2"));
+			auto toErase = iter;
+			iter++;
+			particles.erase(toErase);
+		}
+		else{
+			iter->animations->animate(curr);
+			iter++;
+		}
 	}
 	lasttime = currenttime;
 	
