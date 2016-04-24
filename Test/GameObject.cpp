@@ -167,7 +167,17 @@ GameObject::~GameObject(){
 			}
 		}
 		break;
-
+	case OBJECT_EFFECT:
+		for (unsigned int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<EffectRenderComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
 
 
 	default :
