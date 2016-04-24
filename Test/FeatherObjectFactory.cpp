@@ -20,7 +20,8 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 	FeatherLogicComponent* logic;
 	FeatherPhysicsComponent* physics;
 	//FeatherNetworkComponent* net;
-
+	if (owner->isLocal)
+		feather->isLocal = true;
 
 	if (GameObjects.dead_feathers.empty()){ //pool not large enough, add new feather
 		feather = new GameObject();

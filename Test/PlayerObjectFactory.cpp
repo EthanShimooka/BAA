@@ -24,7 +24,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 	player->ID = PID;
 	player->isAlive = true;
 	player->type = GAMEOBJECT_TYPE::OBJECT_PLAYER;
-
+	player->isLocal = local;
 	PlayerRenderComponent* rend = nullptr;
 	ClassComponent* classComp = nullptr;
 	if (team == 1){
@@ -72,7 +72,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 	
 	
 
-	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team, local);
+	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team);
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
 
 	if (local){
