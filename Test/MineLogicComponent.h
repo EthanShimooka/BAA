@@ -3,8 +3,7 @@
 #define MINELOGICCOMPONENT_H_INCLUDED
 #include "LogicComponent.h"
 #include "MineComponentIncludes.h"
-class MineLogicComponent :
-	public LogicComponent
+class MineLogicComponent : public LogicComponent
 {
 public:
 	/// Constructor
