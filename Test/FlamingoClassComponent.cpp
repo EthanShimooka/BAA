@@ -33,11 +33,11 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	base->toggleIfRenderImage();
 	int bodyAX = 37;
 	int bodyAY = 65;
-	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3202, 49 - bodyAX, 55 - bodyAY);
-	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3204, 43 - bodyAX, 82 - bodyAY);
+	SDLRenderObject * armL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3202, (float)(49 - bodyAX), (float)(55 - bodyAY));
+	SDLRenderObject * legL = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3204, (float)(43 - bodyAX), (float)(82 - bodyAY));
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3200, 0, -8);
-	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3203, 43 - bodyAX, 82 - bodyAY);
-	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3201, 46 - bodyAX, 54 - bodyAY);
+	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3203, (float)(43 - bodyAX), (float)(82 - bodyAY));
+	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3201, (float)(46 - bodyAX), (float)(54 - bodyAY));
 
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 

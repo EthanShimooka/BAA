@@ -90,6 +90,8 @@
     <ClInclude Include="ClassComponentIncludes.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="EagleClassComponent.h" />
+    <ClInclude Include="EffectObjectFactory.h" />
+    <ClInclude Include="EffectRenderComponent.h" />
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
@@ -187,6 +189,8 @@
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
     <ClCompile Include="EagleClassComponent.cpp" />
+    <ClCompile Include="EffectObjectFactory.cpp" />
+    <ClCompile Include="EffectRenderComponent.cpp" />
     <ClCompile Include="FlamingoClassComponent.cpp" />
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />

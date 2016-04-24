@@ -133,6 +133,17 @@ bool Timing::SpawnMinions(){
 	}
 }
 
+void Timing::StartExplosionTimer(){
+	explosionStart = clock();
+}
+
+bool Timing::ExplosionTimerEnded(){
+	clock_t difference = clock() - explosionStart;
+	unsigned aliveTime = difference / (CLOCKS_PER_SEC / 1000);
+	if (aliveTime > explosionLengthInMS) return true;
+	else return false;
+}
+
 double Timing::GetTime() const{
 #if _WIN32
 	LARGE_INTEGER curTime, timeSinceStart;
