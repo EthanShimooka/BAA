@@ -37,6 +37,10 @@ void FanPhysicsComponent::init()
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
+	// fan force variables
+	forceStrength = 5.0f;
+	forceVec = b2Vec2(0, -50);
+
 	setCollisionFilter(COLLISION_FAN, COLLISION_MINION | COLLISION_FEATHER);
 }
 
@@ -45,6 +49,7 @@ void FanPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
 		// APPLY FORCE TO MINION
+		dynamic_cast<PhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS))->mBody->ApplyForceToCenter(forceVec, true);
 		break;
 	default:
 		break;

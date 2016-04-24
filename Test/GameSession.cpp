@@ -280,7 +280,7 @@ int GameSession::Run(vector<player*> players){
 	clock_t fps = 0;
 
 
-	GameObjects.AddObject(fanFactory.Spawn(54001, -500, -200, 0.0));
+	GameObjects.AddObject(fanFactory.Spawn(54001, -250, 0, 0.0));
 
 	while (gameloop) {
 		current_ticks = clock();
