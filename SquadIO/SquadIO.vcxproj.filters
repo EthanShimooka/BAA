@@ -80,7 +80,7 @@
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
