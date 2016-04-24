@@ -34,6 +34,9 @@ public:
 	InputManager* input;
 
 private:
+
+	void handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller, b2Body* body);
+	void handleControllerInput(RenderManager* renderMan, InputManager* input, Controller* controller, b2Body* body);
 	/// True if player currently charging a feather
 	bool isChargingAttack = false;
 	/// True if the player attack is not on cooldown

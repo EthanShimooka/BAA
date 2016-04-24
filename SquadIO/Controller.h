@@ -10,6 +10,7 @@
 
 #include "include\sdl2\SDL.h"
 #include "include\InputMap.h"
+#include <time.h>
 #include <vector>
 #include <iostream>
 
@@ -20,8 +21,10 @@ public:
 	std::vector<bool>joystickButtonHeld;
 	std::vector<bool>joystickButtonReleased;
 	std::vector<double> joystickAnalogs;
+	clock_t rightTriggerHoldClock;
 	SDL_Joystick *joystick;
 	SDL_Haptic *haptic;
+	double lastRightTriggerValue;
 	bool rumbleSupport;
 	Controller();
 	~Controller();
@@ -54,6 +57,9 @@ public:
 
 	// get the value of right trigger
 	SQUADIO_API double getRightTrigger();
+
+	// get time the fire button has been held down for
+	SQUADIO_API double getRightTriggerDuration();
 
 	// get the value of left trigger
 	SQUADIO_API bool getLeftBumper();
