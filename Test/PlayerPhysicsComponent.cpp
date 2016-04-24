@@ -95,7 +95,7 @@ void PlayerPhysicsComponent::Update(){
 	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
-		mBody->SetAngularVelocity(3);
+		mBody->SetAngularVelocity(5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
 		if (abs(gameObjectRef->posX) > 900){

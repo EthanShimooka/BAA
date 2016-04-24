@@ -119,6 +119,7 @@ void PlayerLogicComponent::hatchBird(){
 		}else{
 			physicsComp->mBody->SetTransform(pos, 0);
 			gameObjectRef->rotation = 0;
+			renderComp->allObjs["base"]->rotation = 0;
 		}
 		isEgg = false;
 	}
