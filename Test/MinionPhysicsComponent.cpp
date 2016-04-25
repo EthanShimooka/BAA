@@ -72,7 +72,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 												//std::cout << "shig buzz \n" << std::endl;
 												//Cue Audio/Visual death (UPDATE: Audio is placeholder)
 												AudioManager* audioMan = AudioManager::getAudioInstance();
-												std::cout << "MINION ON MINION COLLISION" << std::endl;
+												//std::cout << "MINION ON MINION COLLISION" << std::endl;
 												audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 												createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
 												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
