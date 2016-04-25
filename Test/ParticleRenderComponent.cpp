@@ -19,11 +19,16 @@ ParticleRenderComponent::ParticleRenderComponent(SDLRenderObject * base, unsigne
 		//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 		sprite->setResourceObject(baseImage);
 		SDL_Rect rect = { rand() % (baseRect.w-int(size)), rand() % (baseRect.h-int(size)),size,size};
-		sprite->setRenderRect(rect);
-		float angle = (rand() % 360)*3.14/180;
+ 		sprite->setRenderRect(rect);
+		float u = (rand() % 360) / 360.0;
+		float v = (rand() % 360) / 360.0;
+		float angle1 = 3.14*2*u;
+		float angle2 = acos(2*v - 1);
+
 		std::list<motion> movements;
-		movements.push_back(makeMotion(moveLinearXY(sprite, centerX, centerY, centerX + cos(angle) * 300, centerY+sin(angle) * 300), 0, 1, ease_QuadOut));
-		movements.push_back(makeMotion(rotateTransform(sprite,rand()%360,(rand()%90)-45), 0, 1, ease_QuadOut));
+		movements.push_back(makeMotion(moveLinearXY(sprite, centerX, centerY, centerX + sin(angle1)*cos(angle2) * 300, centerY + sin(angle1)* sin(angle2) * 300), 0, 1, ease_QuadOut));
+		movements.push_back(makeMotion(moveLinearZ(sprite,0,cos(angle1)*10), 0, 1, ease_QuadOut));
+		movements.push_back(makeMotion(rotateTransform(sprite,rand()%360,(rand()%90)-45), 0, 1));
 		Animation * movement = new Animation(1000-(rand()%200),movements);
 		//int maxtime = 100000; //in seconds
 		//std:list<motion> motions;
