@@ -444,6 +444,9 @@
     <ClInclude Include="FanLogicComponent.h">
       <Filter>Header Files\Component\Fan Component</Filter>
     </ClInclude>
+    <ClInclude Include="UIComponentIncludes.h">
+      <Filter>Header Files\Component\UI Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
