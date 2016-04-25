@@ -40,7 +40,7 @@ void MinionPhysicsComponent::init(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(5, 0));
 	//int yForce = rand() % 50 + 250;
-	int yForce = rand() % 350 - 350;
+	float yForce = (float)(rand() % 350 - 350);
 	if (gameObjectRef->team == TEAM_PURPLE){
 		mBody->SetLinearVelocity(b2Vec2(7, 0));
 		mBody->ApplyForce(b2Vec2(50, yForce), mBody->GetWorldCenter(), true);
@@ -118,7 +118,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
 											  //Bounce off the walls
 											  b2Vec2 vel = mBody->GetLinearVelocity();
-											  vel.y = -.5*vel.y;
+											  vel.y = -.5f*vel.y;
+											  //Ensure moving in right direction
 											  if (gameObjectRef->team == TEAM_PURPLE) vel.x = abs(vel.x);
 											  if (gameObjectRef->team == TEAM_YELLOW) vel.x = -abs(vel.x);
 											  mBody->SetLinearVelocity(vel);
