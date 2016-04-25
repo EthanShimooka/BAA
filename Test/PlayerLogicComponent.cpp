@@ -103,18 +103,11 @@ void PlayerLogicComponent::hatchBird(){
 		//reset rotation
 		PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 		b2Vec2 pos;
-			physicsComp->mBody->SetFixedRotation(true);
-			pos = physicsComp->mBody->GetPosition();
-		if (gameObjectRef->posY > 0){
-				gameObjectRef->rotation = 0;
-				renderComp->allObjs["base"]->rotation = 0;
-				physicsComp->mBody->SetTransform(pos, 0);
-		}
-		else{
-			gameObjectRef->rotation = 180;
-			if (gameObjectRef->isLocal)physicsComp->mBody->SetTransform(pos, M_PI);
-			renderComp->allObjs["base"]->rotation = 180;
-		}
+		physicsComp->mBody->SetFixedRotation(true);
+		pos = physicsComp->mBody->GetPosition();
+		gameObjectRef->rotation = 0;
+		physicsComp->mBody->SetTransform(pos, 0);
+		renderComp->allObjs["base"]->rotation = 0;
 		isEgg = false;
 	}
 }
