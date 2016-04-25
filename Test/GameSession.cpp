@@ -252,7 +252,7 @@ int GameSession::Run(vector<player*> players){
 	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
-	int minionCounter = 0;
+	int minionCounter = 10000;
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
