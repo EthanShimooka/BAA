@@ -139,10 +139,19 @@ void Lobby::runLobby(){
 
 	GameSession session = GameSession::GameSession();
 	session.Run(players);
+
+	deletePlayers();
 }
 
 void Lobby::waitForTeam(){
 
+}
+
+void Lobby::deletePlayers(){
+	for (unsigned int i = 0; i < players.size(); i++){
+		delete players[i];
+	}
+	players.clear();
 }
 
 void Lobby::deleteBirds(SystemUIObjectQueue &queue){

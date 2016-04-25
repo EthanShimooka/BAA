@@ -39,6 +39,7 @@ private:
 	//vector<player*> players;
 	void addSlots(SystemUIObjectQueue &q);
 	void deleteBirds(SystemUIObjectQueue &q);
+	void deletePlayers();
 	int playersReady;	
 	int numPlayers;
 	int maxPlayers = 4;
