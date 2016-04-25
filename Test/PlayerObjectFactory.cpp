@@ -75,8 +75,9 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team);
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
 
-	if (local){
-		PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
+	PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
+
+	if (local){		
 		PlayerInputComponent* input = new PlayerInputComponent(player, classComp);
 	}
 

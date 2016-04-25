@@ -47,11 +47,11 @@ std::function<void(float)> moveLinearZ(SDLRenderObject* obj, float startz, float
 	return [=](float i) {obj->posZ = (endz - startz)*i + startz; };
 }
 std::function<void(float)> moveLinearXY(SDLRenderObject* obj, float startx, float starty, float endx, float endy){
-	return [=](float i) {obj->posZ = (endx - startx)*i + startx;
+	return [=](float i) {obj->posX = (endx - startx)*i + startx;
 						 obj->posY = (endy - starty)*i + starty; };
 }
 std::function<void(float)> moveLinearXYZ(SDLRenderObject* obj, float startx, float starty, float startz, float endx, float endy, float endz){
-	return [=](float i) {obj->posZ = (endx - startx)*i + startx;
+	return [=](float i) {obj->posX = (endx - startx)*i + startx;
 					 	 obj->posY = (endy - starty)*i + starty;
 						 obj->posZ = (endz - startz)*i + startz;
 	};
@@ -81,7 +81,7 @@ Animation::Animation(float d, std::list<motion> m){
 }
 
 Animation::~Animation(){
-	std::cout << "Animation destructor called" << std::endl;
+	//std::cout << "Animation destructor called" << std::endl;
 }
 
 

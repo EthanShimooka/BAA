@@ -26,6 +26,7 @@ void Start::mainMenu(){
 	renderMan->zoom = 0.25;
 
 	audioMan->loadAllAudio();
+	audioMan->playByName("bgmBAALobby.ogg");
 	std::cout << audioMan->audioObjects.size() << std::endl;
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";

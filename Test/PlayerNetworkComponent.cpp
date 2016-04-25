@@ -39,6 +39,14 @@ void PlayerNetworkComponent::createMovementPacket(){
 	outgoingPackets.push(outData);
 }
 
+void PlayerNetworkComponent::createDeathPacket(){
+	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write((int)CM_DIE);
+	outgoingPackets.push(outData);
+}
+
 //void PlayerNetworkComponent::createAbilityPacket(uint64_t ID, int finalX, int finalY, float speed){
 //	OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
 //	featherPacket->Write(NetworkManager::sInstance->kPosCC);
@@ -90,6 +98,9 @@ void PlayerNetworkComponent::handleFeatherPacket(InputMemoryBitStream& fPacket){
 	logic->spawnFeather(ID, initialX, initialY, destX, destY, speed);
 }
 
+void PlayerNetworkComponent::handleDeathPacket(){
+	logic->becomeEgg();
+}
 
 void PlayerNetworkComponent::handleAbilityPacket(InputMemoryBitStream& aPacket){
 
@@ -116,6 +127,7 @@ void PlayerNetworkComponent::Update(){
 			handleAbilityPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_DIE:
+			handleDeathPacket();
 			//handle 
 			break;
 		case COMMAND_TYPE::CM_JUMP:

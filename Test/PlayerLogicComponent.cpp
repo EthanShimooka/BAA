@@ -67,15 +67,20 @@ void PlayerLogicComponent::becomeEgg(){
 		//change texture to egg
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		SceneManager* sceneMan = SceneManager::GetSceneManager();
-		SDLRenderObject* eggSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 74, gameObjectRef->posX, gameObjectRef->posY);
-		renderComp->AssignSprite(eggSprite);
+		
 
 		//turn all sprites of player invisible
 		for (auto obj : renderComp->allObjs)obj.second->visible = false;
+		renderComp->allObjs["egg"]->visible=true;
 
-		//convert collider to be a circle
+
+		//allow body to roll and limit sliding
 		PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 		physicsComp->mBody->SetFixedRotation(false);
+		b2Vec2 vel = physicsComp->mBody->GetLinearVelocity();
+		std::cout << "horizontal velocity: " << vel.x << std::endl;
+		vel.x = vel.x > 5 ? 5 : vel.x;
+		physicsComp->mBody->SetLinearVelocity(b2Vec2(vel.x,vel.y));
 
 		//ignore input and roll to base
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
@@ -94,24 +99,19 @@ void PlayerLogicComponent::hatchBird(){
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		//reset sprites
 		for (auto obj : renderComp->allObjs)obj.second->visible = true;
-		SceneManager* sceneMan = SceneManager::GetSceneManager();
-		sceneMan->RemoveObject(renderComp->objRef, sceneMan->findLayer("layer1"));
-		renderComp->objRef = renderComp->allObjs["base"];
+		renderComp->allObjs["egg"]->visible = false;
+
 		//reset positions
 		renderComp->allObjs["base"]->posX = gameObjectRef->posX;
 		renderComp->allObjs["base"]->posY = gameObjectRef->posY;
-		gameObjectRef->posY > 0 ? renderComp->objRef->rotation = 180 : renderComp->objRef->rotation = 0;
 		//reset rotation
 		PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+		b2Vec2 pos;
 		physicsComp->mBody->SetFixedRotation(true);
-		b2Vec2 pos = physicsComp->mBody->GetPosition();
-		if (gameObjectRef->posY > 0){ 
-			gameObjectRef->rotation = 180;
-			physicsComp->mBody->SetTransform(pos, 180);
-		}else{
-			physicsComp->mBody->SetTransform(pos, 0);
-			gameObjectRef->rotation = 0;
-		}
+		pos = physicsComp->mBody->GetPosition();
+		gameObjectRef->rotation = 0;
+		physicsComp->mBody->SetTransform(pos, 0);
+		renderComp->allObjs["base"]->rotation = 0;
 		isEgg = false;
 	}
 }

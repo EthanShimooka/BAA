@@ -1,5 +1,6 @@
 #include "MinionPhysicsComponent.h"
 #include "FanPhysicsComponent.h"
+#include "ParticleRenderComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -57,16 +58,18 @@ void MinionPhysicsComponent::init(){
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
+
+	MinionRenderComponent * minRend = (MinionRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
 											 if (otherObj->team == gameObjectRef->team)break;
 											 //Cue Audio/Visual death (UPDATE: Audio is placeholder)
 											 AudioManager* audioMan = AudioManager::getAudioInstance();
 											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
-											dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
+											 dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMenionDeath();
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											 logicComp->MinionDeath();
-
+											 createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 gameObjectRef->setPos(-10000, 0);
 											 //setCollisionFilter(COLLISION_MINION, 0);
 											 gameObjectRef->isAlive = false;
@@ -78,17 +81,18 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
 											//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
 											if (otherObj->team != gameObjectRef->team){
+												if (gameObjectRef->team == TEAM_YELLOW)
+													std::cout << gameObjectRef->ID % 1000 << " and " << otherObj->ID % 1000 << " collided at " << gameObjectRef->posX << std::endl;
 												//std::cout << "shig buzz \n" << std::endl;
 												//Cue Audio/Visual death (UPDATE: Audio is placeholder)
 												AudioManager* audioMan = AudioManager::getAudioInstance();
-												std::cout << "MINION ON MINION COLLISION" << std::endl;
+												//std::cout << "MINION ON MINION COLLISION" << std::endl;
 												audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
-
+												createParticle(minRend->allObjs["base"], 20, gameObjectRef->posX, gameObjectRef->posY);
 												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												logicComp->MinionDeath();
 												gameObjectRef->setPos(-10000, 0);
 												gameObjectRef->isAlive = false;
-
 											}
 
 
@@ -97,6 +101,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
+										  if (otherObj->team == gameObjectRef->team) break;
 										  //Still need to visually update dmg to base
 										  //Currently destroys minions, updates base health logic, and shakes screen
 										  AudioManager* audioMan = AudioManager::getAudioInstance();

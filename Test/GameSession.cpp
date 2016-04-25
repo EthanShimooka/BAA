@@ -45,10 +45,10 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
-	/*for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
-		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
-	}*/
+	
+	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1200), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1200), 0, 0));
+	
 
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
@@ -56,6 +56,7 @@ void GameSession::LoadWorld(){
 	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
 	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
 
+	//FANS
 	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 50, 500, 90));
 	GameObjects.AddObject(fanFactory.Spawn(54001, -550, 150, 50, -500, -90));
 	GameObjects.AddObject(fanFactory.Spawn(54001, 550, -150, -50, 500, 90));
@@ -243,9 +244,10 @@ int GameSession::Run(vector<player*> players){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	//audioMan->playByName("bgmfostershome.ogg");
+	audioMan->playByName("bgmBAAGameplay.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
+	
 
 
 	//World Loading
@@ -254,7 +256,7 @@ int GameSession::Run(vector<player*> players){
 	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
-	int minionCounter = 0;
+	int minionCounter = 10000;
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
@@ -268,6 +270,9 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+
+
+
 
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
@@ -285,6 +290,13 @@ int GameSession::Run(vector<player*> players){
 
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
+	string fpscounter = "";
+	SDLRenderObject * fpsHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
+	fpsHUD->setPos(0, 0);
+
+
+
 
 	while (gameloop) {
 		current_ticks = clock();
@@ -388,8 +400,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
@@ -419,8 +431,10 @@ int GameSession::Run(vector<player*> players){
 		if (delta_ticks > 0)
 			fps = CLOCKS_PER_SEC / delta_ticks;
 		//std::cout <<" FPS : " << fps << std::endl;
+		fpscounter = std::to_string(fps);
 
-
+		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
+		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
 
 	}
 	/////////////////////////////////////////////////////

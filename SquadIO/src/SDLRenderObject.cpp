@@ -228,16 +228,22 @@ void SDLRenderObject::setCurrentFrame(unsigned int f){
 }
 SDL_Rect SDLRenderObject::getRenderRect(){
 	SDL_Rect rect;
-	rect.w =  renderRect.w / frameWidth;
-	rect.h =  renderRect.h / frameHeight;
-	rect.x = renderRect.x + (frameCurrent%frameWidth)*rect.w;
-	rect.y = renderRect.y + (int)(roundf((float)(frameCurrent / frameWidth)*rect.h));
+	int w = frameWidth, h = frameHeight;
+	if (frameWidth == 0) {
+		w = 1;
+		h = 1;
+	}
+		
+	rect.w =  renderRect.w / w;
+	rect.h =  renderRect.h / h;
+	rect.x = renderRect.x + (frameCurrent% w )*rect.w;
+	rect.y = renderRect.y + (int)(roundf((float)(frameCurrent / w)*rect.h));
 	return rect;
 }
 
 
 void SDLRenderObject::setFrames(unsigned int w, unsigned int h, unsigned int totalFrames){
-	frameWidth = w;
-	frameHeight = h;
+	frameWidth = (w>0) ? w : 1 ;
+	frameHeight = (h>0) ? h : 1;
 	frameTotal = (frameTotal > frameWidth*frameHeight || frameTotal >= 0) ? frameWidth*frameHeight : totalFrames;
 }
