@@ -1,4 +1,5 @@
 #include "MinionPhysicsComponent.h"
+#include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -40,7 +41,7 @@ void MinionPhysicsComponent::init(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(5, 0));
 	//int yForce = rand() % 50 + 250;
-	float yForce = (float)(rand() % 350 - 350);
+	float yForce = (float)(rand() % 700 - 350);
 	if (gameObjectRef->team == TEAM_PURPLE){
 		mBody->SetLinearVelocity(b2Vec2(7, 0));
 		mBody->ApplyForce(b2Vec2(50, yForce), mBody->GetWorldCenter(), true);
@@ -113,7 +114,10 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
 										 //otherObj;
 										  //mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
-										  mBody->ApplyForceToCenter(b2Vec2(0, 500), true);
+										  //FanPhysicsComponent* fanComp = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
+										  //float x = fanComp->forceVec.x;
+										  //float y = fanComp->forceVec.y;
+										  //mBody->ApplyForceToCenter((dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS)))->forceVec, true);
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{

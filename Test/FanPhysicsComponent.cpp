@@ -1,18 +1,18 @@
 #include "FanPhysicsComponent.h"
 
 
-FanPhysicsComponent::FanPhysicsComponent(GameObject* player)
+FanPhysicsComponent::FanPhysicsComponent(GameObject* player, float forceX, float forceY)
 {
 	gameObjectRef = player;
-	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
-	init();
+	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
+	init(forceX, forceY);
 }
 
 FanPhysicsComponent::~FanPhysicsComponent(){
 
 }
 
-void FanPhysicsComponent::init()
+void FanPhysicsComponent::init(float forceX, float forceY)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
@@ -25,7 +25,7 @@ void FanPhysicsComponent::init()
 	mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2CircleShape box;
-	box.m_radius = 3.0f;
+	box.m_radius = 6.0f;
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1.0f;
 	boxFixtureDef.isSensor = true;
@@ -36,7 +36,7 @@ void FanPhysicsComponent::init()
 
 	// fan force variables
 	forceStrength = 5.0f;
-	forceVec = b2Vec2(0, -500.0f);
+	forceVec = b2Vec2(forceX, forceY);
 
 	setCollisionFilter(COLLISION_FAN, COLLISION_MINION);
 
@@ -47,7 +47,7 @@ void FanPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
 		// APPLY FORCE TO MINION
-		//dynamic_cast<PhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS))->mBody->ApplyForceToCenter(forceVec, true);
+		dynamic_cast<PhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS))->mBody->ApplyForceToCenter(forceVec, true);
 		break;
 	default:
 		break;
