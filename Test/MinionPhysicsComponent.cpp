@@ -69,6 +69,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											//std::cout << "Value of coliding minion : " << otherObj->team  << "\n"<< std::endl;
 											//std::cout << "Value of our minion : " << gameObjectRef->team << "\n" << std::endl;
 											if (otherObj->team != gameObjectRef->team){
+												if (gameObjectRef->team == TEAM_YELLOW)
+													std::cout << gameObjectRef->ID % 1000 << " and " << otherObj->ID % 1000 << " collided at " << gameObjectRef->posX << std::endl;
 												//std::cout << "shig buzz \n" << std::endl;
 												//Cue Audio/Visual death (UPDATE: Audio is placeholder)
 												AudioManager* audioMan = AudioManager::getAudioInstance();
@@ -79,7 +81,6 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 												logicComp->MinionDeath();
 												gameObjectRef->setPos(-10000, 0);
 												gameObjectRef->isAlive = false;
-
 											}
 
 
