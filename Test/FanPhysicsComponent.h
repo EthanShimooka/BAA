@@ -6,7 +6,7 @@
 class FanPhysicsComponent :	public PhysicsComponent
 {
 public:
-	FanPhysicsComponent(GameObject* player, float forceX, float forceY);
+	FanPhysicsComponent(GameObject* player);
 	~FanPhysicsComponent();
 	/// Update
 	void Update();
