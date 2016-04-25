@@ -39,6 +39,7 @@ void GameEnd::runGameEnd(int localTeam, GameObject* leftBase, GameObject* rightB
 		text = "No Contest!";
 		break;
 	case 2://leftWins
+		
 		if (localTeam == TEAM_PURPLE) text = "Victory!";
 		else text = "Defeat!";
 		break;

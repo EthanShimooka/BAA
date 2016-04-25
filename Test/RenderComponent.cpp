@@ -50,7 +50,11 @@ void RenderComponent::setAnimation(std::string name){
 		}
 	}
 }
-
+void RenderComponent::setNextAnimation(std::string name){
+	if (animations.count(name)){
+		nextAnimation = animations[name];
+	}
+}
 /// The general animation function, that alters the object's
 
 void RenderComponent::animate(){

@@ -161,6 +161,8 @@ void PlayerInputComponent::Update(){
 
 	//handle charging meter
 	if (isChargingAttack) {
+		renderComp->setAnimation("charge");
+		renderComp->setNextAnimation("charge");
 		if (controller->isControllerOn()){
 			float chargePercent = controller->getRightTriggerDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;

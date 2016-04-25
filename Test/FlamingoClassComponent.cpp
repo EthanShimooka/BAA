@@ -87,6 +87,7 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	std::list<motion> motions;
 	//motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
 	//motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
+	motions.push_back(makeMotion(rotateTransform(armR, 0, 0), 0.0, 1.0, ease_QuadOut));
 	motions.push_back(makeMotion(rotateTransform(legR, 0, 0), 0, 0));
 	motions.push_back(makeMotion(rotateTransform(legL, 0, 0), 0, 0));
 	Animation* idle = new Animation(400, motions);
@@ -97,11 +98,22 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	std::list<motion> motions2;
 	//motions2.push_back(makeMotion(moveCircArc(armR, 0, 5, 5, 0, 360), 0, 1));
 	//motions2.push_back(makeMotion(moveCircArc(armL, 0, 5, 5, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(armR, 0, 0), 0.0, 1.0, ease_QuadOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, -20, 40), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, 20, -40), 0.5, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, 20, -40), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, -20, 40), 0.5, 0.5, ease_QuadInOut));
 	animations["walk"] = new Animation(400, motions2);
+
+	////// THROW ANIMATION 
+	std::list<motion> motions3;
+	//motions3.push_back(makeMotion(keyframeJump(armR, 1), 0.0, 0.0));
+	motions3.push_back(makeMotion(rotateTransform(armR, -100, 0), 0.0, 1.0, ease_QuadOut));
+	animations["throw"] = new Animation(100, motions3);
+	////// CHARGE ANIMATION 
+	std::list<motion> motions4;
+	motions4.push_back(makeMotion(rotateTransform(armR, -20, 0), 0.0, 0.0));
+	animations["charge"] = new Animation(100, motions4);
 }
 
 int FlamingoClassComponent::useAbility(){

@@ -164,6 +164,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 
 	/////// IDLE ANIMATION
 	std::list<motion> motions;
+	motions.push_back(makeMotion(keyframeJump(armR, 0), 0.0, 0.0));
 	motions.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
 	motions.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
 	motions.push_back(makeMotion(rotateTransform(legR, 0, 0), 0, 0));
@@ -174,6 +175,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	//currentAnimation = idle;
 	////// WALKING ANIMATION 
 	std::list<motion> motions2;
+	motions2.push_back(makeMotion(keyframeJump(armR, 0), 0.0, 0.0));
 	motions2.push_back(makeMotion(moveCircArc(armR, 0, 50, 50, 0, 360), 0, 1));
 	motions2.push_back(makeMotion(moveCircArc(armL, 0, 50, 50, 180, 360), 0, 1));
 	motions2.push_back(makeMotion(rotateTransform(legR, -60, 120), 0, 0.5, ease_QuadInOut));
@@ -182,6 +184,16 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	motions2.push_back(makeMotion(rotateTransform(legL, -60, 120), 0.5, 0.5, ease_QuadInOut));
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);	
+
+	////// THROW ANIMATION 
+	std::list<motion> motions3;
+	motions3.push_back(makeMotion(keyframeJump(armR, 1), 0.0, 0.0));
+	motions3.push_back(makeMotion(rotateTransform(armR, -30, 0), 0.0, 1.0,ease_QuadOut));
+	animations["throw"] = new Animation(100, motions3);
+	////// CHARGE ANIMATION 
+	std::list<motion> motions4;
+	motions4.push_back(makeMotion(rotateTransform(armR,-20,0), 0.0, 0.0));
+	animations["charge"] = new Animation(100, motions4);
 }
 
 int ChickenClassComponent::useAbility(){

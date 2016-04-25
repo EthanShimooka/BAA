@@ -78,6 +78,7 @@ public:
 	virtual void ApplyPhysicsRotation(SDLRenderObject* render);
 	/// animation setter
 	void setAnimation(std::string name);
+	void setNextAnimation(std::string name);
 	/// animate based on current animation
 	void animate();
 };

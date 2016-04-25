@@ -51,6 +51,10 @@ void PlayerLogicComponent::Update(){
 
 /// For spawning local feathers
 uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
+	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
+	gameObjectRef->flipH = dx < 0;
+	render->setAnimation("throw");
+	render->setNextAnimation("idle");
 	GameObject* newFeather = fFactory.Spawn(gameObjectRef, featherNum++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
 	GameObjects.AddObject(newFeather);
 	return featherNum - 1;
@@ -60,6 +64,9 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
 	// charge time is one because speed is the feather speed * chargeTime
 	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, speed));
+	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
+	render->setAnimation("throw");
+	render->setNextAnimation("walk");
 }
 
 void PlayerLogicComponent::becomeEgg(){
