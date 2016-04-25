@@ -45,10 +45,10 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
-	for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
-		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
-	}
+	
+		GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1200), 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1200), 0, 0));
+	
 
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
@@ -266,6 +266,9 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+
+
+
 
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
