@@ -31,16 +31,24 @@ void MinionPhysicsComponent::init(){
 
 
 		b2PolygonShape box;
-		box.SetAsBox(1, 1); // look up other functions for polygons
+		box.SetAsBox(.5, .5); // look up other functions for polygons
 		boxFixtureDef.shape = &box;
 		boxFixtureDef.density = 1;
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 		mBody->SetUserData(gameObjectRef);
 	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
-	//mBody->SetLinearVelocity(b2Vec2(50, 0));
-	mBody->ApplyForce(b2Vec2(0, 1), mBody->GetWorldCenter(), true);
-	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN);
+	mBody->SetLinearVelocity(b2Vec2(5, 0));
+	//int yForce = rand() % 50 + 250;
+	int yForce = rand() % 350 - 350;
+	if (gameObjectRef->team == TEAM_PURPLE){
+		mBody->SetLinearVelocity(b2Vec2(5, 0));
+	}
+	else if (gameObjectRef->team == TEAM_YELLOW){
+		mBody->SetLinearVelocity(b2Vec2(-5, 0));
+	}
+	mBody->ApplyForce(b2Vec2(100, yForce), mBody->GetWorldCenter(), true);
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN | COLLISION_PLATFORM);
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -104,6 +112,13 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										 //otherObj;
 										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
 										  break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
+											  //Bounce off the walls
+											  b2Vec2 vel = mBody->GetLinearVelocity();
+											  //mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y));
+											  mBody->ApplyForce(b2Vec2(0, 50), mBody->GetWorldCenter(), true);
+											  break;
 	}
 	default:
 		break;
