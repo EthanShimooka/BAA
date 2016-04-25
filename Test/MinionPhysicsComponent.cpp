@@ -42,7 +42,21 @@ void MinionPhysicsComponent::init(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(5, 0));
 	//int yForce = rand() % 50 + 250;
-	float yForce = (float)(rand() % 700 - 350);
+
+	float rando[10] = {
+		-325,
+		325,
+		-100,
+		50,
+		-25,
+		180,
+		-270,
+		60,
+		-180,
+		300
+	};
+
+	float yForce = rando[(gameObjectRef->ID%10)];
 	if (gameObjectRef->team == TEAM_PURPLE){
 		mBody->SetLinearVelocity(b2Vec2(7, 0));
 		mBody->ApplyForce(b2Vec2(50, yForce), mBody->GetWorldCenter(), true);
