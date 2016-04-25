@@ -81,7 +81,7 @@ Animation::Animation(float d, std::list<motion> m){
 }
 
 Animation::~Animation(){
-	std::cout << "Animation destructor called" << std::endl;
+	//std::cout << "Animation destructor called" << std::endl;
 }
 
 

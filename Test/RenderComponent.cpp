@@ -32,8 +32,6 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 	if (objRef){
 		//there is an SDLObject here that should be removed from the render/scene managers
 		std::cout << "AssignSprite(34): free old objRef here" << std::endl;
-		SceneManager* sceneMan = SceneManager::GetSceneManager();
-		sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer2"));
 	}
 	objRef = rend;
 }
