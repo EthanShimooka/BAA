@@ -47,7 +47,7 @@ void FanPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
 		// APPLY FORCE TO MINION
-		dynamic_cast<PhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS))->mBody->ApplyForceToCenter(forceVec, true);
+		//dynamic_cast<PhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS))->mBody->ApplyForceToCenter(forceVec, true);
 		break;
 	default:
 		break;

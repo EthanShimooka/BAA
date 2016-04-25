@@ -112,7 +112,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
 										 //otherObj;
-										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
+										  //mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
+										  mBody->ApplyForceToCenter(b2Vec2(0, 500), true);
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
