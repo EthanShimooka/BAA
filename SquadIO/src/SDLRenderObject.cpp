@@ -237,7 +237,7 @@ SDL_Rect SDLRenderObject::getRenderRect(){
 
 
 void SDLRenderObject::setFrames(unsigned int w, unsigned int h, unsigned int totalFrames){
-	frameWidth = w;
-	frameHeight = h;
+	frameWidth = (w>0) ? w : 1 ;
+	frameHeight = (h>0) ? h : 1;
 	frameTotal = (frameTotal > frameWidth*frameHeight || frameTotal >= 0) ? frameWidth*frameHeight : totalFrames;
 }

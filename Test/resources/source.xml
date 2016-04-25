@@ -56,6 +56,19 @@
 <resource UID="2011" type="graphic" filename="Game_minion_2.png" scenescope="0"></resource>
 <resource UID="2013" type="graphic" filename="Game_platform_yellow.png" scenescope="0"></resource>
 <resource UID="2014" type="graphic" filename="Game_platform_purple.png" scenescope="0"></resource>
+
+<resource UID="2015" type="graphic" filename="Base_yellow_body.png" scenescope="0"></resource>
+<resource UID="2016" type="graphic" filename="Base_purple_body.png" scenescope="0"></resource>
+<resource UID="2017" type="graphic" filename="Base_nest.png" scenescope="0"></resource>
+<resource UID="2018" type="graphic" filename="Base_head.png" scenescope="0"></resource>
+<resource UID="2019" type="graphic" filename="Base_eye.png" scenescope="0"></resource>
+<resource UID="2020" type="graphic" filename="Base_top_beak.png" scenescope="0"></resource>
+<resource UID="2021" type="graphic" filename="Base_bottom_beak.png" scenescope="0"></resource>
+<resource UID="2022" type="graphic" filename="Base_tail.png" scenescope="0"></resource>
+<resource UID="2023" type="graphic" filename="Base_arm.png" scenescope="0"></resource>
+<resource UID="2024" type="graphic" filename="Base_yellow_mowhawk.png" scenescope="0"></resource>
+<resource UID="2025" type="graphic" filename="Base_purple_mowhawk.png" scenescope="0"></resource>
+
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>
 <resource UID="3002" type="graphic" filename="Player_Chicken_Arm_2.png" scenescope="0"></resource>
@@ -90,7 +103,8 @@
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
 <resource UID="8000" type="graphic" filename="fan.png" scenescope="0"></resource>
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
-<resource UID="6000" type="audio" filename="bgmfostershome.ogg" scenescope="0"></resource>
-<resource UID="6001" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
+<resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
+<resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
+<resource UID="6010" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
 
 </resources>

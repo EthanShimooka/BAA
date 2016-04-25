@@ -45,16 +45,16 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
-	for (int i = 0; i < 3; i++){
-		GameObjects.AddObject(mpFactory.Spawn(504000 + i, (float)(-i * 350), 0, 0));
-		GameObjects.AddObject(mpFactory.Spawn(505000 + i, (float)(i * 350), 0, 0));
-	}
+	
+		GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1200), 0, 0));
+		GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1200), 0, 0));
+	
 
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 
-	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(506001, 975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506002, -975, 0, 0, TEAM_PURPLE);
 
 	//GameObjects.AddObject(fanFactory.Spawn(54001, -400, 0, 0.0));
 
@@ -240,9 +240,10 @@ int GameSession::Run(vector<player*> players){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	//audioMan->playByName("bgmfostershome.ogg");
+	audioMan->playByName("bgmBAAGameplay.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
+	
 
 
 	//World Loading
@@ -251,7 +252,7 @@ int GameSession::Run(vector<player*> players){
 	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
-	int minionCounter = 0;
+	int minionCounter = 10000;
 
 	//*/
 	for (int j = -800; j <= 800; j += 200){
@@ -265,6 +266,9 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+
+
+
 
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
@@ -282,6 +286,13 @@ int GameSession::Run(vector<player*> players){
 
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
+	string fpscounter = "";
+	SDLRenderObject * fpsHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
+	fpsHUD->setPos(0, 0);
+
+
+	bool gameEnd = false;
 
 	while (gameloop) {
 		current_ticks = clock();
@@ -328,16 +339,23 @@ int GameSession::Run(vector<player*> players){
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		//CAMERA MOVEMENT - based on player position
-		if (player){
-			//Camera Shake
-			if ((!rightBase->isAlive || !leftBase->isAlive) && !endedBaseShake) {
-				endedBaseShake = true;
-				renderMan->ShakeScreen(1, 1);
+		if (!gameEnd){
+			if (player){
+				//Camera Shake
+				if ((!rightBase->isAlive || !leftBase->isAlive) && !endedBaseShake) {
+					endedBaseShake = true;
+					renderMan->ShakeScreen(1, 1);
+				}
+				int mousePos = input->getMouseX();
+				int wid, hei;
+				renderMan->getWindowSize(&wid, &hei);
+				float xRatio = (mousePos - wid / 2) / float(wid / 2);
+				float xPlus = (wid / 4) - 20;
+				//std::cout << xRatio << std::endl;
+				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);
+
 			}
-			renderMan->setCameraPoint(player->posX, 0);
-			
 		}
-		
 		int length = 20;
 		float loop = (float)(var % length);
 
@@ -385,8 +403,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 800, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -800, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
@@ -394,6 +412,7 @@ int GameSession::Run(vector<player*> players){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
 				if (GamerServices::sInstance->GetLocalPlayerId() == players[i]->playerId){
@@ -416,8 +435,10 @@ int GameSession::Run(vector<player*> players){
 		if (delta_ticks > 0)
 			fps = CLOCKS_PER_SEC / delta_ticks;
 		//std::cout <<" FPS : " << fps << std::endl;
+		fpscounter = std::to_string(fps);
 
-
+		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
+		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
 
 	}
 	/////////////////////////////////////////////////////

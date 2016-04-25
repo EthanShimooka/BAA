@@ -138,6 +138,9 @@ void Lobby::runLobby(){
 	cleanUP(queue);
 
 	GameSession session = GameSession::GameSession();
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->stopByName("bgmBAALobby.ogg");
+
 	session.Run(players);
 
 	deletePlayers();

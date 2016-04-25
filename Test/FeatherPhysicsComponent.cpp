@@ -32,7 +32,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	mBody->SetUserData(gameObjectRef);
 	
 	if (gameObjectRef->isLocal)
-		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH);
+		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH | COLLISION_PLAYER);
 	else
 		setCollisionFilter(COLLISION_FEATHER, COLLISION_BASE | COLLISION_SWITCH);
 	
@@ -42,7 +42,8 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	float xAngle = dx - initX;
 	if (xAngle == 0)xAngle = 0.00001f;
 	gameObjectRef->rotation = (float)(atan((dy - initY) / (xAngle)) / M_PI * 180);
-	gameObjectRef->flipH = !(dx-initX > 0);
+	//gameObjectRef->flipH = !(dx-initX < 0);
+	if (dx - initX < 0) gameObjectRef->rotation += 180;
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), gameObjectRef->rotation / (float)(180.0 * M_PI));
 
 	// have to play with the ratio to find a good solution
@@ -57,7 +58,8 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_MINION:{
 											//give birdseed
 											if (otherObj->team == gameObjectRef->team)break;
-											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
+											if (gameObjectRef->isLocal)
+												dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(1);
 											//destroy self or return to object pool
 											gameObjectRef->isAlive = false;
 											break;
@@ -65,7 +67,8 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
 											//destroy self or return to object pool
 											if (otherObj->team == gameObjectRef->team)break;
-											dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
+											if (gameObjectRef->isLocal)
+												dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
 											gameObjectRef->isAlive = false;
 											break;
 	}

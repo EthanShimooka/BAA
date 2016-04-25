@@ -18,7 +18,7 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 		allObjs["base"] = objRef;
 	}
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setIfRenderRect(true);
+	//box->setIfRenderRect(true);
 	allObjs["box"] = box;
 }
 

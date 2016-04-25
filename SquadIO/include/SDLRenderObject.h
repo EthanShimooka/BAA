@@ -73,9 +73,9 @@ public:
 	/// current frame of the animation sheet
 	unsigned int frameCurrent;
 	/// number of frames arranged horizontally
-	unsigned int frameWidth;
+	unsigned int frameWidth = 1;
 	/// number of frames arranged vertically
-	unsigned int frameHeight;
+	unsigned int frameHeight = 1;
 
 	/// SDL color key paramater, usually should not be tampared with
 	SDL_Color colorKey;

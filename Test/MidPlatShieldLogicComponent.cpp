@@ -19,7 +19,7 @@ void MidPlatShieldLogicComponent::toggleShield(){
 
 		MidPlatShieldPhysicsComponent* physicsComp = dynamic_cast<MidPlatShieldPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 		//physicsComp->setCollisionFilter(COLLISION_PLATFORM, 0);
-		physicsComp->setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER);
+		physicsComp->setCollisionFilter(COLLISION_SWITCH, COLLISION_FEATHER);
 		physicsComp->changeShape();
 
 		timeSinceToggle = clock();
@@ -73,7 +73,6 @@ void MidPlatShieldLogicComponent::Update(){
 
 	clock_t clockDiff = clock() - timeSinceToggle;
 	unsigned aliveTime = clockDiff / (CLOCKS_PER_SEC / 1000);
-	std::cout << "time is " << clockDiff << std::endl;
 	if (clockDiff > 5000)
 		resetShield();
 

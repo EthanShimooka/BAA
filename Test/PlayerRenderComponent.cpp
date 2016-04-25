@@ -21,9 +21,15 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 	name->setPos(0, -60);
 	allObjs["name"] = name;
 	if (allObjs["box"])allObjs["box"]->visible = true;
-	//ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	//classComp->animation(&objRef, allObjs, animations);
+	
 
+	//pick random egg resource. currently hardcoded to 74
+	SDLRenderObject* egg = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 74, 0, 0);
+	egg->visible = false;
+	egg->setParent(allObjs["base"]);
+	allObjs["egg"] = egg;
+
+	//assign animations
 	func(&objRef, allObjs, animations);
 }
 
@@ -35,6 +41,22 @@ PlayerRenderComponent::~PlayerRenderComponent()
 	}
 }
 
+void PlayerRenderComponent::setAnimation(std::string name){
+	if (currentAnimation == animations["throw"]) return;
+	if (currentAnimation == animations["charge"] && name.compare("throw") != 0) return;
+	if (animations.count(name)){
+		if (currentAnimation != animations[name]){
+			currentAnimation = animations[name];
+			progress = 0;
+			lasttime = clock();
+		}
+	}
+}
+void PlayerRenderComponent::setNextAnimation(std::string name){
+	if (animations.count(name)){
+		nextAnimation = animations[name];
+	}
+}
 
 void PlayerRenderComponent::Update(){
 	RenderComponent::Update();
@@ -44,6 +66,9 @@ void PlayerRenderComponent::Update(){
 	//move the player's name next to the player
 	if(gameObjectRef->posY>0)allObjs["name"]->setPos(allObjs["base"]->getPosX(), -40 + allObjs["base"]->getPosY());
 	else allObjs["name"]->setPos(allObjs["base"]->getPosX(), +40 + allObjs["base"]->getPosY());
+	//move egg with player
+	allObjs["egg"]->setPos(allObjs["base"]->posX, allObjs["base"]->posY);
+	allObjs["egg"]->rotation = gameObjectRef->rotation;
 	//draw hitbox
 	if (!gameObjectRef->isAlive){
 		if (allObjs["box"])allObjs["box"]->visible = false;

@@ -74,15 +74,17 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 }
 
 void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller){
-	if (logicComp->isEgg)return;
 	b2Body* body = physicsComp->mBody;
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 	}
 	//keyboard move left
-	if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
+	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+	}
+	else{
+		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 	}
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
@@ -138,8 +140,10 @@ void PlayerInputComponent::Update(){
 	b2Body* body = physicsComp->mBody;
 
 	//handle input from sources
-	handleControllerInput(renderMan, input, controller);
-	handleKeyboardInput(renderMan, input, controller);
+	if (!logicComp->isEgg){
+		handleControllerInput(renderMan, input, controller);
+		handleKeyboardInput(renderMan, input, controller);
+	}
 	//handle input bounds stuff here to make sure you don't double up on inputs from both
 
 	//2 Sec delay on feather firing, need some visual representation of cd
@@ -157,11 +161,16 @@ void PlayerInputComponent::Update(){
 
 	//handle charging meter
 	if (isChargingAttack) {
+		renderComp->setAnimation("charge");
+		renderComp->setNextAnimation("charge");
 		if (controller->isControllerOn()){
 			float chargePercent = controller->getRightTriggerDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
 		}
-		else logicComp->currChargePercentage = input->getMousePressDuration() / maxCharge;
+		else{
+			float chargePercent = input->getMousePressDuration() / maxCharge;
+			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
+		}
 	}
 }
 

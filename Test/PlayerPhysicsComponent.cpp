@@ -34,7 +34,8 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE);
+
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER);
 }
 
 
@@ -46,8 +47,12 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//do nothing or push past each other
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		if (otherObj->team == gameObjectRef->team)break;
 		//signal self death and turn to egg
-		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+		if (otherObj->isLocal){
+			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
+			dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->createDeathPacket();
+		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
 		inAir = false;
@@ -81,11 +86,16 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5f));
 		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
 	}
-	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
-	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	if (gameObjectRef->isLocal){
+		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	}
+	else{
+		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale),mBody->GetAngle());
+	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
-		mBody->SetAngularVelocity(3);
+		mBody->SetAngularVelocity(5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
 		if (abs(gameObjectRef->posX) > 900){

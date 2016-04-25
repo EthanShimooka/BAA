@@ -29,6 +29,8 @@ public:
 	void Update();
 	/// variable that decides where to aim
 	float aimRotation;
+	void setAnimation(std::string name);
+	void setNextAnimation(std::string name);
 	/// Reference to the crosshair UIObject's image
 	SDLRenderObject* crosshairRef;
 	// Reference to charge bar that follows player

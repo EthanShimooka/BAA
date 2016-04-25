@@ -19,7 +19,9 @@ class MidBaseRenderComponent :
 	public RenderComponent
 {
 public:
-	MidBaseRenderComponent(GameObject * base);
+	void buildBody(int team);
+	void buildAnimations();
+	MidBaseRenderComponent(GameObject * base,int team = TEAM_YELLOW);
 	~MidBaseRenderComponent();
 
 	void Update();
