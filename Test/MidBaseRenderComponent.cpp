@@ -44,7 +44,7 @@ void MidBaseRenderComponent::buildBody(int team){
 	beak_bot->setParent(head);
 
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setIfRenderRect(true);
+	//box->setIfRenderRect(true);
 	allObjs["box"] = box;
 	allObjs["base"] = objRef;
 
@@ -91,7 +91,7 @@ MidBaseRenderComponent::~MidBaseRenderComponent()
 
 void MidBaseRenderComponent::Update(){
 	RenderComponent::Update();
-	RenderBoundingBox((allObjs["box"]));
+	//RenderBoundingBox((allObjs["box"]));
 	RenderComponent::animate();
 
 }
