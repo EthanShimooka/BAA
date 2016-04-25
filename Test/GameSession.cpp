@@ -243,6 +243,7 @@ int GameSession::Run(vector<player*> players){
 	//audioMan->playByName("bgmfostershome.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
+	
 
 
 	//World Loading
@@ -282,6 +283,13 @@ int GameSession::Run(vector<player*> players){
 
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
+	string fpscounter = "";
+	SDLRenderObject * fpsHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
+	fpsHUD->setPos(0, 0);
+
+
+
 
 	while (gameloop) {
 		current_ticks = clock();
@@ -416,8 +424,10 @@ int GameSession::Run(vector<player*> players){
 		if (delta_ticks > 0)
 			fps = CLOCKS_PER_SEC / delta_ticks;
 		//std::cout <<" FPS : " << fps << std::endl;
+		fpscounter = std::to_string(fps);
 
-
+		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
+		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
 
 	}
 	/////////////////////////////////////////////////////
