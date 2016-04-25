@@ -67,11 +67,12 @@ void PlayerLogicComponent::becomeEgg(){
 		//change texture to egg
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		SceneManager* sceneMan = SceneManager::GetSceneManager();
-		SDLRenderObject* eggSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 74, gameObjectRef->posX, gameObjectRef->posY);
-		renderComp->AssignSprite(eggSprite);
+		
 
 		//turn all sprites of player invisible
 		for (auto obj : renderComp->allObjs)obj.second->visible = false;
+		renderComp->allObjs["egg"]->visible=true;
+
 
 		//convert collider to be a circle
 		PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
@@ -94,9 +95,8 @@ void PlayerLogicComponent::hatchBird(){
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		//reset sprites
 		for (auto obj : renderComp->allObjs)obj.second->visible = true;
-		SceneManager* sceneMan = SceneManager::GetSceneManager();
-		sceneMan->RemoveObject(renderComp->objRef, sceneMan->findLayer("layer1"));
-		renderComp->objRef = renderComp->allObjs["base"];
+		renderComp->allObjs["egg"]->visible = false;
+
 		//reset positions
 		renderComp->allObjs["base"]->posX = gameObjectRef->posX;
 		renderComp->allObjs["base"]->posY = gameObjectRef->posY;
