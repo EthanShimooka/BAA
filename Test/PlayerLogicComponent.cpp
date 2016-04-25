@@ -74,9 +74,13 @@ void PlayerLogicComponent::becomeEgg(){
 		renderComp->allObjs["egg"]->visible=true;
 
 
-		//convert collider to be a circle
+		//allow body to roll and limit sliding
 		PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 		physicsComp->mBody->SetFixedRotation(false);
+		b2Vec2 vel = physicsComp->mBody->GetLinearVelocity();
+		std::cout << "horizontal velocity: " << vel.x << std::endl;
+		vel.x = vel.x > 5 ? 5 : vel.x;
+		physicsComp->mBody->SetLinearVelocity(b2Vec2(vel.x,vel.y));
 
 		//ignore input and roll to base
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
