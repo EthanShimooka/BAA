@@ -124,3 +124,7 @@ int QuailClassComponent::useAbility(){
 	std::cout << "quailclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
 }
+
+int QuailClassComponent::getClass(){
+	return CLASS_QUAIL;
+}

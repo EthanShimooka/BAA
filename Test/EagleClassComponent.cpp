@@ -107,3 +107,7 @@ int EagleClassComponent::useAbility(){
 	std::cout << "eagleclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
 }
+
+int EagleClassComponent::getClass(){
+	return CLASS_EAGLE;
+}
