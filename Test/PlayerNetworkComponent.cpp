@@ -101,8 +101,8 @@ void PlayerNetworkComponent::handleFeatherPacket(InputMemoryBitStream& fPacket){
 
 void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	uint64_t shooterID;
-	dPacket.Read(shooterID);
-	std::cout << "SHOOTER ID: " << shooterID << std::endl;
+	dPacket.Read(shooterID );
+	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
 	logic->becomeEgg();
 }
 
