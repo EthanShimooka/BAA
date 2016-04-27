@@ -69,9 +69,6 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 
 	//PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
-	
-	
-
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team);
 	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
 

@@ -4,6 +4,7 @@
 
 #include "ClassComponent.h"
 #include "MineObjectFactory.h"
+#include "PlayerObjectFactory.h"
 
 class FlamingoClassComponent :
 	public ClassComponent
@@ -14,6 +15,8 @@ public:
 	void Update();
 	int useAbility();
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
+	int getClass();
+	int maxBirdseed = 7;
 };
 
 #endif

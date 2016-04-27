@@ -197,7 +197,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int ChickenClassComponent::useAbility(){
-	if (currBirdseed == maxsBirdseed){
+	if (currBirdseed == maxBirdseed){
 		PowerShieldObjectFactory sFactory;
 		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
 		else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
@@ -208,4 +208,8 @@ int ChickenClassComponent::useAbility(){
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 		return false;
 	}
+}
+
+int ChickenClassComponent::getClass(){
+	return CLASS_CHICKEN;
 }

@@ -46,6 +46,8 @@ public:
 	/// in order to update charge bar appropriately
 	void startCharge();
 	void endCharge();
+	/// Returns the maximum birdseed for each individual class
+	int getMaxBirdseedByClass(int playerClass);
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
 	//PowerShieldObjectFactory sFactory;

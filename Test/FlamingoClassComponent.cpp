@@ -117,7 +117,7 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed == maxsBirdseed){
+	if (currBirdseed == maxBirdseed){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
@@ -131,4 +131,8 @@ int FlamingoClassComponent::useAbility(){
 	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 		return false;
 	}
+}
+
+int FlamingoClassComponent::getClass(){
+	return CLASS_FLAMINGO;
 }
