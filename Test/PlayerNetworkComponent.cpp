@@ -39,11 +39,12 @@ void PlayerNetworkComponent::createMovementPacket(){
 	outgoingPackets.push(outData);
 }
 
-void PlayerNetworkComponent::createDeathPacket(){
+void PlayerNetworkComponent::createDeathPacket(uint64_t shooter){
 	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
 	outData->Write((int)CM_DIE);
+	outData->Write(shooter);
 	outgoingPackets.push(outData);
 }
 
@@ -98,7 +99,10 @@ void PlayerNetworkComponent::handleFeatherPacket(InputMemoryBitStream& fPacket){
 	logic->spawnFeather(ID, initialX, initialY, destX, destY, speed);
 }
 
-void PlayerNetworkComponent::handleDeathPacket(){
+void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
+	uint64_t shooterID;
+	dPacket.Read(shooterID);
+	std::cout << "SHOOTER ID: " << shooterID << std::endl;
 	logic->becomeEgg();
 }
 
@@ -127,7 +131,7 @@ void PlayerNetworkComponent::Update(){
 			handleAbilityPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_DIE:
-			handleDeathPacket();
+			handleDeathPacket(packet);
 			//handle 
 			break;
 		case COMMAND_TYPE::CM_JUMP:
