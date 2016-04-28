@@ -93,6 +93,11 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
 	}
 
+	//TEST ONLY
+	if (input->isKeyDown(KEY_P) && !physicsComp->inAir) {
+		PlayerLogicComponent* net = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		net->launchable = true;
+	}
 	//shoot feather
 	if (input->isMouseDown(MOUSE_LEFT) && canFire){ 
 		//old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
