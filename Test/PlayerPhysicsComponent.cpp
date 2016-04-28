@@ -35,7 +35,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER);
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER );
 }
 
 
@@ -69,6 +69,9 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 			}
 		}
 		break;
+
+	
+
 	default:
 		break;
 	}
@@ -102,4 +105,28 @@ void PlayerPhysicsComponent::Update(){
 			logicComp->hatchBird();
 		}
 	}
+
+	if (logicComp->launchable){
+
+		logicComp->becomeEgg();
+		std::cout << "horizontal velocity: " << vel.x << std::endl;
+
+		mBody->SetLinearVelocity(b2Vec2(vel.x  + -1.0f, vel.y - 0.1f));
+		//check if back at base yet
+		if (gameObjectRef->posX < 0){
+			
+			vel.x = 0;
+			vel.y = 0;
+			mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y));
+			logicComp->launchable = false;
+			b2Vec2 pos;
+			pos = mBody->GetPosition();
+			gameObjectRef->rotation = 0;
+			mBody->SetTransform(pos, 0);
+			logicComp->hatchBird();
+		}
+	}
+
+
+
 }
