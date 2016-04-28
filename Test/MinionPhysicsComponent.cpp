@@ -155,6 +155,18 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 }
 
+void MinionPhysicsComponent::endCollision(GameObject* otherObj){
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_FAN: 
+		isGettingBlown = false;
+		blownForce = b2Vec2_zero;
+		break;
+
+	default:
+		break;
+	}
+}
+
 void MinionPhysicsComponent::Update(){
 	if (gameObjectRef->isAlive){
 		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
@@ -163,6 +175,9 @@ void MinionPhysicsComponent::Update(){
 	else{
 		gameObjectRef->setPos(-10, 1000);
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
+	}
+	if (isGettingBlown){
+		mBody->ApplyForceToCenter(blownForce, false);
 	}
 	//temp testing code from here down
 
