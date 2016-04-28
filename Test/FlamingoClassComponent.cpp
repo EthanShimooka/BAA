@@ -4,7 +4,7 @@
 FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	speed = 16;
+	speed = 14;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;
