@@ -144,8 +144,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											  b2Vec2 vel = mBody->GetLinearVelocity();
 											  vel.y = -.5f*vel.y;
 											  //Ensure moving in right direction
-											  if (gameObjectRef->team == TEAM_PURPLE) vel.x = abs(vel.x);
-											  if (gameObjectRef->team == TEAM_YELLOW) vel.x = -abs(vel.x);
+											  if (gameObjectRef->team == TEAM_YELLOW) vel.x = abs(vel.x);
+											  if (gameObjectRef->team == TEAM_PURPLE) vel.x = -abs(vel.x);
 											  mBody->SetLinearVelocity(vel);
 											  //mBody->ApplyForce(b2Vec2(0, -50*mBody->GetLinearVelocity().y), mBody->GetWorldCenter(), true);
 											  break;

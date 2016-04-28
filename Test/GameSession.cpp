@@ -60,7 +60,7 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 5, 10, 90));
 	GameObjects.AddObject(fanFactory.Spawn(54001, -550, 150, 5, -10, -90));
 	GameObjects.AddObject(fanFactory.Spawn(54001, 550, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 550, 150, -5, 10, -90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 550, 150, -5, -10, -90));
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
