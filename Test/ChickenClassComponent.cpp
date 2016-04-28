@@ -11,6 +11,7 @@ ChickenClassComponent::ChickenClassComponent(GameObject* player)
 	//featherWidth = 1;
 	//featherHeight = 1;
 	//abilityCooldown = 15;
+	seedRequired = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -197,7 +198,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int ChickenClassComponent::useAbility(){
-	if (currBirdseed == maxBirdseed){
+	if (currBirdseed == seedRequired){
 		PowerShieldObjectFactory sFactory;
 		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
 		else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
