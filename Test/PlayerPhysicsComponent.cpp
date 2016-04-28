@@ -77,7 +77,32 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 }
 
+void PlayerPhysicsComponent::launchPlayer(){
+	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	b2Vec2 vel = mBody->GetLinearVelocity();
 
+	logicComp->becomeEgg();
+	std::cout << "horizontal velocity: " << vel.x << std::endl;
+
+
+	if (gameObjectRef->team == TEAM_YELLOW){
+		   mBody->SetLinearVelocity(b2Vec2(vel.x + 1.0f, vel.y - 0.1f));
+		} else{
+	       mBody->SetLinearVelocity(b2Vec2(vel.x + -1.0f, vel.y + 0.1f));
+     }
+
+	//check if back at base yet
+	if ((gameObjectRef->posX > 0) && (gameObjectRef->team == TEAM_YELLOW)){
+
+		logicComp->hatchBird();
+		logicComp->launchable = false;
+	}
+
+	if ((gameObjectRef->posX < 0) && (gameObjectRef->team == TEAM_PURPLE)){
+		logicComp->hatchBird();
+		logicComp->launchable = false;
+	}
+}
 
 void PlayerPhysicsComponent::Update(){
 	b2Vec2 vel = mBody->GetLinearVelocity();
@@ -107,26 +132,9 @@ void PlayerPhysicsComponent::Update(){
 	}
 
 	if (logicComp->launchable){
-
-		logicComp->becomeEgg();
-		std::cout << "horizontal velocity: " << vel.x << std::endl;
-
-		mBody->SetLinearVelocity(b2Vec2(vel.x  + -1.0f, vel.y - 0.1f));
-		//check if back at base yet
-		if (gameObjectRef->posX < 0){
-			
-			vel.x = 0;
-			vel.y = 0;
-			mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y));
-			logicComp->launchable = false;
-			b2Vec2 pos;
-			pos = mBody->GetPosition();
-			gameObjectRef->rotation = 0;
-			mBody->SetTransform(pos, 0);
-			logicComp->hatchBird();
+		launchPlayer();
 		}
-	}
-
-
-
 }
+
+
+

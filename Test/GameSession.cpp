@@ -50,17 +50,17 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1500), 0, 0));
 	
 
-	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
+	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 
 	rightBase = mbFactory.Spawn(506001, -975, 0, 0, TEAM_YELLOW);
 	leftBase = mbFactory.Spawn(506002, 975, 0, 0, TEAM_PURPLE);
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, -550, 150, 5, -10, -90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 550, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 550, 150, -5, -10, -90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, 150, 5, -10, -90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 350, -150, -5, 10, 90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 350, 150, -5, -10, -90));
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
