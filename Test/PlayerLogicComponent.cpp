@@ -88,7 +88,7 @@ void PlayerLogicComponent::becomeEgg(){
 		physicsComp->mBody->SetFixedRotation(false);
 		b2Vec2 vel = physicsComp->mBody->GetLinearVelocity();
 		std::cout << "horizontal velocity: " << vel.x << std::endl;
-		vel.x = vel.x > 5 ? 5 : vel.x;
+		vel.x = vel.x < 5 ? 5 : vel.x;
 		physicsComp->mBody->SetLinearVelocity(b2Vec2(vel.x,vel.y));
 
 		//ignore input and roll to base
@@ -124,25 +124,6 @@ void PlayerLogicComponent::hatchBird(){
 		isEgg = false;
 	}
 }
-
-void PlayerLogicComponent::launchPlayer(){
-
-	//std::cout << "the bird is colliding with the base" << std::endl;
-	if (gameObjectRef->isLocal){
-		RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
-		//launchable = true; // set launch bool, no idea where to put it though///
-
-		//PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
-		
-	//	physicsComp->mBody->ApplyForce(b2Vec2(vel.x, vel.y), b2Vec2(0, 0), false);
-		std::cout << "loop reached" << std::endl;
-
-	}
-
-
-}
-
-
 
 void PlayerLogicComponent::startCharge() {
 	charging = true;

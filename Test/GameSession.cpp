@@ -39,7 +39,7 @@ void GameSession::LoadWorld(){
 	FanObjectFactory fanFactory;
 
 
-	for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 6; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
@@ -407,8 +407,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
