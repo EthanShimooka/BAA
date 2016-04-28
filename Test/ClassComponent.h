@@ -44,6 +44,8 @@ public:
 	virtual OutputMemoryBitStream* writeNetAbility();
 	virtual void readNetAbility(InputMemoryBitStream& aPacket);
 
+	virtual int getClass();
+
 	float speed;
 	float width, height;
 	int   seedRequired;
@@ -52,10 +54,9 @@ public:
 	float abilityCooldown;
 
 	int currBirdseed = 0;
-	int maxsBirdseed = 5;
+	int maxsBirdseed = 8;
 
 	int powerNum=0;
-
 };
 
 #endif

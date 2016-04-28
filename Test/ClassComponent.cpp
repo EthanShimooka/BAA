@@ -34,3 +34,8 @@ OutputMemoryBitStream* ClassComponent::writeNetAbility(){
 void ClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	std::cout << "class read" << std::endl;
 }
+
+
+int ClassComponent::getClass(){
+	return 0;
+}

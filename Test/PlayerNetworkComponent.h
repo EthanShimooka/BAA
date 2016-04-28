@@ -3,7 +3,7 @@
 #define PLAYERNETWORKCOMPONENT_H_INCLUDED
 #include "NetworkComponent.h"
 #include "PlayerComponentIncludes.h"
-//#include "ClassComponent.h"
+
 
 typedef enum {
 	CM_INVALID = 0,

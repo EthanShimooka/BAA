@@ -122,3 +122,7 @@ int PeacockClassComponent::useAbility(){
 	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
 }
+
+int PeacockClassComponent::getClass(){
+	return CLASS_PEACOCK;
+}

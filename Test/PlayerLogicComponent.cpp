@@ -7,8 +7,8 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
-}
 
+}
 
 PlayerLogicComponent::~PlayerLogicComponent()
 {
@@ -27,7 +27,9 @@ void PlayerLogicComponent::Update(){
 	int w, h;
 	birdseedHUD->getSize(w, h);
 	ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	float meterPercent = (classComp->currBirdseed / (float)classComp->maxsBirdseed);
+	int playerClass = classComp->getClass();
+	int maxBirdseed = getMaxBirdseedByClass(playerClass);
+	float meterPercent = (classComp->currBirdseed / (float)maxBirdseed);
 	SDL_Rect rect = birdseedHUD->getRenderRect();
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
@@ -47,6 +49,14 @@ void PlayerLogicComponent::Update(){
 	if (seconds.length() == 1)seconds = "0" + seconds;
 	std::string title = minutes + ":" + seconds; //concat on the time remaining here!
 	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+
+	//update player kill notification
+	double oldestAge = clock() - killHUD[0].second;
+	std::cout << "oldestAge=" << oldestAge << std::endl;
+	if (oldestAge == 0)oldestAge += 0.0001;//prevents dividing by zero
+	oldestAge /= (double)(CLOCKS_PER_SEC);
+	if (oldestAge>5000){
+	}
 }
 
 /// For spawning local feathers
@@ -129,4 +139,59 @@ void PlayerLogicComponent::startCharge() {
 
 void PlayerLogicComponent::endCharge() {
 	charging = false;
+}
+
+void PlayerLogicComponent::addToKillList(uint64_t shooter){
+	if (killHUD.size() >= 5){
+		//we are full pop off the oldest message
+		//maybe memory management issues with this
+		killHUD.pop_back();
+	}
+
+	//make the new image
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	SDLRenderObject* newText = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0, 0);
+	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
+	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
+	newText->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+	// push it on
+}
+
+void PlayerLogicComponent::updateKillHUD(){
+}
+
+int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
+	switch (playerClass)
+		{
+		case CLASS_CHICKEN:{
+							   ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							   return classComp->maxBirdseed;
+		}
+		case CLASS_PEACOCK:{
+							   PeacockClassComponent* classComp = dynamic_cast<PeacockClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							   return classComp->maxBirdseed;
+		}
+		case CLASS_FLAMINGO:{
+								FlamingoClassComponent* classComp = dynamic_cast<FlamingoClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+								return classComp->maxBirdseed;
+		}
+		case CLASS_QUAIL:{
+							 QuailClassComponent* classComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							 return classComp->maxBirdseed;
+		}
+		case CLASS_TURKEY:{
+							  TurkeyClassComponent* classComp = dynamic_cast<TurkeyClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							  return classComp->maxBirdseed;
+		}
+		case CLASS_EAGLE:{
+							 EagleClassComponent* classComp = dynamic_cast<EagleClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							 return classComp->maxBirdseed;
+		}
+		default:{
+					LogManager* log = LogManager::GetLogManager();
+					log->logBuffer << "Problem in PlayerLogicComponent::getMaxBirdseedByClass. Will cause div by 0 error\n";
+					log->flush();
+					return 0;
+		}
+	}
 }

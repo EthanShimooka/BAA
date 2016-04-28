@@ -46,6 +46,8 @@ public:
 	/// in order to update charge bar appropriately
 	void startCharge();
 	void endCharge();
+	/// Returns the maximum birdseed for each individual class
+	int getMaxBirdseedByClass(int playerClass);
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
 	//PowerShieldObjectFactory sFactory;
@@ -65,6 +67,13 @@ public:
 
 	SDLRenderObject* timerHUD;
 
+	int killHUDSize = 5;
+	std::vector<std::pair<SDLRenderObject*,clock_t>> killHUD;
+
+	/// adds to the queue of player kills
+	void addToKillList(uint64_t killer);
+	/// updates the queue of players
+	void updateKillHUD();
 	/// Boolean used to restrict input during gameplay. Only perform actions
 	/// (i.e. jumping, shooting, moving) in game if true.
 	bool isEgg = false;

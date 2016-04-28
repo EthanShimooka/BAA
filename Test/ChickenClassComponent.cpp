@@ -115,7 +115,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int ChickenClassComponent::useAbility(){
-	if (currBirdseed == maxsBirdseed){
+	if (currBirdseed == maxBirdseed){
 		PowerShieldObjectFactory sFactory;
 		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
 		else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
@@ -131,25 +131,29 @@ int ChickenClassComponent::useAbility(){
 OutputMemoryBitStream* ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction){
 	std::cout << "chicken write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
-	//outData->Write(NetworkManager::sInstance->kPosCC);
-	//outData->Write(gameObjectRef->ID);
-	//outData->Write((int)3); // have to include the enum here
-	/*outData->Write(PID);
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write((int)3); // have to include the enum here
+	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
-	outData->Write(direction);*/
+	outData->Write(direction);
 	return outData;
 }
 
 void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	std::cout << "chicken read" << std::endl;
 	PowerShieldObjectFactory sFactory;
-	/*uint64_t ID;
+	uint64_t ID;
 	float posX, posY;
 	bool direction;
 	aPacket.Read(ID);
 	aPacket.Read(posX);
 	aPacket.Read(posY);
 	aPacket.Read(direction);
-	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction));*/
+	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction));
+}
+
+int ChickenClassComponent::getClass(){
+	return CLASS_CHICKEN;
 }
