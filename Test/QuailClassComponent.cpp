@@ -4,7 +4,7 @@
 QuailClassComponent::QuailClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	speed = 20;
+	speed += 3;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;
@@ -122,8 +122,19 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 }
 
 int QuailClassComponent::useAbility(){
-	std::cout << "quailclasscomp->useAbility() not implemented yet" << std::endl;
-	return false;
+	if (currBirdseed == seedRequired){
+		//PowerShieldObjectFactory sFactory;
+		//if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+		//else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
+		abilityActive = true;
+		speed *= 3;
+		currBirdseed = 0;
+		return true;
+	}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		return false;
+	}
 }
 
 int QuailClassComponent::getClass(){

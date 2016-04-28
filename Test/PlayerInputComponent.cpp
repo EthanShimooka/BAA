@@ -172,5 +172,8 @@ void PlayerInputComponent::Update(){
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
 		}
 	}
+
+	//check for quail ability
+	playerSpeed = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->speed;
 }
 

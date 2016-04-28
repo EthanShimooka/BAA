@@ -2,7 +2,7 @@
 
 ClassComponent::ClassComponent()
 {
-	speed = 20;
+	speed = 16;
 	width = 1.33f;
 	height = 1.35f;
 	seedRequired = 8;
