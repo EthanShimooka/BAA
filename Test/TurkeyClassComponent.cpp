@@ -124,3 +124,7 @@ int TurkeyClassComponent::useAbility(){
 	std::cout << "turkeyclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
 }
+
+int TurkeyClassComponent::getClass(){
+	return CLASS_TURKEY;
+}
