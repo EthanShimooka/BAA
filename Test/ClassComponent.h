@@ -1,6 +1,6 @@
 /**
 *  ClassComponent.h
-*  Authors: Ethan Shimooka
+*  Authors: Pourya Sohbati
 *  Date 2/25/2016
 *  Description :
 Class Component represents the abstreact base class from which all other
@@ -17,9 +17,9 @@ Class Components are derived.
 #include "Component.h"
 ///#include "MovementComponent.h"
 ///#include "include\InputManager.h"
-///#include "include\network\MemoryBitStream.h"
 #include "GameObject.h"
 #include "RenderComponent.h"
+#include "include\network\MemoryBitStream.h"
 
 
 class ClassComponent :
@@ -37,9 +37,12 @@ public:
 	/// update object Positions from Input
 	virtual void Update();
 
+	
 	//virtual void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	/// returns true if the ability was used, else returns false
 	virtual int useAbility();
+	virtual OutputMemoryBitStream* writeNetAbility();
+	virtual void readNetAbility(InputMemoryBitStream& aPacket);
 
 	float speed;
 	float width, height;

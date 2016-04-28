@@ -101,7 +101,7 @@ void PlayerNetworkComponent::handleFeatherPacket(InputMemoryBitStream& fPacket){
 
 void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	uint64_t shooterID;
-	dPacket.Read(shooterID );
+	dPacket.Read(shooterID);
 	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
 	logic->becomeEgg();
 }
@@ -146,6 +146,7 @@ void PlayerNetworkComponent::Update(){
 
 	// creating a movement packet
 	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId()){
+		dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->writeNetAbility();
 		createMovementPacket();
 	}
 
