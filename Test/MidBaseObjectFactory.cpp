@@ -25,8 +25,13 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
-	MidBaseRenderComponent* rend = new MidBaseRenderComponent(base);
-
+	MidBaseRenderComponent* rend = new MidBaseRenderComponent(base,team);
+	if (team == TEAM_YELLOW){
+		base->flipH = true;
+	}
+	else{
+		base->flipV = true;
+	}
 	MidBasePhysicsComponent* physics = new MidBasePhysicsComponent(base);
 
 	MidBaseLogicComponent* logic = new MidBaseLogicComponent(base);

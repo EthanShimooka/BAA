@@ -41,6 +41,22 @@ PlayerRenderComponent::~PlayerRenderComponent()
 	}
 }
 
+void PlayerRenderComponent::setAnimation(std::string name){
+	if (currentAnimation == animations["throw"]) return;
+	if (currentAnimation == animations["charge"] && name.compare("throw") != 0) return;
+	if (animations.count(name)){
+		if (currentAnimation != animations[name]){
+			currentAnimation = animations[name];
+			progress = 0;
+			lasttime = clock();
+		}
+	}
+}
+void PlayerRenderComponent::setNextAnimation(std::string name){
+	if (animations.count(name)){
+		nextAnimation = animations[name];
+	}
+}
 
 void PlayerRenderComponent::Update(){
 	RenderComponent::Update();

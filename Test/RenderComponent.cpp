@@ -32,6 +32,8 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 	if (objRef){
 		//there is an SDLObject here that should be removed from the render/scene managers
 		std::cout << "AssignSprite(34): free old objRef here" << std::endl;
+		SceneManager* sceneMan = SceneManager::GetSceneManager();
+		sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer2"));
 	}
 	objRef = rend;
 }
@@ -48,7 +50,11 @@ void RenderComponent::setAnimation(std::string name){
 		}
 	}
 }
-
+void RenderComponent::setNextAnimation(std::string name){
+	if (animations.count(name)){
+		nextAnimation = animations[name];
+	}
+}
 /// The general animation function, that alters the object's
 
 void RenderComponent::animate(){

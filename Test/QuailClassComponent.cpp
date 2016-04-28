@@ -107,9 +107,24 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 	motions2.push_back(makeMotion(rotateTransform(legL, -60, 120), 0.5, 0.5, ease_QuadInOut));
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);
+
+
+	////// THROW ANIMATION 
+	std::list<motion> motions3;
+	//motions3.push_back(makeMotion(keyframeJump(armR, 1), 0.0, 0.0));
+	motions3.push_back(makeMotion(rotateTransform(armR, -30, 0), 0.0, 1.0, ease_QuadOut));
+	animations["throw"] = new Animation(100, motions3);
+	////// CHARGE ANIMATION 
+	std::list<motion> motions4;
+	motions4.push_back(makeMotion(rotateTransform(armR, -20, 0), 0.0, 0.0));
+	animations["charge"] = new Animation(100, motions4);
 }
 
 int QuailClassComponent::useAbility(){
 	std::cout << "quailclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
+}
+
+int QuailClassComponent::getClass(){
+	return CLASS_QUAIL;
 }

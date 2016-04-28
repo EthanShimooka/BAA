@@ -53,8 +53,8 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 
-	rightBase = mbFactory.Spawn(506001, 975, -40, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506002, -975, -40, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(506001, 975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506002, -975, 0, 0, TEAM_PURPLE);
 
 	//FANS
 	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 50, 500, 90));
@@ -296,7 +296,7 @@ int GameSession::Run(vector<player*> players){
 	fpsHUD->setPos(0, 0);
 
 
-
+	bool gameEnd = false;
 
 	while (gameloop) {
 		current_ticks = clock();
@@ -343,16 +343,23 @@ int GameSession::Run(vector<player*> players){
 		if (numPlayers != 1)  NetworkManager::sInstance->UpdateDelay();
 
 		//CAMERA MOVEMENT - based on player position
-		if (player){
-			//Camera Shake
-			if ((!rightBase->isAlive || !leftBase->isAlive) && !endedBaseShake) {
-				endedBaseShake = true;
-				renderMan->ShakeScreen(1, 1);
+		if (!gameEnd){
+			if (player){
+				//Camera Shake
+				if ((!rightBase->isAlive || !leftBase->isAlive) && !endedBaseShake) {
+					endedBaseShake = true;
+					renderMan->ShakeScreen(1, 1);
+				}
+				int mousePos = input->getMouseX();
+				int wid, hei;
+				renderMan->getWindowSize(&wid, &hei);
+				float xRatio = (mousePos - wid / 2) / float(wid / 2);
+				float xPlus = (wid / 4) - 20;
+				//std::cout << xRatio << std::endl;
+				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);
+
 			}
-			renderMan->setCameraPoint(player->posX, 0);
-			
 		}
-		
 		int length = 20;
 		float loop = (float)(var % length);
 
@@ -409,6 +416,7 @@ int GameSession::Run(vector<player*> players){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
 				if (GamerServices::sInstance->GetLocalPlayerId() == players[i]->playerId){

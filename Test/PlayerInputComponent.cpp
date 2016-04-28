@@ -74,7 +74,6 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 }
 
 void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller){
-	if (logicComp->isEgg)return;
 	b2Body* body = physicsComp->mBody;
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
@@ -141,8 +140,10 @@ void PlayerInputComponent::Update(){
 	b2Body* body = physicsComp->mBody;
 
 	//handle input from sources
-	handleControllerInput(renderMan, input, controller);
-	handleKeyboardInput(renderMan, input, controller);
+	if (!logicComp->isEgg){
+		handleControllerInput(renderMan, input, controller);
+		handleKeyboardInput(renderMan, input, controller);
+	}
 	//handle input bounds stuff here to make sure you don't double up on inputs from both
 
 	//2 Sec delay on feather firing, need some visual representation of cd
@@ -160,6 +161,8 @@ void PlayerInputComponent::Update(){
 
 	//handle charging meter
 	if (isChargingAttack) {
+		renderComp->setAnimation("charge");
+		renderComp->setNextAnimation("charge");
 		if (controller->isControllerOn()){
 			float chargePercent = controller->getRightTriggerDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;

@@ -27,7 +27,9 @@ void PlayerLogicComponent::Update(){
 	int w, h;
 	birdseedHUD->getSize(w, h);
 	ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	float meterPercent = (classComp->currBirdseed / (float)classComp->maxsBirdseed);
+	int playerClass = classComp->getClass();
+	int maxBirdseed = getMaxBirdseedByClass(playerClass);
+	float meterPercent = (classComp->currBirdseed / (float)maxBirdseed);
 	SDL_Rect rect = birdseedHUD->getRenderRect();
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
@@ -51,6 +53,10 @@ void PlayerLogicComponent::Update(){
 
 /// For spawning local feathers
 uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
+	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
+	gameObjectRef->flipH = dx < 0;
+	render->setAnimation("throw");
+	render->setNextAnimation("idle");
 	GameObject* newFeather = fFactory.Spawn(gameObjectRef, featherNum++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
 	GameObjects.AddObject(newFeather);
 	return featherNum - 1;
@@ -60,6 +66,9 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
 	// charge time is one because speed is the feather speed * chargeTime
 	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, speed));
+	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
+	render->setAnimation("throw");
+	render->setNextAnimation("walk");
 }
 
 void PlayerLogicComponent::becomeEgg(){
@@ -122,4 +131,40 @@ void PlayerLogicComponent::startCharge() {
 
 void PlayerLogicComponent::endCharge() {
 	charging = false;
+}
+
+int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
+	switch (playerClass)
+	{
+	case CLASS_CHICKEN:{
+						   ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						   return classComp->maxBirdseed;
+	}
+	case CLASS_PEACOCK:{
+						   PeacockClassComponent* classComp = dynamic_cast<PeacockClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						   return classComp->maxBirdseed;
+	}
+	case CLASS_FLAMINGO:{
+							FlamingoClassComponent* classComp = dynamic_cast<FlamingoClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							return classComp->maxBirdseed;
+	}
+	case CLASS_QUAIL:{
+						 QuailClassComponent* classComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						 return classComp->maxBirdseed;
+	}
+	case CLASS_TURKEY:{
+						  TurkeyClassComponent* classComp = dynamic_cast<TurkeyClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						  return classComp->maxBirdseed;
+	}
+	case CLASS_EAGLE:{
+						 EagleClassComponent* classComp = dynamic_cast<EagleClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						 return classComp->maxBirdseed;
+	}
+	default:{
+				LogManager* log = LogManager::GetLogManager();
+				log->logBuffer << "Problem in PlayerLogicComponent::getMaxBirdseedByClass. Will cause div by 0 error\n";
+				log->flush();
+				return 0;
+	}
+	}
 }

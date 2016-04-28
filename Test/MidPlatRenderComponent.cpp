@@ -11,7 +11,7 @@ MidPlatRenderComponent::MidPlatRenderComponent(GameObject* platform)
 	//objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 9991, 0, 0);
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 0, 0);
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setIfRenderRect(true);
+	//box->setIfRenderRect(true);
 	allObjs["box"] = box;
 	allObjs["base"] = objRef;
 

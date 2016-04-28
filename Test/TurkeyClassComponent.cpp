@@ -108,9 +108,23 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	motions2.push_back(makeMotion(rotateTransform(armR, -10, 20), 0.5, 0.5, ease_QuadInOut));
 	//motions2.push_back(makeMotion(rotateTransform(legR, -30, 60), 0.5, 0.5, ease_QuadIn));
 	animations["walk"] = new Animation(400, motions2);
+
+	////// THROW ANIMATION 
+	std::list<motion> motions3;
+	//motions3.push_back(makeMotion(keyframeJump(armR, 1), 0.0, 0.0));
+	motions3.push_back(makeMotion(rotateTransform(armR, -90, 0), 0.0, 1.0, ease_QuadOut));
+	animations["throw"] = new Animation(100, motions3);
+	////// CHARGE ANIMATION 
+	std::list<motion> motions4;
+	motions4.push_back(makeMotion(rotateTransform(armR, 90, 0), 0.0, 0.0));
+	animations["charge"] = new Animation(100, motions4);
 }
 
 int TurkeyClassComponent::useAbility(){
 	std::cout << "turkeyclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
+}
+
+int TurkeyClassComponent::getClass(){
+	return CLASS_TURKEY;
 }
