@@ -15,8 +15,8 @@ QuailClassComponent::QuailClassComponent(GameObject* player)
 	seedRequired = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
+	currBirdseed = 6;
 }
-
 
 QuailClassComponent::~QuailClassComponent()
 {
@@ -24,6 +24,7 @@ QuailClassComponent::~QuailClassComponent()
 
 void QuailClassComponent::Update()
 {
+	if (Timing::sInstance.EndQuailAbilityTimer()) speed /= 3;
 }
 
 void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)
@@ -123,10 +124,7 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 
 int QuailClassComponent::useAbility(){
 	if (currBirdseed == seedRequired){
-		//PowerShieldObjectFactory sFactory;
-		//if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
-		//else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
-		abilityActive = true;
+		Timing::sInstance.SetQuailAbilityTimer();
 		speed *= 3;
 		currBirdseed = 0;
 		return true;

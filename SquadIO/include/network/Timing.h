@@ -34,14 +34,18 @@ public:
 	SQUADIO_API bool AttackCooldownEnded();
 	/// Returns true if minions should be spawned
 	SQUADIO_API bool SpawnMinions();
-
+	/// Starts the lobby countdown
 	SQUADIO_API void SetLobbyCountdown();
-
+	/// Starts the ingame timer countdown
 	SQUADIO_API void SetGamePlayCountdown();
 	/// Starts the timer for the explosion effect
 	SQUADIO_API void StartExplosionTimer();
 	/// Returns true if the explosion timer's time is up and the explosion should be removed
 	SQUADIO_API bool ExplosionTimerEnded();
+	/// 
+	SQUADIO_API void SetQuailAbilityTimer();
+	/// 
+	SQUADIO_API bool EndQuailAbilityTimer();
 private:
 	float			mDeltaTime;
 	uint64_t		mDeltaTick;
@@ -52,12 +56,14 @@ private:
 	time_t			attackCooldown;
 
 	clock_t			explosionStart;
+	clock_t			quailAbilityStart;
 
 	double			mLastFrameStartTime;
 	float			mFrameStartTimef;
 	double			mPerfCountDuration;
 
 	unsigned int	explosionLengthInMS = 150;
+	unsigned int	quailAbilityLengthInMS = 3000;
 	int				playTimeLengthInSecs = 120;
 };
 #endif

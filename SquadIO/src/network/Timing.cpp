@@ -140,7 +140,18 @@ void Timing::StartExplosionTimer(){
 bool Timing::ExplosionTimerEnded(){
 	clock_t difference = clock() - explosionStart;
 	unsigned aliveTime = difference / (CLOCKS_PER_SEC / 1000);
-	if (aliveTime > explosionLengthInMS) return true;
+	if (aliveTime >= explosionLengthInMS) return true;
+	else return false;
+}
+
+void Timing::SetQuailAbilityTimer(){
+	quailAbilityStart = clock();
+}
+
+bool Timing::EndQuailAbilityTimer(){
+	clock_t difference = clock() - quailAbilityStart;
+	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
+	if (abilityTime >= quailAbilityLengthInMS) return true;
 	else return false;
 }
 
