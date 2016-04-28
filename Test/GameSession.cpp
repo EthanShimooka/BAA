@@ -53,8 +53,8 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 
-	rightBase = mbFactory.Spawn(506001, 975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506002, -975, 0, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(506001, -975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506002, 975, 0, 0, TEAM_PURPLE);
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
 	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 5, 10, 90));
@@ -407,8 +407,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
