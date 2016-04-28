@@ -78,11 +78,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 
 void PlayerPhysicsComponent::Update(){
 	b2Vec2 vel = mBody->GetLinearVelocity();
-	if (gameObjectRef->posY < 0){
+	if (gameObjectRef->team==TEAM_PURPLE){
 		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
 		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y-0.5f));
 	}
-	else{
+	else if(gameObjectRef->team == TEAM_YELLOW){
 		mBody->SetLinearVelocity(b2Vec2(vel.x, vel.y + 0.5f));
 		//mBody->ApplyForce(b2Vec2(-200, 0), mBody->GetWorldCenter(), true);
 	}
