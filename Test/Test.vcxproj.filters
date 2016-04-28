@@ -444,6 +444,15 @@
     <ClInclude Include="FanLogicComponent.h">
       <Filter>Header Files\Component\Fan Component</Filter>
     </ClInclude>
+    <ClInclude Include="ShrapnelExplosionParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherZoomParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DustCloudParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -718,6 +727,15 @@
     </ClCompile>
     <ClCompile Include="FanLogicComponent.cpp">
       <Filter>Source Files\Component\Fan Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ShrapnelExplosionParticle.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherZoomParticle.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="DustCloudParticle.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

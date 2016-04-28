@@ -1,6 +1,6 @@
 #include "MinionPhysicsComponent.h"
 #include "FanPhysicsComponent.h"
-#include "ParticleRenderComponent.h"
+#include "ShrapnelExplosionParticle.h"
 #include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
