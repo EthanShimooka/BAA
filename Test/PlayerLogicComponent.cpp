@@ -27,9 +27,9 @@ void PlayerLogicComponent::Update(){
 	int w, h;
 	birdseedHUD->getSize(w, h);
 	ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	int playerClass = classComp->getClass();
-	int maxBirdseed = getMaxBirdseedByClass(playerClass);
+	int maxBirdseed = getMaxBirdseedByClass(classComp->getClass());
 	float meterPercent = (classComp->currBirdseed / (float)maxBirdseed);
+	if (meterPercent > 1) meterPercent = 1;
 	SDL_Rect rect = birdseedHUD->getRenderRect();
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);

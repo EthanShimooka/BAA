@@ -1,5 +1,6 @@
 #include "MinionPhysicsComponent.h"
 #include "ParticleRenderComponent.h"
+#include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -41,6 +42,9 @@ void MinionPhysicsComponent::init(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 	mBody->SetLinearVelocity(b2Vec2(50, 0));
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN);
+	blownForce = b2Vec2(0.0f, 0.0f);
+
+
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -107,7 +111,10 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
 										 //otherObj;
 										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
-										  break;
+										FanPhysicsComponent* fanPhys = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
+										blownForce = fanPhys->forceVec;
+										isGettingBlown = true;
+										break;
 	}
 	default:
 		break;
@@ -129,6 +136,7 @@ void MinionPhysicsComponent::Update(){
 	}else{
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
 	}
+	
 }
 
 void MinionPhysicsComponent::DestroyMinion(){
