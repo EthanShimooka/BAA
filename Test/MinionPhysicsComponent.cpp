@@ -56,11 +56,11 @@ void MinionPhysicsComponent::init(){
 	};
 
 	float yForce = rando[(gameObjectRef->ID%10)];
-	if (gameObjectRef->team == TEAM_PURPLE){
+	if (gameObjectRef->team == TEAM_YELLOW){
 		mBody->SetLinearVelocity(b2Vec2(7, 0));
 		mBody->ApplyForce(b2Vec2(50, yForce), mBody->GetWorldCenter(), true);
 	}
-	else if (gameObjectRef->team == TEAM_YELLOW){
+	else if (gameObjectRef->team == TEAM_PURPLE){
 		mBody->SetLinearVelocity(b2Vec2(-7, 0));
 		mBody->ApplyForce(b2Vec2(-50, yForce), mBody->GetWorldCenter(), true);
 	}
