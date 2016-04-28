@@ -46,8 +46,8 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
-	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1500), 0, 0));
-	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1500), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1800), 0, 0));
 	
 
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
