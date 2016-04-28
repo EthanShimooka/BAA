@@ -20,7 +20,7 @@ assembler that will use the input component.
 
 // Component Includes
 #include "Component.h"
-#include "UIRenderComponent.h"
+#include "UITypeComponent.h"
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 

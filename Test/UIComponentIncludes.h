@@ -2,7 +2,7 @@
 #ifndef UICOMPONENTINCLUDES_H
 #define UICOMPONENTINCLUDES_H
 
-#include "RenderUIComponent.h"
+#include "UITypeComponent.h"
 #include "UIInputComponent.h"
 #include "UIRenderComponent.h"
 

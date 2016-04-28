@@ -32,7 +32,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 	// Player Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
-	UIRenderComponent* rend = new UIRenderComponent();
+	UITypeComponent* rend = new UITypeComponent();
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 	switch (PID){
 	case PLAY_BUTTON:
@@ -105,7 +105,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	// Player Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
 
-	UIRenderComponent* rend = new UIRenderComponent();
+	UITypeComponent* rend = new UITypeComponent();
 	rend->uiObjectRef = uiObject; //set components container refrence to this uiObject
 
 	switch (PID){

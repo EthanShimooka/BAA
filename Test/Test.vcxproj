@@ -169,7 +169,7 @@
     <ClInclude Include="PowerShieldPhysicsComponent.h" />
     <ClInclude Include="PowerShieldRenderComponent.h" />
     <ClInclude Include="RenderComponent.h" />
-    <ClInclude Include="RenderUIComponent.h" />
+    <ClInclude Include="UIRenderComponent.h" />
     <ClInclude Include="SystemClassUpdater.h" />
     <ClInclude Include="SystemGameObjectQueue.h" />
     <ClInclude Include="SystemInputUpdater.h" />
@@ -188,7 +188,7 @@
     <ClInclude Include="UIInputComponent.h" />
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIObjectFactory.h" />
-    <ClInclude Include="UIRenderComponent.h" />
+    <ClInclude Include="UITypeComponent.h" />
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +263,7 @@
     <ClCompile Include="PowerShieldPhysicsComponent.cpp" />
     <ClCompile Include="PowerShieldRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
-    <ClCompile Include="RenderUIComponent.cpp" />
+    <ClCompile Include="UIRenderComponent.cpp" />
     <ClCompile Include="SystemClassUpdater.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />
     <ClCompile Include="SystemInputUpdater.cpp" />
@@ -281,7 +281,7 @@
     <ClCompile Include="UIInputComponent.cpp" />
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIObjectFactory.cpp" />
-    <ClCompile Include="UIRenderComponent.cpp" />
+    <ClCompile Include="UITypeComponent.cpp" />
     <ClCompile Include="WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>

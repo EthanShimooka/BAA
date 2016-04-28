@@ -330,17 +330,11 @@
     <ClInclude Include="MidPlatObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="UIRenderComponent.h">
-      <Filter>Header Files\Component\UI Component</Filter>
-    </ClInclude>
     <ClInclude Include="UIInputComponent.h">
       <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
     <ClInclude Include="UIComponent.h">
       <Filter>Header Files\Component\Abstract Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderUIComponent.h">
-      <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
     <ClInclude Include="SystemUIObjectQueue.h">
       <Filter>Header Files\Systems</Filter>
@@ -445,6 +439,12 @@
       <Filter>Header Files\Component\Fan Component</Filter>
     </ClInclude>
     <ClInclude Include="UIComponentIncludes.h">
+      <Filter>Header Files\Component\UI Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderComponent.h">
+      <Filter>Header Files\Component\UI Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UITypeComponent.h">
       <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -638,12 +638,6 @@
     <ClCompile Include="UIInputComponent.cpp">
       <Filter>Source Files\Component\UI Component</Filter>
     </ClCompile>
-    <ClCompile Include="UIRenderComponent.cpp">
-      <Filter>Source Files\Component\UI Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderUIComponent.cpp">
-      <Filter>Source Files\Component\UI Component</Filter>
-    </ClCompile>
     <ClCompile Include="UIComponent.cpp">
       <Filter>Source Files\Component\Abstract Component</Filter>
     </ClCompile>
@@ -721,6 +715,12 @@
     </ClCompile>
     <ClCompile Include="FanLogicComponent.cpp">
       <Filter>Source Files\Component\Fan Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UITypeComponent.cpp">
+      <Filter>Source Files\Component\UI Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRenderComponent.cpp">
+      <Filter>Source Files\Component\UI Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
