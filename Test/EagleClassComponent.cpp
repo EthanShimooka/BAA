@@ -4,7 +4,7 @@
 EagleClassComponent::EagleClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	//speed = 15;
+	speed = 16;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;

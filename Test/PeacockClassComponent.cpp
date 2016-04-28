@@ -5,7 +5,7 @@
 PeacockClassComponent::PeacockClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	//speed = 10000;
+	speed = 8;
 	seedRequired = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
