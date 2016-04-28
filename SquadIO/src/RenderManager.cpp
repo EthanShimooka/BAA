@@ -418,6 +418,7 @@ void RenderManager::renderAllObjects(){
 			//SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL;
 
 			SDL_Rect rect = (*iter)->getRenderRect();
+			if ((*iter)->renderResource)
 			SDL_RenderCopyEx(renderer, (*iter)->renderResource->mTexture, &rect, &pos, (*iter)->rotation, &anchor, flip);
 		}
 	}

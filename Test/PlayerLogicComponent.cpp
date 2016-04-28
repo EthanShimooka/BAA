@@ -7,8 +7,8 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
-}
 
+}
 
 PlayerLogicComponent::~PlayerLogicComponent()
 {
@@ -47,6 +47,14 @@ void PlayerLogicComponent::Update(){
 	if (seconds.length() == 1)seconds = "0" + seconds;
 	std::string title = minutes + ":" + seconds; //concat on the time remaining here!
 	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+
+	//update player kill notification
+	double oldestAge = clock() - killHUD[0].second;
+	std::cout << "oldestAge=" << oldestAge << std::endl;
+	if (oldestAge == 0)oldestAge += 0.0001;//prevents dividing by zero
+	oldestAge /= (double)(CLOCKS_PER_SEC);
+	if (oldestAge>5000){
+	}
 }
 
 /// For spawning local feathers
@@ -129,4 +137,24 @@ void PlayerLogicComponent::startCharge() {
 
 void PlayerLogicComponent::endCharge() {
 	charging = false;
+}
+
+void PlayerLogicComponent::addToKillList(uint64_t shooter){
+	if (killHUD.size() >= 5){
+		//we are full pop off the oldest message
+		//maybe memory management issues with this
+		killHUD.pop_back();
+	}
+
+	//make the new image
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	SDLRenderObject* newText = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0, 0);
+	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
+	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
+	newText->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+	// push it on
+}
+
+void PlayerLogicComponent::updateKillHUD(){
+
 }

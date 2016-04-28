@@ -160,6 +160,12 @@ void UIRenderComponent::createUIType(UIType ID){
 		objRef = play;
 		allObjs.push_back(play);
 		break;
+	case KILL_NOTIFICATION:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, (SCREEN_WIDTH - 300), 130, true);
+		objRef = play;
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		objRef->setResourceObject(renderMan->renderText("test", 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+		allObjs.push_back(play);
 	}
 }
 

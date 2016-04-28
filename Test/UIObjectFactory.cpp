@@ -75,6 +75,8 @@ UIObject* UIObjectFactory::Spawn(UIType PID)
 		break;
 	case CHARGE_SHELL:
 		rend->createUIType(CHARGE_SHELL);
+	case KILL_NOTIFICATION:
+		rend->createUIType(KILL_NOTIFICATION);
 	}
 	uiObject->AddComponent(COMPONENT_RENDER, rend);
 
