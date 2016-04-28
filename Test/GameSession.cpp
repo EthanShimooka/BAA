@@ -40,14 +40,14 @@ void GameSession::LoadWorld(){
 
 
 	for (int i = 0; i < 4; i++){
-		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));
+		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
-		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));
+		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
-		GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1200), 0, 0));
-		GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1200), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1200), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1200), 0, 0));
 	
 
 	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
@@ -56,7 +56,11 @@ void GameSession::LoadWorld(){
 	rightBase = mbFactory.Spawn(506001, 975, 0, 0, TEAM_YELLOW);
 	leftBase = mbFactory.Spawn(506002, -975, 0, 0, TEAM_PURPLE);
 
-	//GameObjects.AddObject(fanFactory.Spawn(54001, -400, 0, 0.0));
+	//FANS
+	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 50, 500, 90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, -550, 150, 50, -500, -90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 550, -150, -50, 500, 90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 550, 150, -50, 500, -90));
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);

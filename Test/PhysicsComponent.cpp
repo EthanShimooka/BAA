@@ -18,4 +18,6 @@ void PhysicsComponent::setCollisionFilter(uint16 categoryBits, uint16 mask){
 
 void PhysicsComponent::handleCollision(GameObject* otherObj){}
 
+void PhysicsComponent::endCollision(GameObject* otherObj){}
+
 void PhysicsComponent::Update(){}

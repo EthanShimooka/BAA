@@ -34,6 +34,7 @@ public:
 	/// Virtual Update function
 	virtual void Update();
 	virtual void handleCollision(GameObject* otherObj);
+	virtual void endCollision(GameObject* otherObj);
 	void setCollisionFilter(uint16 categoryBits, uint16 mask);
 };
 

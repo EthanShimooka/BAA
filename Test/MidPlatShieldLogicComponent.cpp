@@ -73,6 +73,7 @@ void MidPlatShieldLogicComponent::Update(){
 
 	clock_t clockDiff = clock() - timeSinceToggle;
 	unsigned aliveTime = clockDiff / (CLOCKS_PER_SEC / 1000);
+
 	if (clockDiff > 5000)
 		resetShield();
 

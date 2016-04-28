@@ -1,5 +1,7 @@
 #include "MinionPhysicsComponent.h"
+#include "FanPhysicsComponent.h"
 #include "ParticleRenderComponent.h"
+#include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -32,15 +34,40 @@ void MinionPhysicsComponent::init(){
 
 
 		b2PolygonShape box;
-		box.SetAsBox(1, 1); // look up other functions for polygons
+		box.SetAsBox(.5, .5); // look up other functions for polygons
 		boxFixtureDef.shape = &box;
 		boxFixtureDef.density = 1;
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 		mBody->SetUserData(gameObjectRef);
 	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
-	mBody->SetLinearVelocity(b2Vec2(50, 0));
-	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN);
+
+	float rando[10] = {
+		-325,
+		325,
+		-100,
+		50,
+		-25,
+		180,
+		-270,
+		60,
+		-180,
+		300
+	};
+
+	float yForce = rando[(gameObjectRef->ID%10)];
+	if (gameObjectRef->team == TEAM_PURPLE){
+		mBody->SetLinearVelocity(b2Vec2(7, 0));
+		mBody->ApplyForce(b2Vec2(50, yForce), mBody->GetWorldCenter(), true);
+	}
+	else if (gameObjectRef->team == TEAM_YELLOW){
+		mBody->SetLinearVelocity(b2Vec2(-7, 0));
+		mBody->ApplyForce(b2Vec2(-50, yForce), mBody->GetWorldCenter(), true);
+	}
+	
+	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN | COLLISION_PLATFORM);
+	blownForce = b2Vec2(0.0f, 0.0f);
+
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -105,9 +132,23 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
-										 //otherObj;
+
 										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
-										  break;
+										FanPhysicsComponent* fanPhys = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
+										blownForce = fanPhys->forceVec;
+										isGettingBlown = true;
+										break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
+											  //Bounce off the walls
+											  b2Vec2 vel = mBody->GetLinearVelocity();
+											  vel.y = -.5f*vel.y;
+											  //Ensure moving in right direction
+											  if (gameObjectRef->team == TEAM_PURPLE) vel.x = abs(vel.x);
+											  if (gameObjectRef->team == TEAM_YELLOW) vel.x = -abs(vel.x);
+											  mBody->SetLinearVelocity(vel);
+											  //mBody->ApplyForce(b2Vec2(0, -50*mBody->GetLinearVelocity().y), mBody->GetWorldCenter(), true);
+											  break;
 	}
 	default:
 		break;
@@ -124,11 +165,15 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	//temp testing code from here down
+
+
+	/*
 	if (gameObjectRef->team == 1){
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
 	}else{
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
-	}
+	}*/
+	
 }
 
 void MinionPhysicsComponent::DestroyMinion(){

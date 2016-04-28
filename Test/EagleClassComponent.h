@@ -11,6 +11,5 @@ public:
 	int useAbility();
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();
-	int maxBirdseed = 8;
 };
 
