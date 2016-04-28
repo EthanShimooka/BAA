@@ -1,6 +1,7 @@
 #include "MinionPhysicsComponent.h"
 #include "FanPhysicsComponent.h"
 #include "ParticleRenderComponent.h"
+#include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
 {
@@ -40,6 +41,7 @@ void MinionPhysicsComponent::init(){
 		mBody->SetUserData(gameObjectRef);
 	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
+<<<<<<< HEAD
 	mBody->SetLinearVelocity(b2Vec2(5, 0));
 	//int yForce = rand() % 50 + 250;
 
@@ -67,6 +69,8 @@ void MinionPhysicsComponent::init(){
 	}
 	
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN | COLLISION_PLATFORM);
+	blownForce = b2Vec2(0.0f, 0.0f);
+
 }
 
 void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
@@ -132,12 +136,20 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
 										 //otherObj;
+<<<<<<< HEAD
 										  //mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
 										  //FanPhysicsComponent* fanComp = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
 										  //float x = fanComp->forceVec.x;
 										  //float y = fanComp->forceVec.y;
 										  //mBody->ApplyForceToCenter((dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS)))->forceVec, true);
 										  break;
+=======
+										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
+										FanPhysicsComponent* fanPhys = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
+										blownForce = fanPhys->forceVec;
+										isGettingBlown = true;
+										break;
+>>>>>>> refs/remotes/origin/master
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
 											  //Bounce off the walls
@@ -172,7 +184,12 @@ void MinionPhysicsComponent::Update(){
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
 	}else{
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
+<<<<<<< HEAD
 	}*/
+=======
+	}
+	
+>>>>>>> refs/remotes/origin/master
 }
 
 void MinionPhysicsComponent::DestroyMinion(){

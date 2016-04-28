@@ -13,7 +13,6 @@ public:
 	void init(float forceX, float forceY);
 	void handleCollision(GameObject* otherObj);
 	b2Vec2 forceVec;
-	float forceStrength;
 };
 
 

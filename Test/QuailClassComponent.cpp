@@ -12,6 +12,7 @@ QuailClassComponent::QuailClassComponent(GameObject* player)
 	//featherWidth = 1;
 	//featherHeight = 1;
 	//abilityCooldown = 15;
+	seedRequired = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }

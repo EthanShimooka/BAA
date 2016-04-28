@@ -35,7 +35,7 @@ void FanPhysicsComponent::init(float forceX, float forceY)
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
 	// fan force variables
-	forceStrength = 5.0f;
+
 	forceVec = b2Vec2(forceX, forceY);
 
 	setCollisionFilter(COLLISION_FAN, COLLISION_MINION);

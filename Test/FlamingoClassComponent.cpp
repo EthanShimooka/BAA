@@ -12,6 +12,7 @@ FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 	//featherWidth = 1;
 	//featherHeight = 1;
 	//abilityCooldown = 15;
+	seedRequired = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -117,7 +118,7 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed == maxBirdseed){
+	if (currBirdseed == seedRequired){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
