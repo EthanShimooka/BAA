@@ -4,7 +4,7 @@
 FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	//speed = 15;
+	speed = 14;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;
@@ -12,6 +12,7 @@ FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 	//featherWidth = 1;
 	//featherHeight = 1;
 	//abilityCooldown = 15;
+	seedRequired = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -117,7 +118,7 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed == maxsBirdseed){
+	if (currBirdseed == seedRequired){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
@@ -131,4 +132,8 @@ int FlamingoClassComponent::useAbility(){
 	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 		return false;
 	}
+}
+
+int FlamingoClassComponent::getClass(){
+	return CLASS_FLAMINGO;
 }

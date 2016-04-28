@@ -27,7 +27,9 @@ void PlayerLogicComponent::Update(){
 	int w, h;
 	birdseedHUD->getSize(w, h);
 	ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	float meterPercent = (classComp->currBirdseed / (float)classComp->maxsBirdseed);
+	int maxBirdseed = getMaxBirdseedByClass(classComp->getClass());
+	float meterPercent = (classComp->currBirdseed / (float)maxBirdseed);
+	if (meterPercent > 1) meterPercent = 1;
 	SDL_Rect rect = birdseedHUD->getRenderRect();
 	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1-meterPercent), defaultRect.w, defaultRect.h*meterPercent };
 	birdseedHUD->posY = 30 + defaultRect.h*(1-meterPercent);
@@ -123,10 +125,65 @@ void PlayerLogicComponent::hatchBird(){
 	}
 }
 
+void PlayerLogicComponent::launchPlayer(){
+
+	//std::cout << "the bird is colliding with the base" << std::endl;
+	if (gameObjectRef->isLocal){
+		RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
+		//launchable = true; // set launch bool, no idea where to put it though///
+
+		//PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+		
+	//	physicsComp->mBody->ApplyForce(b2Vec2(vel.x, vel.y), b2Vec2(0, 0), false);
+		std::cout << "loop reached" << std::endl;
+
+	}
+
+
+}
+
+
+
 void PlayerLogicComponent::startCharge() {
 	charging = true;
 }
 
 void PlayerLogicComponent::endCharge() {
 	charging = false;
+}
+
+int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
+	switch (playerClass)
+	{
+	case CLASS_CHICKEN:{
+						   ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						   return classComp->seedRequired;
+	}
+	case CLASS_PEACOCK:{
+						   PeacockClassComponent* classComp = dynamic_cast<PeacockClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						   return classComp->seedRequired;
+	}
+	case CLASS_FLAMINGO:{
+							FlamingoClassComponent* classComp = dynamic_cast<FlamingoClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							return classComp->seedRequired;
+	}
+	case CLASS_QUAIL:{
+						 QuailClassComponent* classComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						 return classComp->seedRequired;
+	}
+	case CLASS_TURKEY:{
+						  TurkeyClassComponent* classComp = dynamic_cast<TurkeyClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						  return classComp->seedRequired;
+	}
+	case CLASS_EAGLE:{
+						 EagleClassComponent* classComp = dynamic_cast<EagleClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+						 return classComp->seedRequired;
+	}
+	default:{
+				LogManager* log = LogManager::GetLogManager();
+				log->logBuffer << "Problem in PlayerLogicComponent::getMaxBirdseedByClass. Will cause div by 0 error\n";
+				log->flush();
+				return 0;
+	}
+	}
 }

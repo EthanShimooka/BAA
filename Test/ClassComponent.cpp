@@ -2,10 +2,10 @@
 
 ClassComponent::ClassComponent()
 {
-	speed = 15;
+	speed = 20;
 	width = 1.33f;
 	height = 1.35f;
-	seedRequired = 5;
+	seedRequired = 8;
 	featherSpeed = 1.0f / 7.0f;
 	featherWidth = 1;
 	featherHeight = 1;
@@ -23,6 +23,10 @@ void ClassComponent::Update()
 }
 
 int ClassComponent::useAbility(){
+	return 0;
+}
+
+int ClassComponent::getClass(){
 	return 0;
 }
 

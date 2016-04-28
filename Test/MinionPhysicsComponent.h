@@ -21,6 +21,9 @@ public:
 	void Update();
 	void init();
 	void handleCollision(GameObject* otherObj);
+	void endCollision(GameObject* otherObj);
+	bool isGettingBlown = false;
+	b2Vec2 blownForce;
 };
 
 #endif

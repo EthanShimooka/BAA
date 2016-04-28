@@ -20,6 +20,7 @@ public:
 	//void health();
 	void attacked();
 
+	void launchPlayer(GameObject * base);
 	
 };
 

@@ -41,6 +41,8 @@ public:
 	/// returns true if the ability was used, else returns false
 	virtual int useAbility();
 
+	virtual int getClass();
+
 	float speed;
 	float width, height;
 	int   seedRequired;
@@ -49,7 +51,7 @@ public:
 	float abilityCooldown;
 
 	int currBirdseed = 0;
-	int maxsBirdseed = 5;
+	int maxsBirdseed = 8;
 
 	int powerNum=0;
 

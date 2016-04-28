@@ -5,7 +5,8 @@
 PeacockClassComponent::PeacockClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	//speed = 10000;
+	speed = 18;
+	seedRequired = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -121,4 +122,8 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
+}
+
+int PeacockClassComponent::getClass(){
+	return CLASS_PEACOCK;
 }

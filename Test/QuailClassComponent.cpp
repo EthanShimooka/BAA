@@ -4,7 +4,7 @@
 QuailClassComponent::QuailClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	//speed = 15;
+	speed = 20;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;
@@ -12,6 +12,7 @@ QuailClassComponent::QuailClassComponent(GameObject* player)
 	//featherWidth = 1;
 	//featherHeight = 1;
 	//abilityCooldown = 15;
+	seedRequired = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -123,4 +124,8 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 int QuailClassComponent::useAbility(){
 	std::cout << "quailclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
+}
+
+int QuailClassComponent::getClass(){
+	return CLASS_QUAIL;
 }

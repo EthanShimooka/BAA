@@ -41,11 +41,17 @@ public:
 	void becomeEgg();
 	/// Once the player has rolled back to base and enough time has elapsed,
 	/// turn the player back into a bird and re-init stuff
+
+	/// triggered from physics componet to catapault player to middle of screen
+	void launchPlayer();
+
 	void hatchBird();
 	/// Start charge and end charge are called to change the value charging
 	/// in order to update charge bar appropriately
 	void startCharge();
 	void endCharge();
+	/// Returns the maximum birdseed for each individual class
+	int getMaxBirdseedByClass(int playerClass);
 	/// Shield Object Factory. Will need to be changed eventually
 	/// And migrated to maybe class specific logic class?
 	//PowerShieldObjectFactory sFactory;
@@ -56,6 +62,9 @@ public:
 	
 
 	bool charging = false;
+	bool launchable = false;
+	bool isEgg = false;
+
 	float currChargePercentage = 0;
 
 	SDLRenderObject* birdseedHUD;
@@ -67,7 +76,6 @@ public:
 
 	/// Boolean used to restrict input during gameplay. Only perform actions
 	/// (i.e. jumping, shooting, moving) in game if true.
-	bool isEgg = false;
 
 	/// Boolean used to say if this player is local or not
 	//bool isLocal = false;

@@ -4,6 +4,7 @@
 
 #include "ClassComponent.h"
 #include "PowerShieldObjectFactory.h"
+#include "PlayerObjectFactory.h"
 class ChickenClassComponent :
 	public ClassComponent
 {
@@ -13,6 +14,7 @@ public:
 	void Update();
 	int useAbility();
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
+	int getClass();
 };
 
 #endif
