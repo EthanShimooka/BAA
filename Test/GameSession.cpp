@@ -39,15 +39,15 @@ void GameSession::LoadWorld(){
 	FanObjectFactory fanFactory;
 
 
-	for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 6; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
-	//GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1800), 0, 0));
-	//GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1800), 0, 0));
 	
 
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
