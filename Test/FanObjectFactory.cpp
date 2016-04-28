@@ -10,7 +10,7 @@ FanObjectFactory::~FanObjectFactory()
 {
 }
 
-GameObject* FanObjectFactory::Spawn(uint64_t PID, float posX, float posY, double rotation){
+GameObject* FanObjectFactory::Spawn(uint64_t PID, float posX, float posY, float forceX, float forceY, double rotation){
 	GameObject* fan = new GameObject();
 	fan->ID = PID;
 	fan->isAlive = true;
@@ -20,7 +20,7 @@ GameObject* FanObjectFactory::Spawn(uint64_t PID, float posX, float posY, double
 	fan->type = GAMEOBJECT_TYPE::OBJECT_FAN;
 
 	FanRenderComponent* rendComp = new FanRenderComponent(fan);
-	FanPhysicsComponent* physicsComp = new FanPhysicsComponent(fan);
+	FanPhysicsComponent* physicsComp = new FanPhysicsComponent(fan, forceX, forceY);
 	FanLogicComponent* logicComp = new FanLogicComponent(fan);
 
 	return fan;
