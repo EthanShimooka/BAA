@@ -28,11 +28,11 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 	PlayerRenderComponent* rend = nullptr;
 	ClassComponent* classComp = nullptr;
 	if (team == 1){
-		player->setPos(1000, 200);
+		player->setPos(-1400, 200);
 		std::cout << "TEAM: " << team << "\nplayerID: " << player->ID << std::endl;
 	}
 	else {
-		player->setPos(-1000, -200);
+		player->setPos(1400, -200);
 	}
 
 	switch (classType){
