@@ -125,6 +125,25 @@ void PlayerLogicComponent::hatchBird(){
 	}
 }
 
+void PlayerLogicComponent::launchPlayer(){
+
+	//std::cout << "the bird is colliding with the base" << std::endl;
+	if (gameObjectRef->isLocal){
+		RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
+		//launchable = true; // set launch bool, no idea where to put it though///
+
+		//PlayerPhysicsComponent* physicsComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+		
+	//	physicsComp->mBody->ApplyForce(b2Vec2(vel.x, vel.y), b2Vec2(0, 0), false);
+		std::cout << "loop reached" << std::endl;
+
+	}
+
+
+}
+
+
+
 void PlayerLogicComponent::startCharge() {
 	charging = true;
 }
