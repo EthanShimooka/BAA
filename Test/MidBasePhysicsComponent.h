@@ -5,6 +5,7 @@
 
 
 #include "PhysicsComponent.h"
+#include "PlayerComponentIncludes.h"
 #include "MidBaseLogicComponent.h"
 
 

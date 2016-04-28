@@ -56,11 +56,11 @@ void MinionPhysicsComponent::init(){
 	};
 
 	float yForce = rando[(gameObjectRef->ID%10)];
-	if (gameObjectRef->team == TEAM_PURPLE){
+	if (gameObjectRef->team == TEAM_YELLOW){
 		mBody->SetLinearVelocity(b2Vec2(7, 0));
 		mBody->ApplyForce(b2Vec2(50, yForce), mBody->GetWorldCenter(), true);
 	}
-	else if (gameObjectRef->team == TEAM_YELLOW){
+	else if (gameObjectRef->team == TEAM_PURPLE){
 		mBody->SetLinearVelocity(b2Vec2(-7, 0));
 		mBody->ApplyForce(b2Vec2(-50, yForce), mBody->GetWorldCenter(), true);
 	}
@@ -133,22 +133,22 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
 
-										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
-										FanPhysicsComponent* fanPhys = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
-										blownForce = fanPhys->forceVec;
-										isGettingBlown = true;
-										break;
+									 	 //mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
+								  	 	  FanPhysicsComponent* fanPhys = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
+										  blownForce = fanPhys->forceVec;
+									 	  isGettingBlown = true;
+									   	  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
-											  //Bounce off the walls
-											  b2Vec2 vel = mBody->GetLinearVelocity();
-											  vel.y = -.5f*vel.y;
-											  //Ensure moving in right direction
-											  if (gameObjectRef->team == TEAM_PURPLE) vel.x = abs(vel.x);
-											  if (gameObjectRef->team == TEAM_YELLOW) vel.x = -abs(vel.x);
-											  mBody->SetLinearVelocity(vel);
-											  //mBody->ApplyForce(b2Vec2(0, -50*mBody->GetLinearVelocity().y), mBody->GetWorldCenter(), true);
-											  break;
+										  //Bounce off the walls
+										  b2Vec2 vel = mBody->GetLinearVelocity();
+										  vel.y = -1.0f * vel.y;
+										  //Ensure moving in right direction
+										  if (gameObjectRef->team == TEAM_YELLOW) vel.x = abs(vel.x);
+										  if (gameObjectRef->team == TEAM_PURPLE) vel.x = -abs(vel.x);
+										  mBody->SetLinearVelocity(vel);
+										  //mBody->ApplyForce(b2Vec2(0, -50*mBody->GetLinearVelocity().y), mBody->GetWorldCenter(), true);
+										  break;
 	}
 	default:
 		break;

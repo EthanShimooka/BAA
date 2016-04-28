@@ -27,10 +27,12 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 
 	MidBaseRenderComponent* rend = new MidBaseRenderComponent(base,team);
 	if (team == TEAM_YELLOW){
-		base->flipH = true;
+		base->flipV = false;
+		base->flipH = false;
 	}
 	else{
 		base->flipV = true;
+		base->flipH = true;
 	}
 	MidBasePhysicsComponent* physics = new MidBasePhysicsComponent(base);
 

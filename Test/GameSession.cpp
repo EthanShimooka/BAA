@@ -39,28 +39,28 @@ void GameSession::LoadWorld(){
 	FanObjectFactory fanFactory;
 
 
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 5; i++){
 		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
 		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
-	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1200), 0, 0));
-	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1200), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1800), 0, 0));
 	
 
-	GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
+	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 
-	rightBase = mbFactory.Spawn(506001, 975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506002, -975, 0, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(506001, -975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506002, 975, 0, 0, TEAM_PURPLE);
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -550, -150, 5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, -550, 150, 5, -10, -90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 550, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 550, 150, -5, 10, -90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, 150, 5, -10, -90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 350, -150, -5, 10, 90));
+	GameObjects.AddObject(fanFactory.Spawn(54001, 350, 150, -5, -10, -90));
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
@@ -407,8 +407,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
 		}
 		input->update();

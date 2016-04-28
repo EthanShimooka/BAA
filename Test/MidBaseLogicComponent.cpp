@@ -30,6 +30,19 @@ void MidBaseLogicComponent::attacked()
 
 }
 
+
+void MidBaseLogicComponent::launchPlayer(GameObject * player){
+
+	///apply logic  animation for throwing in this fucntion
+
+	//std::cout << "this line was reached " << std::endl;
+
+	//PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
+
+
+}
+
+
 void MidBaseLogicComponent::Update(){
 
 	if (gameObjectRef->health < 1){

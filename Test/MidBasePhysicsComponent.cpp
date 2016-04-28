@@ -63,6 +63,21 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 break;
 	}
 
+		/*
+	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
+											// chack to see if it is of opposing minion type
+											if (otherObj->team == gameObjectRef->team){
+												std::cout << "base hit! \n" << std::endl;
+												base_hit = true;
+												MidBaseLogicComponent* logicComponent = dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+												logicComponent->launchPlayer(otherObj);
+													// logicComponent->attacked();
+													//
+													//		}
+
+
+											}
+											break; */
 
 	default:
 		break;
@@ -70,7 +85,6 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void MidBasePhysicsComponent::Update(){
-
 
 
 
