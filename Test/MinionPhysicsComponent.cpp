@@ -41,9 +41,6 @@ void MinionPhysicsComponent::init(){
 		mBody->SetUserData(gameObjectRef);
 	}
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
-<<<<<<< HEAD
-	mBody->SetLinearVelocity(b2Vec2(5, 0));
-	//int yForce = rand() % 50 + 250;
 
 	float rando[10] = {
 		-325,
@@ -135,21 +132,12 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
-										 //otherObj;
-<<<<<<< HEAD
-										  //mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
-										  //FanPhysicsComponent* fanComp = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
-										  //float x = fanComp->forceVec.x;
-										  //float y = fanComp->forceVec.y;
-										  //mBody->ApplyForceToCenter((dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS)))->forceVec, true);
-										  break;
-=======
+
 										//mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, mBody->GetLinearVelocity().y-500));
 										FanPhysicsComponent* fanPhys = dynamic_cast<FanPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
 										blownForce = fanPhys->forceVec;
 										isGettingBlown = true;
 										break;
->>>>>>> refs/remotes/origin/master
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
 											  //Bounce off the walls
@@ -184,12 +172,8 @@ void MinionPhysicsComponent::Update(){
 			mBody->SetLinearVelocity(b2Vec2(-10, 0));
 	}else{
 			mBody->SetLinearVelocity(b2Vec2(10, 0));
-<<<<<<< HEAD
 	}*/
-=======
-	}
 	
->>>>>>> refs/remotes/origin/master
 }
 
 void MinionPhysicsComponent::DestroyMinion(){
