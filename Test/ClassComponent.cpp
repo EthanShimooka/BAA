@@ -26,9 +26,8 @@ int ClassComponent::useAbility(){
 	return 0;
 }
 
-OutputMemoryBitStream* ClassComponent::writeNetAbility(){
+void ClassComponent::writeNetAbility(){
 	std::cout << "class write" << std::endl;
-	return nullptr;
 }
 
 void ClassComponent::readNetAbility(InputMemoryBitStream& aPacket){

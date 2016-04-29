@@ -118,8 +118,14 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed == seedRequired){
 		PowerShieldObjectFactory sFactory;
-		if (gameObjectRef->posY>0)GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
-		else GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
+		if (gameObjectRef->posY > 0){
+			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false);
+		}
+		else {
+			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
+			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false);
+		}
 		currBirdseed = 0;
 		return true;
 	}
@@ -129,7 +135,7 @@ int ChickenClassComponent::useAbility(){
 	}
 }
 
-OutputMemoryBitStream* ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction){
+void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction){
 	std::cout << "chicken write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
@@ -139,7 +145,10 @@ OutputMemoryBitStream* ChickenClassComponent::writeNetAbility(uint64_t PID, floa
 	outData->Write(posX);
 	outData->Write(posY);
 	outData->Write(direction);
-	return outData;
+	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
+	//if (!netComp)
+		//netComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+	//netComp->outgoingPackets.push(outData);
 }
 
 void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){

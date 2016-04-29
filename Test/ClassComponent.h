@@ -20,7 +20,9 @@ Class Components are derived.
 #include "GameObject.h"
 #include "RenderComponent.h"
 #include "include\network\MemoryBitStream.h"
+//#include "PlayerNetworkComponent.h"
 
+//class PlayerNetworkComponent;
 
 class ClassComponent :
 	public Component
@@ -41,7 +43,7 @@ public:
 	//virtual void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	/// returns true if the ability was used, else returns false
 	virtual int useAbility();
-	virtual OutputMemoryBitStream* writeNetAbility();
+	virtual void writeNetAbility();
 	virtual void readNetAbility(InputMemoryBitStream& aPacket);
 
 	virtual int getClass();
@@ -57,6 +59,9 @@ public:
 	int maxsBirdseed = 8;
 
 	int powerNum=0;
+
+
+	//PlayerNetworkComponent *netComp = nullptr;
 };
 
 #endif

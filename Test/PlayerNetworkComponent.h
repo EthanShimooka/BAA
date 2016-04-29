@@ -17,6 +17,7 @@ typedef enum {
 
 class PlayerLogicComponent;
 class PlayerRenderComponent;
+class ClassComponent;
 
 class PlayerNetworkComponent : public NetworkComponent
 {
@@ -43,9 +44,11 @@ public:
 	
 
 	/// Pointer to the player logic component
-	PlayerLogicComponent *logic;
+	PlayerLogicComponent *logicComp;
 	/// Pointer to the player render component
-	PlayerRenderComponent *render;
+	PlayerRenderComponent *renderComp;
+	/// Pointer to the player class component
+	ClassComponent *classComp;
 };
 
 #endif
