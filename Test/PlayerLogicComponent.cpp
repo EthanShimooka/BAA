@@ -51,12 +51,8 @@ void PlayerLogicComponent::Update(){
 	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 
 	//update player kill notification
-	double oldestAge = clock() - killHUD[0].second;
-	//std::cout << "oldestAge=" << oldestAge << std::endl;
-	if (oldestAge == 0)oldestAge += 0.0001;//prevents dividing by zero
-	oldestAge /= (double)(CLOCKS_PER_SEC);
-	if (oldestAge>5000){
-	}
+	
+	updateKillHUD();
 }
 
 /// For spawning local feathers
@@ -158,6 +154,23 @@ void PlayerLogicComponent::addToKillList(uint64_t shooter){
 }
 
 void PlayerLogicComponent::updateKillHUD(){
+	//this precondition should be true when no kills are visible
+	if (killHUD.size() == 0)return;
+
+	double oldestAge = clock() - killHUD.front().second;
+	std::cout << "oldestAge=" << oldestAge << std::endl;
+	if (oldestAge == 0)oldestAge += 0.0001;//prevents dividing by zero
+	if (oldestAge>5000){
+		auto oldElem = killHUD.back();
+		oldElem.first->visible = false;
+		killHUD.pop_back();
+		//TESTING: Add new item on
+		UIObjectFactory HUDfactory;
+		UIObject* newNotif = HUDfactory.Spawn(KILL_NOTIFICATION, killHUD.back().first->getPosX(), killHUD.back().first->getPosY() + 30);
+		SDLRenderObject* newNotifObj = dynamic_cast<UIRenderComponent*>(newNotif->GetComponent(COMPONENT_RENDER))->objRef;
+		killHUD.push_back(std::pair <SDLRenderObject*,clock_t >(newNotifObj, clock()));
+		
+	}
 }
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){

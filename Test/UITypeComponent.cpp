@@ -155,7 +155,8 @@ void UITypeComponent::createUIType(UIType ID){
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		RenderManager* renderMan = RenderManager::getRenderManager();
-		objRef->setResourceObject(renderMan->renderText("test", 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+		//the value passed in is just to test.
+		objRef->setResourceObject(renderMan->renderText(std::to_string(std::rand()).c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
 		allObjs.push_back(play);
 	}
 	}
