@@ -54,7 +54,7 @@ public:
 	int maxsBirdseed = 8;
 
 	int powerNum=0;
-
+	bool isChicken, isEagle, isFlamingo, isPeacock, isQuail, isTurkey;
 };
 
 #endif
