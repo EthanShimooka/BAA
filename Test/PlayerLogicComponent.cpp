@@ -50,13 +50,7 @@ void PlayerLogicComponent::Update(){
 	std::string title = minutes + ":" + seconds; //concat on the time remaining here!
 	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 
-	//update player kill notification
-	double oldestAge = clock() - killHUD[0].second;
-	//std::cout << "oldestAge=" << oldestAge << std::endl;
-	if (oldestAge == 0)oldestAge += 0.0001;//prevents dividing by zero
-	oldestAge /= (double)(CLOCKS_PER_SEC);
-	if (oldestAge>5000){
-	}
+	updateKillHUD();
 }
 
 /// For spawning local feathers
@@ -142,22 +136,57 @@ void PlayerLogicComponent::endCharge() {
 }
 
 void PlayerLogicComponent::addToKillList(uint64_t shooter){
-	if (killHUD.size() >= 5){
-		//we are full pop off the oldest message
-		//maybe memory management issues with this
-		killHUD.pop_back();
+	//start by finding the first open spot to add the notification to
+	int elemIndex = 0;
+	bool success = false;
+	for (int i = 0; i < killHUD.size(); i++){
+		if (!killHUD[i].first->visible){
+			elemIndex = i;
+			success = true;
+			break;
+		}
 	}
 
-	//make the new image
+	if (!success){
+		//this happens when we iterate through the list and see that there is no free spot to put the new notification
+		//we need to rotate the array and add it on to the end now
+		auto tempElem = killHUD[0];
+		for (int i = 0; i < killHUD.size() - 1; i++){
+			killHUD[i] = killHUD[i + 1];
+		}
+		killHUD[killHUD.size() - 1] = tempElem;
+		//now that we rotated it, modify the last elem.
+	}
+	//create the new elem here
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	SDLRenderObject* newText = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0, 0);
 	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
 	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
 	newText->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
-	// push it on
+	//reassign the new element to be the new notification
+	killHUD[elemIndex].first = newText;
+	killHUD[elemIndex].first->visible = true;
+	killHUD[elemIndex].second = clock();
 }
 
 void PlayerLogicComponent::updateKillHUD(){
+	//update player kill notification
+	double oldestAge = clock() - killHUD[0].second;
+	//std::cout << "oldestAge=" << oldestAge << std::endl;
+	//when the message has displayed for 5 seconds, it's old and should be removed
+	if (oldestAge>5000){
+		//circular rotation on array
+		killHUD[0].first->visible = false;
+		auto tempElem = killHUD[0];
+		for (int i = 0; i < killHUD.size() - 1; i++){
+			killHUD[i] = killHUD[i+1];
+		}
+		killHUD[killHUD.size() - 1] = tempElem;
+		//now update postions on screen
+		for (int i = 0; i < killHUD.size(); i++){
+			killHUD[i].first->setPos(SCREEN_WIDTH - 200, 130 + i * 30);
+		}
+	}
 }
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
