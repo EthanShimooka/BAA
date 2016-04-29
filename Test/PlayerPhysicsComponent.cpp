@@ -35,7 +35,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER);
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER );
 }
 
 
@@ -70,12 +70,40 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 			}
 		}
 		break;
+
+	
+
 	default:
 		break;
 	}
 }
 
+void PlayerPhysicsComponent::launchPlayer(){
+	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	b2Vec2 vel = mBody->GetLinearVelocity();
 
+	logicComp->becomeEgg();
+	std::cout << "horizontal velocity: " << vel.x << std::endl;
+
+
+	if (gameObjectRef->team == TEAM_YELLOW){
+		   mBody->SetLinearVelocity(b2Vec2(vel.x + 1.0f, vel.y - 0.1f));
+		} else{
+	       mBody->SetLinearVelocity(b2Vec2(vel.x + -1.0f, vel.y + 0.1f));
+     }
+
+	//check if back at base yet
+	if ((gameObjectRef->posX > 0) && (gameObjectRef->team == TEAM_YELLOW)){
+
+		logicComp->hatchBird();
+		logicComp->launchable = false;
+	}
+
+	if ((gameObjectRef->posX < 0) && (gameObjectRef->team == TEAM_PURPLE)){
+		logicComp->hatchBird();
+		logicComp->launchable = false;
+	}
+}
 
 void PlayerPhysicsComponent::Update(){
 	b2Vec2 vel = mBody->GetLinearVelocity();
@@ -96,11 +124,18 @@ void PlayerPhysicsComponent::Update(){
 	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
-		mBody->SetAngularVelocity(5);
+		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (abs(gameObjectRef->posX) > 900){
+		if (abs(gameObjectRef->posX) > 1300){
 			logicComp->hatchBird();
 		}
 	}
+
+	if (logicComp->launchable){
+		launchPlayer();
+		}
 }
+
+
+
