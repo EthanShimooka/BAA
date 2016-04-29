@@ -79,6 +79,8 @@ public:
 	bool flipV ;
 	/// Health
 	int health;
+	/// Invulnerability
+	bool invulnerable = false;
 	/// virtual update function
 	virtual void update(){};
 

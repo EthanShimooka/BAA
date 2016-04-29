@@ -16,6 +16,7 @@ QuailClassComponent::QuailClassComponent(GameObject* player)
 	seedRequired = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
+	currBirdseed = 6;
 }
 
 QuailClassComponent::~QuailClassComponent()
@@ -26,6 +27,7 @@ void QuailClassComponent::Update()
 {
 	if (Timing::sInstance.EndQuailAbilityTimer()) {
 			speed = 19;
+			GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->invulnerable = false;
 	}
 }
 
@@ -128,6 +130,9 @@ int QuailClassComponent::useAbility(){
 	if (currBirdseed == seedRequired){
 		Timing::sInstance.SetQuailAbilityTimer();
 		speed *= 3;
+		//trigger invulnerability, getcomponent with local player id and set invulnerability to true,
+		//then in physicscomponent say if(!gameObjectRef->invulnerable){ execute collision commands}
+		GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->invulnerable = true;
 		currBirdseed = 0;
 		return true;
 	}

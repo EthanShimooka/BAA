@@ -47,7 +47,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//do nothing or push past each other
 		break;
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		if (otherObj->team == gameObjectRef->team)break;
+		if (otherObj->team == gameObjectRef->team || gameObjectRef->invulnerable)break;
 		//signal self death and turn to egg
 		if (otherObj->isLocal){
 			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
@@ -58,7 +58,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		inAir = false;
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:
-		if (otherObj->team != gameObjectRef->team){
+		if (otherObj->team != gameObjectRef->team && !gameObjectRef->invulnerable){
 			MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			if(mineLogicComp->fuseLit){
 				//using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
