@@ -147,7 +147,6 @@ void PlayerNetworkComponent::Update(){
 
 	// creating a movement packet
 	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId()){
-		dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->writeNetAbility();
 		createMovementPacket();
 	}
 

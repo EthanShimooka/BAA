@@ -52,7 +52,7 @@ void PlayerLogicComponent::Update(){
 
 	//update player kill notification
 	double oldestAge = clock() - killHUD[0].second;
-	std::cout << "oldestAge=" << oldestAge << std::endl;
+	//std::cout << "oldestAge=" << oldestAge << std::endl;
 	if (oldestAge == 0)oldestAge += 0.0001;//prevents dividing by zero
 	oldestAge /= (double)(CLOCKS_PER_SEC);
 	if (oldestAge>5000){
