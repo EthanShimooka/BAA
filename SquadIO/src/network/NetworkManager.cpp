@@ -273,6 +273,9 @@ void NetworkManager::ProcessPacketsLobby(InputMemoryBitStream& inInputStream, ui
 	case kReadyUpCC:
 		handleReadyUpPacket(inInputStream, inFromPlayer);
 		break;
+	case kTeamCC:
+		HandleTeamPacket(inInputStream, inFromPlayer);
+		break;
 	case kReadyCC:
 		HandleReadyPacket(inInputStream, inFromPlayer);
 		break;
@@ -289,6 +292,19 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.ready = ready;
+	}
+}
+
+void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
+	
+	uint64_t ID;
+	inInputStream.Read(ID);
+	int team;
+	inInputStream.Read(team);
+	for (auto& iter : lobbyInfoMap){
+		if (iter.first == ID){
+			iter.second.team = team;
+		}
 	}
 }
 
@@ -338,6 +354,21 @@ void NetworkManager::SendSelectPacket(int classType)
 	}
 }
 
+void NetworkManager::SendTeamToPeers(uint64_t ID, int team){
+	
+	OutputMemoryBitStream outpacket;
+	outpacket.Write(kTeamCC);
+	outpacket.Write(ID);
+	outpacket.Write(team);
+	for (auto& iter : mPlayerNameMap){
+		if (iter.first != mPlayerId){
+			SendReliablePacket(outpacket, iter.first);
+		}
+	}
+}
+
+
+
 void NetworkManager::ProcessPacketsReady(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer)
 {
 	//could be another ready packet or a start packet
@@ -351,6 +382,9 @@ void NetworkManager::ProcessPacketsReady(InputMemoryBitStream& inInputStream, ui
 		break;
 	case kStartCC:
 		HandleStartPacket(inInputStream, inFromPlayer);
+		break;
+	case kTeamCC:
+		HandleTeamPacket(inInputStream, inFromPlayer);
 		break;
 	default:
 		//ignore anything else
@@ -385,19 +419,6 @@ void NetworkManager::SendReadyPacketsToPeers()
 		{
 			SendPacket(outPacket, iter.first);
 		}
-	}
-}
-
-void NetworkManager::SendHelloWorld(){
-	OutputMemoryBitStream outPacket;
-	uint32_t hello = 42;
-	outPacket.Write(hello);
-	for (auto& iter : mPlayerNameMap)
-	{
-		//if (iter.first != mPlayerId)
-		//{
-		SendPacket(outPacket, iter.first);
-		//}
 	}
 }
 

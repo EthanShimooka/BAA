@@ -25,8 +25,8 @@ void Start::mainMenu(){
 	resourceMan->loadFromXMLFile("source.xml");
 	renderMan->zoom = 0.25;
 
-	audioMan->loadAllAudio();
-	audioMan->playByName("bgmBAALobby.ogg");
+	/*audioMan->loadAllAudio();
+	audioMan->playByName("bgmBAALobby.ogg");*/
 	std::cout << audioMan->audioObjects.size() << std::endl;
 	resourceMan->setCurrentScope(0);
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
@@ -34,18 +34,20 @@ void Start::mainMenu(){
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
 
+	int w, h;
+	renderMan->getWindowSize(&w, &h);
+
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
-	UIObjectFactory playButton;
-	UIObjectFactory joinButton;
+	UIObjectFactory menuButtons;
 
 	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
 
-	queue.AddObject(playButton.Spawn(OPTIONS_BUTTON));
-	queue.AddObject(joinButton.Spawn(JOIN_BUTTON));
+	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w / 2 + 25, (float)h / 2 - 25));
+	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w / 2 - 125, (float)h / 2 - 25));
 
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
 

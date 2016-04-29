@@ -1,4 +1,7 @@
 #pragma once
+#ifndef QUAILCLASSCOMPONENT_H_INCLUDED
+#define QUAILCLASSCOMPONENT_H_INCLUDED
+
 #include "ClassComponent.h"
 #include "PlayerObjectFactory.h"
 class QuailClassComponent :
@@ -12,3 +15,5 @@ public:
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();
 };
+
+#endif

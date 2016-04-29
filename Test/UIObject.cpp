@@ -1,4 +1,5 @@
 #include "UIObject.h"
+#include "UIComponentIncludes.h"
 
 /// Constructor
 UIObject::UIObject() : posX(0), posY(0), rotation(0), scale(1){
@@ -18,7 +19,18 @@ UIObject::UIObject(float x, float y, float r, float s) :
 
 /// Destructor
 UIObject::~UIObject(){
-	this->DetachComponent();
+	for (unsigned int i = 0; i < g_components.size(); i++) {
+		switch (g_components[i].type){
+		case COMPONENT_RENDER:
+			delete dynamic_cast<UIRenderComponent*>(g_components[i].component);
+			break;
+		case COMPONENT_INPUT:
+			delete dynamic_cast<UIInputComponent*>(g_components[i].component);
+			break;
+		case COMPONENT_UI:
+			delete dynamic_cast<UIComponent*>(g_components[i].component);
+		}
+	}
 }
 
 

@@ -196,4 +196,3 @@ void MinionPhysicsComponent::DestroyMinion(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	gameObjectRef->isAlive = false;
 }
-	

@@ -1,31 +1,54 @@
 /**
-*  UIRenderComponet.h
-*  Authors: Ethan Shimooka, Vincent Moudy
-*  Date 2/29/2016
+*  RenderComponet.h
+*  Authors: Ethan Shimooka
+*  Date 2/25/2016
 *  Description :
-   UIRenderComponent represents the UI-specific Render class
+RenderComponent represents the abstreact base class from which all other
+render Components are derived.
+
+The Render Component is responsible for containing the SDL object refrence
+and managing it. Will probably handle the calls to animation as well.
 
 */
+
+
 
 #pragma once
 #ifndef UIRENDERCOMPONENT_H_INCLUDED
 #define UIRENDERCOMPONENT_H_INCLUDED
-#include "RenderUIComponent.h"
-#include "include\SceneManager.h"
-#include "include\network\NetIncludes.h"
 
-class UIRenderComponent : public RenderUIComponent
+#include "Component.h"
+#include "include\SDLRenderObject.h"
+#include "UIObject.h"
+
+
+class UIRenderComponent : public Component
 {
 public:
+
 	/// Constructor
 	UIRenderComponent();
+
 	/// Destructor
 	~UIRenderComponent();
 
-	/// Create a new UI object
-	void createUIType(UIType ID);
-	/// Update
-	void Update();
+	/// Renderable Sprite pointer
+	SDLRenderObject* objRef;
+	std::list <SDLRenderObject*> allObjs;
+	bool visible;
+
+	/// UI objects reference
+	UIObject* uiObjectRef;
+
+
+	/////////////////////////////////////////////////
+
+	/// Assign Sprites 
+	void AssignSprite(SDLRenderObject* rend);
+	/// Updates Sprite to renderer
+	virtual void Update();
+
+
 };
 
 #endif

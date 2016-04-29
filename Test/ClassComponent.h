@@ -60,8 +60,7 @@ public:
 
 	int powerNum=0;
 
-
-	//PlayerNetworkComponent *netComp = nullptr;
+	bool isChicken, isEagle, isFlamingo, isPeacock, isQuail, isTurkey;
 };
 
 #endif
