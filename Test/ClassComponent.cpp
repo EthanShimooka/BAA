@@ -2,6 +2,12 @@
 
 ClassComponent::ClassComponent()
 {
+	isChicken = false;
+	isEagle = false;
+	isQuail = false;
+	isPeacock = false;
+	isTurkey = false;
+	isFlamingo = false;
 	speed = 16;
 	width = 1.33f;
 	height = 1.35f;

@@ -146,7 +146,6 @@ bool Timing::ExplosionTimerEnded(){
 
 void Timing::SetQuailAbilityTimer(){
 	quailAbilityStart = clock();
-	quailAbilityActive = true;
 }
 
 bool Timing::EndQuailAbilityTimer(){
@@ -155,7 +154,6 @@ bool Timing::EndQuailAbilityTimer(){
 	std::cout << "abilityTime = " << abilityTime << ", quailAbilityLengthInMS = " << quailAbilityLengthInMS << std::endl;
 	if (abilityTime >= quailAbilityLengthInMS){
 		quailAbilityStart = 0;
-		quailAbilityActive = false;
 		return true;
 	}
 	else return false;

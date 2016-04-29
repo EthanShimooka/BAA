@@ -42,12 +42,10 @@ public:
 	SQUADIO_API void StartExplosionTimer();
 	/// Returns true if the explosion timer's time is up and the explosion should be removed
 	SQUADIO_API bool ExplosionTimerEnded();
-	/// 
+	/// Starts timer when quail ability is triggered
 	SQUADIO_API void SetQuailAbilityTimer();
-	/// 
+	/// Returns true when the quail ability timer is over
 	SQUADIO_API bool EndQuailAbilityTimer();
-
-	bool quailAbilityActive = false;
 private:
 	float			mDeltaTime;
 	uint64_t		mDeltaTick;

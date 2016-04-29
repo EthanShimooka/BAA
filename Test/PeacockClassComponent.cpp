@@ -5,6 +5,7 @@
 PeacockClassComponent::PeacockClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
+	isPeacock = true;
 	speed += 2;
 	seedRequired = 7;
 	gameObjectRef = player;
