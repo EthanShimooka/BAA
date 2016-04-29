@@ -155,7 +155,8 @@ void UITypeComponent::createUIType(UIType ID){
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		RenderManager* renderMan = RenderManager::getRenderManager();
-		objRef->setResourceObject(renderMan->renderText("test", 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+		objRef->setResourceObject(renderMan->renderText("", 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+		objRef->visible = false;
 		allObjs.push_back(play);
 	}
 	}

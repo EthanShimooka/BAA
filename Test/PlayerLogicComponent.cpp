@@ -159,12 +159,10 @@ void PlayerLogicComponent::addToKillList(uint64_t shooter){
 	}
 	//create the new elem here
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	SDLRenderObject* newText = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0, 0);
 	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
 	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
-	newText->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 	//reassign the new element to be the new notification
-	killHUD[elemIndex].first = newText;
+	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
 	killHUD[elemIndex].first->visible = true;
 	killHUD[elemIndex].second = clock();
 }
@@ -173,7 +171,7 @@ void PlayerLogicComponent::updateKillHUD(){
 	//update player kill notification
 	double oldestAge = clock() - killHUD[0].second;
 	//std::cout << "oldestAge=" << oldestAge << std::endl;
-	//when the message has displayed for 5 seconds, it's old and should be removed
+	//when the message has displayed for 5 seconds, it's old and should be removedi
 	if (oldestAge>5000){
 		//circular rotation on array
 		killHUD[0].first->visible = false;

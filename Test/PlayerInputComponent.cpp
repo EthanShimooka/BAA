@@ -98,6 +98,10 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		PlayerLogicComponent* net = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		net->launchable = true;
 	}
+	if (input->isKeyDown(KEY_O)) {
+		PlayerLogicComponent* net = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		net->addToKillList(GamerServices::sInstance->GetLocalPlayerId());
+	}
 	//shoot feather
 	if (input->isMouseDown(MOUSE_LEFT) && canFire){ 
 		//old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
@@ -120,10 +124,6 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, (float)chargeTime * featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		netComp->createFeatherPacket(id, (int)dx, (int)dy, (float)chargeTime * featherSpeed);
-	}
-	if (input->isKeyDown(KEY_O)){
-		//THIS IS FOR PLAYER DEATH TESTING!!!! REMOVE WHEN DONE!!
-		logicComp->becomeEgg();
 	}
 	
 	
