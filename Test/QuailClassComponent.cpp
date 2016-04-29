@@ -24,7 +24,12 @@ QuailClassComponent::~QuailClassComponent()
 
 void QuailClassComponent::Update()
 {
-	if (Timing::sInstance.EndQuailAbilityTimer()) speed /= 3;
+	if (Timing::sInstance.EndQuailAbilityTimer()) {
+		//if (!Timing::sInstance.quailAbilityActive) {//Continually enters until ability is triggered then never
+			speed = 19;
+			std::cout << "PLEASE DON'T SEE THIS!!!!!!" << std::endl;
+		//}
+	}
 }
 
 void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)

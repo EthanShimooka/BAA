@@ -146,12 +146,18 @@ bool Timing::ExplosionTimerEnded(){
 
 void Timing::SetQuailAbilityTimer(){
 	quailAbilityStart = clock();
+	quailAbilityActive = true;
 }
 
 bool Timing::EndQuailAbilityTimer(){
 	clock_t difference = clock() - quailAbilityStart;
 	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
-	if (abilityTime >= quailAbilityLengthInMS) return true;
+	std::cout << "abilityTime = " << abilityTime << ", quailAbilityLengthInMS = " << quailAbilityLengthInMS << std::endl;
+	if (abilityTime >= quailAbilityLengthInMS){
+		quailAbilityStart = 0;
+		quailAbilityActive = false;
+		return true;
+	}
 	else return false;
 }
 

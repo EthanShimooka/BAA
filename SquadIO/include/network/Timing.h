@@ -46,6 +46,8 @@ public:
 	SQUADIO_API void SetQuailAbilityTimer();
 	/// 
 	SQUADIO_API bool EndQuailAbilityTimer();
+
+	bool quailAbilityActive = false;
 private:
 	float			mDeltaTime;
 	uint64_t		mDeltaTick;
@@ -56,7 +58,7 @@ private:
 	time_t			attackCooldown;
 
 	clock_t			explosionStart;
-	clock_t			quailAbilityStart;
+	clock_t			quailAbilityStart = 0;
 
 	double			mLastFrameStartTime;
 	float			mFrameStartTimef;
