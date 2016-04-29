@@ -113,7 +113,7 @@ void GameSession::LoadHUD(GameObject* player){
 	playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
 
 	//add ui components to show player kills
-	std::list<std::pair<SDLRenderObject*, clock_t>> killHUD;
+	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
 		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,SCREEN_WIDTH-200,130+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;

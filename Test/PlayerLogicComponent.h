@@ -18,7 +18,6 @@ Only the local player GameObject should have this component.
 #include "FeatherObjectFactory.h"
 #include "PlayerComponentIncludes.h"
 #include "include\InputManager.h"
-#include "UIObjectFactory.h"
 
 #include "PowerShieldObjectFactory.h"
 #include "MineObjectFactory.h"
@@ -76,7 +75,7 @@ public:
 	SDLRenderObject* timerHUD;
 
 	int killHUDSize = 5;
-	std::list<std::pair<SDLRenderObject*,clock_t>> killHUD;
+	std::vector<std::pair<SDLRenderObject*,clock_t>> killHUD;
 
 	/// adds to the queue of player kills
 	void addToKillList(uint64_t killer);
