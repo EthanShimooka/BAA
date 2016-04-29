@@ -151,7 +151,6 @@ void Timing::SetQuailAbilityTimer(){
 bool Timing::EndQuailAbilityTimer(){
 	clock_t difference = clock() - quailAbilityStart;
 	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
-	std::cout << "abilityTime = " << abilityTime << ", quailAbilityLengthInMS = " << quailAbilityLengthInMS << std::endl;
 	if (abilityTime >= quailAbilityLengthInMS){
 		quailAbilityStart = 0;
 		return true;
