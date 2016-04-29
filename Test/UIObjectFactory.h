@@ -20,7 +20,7 @@ assembler that will use the input component.
 
 // Component Includes
 #include "Component.h"
-#include "UIRenderComponent.h"
+#include "UITypeComponent.h"
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 
@@ -33,9 +33,7 @@ public:
 
 	uint64_t player = 0;
 	/// Creates a new UI Object
-	UIObject * Spawn(UIType PID);
-	UIObject * Spawn(UIType PID, int x, int y);
-
+	UIObject* Spawn(UIType PID, int x, int y);
 };
 
 #endif

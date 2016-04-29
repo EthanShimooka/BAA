@@ -31,6 +31,8 @@ public:
 	static const uint32_t	kDelayCC = 'DELY';
 	/// Notification used to kill minion
 	static const uint32_t	kMinDeathCC = 'MDTH';
+	/// Notification for team
+	static const uint32_t	kTeamCC = 'TEAM';
 
 	static const uint32_t	kPosCC = 'POSI';
 
@@ -134,8 +136,6 @@ public:
 	SQUADIO_API void	SendPacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer);
 	/// Calls Gamerservices to send reliable packet
 	SQUADIO_API void	SendReliablePacket(const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer);
-	/// Sends hello world. For testing
-	SQUADIO_API void    SendHelloWorld();
 	/// Prints to cout all players in lobby
 	SQUADIO_API void	GetAllPlayersInLobby();
 	/// Attempts to enter a lobby
@@ -164,6 +164,10 @@ public:
 	SQUADIO_API float	GetTimeToStart() const { return mTimeToStart; }
 
 	SQUADIO_API bool	TeamSelected() const { return mTeamSelected; }
+
+	SQUADIO_API void	SendTeamToPeers(uint64_t ID, int team);
+
+	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 
 	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
 	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
