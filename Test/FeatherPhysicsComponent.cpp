@@ -66,7 +66,7 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
 											//destroy self or return to object pool
-											if (otherObj->team == gameObjectRef->team)break;
+											if (otherObj->team == gameObjectRef->team || otherObj->invulnerable)break;
 											if (gameObjectRef->isLocal)
 												dynamic_cast<FeatherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->giveBirdseed(3);
 											gameObjectRef->isAlive = false;
