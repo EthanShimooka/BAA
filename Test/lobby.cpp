@@ -201,7 +201,7 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 
 	SystemRenderUpdater sysRend;
 	UIObjectFactory countdown;
-	UIObject* timer = countdown.Spawn(LOBBY_TIMER);
+	UIObject* timer = countdown.Spawn(LOBBY_TIMER, 30, 30);
 
 	q.AddObject(timer);
 	Timing::sInstance.SetLobbyCountdown();
@@ -242,20 +242,17 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	x = w / 5;
 	y = h / 2;
 	//build class slots
-	UIObjectFactory* chx = new UIObjectFactory();
-	UIObjectFactory* pCock = new UIObjectFactory();
-	UIObjectFactory* quail = new UIObjectFactory();
-	UIObjectFactory* turkey = new UIObjectFactory();
-	UIObjectFactory* flamingo = new UIObjectFactory();
-	UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
+	UIObjectFactory* allBirds = new UIObjectFactory();
+
+	UIObject* bird = allBirds->Spawn(CHICKEN, x - 33, y);
 	x += bird->getWidth();
-	UIObject* bird2 = pCock->Spawn(PEACOCK, x, y);
+	UIObject* bird2 = allBirds->Spawn(PEACOCK, x, y);
 	x += bird2->getWidth();
-	UIObject* bird3 = quail->Spawn(QUAIL, x, y);
+	UIObject* bird3 = allBirds->Spawn(QUAIL, x, y);
 	x += bird3->getWidth();
-	UIObject* bird4 = turkey->Spawn(TURKEY, x, y);
+	UIObject* bird4 = allBirds->Spawn(TURKEY, x, y);
 	x += bird4->getWidth();
-	UIObject* bird5 = flamingo->Spawn(FLAMINGO, x, y);
+	UIObject* bird5 = allBirds->Spawn(FLAMINGO, x, y);
 
 
 	Birds.push_back(bird);

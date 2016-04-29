@@ -84,27 +84,27 @@ void GameSession::LoadHUD(GameObject* player){
 	renderMan->setBackground("tempbackground.png");
 
 	//add the birdseed reference to player logic
-	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR);
-	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL));
+	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR, 30, 30);
+	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30));
 	queue.AddObject(birdseedMeter);
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
 	
 	//add a timer to top of screen
-	UIObject* countdownTimer = HUDFactory.Spawn(TIMER);
+	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
 	queue.AddObject(countdownTimer);
 	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 	//load crosshair
-	UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR);
+	UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR, 0, 0);
 	queue.AddObject(crosshair);
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
 
 	// add charge meter reference to player logic
 	// also needs playerrendercomponent for xpos/ypos
-	UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR);
-	UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL);
+	UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR, (SCREEN_WIDTH - 300), 0);
+	UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL, (SCREEN_WIDTH - 300), 0);
 	queue.AddObject(chargeMeter);
 	queue.AddObject(chargeShell);
 	playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;

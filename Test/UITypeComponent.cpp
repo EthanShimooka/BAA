@@ -93,8 +93,6 @@ void UITypeComponent::createUIType(UIType ID){
 		break;
 	case TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();
-		uiObjectRef->posX = SCREEN_WIDTH - 200;
-		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
 		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
@@ -105,10 +103,7 @@ void UITypeComponent::createUIType(UIType ID){
 	case LOBBY_TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();
 
-		int x, y;
-		renderMan->getWindowSize(&x, &y);
-
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
 		play->setResourceObject(renderMan->renderText("", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 
 		objRef = play;
@@ -119,21 +114,17 @@ void UITypeComponent::createUIType(UIType ID){
 		//TODO: these hardcoded positions are to put it a bit away from the borders of the screen.
 		//We'll need to store them as variables, since PlayerLogicComponent->update has hardcoded
 		//values to match
-		uiObjectRef->posX = 30;
-		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1101, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case BIRDSEED_SHELL:
-		uiObjectRef->posX = 30;
-		uiObjectRef->posY = 30;
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1100, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case CROSSHAIR:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, 0, 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
@@ -151,12 +142,12 @@ void UITypeComponent::createUIType(UIType ID){
 	// using 1102 and 1103 for object IDs
 	// position is currently hardcoded, need to move to follow the player sprite location
 	case CHARGE_BAR:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, (SCREEN_WIDTH - 300), 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1103, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
 	case CHARGE_SHELL:
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, (SCREEN_WIDTH - 300), 0, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1102, uiObjectRef->posX, uiObjectRef->posY, true);
 		objRef = play;
 		allObjs.push_back(play);
 		break;
