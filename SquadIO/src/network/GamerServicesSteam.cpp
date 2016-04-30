@@ -170,7 +170,7 @@ void GamerServices::Impl::OnFriendLobbyCreateCallback(LobbyCreated_t* inCallback
 	if (inCallback->m_eResult == k_EResultOK && !inIOFailure)
 	{
 		mLobbyId = inCallback->m_ulSteamIDLobby;
-		//set our game and joinable so others can find this lobby
+		//set our game and joinable so only friends can find this lobby
 		SteamMatchmaking()->SetLobbyData(mLobbyId, "game", kGameName);
 
 		NetworkManager::sInstance->EnterLobby(mLobbyId.ConvertToUint64());

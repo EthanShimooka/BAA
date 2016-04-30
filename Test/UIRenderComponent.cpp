@@ -26,7 +26,16 @@ void UIRenderComponent::Update(){
 	//a 'figurehead' for the player object 
 	if (uiObjectRef->changePicture && uiObjectRef->ID == PLAYER_SLOT){
 		ResourceManager* ResMan = ResourceManager::GetResourceManager();
+		RenderManager* rendMan = RenderManager::getRenderManager();
+		int w, h;
+		rendMan->getWindowSize(&w, &h);
 		objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(uiObjectRef->changeTo));
+		if (uiObjectRef->bottom){
+			objRef->posY = h - objRef->getHeight();
+		}
+		else{
+			objRef->posY = uiObjectRef->posY;
+		}
 	}
 	else if (uiObjectRef->hoverPicture && uiObjectRef->ID == PLAYER_SLOT){
 		ResourceManager* ResMan = ResourceManager::GetResourceManager();

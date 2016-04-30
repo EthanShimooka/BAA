@@ -15,10 +15,6 @@ void Start::mainMenu(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	ResourceManager* resourceMan = ResourceManager::GetResourceManager();
 
-	/*resMan->loadFromXMLFile("source.xml");
-	resMan->setCurrentScope(0);
-	sceneMan->loadFromXMLFile("SceneTree.xml");*/
-
 	log->create("log.txt");
 	renderMan->setBackground("Menu_bg.png");
 
@@ -27,9 +23,9 @@ void Start::mainMenu(){
 
 	/*audioMan->loadAllAudio();
 	audioMan->playByName("bgmBAALobby.ogg");*/
-	std::cout << audioMan->audioObjects.size() << std::endl;
+	//std::cout << audioMan->audioObjects.size() << std::endl;
 	resourceMan->setCurrentScope(0);
-	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
+	//std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 	input->update();
@@ -52,10 +48,6 @@ void Start::mainMenu(){
 
 		renderMan->zoom = 0.5;
 		input->update();
-
-		if (input->isKeyDown(KEY_K)){
-			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
-		}
 
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);

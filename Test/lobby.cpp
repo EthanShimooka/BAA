@@ -33,13 +33,7 @@ void Lobby::runLobby(){
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 	player* me = new player();
 
-	//if (NetworkManager::sInstance->IsMasterPeer()){
-		assignPlayers();
-	//}
-	//wait for master peer to assigne us a team
-	/*else{
-		waitForTeam();
-	}*/
+	assignPlayers();
 		
 	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
@@ -146,10 +140,6 @@ void Lobby::runLobby(){
 	deletePlayers();
 }
 
-void Lobby::waitForTeam(){
-
-}
-
 void Lobby::deletePlayers(){
 	for (unsigned int i = 0; i < players.size(); i++){
 		delete players[i];
@@ -227,7 +217,7 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 			return;
 		}
 
-		std::string title = minutes + ":" + seconds; //concat on the time remaining here!
+		std::string title = minutes + ":" + seconds;
 		timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
 	}
 }
@@ -279,7 +269,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";
-		if (i % 2 == 0){
+		if (i % 2 == 1){
 			p->x = 0 + x;
 			p->y = 0;
 			p->team = TEAM_YELLOW;
