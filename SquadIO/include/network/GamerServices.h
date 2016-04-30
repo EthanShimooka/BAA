@@ -12,6 +12,7 @@ public:
 	SQUADIO_API string GetLocalPlayerName();
 	SQUADIO_API string GetRemotePlayerName( uint64_t inPlayerId );
 	SQUADIO_API void InviteFriendsFromOverlay();
+	SQUADIO_API void CreateFriendsLobby();
 
 	//lobby functions
 	void LobbySearchAsync();
@@ -96,6 +97,7 @@ public:
 	void DebugResetStats( bool inResetAchieves );
 private:
 	GamerServices();
+	int maxPlayers = 4;
 	
 	std::unique_ptr< Impl > mImpl;
 };

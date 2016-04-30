@@ -67,6 +67,14 @@ void NetworkManager::StartLobbySearch(){
 	}
 }
 
+void NetworkManager::CreateFriendLobby(){
+	mState = NMS_Searching;
+	GamerServices::sInstance->CreateFriendsLobby();
+	while (GetState() != NMS_Lobby){
+		GamerServices::sInstance->Update();
+	}
+}
+
 void NetworkManager::ProcessIncomingPackets()
 {
 	ReadIncomingPacketsIntoQueue();
@@ -134,7 +142,11 @@ void NetworkManager::UpdateDelay()
 
 void NetworkManager::UpdateStarting()
 {
-	EnterPlayingState();
+	mTimeToStart -= Timing::sInstance.GetDeltaTime();
+	if (mTimeToStart <= 0.0f)
+	{
+		EnterPlayingState();
+	}
 }
 
 void NetworkManager::UpdateSendTurnPacket()
@@ -443,7 +455,7 @@ void NetworkManager::HandleStartPacket(InputMemoryBitStream& inInputStream, uint
 		//for now, assume that we're one frame off, but ideally we would RTT to adjust
 		//the time to start, based on latency/jitter
 		mState = NMS_Starting;
-		//mTimeToStart = kStartDelay - Timing::sInstance.GetDeltaTime();
+		mTimeToStart = kStartDelay - Timing::sInstance.GetDeltaTime();
 	}
 }
 
@@ -587,7 +599,6 @@ void NetworkManager::ProcessQueuedPackets()
 	}
 }
 
-/*Most of the EnterPlayingState() code does not apply to our game!!!*/
 void NetworkManager::EnterPlayingState()
 {
 	mState = NMS_Playing;
@@ -744,7 +755,7 @@ void NetworkManager::TryStartGame()
 			}
 		}
 
-		//mTimeToStart = kStartDelay;
+		mTimeToStart = kStartDelay;
 		mState = NMS_Starting;
 	}
 }
@@ -769,17 +780,17 @@ void NetworkManager::TryReadyGame()
 		TryStartGame();
 	}
 	// i am not master peeer, send ready message to other peers
-	else if(mState == NMS_Lobby && !IsMasterPeer()) {
-		LogManager* log = LogManager::GetLogManager();
-		log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
-		log->flush();
-		//let the gamer services know we're readying up
-		GamerServices::sInstance->SetLobbyReady(mLobbyId);
+	//else if(mState == NMS_Lobby && !IsMasterPeer()) {
+	//	LogManager* log = LogManager::GetLogManager();
+	//	log->logBuffer << "Peer readying up! NetworkManager::TryReadyGame";
+	//	log->flush();
+	//	//let the gamer services know we're readying up
+	//	GamerServices::sInstance->SetLobbyReady(mLobbyId);
 
-		SendReadyPacketsToPeers();
+	//	SendReadyPacketsToPeers();
 
-		mState = NMS_Ready;
-	}
+	//	mState = NMS_Ready;
+	//}
 }
 
 void NetworkManager::UpdateBytesSentLastFrame()

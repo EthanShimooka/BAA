@@ -73,6 +73,9 @@ struct GamerServices::Impl
 	void OnLeaderDownloadCallback(LeaderboardScoresDownloaded_t* inCallback, bool inIOFailure);
 	CCallResult<Impl, GameLobbyJoinRequested_t> mFriendInAnotherGameresult;
 	void IfFriendIsInAnotherGameCallback(GameLobbyJoinRequested_t inCallback, bool inIOFailure);
+	//Call result when a friends only lobby is created
+	CCallResult<Impl, LobbyCreated_t> mFriendLobbyCreateResult;
+	void OnFriendLobbyCreateCallback(LobbyCreated_t* inCallback, bool inIOFailure);
 
 	//Callback when a user leaves/enters lobby
 	STEAM_CALLBACK(Impl, OnLobbyChatUpdate, LobbyChatUpdate_t, mChatDataUpdateCallback);
@@ -141,7 +144,7 @@ void GamerServices::Impl::OnLobbyMatchListCallback(LobbyMatchList_t* inCallback,
 	else
 	{
 		//need to make our own lobby
-		SteamAPICall_t call = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 4);
+		SteamAPICall_t call = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, GamerServices::sInstance->maxPlayers);
 		mLobbyCreateResult.Set(call, this, &Impl::OnLobbyCreateCallback);
 	}
 }
@@ -151,6 +154,18 @@ void GamerServices::InviteFriendsFromOverlay(){
 }
 
 void GamerServices::Impl::OnLobbyCreateCallback(LobbyCreated_t* inCallback, bool inIOFailure)
+{
+	if (inCallback->m_eResult == k_EResultOK && !inIOFailure)
+	{
+		mLobbyId = inCallback->m_ulSteamIDLobby;
+		//set our game and joinable so others can find this lobby
+		SteamMatchmaking()->SetLobbyData(mLobbyId, "game", kGameName);
+
+		NetworkManager::sInstance->EnterLobby(mLobbyId.ConvertToUint64());
+	}
+}
+
+void GamerServices::Impl::OnFriendLobbyCreateCallback(LobbyCreated_t* inCallback, bool inIOFailure)
 {
 	if (inCallback->m_eResult == k_EResultOK && !inIOFailure)
 	{
@@ -326,6 +341,13 @@ void GamerServices::LobbySearchAsync()
 
 	SteamAPICall_t call = SteamMatchmaking()->RequestLobbyList();
 	mImpl->mLobbyMatchListResult.Set(call, mImpl.get(), &Impl::OnLobbyMatchListCallback);
+}
+
+void GamerServices::CreateFriendsLobby(){
+
+	//need to make our friends only lobby
+	SteamAPICall_t call = SteamMatchmaking()->CreateLobby(k_ELobbyTypeFriendsOnly, maxPlayers);
+	mImpl->mFriendLobbyCreateResult.Set(call, mImpl.get(), &Impl::OnLobbyCreateCallback);
 }
 
 int GamerServices::GetLobbyNumPlayers(uint64_t inLobbyId)

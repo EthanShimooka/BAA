@@ -39,15 +39,14 @@ void Start::mainMenu(){
 
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
-	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
 	UIObjectFactory menuButtons;
 
 	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
 
-	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w / 2 + 25, (float)h / 2 - 25));
-	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w / 2 - 125, (float)h / 2 - 25));
+	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w - 125, (float)h - 150 ));
+	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w - 125, (float)h - 75));
 
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
 

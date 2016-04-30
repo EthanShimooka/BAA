@@ -65,7 +65,7 @@ void Lobby::runLobby(){
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 
 		//check for new players joining.
-		if (numPlayers > inLobbyNow /*&& NetworkManager::sInstance->IsMasterPeer()*/){
+		if (numPlayers > inLobbyNow){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();

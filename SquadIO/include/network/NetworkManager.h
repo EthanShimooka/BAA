@@ -76,6 +76,8 @@ public:
 	SQUADIO_API static bool	StaticInit();
 	/// Initialize lobby search
 	SQUADIO_API void StartLobbySearch();
+	/// Creates a lobby for steam friends. 
+	SQUADIO_API void CreateFriendLobby();
 	/// Constructor
 	SQUADIO_API NetworkManager();
 	/// Destructor

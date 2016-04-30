@@ -26,8 +26,6 @@ struct bird{
 	UIObject* birdPicture;
 };
 
-
-
 class Lobby{
 public:
 	Lobby();
