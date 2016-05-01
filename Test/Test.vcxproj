@@ -100,6 +100,10 @@
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
+    <ClInclude Include="LauncherLogicComponent.h" />
+    <ClInclude Include="LauncherObjectFactory.h" />
+    <ClInclude Include="LauncherPhysicsComponent.h" />
+    <ClInclude Include="LauncherRenderComponent.h" />
     <ClInclude Include="lobby.h" />
     <ClInclude Include="MidBaseComponentIncludes.h" />
     <ClInclude Include="MidBaseLogicComponent.h" />
@@ -189,6 +193,10 @@
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIObjectFactory.h" />
     <ClInclude Include="UITypeComponent.h" />
+    <ClInclude Include="WellLogicComponent.h" />
+    <ClInclude Include="WellObjectFactory.h" />
+    <ClInclude Include="WellPhysicsComponent.h" />
+    <ClInclude Include="WellRenderComponent.h" />
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +212,10 @@
     <ClCompile Include="FlamingoClassComponent.cpp" />
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />
+    <ClCompile Include="LauncherLogicComponent.cpp" />
+    <ClCompile Include="LauncherObjectFactory.cpp" />
+    <ClCompile Include="LauncherPhysicsComponent.cpp" />
+    <ClCompile Include="LauncherRenderComponent.cpp" />
     <ClCompile Include="lobby.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
     <ClCompile Include="MidBaseObjectFactory.cpp" />
@@ -282,6 +294,10 @@
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIObjectFactory.cpp" />
     <ClCompile Include="UITypeComponent.cpp" />
+    <ClCompile Include="WellLogicComponent.cpp" />
+    <ClCompile Include="WellObjectFactory.cpp" />
+    <ClCompile Include="WellPhysicsComponent.cpp" />
+    <ClCompile Include="WellRenderComponent.cpp" />
     <ClCompile Include="WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
