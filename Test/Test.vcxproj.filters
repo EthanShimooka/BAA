@@ -127,6 +127,18 @@
     <Filter Include="Header Files\Component\Fan Component">
       <UniqueIdentifier>{1e3412cd-7e12-4268-bedd-5e394e2d3949}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\Well Component">
+      <UniqueIdentifier>{eb30f61b-5d57-4971-876f-284e9bb0c762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Launcher Component">
+      <UniqueIdentifier>{c276c91e-8539-4973-9bf2-f944edcacd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Launcher Component">
+      <UniqueIdentifier>{573d4060-8ce3-436c-b18c-ba23a241472c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\Well Component">
+      <UniqueIdentifier>{93f59957-c6b0-45d8-9b46-7addb0d4f851}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -447,6 +459,30 @@
     <ClInclude Include="UITypeComponent.h">
       <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
+    <ClInclude Include="WellObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="WellLogicComponent.h">
+      <Filter>Header Files\Component\Well Component</Filter>
+    </ClInclude>
+    <ClInclude Include="WellPhysicsComponent.h">
+      <Filter>Header Files\Component\Well Component</Filter>
+    </ClInclude>
+    <ClInclude Include="WellRenderComponent.h">
+      <Filter>Header Files\Component\Well Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherLogicComponent.h">
+      <Filter>Header Files\Component\Launcher Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherPhysicsComponent.h">
+      <Filter>Header Files\Component\Launcher Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherRenderComponent.h">
+      <Filter>Header Files\Component\Launcher Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -721,6 +757,30 @@
     </ClCompile>
     <ClCompile Include="UIRenderComponent.cpp">
       <Filter>Source Files\Component\UI Component</Filter>
+    </ClCompile>
+    <ClCompile Include="WellObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="WellLogicComponent.cpp">
+      <Filter>Source Files\Component\Well Component</Filter>
+    </ClCompile>
+    <ClCompile Include="WellPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Well Component</Filter>
+    </ClCompile>
+    <ClCompile Include="WellRenderComponent.cpp">
+      <Filter>Source Files\Component\Well Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherRenderComponent.cpp">
+      <Filter>Source Files\Component\Launcher Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherLogicComponent.cpp">
+      <Filter>Source Files\Component\Launcher Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Launcher Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
