@@ -100,6 +100,7 @@
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
+    <ClInclude Include="LauncherComponentIncludes.h" />
     <ClInclude Include="WellComponentIncludes.h" />
     <ClInclude Include="LauncherLogicComponent.h" />
     <ClInclude Include="LauncherObjectFactory.h" />

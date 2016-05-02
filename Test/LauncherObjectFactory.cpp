@@ -13,30 +13,30 @@ LauncherObjectFactory::~LauncherObjectFactory()
 
 GameObject * LauncherObjectFactory::Spawn(uint64_t PID, float posX, float posY, float length, int team){
 
-	GameObject* well = new GameObject();
+	GameObject* launcher = new GameObject();
 
-	well->ID = PID;
-	well->setPos(posX, posY);
-	well->isAlive = true;
-	well->health = 5;
-	well->team = team;
-	well->type = GAMEOBJECT_TYPE::OBJECT_BASE; // 
+	launcher->ID = PID;
+	launcher->setPos(posX, posY);
+	launcher->isAlive = true;
+	launcher->health = 5;
+	launcher->team = team;
+	launcher->type = GAMEOBJECT_TYPE::OBJECT_BASE; // CHANGE
 
 	// Minion Specific Render Component. In future will have flag
-	// for type of class,  which will instatiate welld on flag
+	// for type of class,  which will instatiate launcherd on flag
 
-	//	WellRenderComponent* rend = new WellRenderComponent(well, team);
+	//	launcherRenderComponent* rend = new launcherRenderComponent(launcher, team);
 	if (team == TEAM_YELLOW){
-		well->flipV = false;
-		well->flipH = false;
+		launcher->flipV = false;
+		launcher->flipH = false;
 	}
 	else{
-		well->flipV = true;
-		well->flipH = true;
+		launcher->flipV = true;
+		launcher->flipH = true;
 	}
-	//	MidwellPhysicsComponent* physics = new MidwellPhysicsComponent(well);
+	//	MidlauncherPhysicsComponent* physics = new MidlauncherPhysicsComponent(launcher);
 
-	//MidwellLogicComponent* logic = new MidwellLogicComponent(well);
+	//MidlauncherLogicComponent* logic = new MidlauncherLogicComponent(launcher);
 
-	return well;
+	return launcher;
 }
