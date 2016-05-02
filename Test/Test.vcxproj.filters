@@ -483,6 +483,9 @@
     <ClInclude Include="LauncherObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="WellComponentIncludes.h">
+      <Filter>Header Files\Component\Well Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
