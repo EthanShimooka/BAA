@@ -116,7 +116,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int ChickenClassComponent::useAbility(){
-	if (currBirdseed == seedRequired){
+	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
 		if (gameObjectRef->posY > 0){
 			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
