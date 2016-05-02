@@ -32,10 +32,15 @@ int ClassComponent::useAbility(){
 	return 0;
 }
 
+void ClassComponent::writeNetAbility(){
+	std::cout << "class write" << std::endl;
+}
+
+void ClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+	std::cout << "class read" << std::endl;
+}
+
+
 int ClassComponent::getClass(){
 	return 0;
 }
-
-//void ClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
-//
-//}

@@ -74,6 +74,13 @@ public:
 
 	SDLRenderObject* timerHUD;
 
+	int killHUDSize = 5;
+	std::vector<std::pair<SDLRenderObject*,clock_t>> killHUD;
+
+	/// adds to the queue of player kills
+	void addToKillList(uint64_t killer);
+	/// updates the queue of players
+	void updateKillHUD();
 	/// Boolean used to restrict input during gameplay. Only perform actions
 	/// (i.e. jumping, shooting, moving) in game if true.
 

@@ -7,8 +7,8 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
-}
 
+}
 
 PlayerLogicComponent::~PlayerLogicComponent()
 {
@@ -49,6 +49,8 @@ void PlayerLogicComponent::Update(){
 	if (seconds.length() == 1)seconds = "0" + seconds;
 	std::string title = minutes + ":" + seconds; //concat on the time remaining here!
 	timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+
+	updateKillHUD();
 }
 
 /// For spawning local feathers
@@ -133,38 +135,91 @@ void PlayerLogicComponent::endCharge() {
 	charging = false;
 }
 
+void PlayerLogicComponent::addToKillList(uint64_t shooter){
+	//start by finding the first open spot to add the notification to
+	int elemIndex = 0;
+	bool success = false;
+	for (int i = 0; i < killHUD.size(); i++){
+		if (!killHUD[i].first->visible){
+			elemIndex = i;
+			success = true;
+			break;
+		}
+	}
+
+	if (!success){
+		//this happens when we iterate through the list and see that there is no free spot to put the new notification
+		//we need to rotate the array and add it on to the end now
+		auto tempElem = killHUD[0];
+		for (int i = 0; i < killHUD.size() - 1; i++){
+			killHUD[i] = killHUD[i + 1];
+		}
+		killHUD[killHUD.size() - 1] = tempElem;
+		//now that we rotated it, modify the last elem.
+	}
+	//create the new elem here
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
+	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
+	//reassign the new element to be the new notification
+	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+	killHUD[elemIndex].first->visible = true;
+	killHUD[elemIndex].second = clock();
+}
+
+void PlayerLogicComponent::updateKillHUD(){
+	//update player kill notification
+	double oldestAge = clock() - killHUD[0].second;
+	//std::cout << "oldestAge=" << oldestAge << std::endl;
+	//when the message has displayed for 5 seconds, it's old and should be removedi
+	if (oldestAge>5000){
+		//circular rotation on array
+		killHUD[0].first->visible = false;
+		auto tempElem = killHUD[0];
+		for (int i = 0; i < killHUD.size() - 1; i++){
+			killHUD[i] = killHUD[i+1];
+		}
+		killHUD[killHUD.size() - 1] = tempElem;
+		//now update postions on screen
+		for (int i = 0; i < killHUD.size(); i++){
+			killHUD[i].first->setPos(SCREEN_WIDTH - 200, 130 + i * 30);
+		}
+	}
+}
+
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
 	switch (playerClass)
-	{
-	case CLASS_CHICKEN:{
-						   ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-						   return classComp->seedRequired;
-	}
-	case CLASS_PEACOCK:{
-						   PeacockClassComponent* classComp = dynamic_cast<PeacockClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-						   return classComp->seedRequired;
-	}
-	case CLASS_FLAMINGO:{
-							FlamingoClassComponent* classComp = dynamic_cast<FlamingoClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-							return classComp->seedRequired;
-	}
-	case CLASS_QUAIL:{
-						 QuailClassComponent* classComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-						 return classComp->seedRequired;
-	}
-	case CLASS_TURKEY:{
-						  TurkeyClassComponent* classComp = dynamic_cast<TurkeyClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-						  return classComp->seedRequired;
-	}
-	case CLASS_EAGLE:{
-						 EagleClassComponent* classComp = dynamic_cast<EagleClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-						 return classComp->seedRequired;
-	}
-	default:{
-				LogManager* log = LogManager::GetLogManager();
-				log->logBuffer << "Problem in PlayerLogicComponent::getMaxBirdseedByClass. Will cause div by 0 error\n";
-				log->flush();
-				return 0;
-	}
+		{
+		case CLASS_CHICKEN:{
+							   ChickenClassComponent* classComp = dynamic_cast<ChickenClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							   return classComp->seedRequired;
+		}
+		case CLASS_PEACOCK:{
+							   PeacockClassComponent* classComp = dynamic_cast<PeacockClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							   return classComp->seedRequired;
+		}
+		case CLASS_FLAMINGO:{
+								FlamingoClassComponent* classComp = dynamic_cast<FlamingoClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+								return classComp->seedRequired;
+		}
+		case CLASS_QUAIL:{
+							 QuailClassComponent* classComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							 return classComp->seedRequired;
+		}
+		case CLASS_TURKEY:{
+							  TurkeyClassComponent* classComp = dynamic_cast<TurkeyClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							  return classComp->seedRequired;
+		}
+		case CLASS_EAGLE:{
+							 EagleClassComponent* classComp = dynamic_cast<EagleClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+							 return classComp->seedRequired;
+		}
+		default:{
+					LogManager* log = LogManager::GetLogManager();
+					log->logBuffer << "Problem in PlayerLogicComponent::getMaxBirdseedByClass. Will cause div by 0 error\n";
+					log->flush();
+					return 0;
+
+		}
 	}
 }

@@ -62,7 +62,7 @@ public:
 		WriteBits(&inData, inBitCount);
 	}
 
-	void 		Write(bool inData)	{ WriteBits(&inData, 1); }
+	SQUADIO_API void 		Write(bool inData)	{ WriteBits(&inData, 1); }
 
 	//void		Write(const Vector3& inVector);
 	//void		Write(const Quaternion& inQuat);
@@ -135,7 +135,7 @@ public:
 	void		Read(int16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
 
 	void		Read(uint8_t& outData, uint32_t inBitCount = 8)		{ ReadBits(&outData, inBitCount); }
-	void		Read(bool& outData)									{ ReadBits(&outData, 1); }
+	SQUADIO_API void		Read(bool& outData)									{ ReadBits(&outData, 1); }
 
 	//void		Read(Quaternion& outQuat);
 

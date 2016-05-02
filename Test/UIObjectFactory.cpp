@@ -3,8 +3,10 @@
 UIObjectFactory::UIObjectFactory(){
 }
 
+
 UIObjectFactory::~UIObjectFactory(){
 }
+
 
 UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 
@@ -73,7 +75,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case INVITE_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(INVITE_BUTTON);
-		break;
+		break; 
 	case OPTIONS_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(OPTIONS_BUTTON);
@@ -117,6 +119,10 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case BACK_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(BACK_BUTTON);
+		break;
+	case KILL_NOTIFICATION:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(KILL_NOTIFICATION);
 		break;
 	}
 
