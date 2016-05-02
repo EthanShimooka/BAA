@@ -12,5 +12,19 @@ LauncherLogicComponent::~LauncherLogicComponent()
 {
 }
 
+void LauncherLogicComponent::showButton()
+{
+
+}
+
+void LauncherLogicComponent::triggerButton()
+{
+
+}
+
+void LauncherLogicComponent::Update()
+{
+
+}
 
 //void Launch

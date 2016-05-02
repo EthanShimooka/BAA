@@ -16,6 +16,9 @@ class LauncherLogicComponent :
 public:
 	LauncherLogicComponent(GameObject * launcher);
 	~LauncherLogicComponent();
+	void showButton();
+	void triggerButton();
+	void Update();
 };
 
 #endif

@@ -48,6 +48,8 @@ void LauncherPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
+											//if (otherObj->team)
+
 											/// put render animation, or a call to render animate (the switch)
 											 break;
 	}
