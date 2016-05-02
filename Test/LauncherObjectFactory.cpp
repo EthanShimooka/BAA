@@ -20,7 +20,7 @@ GameObject * LauncherObjectFactory::Spawn(uint64_t PID, float posX, float posY, 
 	launcher->isAlive = true;
 	launcher->health = 5;
 	launcher->team = team;
-	launcher->type = GAMEOBJECT_TYPE::OBJECT_BASE; // CHANGE
+	launcher->type = GAMEOBJECT_TYPE::OBJECT_SWITCH; // CHANGE
 
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate launcherd on flag

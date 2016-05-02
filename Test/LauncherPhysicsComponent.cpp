@@ -5,7 +5,7 @@ LauncherPhysicsComponent::LauncherPhysicsComponent(GameObject * launcher)
 {
 	gameObjectRef = launcher;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	//init(1.5f);
+	init(1.5f);
 }
 
 
@@ -27,6 +27,7 @@ void LauncherPhysicsComponent::init(float size){
 	b2CircleShape box;
 	/// Set Box Shape
 	box.m_radius = size;
+	boxFixtureDef.isSensor = true;
 
 	// 
 	boxFixtureDef.shape = &box;
@@ -39,7 +40,7 @@ void LauncherPhysicsComponent::init(float size){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_SWITCH, COLLISION_FEATHER);
+	setCollisionFilter(COLLISION_SWITCH, COLLISION_PLAYER);
 }
 
 
@@ -60,6 +61,9 @@ void LauncherPhysicsComponent::handleCollision(GameObject* otherObj){
 
 void LauncherPhysicsComponent::Update(){
 
-
+	if (gameObjectRef->isAlive){
+		gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+		gameObjectRef->posY = mBody->GetPosition().y*worldScale;
+	}
 
 }
