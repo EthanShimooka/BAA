@@ -32,7 +32,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	mBody->SetUserData(gameObjectRef);
 	
 	if (gameObjectRef->isLocal)
-		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH | COLLISION_PLAYER);
+		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH | COLLISION_PLAYER | COLLISION_POWERSHIELD);
 	else
 		setCollisionFilter(COLLISION_FEATHER, COLLISION_BASE | COLLISION_SWITCH);
 	
@@ -85,7 +85,11 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 										  gameObjectRef->isAlive = false;
 										  break;
 	}
-
+	case GAMEOBJECT_TYPE::OBJECT_POWERSHIELD:{
+											std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << "SHIG" << std::endl;
+											if (otherObj->team != gameObjectRef->team) gameObjectRef->isAlive = false;
+											break;
+	}
 	default:
 		break;
 }

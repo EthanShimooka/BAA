@@ -38,7 +38,7 @@ void PowerShieldPhysicsComponent::init()
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
 
-	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
+	setCollisionFilter(COLLISION_POWERSHIELD, COLLISION_FEATHER);
 }
 
 

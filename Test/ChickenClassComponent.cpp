@@ -12,6 +12,7 @@ ChickenClassComponent::ChickenClassComponent(GameObject* player)
 	//featherHeight = 1;
 	//abilityCooldown = 15;
 	seedRequired = 6;
+	currBirdseed = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -118,12 +119,13 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed == seedRequired){
 		PowerShieldObjectFactory sFactory;
+		std::cout << "PLAYER TEAM IS: " << gameObjectRef->team << std::endl;
 		if (gameObjectRef->posY > 0){
-			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
+			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
 			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false);
 		}
 		else {
-			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
+			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
 			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false);
 		}
 		currBirdseed = 0;
@@ -161,7 +163,7 @@ void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(posX);
 	aPacket.Read(posY);
 	aPacket.Read(direction);
-	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction));
+	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction, gameObjectRef->team));
 }
 
 int ChickenClassComponent::getClass(){
