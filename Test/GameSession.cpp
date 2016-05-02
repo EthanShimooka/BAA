@@ -66,8 +66,8 @@ void GameSession::LoadWorld(){
 
 
 	//LAUNCHERS
-	GameObjects.AddObject(wellFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(wellFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(launchFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(launchFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
 	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
