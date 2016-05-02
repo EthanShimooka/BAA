@@ -12,7 +12,6 @@ MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initia
 }
 
 MinionPhysicsComponent::~MinionPhysicsComponent(){
-	std::cout << "calling minion physics destructor" << std::endl;
 	if (mBody){
 		//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 	}
@@ -142,7 +141,16 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
 										  //Bounce off the walls
 										  b2Vec2 vel = mBody->GetLinearVelocity();
+										  std::cout << "wall with yvel: " << vel.y << std::endl;
 										  vel.y = -1.0f * vel.y;
+										  if (vel.y < 2.0f && vel.y > 0.0f) {
+											  std::cout << "vel.y: " << vel.y << std::endl;
+											  vel.y = 1.0f;
+										  }
+										  else if (vel.y > -2.0f && vel.y < 0.0f) {
+											  std::cout << "vel.y: " << vel.y << std::endl;
+											  vel.y = -1.0f;
+										  }
 										  //Ensure moving in right direction
 										  if (gameObjectRef->team == TEAM_YELLOW) vel.x = abs(vel.x);
 										  if (gameObjectRef->team == TEAM_PURPLE) vel.x = -abs(vel.x);
@@ -177,7 +185,12 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	if (isGettingBlown){
-		mBody->ApplyForceToCenter(blownForce, false);
+		if ((blownForce.x > 0 && mBody->GetLinearVelocity().x > 0) || (blownForce.x < 0 && mBody->GetLinearVelocity().x < 0)) {//if minion is moving positively and force is positive, apply force
+			mBody->ApplyForceToCenter(blownForce, false);
+		}
+		else {
+			mBody->ApplyForceToCenter(b2Vec2(0, blownForce.y), false);
+		}
 	}
 	//temp testing code from here down
 

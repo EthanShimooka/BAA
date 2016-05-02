@@ -298,6 +298,11 @@ int GameSession::Run(vector<player*> players){
 
 	bool gameEnd = false;
 
+
+	//get rid of this
+	clock_t starttime = clock();
+	clock_t timelength = (clock_t)10.0f * 1000;
+
 	while (gameloop) {
 		current_ticks = clock();
 
@@ -381,6 +386,12 @@ int GameSession::Run(vector<player*> players){
 		//updates all timers
 		Invoke::UpdateTimers();
 
+		//also get rid of this
+		if ((starttime + timelength) < (clock())) {
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
+			starttime = clock();
+		}
+
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
@@ -458,4 +469,3 @@ int GameSession::Run(vector<player*> players){
 	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
-
