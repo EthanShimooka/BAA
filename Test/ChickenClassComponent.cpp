@@ -156,6 +156,7 @@ void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 
 void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	std::cout << "chicken read" << std::endl;
+	std::cout << "PLEASE LET ME SEE THIS!!!!!!!!!!!!! BLEH" << std::endl;
 	PowerShieldObjectFactory sFactory;
 	uint64_t ID;
 	float posX, posY;
