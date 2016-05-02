@@ -51,7 +51,8 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		//signal self death and turn to egg
 		if (otherObj->isLocal){
 			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
-			dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->createDeathPacket();
+			uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
+			dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->createDeathPacket(shooter);
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:

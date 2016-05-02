@@ -5,8 +5,9 @@ PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
-	logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-	render = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 }
 
 
@@ -39,11 +40,12 @@ void PlayerNetworkComponent::createMovementPacket(){
 	outgoingPackets.push(outData);
 }
 
-void PlayerNetworkComponent::createDeathPacket(){
+void PlayerNetworkComponent::createDeathPacket(uint64_t shooter){
 	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
 	outData->Write((int)CM_DIE);
+	outData->Write(shooter);
 	outgoingPackets.push(outData);
 }
 
@@ -69,8 +71,8 @@ void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket)
 	//if (testNum < t){
 	float x;
 	mPacket.Read(x);
-	if (gameObjectRef->posX != x) render->setAnimation("walk");
-	else render->setAnimation("idle");
+	if (gameObjectRef->posX != x) renderComp->setAnimation("walk");
+	else renderComp->setAnimation("idle");
 	if (gameObjectRef->posX > x){
 		gameObjectRef->flipH = true;
 	}
@@ -95,15 +97,19 @@ void PlayerNetworkComponent::handleFeatherPacket(InputMemoryBitStream& fPacket){
 	fPacket.Read(destX);
 	fPacket.Read(destY);
 	fPacket.Read(speed);
-	logic->spawnFeather(ID, initialX, initialY, destX, destY, speed);
+	logicComp->spawnFeather(ID, initialX, initialY, destX, destY, speed);
 }
 
-void PlayerNetworkComponent::handleDeathPacket(){
-	logic->becomeEgg();
+void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
+	uint64_t shooterID;
+	dPacket.Read(shooterID);
+	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
+	logicComp->addToKillList(shooterID);
+	logicComp->becomeEgg();
 }
 
 void PlayerNetworkComponent::handleAbilityPacket(InputMemoryBitStream& aPacket){
-
+	classComp->readNetAbility(aPacket);
 }
 
 
@@ -114,9 +120,6 @@ void PlayerNetworkComponent::Update(){
 
 		packet.Read(mCommand);
 		switch (mCommand){
-		case COMMAND_TYPE::CM_INVALID:
-			//handle 
-			break;
 		case COMMAND_TYPE::CM_MOVE:
 			handleMovementPacket(packet);
 			break;
@@ -127,10 +130,12 @@ void PlayerNetworkComponent::Update(){
 			handleAbilityPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_DIE:
-			handleDeathPacket();
-			//handle 
+			handleDeathPacket(packet);
 			break;
 		case COMMAND_TYPE::CM_JUMP:
+			//handle 
+			break;
+		case COMMAND_TYPE::CM_INVALID:
 			//handle 
 			break;
 		default:

@@ -1,23 +1,13 @@
 #include "UIRenderComponent.h"
+#include "config.h"
+
 
 
 UIRenderComponent::UIRenderComponent(){
-	visible = true;
 }
-
 
 UIRenderComponent::~UIRenderComponent(){
 }
-
-
-/// Assign a Diffrent SDL render Object
-void UIRenderComponent::AssignSprite(SDLRenderObject* rend){
-
-	objRef = rend;
-}
-
-
-/// Updates SDL render Object from Move Data in game
 
 void UIRenderComponent::Update(){
 
@@ -62,8 +52,6 @@ void UIRenderComponent::Update(){
 	objRef->rotation = uiObjectRef->rotation;
 	objRef->visible = uiObjectRef->visible;
 	objRef->setScale(uiObjectRef->scale);
-	
+
 	//there is most likely more attributes to send over. update as needed
 }
-
-

@@ -37,6 +37,7 @@ void GameSession::LoadWorld(){
 	MidBaseObjectFactory mbFactory;
 	MidPlatShieldObjectFactory psFactory;
 	FanObjectFactory fanFactory;
+	WellObjectFactory wellFactory;
 
 
 	for (int i = 0; i < 6; i++){
@@ -52,9 +53,15 @@ void GameSession::LoadWorld(){
 
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
+	//BASES
+	rightBase = mbFactory.Spawn(506003, -975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506004, 975, 0, 0, TEAM_PURPLE);
+	GameObjects.AddObject(rightBase);
+	GameObjects.AddObject(leftBase);
 
-	rightBase = mbFactory.Spawn(506001, -975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506002, 975, 0, 0, TEAM_PURPLE);
+	//WELLS
+	GameObjects.AddObject(wellFactory.Spawn(506005, -1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(wellFactory.Spawn(506006, 1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
 	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
@@ -90,7 +97,7 @@ void GameSession::LoadHUD(GameObject* player){
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
-	
+
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
 	queue.AddObject(countdownTimer);
@@ -111,6 +118,16 @@ void GameSession::LoadHUD(GameObject* player){
 	playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
 	playerRender->chargebarMeterRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
 	playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
+
+	//add ui components to show player kills
+	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
+	for (int i = 0; i < 5; i++){
+		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,SCREEN_WIDTH-250,130+i*30);
+		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
+		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
+
+	}
+	playerLogic->killHUD = killHUD;
 }
 
 //////////////////////////////////////////////////////////////////////////
