@@ -13,30 +13,30 @@ WellObjectFactory::~WellObjectFactory()
 
 GameObject * WellObjectFactory::Spawn(uint64_t PID, float posX, float posY, float length, int team){
 
-	GameObject* base = new GameObject();
+	GameObject* well = new GameObject();
 
-	base->ID = PID;
-	base->setPos(posX, posY);
-	base->isAlive = true;
-	base->health = 5;
-	base->team = team;
-	base->type = GAMEOBJECT_TYPE::OBJECT_BASE;
+	well->ID = PID;
+	well->setPos(posX, posY);
+	well->isAlive = true;
+	well->health = 5;
+	well->team = team;
+	well->type = GAMEOBJECT_TYPE::OBJECT_BASE; // 
 
 	// Minion Specific Render Component. In future will have flag
-	// for type of class,  which will instatiate based on flag
+	// for type of class,  which will instatiate welld on flag
 
-//	MidBaseRenderComponent* rend = new MidBaseRenderComponent(base, team);
+	WellRenderComponent* rend = new WellRenderComponent(well, team);
 	if (team == TEAM_YELLOW){
-		base->flipV = false;
-		base->flipH = false;
+		well->flipV = false;
+		well->flipH = false;
 	}
 	else{
-		base->flipV = true;
-		base->flipH = true;
+		well->flipV = true;
+		well->flipH = true;
 	}
-//	MidBasePhysicsComponent* physics = new MidBasePhysicsComponent(base);
+	//	WellPhysicsComponent* physics = new WellPhysicsComponent(well);
 
-	//MidBaseLogicComponent* logic = new MidBaseLogicComponent(base);
+	//MidwellLogicComponent* logic = new MidwellLogicComponent(well);
 
-	return base;
+	return well;
 }

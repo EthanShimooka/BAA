@@ -37,6 +37,7 @@ void GameSession::LoadWorld(){
 	MidBaseObjectFactory mbFactory;
 	MidPlatShieldObjectFactory psFactory;
 	FanObjectFactory fanFactory;
+	WellObjectFactory wellFactory;
 
 
 	for (int i = 0; i < 6; i++){
@@ -52,9 +53,15 @@ void GameSession::LoadWorld(){
 
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
+	//BASES
+	rightBase = mbFactory.Spawn(506003, -975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506004, 975, 0, 0, TEAM_PURPLE);
+	GameObjects.AddObject(rightBase);
+	GameObjects.AddObject(leftBase);
 
-	rightBase = mbFactory.Spawn(506001, -975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506002, 975, 0, 0, TEAM_PURPLE);
+	//WELLS
+	GameObjects.AddObject(wellFactory.Spawn(506005, -1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(wellFactory.Spawn(506006, 1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
 	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
