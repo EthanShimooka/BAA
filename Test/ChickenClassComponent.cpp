@@ -122,11 +122,11 @@ int ChickenClassComponent::useAbility(){
 		std::cout << "PLAYER TEAM IS: " << gameObjectRef->team << std::endl;
 		if (gameObjectRef->posY > 0){
 			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
-			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false);
+			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false, gameObjectRef->team);
 		}
 		else {
 			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
-			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false);
+			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false, gameObjectRef->team);
 		}
 		currBirdseed = 0;
 		return true;
