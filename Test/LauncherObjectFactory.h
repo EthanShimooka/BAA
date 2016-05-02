@@ -3,8 +3,10 @@
 #ifndef LAUNCHEROBJECTFACTORY_H_INCLUDED
 #define LAUNCHEROBJECTFACTORY_H_INCLUDED
 
+#include "LauncherComponentIncludes.h"
 #include "GameObject.h"
 #include "GameObjectFactory.h"
+
 
 class LauncherObjectFactory :
 	public GameObjectFactory
