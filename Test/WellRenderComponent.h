@@ -1,5 +1,3 @@
-#pragma once
-
 /**
 *  MidBaseRenderComponet.h
 *  Authors: Ethan Shimooka

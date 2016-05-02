@@ -71,7 +71,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		break;
 
-	
+	case GAMEOBJECT_TYPE::OBJECT_SWITCH:
+		//do nothing or push past each other
+
+		std::cout << "colliding with player yo!" << std::endl;
+		break;
 
 	default:
 		break;
