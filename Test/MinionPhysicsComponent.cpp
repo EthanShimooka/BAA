@@ -43,16 +43,16 @@ void MinionPhysicsComponent::init(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 	float rando[10] = {
-		-325,
-		325,
+		-285,
+		285,
 		-100,
 		50,
 		-25,
-		180,
-		-270,
+		160,
+		-240,
 		60,
-		-180,
-		300
+		-130,
+		250
 	};
 
 	float yForce = rando[(gameObjectRef->ID%10)];
