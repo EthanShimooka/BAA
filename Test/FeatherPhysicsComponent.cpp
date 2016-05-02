@@ -34,7 +34,7 @@ void FeatherPhysicsComponent::init(float initX, float initY, float dx, float dy,
 	if (gameObjectRef->isLocal)
 		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH | COLLISION_PLAYER | COLLISION_POWERSHIELD);
 	else
-		setCollisionFilter(COLLISION_FEATHER, COLLISION_BASE | COLLISION_SWITCH);
+		setCollisionFilter(COLLISION_FEATHER, COLLISION_BASE | COLLISION_SWITCH | COLLISION_POWERSHIELD);
 	
 	//handle init stuff for positions
 	gameObjectRef->posX = initX;

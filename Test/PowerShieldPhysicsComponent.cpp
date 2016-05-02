@@ -45,6 +45,13 @@ void PowerShieldPhysicsComponent::init()
 void PowerShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		std::cout << "COLLISION BETWEEN SHIELD AND FEATHER" << std::endl;
+		break;
+	default:
+		break;
+	}
 }
 
 
