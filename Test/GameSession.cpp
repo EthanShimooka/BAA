@@ -57,10 +57,10 @@ void GameSession::LoadWorld(){
 	leftBase = mbFactory.Spawn(506002, 975, 0, 0, TEAM_PURPLE);
 
 	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, 150, 5, -10, -90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 350, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 350, 150, -5, -10, -90));
+	//GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90)); //left top
+	//GameObjects.AddObject(fanFactory.Spawn(54002, -350, 150, 5, -10, -90)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(54003, 350, -150, -5, 10, 90)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(54004, 350, 150, -5, -10, -90)); //right bot
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);

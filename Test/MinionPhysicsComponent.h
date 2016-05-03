@@ -24,6 +24,9 @@ public:
 	void endCollision(GameObject* otherObj);
 	bool isGettingBlown = false;
 	b2Vec2 blownForce;
+
+	bool uhh = false; //get rid of this
+	float savedYForce;
 };
 
 #endif
