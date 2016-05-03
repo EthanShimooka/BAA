@@ -118,7 +118,6 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
-		std::cout << "PLAYER TEAM IS: " << gameObjectRef->team << std::endl;
 		Timing::sInstance.SetChickenAbilityTimer();
 		if (gameObjectRef->posY > 0){
 			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));

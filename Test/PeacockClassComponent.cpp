@@ -121,8 +121,41 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int PeacockClassComponent::useAbility(){
+	if (currBirdseed >= seedRequired){
+		FanObjectFactory fFactory;
+		float posX = 0;// Needs to be set based on mouse position
+		float posY = 0;// Needs to be set based on mouse position
+		float forceX = 5;
+		float forceY = 10;
+		float rotation = 90;
+		// Negative rotation if on right side of screen, positive rotation if on left side of screen
+		// ForceX positive if on bottom half, forceX negative if on top half
+		// ForceY positive if on left side, forceY negative if on right side
+		//Need to make forceX, forceY, and rotation + or - based on fan position, ie mouse position
+		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, forceX, forceY, rotation));
+
+
+		currBirdseed = 0;
+		return true;
+	}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		return false;
+	}
 	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
 	return false;
+}
+
+void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float forceX, float forceY, float rotation){
+	std::cout << "peacock write" << std::endl;
+	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+
+}
+
+void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+
 }
 
 int PeacockClassComponent::getClass(){
