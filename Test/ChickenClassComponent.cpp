@@ -120,6 +120,7 @@ int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
 		std::cout << "PLAYER TEAM IS: " << gameObjectRef->team << std::endl;
+		Timing::sInstance.SetChickenAbilityTimer();
 		if (gameObjectRef->posY > 0){
 			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
 			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false, gameObjectRef->team);
@@ -167,6 +168,7 @@ void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(posY);
 	aPacket.Read(direction);
 	aPacket.Read(team);
+	Timing::sInstance.SetChickenAbilityTimer();
 	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction, team));
 }
 
