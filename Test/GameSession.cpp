@@ -430,15 +430,15 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
-			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
+			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
+		//	GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
 		sceneMan->AssembleScene();
 
 		//triggers endgame screen
-		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+		if (Timing::sInstance.GetTimeRemainingS() <= 0 ) {
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -447,16 +447,13 @@ int GameSession::Run(vector<player*> players){
 				}
 			}
 
-		GameEnd end = GameEnd::GameEnd();
-		end.runGameEnd(myTeam, leftBase, rightBase);
-		gameloop = false;
+			std::cout << "END REACHED " << std::endl;
+		  //GameEnd end = GameEnd::GameEnd();
+		  //end.runGameEnd(myTeam, leftBase, rightBase);
+		  gameloop = false;
 		}
 
 		firstTime = false;
-		/*t = clock() - t;
-		std::cout << ((float)t) / CLOCKS_PER_SEC << std::endl;*/
-
-		
 
 		delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
 		if (delta_ticks > 0)
