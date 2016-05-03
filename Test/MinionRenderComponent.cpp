@@ -7,6 +7,12 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),-1, 0, 0);
 	allObjs["base"] = objRef;
+	allObjs["leftArm"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2011, -90, 114);
+	allObjs["leftArm"]->setAnchor(0.727, 0.8378);
+	allObjs["leftArm"]->setRotation(-20);
+	allObjs["rightArm"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2012, 90, 114);
+	allObjs["rightArm"]->setAnchor(0.272, 0.8378);
+	allObjs["rightArm"]->setRotation(20);
 	if (team == 1){
 		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
 		allObjs["body"]->setParent(allObjs["base"]);
@@ -15,12 +21,9 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
 		allObjs["body"]->setParent(allObjs["base"]);
 	}
-	allObjs["leftArm"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2011, -90, 0);
 	allObjs["leftArm"]->setParent(allObjs["body"]);
-	//allObjs["leftArm"]->setAnchor(21 / double(armR->renderRect.w), 12 / double(armR->renderRect.h));
-	allObjs["rightArm"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2012, 90, 0);
 	allObjs["rightArm"]->setParent(allObjs["body"]);
-	allObjs["body"]->setScale(allObjs["body"]->calcXScale(40));
+	allObjs["body"]->setScale(allObjs["body"]->calcXScale(20));
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
 	box->setIfRenderRect(true);
 	allObjs["box"] = box;
