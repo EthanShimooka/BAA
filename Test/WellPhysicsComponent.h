@@ -1,5 +1,3 @@
-#pragma once
-
 /**
 *  WellPhysicsComponet.h
 *  Authors: Ethan Shimooka
@@ -13,9 +11,6 @@ Physics Component class for the Well
 #ifndef WELLPHYSICSCOMPONENT_H_INCLUDED
 #define WELLPHYSICSCOMPONENT_H_INCLUDED
 
-
-
-#pragma once
 #include "PhysicsComponent.h"
 class WellPhysicsComponent :
 	public PhysicsComponent
@@ -23,6 +18,7 @@ class WellPhysicsComponent :
 public:
 	WellPhysicsComponent();
 	~WellPhysicsComponent();
+
 };
 
 #endif

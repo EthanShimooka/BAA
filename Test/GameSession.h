@@ -51,6 +51,7 @@ configurations.
 #include "MidPlatObjectFactory.h"
 #include "MidBaseObjectFactory.h"
 #include "MidPlatShieldObjectFactory.h"
+#include "LauncherObjectFactory.h"
 #include "WellObjectFactory.h"
 #include "FanObjectFactory.h"
 #include "PhysicsListener.h"

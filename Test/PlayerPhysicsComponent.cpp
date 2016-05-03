@@ -35,7 +35,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER );
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER | COLLISION_SWITCH );
 }
 
 
@@ -71,7 +71,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		break;
 
-	
+	case GAMEOBJECT_TYPE::OBJECT_SWITCH:
+		//do nothing or push past each other
+
+		std::cout << "colliding with player yo!" << std::endl;
+		break;
 
 	default:
 		break;
