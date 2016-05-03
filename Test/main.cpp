@@ -16,7 +16,7 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-	
+	bool playing = true;
 	
 
 	int numPlayers = 1;
@@ -34,10 +34,10 @@ int _tmain(int argc, _TCHAR* argv[]){
 	LogManager* log = LogManager::GetLogManager();
 	log->create("log.txt");
 
-
-	Start mainMenu;
-	mainMenu.mainMenu();
-
+	while (playing){
+		Start mainMenu;
+		mainMenu.mainMenu();
+	}
 	// don't need to change this line
 	int numLobbyPlayer = 0;
 

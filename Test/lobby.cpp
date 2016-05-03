@@ -12,6 +12,7 @@ Lobby::~Lobby(){
 
 void Lobby::runLobby(){
 	//std::cout << numPlayers << std::endl;
+	bool ret = false;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 
@@ -57,7 +58,9 @@ void Lobby::runLobby(){
 		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
 		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
 		input->update();
-
+		if (input->isKeyDown(KEY_ESCAPE))
+			ret = true;
+		if (ret) break;
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		NetworkManager::sInstance->SendOutgoingPackets();
@@ -133,6 +136,15 @@ void Lobby::runLobby(){
 	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 		deleteBirds(birdQueue);
 		countdown(queue);
+	}
+
+	if (ret) {
+		deleteBirds(birdQueue);
+		deletePlayers();
+		cleanUP(queue);
+		//sceneMan->removeLayer("layer1");
+		//sceneMan->removeLayer("layer2");
+		return;
 	}
 
 	cleanUP(queue);

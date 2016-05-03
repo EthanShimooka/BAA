@@ -447,9 +447,9 @@ int GameSession::Run(vector<player*> players){
 				}
 			}
 
-		GameEnd end = GameEnd::GameEnd();
-		end.runGameEnd(myTeam, leftBase, rightBase);
-		gameloop = false;
+			GameEnd end = GameEnd::GameEnd();
+			end.runGameEnd(myTeam, leftBase, rightBase);
+			gameloop = false;
 		}
 
 		firstTime = false;
