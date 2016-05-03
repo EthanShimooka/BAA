@@ -12,7 +12,6 @@ ChickenClassComponent::ChickenClassComponent(GameObject* player)
 	//featherHeight = 1;
 	//abilityCooldown = 15;
 	seedRequired = 6;
-	currBirdseed = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
