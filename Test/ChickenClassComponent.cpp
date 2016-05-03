@@ -12,6 +12,7 @@ ChickenClassComponent::ChickenClassComponent(GameObject* player)
 	//featherHeight = 1;
 	//abilityCooldown = 15;
 	seedRequired = 6;
+	currBirdseed = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -118,13 +119,14 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
+		std::cout << "PLAYER TEAM IS: " << gameObjectRef->team << std::endl;
 		if (gameObjectRef->posY > 0){
-			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false));
-			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false);
+			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
+			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false, gameObjectRef->team);
 		}
 		else {
-			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false));
-			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false);
+			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
+			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false, gameObjectRef->team);
 		}
 		currBirdseed = 0;
 		return true;
@@ -135,7 +137,7 @@ int ChickenClassComponent::useAbility(){
 	}
 }
 
-void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction){
+void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction, int team){
 	std::cout << "chicken write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
@@ -145,6 +147,7 @@ void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 	outData->Write(posX);
 	outData->Write(posY);
 	outData->Write(direction);
+	outData->Write(team);
 	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
 	//if (!netComp)
 		//netComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
@@ -153,15 +156,18 @@ void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 
 void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	std::cout << "chicken read" << std::endl;
+	std::cout << "PLEASE LET ME SEE THIS!!!!!!!!!!!!! BLEH" << std::endl;
 	PowerShieldObjectFactory sFactory;
 	uint64_t ID;
 	float posX, posY;
 	bool direction;
+	int team;
 	aPacket.Read(ID);
 	aPacket.Read(posX);
 	aPacket.Read(posY);
 	aPacket.Read(direction);
-	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction));
+	aPacket.Read(team);
+	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction, team));
 }
 
 int ChickenClassComponent::getClass(){
