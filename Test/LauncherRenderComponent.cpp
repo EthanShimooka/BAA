@@ -9,7 +9,7 @@ LauncherRenderComponent::LauncherRenderComponent(GameObject * launcher, int team
 	RenderComponent::RenderComponent();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 12, 0, 0);
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, 0, 0);
 
 }
 
