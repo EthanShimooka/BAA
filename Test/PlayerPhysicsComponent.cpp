@@ -46,18 +46,28 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 		//do nothing or push past each other
 		break;
-	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		if (otherObj->team == gameObjectRef->team)break;
-		//signal self death and turn to egg
+
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
+		 if (otherObj->team == gameObjectRef->team)break;
+		 //signal self death and turn to egg
+		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
 		if (otherObj->isLocal){
-			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
-			uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
-			dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->createDeathPacket(shooter);
+			logicComp->becomeEgg();
+			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+			networkComp->createDeathPacket(shooter);
+		}
+		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		if (killer->isLocal){	
+			dynamic_cast<PlayerLogicComponent*>(killer->GetComponent(COMPONENT_LOGIC))->addToKillList(killer->ID, gameObjectRef->ID);
+			logicComp->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
 		}
 		break;
+	}
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
 		inAir = false;
 		break;
+
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:
 		if (otherObj->team != gameObjectRef->team){
 			MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
@@ -65,8 +75,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 				//using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
 				PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 				logicComp->becomeEgg();
-				
-
 			}
 		}
 		break;

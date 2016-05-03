@@ -135,7 +135,9 @@ void PlayerLogicComponent::endCharge() {
 	charging = false;
 }
 
-void PlayerLogicComponent::addToKillList(uint64_t shooter){
+void PlayerLogicComponent::addToKillList(uint64_t shooter, uint64_t victim){
+	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+		return;
 	//start by finding the first open spot to add the notification to
 	int elemIndex = 0;
 	bool success = false;
@@ -159,10 +161,11 @@ void PlayerLogicComponent::addToKillList(uint64_t shooter){
 	}
 	//create the new elem here
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
-	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
+	string shooterText = GamerServices::sInstance->GetRemotePlayerName(shooter);
+	string victimText = GamerServices::sInstance->GetRemotePlayerName(victim);
+	shooterText += " -> " + victimText;
 	//reassign the new element to be the new notification
-	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(shooterText.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
 	killHUD[elemIndex].first->visible = true;
 	killHUD[elemIndex].second = clock();
 }
