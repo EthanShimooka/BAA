@@ -123,8 +123,9 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
-		float posX = 0;// Needs to be set based on mouse position
-		float posY = 0;// Needs to be set based on mouse position
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		float posX, posY;
 		float forceX = 5;
 		float forceY = 10;
 		float rotation = 90;
@@ -132,6 +133,15 @@ int PeacockClassComponent::useAbility(){
 		// ForceX positive if on bottom half, forceX negative if on top half
 		// ForceY positive if on left side, forceY negative if on right side
 		//Need to make forceX, forceY, and rotation + or - based on fan position, ie mouse position
+		renderMan->windowCoordToWorldCoord(posX, posY, input->getMouseX(), input->getMouseY());
+		if (posX > 0){
+			rotation = -90;
+			forceY = -10;
+		}
+		else{
+			rotation = 90;
+			forceY = 10;
+		}
 		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, forceX, forceY, rotation));
 
 
@@ -142,8 +152,6 @@ int PeacockClassComponent::useAbility(){
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 		return false;
 	}
-	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
-	return false;
 }
 
 void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float forceX, float forceY, float rotation){
