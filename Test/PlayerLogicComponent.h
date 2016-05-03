@@ -78,7 +78,7 @@ public:
 	std::vector<std::pair<SDLRenderObject*,clock_t>> killHUD;
 
 	/// adds to the queue of player kills
-	void addToKillList(uint64_t killer);
+	void addToKillList(uint64_t killer, uint64_t victim);
 	/// updates the queue of players
 	void updateKillHUD();
 	/// Boolean used to restrict input during gameplay. Only perform actions
