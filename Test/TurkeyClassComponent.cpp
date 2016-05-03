@@ -122,8 +122,30 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	animations["charge"] = new Animation(100, motions4);
 }
 
-int TurkeyClassComponent::useAbility(){
-	std::cout << "turkeyclasscomp->useAbility() not implemented yet" << std::endl;
+void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+	int destX, destY;
+	aPacket.Read(destX);
+	aPacket.Read(destY);
+
+	turkeyArmsPos = b2Vec2(destX, destY);
+}
+
+void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, int team){
+	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write((int)6); // have to include the enum here
+	outData->Write(PID);
+	outData->Write(posX);
+	outData->Write(posY);
+	outData->Write(team);
+	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
+}
+
+int TurkeyClassComponent::useAbility(uint64_t PID, int x, int y){
+	InputManager* inputMan = InputManager::getInstance();
+	armsMovementState = 1;
+	writeNetAbility(gameObjectRef->ID, inputMan->getMouseX(), inputMan->getMouseY(), gameObjectRef->team);
 	return false;
 }
 
