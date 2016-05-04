@@ -20,6 +20,7 @@ PeacockClassComponent::~PeacockClassComponent()
 
 void PeacockClassComponent::Update()
 {
+
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){

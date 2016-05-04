@@ -15,8 +15,7 @@ FanLogicComponent::~FanLogicComponent()
 void FanLogicComponent::Update(){
 	if (Timing::sInstance.EndPeacockAbilityTimer()){
 		std::cout << "INSIDE THE IF!!!!!" << std::endl;
-		PeacockClassComponent* peacockComp = dynamic_cast<PeacockClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-		vector<uint64_t> myVec = peacockComp->getFanIDs();
+		PeacockClassComponent* peacockComp = dynamic_cast<PeacockClassComponent*>(GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->GetComponent(COMPONENT_CLASS));
 		std::cout << "BEFORE LOOP!" << std::endl;
 		for (auto i = peacockComp->fanIDs.begin(); i != peacockComp->fanIDs.end(); i++){
 			std::cout << "BEFORE GETGAMEOBJCT CALL!" << std::endl;
