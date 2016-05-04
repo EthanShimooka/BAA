@@ -14,6 +14,8 @@ Physics Component class for the Launcher
 
 
 #include "PhysicsComponent.h"
+#include "LauncherComponentIncludes.h"
+
 class LauncherPhysicsComponent :
 	public PhysicsComponent
 {

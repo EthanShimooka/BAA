@@ -10,6 +10,8 @@ Logic Component class for the Launcher
 #define LAUNCHERLOGICCOMPONENT_H_INCLUDED
 
 #include "LogicComponent.h"
+#include "LauncherComponentIncludes.h"
+
 class LauncherLogicComponent :
 	public LogicComponent
 {

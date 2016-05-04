@@ -55,7 +55,7 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 base_hit = true;
 											 // MidBaseLogicComponent* logicComponent = dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 											 // logicComponent->attacked();
-											 gameObjectRef->health--;
+											 gameObjectRef->health++;
 											 std::cout << "Health = " << gameObjectRef->health << std::endl;
 											 //
 											 //		}
