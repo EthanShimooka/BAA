@@ -142,10 +142,16 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
 }
 
-int TurkeyClassComponent::useAbility(uint64_t PID, int x, int y){
-	InputManager* inputMan = InputManager::getInstance();
-	armsMovementState = 1;
-	writeNetAbility(gameObjectRef->ID, inputMan->getMouseX(), inputMan->getMouseY(), gameObjectRef->team);
+int TurkeyClassComponent::useAbility(){
+	InputManager* input = InputManager::getInstance();
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	float targetX, targetY;
+	renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
+	BoomerangObjectFactory boomMaker;
+	GameObject* boomerang = boomMaker.Spawn(powerNum++, gameObjectRef->posX, gameObjectRef->posY, targetX, targetY, gameObjectRef->team);
+	GameObjects.AddObject(boomerang);
+
+	writeNetAbility(gameObjectRef->ID, input->getMouseX(), input->getMouseY(), gameObjectRef->team);
 	return false;
 }
 

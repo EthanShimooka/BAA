@@ -1,6 +1,9 @@
 #pragma once
+#ifndef  TURKEYCLASSCCOMPONENT_H_INCLUDED
+#define  TURKEYCLASSCOMPONENT_H_INCLUDED
 #include "ClassComponent.h"
 #include "PlayerObjectFactory.h"
+#include "BoomerangObjectFactory.h"
 class TurkeyClassComponent :
 	public ClassComponent
 {
@@ -8,7 +11,7 @@ public:
 	TurkeyClassComponent(GameObject* player);
 	~TurkeyClassComponent();
 	void Update();
-	int useAbility(uint64_t PID, int x, int y);
+	int useAbility();
 	void writeNetAbility(uint64_t PID, float posX, float posY, int team);
 	void readNetAbility(InputMemoryBitStream& aPacket);
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
@@ -17,3 +20,5 @@ public:
 	b2Vec2 turkeyArmsPos;
 	int armsMovementState=0;
 };
+
+#endif

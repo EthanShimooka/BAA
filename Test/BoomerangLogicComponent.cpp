@@ -7,6 +7,5 @@ BoomerangLogicComponent::BoomerangLogicComponent(GameObject* boomerang){
 }
 
 
-BoomerangLogicComponent::~BoomerangLogicComponent()
-{
+BoomerangLogicComponent::~BoomerangLogicComponent(){
 }
