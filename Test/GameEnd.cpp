@@ -26,10 +26,10 @@ void GameEnd::runGameEnd(int localTeam, GameObject* leftBase, GameObject* rightB
 	if (leftBase->health == rightBase->health){
 		switchOn = 1;
 	}
-	else if (leftBase->health > rightBase->health){
+	else if (leftBase->health < rightBase->health){
 		switchOn = 2;
 	}
-	else if (leftBase->health < rightBase->health){
+	else if (leftBase->health > rightBase->health){
 		switchOn = 3;
 	}
 	//Left team is purple, right team is yellow
