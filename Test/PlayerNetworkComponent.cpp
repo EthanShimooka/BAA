@@ -128,7 +128,6 @@ void PlayerNetworkComponent::Update(){
 			break;
 		case COMMAND_TYPE::CM_ABILITY:
 			handleAbilityPacket(packet);
-			//ChickenClassComponent::readNetAbility(packet);
 			break;
 		case COMMAND_TYPE::CM_DIE:
 			handleDeathPacket(packet);
