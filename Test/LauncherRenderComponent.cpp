@@ -10,7 +10,7 @@ LauncherRenderComponent::LauncherRenderComponent(GameObject * launcher, int team
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, 0, 0);
-	objRef->isVisible = false;
+	objRef->visible = false;
 	allObjs["launcher"] = objRef;
 }
 
