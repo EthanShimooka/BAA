@@ -63,6 +63,10 @@ void Timing::SetLobbyCountdown(){
 	gameLengthInSeconds = 3;
 }
 
+void Timing::SetTeamPickCountdown(){
+	gameLengthInSeconds = 1;
+}
+
 void Timing::SetGamePlayCountdown(){
 	gameLengthInSeconds = playTimeLengthInSecs;
 }

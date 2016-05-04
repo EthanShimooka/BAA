@@ -49,6 +49,10 @@ enum UIType{
 	CHARGE_BAR = 16,
 	LOBBY_TIMER = 17,
 	KILL_NOTIFICATION = 18,
+	PURPLE_BUTTON = 30,
+	PURPLE_BUTTON2 = 31,
+	YELLOW_BUTTON = 32,
+	YELLOW_BUTTON2 = 33,
 };
 
 /// t_component struct contains a component and a int enumerating its type
@@ -134,6 +138,8 @@ public:
 	int getWidth();
 
 	int getHeight();
+
+	bool teamPicked = false;
 
 	///	void UpdateComponentType(ComponentType typeOfComponentToUpdate);
 

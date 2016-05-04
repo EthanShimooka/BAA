@@ -40,6 +40,10 @@
 <resource UID="27" type="graphic" filename="playerReady.png" scenescope="0"></resource>
 <resource UID="28" type="graphic" filename="playerSlot.png" scenescope="0"></resource>
 <resource UID="29" type="graphic" filename="options.png" scenescope="0"></resource>
+<resource UID="30" type="graphic" filename="teamPurple.png" scenescope="0"></resource>
+<resource UID="31" type="graphic" filename="teamPurple2.png" scenescope="0"></resource>
+<resource UID="32" type="graphic" filename="teamYellow.png" scenescope="0"></resource>
+<resource UID="33" type="graphic" filename="teamYellow2.png" scenescope="0"></resource>
 <resource UID="1100" type="graphic" filename="birdseed_counter_shell.png" scenescope="0"></resource>
 <resource UID="1101" type="graphic" filename="birdseed_counter_gradient.png" scenescope="0"></resource>
 <resource UID="1102" type="graphic" filename="chargebar_shell.png" scenescope="0"></resource>

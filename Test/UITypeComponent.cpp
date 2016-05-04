@@ -158,7 +158,18 @@ void UITypeComponent::createUIType(UIType ID){
 		objRef->setResourceObject(renderMan->renderText("", 255, 0, 255, 30, "BowlbyOneSC-Regular"));
 		objRef->visible = false;
 		allObjs.push_back(play);
+		break;
 	}
+	case YELLOW_BUTTON:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), YELLOW_BUTTON, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
+	case PURPLE_BUTTON:
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), PURPLE_BUTTON, uiObjectRef->posX, uiObjectRef->posY, true);
+		objRef = play;
+		allObjs.push_back(play);
+		break;
 	}
 }
 

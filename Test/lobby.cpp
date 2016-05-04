@@ -2,8 +2,10 @@
 
 vector<player*> players;
 
-Lobby::Lobby(): playersReady(0), inLobbyNow(0){
+Lobby::Lobby(): playersReady(0), inLobbyNow(0), readyCount(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
+	yellow = 0;
+	purple = 0;
 }
 
 
@@ -17,6 +19,7 @@ void Lobby::runLobby(){
 
 	renderMan->setBackground("Lobby_bg.png");
 
+	pickTeam();
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
@@ -40,16 +43,16 @@ void Lobby::runLobby(){
 			me = players[i];
 	}
 
+
+
 	createButtons(queue);
 
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-	int readyCount = 0;
 
 	//while loop running lobby
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
-		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
-		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
+
 		input->update();
 
 		GamerServices::sInstance->Update();
@@ -68,8 +71,10 @@ void Lobby::runLobby(){
 				NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
 		}
 
+		//handles players dropping
 		updateLobby();
 		
+		//check if i am ready, change bird image, send over wire
 		if (!me->ready){
 			for (unsigned int i = 0; i < Birds.size(); i++){
 				if (Birds[i]->ready){
@@ -92,23 +97,15 @@ void Lobby::runLobby(){
 			}
 		}
 
-		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
-			for (const auto& player : players){
-				if (player->playerId == iter.first){
-					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
-						//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
-						player->playerChoice = (UIType)iter.second.classType;
-						player->playerSlot->changePicture = true;
-						player->playerSlot->changeTo = (UIType)iter.second.classType;
-						player->ready = true;
-						readyCount++;
-					}
-				}
-			}
-		}
+		//check if peers have selected team or bird class
+		checkPlayerInfo();
 
+		//start game if ready, change state to NMS_Starting if ready
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			NetworkManager::sInstance->TryReadyGame();
+		}
+		if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_MainMenu){
+			break;
 		}
 
 		sysUI.UIUpdate(queue.alive_objects);
@@ -124,20 +121,46 @@ void Lobby::runLobby(){
 
 	}
 
+	deleteBirds(birdQueue);
+	//starting countdown
 	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
-		deleteBirds(birdQueue);
 		countdown(queue);
 	}
 
 	cleanUP(queue);
 
-	GameSession session = GameSession::GameSession();
-	AudioManager* audioMan = AudioManager::getAudioInstance();
-	audioMan->stopByName("bgmBAALobby.ogg");
+	//if we are starting
+	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
+		GameSession session = GameSession::GameSession();
+		AudioManager* audioMan = AudioManager::getAudioInstance();
 
-	session.Run(players);
+		audioMan->stopByName("bgmBAALobby.ogg");
+
+		session.Run(players);
+	}
+	//else return to main menu and clean up lobby
+	else{
+		GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
+	}
 
 	deletePlayers();
+}
+
+void Lobby::checkPlayerInfo(){
+	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+		for (const auto& player : players){
+			if (player->playerId == iter.first){
+				if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+					//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+					player->playerChoice = (UIType)iter.second.classType;
+					player->playerSlot->changePicture = true;
+					player->playerSlot->changeTo = (UIType)iter.second.classType;
+					player->ready = true;
+					readyCount++;
+				}
+			}
+		}
+	}
 }
 
 void Lobby::deletePlayers(){
@@ -165,9 +188,12 @@ void Lobby::createButtons(SystemUIObjectQueue &q){
 	int w, h;
 
 	rendMan->getWindowSize(&w, &h);
-	UIObjectFactory* invite = new UIObjectFactory();
-	UIObject* inviteButton = invite->Spawn(INVITE_BUTTON, 0, h/2);
+	UIObjectFactory* buttons = new UIObjectFactory();
+	UIObject* inviteButton = buttons->Spawn(INVITE_BUTTON, 0, h / 2);
+	//UIObject* backButton = buttons->Spawn(BACK_BUTTON, 0, h / 2 + 75);
+
 	q.AddObject(inviteButton);
+	//q.AddObject(backButton);
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){
@@ -272,13 +298,13 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			p->team = TEAM_YELLOW;
+			p->team = TEAM_NEUTRAL;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			p->team = TEAM_PURPLE;
+			p->team = TEAM_NEUTRAL;
 			p->bottom = true;
 		} 
 		
@@ -362,4 +388,64 @@ void Lobby::addNewPlayers(){
 
 void Lobby::SendTeamPacket(uint64_t ID, TEAM team){
 	NetworkManager::sInstance->SendTeamToPeers(ID, team);
+}
+
+void Lobby::pickTeam(){
+	SystemInputUpdater sysInput;
+	SystemRenderUpdater sysRend;
+	UIObjectFactory uFactory;
+	SystemUIUpdater sysUI;
+	SystemUIObjectQueue queue;
+
+	InputManager* input = InputManager::getInstance();
+	RenderManager* rendMan = RenderManager::getRenderManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+
+	int w, h;
+
+	rendMan->getWindowSize(&w, &h);
+
+	UIObjectFactory* buttons = new UIObjectFactory();
+	UIObject* teamYellow = buttons->Spawn(YELLOW_BUTTON, w / 2 - 150, h / 2);
+	UIObject* teamPurple = buttons->Spawn(PURPLE_BUTTON, w / 2 + 50, h / 2);
+
+	queue.AddObject(teamYellow);
+	queue.AddObject(teamPurple);
+
+	bool picked = false;
+
+	while (!picked){
+		input->update();
+
+		sysUI.UIUpdate(queue.alive_objects);
+		sysInput.InputUpdate(queue.alive_objects);
+		sysRend.RenderUpdate(queue.alive_objects);
+
+		input->update();
+
+		sceneMan->AssembleScene();
+
+		if (teamPurple->teamPicked){
+			picked = true;
+		}
+		else if (teamYellow->teamPicked){
+			picked = true;
+		}
+	}
+
+	cleanUP(queue);
+
+
+	Timing::sInstance.SetTeamPickCountdown();
+	Timing::sInstance.SetCountdownStart();
+
+	while (true){
+
+		int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
+
+		if (timeRemaininginSeconds == 0){
+			Timing::sInstance.SetGamePlayCountdown();
+			return;
+		}
+	}
 }

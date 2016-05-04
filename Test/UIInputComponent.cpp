@@ -9,21 +9,26 @@ UIInputComponent::~UIInputComponent(){
 
 void UIInputComponent::Update(){	
 
+	UIRenderComponent* rend = dynamic_cast<UIRenderComponent*>(uiObjectRef->GetComponent(COMPONENT_RENDER));
+
 	uint64_t me = NetworkManager::sInstance->GetMyPlayerId();
+
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
-			std::cout << "Play!" << std::endl;
 			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
 		}
 		break;
 	case CANCEL_BUTTON:
 		break;
 	case BACK_BUTTON:
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+			std::cout << "Click!" << std::endl;
+			//NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
+		}
 		break;
 	case JOIN_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
-			std::cout << "Join!" << std::endl;
 			NetworkManager::sInstance->StartLobbySearch();
 		}
 		break;
@@ -54,6 +59,30 @@ void UIInputComponent::Update(){
 		}
 		else{
 			uiObjectRef->hoverPicture = false;
+		}
+		break;
+	case YELLOW_BUTTON:
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+			rend->ChangeSprite(YELLOW_BUTTON2);
+			uiObjectRef->teamPicked = true;
+		}
+		if (isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT)){
+			rend->ChangeSprite(YELLOW_BUTTON2);
+		}
+		else{
+			rend->ChangeSprite(YELLOW_BUTTON);
+		}
+		break;
+	case PURPLE_BUTTON:
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+			rend->ChangeSprite(PURPLE_BUTTON2);
+			uiObjectRef->teamPicked = true;
+		}
+		if (isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT)){	
+			rend->ChangeSprite(PURPLE_BUTTON2);
+		}
+		else{
+			rend->ChangeSprite(PURPLE_BUTTON);
 		}
 		break;
 	}

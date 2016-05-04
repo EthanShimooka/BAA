@@ -56,15 +56,42 @@ void Start::mainMenu(){
 		input->update();
 
 		sceneMan->AssembleScene();
-	}
+
+		if (NetworkManager::sInstance->GetState() >= NetworkManager::sInstance->NMS_Lobby){
+			startLobby(queue, sysRend);
+		}
+	}	
+}
+
+void Start::startLobby(SystemUIObjectQueue queue, SystemRenderUpdater sysRend){
+
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
 		queue.alive_objects[i]->visible = false;
 	}
+
 	sysRend.RenderUpdate(queue.alive_objects);
 	sceneMan->AssembleScene();
 	queue.DeleteObjects();
 
 	Lobby lobby;
 	lobby.runLobby();
+	if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_MainMenu){
+		createMenu(queue);
+	}
+}
+
+void Start::createMenu(SystemUIObjectQueue queue){
+
+	UIObjectFactory menuButtons;
+	RenderManager* renderMan = RenderManager::getRenderManager();
+
+	int w, h;
+
+	renderMan->getWindowSize(&w, &h);
+	renderMan->setBackground("Menu_bg.png");
+
+	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w - 125, (float)h - 150));
+	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w - 125, (float)h - 75));
 }

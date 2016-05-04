@@ -9,6 +9,12 @@ UIRenderComponent::UIRenderComponent(){
 UIRenderComponent::~UIRenderComponent(){
 }
 
+void UIRenderComponent::ChangeSprite(UIType id){
+	ResourceManager* ResMan = ResourceManager::GetResourceManager();	
+
+	objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(id));
+}
+
 void UIRenderComponent::Update(){
 
 	//Updates the related SDLRenderObject with the player's values

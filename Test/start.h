@@ -13,8 +13,9 @@ public:
 	void joinLobby();
 	void play();
 	void inLobby();
+
+private:
+	void startLobby(SystemUIObjectQueue queue, SystemRenderUpdater sysRend);
+	void createMenu(SystemUIObjectQueue queue);
 };
-
-
-
 #endif

@@ -36,6 +36,8 @@ public:
 	SQUADIO_API bool SpawnMinions();
 	/// Starts the lobby countdown
 	SQUADIO_API void SetLobbyCountdown();
+	/// Starts the team selection countdown
+	SQUADIO_API void SetTeamPickCountdown();
 	/// Starts the ingame timer countdown
 	SQUADIO_API void SetGamePlayCountdown();
 	/// Starts the timer for the explosion effect

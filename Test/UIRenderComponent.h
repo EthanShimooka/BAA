@@ -43,8 +43,8 @@ public:
 
 	/////////////////////////////////////////////////
 
-	/// Assign Sprites 
-	void AssignSprite(SDLRenderObject* rend);
+	/// Change Sprites 
+	void ChangeSprite(UIType id);
 	/// Updates Sprite to renderer
 	virtual void Update();
 

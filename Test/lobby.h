@@ -2,8 +2,6 @@
 #ifndef LOBBY_H
 #define LOBBY_H
 
-
-
 //#include "main.h"
 #include "UIObject.h"
 #include "UIObjectFactory.h"
@@ -34,7 +32,7 @@ public:
 	void runLobby();
 
 private:
-	//vector<player*> players;
+	int readyCount;
 	void addSlots(SystemUIObjectQueue &q);
 	void deleteBirds(SystemUIObjectQueue &q);
 	void deletePlayers();
@@ -52,6 +50,9 @@ private:
 	void cleanUP(SystemUIObjectQueue &q);
 	void createButtons(SystemUIObjectQueue &q);
 	void SendTeamPacket(uint64_t ID, TEAM team);
+	void checkPlayerInfo();
+	int yellow, purple;
+	void pickTeam();
 };
 
 #endif

@@ -124,6 +124,14 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(KILL_NOTIFICATION);
 		break;
+	case YELLOW_BUTTON:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(YELLOW_BUTTON);
+		break;
+	case PURPLE_BUTTON:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(PURPLE_BUTTON);
+		break;
 	}
 
 	uiObject->AddComponent(COMPONENT_RENDER, rend);

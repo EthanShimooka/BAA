@@ -20,7 +20,7 @@ public:
 	uint64_t GetMasterPeerId( uint64_t inLobbyId );
 	void GetLobbyPlayerMap( uint64_t inLobbyId, map< uint64_t, string >& outPlayerMap );
 	void SetLobbyReady( uint64_t inLobbyId );
-	void LeaveLobby( uint64_t inLobbyId );
+	SQUADIO_API void LeaveLobby( uint64_t inLobbyId );
 
 	//peer-to-peer networking
 	bool SendP2PUnreliable( const OutputMemoryBitStream& inOutputStream, uint64_t inToPlayer );

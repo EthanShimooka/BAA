@@ -15,6 +15,7 @@ imput Components are derived.
 
 #include "SystemUIObjectQueue.h"
 #include "UIComponent.h"
+#include "UIRenderComponent.h"
 
 class UIInputComponent : public UIComponent
 {
