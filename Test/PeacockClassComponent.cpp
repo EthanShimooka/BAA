@@ -8,6 +8,7 @@ PeacockClassComponent::PeacockClassComponent(GameObject* player)
 	isPeacock = true;
 	speed += 2;
 	seedRequired = 7;
+	currBirdseed = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -148,6 +149,7 @@ int PeacockClassComponent::useAbility(){
 		}
 		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, forceX, forceY, rotation));
 		writeNetAbility(powerNum - 1, posX, posY, forceX, forceY, rotation);
+		fanIDs.push_back(powerNum - 1);
 		currBirdseed = 0;
 		return true;
 	}
@@ -184,6 +186,7 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(rotation);
 	Timing::sInstance.SetPeacockAbilityTimer();
 	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, forceX, forceY, rotation));
+	fanIDs.push_back(powerNum - 1);
 }
 
 int PeacockClassComponent::getClass(){
