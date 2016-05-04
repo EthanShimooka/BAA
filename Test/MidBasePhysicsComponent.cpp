@@ -27,7 +27,7 @@ void MidBasePhysicsComponent::Init(){
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(5.5, 12.7); // look up other functions for polygons
+	box.SetAsBox(5.5f, 12.7f); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;

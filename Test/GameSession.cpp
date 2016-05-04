@@ -377,7 +377,7 @@ int GameSession::Run(vector<player*> players){
 				int wid, hei;
 				renderMan->getWindowSize(&wid, &hei);
 				float xRatio = (mousePos - wid / 2) / float(wid / 2);
-				float xPlus = (wid / 4) - 20;
+				float xPlus = (float)(wid / 4) - 20;
 				//std::cout << xRatio << std::endl;
 				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);
 
