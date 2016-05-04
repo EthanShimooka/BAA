@@ -8,6 +8,7 @@ PeacockClassComponent::PeacockClassComponent(GameObject* player)
 	isPeacock = true;
 	speed += 2;
 	seedRequired = 7;
+	currBirdseed = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
@@ -125,15 +126,12 @@ int PeacockClassComponent::useAbility(){
 		FanObjectFactory fFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
-		float posX, posY;
-		float forceX = 5;
-		float forceY = 10;
-		float rotation = 90;
+		float posX, posY, forceX, forceY, rotation;
 		// Negative rotation if on right side of screen, positive rotation if on left side of screen
 		// ForceX positive if on bottom half, forceX negative if on top half
 		// ForceY positive if on left side, forceY negative if on right side
-		//Need to make forceX, forceY, and rotation + or - based on fan position, ie mouse position
 		renderMan->windowCoordToWorldCoord(posX, posY, input->getMouseX(), input->getMouseY());
+		//Orient fan based on position
 		if (posX > 0){
 			rotation = -90;
 			forceY = -10;
@@ -141,6 +139,12 @@ int PeacockClassComponent::useAbility(){
 		else{
 			rotation = 90;
 			forceY = 10;
+		}
+		if (posY > 0){
+			forceX = -5;
+		}
+		else{
+			forceX = 5;
 		}
 		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, forceX, forceY, rotation));
 
