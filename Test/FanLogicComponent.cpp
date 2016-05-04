@@ -13,5 +13,5 @@ FanLogicComponent::~FanLogicComponent()
 }
 
 void FanLogicComponent::Update(){
-
+	//Check timing for peacock ability
 }

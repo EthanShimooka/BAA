@@ -172,6 +172,20 @@ bool Timing::EndChickenAbilityTimer(){
 	else return false;
 }
 
+void Timing::SetPeacockAbilityTimer(){
+	peacockAbilityStart = clock();
+}
+
+bool Timing::EndPeacockAbilityTimer(){
+	clock_t difference = clock() - peacockAbilityStart;
+	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
+	if (abilityTime >= peacockAbilityLengthInMS){
+		peacockAbilityStart = 0;
+		return true;
+	}
+	else return false;
+}
+
 double Timing::GetTime() const{
 #if _WIN32
 	LARGE_INTEGER curTime, timeSinceStart;

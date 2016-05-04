@@ -124,6 +124,7 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
+		//Start timer
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float posX, posY, forceX, forceY, rotation;
