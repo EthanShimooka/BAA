@@ -13,5 +13,9 @@ FanLogicComponent::~FanLogicComponent()
 }
 
 void FanLogicComponent::Update(){
-
+	/*if (Timing::sInstance.EndPeacockAbilityTimer()){
+		std::cout << "INSIDE THE IF!!!!!" << std::endl;
+		gameObjectRef->isAlive = false;
+	}
+	std::cout << "OUTSIDE THE IF!!!!!" << std::endl;*/
 }
