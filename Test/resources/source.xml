@@ -69,6 +69,9 @@
 <resource UID="2024" type="graphic" filename="Base_yellow_mowhawk.png" scenescope="0"></resource>
 <resource UID="2025" type="graphic" filename="Base_purple_mowhawk.png" scenescope="0"></resource>
 
+<resource UID="2026" type="graphic" filename="Game_launcher_1.png" scenescope="0"></resource>
+<resource UID="2027" type="graphic" filename="Game_launcher_2.png" scenescope="0"></resource>
+
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>
 <resource UID="3002" type="graphic" filename="Player_Chicken_Arm_2.png" scenescope="0"></resource>

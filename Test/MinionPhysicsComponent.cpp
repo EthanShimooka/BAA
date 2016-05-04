@@ -43,16 +43,16 @@ void MinionPhysicsComponent::init(){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 	float rando[10] = {
-		-325,
-		325,
+		-285,
+		285,
 		-100,
 		50,
 		-25,
-		180,
-		-270,
+		160,
+		-240,
 		60,
-		-180,
-		300
+		-130,
+		250
 	};
 
 	float yForce = rando[(gameObjectRef->ID%10)];
@@ -67,6 +67,7 @@ void MinionPhysicsComponent::init(){
 	
 	setCollisionFilter(COLLISION_MINION, COLLISION_FEATHER | COLLISION_MINION | COLLISION_BASE | COLLISION_MINE | COLLISION_FAN | COLLISION_PLATFORM);
 	blownForce = b2Vec2(0.0f, 0.0f);
+	savedYForce = 0.0f;
 
 }
 
@@ -140,13 +141,25 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 									   	  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
-										  //Bounce off the walls
-										  b2Vec2 vel = mBody->GetLinearVelocity();
-										  vel.y = -1.0f * vel.y;
-										  //Ensure moving in right direction
-										  if (gameObjectRef->team == TEAM_YELLOW) vel.x = abs(vel.x);
-										  if (gameObjectRef->team == TEAM_PURPLE) vel.x = -abs(vel.x);
-										  mBody->SetLinearVelocity(vel);
+										  if (mBody->GetPosition().y < 0){
+											  //hit top wall
+											  mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, -mBody->GetLinearVelocity().y));
+										  }
+										  else {
+											  //hit bot wall
+											  mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, -mBody->GetLinearVelocity().y));
+										  }
+										  if (!isBounce){
+											  savedYForce = -mBody->GetLinearVelocity().y;
+										  }
+										  isBounce = true;
+										  ////Bounce off the walls
+										  //b2Vec2 vel = mBody->GetLinearVelocity();
+										  //vel.y = -1.0f * vel.y;
+										  ////Ensure moving in right direction
+										  //if (gameObjectRef->team == TEAM_YELLOW) vel.x = abs(vel.x);
+										  //if (gameObjectRef->team == TEAM_PURPLE) vel.x = -abs(vel.x);
+										  //mBody->SetLinearVelocity(vel);
 										  //mBody->ApplyForce(b2Vec2(0, -50*mBody->GetLinearVelocity().y), mBody->GetWorldCenter(), true);
 										  break;
 	}
@@ -160,6 +173,9 @@ void MinionPhysicsComponent::endCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_FAN: 
 		isGettingBlown = false;
 		blownForce = b2Vec2_zero;
+		break;
+	case GAMEOBJECT_TYPE::OBJECT_PLATFORM:
+		isBounce = false;
 		break;
 
 	default:
@@ -177,7 +193,16 @@ void MinionPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 	}
 	if (isGettingBlown){
-		mBody->ApplyForceToCenter(blownForce, false);
+		if ((blownForce.x > 0 && mBody->GetLinearVelocity().x > 0) || (blownForce.x < 0 && mBody->GetLinearVelocity().x < 0)) {//if minion is moving positively and force is positive, apply force
+ 			mBody->ApplyForceToCenter(blownForce, false);
+ 		}
+ 		else {
+ 			mBody->ApplyForceToCenter(b2Vec2(0, blownForce.y), false);
+ 		}
+		//mBody->ApplyForceToCenter(blownForce, false);
+	}
+	if (isBounce) {
+		mBody->SetLinearVelocity(b2Vec2(mBody->GetLinearVelocity().x, -savedYForce));
 	}
 	//temp testing code from here down
 

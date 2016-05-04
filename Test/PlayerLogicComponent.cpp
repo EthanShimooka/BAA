@@ -135,11 +135,13 @@ void PlayerLogicComponent::endCharge() {
 	charging = false;
 }
 
-void PlayerLogicComponent::addToKillList(uint64_t shooter){
+void PlayerLogicComponent::addToKillList(uint64_t shooter, uint64_t victim){
+	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+		return;
 	//start by finding the first open spot to add the notification to
 	int elemIndex = 0;
 	bool success = false;
-	for (int i = 0; i < killHUD.size(); i++){
+	for (unsigned i = 0; i < killHUD.size(); i++){
 		if (!killHUD[i].first->visible){
 			elemIndex = i;
 			success = true;
@@ -151,7 +153,7 @@ void PlayerLogicComponent::addToKillList(uint64_t shooter){
 		//this happens when we iterate through the list and see that there is no free spot to put the new notification
 		//we need to rotate the array and add it on to the end now
 		auto tempElem = killHUD[0];
-		for (int i = 0; i < killHUD.size() - 1; i++){
+		for (unsigned i = 0; i < killHUD.size() - 1; i++){
 			killHUD[i] = killHUD[i + 1];
 		}
 		killHUD[killHUD.size() - 1] = tempElem;
@@ -159,10 +161,11 @@ void PlayerLogicComponent::addToKillList(uint64_t shooter){
 	}
 	//create the new elem here
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	string title = GamerServices::sInstance->GetRemotePlayerName(shooter);
-	title += " -> " + GamerServices::sInstance->GetLocalPlayerName();
+	string shooterText = GamerServices::sInstance->GetRemotePlayerName(shooter);
+	string victimText = GamerServices::sInstance->GetRemotePlayerName(victim);
+	shooterText += " -> " + victimText;
 	//reassign the new element to be the new notification
-	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(title.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(shooterText.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
 	killHUD[elemIndex].first->visible = true;
 	killHUD[elemIndex].second = clock();
 }
@@ -176,13 +179,13 @@ void PlayerLogicComponent::updateKillHUD(){
 		//circular rotation on array
 		killHUD[0].first->visible = false;
 		auto tempElem = killHUD[0];
-		for (int i = 0; i < killHUD.size() - 1; i++){
+		for (unsigned i = 0; i < killHUD.size() - 1; i++){
 			killHUD[i] = killHUD[i+1];
 		}
 		killHUD[killHUD.size() - 1] = tempElem;
 		//now update postions on screen
-		for (int i = 0; i < killHUD.size(); i++){
-			killHUD[i].first->setPos(SCREEN_WIDTH - 200, 130 + i * 30);
+		for (unsigned i = 0; i < killHUD.size(); i++){
+			killHUD[i].first->setPos((float)(SCREEN_WIDTH - 200), (float)(130 + i * 30));
 		}
 	}
 }

@@ -269,7 +269,7 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		player *p = new player();
 		p->playerId = NULL;
 		p->name = "";
-		if (i % 2 == 1){
+		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
 			p->team = TEAM_YELLOW;

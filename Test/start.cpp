@@ -40,7 +40,7 @@ void Start::mainMenu(){
 	UIObjectFactory menuButtons;
 
 	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
-
+	
 	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w - 125, (float)h - 150 ));
 	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w - 125, (float)h - 75));
 
