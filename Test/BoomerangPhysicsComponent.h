@@ -11,6 +11,7 @@ public:
 	BoomerangPhysicsComponent(GameObject* boomerang, GameObject* owner, int destX, int destY);
 	~BoomerangPhysicsComponent();
 	void Update();
+	void init();
 	
 	GameObject* owner;
 	PlayerPhysicsComponent* ownerPhysics;

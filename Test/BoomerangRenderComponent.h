@@ -9,6 +9,7 @@ public:
 	BoomerangRenderComponent(GameObject* boomerang);
 	~BoomerangRenderComponent();
 	void Update();
+
 };
 
 #endif
