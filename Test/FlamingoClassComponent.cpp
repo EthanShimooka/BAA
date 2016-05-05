@@ -119,7 +119,7 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed == seedRequired){
+	if (currBirdseed >= seedRequired){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();

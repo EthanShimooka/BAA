@@ -29,22 +29,29 @@ void PowerShieldPhysicsComponent::init()
 	/// Hitbox instantiation
 	b2PolygonShape box;
 	/// Set Box Shape
-	box.SetAsBox(100, 15); // look up other functions for polygons
+	box.SetAsBox(1, 1); // look up other functions for polygons
 	// 
 	boxFixtureDef.shape = &box;
 	boxFixtureDef.density = 1;
 	// Create Fixture 
 	mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
-	mBody->SetTransform(b2Vec2(gameObjectRef->posX, gameObjectRef->posY), 0);
+	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLATFORM, COLLISION_PLAYER | COLLISION_MINION);
+	setCollisionFilter(COLLISION_POWERSHIELD, COLLISION_FEATHER);
 }
 
 
 void PowerShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
-	std::cout << "PATFORM handling collision with object ID: " << otherObj->ID << std::endl;
+	//std::cout << "PLATFORM handling collision with object ID: " << otherObj->ID << std::endl;
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
+		//std::cout << "COLLISION BETWEEN SHIELD AND FEATHER" << std::endl;
+		break;
+	default:
+		break;
+	}
 }
 
 

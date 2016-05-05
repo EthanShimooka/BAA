@@ -5,20 +5,27 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"),-1, 0, 0);
+	allObjs["base"] = objRef;
+	allObjs["leftArm"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2011, -90, 114);
+	allObjs["leftArm"]->setAnchor(0.727, 0.8378);
+	allObjs["leftArm"]->setRotation(-20);
+	allObjs["rightArm"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2012, 90, 114);
+	allObjs["rightArm"]->setAnchor(0.272, 0.8378);
+	allObjs["rightArm"]->setRotation(20);
 	if (team == 1){
-		objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2011, 0, 0);
-		allObjs["base"] = objRef;
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
+		allObjs["body"]->setParent(allObjs["base"]);
 	}
-	else if (team == 2){
-		objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
-		allObjs["base"] = objRef;
-	}	else{
-		objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
-		allObjs["base"] = objRef;
+	else{
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
+		allObjs["body"]->setParent(allObjs["base"]);
 	}
+	allObjs["leftArm"]->setParent(allObjs["body"]);
+	allObjs["rightArm"]->setParent(allObjs["body"]);
+	allObjs["body"]->setScale(allObjs["body"]->calcXScale(20));
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	//box->setIfRenderRect(true);
+	box->setIfRenderRect(true);
 	allObjs["box"] = box;
 }
 

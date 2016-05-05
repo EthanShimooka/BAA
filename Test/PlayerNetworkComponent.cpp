@@ -104,7 +104,7 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	uint64_t shooterID;
 	dPacket.Read(shooterID);
 	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
-	logicComp->addToKillList(shooterID);
+	logicComp->addToKillList(shooterID,GamerServices::sInstance->GetLocalPlayerId());
 	logicComp->becomeEgg();
 }
 

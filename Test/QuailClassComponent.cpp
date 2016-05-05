@@ -125,7 +125,7 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 }
 
 int QuailClassComponent::useAbility(){
-	if (currBirdseed == seedRequired){
+	if (currBirdseed >= seedRequired){
 		Timing::sInstance.SetQuailAbilityTimer();
 		speed *= 3;
 		currBirdseed = 0;

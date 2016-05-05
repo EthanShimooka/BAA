@@ -10,7 +10,7 @@ class MidBaseLogicComponent :
 	public LogicComponent
 {
 public:
-	int base_health = 5;
+	int base_health = 0;
 
 
 	MidBaseLogicComponent(GameObject * base);

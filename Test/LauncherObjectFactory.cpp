@@ -20,12 +20,12 @@ GameObject * LauncherObjectFactory::Spawn(uint64_t PID, float posX, float posY, 
 	launcher->isAlive = true;
 	launcher->health = 5;
 	launcher->team = team;
-	launcher->type = GAMEOBJECT_TYPE::OBJECT_BASE; // CHANGE
+	launcher->type = GAMEOBJECT_TYPE::OBJECT_SWITCH; // CHANGE
 
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate launcherd on flag
 
-	//	launcherRenderComponent* rend = new launcherRenderComponent(launcher, team);
+	LauncherRenderComponent* rend = new LauncherRenderComponent(launcher, team);
 	if (team == TEAM_YELLOW){
 		launcher->flipV = false;
 		launcher->flipH = false;
@@ -34,9 +34,9 @@ GameObject * LauncherObjectFactory::Spawn(uint64_t PID, float posX, float posY, 
 		launcher->flipV = true;
 		launcher->flipH = true;
 	}
-	//	MidlauncherPhysicsComponent* physics = new MidlauncherPhysicsComponent(launcher);
+	LauncherPhysicsComponent* physics = new LauncherPhysicsComponent(launcher);
 
-	//MidlauncherLogicComponent* logic = new MidlauncherLogicComponent(launcher);
+    LauncherLogicComponent* logic = new LauncherLogicComponent(launcher);
 
 	return launcher;
 }

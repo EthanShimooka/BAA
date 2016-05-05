@@ -273,17 +273,13 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
-RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname){
+RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname, RenderResource* resource){
 	std::string path = "resources/" + fontname + ".ttf";
 	TTF_Font* font = TTF_OpenFont(path.c_str(), fontsize); // change function to take fontname in string version
 	if (!font) { // error opening file, use default computer font instead
 		// font = TTF_OpenFont();
 	}
 	SDL_Color color = { r, g, b };
-	RenderResource* resource = new RenderResource(); 
-	resource->height = 1;
-	resource->width = 1;
-	resource->max = 1;
 	SDL_Surface *tempSurface = TTF_RenderText_Solid(font, text, color); //load image as surface
 	if (tempSurface){
 		//if surface is loaded correctly, then make texture
@@ -303,6 +299,13 @@ RenderResource * RenderManager::renderText(const char* text, int r, int g, int b
 	}
 	// need to call TTF_Quit(); in destructor
 	return resource;
+}
+RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname){
+	RenderResource* resource = new RenderResource();
+	resource->height = 1;
+	resource->width = 1;
+	resource->max = 1;
+	return renderText(text, r, g, b, fontsize, fontname, resource);
 }
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 	if (obj->getPosZ() > cameraPoint.z){

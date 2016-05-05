@@ -2,6 +2,7 @@
 #ifndef FANLOGICCOMPONENT_H_INCLUDED
 #define FANLOGICCOMPONENT_H_INCLUDED
 #include "LogicComponent.h"
+#include "ClassComponentIncludes.h"
 #include "FanComponentIncludes.h"
 class FanLogicComponent : public LogicComponent
 {
