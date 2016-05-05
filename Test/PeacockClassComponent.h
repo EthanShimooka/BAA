@@ -10,7 +10,7 @@ public:
 	~PeacockClassComponent();
 	void Update();
 	int useAbility();
-	void writeNetAbility(uint64_t PID, float posX, float posY, float forceX, float forceY, float rotation);
+	void writeNetAbility(uint64_t PID, float posX, float posY, float rotation);
 	void readNetAbility(InputMemoryBitStream& aPacket);
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();

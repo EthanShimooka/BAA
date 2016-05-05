@@ -135,11 +135,11 @@ int PeacockClassComponent::useAbility(){
 		renderMan->windowCoordToWorldCoord(posX, posY, input->getMouseX(), input->getMouseY());
 		//Orient fan based on position
 		if (posX > 0){
-			rotation = -90;
+			rotation = -63;
 			forceY = -10;
 		}
 		else{
-			rotation = 90;
+			rotation = 63;
 			forceY = 10;
 		}
 		if (posY > 0){
@@ -148,9 +148,9 @@ int PeacockClassComponent::useAbility(){
 		else{
 			forceX = 5;
 		}
-		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, forceX, forceY, rotation));
-		writeNetAbility(powerNum - 1, posX, posY, forceX, forceY, rotation);
 		fanIDs.push_back(powerNum - 1);
+		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, rotation));
+		writeNetAbility(powerNum - 1, posX, posY, rotation);
 		currBirdseed = 0;
 		return true;
 	}
@@ -160,7 +160,7 @@ int PeacockClassComponent::useAbility(){
 	}
 }
 
-void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float forceX, float forceY, float rotation){
+void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float rotation){
 	std::cout << "peacock write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
@@ -169,8 +169,8 @@ void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
-	outData->Write(forceX);
-	outData->Write(forceY);
+	//outData->Write(forceX);
+	//outData->Write(forceY);
 	outData->Write(rotation);
 	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
 }
@@ -182,12 +182,12 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(ID);
 	aPacket.Read(posX);
 	aPacket.Read(posY);
-	aPacket.Read(forceX);
-	aPacket.Read(forceY);
+	//aPacket.Read(forceX);
+	//aPacket.Read(forceY);
 	aPacket.Read(rotation);
 	Timing::sInstance.SetPeacockAbilityTimer();
-	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, forceX, forceY, rotation));
 	fanIDs.push_back(powerNum - 1);
+	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation));
 }
 
 int PeacockClassComponent::getClass(){

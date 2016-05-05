@@ -1,18 +1,19 @@
 #include "FanPhysicsComponent.h"
 
+#define PI 3.14159265
 
-FanPhysicsComponent::FanPhysicsComponent(GameObject* player, float forceX, float forceY)
+FanPhysicsComponent::FanPhysicsComponent(GameObject* player, double rotation)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init(forceX, forceY);
+	init(rotation);
 }
 
 FanPhysicsComponent::~FanPhysicsComponent(){
 
 }
 
-void FanPhysicsComponent::init(float forceX, float forceY)
+void FanPhysicsComponent::init(double rotation)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
@@ -35,8 +36,8 @@ void FanPhysicsComponent::init(float forceX, float forceY)
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
 	// fan force variables
-
-	forceVec = b2Vec2(forceX, forceY);
+	forceStrength = 11.0f; //default strenth, pass in as argument if you want to set strength dynamically
+	forceVec = b2Vec2((forceStrength * cos(rotation * PI / 180.0f)), (forceStrength * sin(rotation * PI / 180.0f))); // takes angle in degrees and converts it into a force vector times a constant strength
 
 	setCollisionFilter(COLLISION_FAN, COLLISION_MINION);
 

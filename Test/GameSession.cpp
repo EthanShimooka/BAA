@@ -69,11 +69,11 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(launchFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
 	GameObjects.AddObject(launchFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
-	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54002, -350, 150, 5, -10, -90));
-	GameObjects.AddObject(fanFactory.Spawn(54003, 350, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54004, 350, 150, -5, -10, -90));
+	//FANS                                 ID,     POSX, POSY, ANGLE
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150,  60)); //left top
+	GameObjects.AddObject(fanFactory.Spawn(54002, -350,  150, -60)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
@@ -430,8 +430,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
-		//	GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
