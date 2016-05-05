@@ -19,7 +19,7 @@ void Lobby::runLobby(){
 
 	renderMan->setBackground("Lobby_bg.png");
 
-	pickTeam();
+	//pickTeam();
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
@@ -90,7 +90,7 @@ void Lobby::runLobby(){
 					me->playerSlot->hoverPicture = true;
 					me->playerSlot->changeTo = Birds[i]->ID;
 					break;
-				}
+				} 
 				else{
 					me->playerSlot->hoverPicture = false;
 				}
