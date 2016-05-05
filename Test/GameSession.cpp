@@ -462,7 +462,7 @@ int GameSession::Run(vector<player*> players){
 		fpscounter = std::to_string(fps);
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
-	//	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+		//fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
 
 	}
 	/////////////////////////////////////////////////////
