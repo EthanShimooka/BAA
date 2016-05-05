@@ -11,14 +11,17 @@ ShrapnelExplosionParticle::ShrapnelExplosionParticle(SDLRenderObject * base, uns
 	objRef->toggleVisible();
 	baseImage = base->renderResource;
 	SDL_Rect baseRect = base->getRenderRect();
-	float size = baseRect.w / 5;
+	unsigned int scale = 2;
+	float size = baseRect.w/scale;
 	float centerX = x;
 	float centerY = y;
 	for (unsigned int i = 0; i < numParticles; i++){
 		SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), -1, centerX, centerY);
 		//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 		sprite->setResourceObject(baseImage);
-		SDL_Rect rect = { rand() % (baseRect.w - int(size)), rand() % (baseRect.h - int(size)), size, size };
+		int xPos = (baseRect.w - int(size) > 0) ? rand() % (baseRect.w - int(size)) : 0;
+		int yPos = (baseRect.h - int(size) > 0) ? rand() % (baseRect.h - int(size)) : 0;
+		SDL_Rect rect = { xPos, yPos , size, size };
 		sprite->setScaleX(base->getScaleX());
 		sprite->setScaleY(base->getScaleY());
 		sprite->setRenderRect(rect);
