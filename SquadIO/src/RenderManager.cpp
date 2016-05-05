@@ -292,9 +292,6 @@ RenderResource * RenderManager::renderText(const char* text, int r, int g, int b
 				SDL_DestroyTexture(resource->mTexture);
 			}
 			resource->mTexture = tempTexture;
-			resource->height = 1;
-			resource->width = 1;
-			resource->max = 1;
 		}
 	}
 	else{

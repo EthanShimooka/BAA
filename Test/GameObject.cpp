@@ -202,6 +202,7 @@ GameObject::~GameObject(){
 		break;
 
 	default :
+		std::cout << "NEED TO ADD DECONSTRUCTOR FOR OBJECT TYPE: " << type << std::endl;
 		break;
 	}
 }

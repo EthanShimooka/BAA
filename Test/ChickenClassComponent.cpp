@@ -118,7 +118,6 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
-		std::cout << "PLAYER TEAM IS: " << gameObjectRef->team << std::endl;
 		Timing::sInstance.SetChickenAbilityTimer();
 		if (gameObjectRef->posY > 0){
 			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
@@ -156,7 +155,6 @@ void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 
 void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	std::cout << "chicken read" << std::endl;
-	std::cout << "PLEASE LET ME SEE THIS!!!!!!!!!!!!! BLEH" << std::endl;
 	PowerShieldObjectFactory sFactory;
 	uint64_t ID;
 	float posX, posY;

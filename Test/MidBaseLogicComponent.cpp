@@ -26,7 +26,7 @@ void MidBaseLogicComponent::attacked()
 {
 	
 //	base_health--;
-	std::cout << "Base health now = " << gameObjectRef->health << std::endl;
+	std::cout << "base: " << gameObjectRef->team << "  " << "Base health now = " << gameObjectRef->health << std::endl;
 
 }
 
@@ -45,9 +45,9 @@ void MidBaseLogicComponent::launchPlayer(GameObject * player){
 
 void MidBaseLogicComponent::Update(){
 
-	if (gameObjectRef->health < 1){
-		gameObjectRef->isAlive = false;
+	//if (gameObjectRef->health < 1){
+	//	gameObjectRef->isAlive = false;
 		//Call function to end game
-	}
+	//}
 
 }

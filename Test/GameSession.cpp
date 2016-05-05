@@ -69,11 +69,11 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(launchFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
 	GameObjects.AddObject(launchFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
-	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, 150, 5, -10, -90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 350, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54001, 350, 150, -5, -10, -90));
+	//FANS                                 ID,     POSX, POSY, ANGLE
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150,  60)); //left top
+	GameObjects.AddObject(fanFactory.Spawn(54002, -350,  150, -60)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
@@ -377,7 +377,7 @@ int GameSession::Run(vector<player*> players){
 				int wid, hei;
 				renderMan->getWindowSize(&wid, &hei);
 				float xRatio = (mousePos - wid / 2) / float(wid / 2);
-				float xPlus = (wid / 4) - 20;
+				float xPlus = (float)(wid / 4) - 20;
 				//std::cout << xRatio << std::endl;
 				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);
 
@@ -438,7 +438,7 @@ int GameSession::Run(vector<player*> players){
 		sceneMan->AssembleScene();
 
 		//triggers endgame screen
-		if (Timing::sInstance.GetTimeRemainingS() <= 0 || leftBase->health <= 0 || rightBase->health <= 0) {
+		if (Timing::sInstance.GetTimeRemainingS() <= 0 ) {
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -447,16 +447,13 @@ int GameSession::Run(vector<player*> players){
 				}
 			}
 
-		GameEnd end = GameEnd::GameEnd();
-		end.runGameEnd(myTeam, leftBase, rightBase);
-		gameloop = false;
+			std::cout << "END REACHED " << std::endl;
+		  //GameEnd end = GameEnd::GameEnd();
+		  //end.runGameEnd(myTeam, leftBase, rightBase);
+		  gameloop = false;
 		}
 
 		firstTime = false;
-		/*t = clock() - t;
-		std::cout << ((float)t) / CLOCKS_PER_SEC << std::endl;*/
-
-		
 
 		delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
 		if (delta_ticks > 0)
@@ -465,8 +462,8 @@ int GameSession::Run(vector<player*> players){
 		fpscounter = std::to_string(fps);
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
-		renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular", fpsHUD->renderResource);
 		//fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////

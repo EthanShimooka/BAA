@@ -85,6 +85,7 @@ public:
 	SQUADIO_API SDLRenderObject();
 	/// Set a resource object from a Render Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(RenderResource *source);
+	SQUADIO_API void replaceResourceObject(RenderResource *source);
 	/*SQUADIO_API SDL_Rect* getRenderRect();
 	SQUADIO_API void resetRenderRect();
 	SQUADIO_API SDL_Point getPosition();

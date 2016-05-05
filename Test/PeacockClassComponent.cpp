@@ -19,6 +19,7 @@ PeacockClassComponent::~PeacockClassComponent()
 
 void PeacockClassComponent::Update()
 {
+
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
@@ -121,8 +122,71 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int PeacockClassComponent::useAbility(){
-	std::cout << "peacockclasscomp->useAbility() not implemented yet" << std::endl;
-	return false;
+	if (currBirdseed >= seedRequired){
+		FanObjectFactory fFactory;
+		Timing::sInstance.SetPeacockAbilityTimer();
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		float posX, posY, forceX, forceY, rotation;
+		// Negative rotation if on right side of screen, positive rotation if on left side of screen
+		// ForceX positive if on bottom half, forceX negative if on top half
+		// ForceY positive if on left side, forceY negative if on right side
+		renderMan->windowCoordToWorldCoord(posX, posY, input->getMouseX(), input->getMouseY());
+		//Orient fan based on position
+		if (posX > 0){
+			rotation = -63;
+			forceY = -10;
+		}
+		else{
+			rotation = 63;
+			forceY = 10;
+		}
+		if (posY > 0){
+			forceX = -5;
+		}
+		else{
+			forceX = 5;
+		}
+		fanIDs.push_back(powerNum - 1);
+		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, rotation));
+		writeNetAbility(powerNum - 1, posX, posY, rotation);
+		currBirdseed = 0;
+		return true;
+	}
+	else{
+		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		return false;
+	}
+}
+
+void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float rotation){
+	std::cout << "peacock write" << std::endl;
+	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write((int)3); // have to include the enum here
+	outData->Write(PID);
+	outData->Write(posX);
+	outData->Write(posY);
+	//outData->Write(forceX);
+	//outData->Write(forceY);
+	outData->Write(rotation);
+	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
+}
+
+void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+	FanObjectFactory fFactory;
+	uint64_t ID;
+	float posX, posY, forceX, forceY, rotation;
+	aPacket.Read(ID);
+	aPacket.Read(posX);
+	aPacket.Read(posY);
+	//aPacket.Read(forceX);
+	//aPacket.Read(forceY);
+	aPacket.Read(rotation);
+	Timing::sInstance.SetPeacockAbilityTimer();
+	fanIDs.push_back(powerNum - 1);
+	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation));
 }
 
 int PeacockClassComponent::getClass(){

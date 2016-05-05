@@ -18,7 +18,7 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 	base->ID = PID;
 	base->setPos(posX, posY);
 	base->isAlive = true;
-	base->health = 5;
+	base->health = 1;
 	base->team = team;
 	base->type = GAMEOBJECT_TYPE::OBJECT_BASE;
 
