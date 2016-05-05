@@ -148,7 +148,7 @@ int TurkeyClassComponent::useAbility(){
 	float targetX, targetY;
 	renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
 	BoomerangObjectFactory boomMaker;
-	GameObject* boomerang = boomMaker.Spawn(powerNum++, gameObjectRef->posX, gameObjectRef->posY, targetX, targetY, gameObjectRef->team);
+	GameObject* boomerang = boomMaker.Spawn(gameObjectRef, powerNum++, targetX, targetY);
 	GameObjects.AddObject(boomerang);
 
 	writeNetAbility(gameObjectRef->ID, input->getMouseX(), input->getMouseY(), gameObjectRef->team);

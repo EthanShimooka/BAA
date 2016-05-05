@@ -22,7 +22,7 @@ public:
 	/// Destructor
 	~BoomerangObjectFactory();
 	/// Spawn Function
-	GameObject* Spawn(uint64_t PID, float posX, float posY, float destX, float destY, int _team);
+	GameObject* Spawn(GameObject* owner, uint64_t PID, float destX, float destY);
 
 };
 

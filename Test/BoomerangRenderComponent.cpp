@@ -15,3 +15,7 @@ BoomerangRenderComponent::BoomerangRenderComponent(GameObject* boomerang){
 
 BoomerangRenderComponent::~BoomerangRenderComponent(){
 }
+
+void BoomerangRenderComponent::Update(){
+
+}
