@@ -318,6 +318,10 @@ int GameSession::Run(vector<player*> players){
 	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
 	fpsHUD->setPos(0, 0);
 
+	//HOW-TO: Invoke timers
+	Invoke* bruh; //put something like this in your header or whereever to store a reference
+	bruh = new Invoke(1.0f); //call new invoke to begin the timer, passing in a float corresponding to the number of seconds you want it to run.
+	bool invokeHelper = true; //NEEDS A HELPER BOOL TO NOT CAUSE RUNTIME ERRORS
 
 	bool gameEnd = false;
 
@@ -328,6 +332,12 @@ int GameSession::Run(vector<player*> players){
 		runWater->animate(float(aniCounter) / 20);
 		aniCounter++;
 		aniCounter = aniCounter % 20;
+
+		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
+			bruh->destroy(); //call bruh's destroy so as to not cause memleak
+			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
+			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
+		}
 
 		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
