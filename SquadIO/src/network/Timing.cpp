@@ -179,7 +179,7 @@ void Timing::SetPeacockAbilityTimer(){
 bool Timing::EndPeacockAbilityTimer(){
 	clock_t difference = clock() - peacockAbilityStart;
 	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
-	std::cout << "AbilityTime = " << abilityTime << std::endl;
+	//std::cout << "AbilityTime = " << abilityTime << std::endl;
 	if (abilityTime >= peacockAbilityLengthInMS){
 		peacockAbilityStart = 0;
 		return true;
