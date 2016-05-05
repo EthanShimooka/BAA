@@ -67,6 +67,18 @@ private:
 	clock_t			quailAbilityStart = 0;
 	clock_t			chickenAbilityStart = 0;
 	clock_t			peacockAbilityStart = 0;
+	
+	/* Without a Timer class, possibly need multiple peacockAbilityStart variables
+	   to account for up to 8 different fans active at once
+	   NOTE: not currently implemented
+	clock_t			peacockAbilityStart1 = 0;
+	clock_t			peacockAbilityStart2 = 0;
+	clock_t			peacockAbilityStart3 = 0;
+	clock_t			peacockAbilityStart4 = 0;
+	clock_t			peacockAbilityStart5 = 0;
+	clock_t			peacockAbilityStart6 = 0;
+	clock_t			peacockAbilityStart7 = 0;
+	clock_t			peacockAbilityStart8 = 0;*/
 
 	double			mLastFrameStartTime;
 	float			mFrameStartTimef;
