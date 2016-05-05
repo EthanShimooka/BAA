@@ -18,8 +18,12 @@ class LauncherLogicComponent :
 public:
 	LauncherLogicComponent(GameObject * launcher);
 	~LauncherLogicComponent();
+
+	bool launchable = false;
+
 	void showButton();
 	void triggerButton();
+	void hideButton();
 	void Update();
 };
 
