@@ -55,12 +55,17 @@ void MinionNetworkComponent::HandleMinionDeath(){
 
 void MinionNetworkComponent::HandleMinionPos(InputMemoryBitStream& packet){
 	float x, y, velX, velY;
-	packet.Read(x);
-	packet.Read(y);
-	packet.Read(velX);
-	packet.Read(velY);
-	gameObjectRef->setPos(x, y);
-	physComp->mBody->SetTransform(b2Vec2(velX, velY), 0);
+	uint32_t seq;
+	packet.Read(seq);
+	if (sequence < seq){
+		packet.Read(x);
+		packet.Read(y);
+		packet.Read(velX);
+		packet.Read(velY);
+		gameObjectRef->setPos(x, y);
+		physComp->mBody->SetTransform(b2Vec2(velX, velY), 0);
+		sequence = seq;
+	}
 }
 
 void MinionNetworkComponent::SendMinionPos(){
@@ -68,6 +73,7 @@ void MinionNetworkComponent::SendMinionPos(){
 	posPacket->Write(NetworkManager::sInstance->kPosCC);
 	posPacket->Write(gameObjectRef->ID);
 	posPacket->Write((int)MIN_POS);
+	posPacket->Write(sequence++);
 	posPacket->Write(gameObjectRef->posX);
 	posPacket->Write(gameObjectRef->posY);
 	b2Vec2 vel = physComp->mBody->GetLinearVelocity();

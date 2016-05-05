@@ -27,6 +27,7 @@ public:
 
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;
+	uint32_t sequence = 0;
 
 
 	/// update object Positions from Input
