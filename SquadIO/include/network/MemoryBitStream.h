@@ -54,7 +54,7 @@ public:
 	SQUADIO_API void Write(int inData, uint32_t inBitCount = 32)		{ WriteBits(&inData, inBitCount); }
 
 	template< typename T >
-	void Write(T inData, uint32_t inBitCount = sizeof(T)* 8)
+	SQUADIO_API void Write(T inData, uint32_t inBitCount = sizeof(T)* 8)
 	{
 		static_assert(std::is_arithmetic< T >::value ||
 			std::is_enum< T >::value,
@@ -118,7 +118,7 @@ public:
 	void		ReadBytes(void* outData, uint32_t inByteCount)		{ ReadBits(outData, inByteCount << 3); }
 
 	template< typename T >
-	void Read(T& inData, uint32_t inBitCount = sizeof(T)* 8)
+	SQUADIO_API void Read(T& inData, uint32_t inBitCount = sizeof(T)* 8)
 	{
 		static_assert(std::is_arithmetic< T >::value ||
 			std::is_enum< T >::value,
