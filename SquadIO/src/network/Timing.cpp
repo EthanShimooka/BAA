@@ -140,7 +140,50 @@ void Timing::StartExplosionTimer(){
 bool Timing::ExplosionTimerEnded(){
 	clock_t difference = clock() - explosionStart;
 	unsigned aliveTime = difference / (CLOCKS_PER_SEC / 1000);
-	if (aliveTime > explosionLengthInMS) return true;
+	if (aliveTime >= explosionLengthInMS) return true;
+	else return false;
+}
+
+void Timing::SetQuailAbilityTimer(){
+	quailAbilityStart = clock();
+}
+
+bool Timing::EndQuailAbilityTimer(){
+	clock_t difference = clock() - quailAbilityStart;
+	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
+	if (abilityTime >= quailAbilityLengthInMS){
+		quailAbilityStart = 0;
+		return true;
+	}
+	else return false;
+}
+
+void Timing::SetChickenAbilityTimer(){
+	chickenAbilityStart = clock();
+}
+
+bool Timing::EndChickenAbilityTimer(){
+	clock_t difference = clock() - chickenAbilityStart;
+	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
+	if (abilityTime >= chickenAbilityLengthInMS){
+		chickenAbilityStart = 0;
+		return true;
+	}
+	else return false;
+}
+
+void Timing::SetPeacockAbilityTimer(){
+	peacockAbilityStart = clock();
+}
+
+bool Timing::EndPeacockAbilityTimer(){
+	clock_t difference = clock() - peacockAbilityStart;
+	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
+	//std::cout << "AbilityTime = " << abilityTime << std::endl;
+	if (abilityTime >= peacockAbilityLengthInMS){
+		peacockAbilityStart = 0;
+		return true;
+	}
 	else return false;
 }
 

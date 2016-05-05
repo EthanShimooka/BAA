@@ -48,6 +48,7 @@ enum UIType{
 	CHARGE_SHELL = 15,
 	CHARGE_BAR = 16,
 	LOBBY_TIMER = 17,
+	KILL_NOTIFICATION = 18,
 };
 
 /// t_component struct contains a component and a int enumerating its type

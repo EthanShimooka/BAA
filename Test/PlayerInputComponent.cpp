@@ -25,7 +25,7 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 
 	//handle movement
 	b2Body* body = physicsComp->mBody;
-	body->SetLinearVelocity(b2Vec2(controller->getLeftThumbX()*playerSpeed, body->GetLinearVelocity().y));
+	body->SetLinearVelocity(b2Vec2((float)(controller->getLeftThumbX()*playerSpeed), (float)(body->GetLinearVelocity().y)));
 
 	//handle jumping
 	if (controller->isJoystickPressed(JOYSTICK_A) && !physicsComp->inAir) {
@@ -53,13 +53,13 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 		Timing::sInstance.StartAttackCooldown();
 		controller->rumble(1, 200);
 		float xDir, yDir;
-		renderMan->windowCoordToWorldCoord(xDir, yDir, renderComp->crosshairRef->posX, renderComp->crosshairRef->posY);
+		renderMan->windowCoordToWorldCoord(xDir, yDir, (int)renderComp->crosshairRef->posX, (int)renderComp->crosshairRef->posY);
 		//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
 		//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		uint64_t id = logicComp->spawnFeather(xDir, yDir, 150 * featherSpeed);
+		uint64_t id = logicComp->spawnFeather((int)xDir, (int)yDir, 150 * featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		//not working yet
-		netComp->createFeatherPacket(id, xDir, yDir, 100);
+		netComp->createFeatherPacket(id, (int)xDir, (int)yDir, 100);
 	}
 	if (controller->getRightTrigger() > 0.75)isChargingAttack = true;
 
@@ -98,6 +98,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		PlayerLogicComponent* net = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 		net->launchable = true;
 	}
+
 	//shoot feather
 	if (input->isMouseDown(MOUSE_LEFT) && canFire){ 
 		//old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
@@ -117,13 +118,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		canFire = false;
 		float dx, dy;
 		renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-		uint64_t id = logicComp->spawnFeather(dx, dy, chargeTime * featherSpeed);
+		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, (float)chargeTime * featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-		netComp->createFeatherPacket(id, dx, dy, chargeTime * featherSpeed);
-	}
-	if (input->isKeyDown(KEY_O)){
-		//THIS IS FOR PLAYER DEATH TESTING!!!! REMOVE WHEN DONE!!
-		logicComp->becomeEgg();
+		netComp->createFeatherPacket(id, (int)dx, (int)dy, (float)chargeTime * featherSpeed);
 	}
 	
 	
@@ -169,13 +166,18 @@ void PlayerInputComponent::Update(){
 		renderComp->setAnimation("charge");
 		renderComp->setNextAnimation("charge");
 		if (controller->isControllerOn()){
-			float chargePercent = controller->getRightTriggerDuration() / maxCharge;
+			float chargePercent = (float)controller->getRightTriggerDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
 		}
 		else{
-			float chargePercent = input->getMousePressDuration() / maxCharge;
+			float chargePercent = (float)input->getMousePressDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
 		}
 	}
-}
 
+	//check for quail ability
+	if (dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->isQuail){
+		QuailClassComponent* quailComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+		playerSpeed = quailComp->speed;
+	}
+}

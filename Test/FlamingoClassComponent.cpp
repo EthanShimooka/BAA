@@ -4,7 +4,8 @@
 FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	speed = 14;
+	isFlamingo = true;
+	speed -= 2;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;
@@ -118,7 +119,7 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed == seedRequired){
+	if (currBirdseed >= seedRequired){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();

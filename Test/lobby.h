@@ -39,6 +39,7 @@ private:
 	//vector<player*> players;
 	void addSlots(SystemUIObjectQueue &q);
 	void deleteBirds(SystemUIObjectQueue &q);
+	void deletePlayers();
 	int playersReady;	
 	int numPlayers;
 	int maxPlayers = 4;
@@ -49,10 +50,11 @@ private:
 	void addNewPlayers();
 	void drawBirds(SystemUIObjectQueue &q);
 	vector<UIObject*> Birds;
-	int teamRed;
 	void countdown(SystemUIObjectQueue &q);
 	void cleanUP(SystemUIObjectQueue &q);
 	void createButtons(SystemUIObjectQueue &q);
+	void waitForTeam();
+	void SendTeamPacket(uint64_t ID, TEAM team);
 };
 
 #endif

@@ -2,7 +2,13 @@
 
 ClassComponent::ClassComponent()
 {
-	speed = 20;
+	isChicken = false;
+	isEagle = false;
+	isQuail = false;
+	isPeacock = false;
+	isTurkey = false;
+	isFlamingo = false;
+	speed = 16;
 	width = 1.33f;
 	height = 1.35f;
 	seedRequired = 8;
@@ -26,10 +32,15 @@ int ClassComponent::useAbility(){
 	return 0;
 }
 
+void ClassComponent::writeNetAbility(){
+	std::cout << "class write" << std::endl;
+}
+
+void ClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+	std::cout << "class read" << std::endl;
+}
+
+
 int ClassComponent::getClass(){
 	return 0;
 }
-
-//void ClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
-//
-//}

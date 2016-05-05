@@ -11,7 +11,7 @@ PowerShieldObjectFactory::~PowerShieldObjectFactory()
 }
 
 
-GameObject* PowerShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY, bool direction)
+GameObject* PowerShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY, bool direction, int team)
 {
 
 	GameObject* shield = new GameObject();
@@ -19,6 +19,7 @@ GameObject* PowerShieldObjectFactory::Spawn(uint64_t PID, float posX, float posY
 	shield->ID = PID;
 	shield->setPos(posX, posY);
 	shield->isAlive = true;
+	shield->team = team;
 	shield->type = GAMEOBJECT_TYPE::OBJECT_POWERSHIELD;
 
 	// Shield Specific Render Component. In future will have flag

@@ -41,7 +41,18 @@ void SDLRenderObject::setResourceObject(RenderResource *source){
 		}
 	}
 }
-
+void SDLRenderObject::replaceResourceObject(RenderResource *source){
+	if (source){
+		//RenderResource * oldTexture = renderResource;
+		if (renderResource){
+			if (renderResource->mTexture){
+				SDL_DestroyTexture(renderResource->mTexture);
+			}
+			delete(renderResource);
+		}
+		setResourceObject(source);
+	}
+}
 void SDLRenderObject::setColorKey(unsigned int r, unsigned int g, unsigned int b){
 	colorKey.r = r;
 	colorKey.g = g;

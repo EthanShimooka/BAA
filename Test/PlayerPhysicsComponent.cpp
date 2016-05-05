@@ -35,7 +35,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER );
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER | COLLISION_SWITCH );
 }
 
 
@@ -46,17 +46,28 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 		//do nothing or push past each other
 		break;
-	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
-		if (otherObj->team == gameObjectRef->team)break;
-		//signal self death and turn to egg
+
+	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
+		 if (otherObj->team == gameObjectRef->team)break;
+		 //signal self death and turn to egg
+		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
 		if (otherObj->isLocal){
-			dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->becomeEgg();
-			dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->createDeathPacket();
+			logicComp->becomeEgg();
+			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+			networkComp->createDeathPacket(shooter);
+		}
+		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		if (killer->isLocal){	
+			dynamic_cast<PlayerLogicComponent*>(killer->GetComponent(COMPONENT_LOGIC))->addToKillList(killer->ID, gameObjectRef->ID);
+			logicComp->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
 		}
 		break;
+	}
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
 		inAir = false;
 		break;
+
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:
 		if (otherObj->team != gameObjectRef->team){
 			MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
@@ -64,13 +75,15 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 				//using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
 				PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 				logicComp->becomeEgg();
-				
-
 			}
 		}
 		break;
 
-	
+	case GAMEOBJECT_TYPE::OBJECT_SWITCH:
+		//do nothing or push past each other
+
+		std::cout << "colliding with player yo!" << std::endl;
+		break;
 
 	default:
 		break;
@@ -123,10 +136,10 @@ void PlayerPhysicsComponent::Update(){
 	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
-		mBody->SetAngularVelocity(5);
+		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (abs(gameObjectRef->posX) > 900){
+		if (abs(gameObjectRef->posX) > 1300){
 			logicComp->hatchBird();
 		}
 	}

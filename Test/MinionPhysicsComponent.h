@@ -24,6 +24,8 @@ public:
 	void endCollision(GameObject* otherObj);
 	bool isGettingBlown = false;
 	b2Vec2 blownForce;
+	float savedYForce;
+	bool isBounce = false;
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 vector<player*> players;
 
-Lobby::Lobby(): playersReady(0), teamRed(0), inLobbyNow(0){
+Lobby::Lobby(): playersReady(0), inLobbyNow(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 }
 
@@ -33,7 +33,13 @@ void Lobby::runLobby(){
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
 	player* me = new player();
 
-	assignPlayers();
+	//if (NetworkManager::sInstance->IsMasterPeer()){
+		assignPlayers();
+	//}
+	//wait for master peer to assigne us a team
+	/*else{
+		waitForTeam();
+	}*/
 		
 	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
@@ -59,7 +65,7 @@ void Lobby::runLobby(){
 		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 
 		//check for new players joining.
-		if (numPlayers > inLobbyNow){
+		if (numPlayers > inLobbyNow /*&& NetworkManager::sInstance->IsMasterPeer()*/){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
@@ -136,6 +142,19 @@ void Lobby::runLobby(){
 	audioMan->stopByName("bgmBAALobby.ogg");
 
 	session.Run(players);
+
+	deletePlayers();
+}
+
+void Lobby::waitForTeam(){
+
+}
+
+void Lobby::deletePlayers(){
+	for (unsigned int i = 0; i < players.size(); i++){
+		delete players[i];
+	}
+	players.clear();
 }
 
 void Lobby::deleteBirds(SystemUIObjectQueue &queue){
@@ -182,7 +201,7 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 
 	SystemRenderUpdater sysRend;
 	UIObjectFactory countdown;
-	UIObject* timer = countdown.Spawn(LOBBY_TIMER);
+	UIObject* timer = countdown.Spawn(LOBBY_TIMER, 30, 30);
 
 	q.AddObject(timer);
 	Timing::sInstance.SetLobbyCountdown();
@@ -209,7 +228,9 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 		}
 
 		std::string title = minutes + ":" + seconds; //concat on the time remaining here!
-		timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+		timerHUD->replaceResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+		//renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular", timerHUD->renderResource);
+
 	}
 }
 
@@ -223,20 +244,17 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	x = w / 5;
 	y = h / 2;
 	//build class slots
-	UIObjectFactory* chx = new UIObjectFactory();
-	UIObjectFactory* pCock = new UIObjectFactory();
-	UIObjectFactory* quail = new UIObjectFactory();
-	UIObjectFactory* turkey = new UIObjectFactory();
-	UIObjectFactory* flamingo = new UIObjectFactory();
-	UIObject* bird = chx->Spawn(CHICKEN, x - 33, y);
+	UIObjectFactory* allBirds = new UIObjectFactory();
+
+	UIObject* bird = allBirds->Spawn(CHICKEN, x - 33, y);
 	x += bird->getWidth();
-	UIObject* bird2 = pCock->Spawn(PEACOCK, x, y);
+	UIObject* bird2 = allBirds->Spawn(PEACOCK, x, y);
 	x += bird2->getWidth();
-	UIObject* bird3 = quail->Spawn(QUAIL, x, y);
+	UIObject* bird3 = allBirds->Spawn(QUAIL, x, y);
 	x += bird3->getWidth();
-	UIObject* bird4 = turkey->Spawn(TURKEY, x, y);
+	UIObject* bird4 = allBirds->Spawn(TURKEY, x, y);
 	x += bird4->getWidth();
-	UIObject* bird5 = flamingo->Spawn(FLAMINGO, x, y);
+	UIObject* bird5 = allBirds->Spawn(FLAMINGO, x, y);
 
 
 	Birds.push_back(bird);
@@ -266,25 +284,15 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			if (NetworkManager::sInstance->IsMasterPeer()){
-				p->team = TEAM_YELLOW;
-			}
-			else{
-				p->team = TEAM_NEUTRAL;
-			}
+			p->team = TEAM_YELLOW;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			if (NetworkManager::sInstance->IsMasterPeer()){
-				p->team = TEAM_PURPLE;
-			}
-			else{
-				p->team = TEAM_NEUTRAL;
-			}
+			p->team = TEAM_PURPLE;
 			p->bottom = true;
-		}
+		} 
 		
 		UIObjectFactory* slot = new UIObjectFactory();
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
@@ -307,7 +315,7 @@ void Lobby::assignPlayers(){
 			players[i]->playerId = it->first;
 			players[i]->name = it->second;
 			players[i]->playerSlot->player = it->first;
-			players[i]->playerSlot->visible = players[i]->visible;
+			players[i]->playerSlot->visible = players[i]->visible;  
 			i++;
 		}
 	}
@@ -352,7 +360,8 @@ void Lobby::addNewPlayers(){
 					players[i]->name = it->second;
 					players[i]->playerSlot->player = it->first;
 					players[i]->playerSlot->visible = players[i]->visible;
-					int team = players[i]->team;
+					TEAM team = players[i]->team;
+					SendTeamPacket(it->first, team);
 					break;
 				}
 			}
@@ -361,4 +370,8 @@ void Lobby::addNewPlayers(){
 			found = false;
 		}
 	}
+}
+
+void Lobby::SendTeamPacket(uint64_t ID, TEAM team){
+	NetworkManager::sInstance->SendTeamToPeers(ID, team);
 }

@@ -19,6 +19,8 @@ ShrapnelExplosionParticle::ShrapnelExplosionParticle(SDLRenderObject * base, uns
 		//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 		sprite->setResourceObject(baseImage);
 		SDL_Rect rect = { rand() % (baseRect.w - int(size)), rand() % (baseRect.h - int(size)), size, size };
+		sprite->setScaleX(base->getScaleX());
+		sprite->setScaleY(base->getScaleY());
 		sprite->setRenderRect(rect);
 		float u = (rand() % 360) / 360.0;
 		float v = (rand() % 360) / 360.0;
