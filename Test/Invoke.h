@@ -12,11 +12,15 @@ class Invoke
 {
 public:
 	/// Constructor, should be only call you need to make to create a timer, DO NOT CALL IN AN UPDATE UNLESS YOU TAKE PRECAUTIONS SO THAT IT IS ONLY CALLED ONCE WHEN YOU NEED IT
-	Invoke(float length, function_m functionToCall);
+	Invoke(float length);
 	/// Deconstructor, removes itself(instance of timer class) from list of timers
 	~Invoke();
 	/// Updates all timers in list of timers. 
 	static void UpdateTimers();
+	/// bool will be true when timer ended
+	bool isDone();
+	/// call this once you are done with timer
+	void destroy();
 protected:
 	/// Updates this instance of a timer
 	void Update();
@@ -26,8 +30,8 @@ protected:
 	clock_t timerLength;
 	/// Bool whether or not the timer is counting down
 	bool timing;
-	/// Saved function reference of the function to be called after timerLength time
-	function_m func;
+	///Saved function reference of the function to be called after timerLength time
+	//function_m func;
 	/// Static list of all timers that need to be updated
 	static std::vector<Invoke*> timers; //may need to move this to a different file
 	
