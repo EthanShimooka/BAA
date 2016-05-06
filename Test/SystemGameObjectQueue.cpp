@@ -12,11 +12,18 @@ SystemGameObjectQueue::~SystemGameObjectQueue()
 	std::cout << "--------------------------------" << std::endl;
 	std::cout << "Alive Size: " << alive_objects.size() << std::endl;
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
-		std::cout << "alive_object: " << alive_objects[i]->type << ": " << alive_objects[i]->ID << std::endl;
+		std::cout << i + 1 << " alive_object: " << alive_objects[i]->type << ": " << alive_objects[i]->ID << "\t" << &alive_objects[i] << std::endl;
 	}
 	std::cout << "--------------------------------" << std::endl;
+	/*while (!alive_objects.empty()){
+		auto iter = alive_objects.front();
+		alive_objects.pop_back();
+		std::cout << iter << std::endl;
+		delete iter;
+	}*/
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
 		std::cout << "alive " << i << std::endl;
+		std::cout << &alive_objects[i] << std::endl;
 		delete alive_objects[i];
 	}
 	for (unsigned int i = 0; i < dead_feathers.size(); i++){

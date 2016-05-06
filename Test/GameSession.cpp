@@ -407,7 +407,6 @@ int GameSession::Run(vector<player*> players){
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
 
-
 		//OBJECT POOLING - moves recently dead objects to respective dead pool
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
 			if (!GameObjects.alive_objects[i]->isAlive){

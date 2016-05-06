@@ -15,7 +15,7 @@ GameObject::GameObject(){
 	scaleY = 1.0;
 	flipH = false;
 	flipV = false;
-
+	ID = -1;
 }
 
 /// Constructor
