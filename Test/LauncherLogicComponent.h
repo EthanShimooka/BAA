@@ -25,6 +25,11 @@ public:
 	void triggerButton();
 	void hideButton();
 	void Update();
+
+	clock_t timeSinceToggle;
+	//clock_t timeSinceFuseLit;
+	clock_t clockDiff;
+
 };
 
 #endif

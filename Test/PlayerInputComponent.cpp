@@ -75,28 +75,37 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 
 void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller){
 	b2Body* body = physicsComp->mBody;
+	PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		logic->launchable = false;
+
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		logic->launchable = false;
+
 	}
 	else{
 		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
+		logic->launchable = false;
+
 	}
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
-		physicsComp->inAir = true;
-		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
-		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+			physicsComp->inAir = true;
+			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
+			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+			logic->launchable = true;
 	}
 
 	//TEST ONLY
 	if (input->isKeyDown(KEY_P) && !physicsComp->inAir) {
-		PlayerLogicComponent* net = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		net->launchable = true;
+		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		logic->launchable = true;
 	}
 
 	//shoot feather

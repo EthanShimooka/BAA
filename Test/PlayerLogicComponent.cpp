@@ -128,6 +128,7 @@ void PlayerLogicComponent::hatchBird(){
 	}
 }
 
+
 void PlayerLogicComponent::startCharge() {
 	charging = true;
 }
@@ -190,6 +191,8 @@ void PlayerLogicComponent::updateKillHUD(){
 		}
 	}
 }
+
+
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
 	switch (playerClass)
