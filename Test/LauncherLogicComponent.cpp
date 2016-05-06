@@ -16,7 +16,7 @@ void LauncherLogicComponent::showButton()
 {
 	LauncherRenderComponent * render = dynamic_cast<LauncherRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	render->allObjs["launcher"]->visible = true;
-	std::cout << "shiggle buzz" << std::endl;
+	//std::cout << "shiggle buzz" << std::endl;
 
 
 }
