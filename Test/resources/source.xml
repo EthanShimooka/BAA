@@ -52,8 +52,10 @@
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
 <resource UID="2006" type="graphic" filename="Game_platswitch_Shield.png" scenescope="0"></resource>
 <resource UID="2007" type="graphic" filename="Game_Base_1.png" scenescope="0"></resource>
-<resource UID="2010" type="graphic" filename="Game_minion_1.png" scenescope="0"></resource>
-<resource UID="2011" type="graphic" filename="Game_minion_2.png" scenescope="0"></resource>
+<resource UID="2009" type="graphic" filename="minions_purple_body.png" scenescope="0"></resource>
+<resource UID="2010" type="graphic" filename="minions_yellow_body.png" scenescope="0"></resource>
+<resource UID="2011" type="graphic" filename="minions_left_arm.png" scenescope="0"></resource>
+<resource UID="2012" type="graphic" filename="minions_right_arm.png" scenescope="0"></resource>
 <resource UID="2013" type="graphic" filename="Game_platform_yellow.png" scenescope="0"></resource>
 <resource UID="2014" type="graphic" filename="Game_platform_purple.png" scenescope="0"></resource>
 

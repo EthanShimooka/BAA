@@ -104,6 +104,11 @@ bool Timing::AttackCooldownEnded(){
 	else return false;
 }
 
+
+
+
+
+
 bool Timing::SpawnMinions(){
 	int timeLeft = GetTimeRemainingS();
 	if (timeLeft >= gameLengthInSeconds - 4){ // Delay first wave
@@ -167,20 +172,6 @@ bool Timing::EndChickenAbilityTimer(){
 	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
 	if (abilityTime >= chickenAbilityLengthInMS){
 		chickenAbilityStart = 0;
-		return true;
-	}
-	else return false;
-}
-
-void Timing::SetPeacockAbilityTimer(){
-	peacockAbilityStart = clock();
-}
-
-bool Timing::EndPeacockAbilityTimer(){
-	clock_t difference = clock() - peacockAbilityStart;
-	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
-	if (abilityTime >= peacockAbilityLengthInMS){
-		peacockAbilityStart = 0;
 		return true;
 	}
 	else return false;

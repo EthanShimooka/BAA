@@ -63,6 +63,7 @@ public:
 
 	bool charging = false;
 	bool launchable = false;
+	bool launchableZone = false;
 	bool isEgg = false;
 
 	float currChargePercentage = 0;

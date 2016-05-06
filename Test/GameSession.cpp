@@ -69,11 +69,11 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(launchFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
 	GameObjects.AddObject(launchFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
-	//FANS                                 ID,POSX,POSY,FORCEX,FORCEY,ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150, 5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54002, -350, 150, 5, -10, -90));
-	GameObjects.AddObject(fanFactory.Spawn(54003, 350, -150, -5, 10, 90));
-	GameObjects.AddObject(fanFactory.Spawn(54004, 350, 150, -5, -10, -90));
+	//FANS                                 ID,     POSX, POSY, ANGLE
+	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150,  60)); //left top
+	GameObjects.AddObject(fanFactory.Spawn(54002, -350,  150, -60)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
 
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
@@ -318,6 +318,10 @@ int GameSession::Run(vector<player*> players){
 	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
 	fpsHUD->setPos(0, 0);
 
+	//HOW-TO: Invoke timers
+	Invoke* bruh; //put something like this in your header or whereever to store a reference
+	bruh = new Invoke(1.0f); //call new invoke to begin the timer, passing in a float corresponding to the number of seconds you want it to run.
+	bool invokeHelper = true; //NEEDS A HELPER BOOL TO NOT CAUSE RUNTIME ERRORS
 
 	bool gameEnd = false;
 
@@ -328,6 +332,12 @@ int GameSession::Run(vector<player*> players){
 		runWater->animate(float(aniCounter) / 20);
 		aniCounter++;
 		aniCounter = aniCounter % 20;
+
+		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
+			bruh->destroy(); //call bruh's destroy so as to not cause memleak
+			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
+			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
+		}
 
 		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
@@ -430,8 +440,8 @@ int GameSession::Run(vector<player*> players){
 			cullObjects();
 
 		if (Timing::sInstance.SpawnMinions()){
-			//GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
-		//	GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
+			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
 		}
 		input->update();
@@ -462,7 +472,7 @@ int GameSession::Run(vector<player*> players){
 		fpscounter = std::to_string(fps);
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
-	//	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+		//fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
 
 	}
 	/////////////////////////////////////////////////////
