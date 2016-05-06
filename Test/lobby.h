@@ -49,10 +49,10 @@ private:
 	void countdown(SystemUIObjectQueue &q);
 	void cleanUP(SystemUIObjectQueue &q);
 	void createButtons(SystemUIObjectQueue &q);
-	void SendTeamPacket(uint64_t ID, TEAM team);
 	void checkPlayerInfo();
 	int yellow, purple;
 	void pickTeam();
+	player* me;
 };
 
 #endif

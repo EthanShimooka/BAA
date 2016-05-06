@@ -307,19 +307,6 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	}
 }
 
-void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
-	
-	uint64_t ID;
-	inInputStream.Read(ID);
-	int team;
-	inInputStream.Read(team);
-	for (auto& iter : lobbyInfoMap){
-		if (iter.first == ID){
-			iter.second.team = team;
-		}
-	}
-}
-
 void NetworkManager::SendRdyUpPacket(int ready)
 {
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
@@ -366,11 +353,19 @@ void NetworkManager::SendSelectPacket(int classType)
 	}
 }
 
-void NetworkManager::SendTeamToPeers(uint64_t ID, int team){
+void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer){
+	int team;
+	inInputStream.Read(team);
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.team = team;
+	}
+}
+
+void NetworkManager::SendTeamToPeers(int team){
 	
 	OutputMemoryBitStream outpacket;
 	outpacket.Write(kTeamCC);
-	outpacket.Write(ID);
 	outpacket.Write(team);
 	for (auto& iter : mPlayerNameMap){
 		if (iter.first != mPlayerId){

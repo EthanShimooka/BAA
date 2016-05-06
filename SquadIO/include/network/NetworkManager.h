@@ -11,7 +11,7 @@
 struct PlayerInfo{
 	bool ready = false;
 	int classType = -1;
-	int team = -1;
+	int team = 0;
 };
 
 class NetworkManager
@@ -167,7 +167,7 @@ public:
 
 	SQUADIO_API bool	TeamSelected() const { return mTeamSelected; }
 
-	SQUADIO_API void	SendTeamToPeers(uint64_t ID, int team);
+	SQUADIO_API void	SendTeamToPeers(int team);
 
 	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 
