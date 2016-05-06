@@ -8,6 +8,7 @@ PeacockClassComponent::PeacockClassComponent(GameObject* player)
 	isPeacock = true;
 	speed += 2;
 	seedRequired = 7;
+	currBirdseed = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
