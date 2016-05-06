@@ -4,6 +4,7 @@
 #define PLAYERPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
 #include "PlayerComponentIncludes.h"
+#include "LauncherComponentIncludes.h"
 
 class PlayerPhysicsComponent : public PhysicsComponent {
 public:
@@ -20,6 +21,9 @@ public:
 
 	/// boolean to keep track of the players jumping
 	bool inAir;
+
+	bool currLaunch;
+
 };
 
 #endif

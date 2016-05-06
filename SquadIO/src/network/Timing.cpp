@@ -104,6 +104,11 @@ bool Timing::AttackCooldownEnded(){
 	else return false;
 }
 
+
+
+
+
+
 bool Timing::SpawnMinions(){
 	int timeLeft = GetTimeRemainingS();
 	if (timeLeft >= gameLengthInSeconds - 4){ // Delay first wave
