@@ -52,7 +52,6 @@ private:
 	void checkPlayerInfo();
 	int yellow, purple;
 	void pickTeam();
-	player* me;
 };
 
 #endif

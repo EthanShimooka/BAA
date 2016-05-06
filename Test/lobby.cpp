@@ -31,7 +31,7 @@ void Lobby::runLobby(){
 	SystemUIObjectQueue birdQueue;
 
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
-
+	player* me = new player();
 	addSlots(queue);
 	assignPlayers();
 	for (unsigned int i = 0; i < players.size(); i++){
@@ -441,18 +441,28 @@ void Lobby::pickTeam(){
 			picked = true;
 			NetworkManager::sInstance->SendTeamToPeers(TEAM_PURPLE);
 			NetworkManager::sInstance->SendOutgoingPackets();
-			me->team = TEAM_PURPLE;
 			purple++;
 		}
 		else if (teamYellow != NULL && teamYellow->teamPicked){
 			picked = true;
 			NetworkManager::sInstance->SendTeamToPeers(TEAM_YELLOW);			
 			NetworkManager::sInstance->SendOutgoingPackets();
-			me->team = TEAM_YELLOW;
 			yellow++;
 		}
 	}
 
+
+	for (unsigned int i = 0; i < players.size(); i++){
+		if (players[i]->playerId == NetworkManager::sInstance->GetMyPlayerId()){
+			if (teamYellow != NULL && teamYellow->teamPicked){
+				players[i]->team = TEAM_YELLOW;
+			}
+			else if (teamPurple != NULL && teamPurple->teamPicked){
+				players[i]->team = TEAM_PURPLE;
+			}
+			break;
+		}
+	}
 	cleanUP(queue);
 
 

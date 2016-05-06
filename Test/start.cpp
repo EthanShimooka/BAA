@@ -41,8 +41,8 @@ void Start::mainMenu(){
 
 	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
 	
-	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w - 125, (float)h - 150 ));
-	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w - 125, (float)h - 75));
+	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, (float)w - 125, (float)h - 250));
+	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, (float)w - 125, (float)h - 175));
 
 	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
 
