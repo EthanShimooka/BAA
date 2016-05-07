@@ -22,12 +22,51 @@ void PeacockClassComponent::Update()
 {
 	if (invokeHelper && timer->isDone()){
 		timer->destroy();
+		activeFans--;
 		invokeHelper = false;
-		for (auto i = fanIDs.begin(); i != fanIDs.end(); i++){
-			GameObjects.GetGameObject(*i)->isAlive = false;
-			fanIDs.pop_front();
-			break;
-		}
+		destroyFan();
+	}
+	if (invokeHelper2 && timer2->isDone()){
+		timer2->destroy();
+		activeFans--;
+		invokeHelper2 = false;
+		destroyFan();
+	}
+	if (invokeHelper3 && timer3->isDone()){
+		timer3->destroy();
+		activeFans--;
+		invokeHelper3 = false;
+		destroyFan();
+	}
+	if (invokeHelper4 && timer4->isDone()){
+		timer4->destroy();
+		activeFans--;
+		invokeHelper4 = false;
+		destroyFan();
+	}
+	if (invokeHelper5 && timer5->isDone()){
+		timer5->destroy();
+		activeFans--;
+		invokeHelper5 = false;
+		destroyFan();
+	}
+	if (invokeHelper6 && timer6->isDone()){
+		timer6->destroy();
+		activeFans--;
+		invokeHelper6 = false;
+		destroyFan();
+	}
+	if (invokeHelper7 && timer7->isDone()){
+		timer7->destroy();
+		activeFans--;
+		invokeHelper7 = false;
+		destroyFan();
+	}
+	if (invokeHelper8 && timer8->isDone()){
+		timer8->destroy();
+		activeFans--;
+		invokeHelper8 = false;
+		destroyFan();
 	}
 }
 
@@ -133,8 +172,36 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
-		timer = new Invoke(10.0f);
-		invokeHelper = true;
+		switch (activeFans){
+		case 0:
+			invokeHelper = true;
+			break;
+		case 1:
+			invokeHelper2 = true;
+			break;
+		case 2:
+			invokeHelper3 = true;
+			break;
+		case 3:
+			invokeHelper4 = true;
+			break;
+		case 4:
+			invokeHelper5 = true;
+			break;
+		case 5:
+			invokeHelper6 = true;
+			break;
+		case 6:
+			invokeHelper7 = true;
+			break;
+		case 7:
+			invokeHelper8 = true;
+			break;
+		default:
+			break;
+		}
+
+		activeFans++;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float posX, posY, forceX, forceY, rotation;
@@ -169,6 +236,11 @@ int PeacockClassComponent::useAbility(){
 	}
 }
 
+void PeacockClassComponent::destroyFan(){
+	GameObjects.GetGameObject(*fanIDs.begin())->isAlive = false;
+	fanIDs.pop_front();
+}
+
 void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float rotation){
 	std::cout << "peacock write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
@@ -194,8 +266,35 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	//aPacket.Read(forceX);
 	//aPacket.Read(forceY);
 	aPacket.Read(rotation);
-	timer = new Invoke(10.0f);
-	invokeHelper = true;
+	switch (activeFans){
+	case 0:
+		invokeHelper = true;
+		break;
+	case 1:
+		invokeHelper2 = true;
+		break;
+	case 2:
+		invokeHelper3 = true;
+		break;
+	case 3:
+		invokeHelper4 = true;
+		break;
+	case 4:
+		invokeHelper5 = true;
+		break;
+	case 5:
+		invokeHelper6 = true;
+		break;
+	case 6:
+		invokeHelper7 = true;
+		break;
+	case 7:
+		invokeHelper8 = true;
+		break;
+	default:
+		break;
+	}
+	activeFans++;
 	fanIDs.push_back(ID);
 	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation));
 }
