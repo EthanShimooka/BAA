@@ -87,11 +87,11 @@ void GameSession::LoadPlayers(){
 	
 }
 
-void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
+void GameSession::LoadHUD(GameObject* player){
 	//initialize HUD info for the player. Should only be called once
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
-	//SystemUIObjectQueue queue;
+	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
 
 	renderMan->setBackground("tempbackground.png");
@@ -113,8 +113,6 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	queue.AddObject(crosshair);
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
-	playerRender->crosshairObjRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER));
-
 
 	// add charge meter reference to player logic
 	// also needs playerrendercomponent for xpos/ypos
@@ -209,7 +207,6 @@ int GameSession::Run(vector<player*> players){
 	SystemLogicUpdater sysLogic;
 	SystemPhysicsUpdater sysPhysics;
 	SystemClassUpdater sysClass;
-	SystemUIUpdater sysUI;
 
 	/// ENTITIES
 	PlayerObjectFactory pFactory;
@@ -274,12 +271,12 @@ int GameSession::Run(vector<player*> players){
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	
-	SystemUIObjectQueue queue;
+
 
 	//World Loading
 	GameSession::LoadWorld();
 	GameSession::LoadPlayers();
-	GameSession::LoadHUD(player, queue);
+	GameSession::LoadHUD(player);
 
 	///*auto spawning minion variables
 	int minionCounter = 10000;
@@ -297,10 +294,12 @@ int GameSession::Run(vector<player*> players){
 		}
 	}
 
-	//SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, input->getMouseX(), input->getMouseY(), true);
+
+
+
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 
-	fount->setScale(0.5f);
+	fount->setScale(0.5);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
 	Animation * runWater = new Animation(20, motions);
@@ -323,7 +322,6 @@ int GameSession::Run(vector<player*> players){
 	Invoke* bruh; //put something like this in your header or whereever to store a reference
 	bruh = new Invoke(1.0f); //call new invoke to begin the timer, passing in a float corresponding to the number of seconds you want it to run.
 	bool invokeHelper = true; //NEEDS A HELPER BOOL TO NOT CAUSE RUNTIME ERRORS
-	//how-to continued a few lines below in gameloop
 
 	bool gameEnd = false;
 
@@ -335,7 +333,6 @@ int GameSession::Run(vector<player*> players){
 		aniCounter++;
 		aniCounter = aniCounter % 20;
 
-		//HOW-TO INVOKE
 		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
 			bruh->destroy(); //call bruh's destroy so as to not cause memleak
 			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
@@ -356,11 +353,6 @@ int GameSession::Run(vector<player*> players){
 
 		/*clock_t t;
 		t = clock();*/
-
-		//crosshair updating
-		//crosshair->posX = (float)(input->getMouseX() - crosshair->getWidth() / 2);
-		//crosshair->posY = (float)(input->getMouseY() - crosshair->getHeight() / 2);
-		//crosshair->setScale(0.25f);
 
 		if (input->isKeyDown(KEY_F)){
 			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
@@ -417,8 +409,6 @@ int GameSession::Run(vector<player*> players){
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
 		sysPhysics.PhysicsUpdate(GameObjects.alive_objects);
 		sysClass.ClassUpdate(GameObjects.alive_objects);
-		sysUI.UIUpdate(queue.alive_objects);
-
 		if (numPlayers != 1) sysNetwork.NetworkUpdate(GameObjects.alive_objects);
 
 		//updates all timers
