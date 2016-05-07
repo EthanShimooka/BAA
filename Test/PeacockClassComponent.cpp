@@ -174,27 +174,35 @@ int PeacockClassComponent::useAbility(){
 		FanObjectFactory fFactory;
 		switch (activeFans){
 		case 0:
+			timer = new Invoke(fanLength);
 			invokeHelper = true;
 			break;
 		case 1:
+			timer2 = new Invoke(fanLength);
 			invokeHelper2 = true;
 			break;
 		case 2:
+			timer3 = new Invoke(fanLength);
 			invokeHelper3 = true;
 			break;
 		case 3:
+			timer4 = new Invoke(fanLength);
 			invokeHelper4 = true;
 			break;
 		case 4:
+			timer5 = new Invoke(fanLength);
 			invokeHelper5 = true;
 			break;
 		case 5:
+			timer6 = new Invoke(fanLength);
 			invokeHelper6 = true;
 			break;
 		case 6:
+			timer7 = new Invoke(fanLength);
 			invokeHelper7 = true;
 			break;
 		case 7:
+			timer8 = new Invoke(fanLength);
 			invokeHelper8 = true;
 			break;
 		default:
@@ -268,27 +276,35 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(rotation);
 	switch (activeFans){
 	case 0:
+		timer = new Invoke(fanLength);
 		invokeHelper = true;
 		break;
 	case 1:
+		timer2 = new Invoke(fanLength);
 		invokeHelper2 = true;
 		break;
 	case 2:
+		timer3 = new Invoke(fanLength);
 		invokeHelper3 = true;
 		break;
 	case 3:
+		timer4 = new Invoke(fanLength);
 		invokeHelper4 = true;
 		break;
 	case 4:
+		timer5 = new Invoke(fanLength);
 		invokeHelper5 = true;
 		break;
 	case 5:
+		timer6 = new Invoke(fanLength);
 		invokeHelper6 = true;
 		break;
 	case 6:
+		timer7 = new Invoke(fanLength);
 		invokeHelper7 = true;
 		break;
 	case 7:
+		timer8 = new Invoke(fanLength);
 		invokeHelper8 = true;
 		break;
 	default:
