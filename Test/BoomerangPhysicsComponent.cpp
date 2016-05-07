@@ -47,6 +47,7 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 			PlayerRenderComponent* ownerRenderComp = dynamic_cast<PlayerRenderComponent*>(otherObj->GetComponent(COMPONENT_RENDER));
 			ownerRenderComp->allObjs["armL"]->visible = true;
 			ownerRenderComp->allObjs["armR"]->visible = true;
+			gameObjectRef->isAlive = false;
 		}
 		if (otherObj->team != gameObjectRef->team){
 			//maybe kill the other teammates?
@@ -71,11 +72,7 @@ void BoomerangPhysicsComponent::Update(){
 		b2Vec2 currPos = mBody->GetPosition();
 		b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
 		b2Vec2 movementVec = destPos - currPos;
-		//check to see how close we are
-		if (movementVec.Length() < 1){
-			//we have returned to the owner. delete self
-			gameObjectRef->isAlive = false;
-		}
+
 		movementVec.Normalize();
 		movementVec *= moveSpeed;
 		mBody->SetLinearVelocity(movementVec);

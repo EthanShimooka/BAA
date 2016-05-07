@@ -9,7 +9,7 @@ BoomerangRenderComponent::BoomerangRenderComponent(GameObject* boomerang){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	//TODO: change the coordinates to be relative to the player
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, 0, 0);
-	objRef->setScale(0.3);
+	objRef->setScale(0.2);
 	//other arm image: objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3503, 0, 0);
 }
 

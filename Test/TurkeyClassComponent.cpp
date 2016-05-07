@@ -123,18 +123,25 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 }
 
 void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
-	int destX, destY;
+	uint64_t PID;
+	uint64_t owner;
+	int classEnum;
+	float destX, destY;
+	int team;
+	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);
-
+	aPacket.Read(team);
+	//now make a boomerang with this data just unpacked
 	turkeyArmsPos = b2Vec2(destX, destY);
+
 }
 
 void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, int team){
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
-	outData->Write((int)6); // have to include the enum here
+	outData->Write(CLASS_TURKEY); // have to include the enum here
 	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
