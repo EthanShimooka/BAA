@@ -3,6 +3,7 @@
 #define  BOOMERANGPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
 #include "PlayerPhysicsComponent.h"
+#include "MinionLogicComponent.h"
 
 class BoomerangPhysicsComponent :
 	public PhysicsComponent
