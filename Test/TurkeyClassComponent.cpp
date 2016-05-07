@@ -134,14 +134,16 @@ void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(team);
 	//now make a boomerang with this data just unpacked
 	turkeyArmsPos = b2Vec2(destX, destY);
-
+	BoomerangObjectFactory boomMaker;
+	GameObject* boomerang = boomMaker.Spawn(gameObjectRef, PID, destX, destY);
+	GameObjects.AddObject(boomerang);
 }
 
 void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, int team){
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
-	outData->Write(CLASS_TURKEY); // have to include the enum here
+	outData->Write((int)CLASS_TURKEY); // have to include the enum here
 	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
