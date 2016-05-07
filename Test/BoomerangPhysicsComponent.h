@@ -10,6 +10,7 @@ class BoomerangPhysicsComponent :
 public:
 	BoomerangPhysicsComponent(GameObject* boomerang, GameObject* owner, int destX, int destY);
 	~BoomerangPhysicsComponent();
+	void handleCollision(GameObject* otherObj);
 	void Update();
 	void init();
 	

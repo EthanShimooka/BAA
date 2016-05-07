@@ -18,5 +18,7 @@ BoomerangRenderComponent::~BoomerangRenderComponent(){
 }
 
 void BoomerangRenderComponent::Update(){
-
+	RenderComponent::Update();
+	objRef->rotation += 4;
+	gameObjectRef->rotation = objRef->rotation;
 }

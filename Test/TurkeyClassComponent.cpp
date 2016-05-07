@@ -143,16 +143,27 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 }
 
 int TurkeyClassComponent::useAbility(){
-	InputManager* input = InputManager::getInstance();
-	RenderManager* renderMan = RenderManager::getRenderManager();
-	float targetX, targetY;
-	renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
-	BoomerangObjectFactory boomMaker;
-	GameObject* boomerang = boomMaker.Spawn(gameObjectRef, powerNum++, targetX, targetY);
-	GameObjects.AddObject(boomerang);
+	if (currBirdseed >= 1){
+	//if (currBirdseed >= seedRequired){
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		//find target destination for boomerang arms
+		float targetX, targetY;
+		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
+		//make boomerang arms
+		BoomerangObjectFactory boomMaker;
+		GameObject* boomerang = boomMaker.Spawn(gameObjectRef, powerNum++, targetX, targetY);
+		GameObjects.AddObject(boomerang);
+		//turn player arms invisible
+		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+		renderComp->allObjs["armL"]->visible = false;
+		renderComp->allObjs["armR"]->visible = false;
 
-	writeNetAbility(gameObjectRef->ID, input->getMouseX(), input->getMouseY(), gameObjectRef->team);
-	return false;
+		//send it over the wire
+		writeNetAbility(gameObjectRef->ID, input->getMouseX(), input->getMouseY(), gameObjectRef->team);
+		currBirdseed = 0;
+		return true;
+	}else return false;
 }
 
 int TurkeyClassComponent::getClass(){

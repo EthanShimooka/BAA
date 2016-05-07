@@ -4,7 +4,7 @@
 BoomerangPhysicsComponent::BoomerangPhysicsComponent(GameObject* boomerang, GameObject* _owner, int destX, int destY){
 	gameObjectRef = boomerang;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	targetDest = b2Vec2(destX, destY); 
+	targetDest = b2Vec2(destX/worldScale, destY/worldScale); 
 	owner = _owner;
 	ownerPhysics = dynamic_cast<PlayerPhysicsComponent*>(_owner->GetComponent(COMPONENT_PHYSICS));
 	init();
@@ -28,10 +28,7 @@ void BoomerangPhysicsComponent::init(){
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 
-	if (gameObjectRef->isLocal)
-		setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_BASE | COLLISION_SWITCH | COLLISION_PLAYER | COLLISION_POWERSHIELD);
-	else
-		setCollisionFilter(COLLISION_FEATHER, COLLISION_BASE | COLLISION_SWITCH | COLLISION_POWERSHIELD);
+	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_PLAYER);
 
 	//handle init stuff for positions
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), gameObjectRef->rotation / (float)(180.0 * M_PI));
@@ -41,7 +38,34 @@ void BoomerangPhysicsComponent::init(){
 BoomerangPhysicsComponent::~BoomerangPhysicsComponent(){
 }
 
+void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
+	//std::cout << "MINE handling collision with object ID: " << otherObj->ID << std::endl;
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
+		//check to see what team it's affiliated with, and detonate if needed
+		if (otherObj == owner && returning){
+			PlayerRenderComponent* ownerRenderComp = dynamic_cast<PlayerRenderComponent*>(otherObj->GetComponent(COMPONENT_RENDER));
+			ownerRenderComp->allObjs["armL"]->visible = true;
+			ownerRenderComp->allObjs["armR"]->visible = true;
+		}
+		if (otherObj->team != gameObjectRef->team){
+			//maybe kill the other teammates?
+		}
+		break;
+	case  GAMEOBJECT_TYPE::OBJECT_MINION:
+		//check to see what team it's affiliated with, and detonate if needed
+		if (otherObj->team != gameObjectRef->team){
+			//if hit a minion, kill the minion
+			otherObj->isAlive = false;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
 void BoomerangPhysicsComponent::Update(){
+	int moveSpeed = 10;
 	if (returning){
 		//straight line back
 		b2Vec2 currPos = mBody->GetPosition();
@@ -49,20 +73,25 @@ void BoomerangPhysicsComponent::Update(){
 		b2Vec2 movementVec = destPos - currPos;
 		//check to see how close we are
 		if (movementVec.Length() < 1){
-			returning = true;
+			//we have returned to the owner. delete self
+			gameObjectRef->isAlive = false;
 		}
 		movementVec.Normalize();
-		movementVec *= 4;
+		movementVec *= moveSpeed;
 		mBody->SetLinearVelocity(movementVec);
 	}
 	else{
 		//curve to destination
 		b2Vec2 currPos = mBody->GetPosition();
-		b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
-		b2Vec2 movementVec = destPos - currPos;
+		b2Vec2 movementVec = targetDest - currPos;
 		//check to see how close we are
 		if (movementVec.Length() < 1){
 			returning = true;
 		}
+		movementVec.Normalize();
+		movementVec *= moveSpeed;
+		mBody->SetLinearVelocity(movementVec);
 	}
+	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
+	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 }
