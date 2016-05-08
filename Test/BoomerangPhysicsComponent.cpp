@@ -68,7 +68,7 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 }
 
 void BoomerangPhysicsComponent::Update(){
-	int moveSpeed = 10;
+	int moveSpeed = 15;
 	if (returning){
 		//straight line back
 		b2Vec2 currPos = mBody->GetPosition();
