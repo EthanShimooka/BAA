@@ -49,6 +49,7 @@
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
+<resource UID="2003" type="graphic" filename="fan.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
 <resource UID="2006" type="graphic" filename="Game_platswitch_Shield.png" scenescope="0"></resource>
 <resource UID="2007" type="graphic" filename="Game_Base_1.png" scenescope="0"></resource>
@@ -106,10 +107,15 @@
 <resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
-<resource UID="8000" type="graphic" filename="fan.png" scenescope="0"></resource>
+
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
 <resource UID="6010" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
+
+<resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
+<resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
+
+
 
 </resources>
