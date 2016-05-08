@@ -143,7 +143,7 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
-	outData->Write((int)CLASS_TURKEY); // have to include the enum here
+	outData->Write((int)CM_ABILITY); // have to include the enum here
 	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
@@ -169,7 +169,9 @@ int TurkeyClassComponent::useAbility(){
 		renderComp->allObjs["armR"]->visible = false;
 
 		//send it over the wire
-		writeNetAbility(gameObjectRef->ID, input->getMouseX(), input->getMouseY(), gameObjectRef->team);
+		float destX, destY;
+		renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
+		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
 		currBirdseed = 0;
 		return true;
 	}else return false;
