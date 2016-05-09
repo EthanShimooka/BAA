@@ -10,10 +10,10 @@ LauncherRenderComponent::LauncherRenderComponent(GameObject * launcher, int team
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	
 	
-	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
+	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"),0, 0, 0);
 	base->toggleIfRenderImage();
-	SDLRenderObject * launcher1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, 0, 0);
-	SDLRenderObject * launcher2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2027,0, 0);
+	SDLRenderObject * launcher1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, -3000, 0,false);
+	SDLRenderObject * launcher2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2027,-3000, 0,false);
 
 
 	//May need to set a point on the hand to "swing it"
@@ -46,7 +46,7 @@ LauncherRenderComponent::LauncherRenderComponent(GameObject * launcher, int team
 	allObjs["base"] = base;
 	allObjs["launcher1"] = launcher1;
 	allObjs["launcher2"] = launcher2;
-
+	allObjs["launcher2"] ->visible = false;
 	//allObjs["launcher2"]->visible = false;
 	//allObjs["launcher1"]->setVisible(false);
 //	allObjs["launcher2"]->setVisible(false);

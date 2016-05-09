@@ -4,8 +4,8 @@ FeatherRenderComponent::FeatherRenderComponent(GameObject* feather){
 	gameObjectRef = feather;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	allObjs["feather1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 8000, 0, 0);
-	allObjs["feather2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 8001, 0, 0);
+	allObjs["feather1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 8000, 3000, 0.0f);
+	allObjs["feather2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 8001, 3000, 0.0f);
 
 
 

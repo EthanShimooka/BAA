@@ -55,8 +55,8 @@ void GameSession::LoadWorld(){
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 	//BASES
-	rightBase = mbFactory.Spawn(506003, -975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506004, 975, 0, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(506003, -975, 40, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(506004, 975, -40, 0, TEAM_PURPLE);
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
@@ -316,12 +316,16 @@ int GameSession::Run(vector<player*> players){
 	PlayerRenderComponent* playerRend = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
 	//midway fountain
+	/**
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 	fount->setScale(0.5f);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
 	Animation * runWater = new Animation(100, motions);
+	*/
 	int aniCounter = 0;
+
+	
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
@@ -353,7 +357,7 @@ int GameSession::Run(vector<player*> players){
 		current_ticks = clock();
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		runWater->animate(float(aniCounter) / 100);
+		//runWater->animate(float(aniCounter) / 100);
 		surf->animate(float(aniCounter) / 100);
 		aniCounter++;
 		aniCounter = aniCounter % 100;
@@ -535,7 +539,7 @@ int GameSession::Run(vector<player*> players){
 		fpscounter = std::to_string(fps);
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
-		//fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
 
 	}
 	/////////////////////////////////////////////////////
