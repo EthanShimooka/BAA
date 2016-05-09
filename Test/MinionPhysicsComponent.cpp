@@ -83,9 +83,9 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											 AudioManager* audioMan = AudioManager::getAudioInstance();
 											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 											 dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
+											 createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											 logicComp->MinionDeath();
-											 createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 
 											 //GameObjects.dead_feathers.push_back(gameObjectRef);
 											 break;
