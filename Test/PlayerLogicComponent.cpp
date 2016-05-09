@@ -1,12 +1,16 @@
 #include "PlayerLogicComponent.h"
 #include "include\network\GamerServices.h"
 
+uint64_t PlayerLogicComponent::childID{ 1001 };
 
 PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 {
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
+	child_id_counter = childID;
+	childID += 1000;
+	std::cout << child_id_counter << std::endl;
 
 }
 
@@ -60,9 +64,9 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 	gameObjectRef->flipH = dx < 0;
 	render->setAnimation("throw");
 	render->setNextAnimation("idle");
-	GameObject* newFeather = fFactory.Spawn(gameObjectRef, featherNum++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
+	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
 	GameObjects.AddObject(newFeather);
-	return featherNum - 1;
+	return child_id_counter - 1;
 }
 
 /// For spawning networked feathers
