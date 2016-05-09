@@ -14,7 +14,7 @@ MinionNetworkComponent::~MinionNetworkComponent()
 }
 
 void MinionNetworkComponent::Update(){
-	if (NetworkManager::sInstance->IsMasterPeer())
+	if (NetworkManager::sInstance->IsMasterPeer() && canSend())
 		SendMinionPos();
 
 	while (!incomingPackets.empty()){
@@ -81,4 +81,15 @@ void MinionNetworkComponent::SendMinionPos(){
 	posPacket->Write(vel.x);
 	posPacket->Write(vel.y);
 	outgoingPackets.push(posPacket);
+}
+
+
+bool MinionNetworkComponent::canSend(){
+	clock_t difference = clock() - packetInterval;
+	unsigned time = difference / (CLOCKS_PER_SEC / 1000);
+	if (time >= 2000){
+		packetInterval = clock();
+		return true;
+	}
+	return false;
 }

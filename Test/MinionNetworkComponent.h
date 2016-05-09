@@ -32,6 +32,9 @@ public:
 	void HandleMinionPos(InputMemoryBitStream& packet);
 
 	MinionPhysicsComponent *physComp;
+
+	clock_t			packetInterval;
+	bool			canSend();
 };
 
 #endif
