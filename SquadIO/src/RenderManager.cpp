@@ -232,7 +232,7 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		worldCoordToWindowCoord(posx, posy, obj->getPosX(),obj->getPosY());
 		float anchorx = 0;
 		float anchory = 0;
-		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z); 
+		float proj = -cameraPoint.z / (obj->getPosZ() - cameraPoint.z);
 		if (flippedScreen){
 			anchorx = 1- obj->getAnchorX();
 			anchory = 1- obj->getAnchorY();
@@ -313,7 +313,7 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 		SDL_Point anchor;
 		//transforms the world positions of the object to window position
 		//if the screen is flipped, the math is a bit diffirent to accomadate it
-		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
+		float proj = -cameraPoint.z / (obj->getPosZ() - cameraPoint.z);
 		if (flippedScreen){
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()),obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), int(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
@@ -341,7 +341,7 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 }
 
 bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
-	return lhs->posZ > rhs->posZ;
+	return lhs->getPosZ() > rhs->getPosZ();
 }
 
 bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
@@ -350,6 +350,14 @@ bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
 	if (y < t) return false;
 	if (y > b) return false;
 	return true;
+}
+int wideComp(int i, int low, int high){
+	if (i < low) return -1;
+	if (i > high) return 1;
+	return 0;
+}
+bool allEqual(int a, int b, int c, int d){
+	return (a == b && b == c && c == d);
 }
 bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
 	//SDL_Rect pos;
@@ -375,19 +383,36 @@ bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
 	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);//width and height of the window
 	//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 	//SDL_RenderDrawRect(renderer, &pos);
-	//check if any of the 4 corners of an object are within the window's dimensions
-	if (isPointInBounds((int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
-		(int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds((int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
-		(int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds((int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
-		(int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds((int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
-		(int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
+	//The 4 corners of the object
+
+	int x1 = (int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r));
+	int y1 = (int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r));
+	int x2 = (int)round(posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r));
+	int y2 = (int)round(posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r));
+	int x3 = (int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r));
+	int y3 = (int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r));
+	int x4 = (int)round(posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r));
+	int y4 = (int)round(posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r));
+
+	//check if any of the 4 corners of an object are within the window's dimensions, and obviously visible
+	if (isPointInBounds(x1,y1, 0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(x2,y2, 0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(x3,y3, 0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(x4,y4, 0, wWidth, 0, wHeight)) return true;
+	//check if the image lies completely to the left, right, above, or below the window's edges, and obviously not visible
+	/*if (allEqual(wideComp(x1, 0, wWidth), wideComp(x2, 0, wWidth), wideComp(x3, 0, wWidth), wideComp(x4, 0, wWidth)))
+		return false;
+	else if (allEqual(wideComp(y1, 0, wHeight), wideComp(y2, 0, wHeight), wideComp(y3, 0, wHeight), wideComp(y4, 0, wHeight)))
+		return false;
+	//check if any of the edge of the images crosses any of the window borders
+	std::pair<int, int>  edgesX[4] = { std::make_pair(x1, x2), std::make_pair(x2, x3), std::make_pair(x3, x4), std::make_pair(x4, x1) };
+	std::pair<int, int>  edgesY[4] = { std::make_pair(y1, y2), std::make_pair(y2, y3), std::make_pair(y3, y4), std::make_pair(y4, y1) };
+	for (int i = 0; i < 4; i++){
+		if ((wideComp(edgesX[i].first, 0, wWidth)) != wideComp(edgesX[i].second, 0, wWidth) &&
+			(wideComp(edgesY[i].first, 0, wHeight)) == wideComp(edgesY[i].second, 0, wHeight) &&
+			(wideComp(edgesY[i].first, 0, wHeight)) == 0) return true;
+		
+	}*/
 	return false;
 }
 void RenderManager::renderAllObjects(){
@@ -400,10 +425,10 @@ void RenderManager::renderAllObjects(){
 	
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
-			if (isObjOnScreen(*iter)){
+			//if (isObjOnScreen(*iter)){
 				if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
 				if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
-			}
+			//}
 		}
 	}
 	for (iter = windowObjects.begin(); iter != windowObjects.end(); iter++){
