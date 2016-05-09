@@ -21,12 +21,14 @@ PeacockClassComponent::~PeacockClassComponent()
 void PeacockClassComponent::Update()
 {
 	if (invokeHelper && timer->isDone()){
+		std::cout << "DESTROYING TIMER UNO" << std::endl;
 		timer->destroy();
 		activeFans--;
 		invokeHelper = false;
 		destroyFan();
 	}
 	if (invokeHelper2 && timer2->isDone()){
+		std::cout << "DESTROYING TIMER DOS" << std::endl;
 		timer2->destroy();
 		activeFans--;
 		invokeHelper2 = false;
@@ -176,10 +178,12 @@ int PeacockClassComponent::useAbility(){
 		case 0:
 			timer = new Invoke(fanLength);
 			invokeHelper = true;
+			std::cout << "CREATING TIMER UNO" << std::endl;
 			break;
 		case 1:
 			timer2 = new Invoke(fanLength);
 			invokeHelper2 = true;
+			std::cout << "CREATING TIMER DOS" << std::endl;
 			break;
 		case 2:
 			timer3 = new Invoke(fanLength);
@@ -278,10 +282,12 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	case 0:
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
+		std::cout << "CREATING TIMER UNO" << std::endl;
 		break;
 	case 1:
 		timer2 = new Invoke(fanLength);
 		invokeHelper2 = true;
+		std::cout << "CREATING TIMER DOS" << std::endl;
 		break;
 	case 2:
 		timer3 = new Invoke(fanLength);
