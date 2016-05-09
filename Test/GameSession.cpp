@@ -314,6 +314,11 @@ int GameSession::Run(vector<player*> players){
 	bool invokeHelper = true; //NEEDS A HELPER BOOL TO NOT CAUSE RUNTIME ERRORS
 	//how-to continued a few lines below in gameloop
 
+
+	renderMan->toggleCursor(0);
+
+
+
 	bool gameEnd = false;
 
 	while (gameloop) {
