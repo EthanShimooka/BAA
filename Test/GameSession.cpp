@@ -75,8 +75,8 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
 	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
 
-	GameObjects.AddObject(rightBase);
-	GameObjects.AddObject(leftBase);
+	//GameObjects.AddObject(rightBase);
+	//GameObjects.AddObject(leftBase);
 
 }
 
