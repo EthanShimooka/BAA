@@ -118,6 +118,34 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	animations["charge"] = new Animation(100, motions4);
 }
 
+void FlamingoClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+	uint64_t PID;
+	uint64_t owner;
+	int classEnum;
+	float destX, destY;
+	int team;
+	aPacket.Read(PID);
+	aPacket.Read(destX);
+	aPacket.Read(destY);
+	//aPacket.Read(team);
+	//now make a boomerang with this data just unpacked
+	MineObjectFactory boomMaker;
+	GameObject* boomerang = boomMaker.Spawn(PID, gameObjectRef, destX, destY);
+	GameObjects.AddObject(boomerang);
+}
+
+void FlamingoClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, int team){
+	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write((int)CM_ABILITY); // have to include the enum here
+	outData->Write(PID);
+	outData->Write(posX);
+	outData->Write(posY);
+	//outData->Write(team);
+	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
+}
+
 int FlamingoClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		MineObjectFactory mFactory;
@@ -128,6 +156,7 @@ int FlamingoClassComponent::useAbility(){
 		GameObject* mine = mFactory.Spawn(powerNum++, gameObjectRef, (int)targetX, (int)targetY);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
+		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);
 		return true;
 	}else{
 	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
