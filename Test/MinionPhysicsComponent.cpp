@@ -123,6 +123,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  logicComp->MinionDeath();
 										  //gameObjectRef->setPos(-10000, 0);
 										  //gameObjectRef->isAlive = false;
+
 										  RenderManager* renderMan = RenderManager::getRenderManager();
 										  renderMan->ShakeScreen(0.3f, 0.4f);
 										  break;

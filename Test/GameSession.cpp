@@ -308,7 +308,6 @@ int GameSession::Run(vector<player*> players){
 	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0.5, 1.0));
 	Animation * surf = new Animation(100, surfMotions);
 
-	
 	//crosshair variables
 	SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, -1000, -1000, -0.05f);
 	SDLRenderObject * crosshairCharging = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1111, -1000, -1000, -0.05f);
@@ -358,6 +357,13 @@ int GameSession::Run(vector<player*> players){
 		surf->animate(float(aniCounter) / 100);
 		aniCounter++;
 		aniCounter = aniCounter % 100;
+
+		//HOW-TO INVOKE
+		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
+			bruh->destroy(); //call bruh's destroy so as to not cause memleak
+			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
+			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
+		}
 
 		//HOW-TO INVOKE
 		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
