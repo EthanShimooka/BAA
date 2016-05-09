@@ -34,10 +34,10 @@ public:
 	void setNextAnimation(std::string name);
 	/// Reference to the crosshair UIObject's image
 	SDLRenderObject* crosshairRef;
-	UIRenderComponent* crosshairObjRef;
+	//UIRenderComponent* crosshairObjRef;
 	// Reference to charge bar that follows player
-	SDLRenderObject* chargebarMeterRef;
-	SDLRenderObject* chargebarShellRef;
+	//SDLRenderObject* chargebarMeterRef;
+	//SDLRenderObject* chargebarShellRef;
 };
 
 

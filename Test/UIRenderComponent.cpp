@@ -43,7 +43,6 @@ void UIRenderComponent::Update(){
 	objRef->rotation = uiObjectRef->rotation;
 	objRef->visible = uiObjectRef->visible;
 	objRef->setScale(uiObjectRef->scale);
-	//std::cout << "dude: " << objRef->getScaleX() << std::endl;
 
 	//there is most likely more attributes to send over. update as needed
 }
