@@ -125,7 +125,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 
 										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 										  logicComp->MinionDeath();
-
+										  createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 										  gameObjectRef->setPos(-10000, 0);
 										  gameObjectRef->isAlive = false;
 										  RenderManager* renderMan = RenderManager::getRenderManager();

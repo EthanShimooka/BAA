@@ -56,6 +56,12 @@ std::function<void(float)> moveLinearXYZ(SDLRenderObject* obj, float startx, flo
 						 obj->posZ = (endz - startz)*i + startz;
 	};
 }
+std::function<void(float)> transformFlipH(SDLRenderObject* obj, bool trans){
+	return [=](float i) { obj->setFlippedH(trans); };
+}
+std::function<void(float)> transformFlipV(SDLRenderObject* obj, bool trans){
+	return [=](float i) { obj->setFlippedV(trans); };
+}
 std::function<void(float)> keyframeJump(SDLRenderObject* obj, unsigned int frame){
 	return [=](float i) { obj->frameCurrent = frame; };
 }

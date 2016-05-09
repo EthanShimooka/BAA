@@ -94,7 +94,7 @@ void GameSession::LoadHUD(GameObject* player){
 	SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
 
-	renderMan->setBackground("tempbackground.png");
+	renderMan->setBackground("Muscle-Beach-Background__0007_sky-gradient.png");
 
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR, 30, 30);
@@ -281,7 +281,7 @@ int GameSession::Run(vector<player*> players){
 	///*auto spawning minion variables
 	int minionCounter = 10000;
 
-	//*/
+	/*
 	for (int j = -800; j <= 800; j += 200){
 		for (float i = 0.01f; i <= 8; i += 3){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, (float)j, 0, i))->setScale(.25);
@@ -293,16 +293,41 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+	*/
+	//Planets
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(10);
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f))->setScale(200);
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, -80000.0f, 40000.0f, 4000.0f))->setScale(200);
 
+	//Beaches
 
+	auto beach1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, 2000.0f, 100.0f);
+	auto beach2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, -2000.0f, 100.0f);
+	auto surf1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
+	auto surf2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
+	beach1->setScale(6);
+	beach2->setScale(6);
+	surf1->setParent(beach1);
+	surf2->setParent(beach2);
+	beach2->setRotation(180);
+	list<motion> surfMotions;
+	surfMotions.push_back(makeMotion(transformFlipH(surf1, false), 0.0, 0.0));
+	surfMotions.push_back(makeMotion(transformFlipH(surf2, false), 0.0, 0.0));
+	surfMotions.push_back(makeMotion(moveLinearY(surf1, -21, -6), 0, 0.5));
+	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0, 0.5));
+	surfMotions.push_back(makeMotion(transformFlipH(surf1, true), 0.5, 0.5));
+	surfMotions.push_back(makeMotion(transformFlipH(surf2, true), 0.5, 0.5));
+	surfMotions.push_back(makeMotion(moveLinearY(surf1, -21, -6), 0.5, 1.0));
+	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0.5, 1.0));
+	Animation * surf = new Animation(100, surfMotions);
 
-
-	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
+	
+	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 00, 150, 0.005f);
 
 	fount->setScale(0.5);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
-	Animation * runWater = new Animation(20, motions);
+	Animation * runWater = new Animation(100, motions);
 	int aniCounter = 0;
 
 	bool firstTime = true;
@@ -325,9 +350,10 @@ int GameSession::Run(vector<player*> players){
 		current_ticks = clock();
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		runWater->animate(float(aniCounter) / 20);
+		runWater->animate(float(aniCounter) / 100);
+		surf->animate(float(aniCounter) / 100);
 		aniCounter++;
-		aniCounter = aniCounter % 20;
+		aniCounter = aniCounter % 100;
 
 		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
