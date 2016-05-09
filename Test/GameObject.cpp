@@ -213,6 +213,9 @@ GameObject::~GameObject(){
 			case COMPONENT_PHYSICS:
 				delete dynamic_cast<BoomerangPhysicsComponent*>(g_components[i].component);
 				break;
+			case COMPONENT_NETWORK:
+				delete dynamic_cast<PowerShieldNetworkComponent*>(g_components[i].component);
+				break;
 			default:
 				break;
 			}

@@ -510,6 +510,9 @@
     <ClInclude Include="BoomerangLogicComponent.h">
       <Filter>Header Files\Component\Boomerang Component</Filter>
     </ClInclude>
+    <ClInclude Include="BoomerangNetworkComponent.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -819,6 +822,9 @@
       <Filter>Source Files\Component\Boomerang Component</Filter>
     </ClCompile>
     <ClCompile Include="BoomerangLogicComponent.cpp">
+      <Filter>Source Files\Component\Boomerang Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangNetworkComponent.cpp">
       <Filter>Source Files\Component\Boomerang Component</Filter>
     </ClCompile>
   </ItemGroup>
