@@ -25,6 +25,7 @@ SQUADIO_API std::function<void(float)> moveLinearY(SDLRenderObject* obj, float s
 SQUADIO_API std::function<void(float)> moveLinearZ(SDLRenderObject* obj, float startz, float endz);
 SQUADIO_API std::function<void(float)> transformFlipH(SDLRenderObject* obj, bool trans);
 SQUADIO_API std::function<void(float)> transformFlipV(SDLRenderObject* obj, bool trans);
+SQUADIO_API std::function<void(float)> resizeSquareTransform(SDLRenderObject* obj, float start,float end);
 
 SQUADIO_API std::function<void(float)> moveLinearXYZ(SDLRenderObject* obj, float startx, float starty, float startz, float endx, float endy, float endz);
 SQUADIO_API std::function<void(float)> moveBezierX(std::function<float(float)> bezier, float startx, float endx);
