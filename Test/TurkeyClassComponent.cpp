@@ -151,7 +151,7 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 }
 
 int TurkeyClassComponent::useAbility(){
-	if (currBirdseed >= 1){
+	if (currBirdseed >= seedRequired){
 	//if (currBirdseed >= seedRequired){
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
