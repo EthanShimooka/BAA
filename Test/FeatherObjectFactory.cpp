@@ -32,6 +32,9 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		feather->type = GAMEOBJECT_TYPE::OBJECT_FEATHER;
 		feather->team = owner->team;
 		feather->setPos(posX, posY);
+
+		std::cout << "FEATHERS team : " << feather->team << std::endl;
+
 		rend = new FeatherRenderComponent(feather);
 		logic = new FeatherLogicComponent(feather);
 
