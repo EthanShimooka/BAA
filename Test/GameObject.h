@@ -125,8 +125,9 @@ enum GAMEOBJECT_TYPE {
 	OBJECT_MINE = 7,
 	OBJECT_EFFECT = 8,
 	OBJECT_FAN = 9,
-	OBJECT_PARTICLE = 10 //change later, maybe
+	OBJECT_PARTICLE = 10, //change later, maybe
 	//we can keep on adding more as needed
+	OBJECT_BOOMERANG = 11
 };
 
 //DO NOT CHANGE ENUM ORDER

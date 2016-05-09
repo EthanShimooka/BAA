@@ -45,11 +45,11 @@ void LauncherLogicComponent::Update()
 {
 	clockDiff++;
 	clockDiff = clockDiff - timeSinceToggle;
-	std::cout << "Clock DIFF : " << clockDiff << std::endl;
+	//std::cout << "Clock DIFF : " << clockDiff << std::endl;
 
 	if (launchable){
 		unsigned timeElapsed = clockDiff / (CLOCKS_PER_SEC / 1000);
-		std::cout << "time elapsed : " << timeElapsed << std::endl;
+		//std::cout << "time elapsed : " << timeElapsed << std::endl;
 		if (timeElapsed > 10000){
 			hideButton();
 		}

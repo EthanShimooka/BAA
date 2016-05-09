@@ -122,9 +122,58 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	animations["charge"] = new Animation(100, motions4);
 }
 
+void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
+	uint64_t PID;
+	uint64_t owner;
+	int classEnum;
+	float destX, destY;
+	int team;
+	aPacket.Read(PID);
+	aPacket.Read(destX);
+	aPacket.Read(destY);
+	//aPacket.Read(team);
+	//now make a boomerang with this data just unpacked
+	BoomerangObjectFactory boomMaker;
+	GameObject* boomerang = boomMaker.Spawn(gameObjectRef, PID, destX, destY);
+	GameObjects.AddObject(boomerang);
+}
+
+void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, int team){
+	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
+	outData->Write(NetworkManager::sInstance->kPosCC);
+	outData->Write(gameObjectRef->ID);
+	outData->Write((int)CM_ABILITY); // have to include the enum here
+	outData->Write(PID);
+	outData->Write(posX);
+	outData->Write(posY);
+	//outData->Write(team);
+	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
+}
+
 int TurkeyClassComponent::useAbility(){
-	std::cout << "turkeyclasscomp->useAbility() not implemented yet" << std::endl;
-	return false;
+	if (currBirdseed >= 1){
+	//if (currBirdseed >= seedRequired){
+		InputManager* input = InputManager::getInstance();
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		//find target destination for boomerang arms
+		float targetX, targetY;
+		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
+		//make boomerang arms
+		BoomerangObjectFactory boomMaker;
+		GameObject* boomerang = boomMaker.Spawn(gameObjectRef, powerNum++, targetX, targetY);
+		GameObjects.AddObject(boomerang);
+		//turn player arms invisible
+		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+		renderComp->allObjs["armL"]->visible = false;
+		renderComp->allObjs["armR"]->visible = false;
+
+		//send it over the wire
+		float destX, destY;
+		renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
+		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
+		currBirdseed = 0;
+		return true;
+	}else return false;
 }
 
 int TurkeyClassComponent::getClass(){

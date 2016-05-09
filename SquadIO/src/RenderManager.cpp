@@ -530,10 +530,17 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 	setCameraZ(z);
 }
 
-//void RenderManager::cursorToCrosshair(){
-//	SDL_Cursor* cursor;
-//	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
-//	SDL_SetCursor(cursor);
+void RenderManager::toggleCursor(int x){
+
+	if (x == 1 || 0)
+	cursorToggle = x;
+	else cursorToggle == 1;
+
+	SDL_ShowCursor(x);
+
+}
+
+
 
 SDL_Cursor* RenderManager::cursorToCrosshair(){
 	SDL_SetRelativeMouseMode(SDL_TRUE);
