@@ -5,7 +5,7 @@ FeatherRenderComponent::FeatherRenderComponent(GameObject* feather){
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	if (feather->team = 1){
+	if (feather->team == 1){
 		objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 8000, 0, 0);
 	}
 	else{
