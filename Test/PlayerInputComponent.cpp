@@ -162,6 +162,7 @@ void PlayerInputComponent::Update(){
 		if (!canFire && input->getMousePressDuration() > 0)
 			input->resetMousePressClock();
 		canFire = true;
+		
 	}
 
 	//orient character and set idle animation if necessary
@@ -170,7 +171,7 @@ void PlayerInputComponent::Update(){
 	if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 	else renderComp->setAnimation("walk");
 
-	//handle charging meter
+	//handle charging variables for crosshair
 	if (isChargingAttack) {
 		renderComp->setAnimation("charge");
 		renderComp->setNextAnimation("charge");
