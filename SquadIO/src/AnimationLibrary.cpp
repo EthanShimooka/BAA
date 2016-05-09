@@ -62,6 +62,9 @@ std::function<void(float)> transformFlipH(SDLRenderObject* obj, bool trans){
 std::function<void(float)> transformFlipV(SDLRenderObject* obj, bool trans){
 	return [=](float i) { obj->setFlippedV(trans); };
 }
+std::function<void(float)> resizeSquareTransform(SDLRenderObject* obj, float start, float end){
+	return [=](float i) { obj->setScale((end - start)*i + start); };
+}
 std::function<void(float)> keyframeJump(SDLRenderObject* obj, unsigned int frame){
 	return [=](float i) { obj->frameCurrent = frame; };
 }
