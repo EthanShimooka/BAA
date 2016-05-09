@@ -5,7 +5,8 @@
 #include "MinionComponentIncludes.h"
 
 typedef enum {
-	MIN_DIE = 1,
+	MIN_POS = 1,
+	MIN_DIE = 2,
 }COMMAND;
 
 class MinionPhysicsComponent;
@@ -21,12 +22,19 @@ public:
 	/// Update
 	void Update();
 
-	///Send menion death
-	void SendMenionDeath();
-	///Handle menion death
-	void HandleMenionDeath();
+	///Send minion death
+	void SendMinionDeath();
+	///Handle minion death
+	void HandleMinionDeath();
+	///Send minion position
+	void SendMinionPos();
+	///Handle minion position
+	void HandleMinionPos(InputMemoryBitStream& packet);
 
 	MinionPhysicsComponent *physComp;
+
+	clock_t			packetInterval;
+	bool			canSend();
 };
 
 #endif

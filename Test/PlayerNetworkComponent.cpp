@@ -34,7 +34,7 @@ void PlayerNetworkComponent::createMovementPacket(){
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
 	outData->Write((int)CM_MOVE);
-	//outData.Write(testNum++);
+	outData->Write(sequence++);
 	outData->Write(gameObjectRef->posX);
 	outData->Write(gameObjectRef->posY);
 	outgoingPackets.push(outData);
@@ -49,41 +49,24 @@ void PlayerNetworkComponent::createDeathPacket(uint64_t shooter){
 	outgoingPackets.push(outData);
 }
 
-//void PlayerNetworkComponent::createAbilityPacket(uint64_t ID, int finalX, int finalY, float speed){
-//	OutputMemoryBitStream *featherPacket = new OutputMemoryBitStream();
-//	featherPacket->Write(NetworkManager::sInstance->kPosCC);
-//	featherPacket->Write(gameObjectRef->ID);
-//	featherPacket->Write((int)CM_ATTACK);
-//	featherPacket->Write(ID);
-//	featherPacket->Write(gameObjectRef->posX);
-//	featherPacket->Write(gameObjectRef->posY);
-//	featherPacket->Write(finalX);
-//	featherPacket->Write(finalY);
-//	featherPacket->Write(speed);
-//	//cout << 0 << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << input->getMouseX() << ", " << input->getMouseY() << endl;
-//	outgoingPackets.push(featherPacket);
-//}
-
-
 void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket){
-	//int t;
-	//packet.Read(t);
-	//if (testNum < t){
-	float x;
-	mPacket.Read(x);
-	if (gameObjectRef->posX != x) renderComp->setAnimation("walk");
-	else renderComp->setAnimation("idle");
-	if (gameObjectRef->posX > x){
-		gameObjectRef->flipH = true;
+	uint32_t seq;
+	mPacket.Read(seq);
+	if (sequence < seq){
+		float x;
+		mPacket.Read(x);
+		if (gameObjectRef->posX != x) renderComp->setAnimation("walk");
+		else renderComp->setAnimation("idle");
+		if (gameObjectRef->posX > x){
+			gameObjectRef->flipH = true;
+		}
+		else if (gameObjectRef->posX < x){
+			gameObjectRef->flipH = false;
+		}
+		gameObjectRef->posX = x;
+		mPacket.Read(gameObjectRef->posY);
+		sequence = seq;
 	}
-	else if (gameObjectRef->posX < x){
-		gameObjectRef->flipH = false;
-	}
-	gameObjectRef->posX = x;
-	//packet.Read(gameObjectRef->posX);
-	mPacket.Read(gameObjectRef->posY);
-	//testNum = t;
-	//}
 }
 
 void PlayerNetworkComponent::handleFeatherPacket(InputMemoryBitStream& fPacket){

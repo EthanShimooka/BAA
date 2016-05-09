@@ -75,8 +75,8 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
 	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
 
-	GameObjects.AddObject(rightBase);
-	GameObjects.AddObject(leftBase);
+	//GameObjects.AddObject(rightBase);
+	//GameObjects.AddObject(leftBase);
 
 }
 
@@ -444,7 +444,6 @@ int GameSession::Run(vector<player*> players){
 
 		if (input->isKeyDown(KEY_ESCAPE))
 			gameloop = false;
-
 
 		//OBJECT POOLING - moves recently dead objects to respective dead pool
 		for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
