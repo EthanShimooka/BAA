@@ -64,27 +64,34 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		break;
 	}
-	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:
-		inAir = false;
-		break;
+	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
+											   inAir = false;
+											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											   logicComp->launchable = false;
+											  
+											   break;
+	}
+	case  GAMEOBJECT_TYPE::OBJECT_MINE:{
+										   if (otherObj->team != gameObjectRef->team){
+											   MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											   if (mineLogicComp->fuseLit){
+												   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
+												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+												   logicComp->becomeEgg();
+											   }
+										   }
 
-	case  GAMEOBJECT_TYPE::OBJECT_MINE:
-		if (otherObj->team != gameObjectRef->team){
-			MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			if(mineLogicComp->fuseLit){
-				//using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
-				PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-				logicComp->becomeEgg();
-			}
-		}
-		break;
+										   break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_SWITCH:{
+											//do nothing or push past each other
+											//		LauncherLogicComponent* logic = dynamic_cast<LauncherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+											PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											logicComp->launchableZone = true;
 
-	case GAMEOBJECT_TYPE::OBJECT_SWITCH:
-		//do nothing or push past each other
 
-		std::cout << "colliding with player yo!" << std::endl;
-		break;
-
+											break;
+	}
 	default:
 		break;
 	}
@@ -109,12 +116,17 @@ void PlayerPhysicsComponent::launchPlayer(){
 
 		logicComp->hatchBird();
 		logicComp->launchable = false;
+		logicComp->launchableZone = false;
+		currLaunch = false;
 	}
 
 	if ((gameObjectRef->posX < 0) && (gameObjectRef->team == TEAM_PURPLE)){
 		logicComp->hatchBird();
 		logicComp->launchable = false;
+		logicComp->launchableZone = false;
+		currLaunch = false;
 	}
+
 }
 
 void PlayerPhysicsComponent::Update(){
@@ -144,9 +156,16 @@ void PlayerPhysicsComponent::Update(){
 		}
 	}
 
-	if (logicComp->launchable){
+	if (logicComp->launchable && logicComp->launchableZone){
+		currLaunch = true;
 		launchPlayer();
 		}
+
+	if (currLaunch)
+	{
+		launchPlayer();
+	}
+
 }
 
 

@@ -19,7 +19,54 @@ PeacockClassComponent::~PeacockClassComponent()
 
 void PeacockClassComponent::Update()
 {
-
+	if (invokeHelper && timer->isDone()){
+		timer->destroy();
+		activeFans--;
+		invokeHelper = false;
+		destroyFan();
+	}
+	if (invokeHelper2 && timer2->isDone()){
+		timer2->destroy();
+		activeFans--;
+		invokeHelper2 = false;
+		destroyFan();
+	}
+	if (invokeHelper3 && timer3->isDone()){
+		timer3->destroy();
+		activeFans--;
+		invokeHelper3 = false;
+		destroyFan();
+	}
+	if (invokeHelper4 && timer4->isDone()){
+		timer4->destroy();
+		activeFans--;
+		invokeHelper4 = false;
+		destroyFan();
+	}
+	if (invokeHelper5 && timer5->isDone()){
+		timer5->destroy();
+		activeFans--;
+		invokeHelper5 = false;
+		destroyFan();
+	}
+	if (invokeHelper6 && timer6->isDone()){
+		timer6->destroy();
+		activeFans--;
+		invokeHelper6 = false;
+		destroyFan();
+	}
+	if (invokeHelper7 && timer7->isDone()){
+		timer7->destroy();
+		activeFans--;
+		invokeHelper7 = false;
+		destroyFan();
+	}
+	if (invokeHelper8 && timer8->isDone()){
+		timer8->destroy();
+		activeFans--;
+		invokeHelper8 = false;
+		destroyFan();
+	}
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
@@ -124,7 +171,44 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
-		Timing::sInstance.SetPeacockAbilityTimer();
+		switch (activeFans){
+		case 0:
+			timer = new Invoke(fanLength);
+			invokeHelper = true;
+			break;
+		case 1:
+			timer2 = new Invoke(fanLength);
+			invokeHelper2 = true;
+			break;
+		case 2:
+			timer3 = new Invoke(fanLength);
+			invokeHelper3 = true;
+			break;
+		case 3:
+			timer4 = new Invoke(fanLength);
+			invokeHelper4 = true;
+			break;
+		case 4:
+			timer5 = new Invoke(fanLength);
+			invokeHelper5 = true;
+			break;
+		case 5:
+			timer6 = new Invoke(fanLength);
+			invokeHelper6 = true;
+			break;
+		case 6:
+			timer7 = new Invoke(fanLength);
+			invokeHelper7 = true;
+			break;
+		case 7:
+			timer8 = new Invoke(fanLength);
+			invokeHelper8 = true;
+			break;
+		default:
+			break;
+		}
+
+		activeFans++;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float posX, posY, forceX, forceY, rotation;
@@ -147,9 +231,9 @@ int PeacockClassComponent::useAbility(){
 		else{
 			forceX = 5;
 		}
-		fanIDs.push_back(powerNum - 1);
 		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, rotation));
 		writeNetAbility(powerNum - 1, posX, posY, rotation);
+		fanIDs.push_back(powerNum - 1);
 		currBirdseed = 0;
 		return true;
 	}
@@ -157,6 +241,11 @@ int PeacockClassComponent::useAbility(){
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 		return false;
 	}
+}
+
+void PeacockClassComponent::destroyFan(){
+	GameObjects.GetGameObject(*fanIDs.begin())->isAlive = false;
+	fanIDs.pop_front();
 }
 
 void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float rotation){
@@ -184,8 +273,44 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	//aPacket.Read(forceX);
 	//aPacket.Read(forceY);
 	aPacket.Read(rotation);
-	Timing::sInstance.SetPeacockAbilityTimer();
-	fanIDs.push_back(powerNum - 1);
+	switch (activeFans){
+	case 0:
+		timer = new Invoke(fanLength);
+		invokeHelper = true;
+		break;
+	case 1:
+		timer2 = new Invoke(fanLength);
+		invokeHelper2 = true;
+		break;
+	case 2:
+		timer3 = new Invoke(fanLength);
+		invokeHelper3 = true;
+		break;
+	case 3:
+		timer4 = new Invoke(fanLength);
+		invokeHelper4 = true;
+		break;
+	case 4:
+		timer5 = new Invoke(fanLength);
+		invokeHelper5 = true;
+		break;
+	case 5:
+		timer6 = new Invoke(fanLength);
+		invokeHelper6 = true;
+		break;
+	case 6:
+		timer7 = new Invoke(fanLength);
+		invokeHelper7 = true;
+		break;
+	case 7:
+		timer8 = new Invoke(fanLength);
+		invokeHelper8 = true;
+		break;
+	default:
+		break;
+	}
+	activeFans++;
+	fanIDs.push_back(ID);
 	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation));
 }
 

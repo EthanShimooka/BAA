@@ -51,7 +51,6 @@ void LauncherPhysicsComponent::handleCollision(GameObject* otherObj){
 											//if (otherObj->team)
 											LauncherLogicComponent * logic = dynamic_cast<LauncherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											logic->showButton();
-
 											/// put render animation, or a call to render animate (the switch)
 											 break;
 	}

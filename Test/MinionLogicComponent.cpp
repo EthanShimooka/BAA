@@ -28,4 +28,7 @@ void MinionLogicComponent::MinionDeath(){
 	// Need to make minion sprite invisible/gone, instantiate poofsprite at correct x,y , then 
 	// start 1second timer, which destroys poof object when it runs out (set gameObjectRef->isAlive = false)
 	GameObjects.AddObject(efFactory.Spawn(gameObjectRef->posX, gameObjectRef->posY, EFFECT_EXPLOSION));
+
+	gameObjectRef->setPos(-10000, 0);
+	gameObjectRef->isAlive = false;
 }

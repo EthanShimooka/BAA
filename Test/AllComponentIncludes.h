@@ -14,5 +14,6 @@
 #include "MidPlatShieldComponentIncludes.h"
 #include "ParticleRenderComponent.h"
 #include "FanComponentIncludes.h"
+#include "BoomerangComponentIncludes.h"
 
 #endif

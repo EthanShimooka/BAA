@@ -44,11 +44,12 @@ void MineLogicComponent::Update(){
 		std::cout << "boom!" << std::endl;
 	}
 	if (fuseLit){
-		clock_t clockDiff = clock() - timeSinceFuseLit;
+		//removed delay timer for now
+		/*clock_t clockDiff = clock() - timeSinceFuseLit;
 		unsigned timeElapsed = clockDiff / (CLOCKS_PER_SEC / 1000);
-		if (timeElapsed > 1000){
-			if(blownUp==0)blowUp();
-		}
+		if (timeElapsed > 0){
+			if(blownUp==0)*/blowUp();
+		//}
 	}
 	if (blownUp>0){
 		if (blownUp >= 2){ //after 2 frames, die

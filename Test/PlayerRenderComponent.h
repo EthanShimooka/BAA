@@ -13,6 +13,7 @@ PlayerRenderComponent represents the Player-specific Render class
 #include "RenderComponent.h"
 #include "include\SceneManager.h"
 #include "PlayerComponentIncludes.h"
+#include "UIRenderComponent.h"
 
 using function_t = void(*)(SDLRenderObject**, map_obj&, map_anim&);
 
@@ -33,9 +34,10 @@ public:
 	void setNextAnimation(std::string name);
 	/// Reference to the crosshair UIObject's image
 	SDLRenderObject* crosshairRef;
+	//UIRenderComponent* crosshairObjRef;
 	// Reference to charge bar that follows player
-	SDLRenderObject* chargebarMeterRef;
-	SDLRenderObject* chargebarShellRef;
+	//SDLRenderObject* chargebarMeterRef;
+	//SDLRenderObject* chargebarShellRef;
 };
 
 
