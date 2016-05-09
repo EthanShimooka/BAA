@@ -58,7 +58,7 @@ public:
 	int currBirdseed = 0;
 	int maxsBirdseed = 8;
 
-	
+	uint64_t *powerNum;
 
 	bool isChicken, isEagle, isFlamingo, isPeacock, isQuail, isTurkey;
 };

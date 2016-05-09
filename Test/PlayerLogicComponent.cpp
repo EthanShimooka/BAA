@@ -11,7 +11,7 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	child_id_counter = childID;
 	childID += 1000;
 	std::cout << child_id_counter << std::endl;
-
+	dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->powerNum = &child_id_counter;
 }
 
 PlayerLogicComponent::~PlayerLogicComponent()
