@@ -2,6 +2,7 @@
 #include "ClassComponent.h"
 #include "PlayerObjectFactory.h"
 #include "FanObjectFactory.h"
+#include "Invoke.h"
 class PeacockClassComponent :
 	public ClassComponent
 {
@@ -15,4 +16,7 @@ public:
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();
 	list<uint64_t> fanIDs;
+
+	Invoke* timer;
+	bool invokeHelper = false;
 };
