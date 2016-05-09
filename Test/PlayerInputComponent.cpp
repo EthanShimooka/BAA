@@ -162,6 +162,7 @@ void PlayerInputComponent::Update(){
 		if (!canFire && input->getMousePressDuration() > 0)
 			input->resetMousePressClock();
 		canFire = true;
+		
 		//renderComp->crosshairRef->setScale(1.0f);
 	}
 
@@ -183,7 +184,7 @@ void PlayerInputComponent::Update(){
 			float chargePercent = (float)input->getMousePressDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
 			
-			chargePercent = 1.0f - (chargePercent > 0.75f ? 0.75f : chargePercent);
+			//chargePercent = 1.0f - (chargePercent > 0.75f ? 0.75f : chargePercent);
 			//std::cout << "charge num: " << chargePercent << std::endl;
 			//renderComp->crosshairObjRef->uiObjectRef->scale = chargePercent;
 			//renderComp->crosshairRef->setScale(chargePercent);

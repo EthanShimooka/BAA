@@ -109,23 +109,23 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	queue.AddObject(countdownTimer);
 	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 	//load crosshair
-	UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR, 0, 0);
-	queue.AddObject(crosshair);
+	//UIObject* crosshair = HUDFactory.Spawn(CROSSHAIR, 0, 0);
+	//queue.AddObject(crosshair);
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
-	playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
-	playerRender->crosshairObjRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER));
+	//playerRender->crosshairRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER))->objRef;
+	//playerRender->crosshairObjRef = dynamic_cast<UIRenderComponent*>(crosshair->GetComponent(COMPONENT_RENDER));
 
 
 	// add charge meter reference to player logic
 	// also needs playerrendercomponent for xpos/ypos
-	UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR, (SCREEN_WIDTH - 300), 0);
-	UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL, (SCREEN_WIDTH - 300), 0);
-	queue.AddObject(chargeMeter);
-	queue.AddObject(chargeShell);
-	playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
-	playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
-	playerRender->chargebarMeterRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
-	playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
+	//UIObject* chargeMeter = HUDFactory.Spawn(CHARGE_BAR, (SCREEN_WIDTH - 300), 0);
+	//UIObject* chargeShell = HUDFactory.Spawn(CHARGE_SHELL, (SCREEN_WIDTH - 300), 0);
+	//queue.AddObject(chargeMeter);
+	//queue.AddObject(chargeShell);
+	//playerLogic->chargeHUD = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	//playerLogic->chargeRect = playerLogic->chargeHUD->renderRect;
+	//playerRender->chargebarMeterRef = dynamic_cast<UIRenderComponent*>(chargeMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	//playerRender->chargebarShellRef = dynamic_cast<UIRenderComponent*>(chargeShell->GetComponent(COMPONENT_RENDER))->objRef;
 
 	//add ui components to show player kills
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
@@ -296,10 +296,14 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+	//crosshair variables
+	SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, -1000, -1000, -0.05f);
+	SDLRenderObject * crosshairCharging = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1111, -1000, -1000, -0.05f);
+	crosshairCharging->visible = false;
+	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 
-	//SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, input->getMouseX(), input->getMouseY(), true);
+	//midway fountain
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
-
 	fount->setScale(0.5f);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
@@ -357,10 +361,7 @@ int GameSession::Run(vector<player*> players){
 		/*clock_t t;
 		t = clock();*/
 
-		//crosshair updating
-		//crosshair->posX = (float)(input->getMouseX() - crosshair->getWidth() / 2);
-		//crosshair->posY = (float)(input->getMouseY() - crosshair->getHeight() / 2);
-		//crosshair->setScale(0.25f);
+		
 
 		if (input->isKeyDown(KEY_F)){
 			std::cout << "Number of feathers: " << GameObjects.dead_feathers.size() << std::endl;
@@ -403,6 +404,31 @@ int GameSession::Run(vector<player*> players){
 		}
 		int length = 20;
 		float loop = (float)(var % length);
+
+		//crosshair updating
+		float crossX, crossY;
+		renderMan->windowCoordToWorldCoord(crossX, crossY, (float)(input->getMouseX()), (float)(input->getMouseY()));
+		crosshair->posX = crosshairCharging->posX = crossX;
+		crosshair->posY = crosshairCharging->posY = crossY;
+		float attackCDPercent = Timing::sInstance.GetAttackCooldownRemaining();
+		float chargePercent = 1.0f - (playerLogic->currChargePercentage > 0.75f ? 0.75f : playerLogic->currChargePercentage);
+		if (chargePercent != 1.0f){ //sets scale during charge
+			crosshair->setScale(chargePercent);
+			crosshairCharging->visible = false;
+			crosshair->visible = true;
+		}
+		else if (chargePercent == 1.0f && Timing::sInstance.AttackCooldownEnded()) {
+			crosshairCharging->visible = false;
+			crosshair->visible = true;
+			crosshair->setScale(1.0f);
+		}
+		else {//if(attackCDPercent < 1.0f) { //sets scale during attack cooldown
+			
+			crosshairCharging->setScale(attackCDPercent);
+			crosshairCharging->visible = true;
+			crosshair->visible = false;
+		} 
+		
 
 		//physics testing stuff
 		PhysicsListener listener;

@@ -32,6 +32,8 @@ public:
 	SQUADIO_API string GetSecondsLeftAsString(int timeRemainingInSec);
 	/// Returns true if player's attack cooldown has finished
 	SQUADIO_API bool AttackCooldownEnded();
+	/// Returns length of time remaining before the attack comes off cooldown in seconds as a float
+	SQUADIO_API float GetAttackCooldownRemaining();
 	/// Returns true if minions should be spawned
 	SQUADIO_API bool SpawnMinions();
 	/// Starts the lobby countdown
@@ -62,7 +64,8 @@ private:
 	int				gameLengthInSeconds;
 	time_t			startTimeInSeconds;
 	time_t			attackCooldown;
-
+	float			attackCooldownLength;
+	clock_t			attackCooldownRemains;
 	clock_t			explosionStart;
 	clock_t			quailAbilityStart = 0;
 	clock_t			chickenAbilityStart = 0;
