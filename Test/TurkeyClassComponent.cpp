@@ -131,9 +131,8 @@ void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);
-	aPacket.Read(team);
+	//aPacket.Read(team);
 	//now make a boomerang with this data just unpacked
-	turkeyArmsPos = b2Vec2(destX, destY);
 	BoomerangObjectFactory boomMaker;
 	GameObject* boomerang = boomMaker.Spawn(gameObjectRef, PID, destX, destY);
 	GameObjects.AddObject(boomerang);
@@ -147,7 +146,7 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
-	outData->Write(team);
+	//outData->Write(team);
 	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
 }
 
