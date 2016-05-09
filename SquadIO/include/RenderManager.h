@@ -70,7 +70,11 @@ public:
 		float y;
 		float z;
 	} cameraPoint;
+	///
 	bool flippedScreen;
+	/// shows cursor
+	int cursorToggle = 1;
+	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
 	/// if successful, returns false if not.
@@ -132,6 +136,10 @@ public:
 	//SQUADIO_API void cursorToCrosshair();
 
 	std::list<SDLRenderObject*> windowObjects;
+
+
+	/// Toggels cursor on and off
+	SQUADIO_API void toggleCursor(int x);
 
 	/// Changes the mouse cursor to crosshair
 	SQUADIO_API SDL_Cursor* cursorToCrosshair();

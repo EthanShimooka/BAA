@@ -32,6 +32,8 @@ public:
 	SQUADIO_API string GetSecondsLeftAsString(int timeRemainingInSec);
 	/// Returns true if player's attack cooldown has finished
 	SQUADIO_API bool AttackCooldownEnded();
+	/// Returns length of time remaining before the attack comes off cooldown in seconds as a float
+	SQUADIO_API float GetAttackCooldownRemaining();
 	/// Returns true if minions should be spawned
 	SQUADIO_API bool SpawnMinions();
 	/// Starts the lobby countdown
@@ -50,10 +52,6 @@ public:
 	SQUADIO_API void SetChickenAbilityTimer();
 	/// Returns true when the chicken ability timer is over
 	SQUADIO_API bool EndChickenAbilityTimer();
-	/// Starts timer when peacock ability is triggered
-	SQUADIO_API void SetPeacockAbilityTimer();
-	/// Returns true when the peacock ability timer is over
-	SQUADIO_API bool EndPeacockAbilityTimer();
 private:
 	float			mDeltaTime;
 	uint64_t		mDeltaTick;
@@ -62,23 +60,11 @@ private:
 	int				gameLengthInSeconds;
 	time_t			startTimeInSeconds;
 	time_t			attackCooldown;
-
+	float			attackCooldownLength;
+	clock_t			attackCooldownRemains;
 	clock_t			explosionStart;
 	clock_t			quailAbilityStart = 0;
 	clock_t			chickenAbilityStart = 0;
-	clock_t			peacockAbilityStart = 0;
-	
-	/* Without a Timer class, possibly need multiple peacockAbilityStart variables
-	   to account for up to 8 different fans active at once
-	   NOTE: not currently implemented
-	clock_t			peacockAbilityStart1 = 0;
-	clock_t			peacockAbilityStart2 = 0;
-	clock_t			peacockAbilityStart3 = 0;
-	clock_t			peacockAbilityStart4 = 0;
-	clock_t			peacockAbilityStart5 = 0;
-	clock_t			peacockAbilityStart6 = 0;
-	clock_t			peacockAbilityStart7 = 0;
-	clock_t			peacockAbilityStart8 = 0;*/
 
 	double			mLastFrameStartTime;
 	float			mFrameStartTimef;
@@ -87,7 +73,6 @@ private:
 	unsigned int	explosionLengthInMS = 150;
 	unsigned int	quailAbilityLengthInMS = 3000;
 	unsigned int	chickenAbilityLengthInMS = 5500;
-	unsigned int	peacockAbilityLengthInMS = 10000;
 	int				playTimeLengthInSecs = 120;
 };
 #endif

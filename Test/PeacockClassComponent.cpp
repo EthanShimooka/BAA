@@ -19,7 +19,15 @@ PeacockClassComponent::~PeacockClassComponent()
 
 void PeacockClassComponent::Update()
 {
-
+	if (invokeHelper && timer->isDone()){
+		timer->destroy();
+		invokeHelper = false;
+		for (auto i = fanIDs.begin(); i != fanIDs.end(); i++){
+			GameObjects.GetGameObject(*i)->isAlive = false;
+			fanIDs.pop_front();
+			break;
+		}
+	}
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
@@ -124,7 +132,8 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
-		Timing::sInstance.SetPeacockAbilityTimer();
+		timer = new Invoke(10.0f);
+		invokeHelper = true;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float posX, posY, forceX, forceY, rotation;
@@ -147,9 +156,9 @@ int PeacockClassComponent::useAbility(){
 		else{
 			forceX = 5;
 		}
-		fanIDs.push_back(powerNum - 1);
 		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, rotation));
 		writeNetAbility(powerNum - 1, posX, posY, rotation);
+		fanIDs.push_back(powerNum - 1);
 		currBirdseed = 0;
 		return true;
 	}
@@ -184,8 +193,9 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	//aPacket.Read(forceX);
 	//aPacket.Read(forceY);
 	aPacket.Read(rotation);
-	Timing::sInstance.SetPeacockAbilityTimer();
-	fanIDs.push_back(powerNum - 1);
+	timer = new Invoke(10.0f);
+	invokeHelper = true;
+	fanIDs.push_back(ID);
 	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation));
 }
 
