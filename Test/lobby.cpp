@@ -99,7 +99,7 @@ void Lobby::runLobby(){
 		checkPlayerInfo();
 
 		//start game if ready, change state to NMS_Starting if ready
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() /*&& readyCount == numPlayers*/){
 			NetworkManager::sInstance->TryReadyGame();
 		}
 		if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_MainMenu){
