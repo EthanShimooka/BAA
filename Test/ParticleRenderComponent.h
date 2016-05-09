@@ -6,16 +6,14 @@ class ParticleRenderComponent :
 	public RenderComponent
 {
 public:
-	ParticleRenderComponent(SDLRenderObject * base,unsigned int numParticles,float x, float y);
+	ParticleRenderComponent();
 	~ParticleRenderComponent();
-	void Update();
-	RenderResource * baseImage;
+	virtual void Update();
 	struct particle{
 		SDLRenderObject * sprite;
 		Animation * animations;
 		float timer = 0.0;
 	};
-	std::list<particle> particles;
 };
 
-void createParticle(SDLRenderObject * base, unsigned int numParticles,float x,float y);
+void createParticle();

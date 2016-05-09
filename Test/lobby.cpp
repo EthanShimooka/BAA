@@ -243,6 +243,8 @@ void Lobby::countdown(SystemUIObjectQueue &q){
 
 		std::string title = minutes + ":" + seconds;
 		timerHUD->setResourceObject(renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular"));
+		//renderMan->renderText(title.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular", timerHUD->renderResource);
+
 	}
 }
 

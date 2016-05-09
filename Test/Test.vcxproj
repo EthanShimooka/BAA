@@ -85,10 +85,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllComponentIncludes.h" />
+    <ClInclude Include="BoomerangComponentIncludes.h" />
+    <ClInclude Include="BoomerangLogicComponent.h" />
+    <ClInclude Include="BoomerangObjectFactory.h" />
+    <ClInclude Include="BoomerangPhysicsComponent.h" />
+    <ClInclude Include="BoomerangRenderComponent.h" />
     <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="DustCloudParticle.h" />
     <ClInclude Include="EagleClassComponent.h" />
     <ClInclude Include="EffectObjectFactory.h" />
     <ClInclude Include="EffectRenderComponent.h" />
@@ -97,6 +103,7 @@
     <ClInclude Include="FanObjectFactory.h" />
     <ClInclude Include="FanPhysicsComponent.h" />
     <ClInclude Include="FanRenderComponent.h" />
+    <ClInclude Include="FeatherZoomParticle.h" />
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
@@ -130,6 +137,7 @@
     <ClInclude Include="ParticleRenderComponent.h" />
     <ClInclude Include="PeacockClassComponent.h" />
     <ClInclude Include="QuailClassComponent.h" />
+    <ClInclude Include="ShrapnelExplosionParticle.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
@@ -202,8 +210,13 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoomerangLogicComponent.cpp" />
+    <ClCompile Include="BoomerangObjectFactory.cpp" />
+    <ClCompile Include="BoomerangPhysicsComponent.cpp" />
+    <ClCompile Include="BoomerangRenderComponent.cpp" />
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
+    <ClCompile Include="DustCloudParticle.cpp" />
     <ClCompile Include="EagleClassComponent.cpp" />
     <ClCompile Include="EffectObjectFactory.cpp" />
     <ClCompile Include="EffectRenderComponent.cpp" />
@@ -211,6 +224,7 @@
     <ClCompile Include="FanObjectFactory.cpp" />
     <ClCompile Include="FanPhysicsComponent.cpp" />
     <ClCompile Include="FanRenderComponent.cpp" />
+    <ClCompile Include="FeatherZoomParticle.cpp" />
     <ClCompile Include="FlamingoClassComponent.cpp" />
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />
@@ -237,6 +251,7 @@
     <ClCompile Include="ParticleRenderComponent.cpp" />
     <ClCompile Include="PeacockClassComponent.cpp" />
     <ClCompile Include="QuailClassComponent.cpp" />
+    <ClCompile Include="ShrapnelExplosionParticle.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />

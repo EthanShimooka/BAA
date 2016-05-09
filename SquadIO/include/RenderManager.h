@@ -70,7 +70,11 @@ public:
 		float y;
 		float z;
 	} cameraPoint;
+	///
 	bool flippedScreen;
+	/// shows cursor
+	int cursorToggle = 1;
+	///
 	std::stringstream videoInfo;
 	/// Initializes SDL window enviroment. Returns true
 	/// if successful, returns false if not.
@@ -112,6 +116,7 @@ public:
 	SQUADIO_API float zoomRatio(float x1, float y1, float minSize = 1, float scaling = 1);
 	/// function renders the background image, tiling starting from the origin, and cut along the edges of the window
 	SQUADIO_API void renderBackground();
+	SQUADIO_API RenderResource * renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname,RenderResource* resource);
 	SQUADIO_API RenderResource * renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname);
 	/// change the point where the camera renders from
 	SQUADIO_API void setCameraZ(float z);
@@ -131,6 +136,10 @@ public:
 	//SQUADIO_API void cursorToCrosshair();
 
 	std::list<SDLRenderObject*> windowObjects;
+
+
+	/// Toggels cursor on and off
+	SQUADIO_API void toggleCursor(int x);
 
 	/// Changes the mouse cursor to crosshair
 	SQUADIO_API SDL_Cursor* cursorToCrosshair();

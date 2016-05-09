@@ -74,7 +74,7 @@ void RenderManager::ShakeScreen(float length, float intensity){
 		shaking = true;
 		startShake = clock();
 		shakeTimer = (clock_t)(length * 1000);
-		std::cout << "shakeTimer: " << shakeTimer << std::endl;
+		//std::cout << "shakeTimer: " << shakeTimer << std::endl;
 		if (intensity > 1) intensity = 1; //limit intensity so that it is between .1 and 1
 		if (intensity < .1) intensity = .1;
 		shakeIntensity = intensity;
@@ -87,8 +87,8 @@ void RenderManager::UpdateShake(){
 		//InputManager* inputMan = InputManager::getInstance()->controller->rumble(strength 0-1,duration in millis);
 		if ((startShake + shakeTimer) < (clock())) {
 			shaking = false;
-			std::cout << "ended screen shake, start shake: " << startShake << ", shaketimer: " << shakeTimer << ", time(0): " << clock() << std::endl;
-			std::cout << "difference: " << (startShake + shakeTimer) - (clock()) << std::endl;
+			//std::cout << "ended screen shake, start shake: " << startShake << ", shaketimer: " << shakeTimer << ", time(0): " << clock() << std::endl;
+			//std::cout << "difference: " << (startShake + shakeTimer) - (clock()) << std::endl;
 		}
 		else {
 			//under the assumption that each frame has its camera position set based on player previous to this being called...
@@ -232,7 +232,7 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 		worldCoordToWindowCoord(posx, posy, obj->getPosX(),obj->getPosY());
 		float anchorx = 0;
 		float anchory = 0;
-		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z); 
+		float proj = -cameraPoint.z / (obj->getPosZ() - cameraPoint.z);
 		if (flippedScreen){
 			anchorx = 1- obj->getAnchorX();
 			anchory = 1- obj->getAnchorY();
@@ -273,17 +273,13 @@ void RenderManager::renderObjectAsRect(SDLRenderObject * obj){
 									(int) (posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)));
 	}
 }
-RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname){
+RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname, RenderResource* resource){
 	std::string path = "resources/" + fontname + ".ttf";
 	TTF_Font* font = TTF_OpenFont(path.c_str(), fontsize); // change function to take fontname in string version
 	if (!font) { // error opening file, use default computer font instead
 		// font = TTF_OpenFont();
 	}
 	SDL_Color color = { r, g, b };
-	RenderResource* resource = new RenderResource(); 
-	resource->height = 1;
-	resource->width = 1;
-	resource->max = 1;
 	SDL_Surface *tempSurface = TTF_RenderText_Solid(font, text, color); //load image as surface
 	if (tempSurface){
 		//if surface is loaded correctly, then make texture
@@ -304,13 +300,20 @@ RenderResource * RenderManager::renderText(const char* text, int r, int g, int b
 	// need to call TTF_Quit(); in destructor
 	return resource;
 }
+RenderResource * RenderManager::renderText(const char* text, int r, int g, int b, int fontsize, std::string fontname){
+	RenderResource* resource = new RenderResource();
+	resource->height = 1;
+	resource->width = 1;
+	resource->max = 1;
+	return renderText(text, r, g, b, fontsize, fontname, resource);
+}
 void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 	if (obj->getPosZ() > cameraPoint.z){
 		SDL_Rect pos;
 		SDL_Point anchor;
 		//transforms the world positions of the object to window position
 		//if the screen is flipped, the math is a bit diffirent to accomadate it
-		float proj = -cameraPoint.z / (obj->posZ - cameraPoint.z);
+		float proj = -cameraPoint.z / (obj->getPosZ() - cameraPoint.z);
 		if (flippedScreen){
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()),obj->getPosZ());
 			anchor = { int(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), int(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
@@ -338,7 +341,7 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 }
 
 bool sortRendObj(SDLRenderObject * lhs, SDLRenderObject * rhs){
-	return lhs->posZ > rhs->posZ;
+	return lhs->getPosZ() > rhs->getPosZ();
 }
 
 bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
@@ -347,6 +350,14 @@ bool RenderManager::isPointInBounds(int x, int y, int l, int r, int t, int b){
 	if (y < t) return false;
 	if (y > b) return false;
 	return true;
+}
+int wideComp(int i, int low, int high){
+	if (i < low) return -1;
+	if (i > high) return 1;
+	return 0;
+}
+bool allEqual(int a, int b, int c, int d){
+	return (a == b && b == c && c == d);
 }
 bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
 	//SDL_Rect pos;
@@ -372,19 +383,36 @@ bool RenderManager::isObjOnScreen(SDLRenderObject * obj){
 	SDL_GetWindowSize(renderWindow, &wWidth, &wHeight);//width and height of the window
 	//r *= (!(obj->flipH && obj->flipV)&& (obj->flipH || obj->flipV))? - 1: 1;
 	//SDL_RenderDrawRect(renderer, &pos);
-	//check if any of the 4 corners of an object are within the window's dimensions
-	if (isPointInBounds((int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
-		(int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds((int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r)),
-		(int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds((int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
-		(int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
-	if (isPointInBounds((int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r)),
-		(int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r)),
-		0, wWidth, 0, wHeight)) return true;
+	//The 4 corners of the object
+
+	int x1 = (int)round(posx + (-w*anchorx)*cos(r) - (-h*anchory)*sin(r));
+	int y1 = (int)round(posy + (-w*anchorx)*sin(r) + (-h*anchory)*cos(r));
+	int x2 = (int)round(posx + (w*(1 - anchorx))*cos(r) - (-h*anchory)*sin(r));
+	int y2 = (int)round(posy + (w*(1 - anchorx))*sin(r) + (-h*anchory)*cos(r));
+	int x3 = (int)round(posx + (w*(1 - anchorx))*cos(r) - (h*(1 - anchory))*sin(r));
+	int y3 = (int)round(posy + (w*(1 - anchorx))*sin(r) + (h*(1 - anchory))*cos(r));
+	int x4 = (int)round(posx + (-w*anchorx)*cos(r) - (h*(1 - anchory))*sin(r));
+	int y4 = (int)round(posy + (-w*anchorx)*sin(r) + (h*(1 - anchory))*cos(r));
+
+	//check if any of the 4 corners of an object are within the window's dimensions, and obviously visible
+	if (isPointInBounds(x1,y1, 0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(x2,y2, 0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(x3,y3, 0, wWidth, 0, wHeight)) return true;
+	if (isPointInBounds(x4,y4, 0, wWidth, 0, wHeight)) return true;
+	//check if the image lies completely to the left, right, above, or below the window's edges, and obviously not visible
+	/*if (allEqual(wideComp(x1, 0, wWidth), wideComp(x2, 0, wWidth), wideComp(x3, 0, wWidth), wideComp(x4, 0, wWidth)))
+		return false;
+	else if (allEqual(wideComp(y1, 0, wHeight), wideComp(y2, 0, wHeight), wideComp(y3, 0, wHeight), wideComp(y4, 0, wHeight)))
+		return false;
+	//check if any of the edge of the images crosses any of the window borders
+	std::pair<int, int>  edgesX[4] = { std::make_pair(x1, x2), std::make_pair(x2, x3), std::make_pair(x3, x4), std::make_pair(x4, x1) };
+	std::pair<int, int>  edgesY[4] = { std::make_pair(y1, y2), std::make_pair(y2, y3), std::make_pair(y3, y4), std::make_pair(y4, y1) };
+	for (int i = 0; i < 4; i++){
+		if ((wideComp(edgesX[i].first, 0, wWidth)) != wideComp(edgesX[i].second, 0, wWidth) &&
+			(wideComp(edgesY[i].first, 0, wHeight)) == wideComp(edgesY[i].second, 0, wHeight) &&
+			(wideComp(edgesY[i].first, 0, wHeight)) == 0) return true;
+		
+	}*/
 	return false;
 }
 void RenderManager::renderAllObjects(){
@@ -397,10 +425,10 @@ void RenderManager::renderAllObjects(){
 	
 	for (iter = renderObjects.begin(); iter != renderObjects.end(); iter++){
 		if ((*iter)->isVisible()){
-			if (isObjOnScreen(*iter)){
+			//if (isObjOnScreen(*iter)){
 				if ((*iter)->ifRenderImage) renderObjectAsImage((*iter));
 				if ((*iter)->ifRenderRect) renderObjectAsRect((*iter));
-			}
+			//}
 		}
 	}
 	for (iter = windowObjects.begin(); iter != windowObjects.end(); iter++){
@@ -527,10 +555,17 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 	setCameraZ(z);
 }
 
-//void RenderManager::cursorToCrosshair(){
-//	SDL_Cursor* cursor;
-//	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
-//	SDL_SetCursor(cursor);
+void RenderManager::toggleCursor(int x){
+
+	if (x == 1 || 0)
+	cursorToggle = x;
+	else cursorToggle == 1;
+
+	SDL_ShowCursor(x);
+
+}
+
+
 
 SDL_Cursor* RenderManager::cursorToCrosshair(){
 	SDL_SetRelativeMouseMode(SDL_TRUE);

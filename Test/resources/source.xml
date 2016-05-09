@@ -50,14 +50,18 @@
 <resource UID="1103" type="graphic" filename="chargebar_gradient.png" scenescope="0"></resource>
 <resource UID="1109" type="graphic" filename="Game_UI_Crosshair_Default.png" scenescope="0"></resource>
 <resource UID="1110" type="graphic" filename="Menu_bg.png" scenescope="0"></resource>
+<resource UID="1111" type="graphic" filename="Game_UI_Crosshair_Charging.png" scenescope="0"></resource>
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
+<resource UID="2003" type="graphic" filename="fan.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
 <resource UID="2006" type="graphic" filename="Game_platswitch_Shield.png" scenescope="0"></resource>
 <resource UID="2007" type="graphic" filename="Game_Base_1.png" scenescope="0"></resource>
-<resource UID="2010" type="graphic" filename="Game_minion_1.png" scenescope="0"></resource>
-<resource UID="2011" type="graphic" filename="Game_minion_2.png" scenescope="0"></resource>
+<resource UID="2009" type="graphic" filename="minions_purple_body.png" scenescope="0"></resource>
+<resource UID="2010" type="graphic" filename="minions_yellow_body.png" scenescope="0"></resource>
+<resource UID="2011" type="graphic" filename="minions_left_arm.png" scenescope="0"></resource>
+<resource UID="2012" type="graphic" filename="minions_right_arm.png" scenescope="0"></resource>
 <resource UID="2013" type="graphic" filename="Game_platform_yellow.png" scenescope="0"></resource>
 <resource UID="2014" type="graphic" filename="Game_platform_purple.png" scenescope="0"></resource>
 
@@ -75,6 +79,12 @@
 
 <resource UID="2026" type="graphic" filename="Game_launcher_1.png" scenescope="0"></resource>
 <resource UID="2027" type="graphic" filename="Game_launcher_2.png" scenescope="0"></resource>
+
+<resource UID="2101" type="graphic" filename="Background_Beach.png" scenescope="0"></resource>
+<resource UID="2102" type="graphic" filename="Background_Surf.png" scenescope="0"></resource>
+<resource UID="2103" type="graphic" filename="Background_Blue.png" scenescope="0"></resource>
+<resource UID="2104" type="graphic" filename="Background_Orange.png" scenescope="0"></resource>
+<resource UID="2105" type="graphic" filename="Background_Red.png" scenescope="0"></resource>
 
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>
@@ -108,10 +118,18 @@
 <resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
-<resource UID="8000" type="graphic" filename="fan.png" scenescope="0"></resource>
+<resource UID="4002" type="graphic" filename="SmokeCloud.png" scenescope="0" height="1" width="4" max="4"></resource>
+
+
+
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
 <resource UID="6010" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
+
+<resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
+<resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
+
+
 
 </resources>

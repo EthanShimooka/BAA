@@ -80,13 +80,13 @@ void FeatherPhysicsComponent::handleCollision(GameObject* otherObj){
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_SWITCH:{
-									      std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << "SHIG" << std::endl;
+									      //std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << "SHIG" << std::endl;
 
 										  gameObjectRef->isAlive = false;
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_POWERSHIELD:{
-											std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << "SHIG" << std::endl;
+											//std::cout << "FEATHER handling collision with object ID: " << otherObj->ID << "SHIG" << std::endl;
 											if (otherObj->team != gameObjectRef->team) gameObjectRef->isAlive = false;
 											break;
 	}

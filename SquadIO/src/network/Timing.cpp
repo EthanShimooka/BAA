@@ -29,6 +29,8 @@ Timing::Timing(){
 	QueryPerformanceCounter(&sStartTime);
 
 	mLastFrameStartTime = GetTime();
+
+	attackCooldownLength = 2.0f;
 #else
 	sStartTime = high_resolution_clock::now();
 #endif
@@ -78,6 +80,7 @@ void Timing::SetCountdownStart(){
 
 void Timing::StartAttackCooldown(){
 	attackCooldown = time(NULL);
+	attackCooldownRemains = clock();
 }
 
 int Timing::GetTimeRemainingS(){
@@ -104,9 +107,16 @@ bool Timing::AttackCooldownEnded(){
 	time_t now = time(NULL);
 	time_t timeElapsed = now - attackCooldown;
 	//attackCooldown = time(NULL);
-	if (timeElapsed >= 2) return true;
+	if (timeElapsed >= attackCooldownLength) return true;
 	else return false;
 }
+
+float Timing::GetAttackCooldownRemaining(){ 
+	float timeElapsed = (((float)(clock() - attackCooldownRemains)) / CLOCKS_PER_SEC);
+	//return ((attackCooldownLength - timeElapsed) < 0) ? 0 : (attackCooldownLength - timeElapsed); //THIS LINE ACTUALLY GIVES ATTACKCOOLDOWNREMAINING
+	return ((timeElapsed < attackCooldownLength) ? timeElapsed : attackCooldownLength) / attackCooldownLength; //this line returns percentage of cooldown finishing. 1 is cooldown is completed, 0 is cooldown just started
+}
+
 
 bool Timing::SpawnMinions(){
 	int timeLeft = GetTimeRemainingS();
@@ -171,20 +181,6 @@ bool Timing::EndChickenAbilityTimer(){
 	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
 	if (abilityTime >= chickenAbilityLengthInMS){
 		chickenAbilityStart = 0;
-		return true;
-	}
-	else return false;
-}
-
-void Timing::SetPeacockAbilityTimer(){
-	peacockAbilityStart = clock();
-}
-
-bool Timing::EndPeacockAbilityTimer(){
-	clock_t difference = clock() - peacockAbilityStart;
-	unsigned abilityTime = difference / (CLOCKS_PER_SEC / 1000);
-	if (abilityTime >= peacockAbilityLengthInMS){
-		peacockAbilityStart = 0;
 		return true;
 	}
 	else return false;

@@ -75,28 +75,37 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 
 void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller){
 	b2Body* body = physicsComp->mBody;
+	PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
 		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		logic->launchable = false;
+
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		logic->launchable = false;
+
 	}
 	else{
 		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
+		logic->launchable = false;
+
 	}
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
-		physicsComp->inAir = true;
-		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
-		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+			physicsComp->inAir = true;
+			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
+			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+			logic->launchable = true;
 	}
 
 	//TEST ONLY
 	if (input->isKeyDown(KEY_P) && !physicsComp->inAir) {
-		PlayerLogicComponent* net = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		net->launchable = true;
+		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		logic->launchable = true;
 	}
 
 	//shoot feather
@@ -153,6 +162,7 @@ void PlayerInputComponent::Update(){
 		if (!canFire && input->getMousePressDuration() > 0)
 			input->resetMousePressClock();
 		canFire = true;
+		
 	}
 
 	//orient character and set idle animation if necessary
@@ -161,7 +171,7 @@ void PlayerInputComponent::Update(){
 	if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
 	else renderComp->setAnimation("walk");
 
-	//handle charging meter
+	//handle charging variables for crosshair
 	if (isChargingAttack) {
 		renderComp->setAnimation("charge");
 		renderComp->setNextAnimation("charge");

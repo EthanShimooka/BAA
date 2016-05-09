@@ -139,6 +139,12 @@
     <Filter Include="Header Files\Component\Well Component">
       <UniqueIdentifier>{93f59957-c6b0-45d8-9b46-7addb0d4f851}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component\Boomerang Component">
+      <UniqueIdentifier>{cc13f88f-0a91-44e8-87f0-3fcba898c93a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Boomerang Component">
+      <UniqueIdentifier>{e688c01d-41a4-4e83-b40f-2c7e067b5cb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -450,6 +456,15 @@
     <ClInclude Include="FanLogicComponent.h">
       <Filter>Header Files\Component\Fan Component</Filter>
     </ClInclude>
+    <ClInclude Include="ShrapnelExplosionParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherZoomParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DustCloudParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
     <ClInclude Include="UIComponentIncludes.h">
       <Filter>Header Files\Component\UI Component</Filter>
     </ClInclude>
@@ -488,6 +503,21 @@
     </ClInclude>
     <ClInclude Include="LauncherComponentIncludes.h">
       <Filter>Header Files\Component\Launcher Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangComponentIncludes.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangRenderComponent.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangObjectFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangPhysicsComponent.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangLogicComponent.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -758,6 +788,15 @@
     <ClCompile Include="FanLogicComponent.cpp">
       <Filter>Source Files\Component\Fan Component</Filter>
     </ClCompile>
+    <ClCompile Include="ShrapnelExplosionParticle.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherZoomParticle.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="DustCloudParticle.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
     <ClCompile Include="UITypeComponent.cpp">
       <Filter>Source Files\Component\UI Component</Filter>
     </ClCompile>
@@ -787,6 +826,18 @@
     </ClCompile>
     <ClCompile Include="LauncherObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangRenderComponent.cpp">
+      <Filter>Source Files\Component\Boomerang Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangPhysicsComponent.cpp">
+      <Filter>Source Files\Component\Boomerang Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangLogicComponent.cpp">
+      <Filter>Source Files\Component\Boomerang Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
