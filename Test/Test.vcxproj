@@ -94,6 +94,7 @@
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="DustCloudParticle.h" />
     <ClInclude Include="EagleClassComponent.h" />
     <ClInclude Include="EffectObjectFactory.h" />
     <ClInclude Include="EffectRenderComponent.h" />
@@ -102,6 +103,7 @@
     <ClInclude Include="FanObjectFactory.h" />
     <ClInclude Include="FanPhysicsComponent.h" />
     <ClInclude Include="FanRenderComponent.h" />
+    <ClInclude Include="FeatherZoomParticle.h" />
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
@@ -135,6 +137,7 @@
     <ClInclude Include="ParticleRenderComponent.h" />
     <ClInclude Include="PeacockClassComponent.h" />
     <ClInclude Include="QuailClassComponent.h" />
+    <ClInclude Include="ShrapnelExplosionParticle.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
@@ -213,6 +216,7 @@
     <ClCompile Include="BoomerangRenderComponent.cpp" />
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
+    <ClCompile Include="DustCloudParticle.cpp" />
     <ClCompile Include="EagleClassComponent.cpp" />
     <ClCompile Include="EffectObjectFactory.cpp" />
     <ClCompile Include="EffectRenderComponent.cpp" />
@@ -220,6 +224,7 @@
     <ClCompile Include="FanObjectFactory.cpp" />
     <ClCompile Include="FanPhysicsComponent.cpp" />
     <ClCompile Include="FanRenderComponent.cpp" />
+    <ClCompile Include="FeatherZoomParticle.cpp" />
     <ClCompile Include="FlamingoClassComponent.cpp" />
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameSession.cpp" />
@@ -246,6 +251,7 @@
     <ClCompile Include="ParticleRenderComponent.cpp" />
     <ClCompile Include="PeacockClassComponent.cpp" />
     <ClCompile Include="QuailClassComponent.cpp" />
+    <ClCompile Include="ShrapnelExplosionParticle.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
