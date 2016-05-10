@@ -18,7 +18,7 @@ public:
 	GameObject* owner;
 	PlayerPhysicsComponent* ownerPhysics;
 	b2Vec2 targetDest;
-	clock_t flightClock;
+	
 	bool returning = false;
 };
 

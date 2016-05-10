@@ -8,7 +8,6 @@ BoomerangPhysicsComponent::BoomerangPhysicsComponent(GameObject* boomerang, Game
 	owner = _owner;
 	ownerPhysics = dynamic_cast<PlayerPhysicsComponent*>(_owner->GetComponent(COMPONENT_PHYSICS));
 	init();
-	flightClock = clock();
 }
 
 void BoomerangPhysicsComponent::init(){
@@ -70,9 +69,6 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 
 void BoomerangPhysicsComponent::Update(){
 	int moveSpeed = 15;
-	//automatically return if flying for more that 4 seconds
-	double flightTime = (clock() - flightClock) / (CLOCKS_PER_SEC / 1000);
-	if (flightTime > 4000)returning = true;
 	if (returning){
 		//straight line back
 		b2Vec2 currPos = mBody->GetPosition();
@@ -88,9 +84,6 @@ void BoomerangPhysicsComponent::Update(){
 		b2Vec2 currPos = mBody->GetPosition();
 		b2Vec2 movementVec = targetDest - currPos;
 		//check to see how close we are
-		if (movementVec.Length() < 1){
-			returning = true;
-		}
 		movementVec.Normalize();
 		movementVec *= moveSpeed;
 		mBody->SetLinearVelocity(movementVec);

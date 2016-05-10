@@ -556,13 +556,9 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 }
 
 void RenderManager::toggleCursor(int x){
-
-	if (x == 1 || 0)
-	cursorToggle = x;
+	if (x > 1 || x < 0)cursorToggle = 0;
 	else cursorToggle == 1;
-
 	SDL_ShowCursor(x);
-
 }
 
 

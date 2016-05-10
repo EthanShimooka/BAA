@@ -4,7 +4,6 @@
 BoomerangNetworkComponent::BoomerangNetworkComponent(GameObject* player){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
-	updateClock = clock();
 }
 
 
@@ -16,7 +15,6 @@ void BoomerangNetworkComponent::sendTargetPacket(){
 	InputManager* input = InputManager::getInstance();
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
-	outData->Write(gameObjectRef->ID);
 	//outData->Write((int)CM_ABILITY); // have to uncomment and add in corrent command
 	outData->Write(gameObjectRef->ID);
 	outData->Write(input->getMouseX());
@@ -29,14 +27,9 @@ void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket
 	int destX, destY;
 	fPacket.Read(destX);
 	fPacket.Read(destY);
-	physicsComp->targetDest = b2Vec2(destX, destY);
+	physicsComp->targetDest = b2Vec2(destX/worldScale, destY/worldScale);
 }
 
 void BoomerangNetworkComponent::Update(){
-	double elapsedTime = (clock() - updateClock)/(CLOCKS_PER_SEC/1000);
-	//send update packet every half second
-	if (elapsedTime > 500){
-		sendTargetPacket();
-		updateClock = clock();
-	}
+	
 }

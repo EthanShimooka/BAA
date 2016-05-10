@@ -12,7 +12,7 @@ public:
 	void sendTargetPacket();
 	void handleTargetPacket(InputMemoryBitStream& fPacket);
 	void Update();
-	clock_t updateClock;
+	
 };
 
 #endif
