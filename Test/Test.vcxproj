@@ -108,6 +108,7 @@
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="LauncherComponentIncludes.h" />
+    <ClInclude Include="PlayerUIComponent.h" />
     <ClInclude Include="WellComponentIncludes.h" />
     <ClInclude Include="LauncherLogicComponent.h" />
     <ClInclude Include="LauncherObjectFactory.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="MineRenderComponent.cpp" />
     <ClCompile Include="ParticleRenderComponent.cpp" />
     <ClCompile Include="PeacockClassComponent.cpp" />
+    <ClCompile Include="PlayerUIComponent.cpp" />
     <ClCompile Include="QuailClassComponent.cpp" />
     <ClCompile Include="ShrapnelExplosionParticle.cpp" />
     <ClCompile Include="start.cpp" />

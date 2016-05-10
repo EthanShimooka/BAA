@@ -59,8 +59,8 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
-			dynamic_cast<PlayerLogicComponent*>(killer->GetComponent(COMPONENT_LOGIC))->addToKillList(killer->ID, gameObjectRef->ID);
-			logicComp->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
+			dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
+			dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
 		}
 		break;
 	}

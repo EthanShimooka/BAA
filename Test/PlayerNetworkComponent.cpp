@@ -1,13 +1,13 @@
 #include "PlayerNetworkComponent.h"
 
 
-PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player)
-{
+PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 }
 
 
@@ -87,7 +87,7 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	uint64_t shooterID;
 	dPacket.Read(shooterID);
 	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
-	logicComp->addToKillList(shooterID,GamerServices::sInstance->GetLocalPlayerId());
+	UIComp->addToKillList(shooterID,GamerServices::sInstance->GetLocalPlayerId());
 	logicComp->becomeEgg();
 }
 
