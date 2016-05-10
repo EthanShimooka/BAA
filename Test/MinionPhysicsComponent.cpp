@@ -125,7 +125,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  //gameObjectRef->isAlive = false;
 
 										  RenderManager* renderMan = RenderManager::getRenderManager();
-										  renderMan->ShakeScreen(0.3f, 0.4f);
+										  renderMan->ShakeScreen(0.3f, 0.2f);
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
