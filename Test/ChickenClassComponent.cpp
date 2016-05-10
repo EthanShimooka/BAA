@@ -120,12 +120,12 @@ int ChickenClassComponent::useAbility(){
 		PowerShieldObjectFactory sFactory;
 		Timing::sInstance.SetChickenAbilityTimer();
 		if (gameObjectRef->posY > 0){
-			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
-			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false, gameObjectRef->team);
+			GameObjects.AddObject(sFactory.Spawn((*powerNum)++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
+			writeNetAbility((*powerNum) - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false, gameObjectRef->team);
 		}
 		else {
-			GameObjects.AddObject(sFactory.Spawn(powerNum++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
-			writeNetAbility(powerNum - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false, gameObjectRef->team);
+			GameObjects.AddObject(sFactory.Spawn((*powerNum)++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
+			writeNetAbility((*powerNum) - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false, gameObjectRef->team);
 		}
 		currBirdseed = 0;
 		return true;
@@ -137,7 +137,6 @@ int ChickenClassComponent::useAbility(){
 }
 
 void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction, int team){
-	std::cout << "chicken write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
@@ -154,7 +153,6 @@ void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 }
 
 void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
-	std::cout << "chicken read" << std::endl;
 	PowerShieldObjectFactory sFactory;
 	uint64_t ID;
 	float posX, posY;

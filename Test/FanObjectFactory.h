@@ -22,7 +22,7 @@ public:
 	/// Destructor
 	~FanObjectFactory();
 	/// Spawn Function
-	GameObject* Spawn(uint64_t PID, float posX, float posY, double rotation);
+	GameObject* Spawn(uint64_t PID, float posX, float posY, double rotation, int team);
 
 };
 
