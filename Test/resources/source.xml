@@ -50,7 +50,7 @@
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
-<resource UID="2003" type="graphic" filename="fan.png" scenescope="0"></resource>
+<resource UID="2003" type="graphic" filename="Game_Fan_Off.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
 <resource UID="2006" type="graphic" filename="Game_platswitch_Shield.png" scenescope="0"></resource>
 <resource UID="2007" type="graphic" filename="Game_Base_1.png" scenescope="0"></resource>

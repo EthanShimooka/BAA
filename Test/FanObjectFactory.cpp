@@ -10,7 +10,7 @@ FanObjectFactory::~FanObjectFactory()
 {
 }
 
-GameObject* FanObjectFactory::Spawn(uint64_t PID, float posX, float posY, double rotation){
+GameObject* FanObjectFactory::Spawn(uint64_t PID, float posX, float posY, double rotation, int team){
 	GameObject* fan = new GameObject();
 	fan->ID = PID;
 	fan->isAlive = true;
@@ -18,6 +18,7 @@ GameObject* FanObjectFactory::Spawn(uint64_t PID, float posX, float posY, double
 	fan->rotation = rotation; //set this in the physics component
 	fan->team = TEAM::TEAM_NEUTRAL;
 	fan->type = GAMEOBJECT_TYPE::OBJECT_FAN;
+	fan->team = team;
 
 	FanRenderComponent* rendComp = new FanRenderComponent(fan);
 	FanPhysicsComponent* physicsComp = new FanPhysicsComponent(fan, rotation);
