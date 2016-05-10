@@ -54,7 +54,7 @@ public:
 	~GameObject();
 
 	/// Object ID
-	uint64_t ID;
+	uint64_t ID = 0;
 	/// Alive state
 	bool isAlive;
 	/// True if the local player made this object

@@ -40,44 +40,53 @@ void GameSession::LoadWorld(){
 	WellObjectFactory wellFactory;
 	LauncherObjectFactory launchFactory;
 
+	// Bases should have an ID between 1-10
+	uint64_t baseID = 1;
+	// Wells should have an ID between 11-20
+	uint64_t wellID = 11;
+	// Launchers should have an ID between 21-20
+	uint64_t launcherID = 21;
+	// Walls should have an ID between 31-40
+	uint64_t WallID = 31;
+	// Platforms should have an ID between 101-200
+	uint64_t platformID = 101;
+	// Fans should have an ID between 201-300
+	uint64_t fanID = 201;
+
 
 	for (int i = 0; i < 6; i++){
-		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
-		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
-		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
-		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
-	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1800), 0, 0));
-	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(-1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(1800), 0, 0));
 	
 
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 	//BASES
-	rightBase = mbFactory.Spawn(506003, -975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506004, 975, 0, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(baseID++, -975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(baseID++, 975, 0, 0, TEAM_PURPLE);
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
 	//WELLS
-	GameObjects.AddObject(wellFactory.Spawn(506005, -1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(wellFactory.Spawn(506006, 1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, -1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, 1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
 
 
 	//LAUNCHERS
-	GameObjects.AddObject(launchFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(launchFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(launchFactory.Spawn(launcherID++, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(launchFactory.Spawn(launcherID++, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
 	//FANS                                 ID,     POSX, POSY, ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150,  60)); //left top
-	GameObjects.AddObject(fanFactory.Spawn(54002, -350,  150, -60)); //left bot
-	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
-	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
-
-	//GameObjects.AddObject(rightBase);
-	//GameObjects.AddObject(leftBase);
-
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, -150, 60)); //left top
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, 150, -60)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, -150, 120)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120)); //right bot
 }
 
 // Loads player Objects from session arguments (instantiated player list).
@@ -94,7 +103,7 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	//SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
 
-	renderMan->setBackground("tempbackground.png");
+	renderMan->setBackground("Muscle-Beach-Background__0007_sky-gradient.png");
 
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR, 30, 30);
@@ -268,7 +277,7 @@ int GameSession::Run(vector<player*> players){
 	///*auto spawning minion variables
 	int minionCounter = 10000;
 
-	//*/
+	/*
 	for (int j = -800; j <= 800; j += 200){
 		for (float i = 0.01f; i <= 8; i += 3){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, (float)j, 0, i))->setScale(.25);
@@ -280,6 +289,34 @@ int GameSession::Run(vector<player*> players){
 			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
 		}
 	}
+	*/
+	//Planets
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(10);
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f))->setScale(200);
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, -80000.0f, 40000.0f, 4000.0f))->setScale(200);
+
+	//Beaches
+
+	auto beach1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, 2000.0f, 100.0f);
+	auto beach2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, -2000.0f, 100.0f);
+	auto surf1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
+	auto surf2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
+	beach1->setScale(6);
+	beach2->setScale(6);
+	surf1->setParent(beach1);
+	surf2->setParent(beach2);
+	beach2->setRotation(180);
+	list<motion> surfMotions;
+	surfMotions.push_back(makeMotion(transformFlipH(surf1, false), 0.0, 0.0));
+	surfMotions.push_back(makeMotion(transformFlipH(surf2, false), 0.0, 0.0));
+	surfMotions.push_back(makeMotion(moveLinearY(surf1, -21, -6), 0, 0.5));
+	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0, 0.5));
+	surfMotions.push_back(makeMotion(transformFlipH(surf1, true), 0.5, 0.5));
+	surfMotions.push_back(makeMotion(transformFlipH(surf2, true), 0.5, 0.5));
+	surfMotions.push_back(makeMotion(moveLinearY(surf1, -21, -6), 0.5, 1.0));
+	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0.5, 1.0));
+	Animation * surf = new Animation(100, surfMotions);
+
 	//crosshair variables
 	SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, -1000, -1000, -0.05f);
 	SDLRenderObject * crosshairCharging = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1111, -1000, -1000, -0.05f);
@@ -292,7 +329,7 @@ int GameSession::Run(vector<player*> players){
 	fount->setScale(0.5f);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
-	Animation * runWater = new Animation(20, motions);
+	Animation * runWater = new Animation(100, motions);
 	int aniCounter = 0;
 
 	bool firstTime = true;
@@ -325,9 +362,17 @@ int GameSession::Run(vector<player*> players){
 		current_ticks = clock();
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		runWater->animate(float(aniCounter) / 20);
+		runWater->animate(float(aniCounter) / 100);
+		surf->animate(float(aniCounter) / 100);
 		aniCounter++;
-		aniCounter = aniCounter % 20;
+		aniCounter = aniCounter % 100;
+
+		//HOW-TO INVOKE
+		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
+			bruh->destroy(); //call bruh's destroy so as to not cause memleak
+			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
+			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
+		}
 
 		//HOW-TO INVOKE
 		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS

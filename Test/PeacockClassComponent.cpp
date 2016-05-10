@@ -231,9 +231,9 @@ int PeacockClassComponent::useAbility(){
 		else{
 			forceX = 5;
 		}
-		GameObjects.AddObject(fFactory.Spawn(powerNum++, posX, posY, rotation));
-		writeNetAbility(powerNum - 1, posX, posY, rotation);
-		fanIDs.push_back(powerNum - 1);
+		GameObjects.AddObject(fFactory.Spawn((*powerNum)++, posX, posY, rotation));
+		writeNetAbility((*powerNum) - 1, posX, posY, rotation);
+		fanIDs.push_back((*powerNum) - 1);
 		currBirdseed = 0;
 		return true;
 	}
@@ -249,7 +249,6 @@ void PeacockClassComponent::destroyFan(){
 }
 
 void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, float rotation){
-	std::cout << "peacock write" << std::endl;
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);

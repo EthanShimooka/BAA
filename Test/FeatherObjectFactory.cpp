@@ -21,7 +21,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 	FeatherPhysicsComponent* physics;
 	//FeatherNetworkComponent* net;
 	
-	//std::cout << "owner: " << owner->ID << std::endl;
+	std::cout << "ID: " << PID << std::endl;
 
 	if (GameObjects.dead_feathers.empty()){ //pool not large enough, add new feather
 		feather = new GameObject();
@@ -51,7 +51,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		dynamic_cast<FeatherPhysicsComponent*>(feather->GetComponent(COMPONENT_PHYSICS))->init(posX, posY, dx, dy, speed);
 		dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->owner = owner;
 	}
-
+	createFeatherParticle(feather, 1,100);
 	//std::cout << feather->isLocal << std::endl;
 	// Feather Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag

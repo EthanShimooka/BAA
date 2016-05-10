@@ -101,10 +101,10 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 	//currentAnimation = idle;
 	////// WALKING ANIMATION 
 	std::list<motion> motions2;
-	motions2.push_back(makeMotion(rotateTransform(armR, 0, 0), 0, 0));
-	motions2.push_back(makeMotion(rotateTransform(armL, 0, 0), 0, 0));
-	motions2.push_back(makeMotion(moveCircArc(armR, (float)(87 - bodyAX), (float)(63 - bodyAY), 5, 0, 360), 0, 1));
-	motions2.push_back(makeMotion(moveCircArc(armL, (float)(87 - bodyAX), (float)(63 - bodyAY), 5, 180, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(armR, -180, 0), 0, 0));
+	motions2.push_back(makeMotion(rotateTransform(armL, -180, 0), 0, 0));
+	motions2.push_back(makeMotion(moveCircArc(armR, (float)(66 - bodyAX), (float)(44 - bodyAY), 5, 0, 360), 0, 1));
+	motions2.push_back(makeMotion(moveCircArc(armL, (float)(66 - bodyAX), (float)(44 - bodyAY), 5, 180, 360), 0, 1));
 	motions2.push_back(makeMotion(rotateTransform(legR, -60, 120), 0, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legR, 60, -120), 0.5, 0.5, ease_QuadInOut));
 	motions2.push_back(makeMotion(rotateTransform(legL, 60, -120), 0, 0.5, ease_QuadInOut));

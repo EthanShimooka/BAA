@@ -107,6 +107,9 @@ float SDLRenderObject::getPosY(){
 	return posY;
 }
 float SDLRenderObject::getPosZ(){
+	if (parent){
+		return parent->getPosZ() + posZ;
+	}
 	return posZ;
 }
 void SDLRenderObject::getPos(float &x, float &y){x = getPosX(); y = getPosY(); }

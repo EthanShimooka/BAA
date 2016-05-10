@@ -160,7 +160,7 @@ int TurkeyClassComponent::useAbility(){
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
 		//make boomerang arms
 		BoomerangObjectFactory boomMaker;
-		GameObject* boomerang = boomMaker.Spawn(gameObjectRef, powerNum++, targetX, targetY);
+		GameObject* boomerang = boomMaker.Spawn(gameObjectRef, (*powerNum)++, targetX, targetY);
 		GameObjects.AddObject(boomerang);
 		//turn player arms invisible
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));

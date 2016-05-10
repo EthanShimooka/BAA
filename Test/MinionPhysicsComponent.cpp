@@ -1,6 +1,6 @@
 #include "MinionPhysicsComponent.h"
 #include "FanPhysicsComponent.h"
-#include "ParticleRenderComponent.h"
+#include "ShrapnelExplosionParticle.h"
 #include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
@@ -83,9 +83,9 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											 AudioManager* audioMan = AudioManager::getAudioInstance();
 											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 											 dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
+											 createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											 logicComp->MinionDeath();
-											 createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 
 											 //GameObjects.dead_feathers.push_back(gameObjectRef);
 											 break;
@@ -118,9 +118,11 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  //Currently destroys minions, updates base health logic, and shakes screen
 										  AudioManager* audioMan = AudioManager::getAudioInstance();
 										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
-
+										  createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 										  logicComp->MinionDeath();
+										  //gameObjectRef->setPos(-10000, 0);
+										  //gameObjectRef->isAlive = false;
 
 										  RenderManager* renderMan = RenderManager::getRenderManager();
 										  renderMan->ShakeScreen(0.3f, 0.4f);
