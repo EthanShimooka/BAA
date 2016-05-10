@@ -21,7 +21,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 	FeatherPhysicsComponent* physics;
 	//FeatherNetworkComponent* net;
 	
-	//std::cout << "owner: " << owner->ID << std::endl;
+	std::cout << "ID: " << PID << std::endl;
 
 	if (GameObjects.dead_feathers.empty()){ //pool not large enough, add new feather
 		feather = new GameObject();

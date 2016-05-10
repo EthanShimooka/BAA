@@ -24,6 +24,8 @@ Only the local player GameObject should have this component.
 
 class PlayerLogicComponent :  public LogicComponent
 {
+private:
+	static uint64_t childID;
 public:
 	/// Constructor
 	PlayerLogicComponent(GameObject* player,int team);
@@ -57,9 +59,9 @@ public:
 	//PowerShieldObjectFactory sFactory;
 
 	FeatherObjectFactory fFactory;
-	uint64_t featherNum = 0;
 
-	
+	// unique ID for any object that this player creates
+	uint64_t child_id_counter;
 
 	bool charging = false;
 	bool launchable = false;
