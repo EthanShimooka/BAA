@@ -10,7 +10,7 @@ PowerShieldRenderComponent::PowerShieldRenderComponent(GameObject* shield)
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	/// 998 refers to a temporary power shield 
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 9998, 0, 0);
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 4003, 0, 0);
 
 	objRef->setAnchor(1.0, 0.54);
 
