@@ -58,6 +58,8 @@ void PlayerLogicComponent::Update(){
 	updateKillHUD();
 }
 
+const float featherSpeed = 70.0f;
+
 /// For spawning local feathers
 uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
@@ -65,7 +67,7 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 	render->setAnimation("throw");
 	render->setNextAnimation("idle");
 	std::cout << "speed: " << speed << std::endl;
-	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, 70.0f);
+	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, featherSpeed);
 	GameObjects.AddObject(newFeather);
 	return child_id_counter - 1;
 }
@@ -73,7 +75,7 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 /// For spawning networked feathers
 void PlayerLogicComponent::spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed){
 	// charge time is one because speed is the feather speed * chargeTime
-	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, speed));
+	GameObjects.AddObject(fFactory.Spawn(gameObjectRef, ID, initialX, initialY, (float)destX, (float)destY, featherSpeed));
 	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	render->setAnimation("throw");
 	render->setNextAnimation("walk");
