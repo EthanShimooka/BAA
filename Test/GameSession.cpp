@@ -74,19 +74,19 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(leftBase);
 
 	//WELLS
-	GameObjects.AddObject(wellFactory.Spawn(wellID++, -1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(wellFactory.Spawn(wellID++, 1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, -1850, (SCREEN_HEIGHT / 5.8f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, 1850, -(SCREEN_HEIGHT / 5.8f), 0, TEAM_PURPLE));
 
 
 	//LAUNCHERS
 	GameObjects.AddObject(launchFactory.Spawn(launcherID++, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(launchFactory.Spawn(launcherID++, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(launchFactory.Spawn(launcherID++, 1450, -(SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
 	//FANS                                 ID,     POSX, POSY, ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, -150, 60)); //left top
-	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, 150, -60)); //left bot
-	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, -150, 120)); //right top
-	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120)); //right bot
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, -150, 60, TEAM_YELLOW)); //left top
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, 150, -60, TEAM_PURPLE)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, -150, 120,TEAM_PURPLE)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120, TEAM_YELLOW)); //right bot
 }
 
 // Loads player Objects from session arguments (instantiated player list).

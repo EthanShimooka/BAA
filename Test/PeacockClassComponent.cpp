@@ -231,7 +231,7 @@ int PeacockClassComponent::useAbility(){
 		else{
 			forceX = 5;
 		}
-		GameObjects.AddObject(fFactory.Spawn((*powerNum)++, posX, posY, rotation));
+		GameObjects.AddObject(fFactory.Spawn((*powerNum)++, posX, posY, rotation, gameObjectRef->team));
 		writeNetAbility((*powerNum) - 1, posX, posY, rotation);
 		fanIDs.push_back((*powerNum) - 1);
 		currBirdseed = 0;
@@ -310,7 +310,7 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	}
 	activeFans++;
 	fanIDs.push_back(ID);
-	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation));
+	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation, gameObjectRef->team));
 }
 
 int PeacockClassComponent::getClass(){

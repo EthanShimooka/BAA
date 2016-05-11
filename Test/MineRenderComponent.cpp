@@ -8,6 +8,8 @@ MineRenderComponent::MineRenderComponent(GameObject* player){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	//TODO: change the coordinates to be relative to the player
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4000, 0, 0);
+
+
 }
 
 MineRenderComponent::~MineRenderComponent(){

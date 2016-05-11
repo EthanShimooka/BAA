@@ -3,7 +3,6 @@
 <resource UID="0" type="graphic" filename="test.png" scenescope="0"></resource>
 <resource UID="9999" type="graphic" filename="tempbackground.png" scenescope="0"></resource>
 <resource UID="9991" type="graphic" filename="playerplatform.png" scenescope="0"></resource>
-<resource UID="9998" type="graphic" filename="power_shield.png" scenescope="0"></resource>
 <resource UID="1" type="graphic" filename="Duck.bmp" scenescope="0"></resource>
 <resource UID="2" type="graphic" filename="Duck.png" scenescope="0"></resource>
 <resource UID="12" type="graphic" filename="Duck2.png" scenescope="0"></resource>
@@ -50,7 +49,7 @@
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
-<resource UID="2003" type="graphic" filename="fan.png" scenescope="0"></resource>
+<resource UID="2003" type="graphic" filename="Game_Fan_Off.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
 <resource UID="2006" type="graphic" filename="Game_platswitch_Shield.png" scenescope="0"></resource>
 <resource UID="2007" type="graphic" filename="Game_Base_1.png" scenescope="0"></resource>
@@ -75,6 +74,8 @@
 
 <resource UID="2026" type="graphic" filename="Game_launcher_1.png" scenescope="0"></resource>
 <resource UID="2027" type="graphic" filename="Game_launcher_2.png" scenescope="0"></resource>
+<resource UID="2028" type="graphic" filename="Game_Well.png" scenescope="0"></resource>
+
 
 <resource UID="2101" type="graphic" filename="Background_Beach.png" scenescope="0"></resource>
 <resource UID="2102" type="graphic" filename="Background_Surf.png" scenescope="0"></resource>
@@ -113,6 +114,7 @@
 <resource UID="3504" type="graphic" filename="Player_Turkey_Leg_2.png" scenescope="0"></resource>
 <resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
+<resource UID="4003" type="graphic" filename="Power_Shield.png" scenescope="0"></resource>
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
 <resource UID="4002" type="graphic" filename="SmokeCloud.png" scenescope="0" height="1" width="4" max="4"></resource>
 
@@ -121,7 +123,12 @@
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
-<resource UID="6010" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
+<resource UID="6010" type="audio" filename="chickensfx.ogg" scenescope="0"></resource>
+<resource UID="6011" type="audio" filename="peacocksfx.ogg" scenescope="0"></resource>
+<resource UID="6012" type="audio" filename="quailsfx.ogg" scenescope="0"></resource>
+<resource UID="6013" type="audio" filename="turkeysfx.ogg" scenescope="0"></resource>
+<resource UID="6014" type="audio" filename="flamingosfx.ogg" scenescope="0"></resource>
+<resource UID="6009" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
