@@ -16,7 +16,7 @@ void UIInputComponent::Update(){
 	switch (uiObjectRef->ID){
 	case PLAY_BUTTON:
 		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
-			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
+			NetworkManager::sInstance->TryReadyGame();
 		}
 		break;
 	case CANCEL_BUTTON:
@@ -62,26 +62,34 @@ void UIInputComponent::Update(){
 		}
 		break;
 	case YELLOW_BUTTON:
-		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
 			rend->ChangeSprite(YELLOW_BUTTON2);
 			uiObjectRef->teamPicked = true;
+			NetworkManager::sInstance->SendTeamToPeers(TEAM_YELLOW);
 		}
-		if (isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT)){
+		else if (isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
 			rend->ChangeSprite(YELLOW_BUTTON2);
 		}
-		else{
+		else if (!isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
+			rend->ChangeSprite(YELLOW_BUTTON);
+		}
+		else if (uiObjectRef->teamPicked == false){
 			rend->ChangeSprite(YELLOW_BUTTON);
 		}
 		break;
 	case PURPLE_BUTTON:
-		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT)){
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
 			rend->ChangeSprite(PURPLE_BUTTON2);
+			NetworkManager::sInstance->SendTeamToPeers(TEAM_PURPLE);
 			uiObjectRef->teamPicked = true;
 		}
-		if (isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT)){	
+		else if (isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
 			rend->ChangeSprite(PURPLE_BUTTON2);
 		}
-		else{
+		else if (!isMouseHovering(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
+			rend->ChangeSprite(PURPLE_BUTTON);
+		}
+		else if (uiObjectRef->teamPicked == false){
 			rend->ChangeSprite(PURPLE_BUTTON);
 		}
 		break;

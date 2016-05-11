@@ -120,6 +120,10 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(BACK_BUTTON);
 		break;
+	case PLAY_BUTTON:
+		rend->uiObjectRef->setPos((float)x, (float)y);
+		rend->createUIType(PLAY_BUTTON);
+		break;
 	case KILL_NOTIFICATION:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(KILL_NOTIFICATION);

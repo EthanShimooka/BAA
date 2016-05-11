@@ -6,6 +6,7 @@ Lobby::Lobby(): playersReady(0), inLobbyNow(0), readyCount(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	yellow = 0;
 	purple = 0;
+	me = new player();
 }
 
 
@@ -31,14 +32,14 @@ void Lobby::runLobby(){
 	SystemUIObjectQueue birdQueue;
 
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
-	player* me = new player();
+	//player* me = new player();
 	addSlots(queue);
 	assignPlayers();
 	for (unsigned int i = 0; i < players.size(); i++){
 		if (players[i]->playerId == myId)
 			me = players[i];
 	}
-	//pickTeam();
+	
 	drawBirds(birdQueue);
 
 
@@ -51,6 +52,8 @@ void Lobby::runLobby(){
 	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
 
 		input->update();
+
+		pickTeam();
 
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
@@ -99,8 +102,8 @@ void Lobby::runLobby(){
 		checkPlayerInfo();
 
 		//start game if ready, change state to NMS_Starting if ready
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer() /*&& readyCount == numPlayers*/){
-			NetworkManager::sInstance->TryReadyGame();
+		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
+			beginGame(queue);
 		}
 		if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_MainMenu){
 			break;
@@ -142,6 +145,18 @@ void Lobby::runLobby(){
 	}
 
 	deletePlayers();
+}
+
+void Lobby::beginGame(SystemUIObjectQueue &q){
+	RenderManager* rendMan = RenderManager::getRenderManager();
+	int w, h;
+
+	rendMan->getWindowSize(&w, &h);
+	UIObjectFactory* buttons = new UIObjectFactory();
+	UIObject* playButton = buttons->Spawn(PLAY_BUTTON, w / 2, h / 2);
+
+	q.AddObject(playButton);
+
 }
 
 void Lobby::checkPlayerInfo(){
@@ -189,6 +204,19 @@ void Lobby::createButtons(SystemUIObjectQueue &q){
 	UIObjectFactory* buttons = new UIObjectFactory();
 	UIObject* inviteButton = buttons->Spawn(INVITE_BUTTON, 0, h / 2);
 	//UIObject* backButton = buttons->Spawn(BACK_BUTTON, 0, h / 2 + 75);
+
+	teamYellow = NULL;
+	teamPurple = NULL;
+
+	if (yellow < maxPlayers / 2){
+		teamYellow = buttons->Spawn(YELLOW_BUTTON, w / 2 - 150, h / 2 + 200);
+		q.AddObject(teamYellow);
+	}
+	if (purple < maxPlayers / 2){
+		teamPurple = buttons->Spawn(PURPLE_BUTTON, w / 2 + 50, h / 2 + 200);
+		q.AddObject(teamPurple);
+	}
+
 
 	q.AddObject(inviteButton);
 	//q.AddObject(backButton);
@@ -298,16 +326,15 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		if (i % 2 == 0){
 			p->x = 0 + x;
 			p->y = 0;
-			p->team = TEAM_NEUTRAL;
 		}
 		else{
 			p->x = 0 + x;
 			p->y = h - 25;
 			x += w / 2;
-			p->team = TEAM_NEUTRAL;
 			p->bottom = true;
-		} 
-		
+		}
+
+		p->team = TEAM_NEUTRAL;
 		UIObjectFactory* slot = new UIObjectFactory();
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
 		p->visible = false;
@@ -345,28 +372,58 @@ void Lobby::assignPlayers(){
 
 void Lobby::updateLobby(){
 
+	//used or players dropping
 	std::map<uint64_t, string> lobby = NetworkManager::sInstance->getLobbyMap();
 	for (unsigned int i = 0; i < players.size(); i++){
-		std::map<uint64_t, string>::iterator it;
-		it = lobby.find(players[i]->playerId);
-		if (it == lobby.end()){
-			players[i]->playerId = NULL;
-			players[i]->name = "";
-			players[i]->ready = false;
-			players[i]->visible = false;
-			players[i]->playerSlot->visible = players[i]->visible;
-			if (players[i]->team == TEAM_PURPLE){
-				purple--;
-				players[i]->team = TEAM_NEUTRAL;
+		if (players[i]->playerId != NULL){
+			std::map<uint64_t, string>::iterator it;
+			it = lobby.find(players[i]->playerId);
+			if (it == lobby.end()){
+				players[i]->playerId = NULL;
+				players[i]->name = "";
+				players[i]->ready = false;
+				players[i]->visible = false;
+				players[i]->playerSlot->visible = players[i]->visible;
+				if (players[i]->team == TEAM_PURPLE){
+					purple--;
+					players[i]->team = TEAM_NEUTRAL;
+				}
+				else if (players[i]->team == TEAM_YELLOW){
+					yellow--;
+					players[i]->team = TEAM_NEUTRAL;
+				}
+				NetworkManager::sInstance->UpdateLobbyPlayers();
+				inLobbyNow--;
 			}
-			else if (players[i]->team == TEAM_YELLOW){
-				yellow--;
-				players[i]->team = TEAM_NEUTRAL;
-			}
-			NetworkManager::sInstance->UpdateLobbyPlayers();
-			inLobbyNow--;
 		}
 	}
+
+	int y = 0, p = 0;
+	//updates team choice just in case peers change it
+	for (unsigned int i = 0; i < players.size(); i++){
+		std::unordered_map<uint64_t, PlayerInfo> lobby = NetworkManager::sInstance->lobbyInfoMap;
+		const auto& iter = lobby.find(players[i]->playerId);
+		if (players[i]->playerId != me->playerId && players[i]->playerId != NULL){
+			if (iter != lobby.end()){
+				players[i]->team = (TEAM)iter->second.team;
+				if ((TEAM)iter->second.team == TEAM_YELLOW){
+					y++;
+				}
+				else if ((TEAM)iter->second.team == TEAM_PURPLE){
+					p++;
+				}
+			}
+		}
+	}
+
+	//used for keeping track of # on team
+	if (y != yellow){
+		yellow = y;
+	}
+	if (p != purple){
+		purple = p;
+	}
+
 }
 
 void Lobby::addNewPlayers(){
@@ -400,84 +457,26 @@ void Lobby::addNewPlayers(){
 }
 
 void Lobby::pickTeam(){
-	SystemInputUpdater sysInput;
-	SystemRenderUpdater sysRend;
-	UIObjectFactory uFactory;
-	SystemUIUpdater sysUI;
-	SystemUIObjectQueue queue;
 
-	InputManager* input = InputManager::getInstance();
-	RenderManager* rendMan = RenderManager::getRenderManager();
-	SceneManager* sceneMan = SceneManager::GetSceneManager();
-
-	int w, h;
-
-	rendMan->getWindowSize(&w, &h);
-	UIObject* teamYellow = NULL;
-	UIObject* teamPurple = NULL;
-
-	UIObjectFactory* buttons = new UIObjectFactory();
-	if (yellow < maxPlayers / 2){
-		teamYellow = buttons->Spawn(YELLOW_BUTTON, w / 2 - 150, h / 2);
-		queue.AddObject(teamYellow);
-	}
-	if (purple < maxPlayers / 2){
-		teamPurple = buttons->Spawn(PURPLE_BUTTON, w / 2 + 50, h / 2);
-		queue.AddObject(teamPurple);
-	}
-
-	bool picked = false;
-
-	while (!picked){
-		input->update();
-
-		sysUI.UIUpdate(queue.alive_objects);
-		sysInput.InputUpdate(queue.alive_objects);
-		sysRend.RenderUpdate(queue.alive_objects);
-
-		input->update();
-
-		sceneMan->AssembleScene();
-
-		if (teamPurple != NULL && teamPurple->teamPicked){
-			picked = true;
-			NetworkManager::sInstance->SendTeamToPeers(TEAM_PURPLE);
-			NetworkManager::sInstance->SendOutgoingPackets();
-			purple++;
+	if (teamPurple != NULL && teamPurple->teamPicked){
+		if (me->team == TEAM_YELLOW){
+			teamYellow->teamPicked = false;
 		}
-		else if (teamYellow != NULL && teamYellow->teamPicked){
-			picked = true;
-			NetworkManager::sInstance->SendTeamToPeers(TEAM_YELLOW);			
-			NetworkManager::sInstance->SendOutgoingPackets();
-			yellow++;
+		else{
+			teamPurple->teamPicked = true;
 		}
+		purple++;
+		me->team = TEAM_PURPLE;
 	}
-
-
-	for (unsigned int i = 0; i < players.size(); i++){
-		if (players[i]->playerId == NetworkManager::sInstance->GetMyPlayerId()){
-			if (teamYellow != NULL && teamYellow->teamPicked){
-				players[i]->team = TEAM_YELLOW;
-			}
-			else if (teamPurple != NULL && teamPurple->teamPicked){
-				players[i]->team = TEAM_PURPLE;
-			}
-			break;
+	if (teamYellow != NULL && teamYellow->teamPicked){
+		if (me->team == TEAM_PURPLE){
+			teamPurple->teamPicked = false;
 		}
-	}
-	cleanUP(queue);
-
-
-	Timing::sInstance.SetTeamPickCountdown();
-	Timing::sInstance.SetCountdownStart();
-
-	while (true){
-
-		int timeRemaininginSeconds = Timing::sInstance.GetTimeRemainingS();
-
-		if (timeRemaininginSeconds == 0){
-			Timing::sInstance.SetGamePlayCountdown();
-			return;
+		else{
+			teamYellow->teamPicked = true;
 		}
+		yellow++;
+		me->team = TEAM_YELLOW;
 	}
+	std::cout << yellow << " " << purple << std::endl;
 }

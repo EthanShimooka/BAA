@@ -16,13 +16,13 @@
 #include "UIInputComponent.h"
 #include "UIComponent.h"
 
-
-
 struct bird{
 	UIType birdClass;
 	int x, y;
 	UIObject* birdPicture;
 };
+
+struct player;
 
 class Lobby{
 public:
@@ -52,6 +52,9 @@ private:
 	void checkPlayerInfo();
 	int yellow, purple;
 	void pickTeam();
+	UIObject* teamYellow, *teamPurple;
+	player* me;
+	void beginGame(SystemUIObjectQueue &q);
 };
 
 #endif
