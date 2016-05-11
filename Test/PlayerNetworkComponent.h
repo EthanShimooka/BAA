@@ -18,6 +18,7 @@ typedef enum {
 class PlayerLogicComponent;
 class PlayerRenderComponent;
 class ClassComponent;
+class PlayerUIComponent;
 
 class PlayerNetworkComponent : public NetworkComponent
 {
@@ -34,7 +35,7 @@ public:
 	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float speed);
 	void createMovementPacket();
 	void createAbilityPacket(uint64_t ID, int finalX, int finalY, float speed);
-	void createDeathPacket(uint64_t shooter);
+	void createDeathPacket(uint64_t shooter, int playerClass);
 
 	/// handling packets
 	void handleMovementPacket(InputMemoryBitStream& mPacket);
@@ -45,6 +46,8 @@ public:
 
 	/// Pointer to the player logic component
 	PlayerLogicComponent *logicComp;
+	/// Pointer to the player UI component
+	PlayerUIComponent *UIComp;
 	/// Pointer to the player render component
 	PlayerRenderComponent *renderComp;
 	/// Pointer to the player class component

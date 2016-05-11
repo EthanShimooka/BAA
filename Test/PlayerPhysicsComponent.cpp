@@ -54,13 +54,18 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
 		if (otherObj->isLocal){
 			logicComp->becomeEgg();
+			//Trigger death audio here for person who fired feather
+			//Should be local player class here
+			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+			int localClass = classComp->getClass();
+			logicComp->playDeathSFX(localClass);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			networkComp->createDeathPacket(shooter);
+			networkComp->createDeathPacket(shooter, localClass);
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
-			dynamic_cast<PlayerLogicComponent*>(killer->GetComponent(COMPONENT_LOGIC))->addToKillList(killer->ID, gameObjectRef->ID);
-			logicComp->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
+			dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
+			dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
 		}
 		break;
 	}

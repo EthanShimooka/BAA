@@ -110,13 +110,14 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30));
 	queue.AddObject(birdseedMeter);
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
-	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
-	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	PlayerUIComponent* playerUI = dynamic_cast<PlayerUIComponent*>(player->GetComponent(COMPONENT_UI));
+	playerUI->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerUI->defaultRect = playerUI->birdseedHUD->renderRect;
 
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
 	queue.AddObject(countdownTimer);
-	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
+	playerUI->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
@@ -128,7 +129,7 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
 
 	}
-	playerLogic->killHUD = killHUD;
+	playerUI->killHUD = killHUD;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -263,7 +264,7 @@ int GameSession::Run(vector<player*> players){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	audioMan->playByName("bgmBAAGameplay.ogg");
+	//audioMan->playByName("bgmBAAGameplay.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	
