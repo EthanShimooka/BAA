@@ -556,7 +556,9 @@ int GameSession::Run(vector<player*> players){
 
 	log->close();
 
-
+	delete surf;
+	delete runWater;
+	delete bruh;
 	GameWorld::getInstance()->~GameWorld();
 	return 0;
 }
