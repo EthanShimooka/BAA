@@ -12,7 +12,7 @@ public:
 	~TurkeyClassComponent();
 	void Update();
 	int useAbility();
-	void writeNetAbility(uint64_t PID, float posX, float posY, int team);
+	void writeNetAbility(uint64_t PID, float posX, float posY);
 	void readNetAbility(InputMemoryBitStream& aPacket);
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();

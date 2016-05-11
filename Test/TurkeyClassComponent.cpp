@@ -131,14 +131,13 @@ void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);
-	//aPacket.Read(team);
 	//now make a boomerang with this data just unpacked
 	BoomerangObjectFactory boomMaker;
 	GameObject* boomerang = boomMaker.Spawn(gameObjectRef, PID, destX, destY);
 	GameObjects.AddObject(boomerang);
 }
 
-void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, int team){
+void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY){
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
@@ -146,7 +145,6 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 	outData->Write(PID);
 	outData->Write(posX);
 	outData->Write(posY);
-	//outData->Write(team);
 	dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->outgoingPackets.push(outData);
 }
 
@@ -170,7 +168,7 @@ int TurkeyClassComponent::useAbility(){
 		//send it over the wire
 		float destX, destY;
 		renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
-		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
+		writeNetAbility(gameObjectRef->ID, destX,destY);
 		currBirdseed = 0;
 		return true;
 	}else return false;
