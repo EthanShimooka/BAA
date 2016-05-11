@@ -63,7 +63,8 @@ void Start::mainMenu(){
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::sInstance->NMS_Lobby){
 			startLobby(queue, sysRend);
 		}
-	}	
+	}
+	queue.DeleteObjects();
 }
 
 void Start::startLobby(SystemUIObjectQueue queue, SystemRenderUpdater sysRend){
@@ -77,7 +78,7 @@ void Start::startLobby(SystemUIObjectQueue queue, SystemRenderUpdater sysRend){
 
 	sysRend.RenderUpdate(queue.alive_objects);
 	sceneMan->AssembleScene();
-	queue.DeleteObjects();
+	//queue.DeleteObjects();
 
 	Lobby lobby;
 	lobby.runLobby();
