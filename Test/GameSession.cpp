@@ -40,44 +40,53 @@ void GameSession::LoadWorld(){
 	WellObjectFactory wellFactory;
 	LauncherObjectFactory launchFactory;
 
+	// Bases should have an ID between 1-10
+	uint64_t baseID = 1;
+	// Wells should have an ID between 11-20
+	uint64_t wellID = 11;
+	// Launchers should have an ID between 21-20
+	uint64_t launcherID = 21;
+	// Walls should have an ID between 31-40
+	uint64_t WallID = 31;
+	// Platforms should have an ID between 101-200
+	uint64_t platformID = 101;
+	// Fans should have an ID between 201-300
+	uint64_t fanID = 201;
+
 
 	for (int i = 0; i < 6; i++){
-		GameObjects.AddObject(plFactory.Spawn((500000 + (i)), (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
-		GameObjects.AddObject(plFactory.Spawn((501000 + i), (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
-		GameObjects.AddObject(plFactory.Spawn((502000 + (i)), (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
-		GameObjects.AddObject(plFactory.Spawn((503000 + i), (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
-	GameObjects.AddObject(mpFactory.Spawn(505000 , (float)(-1800), 0, 0));
-	GameObjects.AddObject(mpFactory.Spawn(505001, (float)(1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(-1800), 0, 0));
+	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(1800), 0, 0));
 	
 
 	//GameObjects.AddObject(psFactory.Spawn((508000), (float)(-110), 0, 0));
 
 	//BASES
-	rightBase = mbFactory.Spawn(506003, -975, 0, 0, TEAM_YELLOW);
-	leftBase = mbFactory.Spawn(506004, 975, 0, 0, TEAM_PURPLE);
+	rightBase = mbFactory.Spawn(baseID++, -975, 0, 0, TEAM_YELLOW);
+	leftBase = mbFactory.Spawn(baseID++, 975, 0, 0, TEAM_PURPLE);
 	GameObjects.AddObject(rightBase);
 	GameObjects.AddObject(leftBase);
 
 	//WELLS
-	GameObjects.AddObject(wellFactory.Spawn(506005, -1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(wellFactory.Spawn(506006, 1550, (SCREEN_HEIGHT / 3.4f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, -1850, (SCREEN_HEIGHT / 5.8f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, 1850, -(SCREEN_HEIGHT / 5.8f), 0, TEAM_PURPLE));
 
 
 	//LAUNCHERS
-	GameObjects.AddObject(launchFactory.Spawn(506007, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(launchFactory.Spawn(506008, 1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(launchFactory.Spawn(launcherID++, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
+	GameObjects.AddObject(launchFactory.Spawn(launcherID++, 1450, -(SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
 
 	//FANS                                 ID,     POSX, POSY, ANGLE
-	GameObjects.AddObject(fanFactory.Spawn(54001, -350, -150,  60)); //left top
-	GameObjects.AddObject(fanFactory.Spawn(54002, -350,  150, -60)); //left bot
-	GameObjects.AddObject(fanFactory.Spawn(54003,  350, -150,  120)); //right top
-	GameObjects.AddObject(fanFactory.Spawn(54004,  350,  150, -120)); //right bot
-
-	//GameObjects.AddObject(rightBase);
-	//GameObjects.AddObject(leftBase);
-
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, -150, 60, TEAM_YELLOW)); //left top
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, 150, -60, TEAM_PURPLE)); //left bot
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, -150, 120,TEAM_PURPLE)); //right top
+	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120, TEAM_YELLOW)); //right bot
 }
 
 // Loads player Objects from session arguments (instantiated player list).
@@ -254,7 +263,7 @@ int GameSession::Run(vector<player*> players){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	audioMan->playByName("bgmBAAGameplay.ogg");
+	//audioMan->playByName("bgmBAAGameplay.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	

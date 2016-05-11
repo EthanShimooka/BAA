@@ -44,13 +44,71 @@ void UIInputComponent::Update(){
 		}
 		break;
 	case CHICKEN:
+		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "click" << std::endl;
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			audioMan->playByName("chickensfx.ogg");
+			uiObjectRef->ready = true;
+		}
+		if (isMouseHovering(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "hovering" << std::endl;
+			uiObjectRef->hoverPicture = true;
+		}
+		else{
+			uiObjectRef->hoverPicture = false;
+		}
+		break;
 	case EAGLE:
 	case TURKEY:
+		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "click" << std::endl;
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			audioMan->playByName("turkeysfx.ogg");
+			uiObjectRef->ready = true;
+		}
+		if (isMouseHovering(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "hovering" << std::endl;
+			uiObjectRef->hoverPicture = true;
+		}
+		else{
+			uiObjectRef->hoverPicture = false;
+		}
+		break;
 	case QUAIL:
+		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "click" << std::endl;
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			audioMan->playByName("quailsfx.ogg");
+			uiObjectRef->ready = true;
+		}
+		if (isMouseHovering(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "hovering" << std::endl;
+			uiObjectRef->hoverPicture = true;
+		}
+		else{
+			uiObjectRef->hoverPicture = false;
+		}
+		break;
 	case FLAMINGO:
+		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "click" << std::endl;
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			audioMan->playByName("flamingosfx.ogg");
+			uiObjectRef->ready = true;
+		}
+		if (isMouseHovering(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
+			//std::cout << "hovering" << std::endl;
+			uiObjectRef->hoverPicture = true;
+		}
+		else{
+			uiObjectRef->hoverPicture = false;
+		}
+		break;
 	case PEACOCK:
 		if (isButtonPressed(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){
 			//std::cout << "click" << std::endl;
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			audioMan->playByName("peacocksfx.ogg");
 			uiObjectRef->ready = true;
 		}
 		if (isMouseHovering(this->uiObjectRef->getWidth(), this->uiObjectRef->getHeight())){

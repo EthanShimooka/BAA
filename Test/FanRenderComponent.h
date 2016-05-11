@@ -10,6 +10,9 @@ public:
 	/// Destructor
 	~FanRenderComponent();
 	/// Update Function
+
+	void buildAnimations();
+
 	void Update();
 };
 #endif

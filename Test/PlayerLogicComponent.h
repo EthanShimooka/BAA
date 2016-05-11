@@ -24,6 +24,8 @@ Only the local player GameObject should have this component.
 
 class PlayerLogicComponent :  public LogicComponent
 {
+private:
+	static uint64_t childID;
 public:
 	/// Constructor
 	PlayerLogicComponent(GameObject* player,int team);
@@ -42,6 +44,8 @@ public:
 	/// Once the player has rolled back to base and enough time has elapsed,
 	/// turn the player back into a bird and re-init stuff
 
+	/// Triggers the appropriate death sfx
+	void playDeathSFX(int playerClass);
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 
@@ -57,9 +61,9 @@ public:
 	//PowerShieldObjectFactory sFactory;
 
 	FeatherObjectFactory fFactory;
-	uint64_t featherNum = 0;
 
-	
+	// unique ID for any object that this player creates
+	uint64_t child_id_counter;
 
 	bool charging = false;
 	bool launchable = false;

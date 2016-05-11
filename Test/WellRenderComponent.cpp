@@ -10,7 +10,7 @@ WellRenderComponent::WellRenderComponent(GameObject * well, int team)
 	RenderComponent::RenderComponent();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 8000, 0, 0);
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2028, 0, 0);
 
 }
 
