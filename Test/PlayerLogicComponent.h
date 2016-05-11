@@ -44,6 +44,8 @@ public:
 	/// Once the player has rolled back to base and enough time has elapsed,
 	/// turn the player back into a bird and re-init stuff
 
+	/// Triggers the appropriate death sfx
+	void playDeathSFX(int playerClass);
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 
