@@ -101,7 +101,7 @@ void Lobby::runLobby(){
 		//check if peers have selected team or bird class
 		checkPlayerInfo();
 		if (input->isKeyDown(KEY_ESCAPE))
-			break;
+			break; 
 		//start game if ready, change state to NMS_Starting if ready
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
 			deleteBirds(birdQueue);
