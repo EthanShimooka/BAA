@@ -34,7 +34,7 @@ void MinionPhysicsComponent::init(){
 
 
 		b2PolygonShape box;
-		box.SetAsBox(.5, .5); // look up other functions for polygons
+		box.SetAsBox(.8, .8); // look up other functions for polygons
 		boxFixtureDef.shape = &box;
 		boxFixtureDef.density = 1;
 		mFixture = mBody->CreateFixture(&boxFixtureDef);

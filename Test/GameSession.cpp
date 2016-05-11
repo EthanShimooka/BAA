@@ -449,7 +449,7 @@ int GameSession::Run(vector<player*> players){
 		float attackCDPercent = Timing::sInstance.GetAttackCooldownRemaining();
 		float chargePercent = 1.0f - (playerLogic->currChargePercentage > 0.75f ? 0.75f : playerLogic->currChargePercentage);
 		if (chargePercent != 1.0f){ //sets scale during charge
-			crosshair->setScale(chargePercent);
+			//crosshair->setScale(chargePercent);
 			crosshairCharging->visible = false;
 			crosshair->visible = true;
 			playerRend->crosshairRef = crosshair;
