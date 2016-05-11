@@ -64,7 +64,8 @@ uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
 	gameObjectRef->flipH = dx < 0;
 	render->setAnimation("throw");
 	render->setNextAnimation("idle");
-	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
+	std::cout << "speed: " << speed << std::endl;
+	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, 70.0f);
 	GameObjects.AddObject(newFeather);
 	return child_id_counter - 1;
 }
