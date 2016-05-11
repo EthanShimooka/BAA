@@ -56,10 +56,10 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 		renderMan->windowCoordToWorldCoord(xDir, yDir, (int)renderComp->crosshairRef->posX, (int)renderComp->crosshairRef->posY);
 		//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
 		//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		uint64_t id = logicComp->spawnFeather((int)xDir, (int)yDir, 150 * featherSpeed);
+		uint64_t id = logicComp->spawnFeather((int)xDir, (int)yDir, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		//not working yet
-		netComp->createFeatherPacket(id, (int)xDir, (int)yDir, 100);
+		netComp->createFeatherPacket(id, (int)xDir, (int)yDir, featherSpeed);
 	}
 	if (controller->getRightTrigger() > 0.75)isChargingAttack = true;
 
@@ -127,9 +127,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		canFire = false;
 		float dx, dy;
 		renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, (float)chargeTime * featherSpeed);
+		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-		netComp->createFeatherPacket(id, (int)dx, (int)dy, (float)chargeTime * featherSpeed);
+		netComp->createFeatherPacket(id, (int)dx, (int)dy, featherSpeed);
 	}
 	
 	
