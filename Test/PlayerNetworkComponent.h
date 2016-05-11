@@ -35,7 +35,7 @@ public:
 	void createFeatherPacket(uint64_t ID, int finalX, int finalY, float speed);
 	void createMovementPacket();
 	void createAbilityPacket(uint64_t ID, int finalX, int finalY, float speed);
-	void createDeathPacket(uint64_t shooter);
+	void createDeathPacket(uint64_t shooter, int playerClass);
 
 	/// handling packets
 	void handleMovementPacket(InputMemoryBitStream& mPacket);

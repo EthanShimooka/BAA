@@ -117,7 +117,31 @@ void PlayerLogicComponent::endCharge() {
 
 
 
-
+void PlayerLogicComponent::playDeathSFX(int playerClass){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	switch (playerClass){
+	case CLASS_CHICKEN:
+		audioMan->playByName("chickensfx.ogg");
+		break;
+	case CLASS_PEACOCK:
+		audioMan->playByName("peacocksfx.ogg");
+		break;
+	case CLASS_FLAMINGO:
+		audioMan->playByName("flamingosfx.ogg");
+		break;
+	case CLASS_QUAIL:
+		audioMan->playByName("quailsfx.ogg");
+		break;
+	case CLASS_TURKEY:
+		audioMan->playByName("turkeysfx.ogg");
+		break;
+	case CLASS_EAGLE:
+		//Unimplemented
+		//audioMan->playByName("eaglesfx.ogg");
+		break;
+	}
+	
+}
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
 	switch (playerClass)
