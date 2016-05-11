@@ -76,6 +76,8 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 
 	if (local){		
 		PlayerInputComponent* input = new PlayerInputComponent(player, classComp);
+		PlayerUIComponent* UI = new PlayerUIComponent(player);
+
 	}
 
 	return player;
