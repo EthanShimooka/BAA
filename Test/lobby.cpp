@@ -100,9 +100,11 @@ void Lobby::runLobby(){
 
 		//check if peers have selected team or bird class
 		checkPlayerInfo();
-
+		if (input->isKeyDown(KEY_ESCAPE))
+			break;
 		//start game if ready, change state to NMS_Starting if ready
 		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
+			deleteBirds(birdQueue);
 			beginGame(queue);
 		}
 		if (NetworkManager::sInstance->GetState() == NetworkManager::NMS_MainMenu){
@@ -122,7 +124,7 @@ void Lobby::runLobby(){
 
 	}
 
-	deleteBirds(birdQueue);
+
 	//starting countdown
 	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 		countdown(queue);
@@ -153,7 +155,7 @@ void Lobby::beginGame(SystemUIObjectQueue &q){
 
 	rendMan->getWindowSize(&w, &h);
 	UIObjectFactory* buttons = new UIObjectFactory();
-	UIObject* playButton = buttons->Spawn(PLAY_BUTTON, w / 2, h / 2);
+	UIObject* playButton = buttons->Spawn(PLAY_BUTTON, w / 2 - 50, h / 2);
 
 	q.AddObject(playButton);
 
@@ -478,5 +480,5 @@ void Lobby::pickTeam(){
 		yellow++;
 		me->team = TEAM_YELLOW;
 	}
-	std::cout << yellow << " " << purple << std::endl;
+	//std::cout << yellow << " " << purple << std::endl;
 }

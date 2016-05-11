@@ -29,6 +29,7 @@ UIObject::~UIObject(){
 			break;
 		case COMPONENT_UI:
 			delete dynamic_cast<UIComponent*>(g_components[i].component);
+			break;
 		}
 	}
 }

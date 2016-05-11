@@ -49,6 +49,9 @@ void Start::mainMenu(){
 		renderMan->zoom = 0.5;
 		input->update();
 
+		if (input->isKeyDown(KEY_ESCAPE))
+			break;
+
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
@@ -66,6 +69,7 @@ void Start::mainMenu(){
 void Start::startLobby(SystemUIObjectQueue queue, SystemRenderUpdater sysRend){
 
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	InputManager* input = InputManager::getInstance();
 
 	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
 		queue.alive_objects[i]->visible = false;
