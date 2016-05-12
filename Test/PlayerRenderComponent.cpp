@@ -74,7 +74,6 @@ void PlayerRenderComponent::Update(){
 		if (allObjs["box"])allObjs["box"]->visible = false;
 	}
 	if (gameObjectRef->posY < 0)allObjs["base"]->flipV = true;
-	dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->Update();
 }
 
 

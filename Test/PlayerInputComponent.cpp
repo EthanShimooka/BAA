@@ -192,4 +192,6 @@ void PlayerInputComponent::Update(){
 		QuailClassComponent* quailComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 		playerSpeed = quailComp->speed;
 	}
+
+	dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->Update();
 }
