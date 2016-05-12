@@ -124,7 +124,7 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	//add ui components to show player kills
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
-		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,SCREEN_WIDTH-400,130+i*30);
+		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,100,200+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
 
