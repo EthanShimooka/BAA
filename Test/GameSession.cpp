@@ -110,25 +110,26 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30));
 	queue.AddObject(birdseedMeter);
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
-	playerLogic->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
-	playerLogic->defaultRect = playerLogic->birdseedHUD->renderRect;
+	PlayerUIComponent* playerUI = dynamic_cast<PlayerUIComponent*>(player->GetComponent(COMPONENT_UI));
+	playerUI->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
+	playerUI->defaultRect = playerUI->birdseedHUD->renderRect;
 
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
 	queue.AddObject(countdownTimer);
-	playerLogic->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
+	playerUI->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
 	//add ui components to show player kills
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
-		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,SCREEN_WIDTH-400,130+i*30);
+		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,100,200+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
 
 	}
-	playerLogic->killHUD = killHUD;
+	playerUI->killHUD = killHUD;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -263,7 +264,7 @@ int GameSession::Run(vector<player*> players){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	audioMan->playByName("bgmBAAGameplay.ogg");
+	//audioMan->playByName("bgmBAAGameplay.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	
@@ -277,19 +278,7 @@ int GameSession::Run(vector<player*> players){
 	///*auto spawning minion variables
 	int minionCounter = 10000;
 
-	/*
-	for (int j = -800; j <= 800; j += 200){
-		for (float i = 0.01f; i <= 8; i += 3){
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, (float)j, 0, i))->setScale(.25);
-		}
-	}
-	for (int j = -340 * 2; j <= 340 * 2; j += 340){
-		for (float i = 3; i <= 8; i += 3){
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, 250, i));
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
-		}
-	}
-	*/
+	
 	//Planets
 	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(10);
 	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f))->setScale(200);
@@ -354,7 +343,13 @@ int GameSession::Run(vector<player*> players){
 
 	renderMan->toggleCursor(0);
 
+	/////////////Flip screen if needed/////////////////
 
+	if (player->team == TEAM_PURPLE){
+		std::cout << "flip the screen" << std::endl;
+		renderMan->flippedScreen = true;
+	}
+	//////////////////////////////////////////////////
 
 	bool gameEnd = false;
 
@@ -427,13 +422,19 @@ int GameSession::Run(vector<player*> players){
 					endedBaseShake = true;
 					renderMan->ShakeScreen(1, 1);
 				}
-				int mousePos = input->getMouseX();
+				/*int mousePos = input->getMouseX();
 				int wid, hei;
 				renderMan->getWindowSize(&wid, &hei);
 				float xRatio = (mousePos - wid / 2) / float(wid / 2);
 				float xPlus = (float)(wid / 4) - 20;
 				//std::cout << xRatio << std::endl;
-				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);
+				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);*/
+				float mouseX, mouseY;
+				renderMan->windowCoordToWorldCoord(mouseX, mouseY, input->getMouseX(), input->getMouseY());
+				float cameraX = (player->posX + mouseX) / 2;
+				//next line makes the camera favor staying closer to the player
+				cameraX = (player->posX + cameraX) / 2;
+				renderMan->setCameraPoint(cameraX, 0);
 
 			}
 		}
@@ -448,7 +449,7 @@ int GameSession::Run(vector<player*> players){
 		float attackCDPercent = Timing::sInstance.GetAttackCooldownRemaining();
 		float chargePercent = 1.0f - (playerLogic->currChargePercentage > 0.75f ? 0.75f : playerLogic->currChargePercentage);
 		if (chargePercent != 1.0f){ //sets scale during charge
-			crosshair->setScale(chargePercent);
+			//crosshair->setScale(chargePercent);
 			crosshairCharging->visible = false;
 			crosshair->visible = true;
 			playerRend->crosshairRef = crosshair;

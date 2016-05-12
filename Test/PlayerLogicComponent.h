@@ -44,6 +44,8 @@ public:
 	/// Once the player has rolled back to base and enough time has elapsed,
 	/// turn the player back into a bird and re-init stuff
 
+	/// Triggers the appropriate death sfx
+	void playDeathSFX(int playerClass);
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 
@@ -70,25 +72,7 @@ public:
 
 	float currChargePercentage = 0;
 
-	SDLRenderObject* birdseedHUD;
-	SDLRenderObject* chargeHUD;
-	SDL_Rect defaultRect;
-	SDL_Rect chargeRect;
-
-	SDLRenderObject* timerHUD;
-
-	int killHUDSize = 5;
-	std::vector<std::pair<SDLRenderObject*,clock_t>> killHUD;
-
-	/// adds to the queue of player kills
-	void addToKillList(uint64_t killer, uint64_t victim);
-	/// updates the queue of players
-	void updateKillHUD();
-	/// Boolean used to restrict input during gameplay. Only perform actions
-	/// (i.e. jumping, shooting, moving) in game if true.
-
-	/// Boolean used to say if this player is local or not
-	//bool isLocal = false;
+	
 	
 };
 

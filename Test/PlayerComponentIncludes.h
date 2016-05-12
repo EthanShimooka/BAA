@@ -8,6 +8,7 @@
 #include "PlayerNetworkComponent.h"
 #include "PlayerPhysicsComponent.h"
 #include "PlayerRenderComponent.h"
+#include "PlayerUIComponent.h"
 
 #include "ChickenClassComponent.h"
 #include "EagleClassComponent.h"

@@ -525,6 +525,9 @@
     <ClInclude Include="AbsorbParticle.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerUIComponent.h">
+      <Filter>Header Files\Component\Player Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -850,6 +853,9 @@
     </ClCompile>
     <ClCompile Include="AbsorbParticle.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUIComponent.cpp">
+      <Filter>Source Files\Component\Player Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
