@@ -54,6 +54,8 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
 		if (otherObj->isLocal){
 			logicComp->becomeEgg();
+			logicComp->timer = new Invoke(1.5f);
+			logicComp->invokeHelper = true;
 			logicComp->death = true;
 			//Trigger death audio here for person who fired feather
 			//Should be local player class here
@@ -87,6 +89,8 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 												   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
 												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												   logicComp->becomeEgg();
+												   logicComp->timer = new Invoke(1.5f);
+												   logicComp->invokeHelper = true;
 												   logicComp->death = true;
 											   }
 										   }
@@ -160,13 +164,15 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale),mBody->GetAngle());
 	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-	if (logicComp->death) std::cout << "DEATH TRUE!!!!!!!!!!!!" << std::endl;
-	if (!logicComp->death) std::cout << "DEATH FALSE!!!!!!!!!!!!" << std::endl;
+	//if (logicComp->death) std::cout << "DEATH TRUE!!!!!!!!!!!!" << std::endl;
+	//if (!logicComp->death) std::cout << "DEATH FALSE!!!!!!!!!!!!" << std::endl;
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (abs(gameObjectRef->posX) > 1300 && logicComp->death){//Want to check something which will only return true for when the player reaches respawn point: current check 
+		if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300 && logicComp->death){ 
+			logicComp->timer->destroy();
+			logicComp->invokeHelper = false;
 			logicComp->hatchBird(true);
 			logicComp->death = false;
 			std::cout << "BOTTOM IF TRIGGERED!!!!!!!!!!!!!!!" << std::endl;
