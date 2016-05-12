@@ -79,13 +79,15 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
-		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		if(!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		else body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
-		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		if (!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}

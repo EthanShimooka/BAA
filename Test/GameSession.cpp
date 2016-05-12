@@ -278,19 +278,7 @@ int GameSession::Run(vector<player*> players){
 	///*auto spawning minion variables
 	int minionCounter = 10000;
 
-	/*
-	for (int j = -800; j <= 800; j += 200){
-		for (float i = 0.01f; i <= 8; i += 3){
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101002, (float)j, 0, i))->setScale(.25);
-		}
-	}
-	for (int j = -340 * 2; j <= 340 * 2; j += 340){
-		for (float i = 3; i <= 8; i += 3){
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, 250, i));
-			(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101003, (float)j, -250, i));
-		}
-	}
-	*/
+	
 	//Planets
 	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(10);
 	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f))->setScale(200);
@@ -355,7 +343,13 @@ int GameSession::Run(vector<player*> players){
 
 	renderMan->toggleCursor(0);
 
+	/////////////Flip screen if needed/////////////////
 
+	if (player->team == TEAM_PURPLE){
+		std::cout << "flip the screen" << std::endl;
+		renderMan->flippedScreen = true;
+	}
+	//////////////////////////////////////////////////
 
 	bool gameEnd = false;
 
