@@ -422,13 +422,19 @@ int GameSession::Run(vector<player*> players){
 					endedBaseShake = true;
 					renderMan->ShakeScreen(1, 1);
 				}
-				int mousePos = input->getMouseX();
+				/*int mousePos = input->getMouseX();
 				int wid, hei;
 				renderMan->getWindowSize(&wid, &hei);
 				float xRatio = (mousePos - wid / 2) / float(wid / 2);
 				float xPlus = (float)(wid / 4) - 20;
 				//std::cout << xRatio << std::endl;
-				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);
+				renderMan->setCameraPoint(player->posX + xRatio*xPlus, 0);*/
+				float mouseX, mouseY;
+				renderMan->windowCoordToWorldCoord(mouseX, mouseY, input->getMouseX(), input->getMouseY());
+				float cameraX = (player->posX + mouseX) / 2;
+				//next line makes the camera favor staying closer to the player
+				cameraX = (player->posX + cameraX) / 2;
+				renderMan->setCameraPoint(cameraX, 0);
 
 			}
 		}
