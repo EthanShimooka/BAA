@@ -29,6 +29,8 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
 	box->setIfRenderRect(true);
 	allObjs["box"] = box;
+	
+	
 }
 
 
@@ -42,4 +44,5 @@ void MinionRenderComponent::Update(){
 	else{
 		allObjs["box"]->visible = false;
 	}
+	if (RenderManager::getRenderManager()->flippedScreen)allObjs["base"]->rotation = 180;
 }
