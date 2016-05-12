@@ -13,6 +13,8 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	netComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+
+
 }
 
 
@@ -79,13 +81,15 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
-		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		if(!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		else body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
-		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		if (!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		else body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}
@@ -113,6 +117,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		//old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
 		isChargingAttack = true;
 		logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
+	}
+	else{
+		logicComp->endCharge();
 	}
 
 	if (isChargingAttack && input->isMouseLeftReleased()){
@@ -142,7 +149,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	}
 }
 
-
+bool PlayerInputComponent::isCharging(){
+	return isChargingAttack;
+}
 void PlayerInputComponent::Update(){
 	//get needed stuff
 	Controller* controller = input->controller;
@@ -190,4 +199,6 @@ void PlayerInputComponent::Update(){
 		QuailClassComponent* quailComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 		playerSpeed = quailComp->speed;
 	}
+
+	dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->Update();
 }
