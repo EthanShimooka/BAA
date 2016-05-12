@@ -11,6 +11,7 @@ Lobby::Lobby(): playersReady(0), inLobbyNow(0), readyCount(0){
 
 
 Lobby::~Lobby(){
+	delete me;
 }
 
 void Lobby::runLobby(){
@@ -145,7 +146,7 @@ void Lobby::runLobby(){
 	else{
 		GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
 	}
-
+	deleteBirds(birdQueue);
 	deletePlayers();
 }
 
@@ -158,7 +159,7 @@ void Lobby::beginGame(SystemUIObjectQueue &q){
 	UIObject* playButton = buttons->Spawn(PLAY_BUTTON, w / 2 - 50, h / 2);
 
 	q.AddObject(playButton);
-
+	delete buttons;
 }
 
 void Lobby::checkPlayerInfo(){
@@ -180,7 +181,9 @@ void Lobby::checkPlayerInfo(){
 
 void Lobby::deletePlayers(){
 	for (unsigned int i = 0; i < players.size(); i++){
-		delete players[i];
+		if (players[i]->playerId != me->playerId){
+			delete players[i];
+		}
 	}
 	players.clear();
 }
@@ -222,6 +225,7 @@ void Lobby::createButtons(SystemUIObjectQueue &q){
 
 	q.AddObject(inviteButton);
 	//q.AddObject(backButton);
+	delete buttons;
 }
 
 void Lobby::cleanUP(SystemUIObjectQueue &q){
@@ -312,10 +316,12 @@ void Lobby::drawBirds(SystemUIObjectQueue &queue){
 	queue.AddObject(bird3);
 	queue.AddObject(bird4);
 	queue.AddObject(bird5);
+	delete allBirds;
 }
 
 void Lobby::addSlots(SystemUIObjectQueue &queue){
 
+	UIObjectFactory* slot = new UIObjectFactory();
 	RenderManager* rendMan = RenderManager::getRenderManager();
 	int w, h;
 	rendMan->getWindowSize(&w, &h);
@@ -337,14 +343,16 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		}
 
 		p->team = TEAM_NEUTRAL;
-		UIObjectFactory* slot = new UIObjectFactory();
+		
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
 		p->visible = false;
 		p->playerSlot->visible = p->visible;
 		p->playerSlot->bottom = p->bottom;
 		queue.AddObject(p->playerSlot);
 		players.push_back(p);
+		
 	}
+	delete slot;
 }
 
 void Lobby::assignPlayers(){
