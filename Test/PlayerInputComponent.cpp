@@ -13,6 +13,8 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	netComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+
+
 }
 
 
@@ -114,6 +116,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		isChargingAttack = true;
 		logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 	}
+	else{
+		logicComp->endCharge();
+	}
 
 	if (isChargingAttack && input->isMouseLeftReleased()){
 		double chargeTime = input->getMousePressDuration();
@@ -142,7 +147,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	}
 }
 
-
+bool PlayerInputComponent::isCharging(){
+	return isChargingAttack;
+}
 void PlayerInputComponent::Update(){
 	//get needed stuff
 	Controller* controller = input->controller;

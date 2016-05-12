@@ -33,7 +33,7 @@ public:
 	void Update();
 
 	InputManager* input;
-
+	bool isCharging();
 private:
 
 	void handleKeyboardInput(RenderManager* renderMan, InputManager* input, Controller* controller);

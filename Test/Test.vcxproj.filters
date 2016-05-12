@@ -519,6 +519,9 @@
     <ClInclude Include="BoomerangLogicComponent.h">
       <Filter>Header Files\Component\Boomerang Component</Filter>
     </ClInclude>
+    <ClInclude Include="ChargeParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -838,6 +841,9 @@
     </ClCompile>
     <ClCompile Include="BoomerangLogicComponent.cpp">
       <Filter>Source Files\Component\Boomerang Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargeParticle.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
