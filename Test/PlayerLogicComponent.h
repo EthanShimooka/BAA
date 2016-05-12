@@ -69,7 +69,7 @@ public:
 	bool launchable = false;
 	bool launchableZone = false;
 	bool isEgg = false;
-	bool catapulting = false;
+	bool death = false;
 
 	float currChargePercentage = 0;
 
