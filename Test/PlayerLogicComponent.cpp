@@ -84,8 +84,12 @@ void PlayerLogicComponent::becomeEgg(){
 
 }
 
-void PlayerLogicComponent::hatchBird(){
+void PlayerLogicComponent::hatchBird(bool respawn){
 	if (isEgg){
+		if (respawn){
+			AudioManager* audioMan = AudioManager::getAudioInstance();
+			audioMan->playByName("roostersfx.ogg");
+		}
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		//reset sprites
 		for (auto obj : renderComp->allObjs)obj.second->visible = true;

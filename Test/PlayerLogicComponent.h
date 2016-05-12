@@ -49,7 +49,7 @@ public:
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 
-	void hatchBird();
+	void hatchBird(bool respawn);
 	/// Start charge and end charge are called to change the value charging
 	/// in order to update charge bar appropriately
 	void startCharge();
@@ -69,6 +69,7 @@ public:
 	bool launchable = false;
 	bool launchableZone = false;
 	bool isEgg = false;
+	bool catapulting = false;
 
 	float currChargePercentage = 0;
 

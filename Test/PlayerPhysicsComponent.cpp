@@ -118,15 +118,18 @@ void PlayerPhysicsComponent::launchPlayer(){
 
 	//check if back at base yet
 	if ((gameObjectRef->posX > 0) && (gameObjectRef->team == TEAM_YELLOW)){
-
-		logicComp->hatchBird();
+		std::cout << "BEING LAUNCHED?" << std::endl;//Never called when launched
+		//Called when hatching after death?
+		logicComp->hatchBird(false);
 		logicComp->launchable = false;
 		logicComp->launchableZone = false;
 		currLaunch = false;
 	}
 
 	if ((gameObjectRef->posX < 0) && (gameObjectRef->team == TEAM_PURPLE)){
-		logicComp->hatchBird();
+		std::cout << "BEING LAUNCHED 2?" << std::endl;//Never called when launched
+		//Called when hatching after death?
+		logicComp->hatchBird(false);
 		logicComp->launchable = false;
 		logicComp->launchableZone = false;
 		currLaunch = false;
@@ -157,7 +160,7 @@ void PlayerPhysicsComponent::Update(){
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
 		if (abs(gameObjectRef->posX) > 1300){
-			logicComp->hatchBird();
+			logicComp->hatchBird(true);
 		}
 	}
 
