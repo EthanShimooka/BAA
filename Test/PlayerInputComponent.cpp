@@ -87,7 +87,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 		if (!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
-		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		else body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}
