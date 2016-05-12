@@ -20,6 +20,16 @@ std::function<float(float)> getBezier(float x0, float x1, float x2, float x3){
 		return x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*(x3 - 3 * x2 + 3 * x1 - x0);
 	};
 }
+std::function<float(float)> getBezierTracking(float x0, float x1, float x2, float * x3){
+	return [=](float i) {
+		return x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*((*x3) - 3 * x2 + 3 * x1 - x0);
+	};
+}
+std::function<float(float)> getBezierTracking(float x0, float x1, float x2, std::function<float(void)> x3){
+	return [=](float i) {
+		return x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*(x3() - 3 * x2 + 3 * x1 - x0);
+	};
+}
 std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, double end){
 	return [=](float i) {obj->rotation = end*i + start; };
 }
@@ -56,6 +66,27 @@ std::function<void(float)> moveLinearXYZ(SDLRenderObject* obj, float startx, flo
 						 obj->posZ = (endz - startz)*i + startz;
 	};
 }
+std::function<void(float)> moveBezierX(SDLRenderObject* obj, std::function<float(float)> bezierX){
+	return [=](float i) {obj->posX = bezierX(i); };
+}
+std::function<void(float)> moveBezierY(SDLRenderObject* obj, std::function<float(float)> bezierY){
+	return [=](float i) {obj->posY = bezierY(i); };
+}
+std::function<void(float)> moveBezierZ(SDLRenderObject* obj, std::function<float(float)> bezierZ){
+	return [=](float i) {obj->posZ = bezierZ(i); };
+}
+std::function<void(float)> moveBezierXY(SDLRenderObject* obj, std::function<float(float)> bezierX, std::function<float(float)> bezierY){
+	return [=](float i) {obj->posX = bezierX(i);
+						 obj->posY = bezierY(i);
+	};
+}
+std::function<void(float)> moveBezierXYZ(SDLRenderObject* obj, std::function<float(float)> bezierX, std::function<float(float)> bezierY, std::function<float(float)> bezierZ){
+	return [=](float i) {obj->posX = bezierX(i);
+						 obj->posY = bezierY(i);
+						 obj->posZ = bezierZ(i);
+	};
+}
+
 std::function<void(float)> transformFlipH(SDLRenderObject* obj, bool trans){
 	return [=](float i) { obj->setFlippedH(trans); };
 }

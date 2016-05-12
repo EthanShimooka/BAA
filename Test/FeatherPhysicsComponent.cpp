@@ -2,7 +2,6 @@
 #include "MidBaseLogicComponent.h"
 
 
-
 FeatherPhysicsComponent::FeatherPhysicsComponent(GameObject* feather, float initX, float initY, float dx, float dy, float speed)
 {
 	gameObjectRef = feather;

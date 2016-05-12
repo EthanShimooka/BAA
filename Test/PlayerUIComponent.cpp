@@ -11,7 +11,7 @@ PlayerUIComponent::~PlayerUIComponent(){
 }
 
 void PlayerUIComponent::addToKillList(uint64_t shooter, uint64_t victim){
-	if (!gameObjectRef->GetComponent(COMPONENT_INPUT))
+	if (!gameObjectRef->GetComponent(COMPONENT_UI))
 		return;
 	//start by finding the first open spot to add the notification to
 	int elemIndex = 0;

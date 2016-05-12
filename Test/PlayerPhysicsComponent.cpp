@@ -64,8 +64,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
+
 			dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
-			dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
+			//debug this line below. I added in the if statement since it was breaking when calling it on gameobjects that didn't have UIComponents (HUD)
+			//I'm not sure why I originally was calling it if didn't have HUD stuff
+			if(gameObjectRef->isLocal) dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
 		}
 		break;
 	}
