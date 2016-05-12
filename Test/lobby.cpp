@@ -128,6 +128,9 @@ void Lobby::runLobby(){
 
 	//starting countdown
 	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
+		if (me->playerId != NetworkManager::sInstance->IsMasterPeer()){
+			deleteBirds(birdQueue);
+		}
 		countdown(queue);
 	}
 
@@ -146,7 +149,6 @@ void Lobby::runLobby(){
 	else{
 		GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
 	}
-	deleteBirds(birdQueue);
 	deletePlayers();
 }
 
