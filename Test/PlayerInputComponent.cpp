@@ -13,6 +13,8 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	netComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+
+
 }
 
 
@@ -56,10 +58,10 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 		renderMan->windowCoordToWorldCoord(xDir, yDir, (int)renderComp->crosshairRef->posX, (int)renderComp->crosshairRef->posY);
 		//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
 		//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		uint64_t id = logicComp->spawnFeather((int)xDir, (int)yDir, 150 * featherSpeed);
+		uint64_t id = logicComp->spawnFeather((int)xDir, (int)yDir, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		//not working yet
-		netComp->createFeatherPacket(id, (int)xDir, (int)yDir, 100);
+		netComp->createFeatherPacket(id, (int)xDir, (int)yDir, featherSpeed);
 	}
 	if (controller->getRightTrigger() > 0.75)isChargingAttack = true;
 
@@ -79,13 +81,15 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 
 	//keyboard move right
 	if (input->isKeyDown(KEY_D) || input->isKeyDown(KEY_RIGHT)) {
-		body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		if(!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
+		else body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
-		body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		if (!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
+		else body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
 
 	}
@@ -114,6 +118,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		isChargingAttack = true;
 		logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 	}
+	else{
+		logicComp->endCharge();
+	}
 
 	if (isChargingAttack && input->isMouseLeftReleased()){
 		double chargeTime = input->getMousePressDuration();
@@ -127,9 +134,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		canFire = false;
 		float dx, dy;
 		renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, (float)chargeTime * featherSpeed);
+		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-		netComp->createFeatherPacket(id, (int)dx, (int)dy, (float)chargeTime * featherSpeed);
+		netComp->createFeatherPacket(id, (int)dx, (int)dy, featherSpeed);
 	}
 	
 	
@@ -142,7 +149,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	}
 }
 
-
+bool PlayerInputComponent::isCharging(){
+	return isChargingAttack;
+}
 void PlayerInputComponent::Update(){
 	//get needed stuff
 	Controller* controller = input->controller;
@@ -190,4 +199,6 @@ void PlayerInputComponent::Update(){
 		QuailClassComponent* quailComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 		playerSpeed = quailComp->speed;
 	}
+
+	dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->Update();
 }

@@ -16,6 +16,8 @@ SQUADIO_API float ease_QuadIn(float i);
 SQUADIO_API float ease_QuadOut(float i);
 SQUADIO_API float ease_QuadInOut(float i);
 SQUADIO_API std::function<float(float)> getBezier(float x0, float x1, float x2, float x3);
+SQUADIO_API std::function<float(float)> getBezierTracking(float x0, float x1, float x2, float * x3);
+SQUADIO_API std::function<float(float)> getBezierTracking(float x0, float x1, float x2, std::function<float(void)> x3);
 SQUADIO_API std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, double end);
 SQUADIO_API std::function<void(float)> moveCircArc(SDLRenderObject* obj, float centerx, float centery, double radius, double start_angle, double end_angle);
 SQUADIO_API std::function<void(float)> moveEllipseArc(SDLRenderObject* obj, float centerx, float centery, double height, double width, double start_angle, double end_angle);
@@ -28,12 +30,12 @@ SQUADIO_API std::function<void(float)> transformFlipV(SDLRenderObject* obj, bool
 SQUADIO_API std::function<void(float)> resizeSquareTransform(SDLRenderObject* obj, float start,float end);
 
 SQUADIO_API std::function<void(float)> moveLinearXYZ(SDLRenderObject* obj, float startx, float starty, float startz, float endx, float endy, float endz);
-SQUADIO_API std::function<void(float)> moveBezierX(std::function<float(float)> bezier, float startx, float endx);
-SQUADIO_API std::function<void(float)> moveBezierY(std::function<float(float)> bezier, float starty, float endy);
-SQUADIO_API std::function<void(float)> moveBezierZ(std::function<float(float)> bezier, float startz, float endz);
-SQUADIO_API std::function<void(float)> moveBezierXY(std::function<float(float)> bezier, float startx, float starty, float endx, float endy);
-SQUADIO_API std::function<void(float)> moveBezierXYZ(std::function<float(float)> bezier, float startx, float starty, float startz, float endx, float endy, float endz);
-SQUADIO_API std::function<void(float)> keyframeJump(SDLRenderObject* obj,unsigned int frame);
+SQUADIO_API std::function<void(float)> moveBezierX(SDLRenderObject* obj,std::function<float(float)> bezierX);
+SQUADIO_API std::function<void(float)> moveBezierY(SDLRenderObject* obj,std::function<float(float)> bezierY);
+SQUADIO_API std::function<void(float)> moveBezierZ(SDLRenderObject* obj, std::function<float(float)> bezierZ);
+SQUADIO_API std::function<void(float)> moveBezierXY(SDLRenderObject* obj, std::function<float(float)> bezierX, std::function<float(float)> bezierY);
+SQUADIO_API std::function<void(float)> moveBezierXYZ(SDLRenderObject* obj, std::function<float(float)> bezierX, std::function<float(float)> bezierY, std::function<float(float)> bezierZ);
+SQUADIO_API std::function<void(float)> keyframeJump(SDLRenderObject* obj, unsigned int frame);
 SQUADIO_API std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, unsigned int startFrame, unsigned int endFrame);
 
 //float bezier()

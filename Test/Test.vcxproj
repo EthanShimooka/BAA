@@ -84,12 +84,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbsorbParticle.h" />
     <ClInclude Include="AllComponentIncludes.h" />
     <ClInclude Include="BoomerangComponentIncludes.h" />
     <ClInclude Include="BoomerangLogicComponent.h" />
     <ClInclude Include="BoomerangObjectFactory.h" />
     <ClInclude Include="BoomerangPhysicsComponent.h" />
     <ClInclude Include="BoomerangRenderComponent.h" />
+    <ClInclude Include="ChargeParticle.h" />
     <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
@@ -211,10 +213,12 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbsorbParticle.cpp" />
     <ClCompile Include="BoomerangLogicComponent.cpp" />
     <ClCompile Include="BoomerangObjectFactory.cpp" />
     <ClCompile Include="BoomerangPhysicsComponent.cpp" />
     <ClCompile Include="BoomerangRenderComponent.cpp" />
+    <ClCompile Include="ChargeParticle.cpp" />
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
     <ClCompile Include="DustCloudParticle.cpp" />
