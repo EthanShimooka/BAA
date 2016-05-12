@@ -522,6 +522,15 @@
     <ClInclude Include="PlayerUIComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonRenderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonLogicComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -844,6 +853,15 @@
     </ClCompile>
     <ClCompile Include="PlayerUIComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonRenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonLogicComponent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #include "start.h"
+#include "ButtonObjectFactory.h"
 
 Start::Start(){
 }
@@ -37,8 +38,14 @@ void Start::mainMenu(){
 	int w, h;
 	renderMan->getWindowSize(&w, &h);
 
+	SystemGameObjectQueue sysQueue;
+	ButtonObjectFactory bFactory;
+	GameObjects.AddObject(bFactory.Spawn(12341234124, 0, 0, _PLAY_BUTTON));
+
+	
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
+	SystemLogicUpdater sysLogic;
 	UIObjectFactory uFactory;
 	SystemUIUpdater sysUI;
 	SystemUIObjectQueue queue;
@@ -61,7 +68,10 @@ void Start::mainMenu(){
 		sysUI.UIUpdate(queue.alive_objects);
 		sysInput.InputUpdate(queue.alive_objects);
 		sysRend.RenderUpdate(queue.alive_objects);
-
+		////////
+		sysRend.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
+		////////
 		input->update();
 
 		sceneMan->AssembleScene();

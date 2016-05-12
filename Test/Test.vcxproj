@@ -90,6 +90,9 @@
     <ClInclude Include="BoomerangObjectFactory.h" />
     <ClInclude Include="BoomerangPhysicsComponent.h" />
     <ClInclude Include="BoomerangRenderComponent.h" />
+    <ClInclude Include="ButtonLogicComponent.h" />
+    <ClInclude Include="ButtonObjectFactory.h" />
+    <ClInclude Include="ButtonRenderComponent.h" />
     <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
     <ClInclude Include="ClassComponentIncludes.h" />
@@ -215,6 +218,9 @@
     <ClCompile Include="BoomerangObjectFactory.cpp" />
     <ClCompile Include="BoomerangPhysicsComponent.cpp" />
     <ClCompile Include="BoomerangRenderComponent.cpp" />
+    <ClCompile Include="ButtonLogicComponent.cpp" />
+    <ClCompile Include="ButtonObjectFactory.cpp" />
+    <ClCompile Include="ButtonRenderComponent.cpp" />
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
     <ClCompile Include="DustCloudParticle.cpp" />
