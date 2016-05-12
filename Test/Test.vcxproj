@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbsorbParticle.h" />
     <ClInclude Include="AllComponentIncludes.h" />
     <ClInclude Include="BoomerangComponentIncludes.h" />
     <ClInclude Include="BoomerangLogicComponent.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="WorldObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbsorbParticle.cpp" />
     <ClCompile Include="BoomerangLogicComponent.cpp" />
     <ClCompile Include="BoomerangObjectFactory.cpp" />
     <ClCompile Include="BoomerangPhysicsComponent.cpp" />

@@ -13,7 +13,7 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	std::cout << child_id_counter << std::endl;
 	dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->powerNum = &child_id_counter;
 
-	createChargeParticle(gameObjectRef, this, 4, 10, 0, 50, 100, 70);
+	//createChargeParticle(gameObjectRef, this, 4, 10, 0, 50, 100, 70);
 }
 
 PlayerLogicComponent::~PlayerLogicComponent()

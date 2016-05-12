@@ -20,38 +20,6 @@ ChargeParticle::ChargeParticle(GameObject * source, PlayerLogicComponent * logic
 	PlayerLogicComponent * logicComponent = logic;
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), -1, parentObject->posX, parentObject->posY);
 	objRef->toggleVisible();
-	/*
-	float centerX = parentObject->posX + posX;
-	float centerY = parentObject->posY + posY;
-	for (unsigned int i = 0; i < numberOfParticles; i++){
-		float x = i*(w / (numberOfParticles - 1)) - (w / 2);
-		float y = 0;
-		float dx = i*((w*1.5) / (numberOfParticles - 1)) - ((w*1.5) / 2);
-		float a = (i - ((float(numberOfParticles) - 1.0)) / 2.0);
-		float b = (float(numberOfParticles) - 1.0) / 2.0;
-		float heightDif = ( a/b )*(a/b);
-		float dy = - h + h*(0.2)*heightDif;
-		float size = 0.2;
-		SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4004, x, y);
-		//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
-		//sprite->setScaleX(base->getScaleX());
-		//sprite->setScaleY(base->getScaleY());
-		//sprite->setRenderRect(rect);
-		std::list<motion> movements;
-		movements.push_back(makeMotion(moveLinearXY(sprite,centerX + x,centerY + y,centerX + dx,centerY + dy),0,1,ease_QuadOut));
-		movements.push_back(makeMotion(resizeSquareTransform(sprite, size, 0.01), 0.0, 1.0, ease_QuadIn));
-		//movements.push_back(makeMotion(keyframeAnimate(sprite, 0, 3), 0.0, 1.0, ease_QuadIn));
-		//movements.push_back(makeMotion(moveLinearZ(sprite, 0, cos(angle1) * 10), 0, 1, ease_QuadOut));
-		//movements.push_back(makeMotion(rotateTransform(sprite, rand() % 360, (rand() % 90) - 45), 0, 1));
-		Animation * movement = new Animation(500 - (rand() % 100), movements);
-		//int maxtime = 100000; //in seconds
-		//std:list<motion> motions;
-		particle p;
-		p.animations = movement;
-		p.sprite = sprite;
-		p.timer = progress;
-		particles.push_back(p);
-	}*/
 }
 
 
