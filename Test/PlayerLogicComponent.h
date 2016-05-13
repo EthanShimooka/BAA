@@ -21,6 +21,7 @@ Only the local player GameObject should have this component.
 
 #include "PowerShieldObjectFactory.h"
 #include "MineObjectFactory.h"
+#include "Invoke.h"
 
 class PlayerLogicComponent :  public LogicComponent
 {

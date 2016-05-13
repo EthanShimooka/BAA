@@ -164,8 +164,8 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale),mBody->GetAngle());
 	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-	//if (logicComp->death) std::cout << "DEATH TRUE!!!!!!!!!!!!" << std::endl;
-	//if (!logicComp->death) std::cout << "DEATH FALSE!!!!!!!!!!!!" << std::endl;
+	if (logicComp->death) std::cout << "DEATH TRUE!!!!!!!!!!!!" << std::endl;
+	if (!logicComp->death) std::cout << "DEATH FALSE!!!!!!!!!!!!" << std::endl;
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
