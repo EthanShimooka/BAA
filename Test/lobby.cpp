@@ -33,7 +33,8 @@ void Lobby::runLobby(){
 	SystemUIObjectQueue birdQueue;
 
 	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
-	//player* me = new player();
+
+	createButtons(queue);
 	addSlots(queue);
 	assignPlayers();
 	for (unsigned int i = 0; i < players.size(); i++){
@@ -43,8 +44,7 @@ void Lobby::runLobby(){
 	
 	drawBirds(birdQueue);
 
-
-	createButtons(queue);
+	
 
 	NetworkManager::sInstance->UpdateLobbyPlayers();
 	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
@@ -58,6 +58,7 @@ void Lobby::runLobby(){
 
 		if (input->isKeyDown(KEY_P)){
 			std::cout << yellow << " " << purple << std::endl;
+			std::cout << me->team << std::endl;
 		}
 
 		GamerServices::sInstance->Update();
@@ -78,7 +79,6 @@ void Lobby::runLobby(){
 		}
 
 		//handles players dropping
-		//std::cout << yellow << " " << purple << std::endl;
 		updateLobby();
 		
 		//check if i am ready, change bird image, send over wire
@@ -382,6 +382,16 @@ void Lobby::assignPlayers(){
 			}
 			else if (players[i]->team == TEAM_YELLOW){
 				yellow++;
+			}
+			if (players[i]->team == TEAM_NEUTRAL){
+				if (yellow < purple){
+					players[i]->team = TEAM_YELLOW;
+					teamYellow->teamPicked = true;
+				}
+				else if (purple <= yellow){
+					players[i]->team = TEAM_PURPLE;
+					teamPurple->teamPicked = true;
+				}
 			}
 			i++;
 		}
