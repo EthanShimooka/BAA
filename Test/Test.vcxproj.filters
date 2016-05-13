@@ -543,6 +543,9 @@
     <ClInclude Include="ButtonObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonComponentIncludes.h">
+      <Filter>Header Files\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">

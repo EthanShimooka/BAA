@@ -17,7 +17,7 @@ ButtonLogicComponent::~ButtonLogicComponent()
 }
 
 void ButtonLogicComponent::Update(){
-	AudioManager* audioMan = AudioManager::getAudioInstance();
+	/*AudioManager* audioMan = AudioManager::getAudioInstance();
 	if (isButtonPressed()){
 		if (sound != "")
 			audioMan->playByName(sound);
@@ -39,7 +39,7 @@ void ButtonLogicComponent::Update(){
 			GamerServices::sInstance->InviteFriendsFromOverlay();
 			break;
 		}
-	}
+	}*/
 
 	//case CHICKEN:
 	//	if (isButtonPressed()){
@@ -121,25 +121,37 @@ void ButtonLogicComponent::Update(){
 }
 
 bool ButtonLogicComponent::isButtonPressed(){
-	if (input->isMouseDown(MOUSE_LEFT)){
-		//get mouse position
-		int x, y;
-		x = input->getMouseX();
-		y = input->getMouseY();
+	if (input->isMouseLeftReleased()){
+		if (sound != "")
+			AudioManager::getAudioInstance()->playByName(sound);
 
+		//get mouse position
+		float x, y;
+
+		RenderManager::getRenderManager()->windowCoordToWorldCoord(x, y, input->getMouseX(), input->getMouseY());
+		x -= width / 2;
+		y -= height / 2;
+		//std::cout << "top bottom left right " << gameObjectRef->posY << ", " << gameObjectRef->posY + height << ", " << gameObjectRef->posX << ", " << gameObjectRef->posX + width << std::endl;
+		//std::cout << "x: " << x << ", y: " << y << std::endl;// << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << width << ", " << height << std::endl;
 		// returns true if mouse within bounds
-		if (x <= gameObjectRef->posX && x + width >= gameObjectRef->posX && y <= gameObjectRef->posY && y + height >= gameObjectRef->posY)
+		if (x <= gameObjectRef->posX && x + width >= gameObjectRef->posX &&
+			y <= gameObjectRef->posY && y + height >= gameObjectRef->posY)
 			return true;
 		return false;
 	}
 }
 
 bool ButtonLogicComponent::isMouseHovering(){
-	int x, y;
-	x = input->getMouseX();
-	y = input->getMouseY();
+	float x, y;
 
-	if (x <= gameObjectRef->posX && x + width >= gameObjectRef->posX && y <= gameObjectRef->posY && y + height >= gameObjectRef->posY)
+	RenderManager::getRenderManager()->windowCoordToWorldCoord(x, y, input->getMouseX(), input->getMouseY());
+	x -= width / 2;
+	y -= height / 2;
+	//std::cout << "top bottom left right " << gameObjectRef->posY << ", " << gameObjectRef->posY + height << ", " << gameObjectRef->posX << ", " << gameObjectRef->posX + width << std::endl;
+	//std::cout << "x: " << x << ", y: " << y << std::endl;// << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << width << ", " << height << std::endl;
+	// returns true if mouse within bounds
+	if (x <= gameObjectRef->posX && x + width >= gameObjectRef->posX &&
+		y <= gameObjectRef->posY && y + height >= gameObjectRef->posY)
 		return true;
 	return false;
 }

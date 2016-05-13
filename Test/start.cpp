@@ -1,14 +1,13 @@
 #include "start.h"
-#include "ButtonObjectFactory.h"
 
-Start::Start(){
+
+Start::Start(){	
 }
 
 Start::~Start(){
 }
 
 void Start::mainMenu(){
-
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
@@ -19,12 +18,11 @@ void Start::mainMenu(){
 	/*resMan->loadFromXMLFile("source.xml");
 	resMan->setCurrentScope(0);
 	sceneMan->loadFromXMLFile("SceneTree.xml");*/
-
+	input->update();
 	log->create("log.txt");
 	renderMan->setBackground("Menu_bg.png");
-
 	resourceMan->loadFromXMLFile("source.xml");
-	renderMan->zoom = 0.25;
+	renderMan->zoom = 0.5;
 
 	/*audioMan->loadAllAudio();
 	audioMan->playByName("bgmBAALobby.ogg");*/
@@ -33,57 +31,91 @@ void Start::mainMenu(){
 	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
-	input->update();
+	
 
 	int w, h;
 	renderMan->getWindowSize(&w, &h);
 
-	SystemGameObjectQueue sysQueue;
+	/*SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
-	GameObjects.AddObject(bFactory.Spawn(12341234124, 0, 0, _PLAY_BUTTON));
-
-	
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
-	SystemLogicUpdater sysLogic;
-	UIObjectFactory uFactory;
-	SystemUIUpdater sysUI;
-	SystemUIObjectQueue queue;
-	UIObjectFactory menuButtons;
+	SystemLogicUpdater sysLogic;*/
+	Lobby lobby;
 
-	NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
+	// making buttons
+	playButt = bFactory.Spawn(3521, 200, 150, _PLAY_BUTTON);
+	GameObjects.AddObject(playButt);
 
-	queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, w / 2 + 25, h / 2 - 25));
-	queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, w / 2 - 125, h / 2 - 25));
+	int startInput = waitForInput();
 
-	while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
+	switch (startInput){
+	case 1:
+		removeButtons();
+		NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
+		lobby.runLobby();
+		break;
+	}
 
-		renderMan->zoom = 0.5;
-		input->update();
 
-		if (input->isKeyDown(KEY_K)){
-			NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
-		}
+	//UIObjectFactory uFactory;
+	//SystemUIUpdater sysUI;
+	//SystemUIObjectQueue queue;
+	//UIObjectFactory menuButtons;
 
-		sysUI.UIUpdate(queue.alive_objects);
-		sysInput.InputUpdate(queue.alive_objects);
-		sysRend.RenderUpdate(queue.alive_objects);
-		////////
+	//NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_MainMenu);
+
+	//queue.AddObject(menuButtons.Spawn(OPTIONS_BUTTON, w / 2 + 25, h / 2 - 25));
+	//queue.AddObject(menuButtons.Spawn(JOIN_BUTTON, w / 2 - 125, h / 2 - 25));
+
+	//while (NetworkManager::sInstance->GetState() == NetworkManager::sInstance->NMS_MainMenu){
+
+	//	renderMan->zoom = 0.5;
+	//	input->update();
+
+	//	if (input->isKeyDown(KEY_K)){
+	//		NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
+	//	}
+
+	//	sysUI.UIUpdate(queue.alive_objects);
+	//	sysInput.InputUpdate(queue.alive_objects);
+	//	sysRend.RenderUpdate(queue.alive_objects);
+	//	////////
+	//	sysRend.RenderUpdate(GameObjects.alive_objects);
+	//	sysLogic.LogicUpdate(GameObjects.alive_objects);
+	//	////////
+	//	input->update();
+
+	//	sceneMan->AssembleScene();
+	//}
+
+	//for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
+	//	queue.alive_objects[i]->visible = false;
+	//}
+	//sysRend.RenderUpdate(queue.alive_objects);
+	//sceneMan->AssembleScene();
+	//queue.DeleteObjects();
+
+	//Lobby lobby;
+	//lobby.runLobby();
+}
+
+
+int Start::waitForInput(){
+	while (true){
 		sysRend.RenderUpdate(GameObjects.alive_objects);
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
-		////////
-		input->update();
-
-		sceneMan->AssembleScene();
+		InputManager::getInstance()->update();
+		SceneManager::GetSceneManager()->AssembleScene();
+		if (dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
+			return 1;
+		}
 	}
+}
 
-	for (unsigned int i = 0; i < queue.alive_objects.size(); i++){
-		queue.alive_objects[i]->visible = false;
-	}
-	sysRend.RenderUpdate(queue.alive_objects);
-	sceneMan->AssembleScene();
-	queue.DeleteObjects();
-
-	Lobby lobby;
-	lobby.runLobby();
+void Start::removeButtons(){
+	SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(playButt->GetComponent(COMPONENT_RENDER))->objRef, 
+													SceneManager::GetSceneManager()->findLayer("layer1"));
+	GameObjects.DeleteObjects();
+	SceneManager::GetSceneManager()->AssembleScene();
 }

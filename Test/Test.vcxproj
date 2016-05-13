@@ -91,6 +91,7 @@
     <ClInclude Include="BoomerangObjectFactory.h" />
     <ClInclude Include="BoomerangPhysicsComponent.h" />
     <ClInclude Include="BoomerangRenderComponent.h" />
+    <ClInclude Include="ButtonComponentIncludes.h" />
     <ClInclude Include="ButtonLogicComponent.h" />
     <ClInclude Include="ButtonObjectFactory.h" />
     <ClInclude Include="ButtonRenderComponent.h" />
