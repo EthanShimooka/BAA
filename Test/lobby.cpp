@@ -11,140 +11,221 @@ Lobby::~Lobby(){
 }
 
 void Lobby::runLobby(){
-	//std::cout << numPlayers << std::endl;
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	renderMan->setBackground("Lobby_bg.png");
 
+	createClassButts();
 
-	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	
+	sceneMan->AssembleScene();
 
-	SystemInputUpdater sysInput;
-	SystemRenderUpdater sysRend;
-	UIObjectFactory uFactory;
-	SystemUIUpdater sysUI;
-	SystemUIObjectQueue queue;
-	SystemUIObjectQueue birdQueue;
+	while (true){}
+	//SystemInputUpdater sysInput;
+	//SystemRenderUpdater sysRend;
+	//UIObjectFactory uFactory;
+	//SystemUIUpdater sysUI;
+	//SystemUIObjectQueue queue;
+	//SystemUIObjectQueue birdQueue;
 
-	addSlots(queue);
-	drawBirds(birdQueue);
+	//addSlots(queue);
+	//drawBirds(birdQueue);
 
-	uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
-	player* me = new player();
+	//uint64_t myId = NetworkManager::sInstance->GetMyPlayerId();
+	//player* me = new player();
 
-	//if (NetworkManager::sInstance->IsMasterPeer()){
-		assignPlayers();
+	////if (NetworkManager::sInstance->IsMasterPeer()){
+	//	assignPlayers();
+	////}
+	////wait for master peer to assigne us a team
+	///*else{
+	//	waitForTeam();
+	//}*/
+	//	
+	//for (unsigned int i = 0; i < players.size(); i++){
+	//	if (players[i]->playerId == myId)
+	//		me = players[i];
 	//}
-	//wait for master peer to assigne us a team
-	/*else{
-		waitForTeam();
-	}*/
-		
-	for (unsigned int i = 0; i < players.size(); i++){
-		if (players[i]->playerId == myId)
-			me = players[i];
-	}
 
-	createButtons(queue);
+	//createButtons(queue);
 
-	NetworkManager::sInstance->UpdateLobbyPlayers();
-	inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-	int readyCount = 0;
+	//NetworkManager::sInstance->UpdateLobbyPlayers();
+	//inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+	//int readyCount = 0;
 
-	//while loop running lobby
-	while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
-		/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
-		std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
-		input->update();
+	////while loop running lobby
+	//while (NetworkManager::sInstance->GetState() < NetworkManager::sInstance->NMS_Starting){
+	//	/*std::cout << "lobby count: " << NetworkManager::sInstance->GetPlayerCount()<< std::endl;
+	//	std::cout << "master: " << NetworkManager::sInstance->IsMasterPeer() << std::endl;*/
+	//	input->update();
 
-		GamerServices::sInstance->Update();
-		NetworkManager::sInstance->ProcessIncomingPackets();
-		NetworkManager::sInstance->SendOutgoingPackets();
-		NetworkManager::sInstance->UpdateLobbyPlayers();
-		numPlayers = NetworkManager::sInstance->GetPlayerCount();
+	//	GamerServices::sInstance->Update();
+	//	NetworkManager::sInstance->ProcessIncomingPackets();
+	//	NetworkManager::sInstance->SendOutgoingPackets();
+	//	NetworkManager::sInstance->UpdateLobbyPlayers();
+	//	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 
-		//check for new players joining.
-		if (numPlayers > inLobbyNow /*&& NetworkManager::sInstance->IsMasterPeer()*/){
-			addNewPlayers();
-			NetworkManager::sInstance->UpdateLobbyPlayers();
-			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
-			auto& iter = NetworkManager::sInstance->lobbyInfoMap.find(GamerServices::sInstance->GetLocalPlayerId());
-			if (iter->second.classType)
-				NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
-		}
+	//	//check for new players joining.
+	//	if (numPlayers > inLobbyNow /*&& NetworkManager::sInstance->IsMasterPeer()*/){
+	//		addNewPlayers();
+	//		NetworkManager::sInstance->UpdateLobbyPlayers();
+	//		inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
+	//		auto& iter = NetworkManager::sInstance->lobbyInfoMap.find(GamerServices::sInstance->GetLocalPlayerId());
+	//		if (iter->second.classType)
+	//			NetworkManager::sInstance->SendSelectPacket(iter->second.classType);
+	//	}
 
-		updateLobby();
-		
-		if (!me->ready){
-			for (unsigned int i = 0; i < Birds.size(); i++){
-				if (Birds[i]->ready){
-					me->playerChoice = Birds[i]->ID;
-					me->playerSlot->changePicture = true;
-					me->playerSlot->changeTo = Birds[i]->ID;
-					NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
-					me->ready = true;
-					readyCount++;
-					break;
-				}
-				if (Birds[i]->hoverPicture){
-					me->playerSlot->hoverPicture = true;
-					me->playerSlot->changeTo = Birds[i]->ID;
-					break;
-				}
-				else{
-					me->playerSlot->hoverPicture = false;
-				}
-			}
-		}
+	//	updateLobby();
+	//	
+	//	if (!me->ready){
+	//		for (unsigned int i = 0; i < Birds.size(); i++){
+	//			if (Birds[i]->ready){
+	//				me->playerChoice = Birds[i]->ID;
+	//				me->playerSlot->changePicture = true;
+	//				me->playerSlot->changeTo = Birds[i]->ID;
+	//				NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
+	//				me->ready = true;
+	//				readyCount++;
+	//				break;
+	//			}
+	//			if (Birds[i]->hoverPicture){
+	//				me->playerSlot->hoverPicture = true;
+	//				me->playerSlot->changeTo = Birds[i]->ID;
+	//				break;
+	//			}
+	//			else{
+	//				me->playerSlot->hoverPicture = false;
+	//			}
+	//		}
+	//	}
 
-		for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
-			for (const auto& player : players){
-				if (player->playerId == iter.first){
-					if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
-						//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
-						player->playerChoice = (UIType)iter.second.classType;
-						player->playerSlot->changePicture = true;
-						player->playerSlot->changeTo = (UIType)iter.second.classType;
-						player->ready = true;
-						readyCount++;
-					}
-				}
-			}
-		}
+	//	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+	//		for (const auto& player : players){
+	//			if (player->playerId == iter.first){
+	//				if (iter.second.classType != (int)player->playerSlot->changeTo && iter.second.classType != -1){
+	//					//std::cout << "TYPE: " << iter.first << ", " << (UIType)iter.second.classType << ", " << iter.second.classType << std::endl;
+	//					player->playerChoice = (UIType)iter.second.classType;
+	//					player->playerSlot->changePicture = true;
+	//					player->playerSlot->changeTo = (UIType)iter.second.classType;
+	//					player->ready = true;
+	//					readyCount++;
+	//				}
+	//			}
+	//		}
+	//	}
 
-		if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
-			NetworkManager::sInstance->TryReadyGame();
-		}
+	//	if (me->ready && NetworkManager::sInstance->IsMasterPeer() && readyCount == numPlayers){
+	//		NetworkManager::sInstance->TryReadyGame();
+	//	}
 
-		sysUI.UIUpdate(queue.alive_objects);
-		sysInput.InputUpdate(queue.alive_objects);
-		sysRend.RenderUpdate(queue.alive_objects);
-		sysUI.UIUpdate(birdQueue.alive_objects);
-		sysInput.InputUpdate(birdQueue.alive_objects);
-		sysRend.RenderUpdate(birdQueue.alive_objects);
+	//	sysUI.UIUpdate(queue.alive_objects);
+	//	sysInput.InputUpdate(queue.alive_objects);
+	//	sysRend.RenderUpdate(queue.alive_objects);
+	//	sysUI.UIUpdate(birdQueue.alive_objects);
+	//	sysInput.InputUpdate(birdQueue.alive_objects);
+	//	sysRend.RenderUpdate(birdQueue.alive_objects);
 
-		input->update();
-		
-		sceneMan->AssembleScene();
+	//	input->update();
+	//	
+	//	sceneMan->AssembleScene();
 
-	}
+	//}
 
-	if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
-		deleteBirds(birdQueue);
-		countdown(queue);
-	}
+	//if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
+	//	deleteBirds(birdQueue);
+	//	countdown(queue);
+	//}
 
-	cleanUP(queue);
+	//cleanUP(queue);
 
-	GameSession session = GameSession::GameSession();
-	AudioManager* audioMan = AudioManager::getAudioInstance();
-	audioMan->stopByName("bgmBAALobby.ogg");
+	//GameSession session = GameSession::GameSession();
+	//AudioManager* audioMan = AudioManager::getAudioInstance();
+	//audioMan->stopByName("bgmBAALobby.ogg");
 
-	session.Run(players);
+	//session.Run(players);
 
-	deletePlayers();
+	//deletePlayers();
 }
+
+
+void Lobby::createClassButts(){
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	float x, y;
+	// chicken button
+	renderMan->windowCoordToWorldCoord(x, y, 100, 200);
+	classButt.push_back(bFactory.Spawn(123456789, x, y, 3000));
+	// peacock button
+	renderMan->windowCoordToWorldCoord(x, y, 150, 200);
+	classButt.push_back(bFactory.Spawn(123456789, x, y, 3100));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Lobby::waitForTeam(){
 

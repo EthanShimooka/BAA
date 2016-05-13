@@ -21,9 +21,9 @@ public:
 
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
-	SystemInputUpdater sysInput;
+	/*SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
-	SystemLogicUpdater sysLogic;
+	SystemLogicUpdater sysLogic;*/
 
 	GameObject* playButt;
 };

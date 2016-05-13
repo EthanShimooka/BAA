@@ -4,19 +4,21 @@
 
 
 
-//#include "main.h"
-#include "UIObject.h"
-#include "UIObjectFactory.h"
-#include "SystemInputUpdater.h"
-#include "SystemRenderUpdater.h"
-#include "SystemUIUpdater.h"
-#include "GameSession.h"
-#include "WorldObjectFactory.h"
-// Component Includes
-#include "Component.h"
-#include "UIRenderComponent.h"
-#include "UIInputComponent.h"
-#include "UIComponent.h"
+#include "main.h"
+//#include "UIObject.h"
+//#include "UIObjectFactory.h"
+//#include "SystemInputUpdater.h"
+//#include "SystemRenderUpdater.h"
+//#include "SystemUIUpdater.h"
+//#include "GameSession.h"
+//#include "WorldObjectFactory.h"
+//// Component Includes
+//#include "Component.h"
+//#include "UIRenderComponent.h"
+//#include "UIInputComponent.h"
+//#include "UIComponent.h"
+
+#include "ButtonObjectFactory.h"
 
 
 
@@ -55,6 +57,16 @@ private:
 	void createButtons(SystemUIObjectQueue &q);
 	void waitForTeam();
 	void SendTeamPacket(uint64_t ID, TEAM team);
+
+
+	SystemGameObjectQueue sysQueue;
+	ButtonObjectFactory bFactory;
+	/*SystemInputUpdater sysInput;
+	SystemRenderUpdater sysRend;
+	SystemLogicUpdater sysLogic;*/
+
+	vector<GameObject*> classButt;
+	void createClassButts();
 };
 
 #endif

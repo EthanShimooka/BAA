@@ -26,9 +26,9 @@ void Start::mainMenu(){
 
 	/*audioMan->loadAllAudio();
 	audioMan->playByName("bgmBAALobby.ogg");*/
-	std::cout << audioMan->audioObjects.size() << std::endl;
+	//std::cout << audioMan->audioObjects.size() << std::endl;
 	resourceMan->setCurrentScope(0);
-	std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
+	//std::cout << "resource count : " << resourceMan->getResourceCount() << "\n";
 
 	sceneMan->loadFromXMLFile("SceneTree.xml");
 	
@@ -41,10 +41,9 @@ void Start::mainMenu(){
 	SystemInputUpdater sysInput;
 	SystemRenderUpdater sysRend;
 	SystemLogicUpdater sysLogic;*/
-	Lobby lobby;
 
 	// making buttons
-	playButt = bFactory.Spawn(3521, 200, 150, _PLAY_BUTTON);
+	playButt = bFactory.Spawn(3521, 200, 150, 19, w / 2.0 + 25, h / 2.0 -25);
 	GameObjects.AddObject(playButt);
 
 	int startInput = waitForInput();
@@ -53,6 +52,7 @@ void Start::mainMenu(){
 	case 1:
 		removeButtons();
 		NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
+		Lobby lobby;
 		lobby.runLobby();
 		break;
 	}
@@ -103,8 +103,8 @@ void Start::mainMenu(){
 
 int Start::waitForInput(){
 	while (true){
-		sysRend.RenderUpdate(GameObjects.alive_objects);
-		sysLogic.LogicUpdate(GameObjects.alive_objects);
+		/*sysRend.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);*/
 		InputManager::getInstance()->update();
 		SceneManager::GetSceneManager()->AssembleScene();
 		if (dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
