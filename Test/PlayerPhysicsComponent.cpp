@@ -54,7 +54,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
 		if (otherObj->isLocal){
 			logicComp->becomeEgg();
-			logicComp->timer = new Invoke(1.5f);
+			logicComp->timer = new Invoke(0.5f);
 			logicComp->invokeHelper = true;
 			logicComp->death = true;
 			//Trigger death audio here for person who fired feather
@@ -89,7 +89,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 												   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
 												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												   logicComp->becomeEgg();
-												   logicComp->timer = new Invoke(1.5f);
+												   logicComp->timer = new Invoke(0.5f);
 												   logicComp->invokeHelper = true;
 												   logicComp->death = true;
 											   }
@@ -165,12 +165,14 @@ void PlayerPhysicsComponent::Update(){
 	}
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->death) std::cout << "DEATH TRUE!!!!!!!!!!!!" << std::endl;
-	if (!logicComp->death) std::cout << "DEATH FALSE!!!!!!!!!!!!" << std::endl;
+	//if (!logicComp->death) std::cout << "DEATH FALSE!!!!!!!!!!!!" << std::endl;
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300){ 
+		if (logicComp->death && abs(gameObjectRef->posX) > 1300){
+		//if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300){ 
+		//if (abs(gameObjectRef->posX > 1300)){//Without invokeTimer never enters this just using catapult, can probably use this as the check
 			logicComp->timer->destroy();
 			logicComp->invokeHelper = false;
 			logicComp->hatchBird(true);
