@@ -51,12 +51,14 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		 if (otherObj->team == gameObjectRef->team)break;
 		 //signal self death and turn to egg
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
+		GameObject* featherOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		PlayerLogicComponent* otherPlayerLogicComp = dynamic_cast<PlayerLogicComponent*>(featherOwner->GetComponent(COMPONENT_LOGIC));
+		uint64_t shooter = featherOwner->ID;
 		if (otherObj->isLocal){
 			logicComp->becomeEgg();
-			logicComp->timer = new Invoke(0.5f);
-			logicComp->invokeHelper = true;
-			logicComp->death = true;
+			otherPlayerLogicComp->timer = new Invoke(0.5f);
+			otherPlayerLogicComp->invokeHelper = true;
+			otherPlayerLogicComp->death = true; //NEED TO BE setting this for logicComp attached not to gameObjectRef but to otherObj
 			//Trigger death audio here for person who fired feather
 			//Should be local player class here
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
@@ -88,10 +90,13 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											   if (mineLogicComp->fuseLit){
 												   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
 												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+												   GameObject* mineOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+												   PlayerLogicComponent* otherPlayerLogicComp = dynamic_cast<PlayerLogicComponent*>(mineOwner->GetComponent(COMPONENT_LOGIC));
+												   uint64_t shooter = mineOwner->ID;
 												   logicComp->becomeEgg();
-												   logicComp->timer = new Invoke(0.5f);
-												   logicComp->invokeHelper = true;
-												   logicComp->death = true;
+												   otherPlayerLogicComp->timer = new Invoke(0.5f);
+												   otherPlayerLogicComp->invokeHelper = true;
+												   otherPlayerLogicComp->death = true;
 											   }
 										   }
 
