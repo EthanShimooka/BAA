@@ -39,6 +39,7 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case READY_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(READY_BUTTON);
+		input->isClickable = true;
 		break;
 	case PLAYER_SLOT:
 		rend->uiObjectRef->setPos((float)x, (float)y);
@@ -75,14 +76,17 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case INVITE_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(INVITE_BUTTON);
+		input->isClickable = true;
 		break; 
 	case OPTIONS_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(OPTIONS_BUTTON);
+		input->isClickable = true;
 		break;
 	case JOIN_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(JOIN_BUTTON);
+		input->isClickable = true;
 		break;
 	case TIMER:
 		rend->uiObjectRef->setPos((float)x, (float)y);
@@ -115,14 +119,17 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case CANCEL_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(CANCEL_BUTTON);
+		input->isClickable = true;
 		break;
 	case BACK_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(BACK_BUTTON);
+		input->isClickable = true;
 		break;
 	case PLAY_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(PLAY_BUTTON);
+		input->isClickable = true;
 		break;
 	case KILL_NOTIFICATION:
 		rend->uiObjectRef->setPos((float)x, (float)y);
@@ -131,10 +138,12 @@ UIObject* UIObjectFactory::Spawn(UIType PID, int x, int y){
 	case YELLOW_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(YELLOW_BUTTON);
+		input->isClickable = true;
 		break;
 	case PURPLE_BUTTON:
 		rend->uiObjectRef->setPos((float)x, (float)y);
 		rend->createUIType(PURPLE_BUTTON);
+		input->isClickable = true;
 		break;
 	}
 

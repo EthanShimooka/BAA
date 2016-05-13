@@ -46,10 +46,13 @@ private:
 	void addNewPlayers();
 	void drawBirds(SystemUIObjectQueue &q);
 	vector<UIObject*> Birds;
+	vector<UIObject*> bottomSlots;
+	vector<UIObject*> topSlots;
 	void countdown(SystemUIObjectQueue &q);
 	void cleanUP(SystemUIObjectQueue &q);
 	void createButtons(SystemUIObjectQueue &q);
 	void checkPlayerInfo();
+	void checkMyReady();
 	int yellow, purple;
 	void pickTeam();
 	UIObject* teamYellow, *teamPurple;

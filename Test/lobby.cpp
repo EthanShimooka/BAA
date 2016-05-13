@@ -56,6 +56,10 @@ void Lobby::runLobby(){
 
 		pickTeam();
 
+		if (input->isKeyDown(KEY_P)){
+			std::cout << yellow << " " << purple << std::endl;
+		}
+
 		GamerServices::sInstance->Update();
 		NetworkManager::sInstance->ProcessIncomingPackets();
 		NetworkManager::sInstance->SendOutgoingPackets();
@@ -66,6 +70,7 @@ void Lobby::runLobby(){
 		if (numPlayers > inLobbyNow){
 			addNewPlayers();
 			NetworkManager::sInstance->UpdateLobbyPlayers();
+			NetworkManager::sInstance->SendTeamToPeers(me->team);
 			inLobbyNow = NetworkManager::sInstance->GetPlayerCount();
 			auto& iter = NetworkManager::sInstance->lobbyInfoMap.find(GamerServices::sInstance->GetLocalPlayerId());
 			if (iter->second.classType)
@@ -77,27 +82,7 @@ void Lobby::runLobby(){
 		updateLobby();
 		
 		//check if i am ready, change bird image, send over wire
-		if (!me->ready){
-			for (unsigned int i = 0; i < Birds.size(); i++){
-				if (Birds[i]->ready){
-					me->playerChoice = Birds[i]->ID;
-					me->playerSlot->changePicture = true;
-					me->playerSlot->changeTo = Birds[i]->ID;
-					NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
-					me->ready = true;
-					readyCount++;
-					break;
-				}
-				if (Birds[i]->hoverPicture){
-					me->playerSlot->hoverPicture = true;
-					me->playerSlot->changeTo = Birds[i]->ID;
-					break;
-				} 
-				else{
-					me->playerSlot->hoverPicture = false;
-				}
-			}
-		}
+		checkMyReady();
 
 		//check if peers have selected team or bird class
 		checkPlayerInfo();
@@ -150,6 +135,30 @@ void Lobby::runLobby(){
 		GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
 	}
 	deletePlayers();
+}
+
+void Lobby::checkMyReady(){
+	if (!me->ready){
+		for (unsigned int i = 0; i < Birds.size(); i++){
+			if (Birds[i]->ready){
+				me->playerChoice = Birds[i]->ID;
+				me->playerSlot->changePicture = true;
+				me->playerSlot->changeTo = Birds[i]->ID;
+				NetworkManager::sInstance->SendSelectPacket((int)Birds[i]->ID);
+				me->ready = true;
+				readyCount++;
+				break;
+			}
+			if (Birds[i]->hoverPicture){
+				me->playerSlot->hoverPicture = true;
+				me->playerSlot->changeTo = Birds[i]->ID;
+				break;
+			}
+			else{
+				me->playerSlot->hoverPicture = false;
+			}
+		}
+	}
 }
 
 void Lobby::beginGame(SystemUIObjectQueue &q){
@@ -215,14 +224,12 @@ void Lobby::createButtons(SystemUIObjectQueue &q){
 	teamYellow = NULL;
 	teamPurple = NULL;
 
-	if (yellow < maxPlayers / 2){
-		teamYellow = buttons->Spawn(YELLOW_BUTTON, w / 2 - 150, h / 2 + 200);
-		q.AddObject(teamYellow);
-	}
-	if (purple < maxPlayers / 2){
-		teamPurple = buttons->Spawn(PURPLE_BUTTON, w / 2 + 50, h / 2 + 200);
-		q.AddObject(teamPurple);
-	}
+	teamYellow = buttons->Spawn(YELLOW_BUTTON, w / 2 - 150, h / 2 + 200);
+	q.AddObject(teamYellow);
+
+	teamPurple = buttons->Spawn(PURPLE_BUTTON, w / 2 + 50, h / 2 + 200);
+	q.AddObject(teamPurple);
+	
 
 
 	q.AddObject(inviteButton);
@@ -349,10 +356,9 @@ void Lobby::addSlots(SystemUIObjectQueue &queue){
 		p->playerSlot = slot->Spawn(PLAYER_SLOT, p->x, p->y);
 		p->visible = false;
 		p->playerSlot->visible = p->visible;
-		p->playerSlot->bottom = p->bottom;
 		queue.AddObject(p->playerSlot);
-		players.push_back(p);
-		
+		p->playerSlot->bottom = p->bottom;
+		players.push_back(p);	
 	}
 	delete slot;
 }
@@ -408,6 +414,23 @@ void Lobby::updateLobby(){
 				inLobbyNow--;
 			}
 		}
+	}
+
+	if (yellow >= maxPlayers / 2){
+		UIInputComponent* in = dynamic_cast<UIInputComponent*>(teamYellow->GetComponent(COMPONENT_INPUT));
+		in->isClickable = false;
+	}
+	else{
+		UIInputComponent* in = dynamic_cast<UIInputComponent*>(teamYellow->GetComponent(COMPONENT_INPUT));
+		in->isClickable = true;
+	}
+	if (purple >= maxPlayers / 2){
+		UIInputComponent* in = dynamic_cast<UIInputComponent*>(teamPurple->GetComponent(COMPONENT_INPUT));
+		in->isClickable = false;
+	}
+	else{
+		UIInputComponent* in = dynamic_cast<UIInputComponent*>(teamPurple->GetComponent(COMPONENT_INPUT));
+		in->isClickable = true;
 	}
 
 	int y = 0, p = 0;
@@ -490,5 +513,4 @@ void Lobby::pickTeam(){
 		yellow++;
 		me->team = TEAM_YELLOW;
 	}
-	//std::cout << yellow << " " << purple << std::endl;
 }

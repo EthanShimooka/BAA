@@ -120,7 +120,7 @@ void UIInputComponent::Update(){
 		}
 		break;
 	case YELLOW_BUTTON:
-		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked && this->isClickable){
 			rend->ChangeSprite(YELLOW_BUTTON2);
 			uiObjectRef->teamPicked = true;
 			NetworkManager::sInstance->SendTeamToPeers(TEAM_YELLOW);
@@ -136,7 +136,7 @@ void UIInputComponent::Update(){
 		}
 		break;
 	case PURPLE_BUTTON:
-		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked){
+		if (isButtonPressed(BUTTON_WIDTH, BUTTON_HEIGHT) && !uiObjectRef->teamPicked && this->isClickable){
 			rend->ChangeSprite(PURPLE_BUTTON2);
 			NetworkManager::sInstance->SendTeamToPeers(TEAM_PURPLE);
 			uiObjectRef->teamPicked = true;

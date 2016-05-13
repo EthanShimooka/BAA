@@ -34,6 +34,7 @@ public:
 	/// Determines if mouse is hovering over UI element
 	bool isMouseHovering(int x, int y);
 
+	bool isClickable = false;
 };
 
 #endif
