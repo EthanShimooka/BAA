@@ -170,7 +170,7 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300 && logicComp->death){ 
+		if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300){ 
 			logicComp->timer->destroy();
 			logicComp->invokeHelper = false;
 			logicComp->hatchBird(true);
