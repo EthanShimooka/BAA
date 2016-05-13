@@ -4,8 +4,8 @@
 #define BUTTONOBJECTFACTORY_H_INCLUDED
 
 #include "GameObjectFactory.h"
-#include "ButtonLogicComponent.h"
-#include "ButtonRenderComponent.h"
+#include "ButtonComponentIncludes.h"
+
 
 class ButtonObjectFactory :
 	public GameObjectFactory
@@ -14,7 +14,7 @@ public:
 	ButtonObjectFactory();
 	~ButtonObjectFactory();
 
-	GameObject* Spawn(uint64_t PID, float posX, float posY, int type);
+	GameObject* Spawn(uint64_t PID, float posX, float posY, int type, float width = 100.0f, float height = 50.0f);
 };
 
 typedef enum {

@@ -1,5 +1,6 @@
 #include "FeatherLogicComponent.h"
 #include "PlayerLogicComponent.h"
+#include "AbsorbParticle.h"
 #include <math.h> 
 
 FeatherLogicComponent::FeatherLogicComponent(GameObject* feather)
@@ -45,6 +46,9 @@ void FeatherLogicComponent::init(){
 
 void FeatherLogicComponent::giveBirdseed(int numSeeds) {
 	ClassComponent* classComp = dynamic_cast<ClassComponent*>(owner->GetComponent(COMPONENT_CLASS));
-	if (classComp->currBirdseed + numSeeds <= classComp->maxsBirdseed)classComp->currBirdseed += numSeeds;
+	if (classComp->currBirdseed + numSeeds <= classComp->maxsBirdseed){
+		classComp->currBirdseed += numSeeds;
+		createAbsorbParticle(gameObjectRef, owner, classComp->currBirdseed, 0, 0);
+	}
 	else classComp->currBirdseed = classComp->maxsBirdseed;
 } 
