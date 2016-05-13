@@ -170,7 +170,8 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (logicComp->death && abs(gameObjectRef->posX) > 1300){
+		if (logicComp->death && abs(gameObjectRef->posX) > 1300){//This way death gets set to true for whoever fired the feather but not the player who was killed, 
+																 //enters this if and plays rooster noise for the player still alive
 		//if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300){ 
 		//if (abs(gameObjectRef->posX > 1300)){//Without invokeTimer never enters this just using catapult, can probably use this as the check
 			logicComp->timer->destroy();
