@@ -1,7 +1,7 @@
 #include "ButtonRenderComponent.h"
 
 
-ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID)
+ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID, float scale)
 {
 	gameObjectRef = button;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
@@ -9,6 +9,7 @@ ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID)
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), imageID, gameObjectRef->posX, gameObjectRef->posY);
 	defaultImage = imageID;
 	currentImage = imageID;
+	objRef->setScale(scale);
 }
 
 

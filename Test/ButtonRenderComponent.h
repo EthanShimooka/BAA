@@ -5,12 +5,13 @@ class ButtonRenderComponent :
 	public RenderComponent
 {
 public:
-	ButtonRenderComponent(GameObject* button, int imageID);
+	ButtonRenderComponent(GameObject* button, int imageID, float scale);
 	~ButtonRenderComponent();
 	void Update();
 
 	int defaultImage;
 	int currentImage;
+
 	void changeSprite(int imageID);
 	void setToDefault();
 };

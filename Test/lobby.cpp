@@ -52,17 +52,47 @@ void Lobby::createClassButts(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GameObject* button;
 	uint64_t buttonID = 11;
+
+	int w, h;
+	float midHeight, offset;
 	float x, y;
+
+	renderMan->getWindowSize(&w, &h);
+	// height for the character class buttons
+	midHeight = h * (1 / 2.0);
+	// finding the offset of the slots
+	offset = w * (1 / 4.0);
+
 	// chicken button
-	renderMan->windowCoordToWorldCoord(x, y, 400, 400);
-	button = bFactory.Spawn(buttonID++, x, y, 3000);
+	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	button = bFactory.Spawn(buttonID++, x, y, 50, 75.0f, 75.0f, 0.75f);
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
+	offset += w * (1 / 9.0);
 	// peacock button
-	renderMan->windowCoordToWorldCoord(x, y, 600, 400);
-	button = bFactory.Spawn(buttonID++, x, y, 3100);
+	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	button = bFactory.Spawn(buttonID++, x, y, 51, 75.0f, 75.0f, 0.75f);
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
+	offset += w * (1 / 9.0);
+	// flamingo button
+	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	button = bFactory.Spawn(buttonID++, x, y, 52, 75.0f, 75.0f, 0.75f);
+	classButt.push_back(button);
+	GameObjects.AddObject(button);
+	offset += w * (1 / 9.0);
+	// quail button
+	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	button = bFactory.Spawn(buttonID++, x, y, 53, 75.0f, 75.0f, 0.75f);
+	classButt.push_back(button);
+	GameObjects.AddObject(button);
+	offset += w * (1 / 9.0);
+	// turkey button
+	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	button = bFactory.Spawn(buttonID++, x, y, 54, 75.0f, 75.0f, 0.75f);
+	classButt.push_back(button);
+	GameObjects.AddObject(button);
+	offset += w * (1 / 9.0);
 }
 
 int Lobby::checkButtons(){

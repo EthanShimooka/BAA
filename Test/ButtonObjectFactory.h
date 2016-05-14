@@ -14,7 +14,7 @@ public:
 	ButtonObjectFactory();
 	~ButtonObjectFactory();
 
-	GameObject* Spawn(uint64_t PID, float posX, float posY, int imageID, float width = 100.0f, float height = 50.0f);
+	GameObject* Spawn(uint64_t PID, float posX, float posY, int imageID, float width = 100.0f, float height = 50.0f, float scale = 1.0f);
 };
 
 typedef enum {
