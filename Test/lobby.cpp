@@ -15,20 +15,35 @@ void Lobby::runLobby(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
+	int lobbyInput;
+
 	renderMan->setBackground("Lobby_bg.png");
 
+	// number of players in lobby
+	string playerCount = std::to_string(numPlayers);
+	SDLRenderObject * playersInLobby = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	playersInLobby->setPos(0, 0);
+
+
+	// creating buttons
 	createClassButts();
 	createSlots();
 	
-	int lobbyInput;
-
+	
 	while (true){
+		GamerServices::sInstance->Update();
+		NetworkManager::sInstance->UpdateDelay();
+		numPlayers = NetworkManager::sInstance->GetPlayerCount();
 		lobbyInput = checkButtons();
-		if (lobbyInput != -1) {
+		changePlayerSelectionImage();
+		/*if (lobbyInput != -1) {
 			std::cout << lobbyInput << std::endl;
 			removeButtons();
 			break;
-		}
+		}*/
+		playerCount = std::to_string(numPlayers);
+		playersInLobby->setResourceObject(renderMan->renderText(playerCount.c_str(), 255, 0, 0, 50, "VT323-Regular"));
+		SceneManager::GetSceneManager()->AssembleScene();
 	}
 }
 
@@ -48,15 +63,15 @@ void Lobby::createClassButts(){
 	button = bFactory.Spawn(buttonID++, x, y, 3100);
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
-
-	SceneManager::GetSceneManager()->AssembleScene();
 }
 
 int Lobby::checkButtons(){
 	InputManager::getInstance()->update();
 	for (int i = 0; i < classButt.size(); ++i){
-		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed())
+		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
+			playerSelection(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->currentImage);
 			return i;
+		}
 	}
 	return -1;
 }
@@ -69,7 +84,14 @@ void Lobby::playerSelection(int classType){
 void Lobby::changePlayerSelectionImage(){
 	if (NetworkManager::sInstance->lobbyUpdated()){
 		unordered_map< uint64_t, PlayerInfo > lobby_m = NetworkManager::sInstance->getLobbyInfoMap();
+		int i = 0;
 		for (const auto& iter : lobby_m){
+			if (iter.second.classType != -1) {
+				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType);
+			}
+			else
+				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
+			++i;
 		}
 	}
 }
@@ -80,7 +102,6 @@ void Lobby::removeButtons(){
 			SceneManager::GetSceneManager()->findLayer("layer1"));
 	}
 	GameObjects.DeleteObjects();
-	SceneManager::GetSceneManager()->AssembleScene();
 }
 
 void Lobby::createSlots(){
@@ -112,8 +133,6 @@ void Lobby::createSlots(){
 		slots.push_back(slot);
 		GameObjects.AddObject(slot);
 	}
-
-	SceneManager::GetSceneManager()->AssembleScene();
 }
 
 void Lobby::removeSlots(){
@@ -122,7 +141,6 @@ void Lobby::removeSlots(){
 			SceneManager::GetSceneManager()->findLayer("layer1"));
 	}
 	GameObjects.DeleteObjects();
-	SceneManager::GetSceneManager()->AssembleScene();
 }
 
 

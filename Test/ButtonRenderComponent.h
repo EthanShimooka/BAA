@@ -9,6 +9,9 @@ public:
 	~ButtonRenderComponent();
 	void Update();
 
+	int defaultImage;
+	int currentImage;
 	void changeSprite(int imageID);
+	void setToDefault();
 };
 
