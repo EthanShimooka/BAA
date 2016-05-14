@@ -21,7 +21,7 @@ GameWorld::~GameWorld(){
 		bodyList = bodyList->GetNext();
 		physicsWorld->DestroyBody(bodyToBeGone);
 	}
-	delete physicsWorld;
+	//delete physicsWorld;
 }
 
 GameWorld* GameWorld::getInstance() {

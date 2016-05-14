@@ -36,6 +36,8 @@ void Lobby::runLobby(){
 		updateLobby();
 		///
 		if (numPlayers == numPlayersReady) {
+			GameSession game;
+			game.Run();
 			removeButtons();
 			removeSlots();
 			break;
