@@ -44,7 +44,11 @@ GameObject* SystemGameObjectQueue::AddObject(GameObject * obj){
 
 void SystemGameObjectQueue::DeleteObject(uint64_t g_id){
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
-		//if (alive_objects[i]->ID == g_id)
+		if (alive_objects[i]->ID == g_id){
+			delete alive_objects[i];
+			alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			break;
+		}
 	}
 }
 

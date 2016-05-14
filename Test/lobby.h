@@ -39,7 +39,7 @@ public:
 
 private:
 	//vector<player*> players;
-	void addSlots(SystemUIObjectQueue &q);
+	/*void addSlots(SystemUIObjectQueue &q);
 	void deleteBirds(SystemUIObjectQueue &q);
 	void deletePlayers();
 	int playersReady;	
@@ -56,8 +56,11 @@ private:
 	void cleanUP(SystemUIObjectQueue &q);
 	void createButtons(SystemUIObjectQueue &q);
 	void waitForTeam();
-	void SendTeamPacket(uint64_t ID, TEAM team);
+	void SendTeamPacket(uint64_t ID, TEAM team);*/
 
+	int numPlayersReady;
+	int numPlayers;
+	int maxPlayers = 4;
 
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
@@ -74,6 +77,10 @@ private:
 	void removeButtons();
 	void createSlots();
 	void removeSlots();
+	void updateLobby();
+	void createPlayerCount();
+	string playerCount;
+	SDLRenderObject * playersInLobby;
 };
 
 #endif
