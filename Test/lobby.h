@@ -67,6 +67,9 @@ private:
 
 	vector<GameObject*> classButt;
 	void createClassButts();
+	int  checkButtons();
+	void playerSelection(int classType);
+	void changePlayerSelectionImage();
 };
 
 #endif

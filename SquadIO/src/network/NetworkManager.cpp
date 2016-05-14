@@ -292,6 +292,7 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.ready = ready;
+		lobbyUpdate = true;
 	}
 }
 
@@ -304,6 +305,7 @@ void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint6
 	for (auto& iter : lobbyInfoMap){
 		if (iter.first == ID){
 			iter.second.team = team;
+			lobbyUpdate = true;
 		}
 	}
 }
@@ -333,6 +335,7 @@ void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, 
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.classType = classType;
+		lobbyUpdate = true;
 	}
 }
 
@@ -695,12 +698,14 @@ void NetworkManager::UpdateLobbyPlayers()
 			if (lobbyInfoMap.find(iter.first) == lobbyInfoMap.end()){
 				PlayerInfo pInfo;
 				lobbyInfoMap.emplace(iter.first, pInfo);
+				lobbyUpdate = true;
 			}
 		}
 		if (mPlayerNameMap.size() != lobbyInfoMap.size()){
 			for (auto it = lobbyInfoMap.begin(); it != lobbyInfoMap.end();) {
 				if (mPlayerNameMap.find(it->first) == mPlayerNameMap.end()) {
 					it = lobbyInfoMap.erase(it);
+					lobbyUpdate = true;
 				}
 				else
 					++it;

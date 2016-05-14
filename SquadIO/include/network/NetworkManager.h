@@ -308,7 +308,11 @@ private:
 	/// My team
 	int				myTeam;
 
-public:
+private:
 	LobbyInfoMap    lobbyInfoMap;
+	bool			lobbyUpdate = false;
+public:
+	SQUADIO_API		const bool lobbyUpdated() { return lobbyUpdate; }
+	SQUADIO_API		const LobbyInfoMap& getLobbyInfoMap() { lobbyUpdate = false; return lobbyInfoMap; }
 };
 #endif
