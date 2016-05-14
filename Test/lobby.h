@@ -66,10 +66,14 @@ private:
 	SystemLogicUpdater sysLogic;*/
 
 	vector<GameObject*> classButt;
+	vector<GameObject*> slots;
 	void createClassButts();
 	int  checkButtons();
 	void playerSelection(int classType);
 	void changePlayerSelectionImage();
+	void removeButtons();
+	void createSlots();
+	void removeSlots();
 };
 
 #endif

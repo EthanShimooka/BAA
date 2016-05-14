@@ -17,3 +17,7 @@ ButtonRenderComponent::~ButtonRenderComponent()
 void ButtonRenderComponent::Update(){
 
 }
+
+void ButtonRenderComponent::changeSprite(int imageID){
+
+}

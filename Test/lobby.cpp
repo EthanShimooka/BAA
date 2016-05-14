@@ -18,15 +18,15 @@ void Lobby::runLobby(){
 	renderMan->setBackground("Lobby_bg.png");
 
 	createClassButts();
-
+	createSlots();
 	
-	sceneMan->AssembleScene();
 	int lobbyInput;
 
 	while (true){
 		lobbyInput = checkButtons();
 		if (lobbyInput != -1) {
 			std::cout << lobbyInput << std::endl;
+			removeButtons();
 			break;
 		}
 	}
@@ -35,16 +35,25 @@ void Lobby::runLobby(){
 
 void Lobby::createClassButts(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
+	GameObject* button;
+	uint64_t buttonID = 11;
 	float x, y;
 	// chicken button
 	renderMan->windowCoordToWorldCoord(x, y, 400, 400);
-	classButt.push_back(bFactory.Spawn(123456789, x, y, 3000));
+	button = bFactory.Spawn(buttonID++, x, y, 3000);
+	classButt.push_back(button);
+	GameObjects.AddObject(button);
 	// peacock button
 	renderMan->windowCoordToWorldCoord(x, y, 600, 400);
-	classButt.push_back(bFactory.Spawn(123456789, x, y, 3100));
+	button = bFactory.Spawn(buttonID++, x, y, 3100);
+	classButt.push_back(button);
+	GameObjects.AddObject(button);
+
+	SceneManager::GetSceneManager()->AssembleScene();
 }
 
 int Lobby::checkButtons(){
+	InputManager::getInstance()->update();
 	for (int i = 0; i < classButt.size(); ++i){
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed())
 			return i;
@@ -65,10 +74,56 @@ void Lobby::changePlayerSelectionImage(){
 	}
 }
 
+void Lobby::removeButtons(){
+	for (int i = 0; i < classButt.size(); ++i){
+		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->objRef,
+			SceneManager::GetSceneManager()->findLayer("layer1"));
+	}
+	GameObjects.DeleteObjects();
+	SceneManager::GetSceneManager()->AssembleScene();
+}
 
+void Lobby::createSlots(){
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	GameObject* slot;
+	uint64_t slotID = 1;
+	int w, h;
+	float topH, bottH, offset;
+	float x, y;
 
+	renderMan->getWindowSize(&w, &h);
+	// height for the slots on the top half
+	topH = h * (1 / 10.0);
+	// height for the slots on the bottom half
+	bottH = h * (9 / 10.0);
+	// finding the offset of the slots
+	offset = w * (1 / 6.0);
 
+	for (int i = 0; i < 8; ++i){
+		if (i % 2){
+			h = bottH;
+		}
+		else {
+			h = topH;
+			offset += w * (1 / 8.0);
+		}
+		renderMan->windowCoordToWorldCoord(x, y, offset, h);
+		slot = bFactory.Spawn(slotID++, x, y, 28);
+		slots.push_back(slot);
+		GameObjects.AddObject(slot);
+	}
 
+	SceneManager::GetSceneManager()->AssembleScene();
+}
+
+void Lobby::removeSlots(){
+	for (int i = 0; i < slots.size(); ++i){
+		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef,
+			SceneManager::GetSceneManager()->findLayer("layer1"));
+	}
+	GameObjects.DeleteObjects();
+	SceneManager::GetSceneManager()->AssembleScene();
+}
 
 
 

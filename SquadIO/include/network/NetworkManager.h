@@ -7,12 +7,7 @@
 * and communicates with SceneManager to send and receive packets. It communicates with GamerServices to handle the initial connection.
 *
 */
-
-struct PlayerInfo{
-	bool ready = false;
-	int classType = -1;
-	int team = -1;
-};
+#include "t.h"
 
 class NetworkManager
 {

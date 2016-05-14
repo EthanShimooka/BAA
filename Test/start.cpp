@@ -51,7 +51,7 @@ void Start::mainMenu(){
 	switch (startInput){
 	case 1:
 		removeButtons();
-		NetworkManager::sInstance->SetState(NetworkManager::sInstance->NMS_SinglePlayer);
+		
 		Lobby lobby;
 		lobby.runLobby();
 		break;
@@ -108,6 +108,7 @@ int Start::waitForInput(){
 		InputManager::getInstance()->update();
 		SceneManager::GetSceneManager()->AssembleScene();
 		if (dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
+			NetworkManager::sInstance->StartLobbySearch();
 			return 1;
 		}
 	}

@@ -344,6 +344,7 @@ void NetworkManager::SendSelectPacket(int classType)
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.classType = classType;
+		lobbyUpdate = true;
 	}
 	OutputMemoryBitStream outPacket;
 	outPacket.Write(kSelectionCC);
@@ -358,7 +359,11 @@ void NetworkManager::SendSelectPacket(int classType)
 }
 
 void NetworkManager::SendTeamToPeers(uint64_t ID, int team){
-	
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.team = team;
+		lobbyUpdate = true;
+	}
 	OutputMemoryBitStream outpacket;
 	outpacket.Write(kTeamCC);
 	outpacket.Write(ID);
@@ -692,8 +697,9 @@ void NetworkManager::UpdateLobbyPlayers()
 			mIsMasterPeer = true;
 		}
 
-		GamerServices::sInstance->GetLobbyPlayerMap(mLobbyId, mPlayerNameMap);
-		for (auto& iter : mPlayerNameMap)
+		lobbyUpdate = GamerServices::sInstance->GetLobbyPlayerMap(mLobbyId, mPlayerNameMap, lobbyInfoMap);
+		
+		/*for (auto& iter : mPlayerNameMap)
 		{
 			if (lobbyInfoMap.find(iter.first) == lobbyInfoMap.end()){
 				PlayerInfo pInfo;
@@ -710,7 +716,7 @@ void NetworkManager::UpdateLobbyPlayers()
 				else
 					++it;
 			}
-		}
+		}*/
 
 		//std::cout << "--------------------------------------" << std::endl;
 		//for (auto& iter : lobbyInfoMap)

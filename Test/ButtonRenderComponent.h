@@ -8,5 +8,7 @@ public:
 	ButtonRenderComponent(GameObject* button, int imageID);
 	~ButtonRenderComponent();
 	void Update();
+
+	void changeSprite(int imageID);
 };
 
