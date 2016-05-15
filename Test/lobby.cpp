@@ -115,7 +115,8 @@ void Lobby::changePlayerSelectionImage(){
 		int i = 0;
 		for (const auto& iter : lobby_m){
 			if (iter.second.classType != -1) {
-				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType);
+				dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites();
+				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType + 5);
 				++numPlayersReady;
 			}
 			else {
@@ -163,6 +164,7 @@ void Lobby::createSlots(){
 		renderMan->windowCoordToWorldCoord(x, y, offset, h);
 		// ready slots
 		readySlot = bFactory.Spawn(slotID++, x, y, 28);
+		dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER))->addSecondSprite(30);
 		readySlots.push_back(readySlot);
 		GameObjects.AddObject(readySlot);
 		// slots
