@@ -196,7 +196,6 @@ void Lobby::createSlots(){
 		readySlot = bFactory.Spawn(buttonID++, x, y, 28);
 		br = dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER));
 		br->addSecondSprite(30);
-		//br->changeLayer("layer2");
 		readySlots.push_back(readySlot);
 		GameObjects.AddObject(readySlot);
 		// slots
@@ -247,8 +246,8 @@ void Lobby::removeAllButtons(){
 
 void Lobby::setFreeSlotsToDefault(int firstSlot){
 	for (int i = firstSlot; i < readySlots.size(); ++i){
-		dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
 		dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
+		dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites(1);
 	}
 }
 
