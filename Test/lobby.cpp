@@ -56,7 +56,6 @@ void Lobby::createReadyButt(){
 	renderMan->getWindowSize(&w, &h);
 	renderMan->windowCoordToWorldCoord(x, y, w*(7/8.0), h*(48/100.0));
 	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f);
-	classButt.push_back(readyButt);
 	GameObjects.AddObject(readyButt);
 }
 

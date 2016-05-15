@@ -315,6 +315,7 @@ void NetworkManager::SendRdyUpPacket(int ready)
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.ready = ready;
+		lobbyUpdate = true;
 	}
 	OutputMemoryBitStream outPacket;
 	outPacket.Write(kReadyUpCC);
