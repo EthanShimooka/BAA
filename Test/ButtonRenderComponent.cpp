@@ -53,6 +53,9 @@ void ButtonRenderComponent::toggleSprites(){
 void ButtonRenderComponent::toggleSprites(int num){
 	// if we have two different sprites
 	if (defaultImage != currentImage){
-		changeSprite((num == 1) ? defaultImage : currentImage);
+		SceneManager* sceneMan = SceneManager::GetSceneManager();
+		int image = (num == 1) ? defaultImage : currentImage;
+		sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer1"));
+		AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), image, gameObjectRef->posX, gameObjectRef->posY));
 	}
 }
