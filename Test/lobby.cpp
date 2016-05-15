@@ -129,9 +129,13 @@ void Lobby::playerReady(int value){
 
 void Lobby::changePlayerSelectionImage(){
 	if (NetworkManager::sInstance->lobbyUpdated()){
-		// send class and ready packet if someone joins the game
-		playerSelection(selected);
-		playerReady(ready);
+		
+		if (numPlayers != NetworkManager::sInstance->GetPlayerCount()){
+			numPlayers = NetworkManager::sInstance->GetPlayerCount();
+			// send class and ready packet if someone joins the game
+			playerSelection(selected);
+			playerReady(ready);
+		}
 		unordered_map< uint64_t, PlayerInfo > lobby_m = NetworkManager::sInstance->getLobbyInfoMap();
 		numPlayersReady = 0;
 		int i = 0;
@@ -216,7 +220,6 @@ void Lobby::updateLobby(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GamerServices::sInstance->Update();
 	NetworkManager::sInstance->ProcessIncomingPackets();
-	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	if (playersInLobby)
 		playersInLobby->setResourceObject(renderMan->renderText(std::to_string(numPlayers).c_str(), 255, 0, 0, 50, "VT323-Regular"));
 	SceneManager::GetSceneManager()->AssembleScene();
