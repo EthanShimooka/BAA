@@ -38,8 +38,8 @@ void Lobby::runLobby(){
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 			removeAllButtons();
 			SceneManager::GetSceneManager()->AssembleScene();
-			/*GameSession game;
-			game.Run();*/	
+			GameSession game;
+			game.Run();	
 			break;
 		}
 	}
