@@ -6,7 +6,8 @@ ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID, fl
 	gameObjectRef = button;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), imageID, gameObjectRef->posX, gameObjectRef->posY);
+	layer = "layer1";
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), imageID, gameObjectRef->posX, gameObjectRef->posY);
 	defaultImage = imageID;
 	currentImage = imageID;
 	objRef->setScale(scale);
@@ -23,8 +24,8 @@ void ButtonRenderComponent::Update(){
 
 void ButtonRenderComponent::changeSprite(int imageID){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer1"));
-	AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), imageID, gameObjectRef->posX, gameObjectRef->posY));
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer(layer));
+	AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer(layer), imageID, gameObjectRef->posX, gameObjectRef->posY));
 	currentImage = imageID;
 }
 
@@ -55,7 +56,14 @@ void ButtonRenderComponent::toggleSprites(int num){
 	if (defaultImage != currentImage){
 		SceneManager* sceneMan = SceneManager::GetSceneManager();
 		int image = (num == 1) ? defaultImage : currentImage;
-		sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer1"));
-		AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), image, gameObjectRef->posX, gameObjectRef->posY));
+		sceneMan->RemoveObject(objRef, sceneMan->findLayer(layer));
+		AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer(layer), image, gameObjectRef->posX, gameObjectRef->posY));
 	}
+}
+
+void ButtonRenderComponent::changeLayer(std::string _layer){
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer(layer));
+	AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer(_layer), currentImage, gameObjectRef->posX, gameObjectRef->posY));
+	layer = _layer;
 }

@@ -109,7 +109,7 @@ int Lobby::checkButtons(){
 	InputManager::getInstance()->update();
 	for (int i = 0; i < classButt.size(); ++i){
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
-			playerSelection(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->currentImage);
+			playerSelection(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage());
 			selected = true;
 			return i;
 		}
@@ -168,6 +168,7 @@ void Lobby::removeButtons(){
 void Lobby::createSlots(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GameObject* slot, *readySlot;
+	ButtonRenderComponent* br;
 	int w, h;
 	float topH, bottH, offset;
 	float x, y;
@@ -191,25 +192,30 @@ void Lobby::createSlots(){
 		renderMan->windowCoordToWorldCoord(x, y, offset, h);
 		// ready slots
 		readySlot = bFactory.Spawn(buttonID++, x, y, 28);
-		dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER))->addSecondSprite(30);
+		br = dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER));
+		br->addSecondSprite(30);
+		//br->changeLayer("layer2");
 		readySlots.push_back(readySlot);
 		GameObjects.AddObject(readySlot);
 		// slots
 		slot = bFactory.Spawn(buttonID++, x, y, 28);
+		br = dynamic_cast<ButtonRenderComponent*>(slot->GetComponent(COMPONENT_RENDER));
+		br->changeLayer("layer2");
 		slots.push_back(slot);
 		GameObjects.AddObject(slot);
 	}
 }
 
 void Lobby::removeSlots(){
+	ButtonRenderComponent* br;
 	for (int i = 0; i < slots.size(); ++i){
-		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef,
-			SceneManager::GetSceneManager()->findLayer("layer1"));
+		br = dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER));
+		SceneManager::GetSceneManager()->RemoveObject(br->objRef, SceneManager::GetSceneManager()->findLayer(br->getLayer()));
 		GameObjects.DeleteObject(slots[i]->ID);
 	}
 	for (int i = 0; i < readySlots.size(); ++i){
-		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->objRef,
-			SceneManager::GetSceneManager()->findLayer("layer1"));
+		br = dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER));
+		SceneManager::GetSceneManager()->RemoveObject(br->objRef,SceneManager::GetSceneManager()->findLayer(br->getLayer()));
 		GameObjects.DeleteObject(readySlots[i]->ID);
 	}
 }
