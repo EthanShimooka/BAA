@@ -41,11 +41,12 @@ void Lobby::runLobby(){
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 			removeButtons();
 			removeSlots();
+			removePlayerCount();
+			SceneManager::GetSceneManager()->AssembleScene();
 			GameSession game;
 			game.Run();	
 			break;
 		}
-		
 	}
 }
 
@@ -184,23 +185,26 @@ void Lobby::updateLobby(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GamerServices::sInstance->Update();
 	NetworkManager::sInstance->ProcessIncomingPackets();
-	playerCount = std::to_string(numPlayers);
-	playersInLobby->setResourceObject(renderMan->renderText(playerCount.c_str(), 255, 0, 0, 50, "VT323-Regular"));
-	SceneManager::GetSceneManager()->AssembleScene();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
+	if (playersInLobby)
+		playersInLobby->setResourceObject(renderMan->renderText(std::to_string(numPlayers).c_str(), 255, 0, 0, 50, "VT323-Regular"));
+	SceneManager::GetSceneManager()->AssembleScene();
 }
 
 
 
 void Lobby::createPlayerCount(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	playerCount = std::to_string(numPlayers);
 	playersInLobby = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	playersInLobby->setPos(0, 0);
 }
 
 
-
+void Lobby::removePlayerCount(){
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	if (playersInLobby)
+		sceneMan->RemoveObject(playersInLobby, sceneMan->findLayer("layer1"));
+}
 
 
 

@@ -79,7 +79,7 @@ private:
 	void removeSlots();
 	void updateLobby();
 	void createPlayerCount();
-	string playerCount;
+	void removePlayerCount();
 	SDLRenderObject * playersInLobby;
 };
 
