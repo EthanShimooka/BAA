@@ -15,6 +15,7 @@ public:
 	void changeSprite(int imageID);
 	void setToDefault();
 	void toggleSprites();
+	void toggleSprites(int num);
 	void addSecondSprite(int imageID);
 };
 

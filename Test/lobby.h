@@ -61,6 +61,8 @@ private:
 	int numPlayersReady;
 	int numPlayers;
 	int maxPlayers = 4;
+	bool ready;
+	bool selected;
 
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
@@ -68,12 +70,16 @@ private:
 	SystemRenderUpdater sysRend;
 	SystemLogicUpdater sysLogic;*/
 
+	uint64_t buttonID;
 	vector<GameObject*> classButt;
 	vector<GameObject*> slots;
 	vector<GameObject*> readySlots;
+	GameObject* readyButt;
+	void createReadyButt();
 	void createClassButts();
 	int  checkButtons();
 	void playerSelection(int classType);
+	void playersReady(int value);
 	void changePlayerSelectionImage();
 	void removeButtons();
 	void createSlots();

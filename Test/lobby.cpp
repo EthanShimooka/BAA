@@ -4,6 +4,9 @@ vector<player*> players;
 
 Lobby::Lobby() : numPlayersReady(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
+	buttonID = 1;
+	ready = false;
+	selected = false;
 }
 
 
@@ -18,6 +21,7 @@ void Lobby::runLobby(){
 
 
 	// creating buttons
+	createReadyButt();
 	createClassButts();
 	createSlots();
 
@@ -44,11 +48,21 @@ void Lobby::runLobby(){
 	}
 }
 
+void Lobby::createReadyButt(){
+	RenderManager* renderMan = RenderManager::getRenderManager();
+
+	int w, h;
+	float x, y;
+	renderMan->getWindowSize(&w, &h);
+	renderMan->windowCoordToWorldCoord(x, y, w*(7/8.0), h*(48/100.0));
+	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f);
+	classButt.push_back(readyButt);
+	GameObjects.AddObject(readyButt);
+}
 
 void Lobby::createClassButts(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GameObject* button;
-	uint64_t buttonID = 11;
 
 	int w, h;
 	float midHeight, offset;
@@ -97,15 +111,24 @@ int Lobby::checkButtons(){
 	for (int i = 0; i < classButt.size(); ++i){
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 			playerSelection(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->currentImage);
+			selected = true;
 			return i;
 		}
+	}
+	if (selected && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
+		ready = !ready;
+		playersReady(ready);
+		return 12;
 	}
 	return -1;
 }
 
 void Lobby::playerSelection(int classType){
 	NetworkManager::sInstance->SendSelectPacket(classType);
-	
+}
+
+void Lobby::playersReady(int value){
+	NetworkManager::sInstance->SendRdyUpPacket(value);
 }
 
 void Lobby::changePlayerSelectionImage(){
@@ -115,15 +138,18 @@ void Lobby::changePlayerSelectionImage(){
 		int i = 0;
 		for (const auto& iter : lobby_m){
 			if (iter.second.classType != -1) {
-				dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites();
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType + 5);
-				++numPlayersReady;
 			}
 			else {
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
 			}
-			/*if (iter.second.ready)
-				++numPlayersReady;*/
+			if (iter.second.ready){
+				dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites(2);
+				++numPlayersReady;
+			}
+			else{
+				dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites(1);
+			}
 			++i;
 		}
 	}
@@ -140,7 +166,6 @@ void Lobby::removeButtons(){
 void Lobby::createSlots(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GameObject* slot, *readySlot;
-	uint64_t slotID = 1;
 	int w, h;
 	float topH, bottH, offset;
 	float x, y;
@@ -163,12 +188,12 @@ void Lobby::createSlots(){
 		}
 		renderMan->windowCoordToWorldCoord(x, y, offset, h);
 		// ready slots
-		readySlot = bFactory.Spawn(slotID++, x, y, 28);
+		readySlot = bFactory.Spawn(buttonID++, x, y, 28);
 		dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER))->addSecondSprite(30);
 		readySlots.push_back(readySlot);
 		GameObjects.AddObject(readySlot);
 		// slots
-		slot = bFactory.Spawn(slotID++, x, y, 28);
+		slot = bFactory.Spawn(buttonID++, x, y, 28);
 		slots.push_back(slot);
 		GameObjects.AddObject(slot);
 	}
