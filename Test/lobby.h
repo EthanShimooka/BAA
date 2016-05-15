@@ -88,6 +88,7 @@ private:
 	void createPlayerCount();
 	void removePlayerCount();
 	void removeAllButtons();
+	void setFreeSlotsToDefault(int firstSlot);
 	SDLRenderObject * playersInLobby;
 };
 

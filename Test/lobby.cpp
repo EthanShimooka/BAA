@@ -155,6 +155,7 @@ void Lobby::changePlayerSelectionImage(){
 			}
 			++i;
 		}
+		setFreeSlotsToDefault(i);
 	}
 }
 
@@ -244,9 +245,12 @@ void Lobby::removeAllButtons(){
 	GameObjects.DeleteObjects();
 }
 
-
-
-
+void Lobby::setFreeSlotsToDefault(int firstSlot){
+	for (int i = firstSlot; i < readySlots.size(); ++i){
+		dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
+		dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
+	}
+}
 
 
 
