@@ -66,7 +66,7 @@ void PlayerUIComponent::updateKillHUD(){
 }
 
 void PlayerUIComponent::Update(){
-	updateKillHUD();
+	//updateKillHUD();
 	//update HUD
 	int w, h;
 	birdseedHUD->getSize(w, h);
