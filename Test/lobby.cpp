@@ -32,10 +32,13 @@ void Lobby::runLobby(){
 		updateLobby();
 		lobbyInput = checkButtons();
 		changePlayerSelectionImage();
-		/// testing
-		updateLobby();
-		///
+	
+		// try to start the game if everyone is ready
 		if (numPlayers == numPlayersReady) {
+			NetworkManager::sInstance->TryReadyGame();
+		}
+		// start the game
+		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 			removeButtons();
 			removeSlots();
 			GameSession game;
