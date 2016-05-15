@@ -31,3 +31,20 @@ void ButtonRenderComponent::changeSprite(int imageID){
 void ButtonRenderComponent::setToDefault(){
 	changeSprite(defaultImage);
 }
+
+void swap(int& onSprite, int& offSprite){
+	int tempSprite = onSprite;
+	onSprite = offSprite;
+	offSprite = tempSprite;
+}
+
+void ButtonRenderComponent::addSecondSprite(int imageID) {
+	currentImage = imageID;
+}
+
+void ButtonRenderComponent::toggleSprites(){
+	if (defaultImage != currentImage){
+		swap(defaultImage, currentImage);
+		changeSprite(defaultImage);
+	}
+}

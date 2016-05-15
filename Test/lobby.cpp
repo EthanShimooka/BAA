@@ -138,7 +138,7 @@ void Lobby::removeButtons(){
 
 void Lobby::createSlots(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
-	GameObject* slot;
+	GameObject* slot, *readySlot;
 	uint64_t slotID = 1;
 	int w, h;
 	float topH, bottH, offset;
@@ -161,6 +161,11 @@ void Lobby::createSlots(){
 			offset += w * (1 / 8.0);
 		}
 		renderMan->windowCoordToWorldCoord(x, y, offset, h);
+		// ready slots
+		readySlot = bFactory.Spawn(slotID++, x, y, 28);
+		readySlots.push_back(readySlot);
+		GameObjects.AddObject(readySlot);
+		// slots
 		slot = bFactory.Spawn(slotID++, x, y, 28);
 		slots.push_back(slot);
 		GameObjects.AddObject(slot);
@@ -172,6 +177,11 @@ void Lobby::removeSlots(){
 		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef,
 			SceneManager::GetSceneManager()->findLayer("layer1"));
 		GameObjects.DeleteObject(slots[i]->ID);
+	}
+	for (int i = 0; i < readySlots.size(); ++i){
+		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->objRef,
+			SceneManager::GetSceneManager()->findLayer("layer1"));
+		GameObjects.DeleteObject(readySlots[i]->ID);
 	}
 }
 
@@ -191,7 +201,6 @@ void Lobby::createPlayerCount(){
 	playersInLobby->setPos(0, 0);
 }
 
-
 void Lobby::removePlayerCount(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	if (playersInLobby){
@@ -200,7 +209,6 @@ void Lobby::removePlayerCount(){
 		sceneMan->RemoveObject(playersInLobby, sceneMan->findLayer("layer1"));
 	}
 }
-
 
 
 

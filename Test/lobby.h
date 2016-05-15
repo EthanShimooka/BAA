@@ -70,6 +70,7 @@ private:
 
 	vector<GameObject*> classButt;
 	vector<GameObject*> slots;
+	vector<GameObject*> readySlots;
 	void createClassButts();
 	int  checkButtons();
 	void playerSelection(int classType);
