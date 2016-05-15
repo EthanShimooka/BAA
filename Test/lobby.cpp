@@ -191,8 +191,6 @@ void Lobby::updateLobby(){
 	SceneManager::GetSceneManager()->AssembleScene();
 }
 
-
-
 void Lobby::createPlayerCount(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	playersInLobby = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
@@ -202,8 +200,11 @@ void Lobby::createPlayerCount(){
 
 void Lobby::removePlayerCount(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	if (playersInLobby)
+	if (playersInLobby){
+		// this has to change later (removeObject doesn't work on text)
+		playersInLobby->setVisible(false);
 		sceneMan->RemoveObject(playersInLobby, sceneMan->findLayer("layer1"));
+	}
 }
 
 
