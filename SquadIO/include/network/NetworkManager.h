@@ -116,6 +116,8 @@ private:
 	SQUADIO_API void	HandleTurnPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Processes delay packets
 	SQUADIO_API void	ProcessPacketsDelay(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	/// Handles team packet
+	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Attempts to start the game
 	SQUADIO_API void	TryStartGame();
 public:
@@ -162,7 +164,7 @@ public:
 
 	SQUADIO_API void	SendTeamToPeers(uint64_t ID, int team);
 
-	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	
 
 	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
 	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);

@@ -62,7 +62,7 @@ private:
 	int numPlayers;
 	int maxPlayers = 4;
 	bool ready;
-	bool selected;
+	int selected;
 
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
@@ -79,7 +79,7 @@ private:
 	void createClassButts();
 	int  checkButtons();
 	void playerSelection(int classType);
-	void playersReady(int value);
+	void playerReady(int value);
 	void changePlayerSelectionImage();
 	void removeButtons();
 	void createSlots();

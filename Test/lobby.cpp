@@ -6,7 +6,7 @@ Lobby::Lobby() : numPlayersReady(0){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	buttonID = 1;
 	ready = false;
-	selected = false;
+	selected = -1;
 }
 
 
@@ -18,7 +18,6 @@ void Lobby::runLobby(){
 
 	// number of players in lobby
 	createPlayerCount();
-
 
 	// creating buttons
 	createReadyButt();
@@ -106,14 +105,15 @@ int Lobby::checkButtons(){
 	InputManager::getInstance()->update();
 	for (int i = 0; i < classButt.size(); ++i){
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
-			playerSelection(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage());
-			selected = true;
+			int selection = dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage();
+			playerSelection(selection);
+			selected = selection;
 			return i;
 		}
 	}
 	if (selected && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 		ready = !ready;
-		playersReady(ready);
+		playerReady(ready);
 		return 12;
 	}
 	return -1;
@@ -123,12 +123,15 @@ void Lobby::playerSelection(int classType){
 	NetworkManager::sInstance->SendSelectPacket(classType);
 }
 
-void Lobby::playersReady(int value){
+void Lobby::playerReady(int value){
 	NetworkManager::sInstance->SendRdyUpPacket(value);
 }
 
 void Lobby::changePlayerSelectionImage(){
 	if (NetworkManager::sInstance->lobbyUpdated()){
+		// send class and ready packet if someone joins the game
+		playerSelection(selected);
+		playerReady(ready);
 		unordered_map< uint64_t, PlayerInfo > lobby_m = NetworkManager::sInstance->getLobbyInfoMap();
 		numPlayersReady = 0;
 		int i = 0;

@@ -22,7 +22,7 @@ public:
 	void toggleSprites(int num);
 	void addSecondSprite(int imageID);
 	void changeLayer(std::string layer);
-	const std::string getLayer() const { return layer; }
-	const int getCurrImage() const { return currentImage; }
+	std::string getLayer() const { return layer; }
+	int getCurrImage() const { return currentImage; }
 };
 
