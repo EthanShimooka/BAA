@@ -155,11 +155,14 @@ void Lobby::changePlayerSelectionImage(){
 }
 
 void Lobby::removeButtons(){
-	for (int i = 0; i < classButt.size(); ++i){
+	for (int i = 0; i < classButt.size(); ++i){ //remove class buttons
 		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->objRef,
 			SceneManager::GetSceneManager()->findLayer("layer1"));
 		GameObjects.DeleteObject(classButt[i]->ID);
 	}
+	//remove ready button
+	SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(readyButt->GetComponent(COMPONENT_RENDER))->objRef, SceneManager::GetSceneManager()->findLayer("layer1"));
+	GameObjects.DeleteObject(readyButt->ID);
 }
 
 void Lobby::createSlots(){
