@@ -87,6 +87,7 @@ private:
 	void updateLobby();
 	void createPlayerCount();
 	void removePlayerCount();
+	void removeAllButtons();
 	SDLRenderObject * playersInLobby;
 };
 

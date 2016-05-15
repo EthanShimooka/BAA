@@ -30,19 +30,16 @@ void Lobby::runLobby(){
 		updateLobby();
 		checkButtons();
 		changePlayerSelectionImage();
-	
 		// try to start the game if everyone is ready
 		if (numPlayers == numPlayersReady) {
 			NetworkManager::sInstance->TryReadyGame();
 		}
 		// start the game
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
-			removeButtons();
-			removeSlots();
-			removePlayerCount();
+			removeAllButtons();
 			SceneManager::GetSceneManager()->AssembleScene();
-			GameSession game;
-			game.Run();	
+			/*GameSession game;
+			game.Run();*/	
 			break;
 		}
 	}
@@ -156,12 +153,9 @@ void Lobby::changePlayerSelectionImage(){
 
 void Lobby::removeButtons(){
 	for (int i = 0; i < classButt.size(); ++i){ //remove class buttons
-		SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->objRef,
-			SceneManager::GetSceneManager()->findLayer("layer1"));
 		GameObjects.DeleteObject(classButt[i]->ID);
 	}
 	//remove ready button
-	SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(readyButt->GetComponent(COMPONENT_RENDER))->objRef, SceneManager::GetSceneManager()->findLayer("layer1"));
 	GameObjects.DeleteObject(readyButt->ID);
 }
 
@@ -207,15 +201,10 @@ void Lobby::createSlots(){
 }
 
 void Lobby::removeSlots(){
-	ButtonRenderComponent* br;
 	for (int i = 0; i < slots.size(); ++i){
-		br = dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER));
-		SceneManager::GetSceneManager()->RemoveObject(br->objRef, SceneManager::GetSceneManager()->findLayer(br->getLayer()));
 		GameObjects.DeleteObject(slots[i]->ID);
 	}
 	for (int i = 0; i < readySlots.size(); ++i){
-		br = dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER));
-		SceneManager::GetSceneManager()->RemoveObject(br->objRef,SceneManager::GetSceneManager()->findLayer(br->getLayer()));
 		GameObjects.DeleteObject(readySlots[i]->ID);
 	}
 }
@@ -245,7 +234,9 @@ void Lobby::removePlayerCount(){
 	}
 }
 
-
+void Lobby::removeAllButtons(){
+	GameObjects.DeleteObjects();
+}
 
 
 

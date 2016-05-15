@@ -13,6 +13,7 @@ private:
 	int defaultImage;
 	int currentImage;
 	std::string layer;
+	SceneManager* sceneMan;
 
 public:
 	void changeSprite(int imageID);
