@@ -11,13 +11,7 @@ Lobby::~Lobby(){
 }
 
 void Lobby::runLobby(){
-	InputManager* input = InputManager::getInstance();
-	RenderManager* renderMan = RenderManager::getRenderManager();
-	SceneManager* sceneMan = SceneManager::GetSceneManager();
-
-	int lobbyInput;
-
-	renderMan->setBackground("Lobby_bg.png");
+	RenderManager::getRenderManager()->setBackground("Lobby_bg.png");
 
 	// number of players in lobby
 	createPlayerCount();
@@ -30,7 +24,7 @@ void Lobby::runLobby(){
 	
 	while (true){
 		updateLobby();
-		lobbyInput = checkButtons();
+		checkButtons();
 		changePlayerSelectionImage();
 	
 		// try to start the game if everyone is ready
