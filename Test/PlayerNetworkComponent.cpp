@@ -94,8 +94,6 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
 	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 	if(UIComp)UIComp->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
-	//trigger death audio here for other 7 players
-	//Write function in logic component which takes a references to the player class and plays appropriate noise
 	PlayerLogicComponent* deadPlayerLogic = dynamic_cast<PlayerLogicComponent*>(GameObjects.GetGameObject(deadPlayerID)->GetComponent(COMPONENT_LOGIC));
 	deadPlayerLogic->death = true;
 	logicComp->playDeathSFX(playerClass);

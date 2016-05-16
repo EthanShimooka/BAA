@@ -72,13 +72,8 @@ public:
 	bool isEgg = false;
 	bool death = false;
 
-	Invoke* timer;
-	bool invokeHelper = false;
-
 	float currChargePercentage = 0;
 
-	
-	
 };
 
 #endif
