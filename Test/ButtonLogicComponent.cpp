@@ -55,3 +55,7 @@ bool ButtonLogicComponent::isMouseHovering(){
 		return true;
 	return false;
 }
+
+void ButtonLogicComponent::setSound(std::string _sound){
+	sound = _sound;
+}

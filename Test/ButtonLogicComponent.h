@@ -16,7 +16,7 @@ public:
 	int width;
 	int height;
 	std::string sound;
-
+	void setSound(std::string _sound);
 
 	InputManager* input;
 };

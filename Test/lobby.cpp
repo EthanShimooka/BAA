@@ -72,30 +72,35 @@ void Lobby::createClassButts(){
 	// chicken button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 50, 75.0f, 75.0f, 0.75f);
+	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("chickensfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
 	// peacock button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 51, 75.0f, 75.0f, 0.75f);
+	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("peacocksfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
 	// flamingo button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 52, 75.0f, 75.0f, 0.75f);
+	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("flamingosfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
 	// quail button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 53, 75.0f, 75.0f, 0.75f);
+	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("quailsfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
 	// turkey button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 54, 75.0f, 75.0f, 0.75f);
+	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("turkeysfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
@@ -140,6 +145,7 @@ void Lobby::changePlayerSelectionImage(){
 		numPlayersReady = 0;
 		int i = 0;
 		for (const auto& iter : lobby_m){
+			std::cout << iter.first << std::endl;
 			if (iter.second.classType != -1) {
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType + 5);
 			}
