@@ -22,9 +22,6 @@ void ButtonLogicComponent::Update(){
 
 bool ButtonLogicComponent::isButtonPressed(){
 	if (input->isMouseLeftReleased()){
-		if (sound != "")
-			AudioManager::getAudioInstance()->playByName(sound);
-
 		//get mouse position
 		float x, y;
 
@@ -35,8 +32,12 @@ bool ButtonLogicComponent::isButtonPressed(){
 		//std::cout << "x: " << x << ", y: " << y << std::endl;// << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << width << ", " << height << std::endl;
 		// returns true if mouse within bounds
 		if (x <= gameObjectRef->posX && x + width >= gameObjectRef->posX &&
-			y <= gameObjectRef->posY && y + height >= gameObjectRef->posY)
+			y <= gameObjectRef->posY && y + height >= gameObjectRef->posY){
+			if (sound != "")
+				AudioManager::getAudioInstance()->playByName(sound);
 			return true;
+		}
+			
 		return false;
 	}
 }
