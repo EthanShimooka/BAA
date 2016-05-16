@@ -180,8 +180,8 @@ void PlayerPhysicsComponent::Update(){
 																 //enters this if and plays rooster noise for the player still alive
 		//if (logicComp->invokeHelper && logicComp->timer->isDone() && abs(gameObjectRef->posX) > 1300){ 
 		//if (abs(gameObjectRef->posX > 1300)){//Without invokeTimer never enters this just using catapult, can probably use this as the check
-			logicComp->timer->destroy();
-			logicComp->invokeHelper = false;
+			//logicComp->timer->destroy();
+			//logicComp->invokeHelper = false;
 			logicComp->hatchBird(true);
 			logicComp->death = false;
 			std::cout << "BOTTOM IF TRIGGERED!!!!!!!!!!!!!!!" << std::endl;
