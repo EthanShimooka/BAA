@@ -55,17 +55,18 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		PlayerLogicComponent* otherPlayerLogicComp = dynamic_cast<PlayerLogicComponent*>(featherOwner->GetComponent(COMPONENT_LOGIC));
 		uint64_t shooter = featherOwner->ID;
 		if (otherObj->isLocal){
+			//Triggers death stuff for player who fired feather
 			logicComp->becomeEgg();
-			otherPlayerLogicComp->timer = new Invoke(0.5f);
-			otherPlayerLogicComp->invokeHelper = true;
-			otherPlayerLogicComp->death = true; //NEED TO BE setting this for logicComp attached not to gameObjectRef but to otherObj
+			//otherPlayerLogicComp->timer = new Invoke(0.5f);
+			//otherPlayerLogicComp->invokeHelper = true;
+			//otherPlayerLogicComp->death = true; //NEED TO BE setting this for logicComp attached not to gameObjectRef but to otherObj
 			//Trigger death audio here for person who fired feather
 			//Should be local player class here
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
 			logicComp->playDeathSFX(localClass);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			networkComp->createDeathPacket(shooter, localClass);
+			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
@@ -94,9 +95,9 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 												   PlayerLogicComponent* otherPlayerLogicComp = dynamic_cast<PlayerLogicComponent*>(mineOwner->GetComponent(COMPONENT_LOGIC));
 												   uint64_t shooter = mineOwner->ID;
 												   logicComp->becomeEgg();
-												   otherPlayerLogicComp->timer = new Invoke(0.5f);
-												   otherPlayerLogicComp->invokeHelper = true;
-												   otherPlayerLogicComp->death = true;
+												   //otherPlayerLogicComp->timer = new Invoke(0.5f);
+												   //otherPlayerLogicComp->invokeHelper = true;
+												   //otherPlayerLogicComp->death = true;
 											   }
 										   }
 
