@@ -51,16 +51,17 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		 if (otherObj->team == gameObjectRef->team)break;
 		 //signal self death and turn to egg
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		uint64_t shooter = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner->ID;
+		GameObject* featherOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		uint64_t shooter = featherOwner->ID;
 		if (otherObj->isLocal){
+			//Triggers death stuff for player who fired feather
 			logicComp->becomeEgg();
-			//Trigger death audio here for person who fired feather
-			//Should be local player class here
+			logicComp->death = true;
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
 			logicComp->playDeathSFX(localClass);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-			networkComp->createDeathPacket(shooter, localClass);
+			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
@@ -80,15 +81,17 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											   break;
 	}
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:{
-										   if (otherObj->team != gameObjectRef->team){
-											   MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-											   if (mineLogicComp->fuseLit){
-												   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
-												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-												   logicComp->becomeEgg();
-											   }
-										   }
-
+										   if (otherObj->team == gameObjectRef->team) break;
+										   MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+										   if (mineLogicComp->fuseLit){
+											   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
+											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											   GameObject* mineOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+											   uint64_t shooter = mineOwner->ID;
+											   logicComp->becomeEgg();
+											   logicComp->death = true;
+											 }
+										   
 										   break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_SWITCH:{
@@ -121,15 +124,14 @@ void PlayerPhysicsComponent::launchPlayer(){
 
 	//check if back at base yet
 	if ((gameObjectRef->posX > 0) && (gameObjectRef->team == TEAM_YELLOW)){
-
-		logicComp->hatchBird();
+		logicComp->hatchBird(false);
 		logicComp->launchable = false;
 		logicComp->launchableZone = false;
 		currLaunch = false;
 	}
 
 	if ((gameObjectRef->posX < 0) && (gameObjectRef->team == TEAM_PURPLE)){
-		logicComp->hatchBird();
+		logicComp->hatchBird(false);
 		logicComp->launchable = false;
 		logicComp->launchableZone = false;
 		currLaunch = false;
@@ -159,8 +161,9 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
 		//check if back at base yet
-		if (abs(gameObjectRef->posX) > 1300){
-			logicComp->hatchBird();
+		if (logicComp->death && abs(gameObjectRef->posX) > 1300){
+			logicComp->hatchBird(true);
+			logicComp->death = false;
 		}
 	}
 
