@@ -59,7 +59,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 			logicComp->becomeEgg();
 			//otherPlayerLogicComp->timer = new Invoke(0.5f);
 			//otherPlayerLogicComp->invokeHelper = true;
-			//otherPlayerLogicComp->death = true; //NEED TO BE setting this for logicComp attached not to gameObjectRef but to otherObj
+			otherPlayerLogicComp->death = true; //NEED TO BE setting this for logicComp attached not to gameObjectRef but to otherObj
 			//Trigger death audio here for person who fired feather
 			//Should be local player class here
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
@@ -182,6 +182,7 @@ void PlayerPhysicsComponent::Update(){
 		//if (abs(gameObjectRef->posX > 1300)){//Without invokeTimer never enters this just using catapult, can probably use this as the check
 			//logicComp->timer->destroy();
 			//logicComp->invokeHelper = false;
+			//CURRENTLY: hatchBird is never called for the other simulations (if playerA fired feather to kill playerB, playerA sees playerB as an egg after playerB has respawned)
 			logicComp->hatchBird(true);
 			logicComp->death = false;
 			std::cout << "BOTTOM IF TRIGGERED!!!!!!!!!!!!!!!" << std::endl;
