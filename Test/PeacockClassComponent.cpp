@@ -215,7 +215,6 @@ int PeacockClassComponent::useAbility(){
 			break;
 		}
 
-		activeFans++;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float posX, posY, forceX, forceY, rotation;
