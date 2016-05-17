@@ -174,39 +174,40 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= 1){//seedRequired){
 		FanObjectFactory fFactory;
-		switch (activeFans){
-		case 0:
+		switch (++activeFans){
+		case 1:
 			timer = new Invoke(fanLength);
 			invokeHelper = true;
 			std::cout << "Starting timer for fan 1!" << std::endl;
+			std::cout << "activeFans = " << activeFans << std::endl;
 			break;
-		case 1:
+		case 2:
 			timer2 = new Invoke(fanLength);
 			invokeHelper2 = true;
 			std::cout << "Starting timer for fan 2!" << std::endl;
 			break;
-		case 2:
+		case 3:
 			timer3 = new Invoke(fanLength);
 			invokeHelper3 = true;
 			std::cout << "Starting timer for fan 3!" << std::endl;
 			break;
-		case 3:
+		case 4:
 			timer4 = new Invoke(fanLength);
 			invokeHelper4 = true;
 			break;
-		case 4:
+		case 5:
 			timer5 = new Invoke(fanLength);
 			invokeHelper5 = true;
 			break;
-		case 5:
+		case 6:
 			timer6 = new Invoke(fanLength);
 			invokeHelper6 = true;
 			break;
-		case 6:
+		case 7:
 			timer7 = new Invoke(fanLength);
 			invokeHelper7 = true;
 			break;
-		case 7:
+		case 8:
 			timer8 = new Invoke(fanLength);
 			invokeHelper8 = true;
 			break;
@@ -279,46 +280,46 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	//aPacket.Read(forceX);
 	//aPacket.Read(forceY);
 	aPacket.Read(rotation);
-	switch (activeFans){
-	case 0:
+	switch (++activeFans){
+	case 1:
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
 		std::cout << "Starting networked timer for fan 1!" << std::endl;
+		std::cout << "activeFans = " << activeFans << std::endl;
 		break;
-	case 1:
+	case 2:
 		timer2 = new Invoke(fanLength);
 		invokeHelper2 = true;
 		std::cout << "Starting networked timer for fan 2!" << std::endl;
 		break;
-	case 2:
+	case 3:
 		timer3 = new Invoke(fanLength);
 		invokeHelper3 = true;
 		std::cout << "Starting networked timer for fan 3!" << std::endl;
 		break;
-	case 3:
+	case 4:
 		timer4 = new Invoke(fanLength);
 		invokeHelper4 = true;
 		break;
-	case 4:
+	case 5:
 		timer5 = new Invoke(fanLength);
 		invokeHelper5 = true;
 		break;
-	case 5:
+	case 6:
 		timer6 = new Invoke(fanLength);
 		invokeHelper6 = true;
 		break;
-	case 6:
+	case 7:
 		timer7 = new Invoke(fanLength);
 		invokeHelper7 = true;
 		break;
-	case 7:
+	case 8:
 		timer8 = new Invoke(fanLength);
 		invokeHelper8 = true;
 		break;
 	default:
 		break;
 	}
-	activeFans++;
 	fanIDs.push_back(ID);
 	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation, gameObjectRef->team));
 }
