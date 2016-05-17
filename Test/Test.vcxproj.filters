@@ -555,8 +555,11 @@
     <ClInclude Include="LobbyMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameOver.h">
+    <ClInclude Include="Stats.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -905,8 +908,11 @@
     <ClCompile Include="LobbyMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameOver.cpp">
+    <ClCompile Include="Stats.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
