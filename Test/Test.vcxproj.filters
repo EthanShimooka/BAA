@@ -528,6 +528,9 @@
     <ClInclude Include="PlayerUIComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
+    <ClInclude Include="EggImplosionParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -856,6 +859,9 @@
     </ClCompile>
     <ClCompile Include="PlayerUIComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EggImplosionParticle.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

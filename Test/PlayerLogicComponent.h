@@ -38,6 +38,10 @@ public:
 	uint64_t spawnFeather(int mouseX, int mouseY, float speed);
 	/// Spawn Feather (networked)
 	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed);
+	float eggTimer;
+	float lasttime;
+	bool eggQueued;
+	void queueEgg();
 	/// When the player is hit by a feather, turn into an egg and roll back to base.
 	/// This function reaches into each component and makes appropriate changes to
 	/// turn the player into an egg
