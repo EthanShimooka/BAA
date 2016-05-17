@@ -1,13 +1,11 @@
 #pragma once
 #include "Scene.h"
-#include "ButtonObjectFactory.h"
-
-class Lobby //: 
-	//public Scene
+class LobbyMenu :
+	public Scene
 {
 public:
-	Lobby();
-	~Lobby();
+	LobbyMenu();
+	~LobbyMenu();
 	int runScene();
 
 private:
@@ -47,5 +45,5 @@ private:
 	int  checkButtons();
 	void playerSelection(int classType);
 	void playerReady(int value);
-	void updateLobby();	
+	void updateLobby();
 };

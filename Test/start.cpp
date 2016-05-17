@@ -7,7 +7,7 @@ Start::Start(){
 Start::~Start(){
 }
 
-void Start::mainMenu(){
+int Start::mainMenu(){
 	InputManager* input = InputManager::getInstance();
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	AudioManager* audioMan = AudioManager::getAudioInstance();
@@ -46,16 +46,19 @@ void Start::mainMenu(){
 	playButt = bFactory.Spawn(3521, 200, 150, 19, w / 2.0 + 25, h / 2.0 -25);
 	GameObjects.AddObject(playButt);
 
-	int startInput = waitForInput();
+	int nextScene = waitForInput();
+	removeButtons();
 
-	switch (startInput){
-	case 1:
-		removeButtons();
-		
-		Lobby lobby;
-		lobby.runLobby();
-		break;
-	}
+	return nextScene;
+
+	//switch (startInput){
+	//case 1:
+	//	removeButtons();
+	//	
+	//	Lobby lobby;
+	//	lobby.runLobby();
+	//	break;
+	//}
 
 
 	//UIObjectFactory uFactory;
@@ -109,7 +112,7 @@ int Start::waitForInput(){
 		SceneManager::GetSceneManager()->AssembleScene();
 		if (dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 			NetworkManager::sInstance->StartLobbySearch();
-			return 1;
+			return SCENE_LOBBY;
 		}
 	}
 }

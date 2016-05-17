@@ -2,6 +2,10 @@
 #include <functional>
 #include <crtdbg.h>
 
+
+#include "MainMenu.h"
+#include "LobbyMenu.h"
+#include "GameOver.h"
 //#include "include\network\NetIncludes.h"
 
 
@@ -16,10 +20,15 @@ int main() {
 }
 
 int _tmain(int argc, _TCHAR* argv[]){
-	
-	
+	int nextScene = SCENE_MENU;
+	Scene* scene;
 
-	int numPlayers = 1;
+	LogManager::GetLogManager()->create("log.txt");
+	SceneManager::GetSceneManager()->loadFromXMLFile("SceneTree.xml");
+	ResourceManager::GetResourceManager()->loadFromXMLFile("source.xml");
+	InputManager::getInstance()->update();
+	RenderManager::getRenderManager()->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+
 	if (!GamerServices::StaticInit())
 		std::cout << "Failed to initialize Steam" << "\n";
 
@@ -27,27 +36,35 @@ int _tmain(int argc, _TCHAR* argv[]){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
 
-	RenderManager* renderMan = RenderManager::getRenderManager();
-	renderMan->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+	while (true){
+		switch (nextScene){
+		case SCENE_MENU:
+			scene = new MainMenu();
+			nextScene = scene->runScene();
+			delete scene;
+			break;
+		case SCENE_LOBBY:
+			scene = new LobbyMenu();
+			nextScene = scene->runScene();
+			delete scene;
+			break;
+		/*case SCENE_GAME:
+			scene = new GameSession();
+			nextScene = scene->runScene();
+			delete scene;
+			break;*/
+		case SCENE_END:
+			scene = new GameOver(1, 2, 1);
+			nextScene = scene->runScene();
+			delete scene;
+			break;
+		}
+		if (nextScene == 3)
+			break;
+	}
 
 
-	LogManager* log = LogManager::GetLogManager();
-	log->create("log.txt");
-
-
-	Start mainMenu;
-	mainMenu.mainMenu();
-
-	// don't need to change this line
-	int numLobbyPlayer = 0;
-
-	/////////////////////////////////////////////////////
-	// Loop freeing memory NOW MOVED TO DESTRUCTOROF SYSTEMGAMEOBJECTQUEUE
-	//for (unsigned int i = 0; i < GameObjects.alive_objects.size(); i++){
-		//GameObjects.DeleteObjects(GameObjects.alive_objects[i]->ID);
-	//}
-
-	log->close();
+	LogManager::GetLogManager()->close();
 
 	return 0;
 }

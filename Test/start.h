@@ -11,7 +11,7 @@ public:
 	Start();
 	~Start();
 
-	void mainMenu();
+	int mainMenu();
 
 	void joinLobby();
 	void play();

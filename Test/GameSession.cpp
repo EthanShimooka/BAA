@@ -561,6 +561,6 @@ int GameSession::Run(){
 
 
 	GameWorld::getInstance()->~GameWorld();
-	return 0;
+	return SCENE_END;
 }
 

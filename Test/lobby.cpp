@@ -3,6 +3,7 @@
 vector<player*> players;
 
 Lobby::Lobby() : numPlayersReady(0){
+	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	buttonID = 1;
 	ready = false;
@@ -13,14 +14,14 @@ Lobby::Lobby() : numPlayersReady(0){
 Lobby::~Lobby(){
 }
 
-void Lobby::runLobby(){
+int Lobby::runScene(){
 	RenderManager::getRenderManager()->setBackground("Lobby_bg.png");
 
 	// number of players in lobby
 	createPlayerCount();
 
 	// creating buttons
-	createReadyButt();
+	createButtons();
 	createClassButts();
 	createSlots();
 
@@ -37,22 +38,24 @@ void Lobby::runLobby(){
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 			removeAllButtons();
 			SceneManager::GetSceneManager()->AssembleScene();
-			GameSession game;
-			game.Run();	
-			break;
+			return SCENE_GAME;
 		}
 	}
 }
 
-void Lobby::createReadyButt(){
+void Lobby::createButtons(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 
 	int w, h;
 	float x, y;
 	renderMan->getWindowSize(&w, &h);
+
+	// ready button
 	renderMan->windowCoordToWorldCoord(x, y, w*(7/8.0), h*(48/100.0));
 	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(readyButt);
+
+	// back button 
 }
 
 void Lobby::createClassButts(){
@@ -119,9 +122,9 @@ int Lobby::checkButtons(){
 	if (selected && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 		ready = !ready;
 		playerReady(ready);
-		return 12;
+		return BUTTON_READY;
 	}
-	return -1;
+	return BUTTON_BACK;
 }
 
 void Lobby::playerSelection(int classType){
@@ -166,11 +169,14 @@ void Lobby::changePlayerSelectionImage(){
 }
 
 void Lobby::removeButtons(){
-	for (int i = 0; i < classButt.size(); ++i){ //remove class buttons
+	//remove class buttons
+	for (int i = 0; i < classButt.size(); ++i){ 
 		GameObjects.DeleteObject(classButt[i]->ID);
 	}
 	//remove ready button
 	GameObjects.DeleteObject(readyButt->ID);
+	//remove back button
+	GameObjects.DeleteObject(backButt->ID);
 }
 
 void Lobby::createSlots(){
