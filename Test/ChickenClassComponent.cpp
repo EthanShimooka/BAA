@@ -136,6 +136,7 @@ int ChickenClassComponent::useAbility(){
 			GameObjects.AddObject(sFactory.Spawn((*powerNum)++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
 			writeNetAbility((*powerNum) - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false, gameObjectRef->team);
 		}
+		shieldIDs.push_back((*powerNum) - 1);
 		currBirdseed = 0;
 		return true;
 	}
@@ -182,6 +183,7 @@ void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	timer = new Invoke(shieldLength);
 	invokeHelper = true;
 	activeShields++;
+	shieldIDs.push_back(ID);
 	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction, team));
 }
 
