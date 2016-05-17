@@ -7,6 +7,8 @@ AbsorbParticle::AbsorbParticle(GameObject * startObj, GameObject * goalObj, unsi
 	//gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	RenderManager* renderMan = RenderManager::getRenderManager();
+	ResourceManager* ResMan = ResourceManager::GetResourceManager();
+	RenderResource * originalImage = (RenderResource*)ResMan->findResourcebyID(4004);
 	goal = goalObj;
 	numberOfParticles = numParticles;
 	alive = true;
@@ -19,16 +21,13 @@ AbsorbParticle::AbsorbParticle(GameObject * startObj, GameObject * goalObj, unsi
 	objRef->toggleVisible();
 	float centerX = goal->posX;
 	float centerY = goal->posY;
+	
 	for (unsigned int i = 0; i < numberOfParticles; i++){
-		//float x = i*(w / (numberOfParticles - 1)) - (w / 2);
-		//float y = 0;
-		//float dx = i*((w*1.5) / (numberOfParticles - 1)) - ((w*1.5) / 2);
-		//float a = (i - ((float(numberOfParticles) - 1.0)) / 2.0);
-		//float b = (float(numberOfParticles) - 1.0) / 2.0;
-		//float heightDif = (a / b)*(a / b);
-		//float dy = -h + h*(0.2)*heightDif;
-		//float size = 0.2;
-		SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4004, posX,posY);
+		SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), -1, posX,posY);
+		RenderResource * resource = new RenderResource(originalImage);
+		resource->load();
+		sprite->setResourceObject(resource);
+		//sprite->setResourceObject(new RenderResource(spr->renderResource));
 		//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 		sprite->setScale(1);
 		//sprite->setScaleX(base->getScaleX());
@@ -88,12 +87,16 @@ void AbsorbParticle::Update(){
 			delete iter->animations;
 			SceneManager* sceneMan = SceneManager::GetSceneManager();
 			sceneMan->RemoveObject(iter->sprite, sceneMan->findLayer("layer2"));
+			iter->sprite->renderResource->unload();
+			delete iter->sprite->renderResource;
 			auto toErase = iter;
 			iter++;
 			particles.erase(toErase);
 		}
 		else{
 			iter->animations->animate(curr);
+			//iter->sprite->renderResource->setAlpha(255 - 255 * curr);
+			iter->sprite->renderResource->setColor(rand() % 255, 255, rand() % 255);
 			iter++;
 		}
 	}

@@ -5,6 +5,15 @@
 RenderResource::RenderResource(){}
 RenderResource::RenderResource(RenderResource * resource){
 	mTexture = resource->mTexture;
+	ID = resource->ID;
+	max = resource->max;
+	width = resource->width;
+	height = resource->height;
+	m_Filename = resource->m_Filename;
+	m_Bloaded = resource->m_Bloaded;
+	m_ResourceID = resource->m_ResourceID;
+	m_Scope = resource->m_Scope;
+	m_Type = resource->m_Type;
 }
 
 RenderResource::~RenderResource(){}
