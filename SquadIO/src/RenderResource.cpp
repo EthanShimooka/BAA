@@ -3,6 +3,9 @@
 #include "include\RenderManager.h"
 
 RenderResource::RenderResource(){}
+RenderResource::RenderResource(RenderResource * resource){
+	mTexture = resource->mTexture;
+}
 
 RenderResource::~RenderResource(){}
 
@@ -46,3 +49,13 @@ void RenderResource::load(){
 	}
 }
 
+
+void RenderResource::setBlendMode(SDL_BlendMode blendMode){
+	SDL_SetTextureBlendMode(mTexture, blendMode);
+}
+void RenderResource::setColor(Uint8 red, Uint8 green, Uint8 blue){
+	SDL_SetTextureColorMod(mTexture, red, green, blue);
+}
+void RenderResource::setAlpha(Uint8 alpha){
+	SDL_SetTextureAlphaMod(mTexture, alpha);
+}
