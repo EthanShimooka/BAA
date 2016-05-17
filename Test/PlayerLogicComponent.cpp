@@ -1,5 +1,8 @@
 #include "PlayerLogicComponent.h"
 #include "include\network\GamerServices.h"
+#include "EggImplosionParticle.h"
+#include "ShrapnelExplosionParticle.h"
+
 
 uint64_t PlayerLogicComponent::childID{ 1001 };
 
@@ -8,6 +11,8 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
+	eggTimer = 1000.0;
+	lasttime = clock();
 	child_id_counter = childID;
 	childID += 1000;
 	std::cout << child_id_counter << std::endl;
@@ -62,7 +67,9 @@ void PlayerLogicComponent::becomeEgg(){
 		
 
 		//turn all sprites of player invisible
-		for (auto obj : renderComp->allObjs)obj.second->visible = false;
+		//for (auto obj : renderComp->allObjs)obj.second->visible = false;
+		createEggParticle(renderComp->allObjs["body"], 4,0,0);
+		renderComp->allObjs["body"]->visible = false;
 		renderComp->allObjs["egg"]->visible=true;
 
 
@@ -94,7 +101,9 @@ void PlayerLogicComponent::hatchBird(bool respawn){
 		}
 		PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 		//reset sprites
-		for (auto obj : renderComp->allObjs)obj.second->visible = true;
+		//for (auto obj : renderComp->allObjs)obj.second->visible = true;
+		createParticle(renderComp->allObjs["egg"], 10, gameObjectRef->posX, gameObjectRef->posY);
+		renderComp->allObjs["body"]->visible = true;
 		renderComp->allObjs["egg"]->visible = false;
 
 		//reset positions
