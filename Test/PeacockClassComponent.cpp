@@ -27,7 +27,7 @@ void PeacockClassComponent::Update()
 		std::cout << "Destroyed fan 1!" << std::endl;
 		std::cout << "activeFans = " << activeFans << std::endl;
 	}
-	if (invokeHelper2 && timer2->isDone()){
+	/*if (invokeHelper2 && timer2->isDone()){
 		timer2->destroy();
 		activeFans--;
 		invokeHelper2 = false;
@@ -72,7 +72,7 @@ void PeacockClassComponent::Update()
 		activeFans--;
 		invokeHelper8 = false;
 		destroyFan();
-	}
+	}*/
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
@@ -177,7 +177,9 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= 1){//seedRequired){
 		FanObjectFactory fFactory;
-		switch (++activeFans){
+		timer = new Invoke(fanLength);
+		invokeHelper = true;
+		/*switch (++activeFans){
 		case 1:
 			timer = new Invoke(fanLength);
 			invokeHelper = true;
@@ -218,7 +220,7 @@ int PeacockClassComponent::useAbility(){
 			break;
 		default:
 			break;
-		}
+		}*/
 
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
@@ -284,7 +286,9 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	//aPacket.Read(forceX);
 	//aPacket.Read(forceY);
 	aPacket.Read(rotation);
-	switch (++activeFans){
+	timer = new Invoke(fanLength);
+	invokeHelper = true;
+	/*switch (++activeFans){
 	case 1:
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
@@ -325,7 +329,7 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 		break;
 	default:
 		break;
-	}
+	}*/
 	fanIDs.push_back(ID);
 	GameObjects.AddObject(fFactory.Spawn(ID, posX, posY, rotation, gameObjectRef->team));
 }
