@@ -24,18 +24,21 @@ void PeacockClassComponent::Update()
 		activeFans--;
 		invokeHelper = false;
 		destroyFan();
+		std::cout << "Destroyed fan 1!" << std::endl;
 	}
 	if (invokeHelper2 && timer2->isDone()){
 		timer2->destroy();
 		activeFans--;
 		invokeHelper2 = false;
 		destroyFan();
+		std::cout << "Destroyed fan 2!" << std::endl;
 	}
 	if (invokeHelper3 && timer3->isDone()){
 		timer3->destroy();
 		activeFans--;
 		invokeHelper3 = false;
 		destroyFan();
+		std::cout << "Destroyed fan 3!" << std::endl;
 	}
 	if (invokeHelper4 && timer4->isDone()){
 		timer4->destroy();
@@ -175,14 +178,17 @@ int PeacockClassComponent::useAbility(){
 		case 0:
 			timer = new Invoke(fanLength);
 			invokeHelper = true;
+			std::cout << "Starting timer for fan 1!" << std::endl;
 			break;
 		case 1:
 			timer2 = new Invoke(fanLength);
 			invokeHelper2 = true;
+			std::cout << "Starting timer for fan 2!" << std::endl;
 			break;
 		case 2:
 			timer3 = new Invoke(fanLength);
 			invokeHelper3 = true;
+			std::cout << "Starting timer for fan 3!" << std::endl;
 			break;
 		case 3:
 			timer4 = new Invoke(fanLength);
@@ -245,6 +251,7 @@ int PeacockClassComponent::useAbility(){
 
 void PeacockClassComponent::destroyFan(){
 	GameObjects.GetGameObject(*fanIDs.begin())->isAlive = false;
+	assert(!fanIDs.empty());
 	fanIDs.pop_front();
 }
 
@@ -276,14 +283,17 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	case 0:
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
+		std::cout << "Starting networked timer for fan 1!" << std::endl;
 		break;
 	case 1:
 		timer2 = new Invoke(fanLength);
 		invokeHelper2 = true;
+		std::cout << "Starting networked timer for fan 2!" << std::endl;
 		break;
 	case 2:
 		timer3 = new Invoke(fanLength);
 		invokeHelper3 = true;
+		std::cout << "Starting networked timer for fan 3!" << std::endl;
 		break;
 	case 3:
 		timer4 = new Invoke(fanLength);
