@@ -24,8 +24,8 @@ void PeacockClassComponent::Update()
 		activeFans--;
 		invokeHelper = false;
 		destroyFan();
-		std::cout << "Destroyed fan 1!" << std::endl;
-		std::cout << "activeFans = " << activeFans << std::endl;
+		//std::cout << "Destroyed fan 1!" << std::endl;
+		//std::cout << "activeFans = " << activeFans << std::endl;
 	}
 	/*if (invokeHelper2 && timer2->isDone()){
 		timer2->destroy();
@@ -179,6 +179,7 @@ int PeacockClassComponent::useAbility(){
 		FanObjectFactory fFactory;
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
+		activeFans++;
 		/*switch (++activeFans){
 		case 1:
 			timer = new Invoke(fanLength);
@@ -288,6 +289,7 @@ void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(rotation);
 	timer = new Invoke(fanLength);
 	invokeHelper = true;
+	activeFans++;
 	/*switch (++activeFans){
 	case 1:
 		timer = new Invoke(fanLength);
