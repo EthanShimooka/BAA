@@ -172,7 +172,7 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int PeacockClassComponent::useAbility(){
-	if (currBirdseed >= 0){//seedRequired){
+	if (currBirdseed >= 1){//seedRequired){
 		FanObjectFactory fFactory;
 		switch (activeFans){
 		case 0:
