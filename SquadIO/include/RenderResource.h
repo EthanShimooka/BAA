@@ -38,7 +38,6 @@ private:
 protected:
 public:
 	SDL_Texture *mTexture;
-	SDL_Texture *baseImage;
 	/// Destructor 
 	~RenderResource();
 	/// Load gets called in resourceManager.setSceneScope() 
