@@ -27,7 +27,7 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	allObjs["rightArm"]->setParent(allObjs["body"]);
 	allObjs["body"]->setScale(allObjs["body"]->calcXScale(30));
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 10, 10);
-	box->setIfRenderRect(true);
+	//box->setIfRenderRect(true);
 	allObjs["box"] = box;
 	
 	

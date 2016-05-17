@@ -352,7 +352,8 @@ int GameSession::Run(vector<player*> players){
 	//////////////////////////////////////////////////
 
 	bool gameEnd = false;
-
+	float cameraRatio = 1.0;
+	float maxSize = 0.0;
 	while (gameloop) {
 		current_ticks = clock();
 
@@ -433,8 +434,11 @@ int GameSession::Run(vector<player*> players){
 				renderMan->windowCoordToWorldCoord(mouseX, mouseY, input->getMouseX(), input->getMouseY());
 				float cameraX = (player->posX + mouseX) / 2;
 				//next line makes the camera favor staying closer to the player
-				cameraX = (player->posX + cameraX) / 2;
-				renderMan->setCameraPoint(cameraX, 0);
+				cameraX = (player->posX) / 2;
+				maxSize = (cameraX<maxSize) ? cameraX:maxSize ;
+				if (cameraRatio > 0.0){ cameraRatio -= 0.001; }
+				else cameraRatio = 0.0;
+				renderMan->setCameraPoint(maxSize*cameraRatio, 0);
 
 			}
 		}
