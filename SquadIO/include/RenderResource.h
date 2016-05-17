@@ -38,7 +38,7 @@ private:
 protected:
 public:
 	SDL_Texture *mTexture;
-
+	SDL_Texture *baseImage;
 	/// Destructor 
 	~RenderResource();
 	/// Load gets called in resourceManager.setSceneScope() 
@@ -46,8 +46,13 @@ public:
 	/// UnLoad gets called in resourceManager.setSceneScope(). 
 	/// Be sure to unload before you call Load. Every. Time.
 	SQUADIO_API void unload();
+	SQUADIO_API void setBlendMode(SDL_BlendMode blendMode);
+	SQUADIO_API void setColor(Uint8 red, Uint8 green, Uint8 blue);
+	SQUADIO_API void setAlpha(Uint8 alpha);
 	/// Cosntructor
 	SQUADIO_API RenderResource();
+	SQUADIO_API RenderResource(RenderResource * resource);
+
 };
 
 #endif RENDERRESOURCE_H_INCLUDED

@@ -129,6 +129,7 @@
 <resource UID="6012" type="audio" filename="quailsfx.ogg" scenescope="0"></resource>
 <resource UID="6013" type="audio" filename="turkeysfx.ogg" scenescope="0"></resource>
 <resource UID="6014" type="audio" filename="flamingosfx.ogg" scenescope="0"></resource>
+<resource UID="6014" type="audio" filename="roostersfx.ogg" scenescope="0"></resource>
 <resource UID="6009" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
