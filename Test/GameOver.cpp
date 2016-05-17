@@ -6,8 +6,7 @@ struct COLOR{
 	COLOR(int r = 0, int g = 0, int b = 0) : r(r), g(g), b(b) {};
 };
 
-GameOver::GameOver(int localTeam, int purpleHealthLost, int yellowHealthLost) :
-localTeam(localTeam), purpleHealthLost(purpleHealthLost), yellowHealthLost(yellowHealthLost), buttonID(0)
+GameOver::GameOver()
 {
 	createButtons();
 	createText();
@@ -61,12 +60,12 @@ void GameOver::createText(){
 	std::string text = "";
 	COLOR *color = nullptr;
 
-	if (purpleHealthLost == yellowHealthLost){
+	if (Stats::baseHealthLost_purple() == Stats::baseHealthLost_yellow()){
 		text = "No Contest!";
 		color = new COLOR(255, 255, 0);
 	}
-	else if (purpleHealthLost < yellowHealthLost){
-		if (localTeam == TEAM_PURPLE){
+	else if (Stats::baseHealthLost_purple() < Stats::baseHealthLost_yellow()){
+		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Victory!";
 			color = new COLOR(0, 153, 0);
 		}
@@ -75,8 +74,8 @@ void GameOver::createText(){
 			color = new COLOR(204, 0, 0);
 		}
 	}
-	else if (purpleHealthLost > yellowHealthLost){
-		if (localTeam == TEAM_PURPLE){
+	else if (Stats::baseHealthLost_purple() > Stats::baseHealthLost_yellow()){
+		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Defeat!";
 			color = new COLOR(204, 0, 0);
 		}

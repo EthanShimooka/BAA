@@ -6,6 +6,7 @@
 #include "MainMenu.h"
 #include "LobbyMenu.h"
 #include "GameOver.h"
+#include "Stats.h"
 //#include "include\network\NetIncludes.h"
 
 
@@ -36,6 +37,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
 
+	Stats s;
+	s.setLocalTeam (1);
+
 	while (true){
 		switch (nextScene){
 		case SCENE_MENU:
@@ -54,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			delete scene;
 			break;*/
 		case SCENE_END:
-			scene = new GameOver(1, 2, 1);
+			scene = new GameOver();
 			nextScene = scene->runScene();
 			delete scene;
 			break;

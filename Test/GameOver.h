@@ -1,10 +1,12 @@
 #pragma once
 #include "Scene.h"
+#include "Stats.h"
+
 class GameOver :
 	public Scene
 {
 public:
-	GameOver(int localTeam, int purpleHealthRemaining, int yellowHealthRemaining);
+	GameOver();
 	/// Destructor
 	~GameOver();
 	int runScene();
@@ -17,8 +19,8 @@ private:
 	ButtonObjectFactory bFactory;
 
 	GameObject* mainMenuButt;
-	int localTeam;
-	int purpleHealthLost, yellowHealthLost;
+	//int localTeam;
+	//int purpleHealthLost, yellowHealthLost;
 	void createButtons();
 	int checkButtons();
 	void removeButtons();
