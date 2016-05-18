@@ -23,4 +23,10 @@ void Stats::resetStats(){
 	// Players killed
 	purple.otherTeamPlayersKilled = 0;
 	yellow.otherTeamPlayersKilled = 0;
+	// feathers fired
+	purple.feathersFired = 0;
+	yellow.feathersFired = 0;
+	// abilities used
+	purple.abilitiesUsed = 0;
+	yellow.abilitiesUsed = 0;
 }

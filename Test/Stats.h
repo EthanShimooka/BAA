@@ -6,11 +6,10 @@ private:
 		int baseHealthLost;
 		int otherTeamMinionsKilled;
 		int otherTeamPlayersKilled;
-		teamStats(){
-			baseHealthLost = 0;
-			otherTeamMinionsKilled = 0;
-			otherTeamPlayersKilled = 0;
-		}
+		int feathersFired;
+		int abilitiesUsed;
+		teamStats() : baseHealthLost(0), otherTeamMinionsKilled(0), 
+			otherTeamPlayersKilled(0), feathersFired(0), abilitiesUsed(0) {}
 	};
 
 	static teamStats purple;
@@ -31,6 +30,12 @@ public:
 	// Players killed
 	static void incOtherTeamPlayersKilled_purple() { ++purple.otherTeamPlayersKilled; }
 	static void incOtherTeamPlayersKilled_yellow() { ++yellow.otherTeamPlayersKilled; }
+	// Featehrs fired
+	static void incFeathersFired_purple() { ++purple.feathersFired; }
+	static void incFeathersFired_yellow() { ++yellow.feathersFired; }
+	// Abilities used
+	static void incAbilitiesUsed_purple() { ++purple.abilitiesUsed; }
+	static void incAbilitiesUsed_yellow() { ++yellow.abilitiesUsed; }
 
 	// Getter
 	// Base health
@@ -42,6 +47,12 @@ public:
 	// Players killed
 	static int otherTeamPlayersKilled_purple() { return purple.otherTeamPlayersKilled; }
 	static int otherTeamPlayersKilled_yellow() { return yellow.otherTeamPlayersKilled; }
+	// Featehrs fired
+	static int feathersFired_purple() { return purple.feathersFired; }
+	static int feathersFired_yellow() { return yellow.feathersFired; }
+	// Abilities used
+	static int abilitiesUsed_purple() { return purple.abilitiesUsed; }
+	static int abilitiesUsed_yellow() { return yellow.abilitiesUsed; }
 
 	static void resetStats();
 	static void setLocalTeam(int localTeam) { localTeam = localTeam; }
