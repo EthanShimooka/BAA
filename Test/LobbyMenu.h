@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "TutorialObjectFactory.h"
 class LobbyMenu :
 	public Scene
 {
@@ -17,15 +18,18 @@ private:
 	// Factories
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
+	TutorialObjectFactory tFactory;
 
 	// buttons and slots
 	vector<GameObject*> classButt;
 	vector<GameObject*> slots;
 	vector<GameObject*> readySlots;
+	vector<GameObject*> tutorials;
 	GameObject* readyButt;
 	GameObject* backButt;
 
 	uint64_t buttonID;
+	uint64_t tutorialID;
 	SDLRenderObject * playersInLobby;
 
 	// creating buttons, slots, and ...

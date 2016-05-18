@@ -4,6 +4,7 @@ LobbyMenu::LobbyMenu() : numPlayersReady(0){
 	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	buttonID = 1;
+	tutorialID = 100;
 	ready = false;
 	selected = -1;
 
@@ -16,7 +17,6 @@ LobbyMenu::LobbyMenu() : numPlayersReady(0){
 	createButtons();
 	createClassButts();
 	createSlots();
-
 	SceneManager::GetSceneManager()->AssembleScene();
 }
 
@@ -74,6 +74,7 @@ void LobbyMenu::createButtons(){
 void LobbyMenu::createClassButts(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	GameObject* button;
+	GameObject* tutorial;
 
 	int w, h;
 	float midHeight, offset;
@@ -92,6 +93,9 @@ void LobbyMenu::createClassButts(){
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
+		// chicken tutorial
+	tutorial = tFactory.Spawn(tutorialID++, 50, x, y - 70);
+	tutorials.push_back(tutorial);
 	// peacock button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 51, 75.0f, 75.0f, 0.75f);
@@ -99,6 +103,9 @@ void LobbyMenu::createClassButts(){
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
+		// peacock tutorial
+	tutorial = tFactory.Spawn(tutorialID++, 51, x, y - 70);
+	tutorials.push_back(tutorial);
 	// flamingo button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 52, 75.0f, 75.0f, 0.75f);
@@ -106,6 +113,9 @@ void LobbyMenu::createClassButts(){
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
+		// flamingo tutorial
+	tutorial = tFactory.Spawn(tutorialID++, 52, x, y - 70);
+	tutorials.push_back(tutorial);
 	// quail button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 53, 75.0f, 75.0f, 0.75f);
@@ -113,6 +123,9 @@ void LobbyMenu::createClassButts(){
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
+		// quail tutorial
+	tutorial = tFactory.Spawn(tutorialID++, 53, x, y - 70);
+	tutorials.push_back(tutorial);
 	// turkey button
 	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 54, 75.0f, 75.0f, 0.75f);
@@ -120,16 +133,27 @@ void LobbyMenu::createClassButts(){
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
 	offset += w * (1 / 9.0);
+		// turkey tutorial
+	tutorial = tFactory.Spawn(tutorialID++, 54, x, y - 70);
+	tutorials.push_back(tutorial);
 }
 
 int LobbyMenu::checkButtons(){
 	InputManager::getInstance()->update();
 	for (int i = 0; i < classButt.size(); ++i){
+		// if pressed 
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 			int selection = dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage();
 			playerSelection(selection);
 			selected = selection;
 			return i+10;
+		}
+		// if hovering over show images of the tutorials
+		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isMouseHovering()){
+			dynamic_cast<TutorialRenderComponent*>(tutorials[i]->GetComponent(COMPONENT_RENDER))->toggleImage(true);
+		}
+		else {
+			dynamic_cast<TutorialRenderComponent*>(tutorials[i]->GetComponent(COMPONENT_RENDER))->toggleImage(false);
 		}
 	}
 	if (selected != -1 && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){

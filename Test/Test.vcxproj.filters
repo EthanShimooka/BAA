@@ -552,14 +552,20 @@
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="LobbyMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Stats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameOver.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyMenu.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialRenderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialObjectFactory.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -905,14 +911,20 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="LobbyMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Stats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameOver.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyMenu.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialRenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialObjectFactory.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -120,6 +120,8 @@
     <ClInclude Include="PlayerUIComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Stats.h" />
+    <ClInclude Include="TutorialObjectFactory.h" />
+    <ClInclude Include="TutorialRenderComponent.h" />
     <ClInclude Include="WellComponentIncludes.h" />
     <ClInclude Include="LauncherLogicComponent.h" />
     <ClInclude Include="LauncherObjectFactory.h" />
@@ -315,6 +317,8 @@
     <ClCompile Include="PowerShieldRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Stats.cpp" />
+    <ClCompile Include="TutorialObjectFactory.cpp" />
+    <ClCompile Include="TutorialRenderComponent.cpp" />
     <ClCompile Include="UIRenderComponent.cpp" />
     <ClCompile Include="SystemClassUpdater.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />
