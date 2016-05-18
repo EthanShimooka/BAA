@@ -50,7 +50,7 @@ private:
 	void findOffest();
 	/// For drawing win/loss text
 	SDLRenderObject* victoryDefeatText;
-	vector<SDLRenderObject*> statsText;
+	vector<SDLRenderObject*> statsTexts;
 	
 
 	int buttonID;

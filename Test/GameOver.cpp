@@ -100,6 +100,10 @@ void GameOver::removeText(){
 		victoryDefeatText->setVisible(false);
 		sceneMan->RemoveObject(victoryDefeatText, sceneMan->findLayer("layer1"));
 	}
+	for (auto& iter : statsTexts){
+		iter->setVisible(false);
+		sceneMan->RemoveObject(iter, sceneMan->findLayer("layer1"));
+	}
 }
 
 void GameOver::createInGameStatsText(std::string text, COLOR* color, TEXT_POS pos){
@@ -113,7 +117,7 @@ void GameOver::createInGameStatsText(std::string text, COLOR* color, TEXT_POS po
 	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * statsFontSize) / 1049088.0, "BowlbyOneSC-Regular"));
 	sdlText->setPos((pos * w / 4.0) - (sdlText->getWidth() / 2.0), (h / 4.5) - (sdlText->getHeight() / 2.0) + totalOffest);
 	totalOffest += offset;
-	statsText.push_back(sdlText);
+	statsTexts.push_back(sdlText);
 }
 
 void GameOver::findOffest(){

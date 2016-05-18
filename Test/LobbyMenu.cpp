@@ -132,7 +132,7 @@ int LobbyMenu::checkButtons(){
 			return i+10;
 		}
 	}
-	if (selected && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
+	if (selected != -1 && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 		ready = !ready;
 		playerReady(ready);
 		return BUTTON_READY;

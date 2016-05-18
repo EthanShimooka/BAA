@@ -23,6 +23,7 @@ int main() {
 int _tmain(int argc, _TCHAR* argv[]){
 	int nextScene = SCENE_MENU;
 	Scene* scene;
+	GameSession* scn;
 
 	LogManager::GetLogManager()->create("log.txt");
 	SceneManager::GetSceneManager()->loadFromXMLFile("SceneTree.xml");
@@ -53,9 +54,9 @@ int _tmain(int argc, _TCHAR* argv[]){
 			delete scene;
 			break;
 		/*case SCENE_GAME:
-			scene = new GameSession();
-			nextScene = scene->runScene();
-			delete scene;
+			scn = new GameSession();
+			nextScene = scn->Run();
+			delete scn;
 			break;*/
 		case SCENE_END:
 			scene = new GameOver();
@@ -63,8 +64,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 			delete scene;
 			break;
 		}
-		if (nextScene == 3)
-			break;
+		/*if (nextScene == SCENE_END)
+			break;*/
 	}
 
 
