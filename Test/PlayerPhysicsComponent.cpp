@@ -94,7 +94,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 										   
 										   break;
 	}
-	case GAMEOBJECT_TYPE::OBJECT_SWITCH:{
+	case GAMEOBJECT_TYPE::OBJECT_LAUNCHER:{
 											//do nothing or push past each other
 											//		LauncherLogicComponent* logic = dynamic_cast<LauncherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 											PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));

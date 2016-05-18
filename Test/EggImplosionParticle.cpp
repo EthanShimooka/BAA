@@ -19,8 +19,8 @@ EggImplosionParticle::EggImplosionParticle(SDLRenderObject * base, unsigned int 
 	float centerY = base->getPosY();
 	//for (int x = 1; x < float(divisions+1)*2.0; x+=2){ 
 	//	for (int y  = 1; y < float(divisions+1)*2.0; y+=2){
-	for (int x = 0; x <= divisions; x++){ 
-		for (int y = 0; y <= divisions; y++){
+	for (unsigned x = 0; x <= divisions; x++){ 
+		for (unsigned y = 0; y <= divisions; y++){
 			SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 74, centerX, centerY);
 			sprite->setScale(2);
 			float yStart = sprite->getWidth() *((x*2+1) / (float(divisions + 1)*2.0) - sprite->getAnchorX());
@@ -36,12 +36,12 @@ EggImplosionParticle::EggImplosionParticle(SDLRenderObject * base, unsigned int 
 						rand() % (baseRect.h - int(baseRect.h / (divisions + 1.0))) : 0;*/
 			int xPos = x * int(baseRect.h / (divisions + 1.0));
 			int yPos = y * int(baseRect.h / (divisions + 1.0));
-			SDL_Rect rect = { xPos, yPos, round(baseRect.w / (divisions + 1.0)), round(baseRect.h / (divisions + 1.0)) };
+			SDL_Rect rect = { xPos, yPos, (int)round(baseRect.w / (divisions + 1.0)), (int)round(baseRect.h / (divisions + 1.0)) };
 			//sprite->setScaleX(base->getScaleX());
 			sprite->setRenderRect(rect);
 			float u = (rand() % 360) / 360.0;
 			float v = (rand() % 360) / 360.0;
-			float angle1 = 3.14 * 2 * u;
+			float angle1 = 3.14f * 2.0f * u;
 			float angle2 = acos(2 * v - 1);
 
 			std::list<motion> movements;
@@ -49,7 +49,7 @@ EggImplosionParticle::EggImplosionParticle(SDLRenderObject * base, unsigned int 
 																centerY + sin(angle1)* sin(angle2) * 300,
 																xStart + centerX, yStart+ centerY), 0, 1, ease_QuadOut));
 			movements.push_back(makeMotion(moveLinearZ(sprite, cos(angle1) * 10, 0), 0, 1, ease_QuadOut));
-			float spinAngle = rand() % 360;
+			float spinAngle = (float)(rand() % 360);
 			//movements.push_back(makeMotion(rotateTransform(sprite, rand() % 360, (rand() % 90) - 45), 0, 1));
 			movements.push_back(makeMotion(rotateTransform(sprite, spinAngle, -spinAngle+90), 0, 1,ease_QuadOut));
 			Animation * movement = new Animation(1000, movements);

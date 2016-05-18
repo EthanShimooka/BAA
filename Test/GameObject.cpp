@@ -219,24 +219,34 @@ GameObject::~GameObject(){
 		}
 		break;
 
-	case OBJECT_SWITCH:
+	case OBJECT_LAUNCHER:
 		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
 			case COMPONENT_RENDER:
-				delete dynamic_cast<BoomerangRenderComponent*>(g_components[i].component);
+				delete dynamic_cast<LauncherRenderComponent*>(g_components[i].component);
 				break;
 			case COMPONENT_LOGIC:
-				delete dynamic_cast<BoomerangLogicComponent*>(g_components[i].component);
+				delete dynamic_cast<LauncherLogicComponent*>(g_components[i].component);
 				break;
 			case COMPONENT_PHYSICS:
-				delete dynamic_cast<BoomerangPhysicsComponent*>(g_components[i].component);
+				delete dynamic_cast<LauncherPhysicsComponent*>(g_components[i].component);
 				break;
 			default:
 				break;
 			}
 		}
 		break;
-
+	case OBJECT_PARTICLE:
+		for (unsigned int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<RenderComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
 	default :
 		std::cout << "NEED TO ADD DECONSTRUCTOR FOR OBJECT TYPE: " << type << std::endl;
 		break;
