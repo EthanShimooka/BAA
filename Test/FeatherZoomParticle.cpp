@@ -70,6 +70,7 @@ void FeatherZoomParticle::Update(){
 	}
 	if (particles.empty() && !alive){
 		//delete self and remove GameObject from list of objects
+		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
 		float curr = iter->animations->lengthConversion(progress-iter->timer);
@@ -99,6 +100,7 @@ void createFeatherParticle(GameObject * source, unsigned int numParticles, unsig
 
 	FeatherZoomParticle* rend = new FeatherZoomParticle(source, numParticles, frequency);
 	particleBase->AddComponent(COMPONENT_RENDER, rend);
+	rend->gameObjectRef = particleBase;
 	GameObjects.AddObject(particleBase);
 
 }

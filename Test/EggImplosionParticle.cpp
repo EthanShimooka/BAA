@@ -76,6 +76,7 @@ void EggImplosionParticle::Update(){
 	progress += currenttime - lasttime;
 	if (particles.empty()){
 		//delete self and remove GameObject from list of objects
+		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
 		float curr = iter->animations->lengthConversion(progress);
@@ -105,6 +106,7 @@ void createEggParticle(SDLRenderObject * base, unsigned int numParticles, float 
 
 	EggImplosionParticle* rend = new EggImplosionParticle(base, numParticles, x, y);
 	particleBase->AddComponent(COMPONENT_RENDER, rend);
+	rend->gameObjectRef = particleBase;
 	GameObjects.AddObject(particleBase);
 
 }
