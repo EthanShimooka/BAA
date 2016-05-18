@@ -218,7 +218,23 @@ GameObject::~GameObject(){
 			}
 		}
 		break;
-
+	case OBJECT_MINE:
+		for (unsigned int i = 0; i < g_components.size(); i++) {
+			switch (g_components[i].type) {
+			case COMPONENT_RENDER:
+				delete dynamic_cast<MineRenderComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_LOGIC:
+				delete dynamic_cast<MineLogicComponent*>(g_components[i].component);
+				break;
+			case COMPONENT_PHYSICS:
+				delete dynamic_cast<MinePhysicsComponent*>(g_components[i].component);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
 	case OBJECT_LAUNCHER:
 		for (unsigned int i = 0; i < g_components.size(); i++) {
 			switch (g_components[i].type) {
