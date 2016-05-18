@@ -16,11 +16,11 @@ void MineLogicComponent::blowUp(){
 	//TODO: instaniate an explosion, and destroy everything touching explosion
 	MinePhysicsComponent* physicsComp = dynamic_cast<MinePhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	physicsComp->setCollisionFilter(COLLISION_MINE, COLLISION_MINION | COLLISION_PLAYER);
-	MineRenderComponent* renderComp = dynamic_cast<MineRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	/*MineRenderComponent* renderComp = dynamic_cast<MineRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderComp->objRef->unrender();
 	SDLRenderObject* poofSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 4001, gameObjectRef->posX, gameObjectRef->posY);
-	renderComp->AssignSprite(poofSprite);
+	renderComp->AssignSprite(poofSprite);*/
 	//scale collider larger. if we need to scale hitbox, do it here
 	//b2Shape* shape = physicsComp->mFixture->GetShape();
 }

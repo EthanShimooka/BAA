@@ -2,6 +2,7 @@
 #ifndef MINEPHYSICSCOMPONENT_H_INCLUDED
 #define MINEPHYSICSCOMPONENT_H_INCLUDED
 #include "PhysicsComponent.h"
+#include "MinionLogicComponent.h"
 #include "MineComponentIncludes.h"
 class MinePhysicsComponent :
 	public PhysicsComponent

@@ -56,7 +56,12 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 			//if not on the same team, then explode
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 			logicComp->lightFuse();
-			setCollisionFilter(COLLISION_MINE, 0);
+			if (logicComp->fuseLit){
+				gameObjectRef->isAlive = false;
+				gameObjectRef->setPos(-30000, 0);
+				boxFixtureDef.isSensor = false;
+				setCollisionFilter(COLLISION_MINE, 0);
+			}
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
@@ -64,7 +69,16 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 		if (otherObj->team != gameObjectRef->team){
 			//if not on the same team, then explode
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+			std::cout << "Let's see how many times this appears" << std::endl;
 			logicComp->lightFuse();
+			if (logicComp->fuseLit) {
+				MinionLogicComponent* minionLogicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+				minionLogicComp->MinionDeath();
+				gameObjectRef->isAlive = false;
+				gameObjectRef->setPos(-30000, 0);
+				boxFixtureDef.isSensor = false;
+				setCollisionFilter(COLLISION_MINE, 0);
+			}
 		}
 		break;
 	default:
