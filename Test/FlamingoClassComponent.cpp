@@ -153,7 +153,7 @@ int FlamingoClassComponent::useAbility(){
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float targetX, targetY;
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
-		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, (int)targetX, (int)targetY);
+		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, targetX, targetY);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);
