@@ -117,7 +117,6 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  if (otherObj->team == gameObjectRef->team) break;
 										  //Still need to visually update dmg to base
-										  //Currently destroys minions, updates base health logic, and shakes screen
 										  AudioManager* audioMan = AudioManager::getAudioInstance();
 										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 										  //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
