@@ -1,10 +1,10 @@
 #pragma once
 #ifndef PLAYERUICOMPONENT_H_INCLUDED
 #define PLAYERUICOMPONENT_H_INCLUDED
-#include "Component.h"
+#include "UIComponent.h"
 #include "PlayerComponentIncludes.h"
 class PlayerUIComponent :
-	public Component
+	public UIComponent
 {
 public:
 	PlayerUIComponent(GameObject* player);

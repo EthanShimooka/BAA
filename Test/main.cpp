@@ -53,19 +53,19 @@ int _tmain(int argc, _TCHAR* argv[]){
 			nextScene = scene->runScene();
 			delete scene;
 			break;
-		/*case SCENE_GAME:
+		case SCENE_GAME:
 			scn = new GameSession();
 			nextScene = scn->Run();
 			delete scn;
-			break;*/
+			break;
 		case SCENE_END:
 			scene = new GameOver();
 			nextScene = scene->runScene();
 			delete scene;
 			break;
 		}
-		/*if (nextScene == SCENE_END)
-			break;*/
+		if (nextScene == SCENE_END)
+			break;
 	}
 
 
