@@ -4,9 +4,9 @@
 // REMOVE ONCE WE FIGURE OUT CONFIG MANAGER / PLATFORMMANANGER
 
 //1366 x 768
-//const int SCREEN_WIDTH = 1366;
-//const int SCREEN_HEIGHT = 768;
-const int SCREEN_WIDTH = 1920;
-const int SCREEN_HEIGHT = 1080;
+const int SCREEN_WIDTH = 1366;
+const int SCREEN_HEIGHT = 768;
+//const int SCREEN_WIDTH = 1920;
+//const int SCREEN_HEIGHT = 1080;
 
   
