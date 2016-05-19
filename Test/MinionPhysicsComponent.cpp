@@ -125,9 +125,11 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  logicComp->MinionDeath();
 										  //gameObjectRef->setPos(-10000, 0);
 										  //gameObjectRef->isAlive = false;
-
-										  RenderManager* renderMan = RenderManager::getRenderManager();
-										  renderMan->ShakeScreen(0.3f, 0.2f);
+										  //Only shake if our own base is being attacked
+										  if (gameObjectRef->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+											  RenderManager* renderMan = RenderManager::getRenderManager();
+											  renderMan->ShakeScreen(0.3f, 0.2f);
+										  }
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
