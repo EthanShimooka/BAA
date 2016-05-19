@@ -182,8 +182,8 @@ void PlayerInputComponent::Update(){
 
 	//handle charging variables for crosshair
 	if (isChargingAttack) {
-		renderComp->setAnimation("charge");
-		renderComp->setNextAnimation("charge");
+		//renderComp->setAnimation("charge");
+		//renderComp->setNextAnimation("charge");
 		if (controller->isControllerOn()){
 			float chargePercent = (float)controller->getRightTriggerDuration() / maxCharge;
 			logicComp->currChargePercentage = chargePercent > 1 ? 1 : chargePercent;
