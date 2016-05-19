@@ -16,7 +16,7 @@ public:
 	void Update();
 	void init(float height, float width);
 	void handleCollision(GameObject* otherObj);
-
+	void endCollision(GameObject* otherObj);
 	void launchPlayer();
 
 	/// boolean to keep track of the players jumping

@@ -534,6 +534,7 @@
     <ClInclude Include="PlayerUIComponent.h">
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="ButtonLogicComponent.h">
       <Filter>Header Files\Button</Filter>
     </ClInclude>
@@ -566,6 +567,10 @@
     </ClInclude>
     <ClInclude Include="TutorialObjectFactory.h">
       <Filter>Header Files</Filter>
+=======
+    <ClInclude Include="EggImplosionParticle.h">
+      <Filter>Header Files\Component</Filter>
+>>>>>>> refs/remotes/origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -896,6 +901,7 @@
     <ClCompile Include="PlayerUIComponent.cpp">
       <Filter>Source Files\Component\Player Component</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="ButtonLogicComponent.cpp">
       <Filter>Source Files\Button</Filter>
     </ClCompile>
@@ -925,6 +931,10 @@
     </ClCompile>
     <ClCompile Include="TutorialObjectFactory.cpp">
       <Filter>Source Files</Filter>
+=======
+    <ClCompile Include="EggImplosionParticle.cpp">
+      <Filter>Source Files\Component</Filter>
+>>>>>>> refs/remotes/origin/master
     </ClCompile>
   </ItemGroup>
 </Project>

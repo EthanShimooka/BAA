@@ -73,6 +73,7 @@ void ChargeParticle::Update(){
 	}
 	if (particles.empty() && !alive){
 		//delete self and remove GameObject from list of objects
+		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
 		float curr = iter->animations->lengthConversion(progress - iter->timer);
@@ -103,6 +104,7 @@ ChargeParticle * createChargeParticle(GameObject * source, PlayerLogicComponent 
 
 	ChargeParticle* rend = new ChargeParticle(source, logic, numParticles, frequency, offsetX, offsetY, width, height );
 	particleBase->AddComponent(COMPONENT_RENDER, rend);
+	rend->gameObjectRef = particleBase;
 	GameObjects.AddObject(particleBase);
 	return rend;
 }

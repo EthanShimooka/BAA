@@ -23,7 +23,7 @@ GameObject * MidPlatShieldObjectFactory::Spawn(uint64_t PID, float posX, float p
 	shield->ID = PID;
 	shield->setPos(posX, posY);
 	shield->isAlive = true;
-	shield->type = GAMEOBJECT_TYPE::OBJECT_SWITCH;
+	shield->type = GAMEOBJECT_TYPE::OBJECT_LAUNCHER;
 
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
@@ -48,7 +48,7 @@ GameObject * MidPlatShieldObjectFactory::Collider(uint64_t PID, float posX, floa
 	shield->ID = PID;
 	shield->setPos(posX, posY);
 	shield->isAlive = true;
-	shield->type = GAMEOBJECT_TYPE::OBJECT_SWITCH;
+	shield->type = GAMEOBJECT_TYPE::OBJECT_LAUNCHER;
 	int size = 4;
 
 	// Minion Specific Render Component. In future will have flag
