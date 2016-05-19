@@ -35,7 +35,7 @@ void MinionPhysicsComponent::init(){
 
 
 		b2PolygonShape box;
-		box.SetAsBox(.8, .8); // look up other functions for polygons
+		box.SetAsBox(.8f, .8f); // look up other functions for polygons
 		boxFixtureDef.shape = &box;
 		boxFixtureDef.density = 1;
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
@@ -160,6 +160,13 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  //mBody->SetLinearVelocity(vel);
 										  //mBody->ApplyForce(b2Vec2(0, -50*mBody->GetLinearVelocity().y), mBody->GetWorldCenter(), true);
 										  break;
+	}
+	case GAMEOBJECT_TYPE::OBJECT_MINE:{
+
+										  if (gameObjectRef->team == otherObj->team) break;
+										 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+										 logicComp->MinionDeath();
+										 break;
 	}
 	default:
 		break;
