@@ -147,7 +147,10 @@ int ChickenClassComponent::useAbility(){
 }
 
 void ChickenClassComponent::destroyShield(){
-	GameObjects.GetGameObject(*shieldIDs.begin())->isAlive = false;
+	GameObject* shield = GameObjects.GetGameObject(*shieldIDs.begin());
+	shield->isAlive = false;
+	PowerShieldPhysicsComponent* physicsComp = dynamic_cast<PowerShieldPhysicsComponent*>(shield->GetComponent(COMPONENT_PHYSICS));
+	physicsComp->setCollisionFilter(COLLISION_POWERSHIELD, 0);
 	assert(!shieldIDs.empty());
 	shieldIDs.pop_front();
 }
