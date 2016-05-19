@@ -1,6 +1,7 @@
 #include "MinionPhysicsComponent.h"
 #include "FanPhysicsComponent.h"
 #include "ShrapnelExplosionParticle.h"
+#include "DustCloudParticle.h"
 #include "FanPhysicsComponent.h"
 
 MinionPhysicsComponent::MinionPhysicsComponent(GameObject* minion, float _initialX, float _initialY, int team)
@@ -75,7 +76,6 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	//if hit, destroy minion or move it out of the alive_objects queue
 	//std::cout << "MINION handling collision with object ID: " << otherObj->ID << std::endl;
 
-	MinionRenderComponent * minRend = (MinionRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
 											 if (otherObj->team == gameObjectRef->team)break;
@@ -83,7 +83,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											 AudioManager* audioMan = AudioManager::getAudioInstance();
 											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 											 dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
-											 createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
+											 //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
+											 //createDustCloudParticle(4, 50, 200, gameObjectRef->posX, gameObjectRef->posY);
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											 logicComp->MinionDeath();
 											 
@@ -102,7 +103,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 												AudioManager* audioMan = AudioManager::getAudioInstance();
 												//std::cout << "MINION ON MINION COLLISION" << std::endl;
 												audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
-												createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
+												//createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
+												//createDustCloudParticle(4, 50, 200, gameObjectRef->posX, gameObjectRef->posY);
 												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												logicComp->MinionDeath();
 											}
@@ -118,7 +120,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  //Currently destroys minions, updates base health logic, and shakes screen
 										  AudioManager* audioMan = AudioManager::getAudioInstance();
 										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
-										  createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
+										  //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 										  logicComp->MinionDeath();
 										  //gameObjectRef->setPos(-10000, 0);

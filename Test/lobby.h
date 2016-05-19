@@ -1,60 +1,51 @@
 #pragma once
-#ifndef LOBBY_H
-#define LOBBY_H
+#include "Scene.h"
+#include "ButtonObjectFactory.h"
 
-
-
-//#include "main.h"
-#include "UIObject.h"
-#include "UIObjectFactory.h"
-#include "SystemInputUpdater.h"
-#include "SystemRenderUpdater.h"
-#include "SystemUIUpdater.h"
-#include "GameSession.h"
-#include "WorldObjectFactory.h"
-// Component Includes
-#include "Component.h"
-#include "UIRenderComponent.h"
-#include "UIInputComponent.h"
-#include "UIComponent.h"
-
-
-
-struct bird{
-	UIType birdClass;
-	int x, y;
-	UIObject* birdPicture;
-};
-
-
-
-class Lobby{
+class Lobby //: 
+	//public Scene
+{
 public:
 	Lobby();
 	~Lobby();
-
-	void runLobby();
+	int runScene();
 
 private:
-	//vector<player*> players;
-	void addSlots(SystemUIObjectQueue &q);
-	void deleteBirds(SystemUIObjectQueue &q);
-	void deletePlayers();
-	int playersReady;	
+	int numPlayersReady;
 	int numPlayers;
-	int maxPlayers = 4;
-	int inLobbyNow;
-	void assignPlayers();
-	void updatePlayers();
-	void updateLobby();
-	void addNewPlayers();
-	void drawBirds(SystemUIObjectQueue &q);
-	vector<UIObject*> Birds;
-	void countdown(SystemUIObjectQueue &q);
-	void cleanUP(SystemUIObjectQueue &q);
-	void createButtons(SystemUIObjectQueue &q);
-	void waitForTeam();
-	void SendTeamPacket(uint64_t ID, TEAM team);
-};
+	bool ready;
+	int selected;
 
-#endif
+	// Factories
+	SystemGameObjectQueue sysQueue;
+	ButtonObjectFactory bFactory;
+
+	// buttons and slots
+	vector<GameObject*> classButt;
+	vector<GameObject*> slots;
+	vector<GameObject*> readySlots;
+	GameObject* readyButt;
+	GameObject* backButt;
+
+	uint64_t buttonID;
+	SDLRenderObject * playersInLobby;
+
+	// creating buttons, slots, and ...
+	void createButtons();
+	void createSlots();
+	void createClassButts();
+	void createPlayerCount();
+
+	// removing buttons, slots, and ...
+	void removeButtons();
+	void removeSlots();
+	void removePlayerCount();
+	void removeAllButtons();
+
+	void changePlayerSelectionImage();
+	void setFreeSlotsToDefault(int firstSlot);
+	int  checkButtons();
+	void playerSelection(int classType);
+	void playerReady(int value);
+	void updateLobby();	
+};

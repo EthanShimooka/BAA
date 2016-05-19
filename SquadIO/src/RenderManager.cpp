@@ -213,8 +213,8 @@ void RenderManager::worldCoordToWindowCoord(int &winx, int &winy, float worx, fl
 	// make sure that worz does not equal cameraPoint.z
 	float proj = -cameraPoint.z / (worz - cameraPoint.z);
 	float flip = (flippedScreen) ? -1.0f : 1.0f;
-	winx = int((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2);
-	winy = int((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2);
+	winx = round((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2);
+	winy = round((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2);
 }
 void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz){
 	//make sure that cameraPoint.z is not at 0
@@ -316,11 +316,11 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 		float proj = -cameraPoint.z / (obj->getPosZ() - cameraPoint.z);
 		if (flippedScreen){
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()),obj->getPosZ());
-			anchor = { int(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), int(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
+			anchor = { round(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), round(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
 		}
 		else{
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY(), obj->getPosZ());
-			anchor = { int(obj->getWidth()*proj*obj->getAnchorX()/zoom), int(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
+			anchor = { round(obj->getWidth()*proj*obj->getAnchorX()/zoom), round(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
 		}
 		pos.w = (int) (obj->getWidth()*proj/zoom);
 		pos.h = (int) (obj->getHeight()*proj/zoom);

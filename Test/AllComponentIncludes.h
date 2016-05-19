@@ -15,5 +15,6 @@
 #include "ParticleRenderComponent.h"
 #include "FanComponentIncludes.h"
 #include "BoomerangComponentIncludes.h"
+#include "ButtonComponentIncludes.h"
 
 #endif

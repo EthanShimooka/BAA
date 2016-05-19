@@ -91,6 +91,10 @@
     <ClInclude Include="BoomerangObjectFactory.h" />
     <ClInclude Include="BoomerangPhysicsComponent.h" />
     <ClInclude Include="BoomerangRenderComponent.h" />
+    <ClInclude Include="ButtonComponentIncludes.h" />
+    <ClInclude Include="ButtonLogicComponent.h" />
+    <ClInclude Include="ButtonObjectFactory.h" />
+    <ClInclude Include="ButtonRenderComponent.h" />
     <ClInclude Include="ChargeParticle.h" />
     <ClInclude Include="ChickenClassComponent.h" />
     <ClInclude Include="ClassComponent.h" />
@@ -100,6 +104,7 @@
     <ClInclude Include="EagleClassComponent.h" />
     <ClInclude Include="EffectObjectFactory.h" />
     <ClInclude Include="EffectRenderComponent.h" />
+    <ClInclude Include="EggImplosionParticle.h" />
     <ClInclude Include="FanComponentIncludes.h" />
     <ClInclude Include="FanLogicComponent.h" />
     <ClInclude Include="FanObjectFactory.h" />
@@ -108,9 +113,16 @@
     <ClInclude Include="FeatherZoomParticle.h" />
     <ClInclude Include="FlamingoClassComponent.h" />
     <ClInclude Include="GameEnd.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="LauncherComponentIncludes.h" />
+    <ClInclude Include="LobbyMenu.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="PlayerUIComponent.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Stats.h" />
+    <ClInclude Include="TutorialObjectFactory.h" />
+    <ClInclude Include="TutorialRenderComponent.h" />
     <ClInclude Include="WellComponentIncludes.h" />
     <ClInclude Include="LauncherLogicComponent.h" />
     <ClInclude Include="LauncherObjectFactory.h" />
@@ -218,6 +230,9 @@
     <ClCompile Include="BoomerangObjectFactory.cpp" />
     <ClCompile Include="BoomerangPhysicsComponent.cpp" />
     <ClCompile Include="BoomerangRenderComponent.cpp" />
+    <ClCompile Include="ButtonLogicComponent.cpp" />
+    <ClCompile Include="ButtonObjectFactory.cpp" />
+    <ClCompile Include="ButtonRenderComponent.cpp" />
     <ClCompile Include="ChargeParticle.cpp" />
     <ClCompile Include="ChickenClassComponent.cpp" />
     <ClCompile Include="ClassComponent.cpp" />
@@ -225,6 +240,7 @@
     <ClCompile Include="EagleClassComponent.cpp" />
     <ClCompile Include="EffectObjectFactory.cpp" />
     <ClCompile Include="EffectRenderComponent.cpp" />
+    <ClCompile Include="EggImplosionParticle.cpp" />
     <ClCompile Include="FanLogicComponent.cpp" />
     <ClCompile Include="FanObjectFactory.cpp" />
     <ClCompile Include="FanPhysicsComponent.cpp" />
@@ -232,12 +248,15 @@
     <ClCompile Include="FeatherZoomParticle.cpp" />
     <ClCompile Include="FlamingoClassComponent.cpp" />
     <ClCompile Include="GameEnd.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="LauncherLogicComponent.cpp" />
     <ClCompile Include="LauncherObjectFactory.cpp" />
     <ClCompile Include="LauncherPhysicsComponent.cpp" />
     <ClCompile Include="LauncherRenderComponent.cpp" />
     <ClCompile Include="lobby.cpp" />
+    <ClCompile Include="LobbyMenu.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
     <ClCompile Include="MidBaseObjectFactory.cpp" />
     <ClCompile Include="MidBasePhysicsComponent.cpp" />
@@ -257,6 +276,7 @@
     <ClCompile Include="PeacockClassComponent.cpp" />
     <ClCompile Include="PlayerUIComponent.cpp" />
     <ClCompile Include="QuailClassComponent.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShrapnelExplosionParticle.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -298,6 +318,9 @@
     <ClCompile Include="PowerShieldPhysicsComponent.cpp" />
     <ClCompile Include="PowerShieldRenderComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="Stats.cpp" />
+    <ClCompile Include="TutorialObjectFactory.cpp" />
+    <ClCompile Include="TutorialRenderComponent.cpp" />
     <ClCompile Include="UIRenderComponent.cpp" />
     <ClCompile Include="SystemClassUpdater.cpp" />
     <ClCompile Include="SystemGameObjectQueue.cpp" />

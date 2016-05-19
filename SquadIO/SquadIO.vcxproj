@@ -115,6 +115,7 @@
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SDLRenderObject.h" />
     <ClInclude Include="include\SquadIO.h" />
+    <ClInclude Include="t.h" />
     <ClInclude Include="zlib\include\zconf.h" />
     <ClInclude Include="zlib\include\zlib.h" />
   </ItemGroup>

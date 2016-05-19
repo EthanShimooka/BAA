@@ -19,6 +19,7 @@ ChickenClassComponent::ChickenClassComponent(GameObject* player)
 
 ChickenClassComponent::~ChickenClassComponent()
 {
+	std::cout << "destructing child class" << std::endl;
 }
 
 void ChickenClassComponent::Update()

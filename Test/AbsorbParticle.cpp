@@ -78,6 +78,7 @@ void AbsorbParticle::Update(){
 	}
 	if (particles.empty() && !alive){
 		//delete self and remove GameObject from list of objects
+		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
 		float curr = iter->animations->lengthConversion(progress - iter->timer);
@@ -110,5 +111,6 @@ void createAbsorbParticle(GameObject * startObj, GameObject * goalObj, unsigned 
 	particleBase->setPos(0, 0);
 	AbsorbParticle* rend = new AbsorbParticle(startObj, goalObj, numParticles,offsetX, offsetY);
 	particleBase->AddComponent(COMPONENT_RENDER, rend);
+	rend->gameObjectRef = particleBase;
 	GameObjects.AddObject(particleBase);
 }
