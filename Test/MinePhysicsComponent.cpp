@@ -3,7 +3,7 @@
 
 MinePhysicsComponent::MinePhysicsComponent(GameObject* player){
 	gameObjectRef = player;
-	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
+	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
 	init();
 }
 
@@ -53,32 +53,15 @@ void MinePhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
 		//check to see what team it's affiliated with, and detonate if needed
 		if (otherObj->team != gameObjectRef->team){
-			//if not on the same team, then explode
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			logicComp->lightFuse();
-			if (logicComp->fuseLit){
-				gameObjectRef->isAlive = false;
-				gameObjectRef->setPos(-30000, 0);
-				boxFixtureDef.isSensor = false;
-				setCollisionFilter(COLLISION_MINE, 0);
-			}
+			logicComp->detonateMine();
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
 		//check to see what team it's affiliated with, and detonate if needed
 		if (otherObj->team != gameObjectRef->team){
-			//if not on the same team, then explode
 			MineLogicComponent* logicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-			std::cout << "Let's see how many times this appears" << std::endl;
-			logicComp->lightFuse();
-			if (logicComp->fuseLit) {
-				MinionLogicComponent* minionLogicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-				minionLogicComp->MinionDeath();
-				gameObjectRef->isAlive = false;
-				gameObjectRef->setPos(-30000, 0);
-				boxFixtureDef.isSensor = false;
-				setCollisionFilter(COLLISION_MINE, 0);
-			}
+			logicComp->detonateMine();
 		}
 		break;
 	default:
