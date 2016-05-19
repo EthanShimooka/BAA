@@ -51,14 +51,16 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		 if (otherObj->team == gameObjectRef->team)break;
 		 //signal self death and turn to egg
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		GameObject* featherOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		FeatherLogicComponent* featherLogicComp = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+		GameObject* featherOwner = featherLogicComp->owner;
 		uint64_t shooter = featherOwner->ID;
-		if (otherObj->isLocal){
+		if (otherObj->isLocal && !logicComp->isEgg){
 			//Triggers death stuff for player who fired feather
 			logicComp->becomeEgg();
 			logicComp->death = true;
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
+			featherLogicComp->giveBirdseed(3);
 			logicComp->playDeathSFX(localClass);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
