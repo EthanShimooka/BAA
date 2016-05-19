@@ -114,6 +114,7 @@
     <ClInclude Include="GameEnd.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameSession.h" />
+    <ClInclude Include="inGameStatsRenderComponent.h" />
     <ClInclude Include="LauncherComponentIncludes.h" />
     <ClInclude Include="LobbyMenu.h" />
     <ClInclude Include="MainMenu.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="GameEnd.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameSession.cpp" />
+    <ClCompile Include="inGameStatsRenderComponent.cpp" />
     <ClCompile Include="LauncherLogicComponent.cpp" />
     <ClCompile Include="LauncherObjectFactory.cpp" />
     <ClCompile Include="LauncherPhysicsComponent.cpp" />

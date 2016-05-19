@@ -16,5 +16,6 @@
 #include "FanComponentIncludes.h"
 #include "BoomerangComponentIncludes.h"
 #include "ButtonComponentIncludes.h"
+#include "TutorialRenderComponent.h"
 
 #endif

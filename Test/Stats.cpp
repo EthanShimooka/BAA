@@ -1,5 +1,6 @@
 #include "Stats.h"
 
+std::unordered_map<uint64_t, Stats::playerStats> Stats::allPlayersStats{};
 struct Stats::teamStats Stats::purple {};
 struct Stats::teamStats Stats::yellow {};
 int Stats::localTeam { 0 };
@@ -11,6 +12,18 @@ Stats::Stats()
 
 Stats::~Stats()
 {
+}
+
+
+void Stats::addPlayer(uint64_t PID, int team){
+	playerStats player(team);
+	allPlayersStats.emplace(PID, player);
+}
+
+void Stats::playerDied(uint64_t PID, int& kills, int& deaths){
+	playerStats temp = allPlayersStats.find(PID)->second;
+	kills = temp.kills;
+	deaths = temp.deaths;
 }
 
 void Stats::resetStats(){
