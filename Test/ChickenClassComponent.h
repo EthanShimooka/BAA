@@ -12,6 +12,7 @@ public:
 	ChickenClassComponent(GameObject* player);
 	~ChickenClassComponent();
 	void Update();
+	/// Activates chicken ability
 	int useAbility();
 	/// Destroys shield object and removes it from ID list
 	void destroyShield();
@@ -23,7 +24,7 @@ public:
 	list<uint64_t> shieldIDs;
 	/// Length chicken shield lasts in seconds
 	float shieldLength = 5.5;
-	/// Timer and helper variables to support up to 8 peacocks
+	/// Timer and helper variables to support up to 8 chickens
 	Invoke* timer;
 	bool invokeHelper = false;
 	/// Number of chicken shields currently active

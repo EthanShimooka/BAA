@@ -24,6 +24,12 @@ ChickenClassComponent::~ChickenClassComponent()
 
 void ChickenClassComponent::Update()
 {
+	if (invokeHelper && timer->isDone()){
+		timer->destroy();
+		activeShields--;
+		invokeHelper = false;
+		destroyShield();
+	}
 }
 
 void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)
@@ -119,10 +125,9 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
-		Timing::sInstance.SetChickenAbilityTimer();
-		//timer = new Invoke(shieldLength);
-		//invokeHelper = true;
-		//activeShields++;
+		timer = new Invoke(shieldLength);
+		invokeHelper = true;
+		activeShields++;
 		if (gameObjectRef->posY > 0){
 			GameObjects.AddObject(sFactory.Spawn((*powerNum)++, gameObjectRef->posX + 93, (gameObjectRef->posY - 120), false, gameObjectRef->team));
 			writeNetAbility((*powerNum) - 1, gameObjectRef->posX + 93, gameObjectRef->posY - 120, false, gameObjectRef->team);
@@ -131,7 +136,7 @@ int ChickenClassComponent::useAbility(){
 			GameObjects.AddObject(sFactory.Spawn((*powerNum)++, gameObjectRef->posX + 93, (gameObjectRef->posY + 120), false, gameObjectRef->team));
 			writeNetAbility((*powerNum) - 1, gameObjectRef->posX + 93, gameObjectRef->posY + 120, false, gameObjectRef->team);
 		}
-		//shieldIDs.push_back((*powerNum) - 1);
+		shieldIDs.push_back((*powerNum) - 1);
 		currBirdseed = 0;
 		return true;
 	}
@@ -139,6 +144,15 @@ int ChickenClassComponent::useAbility(){
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
 		return false;
 	}
+}
+
+void ChickenClassComponent::destroyShield(){
+	GameObject* shield = GameObjects.GetGameObject(*shieldIDs.begin());
+	shield->isAlive = false;
+	PowerShieldPhysicsComponent* physicsComp = dynamic_cast<PowerShieldPhysicsComponent*>(shield->GetComponent(COMPONENT_PHYSICS));
+	physicsComp->setCollisionFilter(COLLISION_POWERSHIELD, 0);
+	assert(!shieldIDs.empty());
+	shieldIDs.pop_front();
 }
 
 void ChickenClassComponent::writeNetAbility(uint64_t PID, float posX, float posY, bool direction, int team){
@@ -168,11 +182,10 @@ void ChickenClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	aPacket.Read(posY);
 	aPacket.Read(direction);
 	aPacket.Read(team);
-	Timing::sInstance.SetChickenAbilityTimer();
-	//timer = new Invoke(shieldLength);
-	//invokeHelper = true;
-	//activeShields++;
-	//shieldIDs.push_back(ID);
+	timer = new Invoke(shieldLength);
+	invokeHelper = true;
+	activeShields++;
+	shieldIDs.push_back(ID);
 	GameObjects.AddObject(sFactory.Spawn(ID, posX, posY, direction, team));
 }
 
