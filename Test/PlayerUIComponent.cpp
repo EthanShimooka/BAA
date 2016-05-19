@@ -8,6 +8,7 @@ PlayerUIComponent::PlayerUIComponent(GameObject* player){
 
 
 PlayerUIComponent::~PlayerUIComponent(){
+	std::cout << "delete the class" << std::endl;
 }
 
 void PlayerUIComponent::addToKillList(uint64_t shooter, uint64_t victim){

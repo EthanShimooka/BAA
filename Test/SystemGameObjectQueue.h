@@ -25,7 +25,7 @@ public:
 
 	GameObject* SystemGameObjectQueue::GetGameObject(uint64_t g_id);
 	/// Loops deleting all gameobjects in alive_objects vector
-	void DeleteObjects(int g_id);
+	void DeleteObjects();
 };
 
 //GLOBAL INSTANCE OF SYSTEMGAMEOBJECTQUEUE. Anywhere that includes this file can just use GameObjects like a local variable.

@@ -16,11 +16,11 @@ void MineLogicComponent::blowUp(){
 	//TODO: instaniate an explosion, and destroy everything touching explosion
 	MinePhysicsComponent* physicsComp = dynamic_cast<MinePhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	physicsComp->setCollisionFilter(COLLISION_MINE, COLLISION_MINION | COLLISION_PLAYER);
-	MineRenderComponent* renderComp = dynamic_cast<MineRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	/*MineRenderComponent* renderComp = dynamic_cast<MineRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	renderComp->objRef->unrender();
 	SDLRenderObject* poofSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 4001, gameObjectRef->posX, gameObjectRef->posY);
-	renderComp->AssignSprite(poofSprite);
+	renderComp->AssignSprite(poofSprite);*/
 	//scale collider larger. if we need to scale hitbox, do it here
 	//b2Shape* shape = physicsComp->mFixture->GetShape();
 }
@@ -34,21 +34,35 @@ void MineLogicComponent::lightFuse(){
 	}
 }
 
-void MineLogicComponent::Update(){
+void MineLogicComponent::detonateMine(){
+	// May need to scale up hitbox if we want blast radius larger than trigger radius
+	// *NOTE*: We're not actually destroying the objects until the gamesession ends and the gameobject
+	// destructor is called. Currently just getting rid of collisions and making object invisible
+	gameObjectRef->isAlive = false;
+	MinePhysicsComponent* physicsComp = dynamic_cast<MinePhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	physicsComp->setCollisionFilter(COLLISION_MINE, 0);
+}
+
+void MineLogicComponent::checkTimer(){
 	//if mine has been alive for too long, light the fuse so it doesn't stay forever
 	clock_t clockDiff = clock() - timeSinceBirth;
 	unsigned aliveTime = clockDiff / (CLOCKS_PER_SEC / 1000);
-	//all mines will light their fuses after 20 seconds
-	if (aliveTime > 20000){
-		lightFuse();
+	//all mines will detonate after 20 seconds
+	if (aliveTime > mineLength){
+		//lightFuse();
+		detonateMine();
 		std::cout << "boom!" << std::endl;
 	}
-	if (fuseLit){
+}
+
+void MineLogicComponent::Update(){
+	checkTimer();
+	/*if (fuseLit){
 		//removed delay timer for now
-		/*clock_t clockDiff = clock() - timeSinceFuseLit;
+		clock_t clockDiff = clock() - timeSinceFuseLit;
 		unsigned timeElapsed = clockDiff / (CLOCKS_PER_SEC / 1000);
 		if (timeElapsed > 0){
-			if(blownUp==0)*/blowUp();
+			if(blownUp==0)blowUp();
 		//}
 	}
 	if (blownUp>0){
@@ -59,5 +73,5 @@ void MineLogicComponent::Update(){
 			gameObjectRef->isAlive = false;
 		}
 		blownUp++;
-	}
+	}*/
 }

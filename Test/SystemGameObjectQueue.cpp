@@ -15,12 +15,6 @@ SystemGameObjectQueue::~SystemGameObjectQueue()
 		std::cout << i + 1 << " alive_object: " << alive_objects[i]->type << ": " << alive_objects[i]->ID << "\t" << alive_objects[i] << std::endl;
 	}
 	std::cout << "--------------------------------" << std::endl;
-	/*while (!alive_objects.empty()){
-		auto iter = alive_objects.front();
-		alive_objects.pop_back();
-		std::cout << iter << std::endl;
-		delete iter;
-	}*/
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
 		std::cout << "alive " << i << " " ;
 		std::cout << alive_objects[i] << std::endl;
@@ -50,18 +44,20 @@ GameObject* SystemGameObjectQueue::AddObject(GameObject * obj){
 
 void SystemGameObjectQueue::DeleteObject(uint64_t g_id){
 	for (unsigned int i = 0; i < alive_objects.size(); i++){
-		//if (alive_objects[i]->ID == g_id)
+		if (alive_objects[i]->ID == g_id){
+			delete alive_objects[i];
+			alive_objects.erase(GameObjects.alive_objects.begin() + i);
+			break;
+		}
 	}
 }
 
-//no longer used
-void SystemGameObjectQueue::DeleteObjects(int g_id){
-	//for (unsigned int i = 0; i < alive_objects.size(); i++){
-	//	if (alive_objects[i]->ID == g_id){
-	//		//GameObject::FreeComponents(alive_objects[i]);
-	//		delete alive_objects[i];
-	//	}
-	//}
+
+void SystemGameObjectQueue::DeleteObjects(){
+	while (!alive_objects.empty()){
+		delete alive_objects.back();
+		alive_objects.pop_back();
+	}
 }
 
 GameObject* SystemGameObjectQueue::GetGameObject(uint64_t g_id) {

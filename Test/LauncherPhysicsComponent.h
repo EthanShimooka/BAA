@@ -24,6 +24,8 @@ public:
 	~LauncherPhysicsComponent();
 	void init(float size);
 	void handleCollision(GameObject* otherObj);
+	void endCollision(GameObject* otherObj);
+
 	void Update();
 };
 

@@ -37,7 +37,7 @@ public:
 	RenderComponent();
 
 	/// Destructor
-	~RenderComponent();
+	virtual ~RenderComponent();
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;

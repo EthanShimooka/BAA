@@ -16,9 +16,6 @@ PowerShieldLogicComponent::~PowerShieldLogicComponent()
 
 
 void PowerShieldLogicComponent::Update(){
-	if (Timing::sInstance.EndChickenAbilityTimer()){
-		gameObjectRef->isAlive = false;
-	}
 }
 
 void PowerShieldLogicComponent::spawnShield(int xpos, int ypos){

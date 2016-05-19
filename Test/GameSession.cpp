@@ -3,6 +3,7 @@
 #include <functional>
 #include <crtdbg.h>
 #include "Invoke.h"
+#include "t.h"
 /**
 *  GameSession.cpp
 *  Authors:
@@ -172,7 +173,7 @@ void cullObjects(){
 // Run contains the main Gameloop
 // TODO: create arguements once lobby system is implemented.
 
-int GameSession::Run(vector<player*> players){
+int GameSession::Run(){
 
 	// temp
 	int numLobbyPlayer = 0;
@@ -215,33 +216,34 @@ int GameSession::Run(vector<player*> players){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
-	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 		std::cout << iter.first << std::endl;
 		std::cout << "\tClass:" << iter.second.classType << std::endl;
-	}
+	}*/
 
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
 	//if (numPlayers != 1){
-	map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
+	unordered_map< uint64_t, PlayerInfo > lobby = NetworkManager::sInstance->getLobbyInfoMap();
 	int i = 0;
 	bool local = true;
 	for (auto &iter : lobby){
-		int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		int classType = iter.second.classType;
+		std::cout << "classType: " << classType << std::endl;
+		//NetworkManager::sInstance->getLobbyInfoMap();
+		//int classType = NetworkManager::sInstance->getLobbyInfoMap().find(iter.first)->second.classType;
 		//int classType = 6;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 1000) / 100 + 1, (i % 2) + 1, local));
+			//std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
 		}
 		else{
-			GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 1000) / 100 + 1, (i % 2) + 1, !local));
+			GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, !local));
 		}
 		++i;
 	}
-		
-	//}
-	/// create a local player with ID of 10000
+	// create a local player with ID of 10000
 	/*else{
 		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
 	}*/
@@ -559,6 +561,6 @@ int GameSession::Run(vector<player*> players){
 
 
 	GameWorld::getInstance()->~GameWorld();
-	return 0;
+	return SCENE_END;
 }
 

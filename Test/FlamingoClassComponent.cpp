@@ -147,13 +147,13 @@ void FlamingoClassComponent::writeNetAbility(uint64_t PID, float posX, float pos
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed >= seedRequired){
+	if (currBirdseed >= 1){//seedRequired){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float targetX, targetY;
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
-		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, (int)targetX, (int)targetY);
+		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, targetX, targetY);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);

@@ -14,6 +14,10 @@ public:
 	void Update();
 	/// Signals the 1 second delay before exploding
 	void lightFuse();
+	/// 
+	void detonateMine();
+	/// Detonates the mine if it's been alive longer than 20 seconds
+	void checkTimer();
 
 	GameObject* spawner;
 	bool fuseLit = false;
@@ -26,5 +30,6 @@ private:
 	/// destroy the object or send it to the object pool. Entites should only
 	/// be able to trip the fuse, but not directly call this function. Only itself can.
 	void blowUp();
+	unsigned int mineLength = 20000;
 };
 #endif

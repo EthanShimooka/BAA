@@ -82,15 +82,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:{
 										   if (otherObj->team == gameObjectRef->team) break;
-										   MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										   if (mineLogicComp->fuseLit){
-											   //using fuseLit works, because once the fuse is lit the collision filter is turned off until it's blown up
-											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-											   GameObject* mineOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
-											   uint64_t shooter = mineOwner->ID;
-											   logicComp->becomeEgg();
-											   logicComp->death = true;
-											 }
+										   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+										   GameObject* mineOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+										   uint64_t shooter = mineOwner->ID;
+										   logicComp->becomeEgg();
+										   logicComp->death = true;
 										   
 										   break;
 	}
@@ -107,6 +103,36 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	}
 }
+
+
+void PlayerPhysicsComponent::endCollision(GameObject* otherObj){
+
+	switch (otherObj->type){
+	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
+		//do nothing or push past each other
+		break;
+
+
+	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
+											   inAir = false;
+											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											   logicComp->launchable = false;
+
+											   break;
+	}
+
+	case GAMEOBJECT_TYPE::OBJECT_LAUNCHER:{
+											  //do nothing or push past each other
+											  //		LauncherLogicComponent* logic = dynamic_cast<LauncherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+											  PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											  logicComp->launchableZone = false;
+											  break;
+	}
+	default:
+		break;
+	}
+}
+
 
 void PlayerPhysicsComponent::launchPlayer(){
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));

@@ -292,6 +292,7 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.ready = ready;
+		lobbyUpdate = true;
 	}
 }
 
@@ -304,6 +305,7 @@ void NetworkManager::HandleTeamPacket(InputMemoryBitStream& inInputStream, uint6
 	for (auto& iter : lobbyInfoMap){
 		if (iter.first == ID){
 			iter.second.team = team;
+			lobbyUpdate = true;
 		}
 	}
 }
@@ -313,6 +315,7 @@ void NetworkManager::SendRdyUpPacket(int ready)
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.ready = ready;
+		lobbyUpdate = true;
 	}
 	OutputMemoryBitStream outPacket;
 	outPacket.Write(kReadyUpCC);
@@ -333,6 +336,7 @@ void NetworkManager::HandleSelectionPacket(InputMemoryBitStream& inInputStream, 
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.classType = classType;
+		lobbyUpdate = true;
 	}
 }
 
@@ -341,6 +345,7 @@ void NetworkManager::SendSelectPacket(int classType)
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
 		iter->second.classType = classType;
+		lobbyUpdate = true;
 	}
 	OutputMemoryBitStream outPacket;
 	outPacket.Write(kSelectionCC);
@@ -355,7 +360,11 @@ void NetworkManager::SendSelectPacket(int classType)
 }
 
 void NetworkManager::SendTeamToPeers(uint64_t ID, int team){
-	
+	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
+	if (iter != lobbyInfoMap.end()){
+		iter->second.team = team;
+		lobbyUpdate = true;
+	}
 	OutputMemoryBitStream outpacket;
 	outpacket.Write(kTeamCC);
 	outpacket.Write(ID);
@@ -689,23 +698,26 @@ void NetworkManager::UpdateLobbyPlayers()
 			mIsMasterPeer = true;
 		}
 
-		GamerServices::sInstance->GetLobbyPlayerMap(mLobbyId, mPlayerNameMap);
-		for (auto& iter : mPlayerNameMap)
+		lobbyUpdate = GamerServices::sInstance->GetLobbyPlayerMap(mLobbyId, mPlayerNameMap, lobbyInfoMap);
+		
+		/*for (auto& iter : mPlayerNameMap)
 		{
 			if (lobbyInfoMap.find(iter.first) == lobbyInfoMap.end()){
 				PlayerInfo pInfo;
 				lobbyInfoMap.emplace(iter.first, pInfo);
+				lobbyUpdate = true;
 			}
 		}
 		if (mPlayerNameMap.size() != lobbyInfoMap.size()){
 			for (auto it = lobbyInfoMap.begin(); it != lobbyInfoMap.end();) {
 				if (mPlayerNameMap.find(it->first) == mPlayerNameMap.end()) {
 					it = lobbyInfoMap.erase(it);
+					lobbyUpdate = true;
 				}
 				else
 					++it;
 			}
-		}
+		}*/
 
 		//std::cout << "--------------------------------------" << std::endl;
 		//for (auto& iter : lobbyInfoMap)
