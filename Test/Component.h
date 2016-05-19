@@ -35,7 +35,7 @@ public:
 	/// Constructor
 	Component();
 	/// Destructor
-	~Component();
+	virtual ~Component();
 
 
 

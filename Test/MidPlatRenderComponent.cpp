@@ -18,9 +18,11 @@ MidPlatRenderComponent::MidPlatRenderComponent(GameObject* platform)
 }
 
 
-MidPlatRenderComponent::~MidPlatRenderComponent()
-{
-	RenderComponent::Update();
-	RenderBoundingBox((allObjs["box"]));
+MidPlatRenderComponent::~MidPlatRenderComponent(){
 
 }
+
+/*void MidPlatRenderComponent::Update(){
+	RenderComponent::Update();
+	RenderBoundingBox((allObjs["box"]));
+}*/

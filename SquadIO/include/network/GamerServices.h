@@ -1,5 +1,6 @@
 #ifndef GAMERSERVICES_H_INCLUDED
 #define GAMERSERVICES_H_INCLUDED
+#include "t.h"
 
 class GamerServices
 {
@@ -17,7 +18,7 @@ public:
 	void LobbySearchAsync();
 	int GetLobbyNumPlayers( uint64_t inLobbyId );
 	uint64_t GetMasterPeerId( uint64_t inLobbyId );
-	void GetLobbyPlayerMap( uint64_t inLobbyId, map< uint64_t, string >& outPlayerMap );
+	bool GetLobbyPlayerMap(uint64_t inLobbyId, map< uint64_t, string >& outPlayerMap, unordered_map<uint64_t, PlayerInfo>& lobbyInfoMap);
 	void SetLobbyReady( uint64_t inLobbyId );
 	void LeaveLobby( uint64_t inLobbyId );
 

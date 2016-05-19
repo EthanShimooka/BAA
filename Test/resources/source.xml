@@ -39,6 +39,7 @@
 <resource UID="27" type="graphic" filename="playerReady.png" scenescope="0"></resource>
 <resource UID="28" type="graphic" filename="playerSlot.png" scenescope="0"></resource>
 <resource UID="29" type="graphic" filename="options.png" scenescope="0"></resource>
+<resource UID="30" type="graphic" filename="playerSlotReady.png" scenescope="0"></resource>
 <resource UID="1100" type="graphic" filename="birdseed_counter_shell.png" scenescope="0"></resource>
 <resource UID="1101" type="graphic" filename="birdseed_counter_gradient.png" scenescope="0"></resource>
 <resource UID="1102" type="graphic" filename="chargebar_shell.png" scenescope="0"></resource>
@@ -133,6 +134,17 @@
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
+<resource UID="50" type="graphic" filename="CLobby.png" scenescope="0"></resource>
+<resource UID="51" type="graphic" filename="PLobby.png" scenescope="0"></resource>
+<resource UID="52" type="graphic" filename="FLobby.png" scenescope="0"></resource>
+<resource UID="53" type="graphic" filename="QLobby.png" scenescope="0"></resource>
+<resource UID="54" type="graphic" filename="TLobby.png" scenescope="0"></resource>
+
+<resource UID="55" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
+<resource UID="56" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
+<resource UID="57" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
+<resource UID="58" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
+<resource UID="59" type="graphic" filename="THLobby.png" scenescope="0"></resource>
 
 
 

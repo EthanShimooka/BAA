@@ -50,10 +50,9 @@
 #include "lobby.h"
 #include "start.h"
 #include "GameSession.h"
+#include "Scene.h"
 
 //temp
 #include "config.h"
-
-
 
 #endif

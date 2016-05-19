@@ -29,7 +29,7 @@ public:
 	/// Constructor
 	InputComponent();
 	/// Destructor
-	~InputComponent();
+	virtual ~InputComponent();
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;
 

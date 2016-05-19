@@ -94,7 +94,7 @@ public:
 	GameSession();
 	~GameSession();
 
-	int Run(vector<player*> players);
+	int Run();
 	// int run ( std::list playerlist);
 
 	/// Load non player objects, on multiplayer from serializable list.
