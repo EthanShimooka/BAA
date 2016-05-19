@@ -7,12 +7,7 @@
 * and communicates with SceneManager to send and receive packets. It communicates with GamerServices to handle the initial connection.
 *
 */
-
-struct PlayerInfo{
-	bool ready = false;
-	int classType = -1;
-	int team = -1;
-};
+#include "t.h"
 
 class NetworkManager
 {
@@ -121,6 +116,8 @@ private:
 	SQUADIO_API void	HandleTurnPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Processes delay packets
 	SQUADIO_API void	ProcessPacketsDelay(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	/// Handles team packet
+	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
 	/// Attempts to start the game
 	SQUADIO_API void	TryStartGame();
 public:
@@ -167,7 +164,7 @@ public:
 
 	SQUADIO_API void	SendTeamToPeers(uint64_t ID, int team);
 
-	SQUADIO_API void	HandleTeamPacket(InputMemoryBitStream& inInputStream, uint64_t inFromPlayer);
+	
 
 	//	GameObjectPtr	GetGameObject(uint32_t inNetworkId) const;
 	//	GameObjectPtr	RegisterAndReturn(GameObject* inGameObject);
@@ -308,7 +305,11 @@ private:
 	/// My team
 	int				myTeam;
 
-public:
+private:
 	LobbyInfoMap    lobbyInfoMap;
+	bool			lobbyUpdate = false;
+public:
+	SQUADIO_API		const bool lobbyUpdated() { return lobbyUpdate; }
+	SQUADIO_API		const LobbyInfoMap& getLobbyInfoMap() { lobbyUpdate = false; return lobbyInfoMap; }
 };
 #endif

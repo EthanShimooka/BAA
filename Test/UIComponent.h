@@ -13,7 +13,7 @@ class UIComponent : public Component
 {
 public:
 	UIComponent();
-	~UIComponent();
+	virtual ~UIComponent();
 
 	/// UIObject Container Reference
 	UIObject* uiObjectRef;

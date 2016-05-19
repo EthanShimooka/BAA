@@ -21,7 +21,7 @@ public:
 	/// Constructor
 	LogicComponent();
 	/// Destructor
-	~LogicComponent();
+	virtual ~LogicComponent();
 	/// GameObject Container Reference
 	GameObject* gameObjectRef;
 

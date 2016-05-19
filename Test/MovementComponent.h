@@ -24,7 +24,7 @@ public:
 	/// Constructor
 	MovementComponent();
 	/// Destructor
-	~MovementComponent();
+	virtual ~MovementComponent();
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;
 
