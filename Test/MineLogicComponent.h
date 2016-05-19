@@ -14,12 +14,14 @@ public:
 	void Update();
 	/// Signals the 1 second delay before exploding
 	void lightFuse();
-	/// 
+	/// Destroys mine object
 	void detonateMine();
 	/// Detonates the mine if it's been alive longer than 20 seconds
 	void checkTimer();
-
-	GameObject* spawner;
+	//Refactored method to increment the birds seed count
+	void giveBirdseed(int numSeeds);
+	/// This is a reference to the player that spawned it
+	GameObject* owner;
 	bool fuseLit = false;
 	int blownUp = 0;
 	clock_t timeSinceBirth;

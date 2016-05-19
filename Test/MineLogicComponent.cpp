@@ -55,6 +55,15 @@ void MineLogicComponent::checkTimer(){
 	}
 }
 
+void MineLogicComponent::giveBirdseed(int numSeeds) {
+	ClassComponent* classComp = dynamic_cast<ClassComponent*>(owner->GetComponent(COMPONENT_CLASS));
+	if (classComp->currBirdseed + numSeeds <= classComp->maxsBirdseed){
+		classComp->currBirdseed += numSeeds;
+		createAbsorbParticle(gameObjectRef, owner, classComp->currBirdseed, 0, 0);
+	}
+	else classComp->currBirdseed = classComp->maxsBirdseed;
+}
+
 void MineLogicComponent::Update(){
 	checkTimer();
 	/*if (fuseLit){
