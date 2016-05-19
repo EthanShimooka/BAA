@@ -106,8 +106,11 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 
 	renderMan->setBackground("Muscle-Beach-Background__0007_sky-gradient.png");
 
+	std::vector<UIObject*> UIObjs;
+
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR, 30, 30);
+	UIObjs.push_back(birdseedMeter);
 	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30));
 	queue.AddObject(birdseedMeter);
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
@@ -117,20 +120,24 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
+	UIObjs.push_back(countdownTimer);
 	queue.AddObject(countdownTimer);
 	playerUI->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
 	//add ui components to show player kills
+	
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
 		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,100,200+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
+		UIObjs.push_back(currKillHUD);
 
 	}
 	playerUI->killHUD = killHUD;
+	playerUI->UIObjs = UIObjs;
 }
 
 //////////////////////////////////////////////////////////////////////////

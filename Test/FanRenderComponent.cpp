@@ -42,8 +42,10 @@ void FanRenderComponent::buildAnimations(){
 
 
 
-FanRenderComponent::~FanRenderComponent()
-{
+FanRenderComponent::~FanRenderComponent(){
+	for (auto i : animations){
+		delete i.second;
+	}
 }
 
 void FanRenderComponent::Update() {
