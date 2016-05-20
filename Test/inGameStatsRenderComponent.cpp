@@ -32,8 +32,10 @@ void inGameStatsRenderComponent::toggleOn(){
 void inGameStatsRenderComponent::createText(){
 	Stats::mapStat map = Stats::getPlayersStatsMap();
 	TextAlignment::COLOR* color = new TextAlignment::COLOR(255, 0, 0);
+	std::string text = "asdfasdfasdf";
 	for (auto& iter : map){
-		statsTexts.createText("asdafdssafdsdfafdfasdf", color, TextAlignment::MIDDLE_);
+		//text = 
+		statsTexts.createText(text, color, TextAlignment::MIDDLE);
 	}
 	delete color;
 }

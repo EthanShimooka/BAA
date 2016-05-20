@@ -22,10 +22,10 @@ public:
 	TextAlignment(float y = 1 / 4.0, float x = 1 / 4.0, std::string font = "BowlbyOneSC-Regular", int fontSize = 30, std::string layer = "layer1");
 	~TextAlignment();
 
-	static enum TEXT_POS_{
-		LEFT_ = 1,
-		MIDDLE_ = 2,
-		RIGHT_ = 3,
+	static enum TEXT_POS{
+		LEFT = 1,
+		MIDDLE = 2,
+		RIGHT = 3,
 	};
 
 	struct COLOR{
@@ -35,12 +35,14 @@ public:
 	
 	void createText(std::string text, COLOR* color, float x_offset);
 	void createText(std::string text, COLOR* color);
-	void createText(std::string text, COLOR* color, TEXT_POS_ pos);
+	void createText(std::string text, COLOR* color, TEXT_POS pos);
 	void setFont(std::string _font) { font = _font; }
+	void setFontSize(int size);
 	void updateText(std::string text, int textNum);
 	void setStartingYPos(float height) { startingYPos = height; }
 	void setStartingXPos(float width) { startingXPos = width; }
-	void setLayer(std::string layer) { layer = layer; }
+	//void setLayer(std::string layer) { layer = layer; }
+	void resetOffset() { totalOffest = 0; }
 	void toggleOn(int textNum, bool on);
 	void toggleAllOn(bool on);
 };

@@ -22,7 +22,7 @@ void TextAlignment::findOffset(){
 	int w, h;
 	renderMan->getWindowSize(&w, &h);
 	offset = (((w * h) * fontSize) / 1049088.0) * 2;
-	totalOffest = offset;
+	totalOffest = 0;
 }
 
 void TextAlignment::createText(std::string text, COLOR* color, float x_offset){
@@ -34,7 +34,6 @@ void TextAlignment::createText(std::string text, COLOR* color, float x_offset){
 	// have to devide by 1049088.0 to acount for resolution change
 	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * fontSize) / 1049088.0, font));
 	sdlText->setPos((w * x_offset) - (sdlText->getWidth() / 2.0), (h * startingYPos) - (sdlText->getHeight() / 2.0) + totalOffest);
-	std::cout << sdlText->posX << ", " << sdlText->posY << std::endl;
 	totalOffest += offset;
 	texts.push_back(sdlText);
 }
@@ -43,12 +42,12 @@ void TextAlignment::createText(std::string text, COLOR* color){
 	createText(text, color, startingXPos);
 }
 
-void TextAlignment::createText(std::string text, COLOR* color, TEXT_POS_ pos){
+void TextAlignment::createText(std::string text, COLOR* color, TEXT_POS pos){
 	createText(text, color, pos / 4.0);
 }
 
 void TextAlignment::toggleAllOn(bool on){
-	if (this->on == on) return;
+	if (on && this->on == on) return;
 	this->on = on;
 	for (auto& iter : texts){
 		iter->setVisible(on);
@@ -57,4 +56,9 @@ void TextAlignment::toggleAllOn(bool on){
 
 void TextAlignment::toggleOn(int textNum, bool on){
 	texts[textNum]->setVisible(on);
+}
+
+void TextAlignment::setFontSize(int size){
+	fontSize = size; 
+	findOffset();
 }
