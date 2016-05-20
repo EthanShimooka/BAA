@@ -8,8 +8,6 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player, float height,
 }
 
 PlayerPhysicsComponent::~PlayerPhysicsComponent(){
-
-	//GameWorld::getInstance()->physicsWorld->DestroyBody(mBody);
 }
 
 void PlayerPhysicsComponent::init(float height, float width){

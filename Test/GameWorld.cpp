@@ -13,12 +13,18 @@ GameWorld::GameWorld(){
 float worldScale = 20.0f;
 
 GameWorld::~GameWorld(){
-	//physicsWorld->~b2World();
+	//free the bodies
 	b2Body* bodyList = physicsWorld->GetBodyList();
 	int bodyCount = physicsWorld->GetBodyCount();
 	for (int i = 0; i< bodyCount; i++){
 		b2Body* bodyToBeGone = bodyList;
 		bodyList = bodyList->GetNext();
+		//we have the current body, now we delete it's fixtures
+		for (b2Fixture* f = bodyToBeGone->GetFixtureList(); f;){
+			b2Fixture* fixtureToDestroy = f;
+			f = f->GetNext();
+			bodyToBeGone->DestroyFixture(fixtureToDestroy);
+		}
 		physicsWorld->DestroyBody(bodyToBeGone);
 	}
 	//delete physicsWorld;

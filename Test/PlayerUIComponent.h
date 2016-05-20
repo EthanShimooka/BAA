@@ -21,6 +21,7 @@ public:
 	SDLRenderObject* timerHUD;
 
 	int killHUDSize = 5;
+	std::vector<UIObject*> UIObjs;
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 
 	/// adds to the queue of player kills
