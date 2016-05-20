@@ -220,10 +220,10 @@ void Lobby::createSlots(){
 }
 
 void Lobby::removeSlots(){
-	for (int i = 0; i < slots.size(); ++i){
+	for (unsigned i = 0; i < slots.size(); ++i){
 		GameObjects.DeleteObject(slots[i]->ID);
 	}
-	for (int i = 0; i < readySlots.size(); ++i){
+	for (unsigned i = 0; i < readySlots.size(); ++i){
 		GameObjects.DeleteObject(readySlots[i]->ID);
 	}
 }
@@ -257,7 +257,7 @@ void Lobby::removeAllButtons(){
 }
 
 void Lobby::setFreeSlotsToDefault(int firstSlot){
-	for (int i = firstSlot; i < readySlots.size(); ++i){
+	for (unsigned i = firstSlot; i < readySlots.size(); ++i){
 		dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
 		dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites(1);
 	}
