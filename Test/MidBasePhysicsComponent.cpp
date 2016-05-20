@@ -36,8 +36,13 @@ void MidBasePhysicsComponent::Init(){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), 0);
 
-	setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER | COLLISION_MINION);
-
+	//if base is same team as local player
+	if (gameObjectRef->team == GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+		setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER | COLLISION_MINION);
+	}
+	else {
+		setCollisionFilter(COLLISION_BASE, COLLISION_FEATHER | COLLISION_MINION | COLLISION_PLAYER);
+	}
 }
 
 void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
@@ -63,21 +68,11 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 break;
 	}
 
-		/*
+		
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
-											// chack to see if it is of opposing minion type
-											if (otherObj->team == gameObjectRef->team){
-												std::cout << "base hit! \n" << std::endl;
-												base_hit = true;
-												MidBaseLogicComponent* logicComponent = dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-												logicComponent->launchPlayer(otherObj);
-													// logicComponent->attacked();
-													//
-													//		}
-
-
-											}
-											break; */
+											//Do nothing, triggers collision between base/player of opposing team
+											break;
+	}
 
 	default:
 		break;
