@@ -87,7 +87,7 @@ void PlayerLogicComponent::becomeEgg(){
 
 		// if this is the local Player
 		if (gameObjectRef->isLocal){
-			RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
+			RenderManager::getRenderManager()->ShakeScreen(0.2f, 0.2f);
 		}
 	}
 

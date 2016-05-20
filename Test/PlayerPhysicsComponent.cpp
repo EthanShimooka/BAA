@@ -49,14 +49,16 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		 if (otherObj->team == gameObjectRef->team)break;
 		 //signal self death and turn to egg
 		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		GameObject* featherOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		FeatherLogicComponent* featherLogicComp = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+		GameObject* featherOwner = featherLogicComp->owner;
 		uint64_t shooter = featherOwner->ID;
-		if (otherObj->isLocal){
+		if (otherObj->isLocal && !logicComp->isEgg){
 			//Triggers death stuff for player who fired feather
 			logicComp->becomeEgg();
 			logicComp->death = true;
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
+			featherLogicComp->giveBirdseed(3);
 			logicComp->playDeathSFX(localClass);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
@@ -81,10 +83,27 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:{
 										   if (otherObj->team == gameObjectRef->team) break;
 										   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										   GameObject* mineOwner = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+										   MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+										   GameObject* mineOwner = mineLogicComp->owner;
 										   uint64_t shooter = mineOwner->ID;
-										   logicComp->becomeEgg();
-										   logicComp->death = true;
+										   if (otherObj->isLocal && !logicComp->isEgg){
+											   logicComp->becomeEgg();
+											   logicComp->death = true;
+											   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+											   int localClass = classComp->getClass();
+											   mineLogicComp->giveBirdseed(3);
+											   logicComp->playDeathSFX(localClass);
+											   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+											   networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
+										   }
+										   GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+										   if (killer->isLocal){
+
+											   dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
+											   //debug this line below. I added in the if statement since it was breaking when calling it on gameobjects that didn't have UIComponents (HUD)
+											   //I'm not sure why I originally was calling it if didn't have HUD stuff
+											   if (gameObjectRef->isLocal) dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
+										   }
 										   
 										   break;
 	}
