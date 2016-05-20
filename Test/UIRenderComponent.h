@@ -30,7 +30,7 @@ public:
 	UIRenderComponent();
 
 	/// Destructor
-	~UIRenderComponent();
+	virtual ~UIRenderComponent();
 
 	/// Renderable Sprite pointer
 	SDLRenderObject* objRef;
