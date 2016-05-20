@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Stats.h"
+#include "TextAlignment.h"
 
 class GameOver :
 	public Scene
@@ -45,12 +46,14 @@ private:
 	void removeButtons();
 	void createText();
 	void removeText();
-	void createInGameStatsText(std::string text, COLOR* color, TEXT_POS pos);
+	void createInGameStatsText(std::string text, TextAlignment::COLOR* color, float x);
 	void createStatsText();
 	void findOffest();
 	/// For drawing win/loss text
 	SDLRenderObject* victoryDefeatText;
 	vector<SDLRenderObject*> statsTexts;
+
+	TextAlignment *statsText;
 	
 
 	int buttonID;

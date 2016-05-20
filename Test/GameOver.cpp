@@ -5,6 +5,7 @@ GameOver::GameOver()
 {
 	renderMan = RenderManager::getRenderManager();
 	sceneMan  = SceneManager::GetSceneManager();
+	statsText = new TextAlignment(.25);
 	createButtons();
 	createText();
 	sceneMan->AssembleScene();
@@ -18,16 +19,16 @@ GameOver::~GameOver()
 
 int GameOver::runScene(){
 	int buttonPressed = -2;
-	inGameStatsRenderComponent inGameStats;
+	//inGameStatsRenderComponent inGameStats;
 	while (true){
 		
 		InputManager::getInstance()->update();
-		if (InputManager::getInstance()->isKeyDown(KEY_TAB)){
+		/*if (InputManager::getInstance()->isKeyDown(KEY_TAB)){
 			inGameStats.toggleOn(true);
 		}
 		else{
 			inGameStats.toggleOn(false);
-		}
+		}*/
 		buttonPressed = checkButtons();
 		if (buttonPressed == BUTTON_MENU)
 			return SCENE_MENU;
@@ -69,12 +70,11 @@ void GameOver::createText(){
 	///for testing
 	Stats::incBaseHealthLost_purple();
 	int kills, deaths;
-	Stats::addPlayer(NetworkManager::sInstance->GetMyPlayerId(), 2);
+	/*Stats::addPlayer(NetworkManager::sInstance->GetMyPlayerId(), 2);
 	Stats::addPlayer((uint64_t)12634098216351089, 1);
 	Stats::incPlayerDied(NetworkManager::sInstance->GetMyPlayerId(), (uint64_t)12634098216351089);
 	Stats::playerDied(NetworkManager::sInstance->GetMyPlayerId(), kills, deaths);
-	std::cout << kills << " " << deaths << std::endl;
-	InputManager::getInstance()->update();
+	std::cout << kills << " " << deaths << std::endl;*/
 	/////
 
 	if (Stats::baseHealthLost_purple() == Stats::baseHealthLost_yellow()){
@@ -128,18 +128,19 @@ void GameOver::removeText(){
 	}
 }
 
-void GameOver::createInGameStatsText(std::string text, COLOR* color, TEXT_POS pos){
-	std::cout << text << std::endl;
-	SDLRenderObject* sdlText;
-	int w, h;
-	float x, y;
-	renderMan->getWindowSize(&w, &h);
-	sdlText = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
-	// have to devide by 1049088.0 to acount for resolution change
-	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * statsFontSize) / 1049088.0, "BowlbyOneSC-Regular"));
-	sdlText->setPos((pos * w / 4.0) - (sdlText->getWidth() / 2.0), (h / 4.5) - (sdlText->getHeight() / 2.0) + totalOffest);
-	totalOffest += offset;
-	statsTexts.push_back(sdlText);
+void GameOver::createInGameStatsText(std::string text, TextAlignment::COLOR* color, float x){
+	statsText->createText(text, color, x);
+	//std::cout << text << std::endl;
+	//SDLRenderObject* sdlText;
+	//int w, h;
+	//float x, y;
+	//renderMan->getWindowSize(&w, &h);
+	//sdlText = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	//// have to devide by 1049088.0 to acount for resolution change
+	//sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * statsFontSize) / 1049088.0, "BowlbyOneSC-Regular"));
+	//sdlText->setPos((pos * w / 4.0) - (sdlText->getWidth() / 2.0), (h / 4.5) - (sdlText->getHeight() / 2.0) + totalOffest);
+	//totalOffest += offset;
+	//statsTexts.push_back(sdlText);
 }
 
 void GameOver::findOffest(){
@@ -151,22 +152,25 @@ void GameOver::findOffest(){
 
 void GameOver::createStatsText(){
 	findOffest();
-	COLOR *yellowColor = new COLOR(255, 255, 0);
-	COLOR *purpleColor = new COLOR(200, 0, 200);
+	statsText->setLayer("layer2");
+	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(255, 255, 0);
+	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(200, 0, 200);
 
-	createInGameStatsText(std::to_string(Stats::baseHealthLost_yellow()) + " nest health lost", yellowColor, LEFT);
-	createInGameStatsText(std::to_string(Stats::otherTeamMinionsKilled_yellow()) + " minions killed", yellowColor, LEFT);
-	createInGameStatsText(std::to_string(Stats::otherTeamPlayersKilled_yellow()) + " enemies killed", yellowColor, LEFT);
-	createInGameStatsText(std::to_string(Stats::feathersFired_yellow()) + " feathers thrown", yellowColor, LEFT);
-	createInGameStatsText(std::to_string(Stats::abilitiesUsed_yellow()) + " abilities used", yellowColor, LEFT);
+	createInGameStatsText(std::to_string(Stats::baseHealthLost_yellow()) + " nest health lost", yellowColor, 1/4.0);
+	createInGameStatsText(std::to_string(Stats::otherTeamMinionsKilled_yellow()) + " minions killed", yellowColor, 1 / 4.0);
+	createInGameStatsText(std::to_string(Stats::otherTeamPlayersKilled_yellow()) + " enemies killed", yellowColor, 1 / 4.0);
+	createInGameStatsText(std::to_string(Stats::feathersFired_yellow()) + " feathers thrown", yellowColor, 1 / 4.0);
+	createInGameStatsText(std::to_string(Stats::abilitiesUsed_yellow()) + " abilities used", yellowColor, 1 / 4.0);
 	// reseting the offest
 	totalOffest = offset;
-	createInGameStatsText(std::to_string(Stats::baseHealthLost_purple()) + " nest health lost", purpleColor, RIGHT);
-	createInGameStatsText(std::to_string(Stats::otherTeamMinionsKilled_purple()) + " minions killed", purpleColor, RIGHT);
-	createInGameStatsText(std::to_string(Stats::otherTeamPlayersKilled_purple()) + " enemies killed", purpleColor, RIGHT);
-	createInGameStatsText(std::to_string(Stats::feathersFired_purple()) + " feathers thrown", purpleColor, RIGHT);
-	createInGameStatsText(std::to_string(Stats::abilitiesUsed_purple()) + " abilities used", purpleColor, RIGHT);
+	createInGameStatsText(std::to_string(Stats::baseHealthLost_purple()) + " nest health lost", purpleColor, 3 / 4.0);
+	createInGameStatsText(std::to_string(Stats::otherTeamMinionsKilled_purple()) + " minions killed", purpleColor, 3 / 4.0);
+	createInGameStatsText(std::to_string(Stats::otherTeamPlayersKilled_purple()) + " enemies killed", purpleColor, 3 / 4.0);
+	createInGameStatsText(std::to_string(Stats::feathersFired_purple()) + " feathers thrown", purpleColor, 3 / 4.0);
+	createInGameStatsText(std::to_string(Stats::abilitiesUsed_purple()) + " abilities used", purpleColor, 3 / 4.0);
 
 	delete yellowColor;
 	delete purpleColor;
+
+	statsText->toggleAllOn(true);
 }
