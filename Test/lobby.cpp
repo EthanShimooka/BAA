@@ -111,12 +111,12 @@ void Lobby::createClassButts(){
 
 int Lobby::checkButtons(){
 	InputManager::getInstance()->update();
-	for (int i = 0; i < classButt.size(); ++i){
+	for (size_t i = 0; i < classButt.size(); ++i){
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 			int selection = dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage();
 			playerSelection(selection);
 			selected = selection;
-			return i;
+			return static_cast<int>(i);
 		}
 	}
 	if (selected && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
@@ -170,7 +170,7 @@ void Lobby::changePlayerSelectionImage(){
 
 void Lobby::removeButtons(){
 	//remove class buttons
-	for (int i = 0; i < classButt.size(); ++i){ 
+	for (size_t i = 0; i < classButt.size(); ++i){ 
 		GameObjects.DeleteObject(classButt[i]->ID);
 	}
 	//remove ready button

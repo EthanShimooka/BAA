@@ -140,7 +140,7 @@ void LobbyMenu::createClassButts(){
 
 int LobbyMenu::checkButtons(){
 	InputManager::getInstance()->update();
-	for (int i = 0; i < classButt.size(); ++i){
+	for (size_t i = 0; i < classButt.size(); ++i){
 		// if pressed 
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 			int selection = dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage();
@@ -210,7 +210,7 @@ void LobbyMenu::changePlayerSelectionImage(){
 
 void LobbyMenu::removeButtons(){
 	//remove class buttons
-	for (int i = 0; i < classButt.size(); ++i){
+	for (size_t i = 0; i < classButt.size(); ++i){
 		GameObjects.DeleteObject(classButt[i]->ID);
 	}
 	//remove ready button
@@ -258,10 +258,10 @@ void LobbyMenu::createSlots(){
 }
 
 void LobbyMenu::removeSlots(){
-	for (int i = 0; i < slots.size(); ++i){
+	for (size_t i = 0; i < slots.size(); ++i){
 		GameObjects.DeleteObject(slots[i]->ID);
 	}
-	for (int i = 0; i < readySlots.size(); ++i){
+	for (size_t i = 0; i < readySlots.size(); ++i){
 		GameObjects.DeleteObject(readySlots[i]->ID);
 	}
 }
@@ -295,7 +295,7 @@ void LobbyMenu::removeAllButtons(){
 }
 
 void LobbyMenu::setFreeSlotsToDefault(int firstSlot){
-	for (int i = firstSlot; i < readySlots.size(); ++i){
+	for (size_t i = firstSlot; i < readySlots.size(); ++i){
 		dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
 		dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites(1);
 	}
