@@ -75,8 +75,8 @@ void RenderManager::ShakeScreen(float length, float intensity){
 		startShake = clock();
 		shakeTimer = (clock_t)(length * 1000);
 		//std::cout << "shakeTimer: " << shakeTimer << std::endl;
-		if (intensity > 1) intensity = 1; //limit intensity so that it is between .1 and 1
-		if (intensity < .1) intensity = .1;
+		if (intensity > 1) intensity = 1.0f; //limit intensity so that it is between .1 and 1
+		if (intensity < .1) intensity = 0.1f;
 		shakeIntensity = intensity;
 		//InputManager::getInstance()->controller->rumble(intensity, length);
 	}
@@ -213,8 +213,8 @@ void RenderManager::worldCoordToWindowCoord(int &winx, int &winy, float worx, fl
 	// make sure that worz does not equal cameraPoint.z
 	float proj = -cameraPoint.z / (worz - cameraPoint.z);
 	float flip = (flippedScreen) ? -1.0f : 1.0f;
-	winx = round((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2);
-	winy = round((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2);
+	winx = (int)round((worx - cameraPoint.x)*flip*proj/zoom + windowSurface->w / 2.0f);
+	winy = (int)round((wory - cameraPoint.y)*flip*proj/zoom + windowSurface->h / 2.0f);
 }
 void RenderManager::windowCoordToWorldCoord(float &worx, float &wory, int winx, int winy, float worz){
 	//make sure that cameraPoint.z is not at 0
@@ -316,11 +316,11 @@ void RenderManager::renderObjectAsImage(SDLRenderObject * obj){
 		float proj = -cameraPoint.z / (obj->getPosZ() - cameraPoint.z);
 		if (flippedScreen){
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() + obj->getWidth()*(1 - obj->getAnchorX()), obj->getPosY() + obj->getHeight()*(1 - obj->getAnchorY()),obj->getPosZ());
-			anchor = { round(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), round(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
+			anchor = { (int)round(obj->getWidth()*proj*(1 - obj->getAnchorX())/zoom), (int)round(obj->getHeight()*proj*(1 - obj->getAnchorY())/zoom) };
 		}
 		else{
 			worldCoordToWindowCoord(pos.x, pos.y, obj->getPosX() - obj->getWidth()*obj->getAnchorX(), obj->getPosY() - obj->getHeight()*obj->getAnchorY(), obj->getPosZ());
-			anchor = { round(obj->getWidth()*proj*obj->getAnchorX()/zoom), round(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
+			anchor = { (int)round(obj->getWidth()*proj*obj->getAnchorX()/zoom), (int)round(obj->getHeight()*proj*obj->getAnchorY()/zoom) };
 		}
 		pos.w = (int) (obj->getWidth()*proj/zoom);
 		pos.h = (int) (obj->getHeight()*proj/zoom);
@@ -438,7 +438,7 @@ void RenderManager::renderAllObjects(){
 			pos.y = int((*iter)->posY);
 			pos.w = (*iter)->renderRect.w;
 			pos.h = (*iter)->renderRect.h;
-			SDL_Point anchor = { (*iter)->renderRect.w*(*iter)->anchor.x, (*iter)->renderRect.h*(*iter)->anchor.y };
+			SDL_Point anchor = { (*iter)->renderRect.w*(int)(*iter)->anchor.x, (*iter)->renderRect.h*(int)(*iter)->anchor.y };
 			SDL_RendererFlip flip = SDL_FLIP_NONE;
 			if ((*iter)->flipH){ flip = SDL_FLIP_HORIZONTAL; }
 			if ((*iter)->flipV){ flip = SDL_FLIP_VERTICAL; }
@@ -557,10 +557,7 @@ void RenderManager::setCameraPoint(float x, float y, float z){
 
 void RenderManager::toggleCursor(int x){
 
-	if (x == 1 || 0)
 	cursorToggle = x;
-	else cursorToggle == 1;
-
 	SDL_ShowCursor(x);
 
 }

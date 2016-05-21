@@ -44,12 +44,12 @@ void ChargeParticle::Update(){
 		for (unsigned int i = 0; i < numberOfParticles; i++){
 			float x = i*(w / (numberOfParticles - 1)) - (w / 2);
 			float y = 0;
-			float dx = i*((w*1.5) / (numberOfParticles - 1)) - ((w*1.5) / 2);
-			float a = (i - ((float(numberOfParticles) - 1.0)) / 2.0);
-			float b = (float(numberOfParticles) - 1.0) / 2.0;
+			float dx = i*((w*1.5f) / (numberOfParticles - 1)) - ((w*1.5f) / 2);
+			float a = (i - ((float(numberOfParticles) - 1.0f)) / 2.0f);
+			float b = (float(numberOfParticles) - 1.0f) / 2.0f;
 			float heightDif = (a / b)*(a / b);
-			float dy = -h + h*(0.2)*heightDif;
-			float size = 0.2;
+			float dy = -h + h*(0.2f)*heightDif;
+			float size = 0.2f;
 			SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4004, x, y);
 			//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 			//sprite->setScaleX(base->getScaleX());
@@ -57,17 +57,17 @@ void ChargeParticle::Update(){
 			//sprite->setRenderRect(rect);
 			std::list<motion> movements;
 			movements.push_back(makeMotion(moveLinearXY(sprite, centerX + x, centerY + y, centerX + dx, centerY + dy), 0, 1, ease_QuadOut));
-			movements.push_back(makeMotion(resizeSquareTransform(sprite, size, 0.01), 0.0, 1.0, ease_QuadIn));
+			movements.push_back(makeMotion(resizeSquareTransform(sprite, size, 0.01f), 0.0f, 1.0f, ease_QuadIn));
 			//movements.push_back(makeMotion(keyframeAnimate(sprite, 0, 3), 0.0, 1.0, ease_QuadIn));
 			//movements.push_back(makeMotion(moveLinearZ(sprite, 0, cos(angle1) * 10), 0, 1, ease_QuadOut));
 			//movements.push_back(makeMotion(rotateTransform(sprite, rand() % 360, (rand() % 90) - 45), 0, 1));
-			Animation * movement = new Animation(500 - (rand() % 100), movements);
+			Animation * movement = new Animation((float)(500 - (rand() % 100)), movements);
 			//int maxtime = 100000; //in seconds
 			//std:list<motion> motions;
 			particle p;
 			p.animations = movement;
 			p.sprite = sprite;
-			p.timer = progress;
+			p.timer = (float)progress;
 			particles.push_back(p);
 		}
 	}
@@ -76,7 +76,7 @@ void ChargeParticle::Update(){
 		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
-		float curr = iter->animations->lengthConversion(progress - iter->timer);
+		float curr = iter->animations->lengthConversion((int)(progress - iter->timer));
 		//if (curr >= 1.0) iter->sprite->setIfRenderImage(false);
 		if (curr >= 1.0){
 			//iter->sprite->setIfRenderImage(false);

@@ -23,8 +23,8 @@ EggImplosionParticle::EggImplosionParticle(SDLRenderObject * base, unsigned int 
 		for (unsigned y = 0; y <= divisions; y++){
 			SDLRenderObject * sprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 74, centerX, centerY);
 			sprite->setScale(2);
-			float yStart = sprite->getWidth() *((x*2+1) / (float(divisions + 1)*2.0) - sprite->getAnchorX());
-			float xStart = sprite->getHeight() *((y*2+1) / (float(divisions + 1)*2.0) - sprite->getAnchorY());
+			float yStart = (float)sprite->getWidth() *((x*2+1) / (float(divisions + 1)*2.0f) - sprite->getAnchorX());
+			float xStart = (float)sprite->getHeight() *((y*2+1) / (float(divisions + 1)*2.0f) - sprite->getAnchorY());
 			sprite->flipV = true;
 			sprite->setPos(centerX, centerY);
 			//play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
@@ -39,8 +39,8 @@ EggImplosionParticle::EggImplosionParticle(SDLRenderObject * base, unsigned int 
 			SDL_Rect rect = { xPos, yPos, (int)round(baseRect.w / (divisions + 1.0)), (int)round(baseRect.h / (divisions + 1.0)) };
 			//sprite->setScaleX(base->getScaleX());
 			sprite->setRenderRect(rect);
-			float u = (rand() % 360) / 360.0;
-			float v = (rand() % 360) / 360.0;
+			float u = (float)((rand() % 360) / 360.0f);
+			float v = (float)((rand() % 360) / 360.0f);
 			float angle1 = 3.14f * 2.0f * u;
 			float angle2 = acos(2 * v - 1);
 

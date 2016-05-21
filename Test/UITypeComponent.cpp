@@ -134,7 +134,7 @@ void UITypeComponent::createUIType(UIType ID){
 		SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 		int x, y;
 		renderMan->getWindowSize(&x, &y);
-		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, x / 2, y / 2, true);
+		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, (float)x / 2.0f, (float)y / 2.0f, true);
 		play->setResourceObject(renderMan->renderText(playerName.c_str(), 255, 0, 255, 50, "BowlbyOneSC-Regular"));
 		break;
 	}

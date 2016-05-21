@@ -37,7 +37,7 @@ void FanPhysicsComponent::init(double rotation)
 
 	// fan force variables
 	forceStrength = 11.0f; //default strenth, pass in as argument if you want to set strength dynamically
-	forceVec = b2Vec2((forceStrength * cos(rotation * PI / 180.0f)), (forceStrength * sin(rotation * PI / 180.0f))); // takes angle in degrees and converts it into a force vector times a constant strength
+	forceVec = b2Vec2((forceStrength * (float32)cos(rotation * PI / 180.0f)), (forceStrength * (float32)sin(rotation * PI / 180.0f))); // takes angle in degrees and converts it into a force vector times a constant strength
 
 	setCollisionFilter(COLLISION_FAN, COLLISION_MINION);
 

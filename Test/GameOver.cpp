@@ -33,7 +33,7 @@ void GameOver::createButtons(){
 	renderMan->getWindowSize(&w, &h);
 
 	// menu button
-	renderMan->windowCoordToWorldCoord(x, y, w*(7 / 8.0), h*(90 / 100.0));
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0f)), (int)(h*(90 / 100.0f)));
 	mainMenuButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(mainMenuButt);
 
@@ -82,12 +82,12 @@ void GameOver::createText(){
 	if (color != nullptr){
 		// victory and defeat text
 		int w, h;
-		float x, y;
+		//float x, y;
 		renderMan->getWindowSize(&w, &h);
 		victoryDefeatText = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 		// have to devide by 1049088.0 to acount for resolution change
-		victoryDefeatText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * victoryDefeatFontSize) / 1049088.0, "BowlbyOneSC-Regular"));
-		victoryDefeatText->setPos((w / 2.0) - (victoryDefeatText->getWidth() / 2.0), (h / 8.0) - (victoryDefeatText->getHeight() / 2.0));
+		victoryDefeatText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, (int)(((w * h) * victoryDefeatFontSize) / 1049088.0f), "BowlbyOneSC-Regular"));
+		victoryDefeatText->setPos((w / 2.0f) - (victoryDefeatText->getWidth() / 2.0f), (h / 8.0f) - (victoryDefeatText->getHeight() / 2.0f));
 		delete color;
 	}
 
@@ -110,12 +110,12 @@ void GameOver::createInGameStatsText(std::string text, COLOR* color, TEXT_POS po
 	std::cout << text << std::endl;
 	SDLRenderObject* sdlText;
 	int w, h;
-	float x, y;
+	//float x, y;
 	renderMan->getWindowSize(&w, &h);
 	sdlText = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	// have to devide by 1049088.0 to acount for resolution change
-	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * statsFontSize) / 1049088.0, "BowlbyOneSC-Regular"));
-	sdlText->setPos((pos * w / 4.0) - (sdlText->getWidth() / 2.0), (h / 4.5) - (sdlText->getHeight() / 2.0) + totalOffest);
+	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, (int)(((w * h) * statsFontSize) / 1049088.0f), "BowlbyOneSC-Regular"));
+	sdlText->setPos((pos * w / 4.0f) - (sdlText->getWidth() / 2.0f), (h / 4.5f) - (sdlText->getHeight() / 2.0f) + totalOffest);
 	totalOffest += offset;
 	statsTexts.push_back(sdlText);
 }
@@ -123,7 +123,7 @@ void GameOver::createInGameStatsText(std::string text, COLOR* color, TEXT_POS po
 void GameOver::findOffest(){
 	int w, h;
 	renderMan->getWindowSize(&w, &h);
-	offset = (((w * h) * statsFontSize) / 1049088.0) * 2;
+	offset = (int)((((w * h) * statsFontSize) / 1049088.0f) * 2);
 	totalOffest = offset;
 }
 
