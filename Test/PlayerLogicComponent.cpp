@@ -12,7 +12,7 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
 	eggTimer = 1000.0;
-	lasttime = clock();
+	lasttime = (float)clock();
 	child_id_counter = childID;
 	childID += 1000;
 	std::cout << child_id_counter << std::endl;

@@ -25,7 +25,7 @@ void UIRenderComponent::Update(){
 		rendMan->getWindowSize(&w, &h);
 		objRef->setResourceObject((RenderResource*)ResMan->findResourcebyID(uiObjectRef->changeTo));
 		if (uiObjectRef->bottom){
-			objRef->posY = h - objRef->getHeight();
+			objRef->posY = (float)h - (float)objRef->getHeight();
 		}
 		else{
 			objRef->posY = uiObjectRef->posY;

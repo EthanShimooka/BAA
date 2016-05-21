@@ -79,7 +79,7 @@ void PlayerUIComponent::Update(){
 	float meterPercent = (classComp->currBirdseed / (float)maxBirdseed);
 	if (meterPercent > 1) meterPercent = 1;
 	SDL_Rect rect = birdseedHUD->getRenderRect();
-	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1 - meterPercent), defaultRect.w, defaultRect.h*meterPercent };
+	SDL_Rect seedRect = { defaultRect.x, (int)(defaultRect.y + defaultRect.h*(1 - meterPercent)), defaultRect.w, (int)(defaultRect.h*meterPercent) };
 	birdseedHUD->posY = 30 + defaultRect.h*(1 - meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
 

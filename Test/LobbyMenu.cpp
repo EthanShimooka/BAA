@@ -61,12 +61,12 @@ void LobbyMenu::createButtons(){
 	renderMan->getWindowSize(&w, &h);
 
 	// ready button
-	renderMan->windowCoordToWorldCoord(x, y, w*(7 / 8.0), h*(48 / 100.0));
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0)), (int)(h*(48 / 100.0)));
 	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(readyButt);
 
 	// back button 
-	renderMan->windowCoordToWorldCoord(x, y, w*(7 / 8.0), h*(90 / 100.0));
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0)), (int)(h*(90 / 100.0)));
 	backButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(backButt);
 }
@@ -82,57 +82,57 @@ void LobbyMenu::createClassButts(){
 
 	renderMan->getWindowSize(&w, &h);
 	// height for the character class buttons
-	midHeight = h * (1 / 2.0);
+	midHeight = h * (1 / 2.0f);
 	// finding the offset of the slots
-	offset = w * (1 / 4.0);
+	offset = w * (1 / 4.0f);
 
 	// chicken button
-	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 50, 75.0f, 75.0f, 0.75f);
 	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("chickensfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
-	offset += w * (1 / 9.0);
+	offset += w * (1 / 9.0f);
 		// chicken tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 50, x, y - 70);
 	tutorials.push_back(tutorial);
 	// peacock button
-	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 51, 75.0f, 75.0f, 0.75f);
 	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("peacocksfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
-	offset += w * (1 / 9.0);
+	offset += w * (1 / 9.0f);
 		// peacock tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 51, x, y - 70);
 	tutorials.push_back(tutorial);
 	// flamingo button
-	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 52, 75.0f, 75.0f, 0.75f);
 	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("flamingosfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
-	offset += w * (1 / 9.0);
+	offset += w * (1 / 9.0f);
 		// flamingo tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 52, x, y - 70);
 	tutorials.push_back(tutorial);
 	// quail button
-	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 53, 75.0f, 75.0f, 0.75f);
 	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("quailsfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
-	offset += w * (1 / 9.0);
+	offset += w * (1 / 9.0f);
 		// quail tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 53, x, y - 70);
 	tutorials.push_back(tutorial);
 	// turkey button
-	renderMan->windowCoordToWorldCoord(x, y, offset, midHeight);
+	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 	button = bFactory.Spawn(buttonID++, x, y, 54, 75.0f, 75.0f, 0.75f);
 	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("turkeysfx.ogg");
 	classButt.push_back(button);
 	GameObjects.AddObject(button);
-	offset += w * (1 / 9.0);
+	offset += w * (1 / 9.0f);
 		// turkey tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 54, x, y - 70);
 	tutorials.push_back(tutorial);
@@ -140,7 +140,7 @@ void LobbyMenu::createClassButts(){
 
 int LobbyMenu::checkButtons(){
 	InputManager::getInstance()->update();
-	for (int i = 0; i < classButt.size(); ++i){
+	for (size_t i = 0; i < classButt.size(); ++i){
 		// if pressed 
 		if (dynamic_cast<ButtonLogicComponent*>(classButt[i]->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 			int selection = dynamic_cast<ButtonRenderComponent*>(classButt[i]->GetComponent(COMPONENT_RENDER))->getCurrImage();
@@ -210,7 +210,7 @@ void LobbyMenu::changePlayerSelectionImage(){
 
 void LobbyMenu::removeButtons(){
 	//remove class buttons
-	for (int i = 0; i < classButt.size(); ++i){
+	for (size_t i = 0; i < classButt.size(); ++i){
 		GameObjects.DeleteObject(classButt[i]->ID);
 	}
 	//remove ready button
@@ -227,21 +227,21 @@ void LobbyMenu::createSlots(){
 
 	renderMan->getWindowSize(&w, &h);
 	// height for the slots on the top half
-	topH = h * (1 / 10.0);
+	topH = h * (1 / 10.0f);
 	// height for the slots on the bottom half
-	bottH = h * (9 / 10.0);
+	bottH = h * (9 / 10.0f);
 	// finding the offset of the slots
-	offset = w * (1 / 6.0);
+	offset = w * (1 / 6.0f);
 
 	for (int i = 0; i < 8; ++i){
 		if (i % 2){
-			h = bottH;
+			h = (int)bottH;
 		}
 		else {
-			h = topH;
-			offset += w * (1 / 8.0);
+			h = (int)topH;
+			offset += w * (1 / 8.0f);
 		}
-		renderMan->windowCoordToWorldCoord(x, y, offset, h);
+		renderMan->windowCoordToWorldCoord(x, y, (int)offset, h);
 		// ready slots
 		readySlot = bFactory.Spawn(buttonID++, x, y, 28);
 		br = dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER));
@@ -258,10 +258,10 @@ void LobbyMenu::createSlots(){
 }
 
 void LobbyMenu::removeSlots(){
-	for (int i = 0; i < slots.size(); ++i){
+	for (size_t i = 0; i < slots.size(); ++i){
 		GameObjects.DeleteObject(slots[i]->ID);
 	}
-	for (int i = 0; i < readySlots.size(); ++i){
+	for (size_t i = 0; i < readySlots.size(); ++i){
 		GameObjects.DeleteObject(readySlots[i]->ID);
 	}
 }
@@ -295,7 +295,7 @@ void LobbyMenu::removeAllButtons(){
 }
 
 void LobbyMenu::setFreeSlotsToDefault(int firstSlot){
-	for (int i = firstSlot; i < readySlots.size(); ++i){
+	for (size_t i = firstSlot; i < readySlots.size(); ++i){
 		dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();
 		dynamic_cast<ButtonRenderComponent*>(readySlots[i]->GetComponent(COMPONENT_RENDER))->toggleSprites(1);
 	}

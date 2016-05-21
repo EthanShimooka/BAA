@@ -453,7 +453,7 @@ int GameSession::Run(){
 
 		//crosshair updating
 		float crossX, crossY;
-		renderMan->windowCoordToWorldCoord(crossX, crossY, (float)(input->getMouseX()), (float)(input->getMouseY()));
+		renderMan->windowCoordToWorldCoord(crossX, crossY, input->getMouseX(), input->getMouseY());
 		crosshair->posX = crosshairCharging->posX = crossX;
 		crosshair->posY = crosshairCharging->posY = crossY;
 		float attackCDPercent = Timing::sInstance.GetAttackCooldownRemaining();

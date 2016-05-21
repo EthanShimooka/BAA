@@ -201,7 +201,7 @@ void PlayerPhysicsComponent::Update(){
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(-5);
-		gameObjectRef->rotation = mBody->GetAngle()*180/M_PI;
+		gameObjectRef->rotation = (float)(mBody->GetAngle()*180/M_PI);
 		//check if back at base yet
 		if (logicComp->death && abs(gameObjectRef->posX) > 1300){
 			logicComp->hatchBird(true);

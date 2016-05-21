@@ -120,10 +120,10 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 
 void FlamingoClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	uint64_t PID;
-	uint64_t owner;
-	int classEnum;
+	//uint64_t owner;
+	//int classEnum;
 	float destX, destY;
-	int team;
+	//int team;
 	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);

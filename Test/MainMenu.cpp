@@ -34,7 +34,7 @@ void MainMenu::createButtons(){
 	RenderManager::getRenderManager()->getWindowSize(&w, &h);
 	
 	// play button
-	playButt = bFactory.Spawn(3521, 200, 150, 19, w / 2.0 + 25, h / 2.0 - 25);
+	playButt = bFactory.Spawn(3521, 200.0f, 150.0f, 19, (float)(w / 2.0 + 25), (float)(h / 2.0 - 25));
 	GameObjects.AddObject(playButt);
 }
 
