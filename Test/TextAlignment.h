@@ -17,6 +17,7 @@ private:
 	bool on;
 
 	void findOffset();
+	void removeText(int textNum);
 
 public:
 	TextAlignment(float y = 1 / 4.0, float x = 1 / 4.0, std::string font = "BowlbyOneSC-Regular", int fontSize = 30, std::string layer = "layer1");
@@ -38,7 +39,7 @@ public:
 	void createText(std::string text, COLOR* color, TEXT_POS pos);
 	void setFont(std::string _font) { font = _font; }
 	void setFontSize(int size);
-	void updateText(std::string text, int textNum);
+	void updateText(std::string text, int textNum, COLOR* color);
 	void setStartingYPos(float height) { startingYPos = height; }
 	void setStartingXPos(float width) { startingXPos = width; }
 	//void setLayer(std::string layer) { layer = layer; }

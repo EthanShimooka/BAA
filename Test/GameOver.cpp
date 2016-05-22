@@ -1,5 +1,4 @@
 #include "GameOver.h"
-#include "inGameStatsRenderComponent.h"
 
 GameOver::GameOver()
 {
@@ -19,21 +18,11 @@ GameOver::~GameOver()
 
 int GameOver::runScene(){
 	int buttonPressed = -2;
-	inGameStatsRenderComponent inGameStats;
 	while (true){
-		
-		//InputManager::getInstance()->update();
-		if (InputManager::getInstance()->isKeyDown(KEY_TAB)){
-			inGameStats.toggleOn(true);
-		}
-		else{
-			inGameStats.toggleOn(false);
-		}
 		buttonPressed = checkButtons();
 		if (buttonPressed == BUTTON_MENU || InputManager::getInstance()->isKeyDown(KEY_ESCAPE))
 			return SCENE_MENU;
 		sceneMan->AssembleScene();
-
 	}
 }
 
@@ -66,16 +55,6 @@ void GameOver::createText(){
 	std::string text = "";
 	TextAlignment::COLOR *color = nullptr;
 
-
-	///for testing
-	Stats::incBaseHealthLost_purple();
-	int kills, deaths;
-	Stats::addPlayer(NetworkManager::sInstance->GetMyPlayerId(), 2);
-	Stats::addPlayer((uint64_t)12634098216351089, 1);
-	Stats::incPlayerDied(NetworkManager::sInstance->GetMyPlayerId(), (uint64_t)12634098216351089);
-	Stats::playerDied(NetworkManager::sInstance->GetMyPlayerId(), kills, deaths);
-	std::cout << kills << " " << deaths << std::endl;
-	/////
 
 	if (Stats::baseHealthLost_purple() == Stats::baseHealthLost_yellow()){
 		text = "No Contest!";

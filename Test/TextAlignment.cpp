@@ -28,7 +28,6 @@ void TextAlignment::findOffset(){
 void TextAlignment::createText(std::string text, COLOR* color, float x_offset){
 	SDLRenderObject* sdlText;
 	int w, h;
-	float x, y;
 	renderMan->getWindowSize(&w, &h);
 	sdlText = sceneMan->InstantiateObject(sceneMan->findLayer(layer), -1, 5, 0, true);
 	// have to devide by 1049088.0 to acount for resolution change
@@ -61,4 +60,22 @@ void TextAlignment::toggleOn(int textNum, bool on){
 void TextAlignment::setFontSize(int size){
 	fontSize = size; 
 	findOffset();
+}
+
+void TextAlignment::updateText(std::string text, int textNum, COLOR* color){
+	float posX = texts[textNum]->posX;
+	float posY = texts[textNum]->posY;
+	int w, h;
+	renderMan->getWindowSize(&w, &h);
+	float x_offset = (posX + (texts[textNum]->getWidth() / 2.0)) / w;
+	removeText(textNum);
+	texts[textNum] = sceneMan->InstantiateObject(sceneMan->findLayer(layer), -1, 5, 0, true);
+	// have to devide by 1049088.0 to acount for resolution change
+	texts[textNum]->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * fontSize) / 1049088.0, font));
+	texts[textNum]->setPos((w * x_offset) - (texts[textNum]->getWidth() / 2.0), posY);
+}
+
+void TextAlignment::removeText(int textNum){
+	texts[textNum]->setVisible(false);
+	sceneMan->RemoveObject(texts[textNum], sceneMan->findLayer(layer));
 }

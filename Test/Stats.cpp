@@ -42,4 +42,6 @@ void Stats::resetStats(){
 	// abilities used
 	purple.abilitiesUsed = 0;
 	yellow.abilitiesUsed = 0;
+	// clear the map
+	allPlayersStats.clear();
 }

@@ -2,6 +2,7 @@
 #include "RenderComponent.h"
 #include "Stats.h"
 #include "TextAlignment.h"
+#include "include\network\NetIncludes.h"
 
 class inGameStatsRenderComponent :
 	public RenderComponent
@@ -19,5 +20,6 @@ public:
 	void toggleOn(bool on);
 	void toggleOn();
 	void createText();
+	void updateText();
 };
 
