@@ -1,12 +1,15 @@
 #include "inGameStatsRenderComponent.h"
 
 
+
 inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float scale)
 {
 	sceneMan = SceneManager::GetSceneManager();
-	
 	layer = "layer1";
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), _background, 0, 0);
+	int w, h;
+	RenderManager::getRenderManager()->getWindowSize(&w, &h);
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), _background, -5, 1, true);
+	objRef->setPos(w / 2.0, h / 2.0);
 	background = _background;
 	objRef->setScale(scale);
 	createText();
@@ -16,6 +19,7 @@ inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float sc
 
 inGameStatsRenderComponent::~inGameStatsRenderComponent()
 {
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer(layer));
 }
 
 void inGameStatsRenderComponent::toggleOn(bool on){
@@ -46,17 +50,26 @@ void inGameStatsRenderComponent::updateText(){
 	TextAlignment::COLOR* yellow = new TextAlignment::COLOR(255, 255, 0);
 	std::string text = "";
 	int i = 0;
+	std::cout << "mapSize " << map.size() << std::endl;
 	for (auto& iter : map){
-		if (iter.second.team == 2) continue;
+		if (iter.second.team == 2){
+			++i;
+			continue;
+		}
 		text = GamerServices::sInstance->GetRemotePlayerName(iter.first) + ": " + std::to_string(iter.second.kills) + '/' + std::to_string(iter.second.deaths);
 		statsTexts.updateText(text, i, yellow);
+		//std::cout << "yellow " << GamerServices::sInstance->GetRemotePlayerName(iter.first) << std::endl;
 		++i;
 	}
 	i = 0;
 	for (auto& iter : map){
-		if (iter.second.team == 1) continue;
+		if (iter.second.team == 1) {
+			++i;
+			continue;
+		}
 		text = GamerServices::sInstance->GetRemotePlayerName(iter.first) + ": " + std::to_string(iter.second.kills) + '/' + std::to_string(iter.second.deaths);
 		statsTexts.updateText(text, i, purple);
+		//std::cout << "purple " << GamerServices::sInstance->GetRemotePlayerName(iter.first) << std::endl;
 		++i;
 	}
 	delete purple;
