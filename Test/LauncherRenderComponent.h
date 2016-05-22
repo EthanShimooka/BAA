@@ -21,6 +21,7 @@ public:
 	LauncherRenderComponent(GameObject * launcher, int team);
 	~LauncherRenderComponent();
 	void Update();
+	void buildAnimation();
 };
 
 #endif

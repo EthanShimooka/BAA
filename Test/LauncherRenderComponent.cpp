@@ -6,60 +6,75 @@ LauncherRenderComponent::LauncherRenderComponent(GameObject * launcher, int team
 	gameObjectRef = launcher;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 
+	buildAnimation();
+	setAnimation("idle");
+
+}
+
+void LauncherRenderComponent::buildAnimation(){
+
+	RenderComponent::RenderComponent();
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
-	RenderManager* renderMan = RenderManager::getRenderManager();
-	
-	
-	SDLRenderObject * base = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 0, 0, 0);
-	base->toggleIfRenderImage();
-	SDLRenderObject * launcher1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, 3000, 0);
-	SDLRenderObject * launcher2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2027,3000, 0);
+
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 0, 0);
+	//base->toggleIfRenderImage();
+	SDLRenderObject * launcher1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, 0, 0);
+	SDLRenderObject * launcher2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2027, 0, 0);
 
 
-	//May need to set a point on the hand to "swing it"
-
-	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
-	//objRef->setAnchor(0.5, 0.5);
-	//body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
-	//armR->setAnchor(9 / double(armR->renderRect.w), 7 / double(armR->renderRect.h));
-
-	//armR->setCurrentFrame(1);
-	//armR->toggleFlippedH();
-	//body->setParent(base);
-	//armL->setParent(body);
-	//armR->setParent(body);
-	//legL->setParent(body);
-	//legR->setParent(body);
-
-	//body->setScale(0.1);
-	//body->calcScale(50,50);
-
-
-	//launcher1->setScale(launcher1->calcYScale(50));
-	//launcher1->setScale(launcher1->calcXScale(90));
-
-	//launcher2->setScale(launcher2->calcYScale(50));
-//	launcher2->setScale(launcher2->calcXScale(90));
-
-	objRef = base;
-
-	allObjs["base"] = base;
+	allObjs["base"] = objRef;
 	allObjs["launcher1"] = launcher1;
+	allObjs["launcher1"]->visible = true;
+
 	allObjs["launcher2"] = launcher2;
+	allObjs["launcher2"]->visible = false;
 
-	//allObjs["launcher2"]->visible = false;
-	//allObjs["launcher1"]->setVisible(false);
-//	allObjs["launcher2"]->setVisible(false);
+
+	launcher1->setParent(objRef);
+	launcher2->setParent(objRef);
+	launcher1->setAnchor(0.5f, 1.0f);
+	launcher2->setAnchor(0.5f, 1.0f);
+
+
+	std::list<motion> motions;
+	animations["idle"] = new Animation(100, motions);
+
+
+	if (gameObjectRef->team == TEAM_PURPLE){
+		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], 0 , 0), 0, 1));
+	}
+	else{
+
+		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], 0, -10), 0, 1));
+	}
+	animations["windback"] = new Animation(400, motions);
+
+	std::list<motion> motions2;
+	if (gameObjectRef->team == TEAM_PURPLE){
+		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], 0, 0), 0, 1));
+	}
+	else{
+
+		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], -10, 10), 0, 1));
+	}
+	animations["throw"] = new Animation(400, motions);
+	
+
 
 }
 
 
-LauncherRenderComponent::~LauncherRenderComponent()
-{
-}
 
+LauncherRenderComponent::~LauncherRenderComponent(){
+	for (auto i : animations){
+		delete i.second;
+	}
+}
 
 
 void LauncherRenderComponent::Update(){
 	RenderComponent::Update();
+	
+
+	RenderComponent::animate();
 }
