@@ -9,7 +9,7 @@ inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float sc
 	int w, h;
 	RenderManager::getRenderManager()->getWindowSize(&w, &h);
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), _background, -5, 1, true);
-	objRef->setPos(w / 2.0, h / 2.0);
+	objRef->setPos(w / 2.0f, h / 2.0f);
 	background = _background;
 	objRef->setScale(scale);
 	createText();
