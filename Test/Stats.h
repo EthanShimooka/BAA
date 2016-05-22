@@ -1,6 +1,18 @@
 #pragma once
+#include <unordered_map>
+#include <stdint.h>
+
 class Stats
 {
+public:
+	struct playerStats{
+		int team;
+		int kills;
+		int deaths;
+		playerStats(int team) : team(team), kills(0), deaths(0) {}
+	};
+
+	typedef std::unordered_map<uint64_t, playerStats> mapStat;
 private:
 	struct teamStats{
 		int baseHealthLost;
@@ -12,6 +24,7 @@ private:
 			otherTeamPlayersKilled(0), feathersFired(0), abilitiesUsed(0) {}
 	};
 
+	static mapStat allPlayersStats;
 	static teamStats purple;
 	static teamStats yellow;
 	static int localTeam;
@@ -37,6 +50,13 @@ public:
 	static void incAbilitiesUsed_purple() { ++purple.abilitiesUsed; }
 	static void incAbilitiesUsed_yellow() { ++yellow.abilitiesUsed; }
 
+	static void addPlayer(uint64_t PID, int team);
+
+	static void incPlayerDied(uint64_t killed, uint64_t killer) {
+		++(allPlayersStats.find(killed)->second.deaths);
+		++(allPlayersStats.find(killer)->second.kills);
+	}
+
 	// Getter
 	// Base health
 	static int baseHealthLost_purple() { return purple.baseHealthLost; }
@@ -53,8 +73,17 @@ public:
 	// Abilities used
 	static int abilitiesUsed_purple() { return purple.abilitiesUsed; }
 	static int abilitiesUsed_yellow() { return yellow.abilitiesUsed; }
+	// player stats
+	static const playerStats& getPlayerStats(uint64_t PID) { return allPlayersStats.find(PID)->second; }
+	static const mapStat& getPlayersStatsMap() { return allPlayersStats; }
+	static void playerDied(uint64_t PID, int& kills, int& deaths);
+
 
 	static void resetStats();
 	static void setLocalTeam(int localTeam) { localTeam = localTeam; }
 	static int getLocalTeam() { return localTeam; }
+
+
+
+	
 };

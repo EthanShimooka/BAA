@@ -64,8 +64,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 			delete scene;
 			break;
 		}
-		if (nextScene == SCENE_END)
-			break;
+		/*if (nextScene == SCENE_GAME)
+			break;*/
 	}
 
 

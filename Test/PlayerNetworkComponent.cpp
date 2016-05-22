@@ -1,4 +1,5 @@
 #include "PlayerNetworkComponent.h"
+#include "Stats.h"
 
 
 PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player){
@@ -41,6 +42,7 @@ void PlayerNetworkComponent::createMovementPacket(){
 }
 
 void PlayerNetworkComponent::createDeathPacket(uint64_t shooter, int playerClass, uint64_t deadPlayerID){
+	Stats::incPlayerDied(deadPlayerID, shooter);
 	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
@@ -91,7 +93,8 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	dPacket.Read(shooterID);
 	dPacket.Read(playerClass);
 	dPacket.Read(deadPlayerID);
-	std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
+	Stats::incPlayerDied(deadPlayerID, shooterID);
+	//std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
 	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 	if(UIComp)UIComp->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
 	PlayerLogicComponent* deadPlayerLogic = dynamic_cast<PlayerLogicComponent*>(GameObjects.GetGameObject(deadPlayerID)->GetComponent(COMPONENT_LOGIC));
