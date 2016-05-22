@@ -49,28 +49,17 @@ void inGameStatsRenderComponent::updateText(){
 	TextAlignment::COLOR* purple = new TextAlignment::COLOR(200, 0, 200);
 	TextAlignment::COLOR* yellow = new TextAlignment::COLOR(255, 255, 0);
 	std::string text = "";
-	int i = 0;
-	std::cout << "mapSize " << map.size() << std::endl;
+	int teamYellow = 0;
+	int teamPurple = map.size() / 2 + map.size() % 2;
 	for (auto& iter : map){
 		if (iter.second.team == 2){
-			++i;
-			continue;
+			text = GamerServices::sInstance->GetRemotePlayerName(iter.first) + ": " + std::to_string(iter.second.kills) + '/' + std::to_string(iter.second.deaths);
+			statsTexts.updateText(text, teamPurple++, purple);
 		}
-		text = GamerServices::sInstance->GetRemotePlayerName(iter.first) + ": " + std::to_string(iter.second.kills) + '/' + std::to_string(iter.second.deaths);
-		statsTexts.updateText(text, i, yellow);
-		//std::cout << "yellow " << GamerServices::sInstance->GetRemotePlayerName(iter.first) << std::endl;
-		++i;
-	}
-	i = 0;
-	for (auto& iter : map){
 		if (iter.second.team == 1) {
-			++i;
-			continue;
+			text = GamerServices::sInstance->GetRemotePlayerName(iter.first) + ": " + std::to_string(iter.second.kills) + '/' + std::to_string(iter.second.deaths);
+			statsTexts.updateText(text, teamYellow++, yellow);
 		}
-		text = GamerServices::sInstance->GetRemotePlayerName(iter.first) + ": " + std::to_string(iter.second.kills) + '/' + std::to_string(iter.second.deaths);
-		statsTexts.updateText(text, i, purple);
-		//std::cout << "purple " << GamerServices::sInstance->GetRemotePlayerName(iter.first) << std::endl;
-		++i;
 	}
 	delete purple;
 	delete yellow;
