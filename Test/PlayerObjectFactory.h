@@ -42,7 +42,7 @@ enum classType {
 	CLASS_PEACOCK = 2,
 	CLASS_FLAMINGO = 3,
 	CLASS_QUAIL = 4,
-	CLASS_TURKEY = 6,
+	CLASS_TURKEY = 5,
 	CLASS_EAGLE = 7,
 };
 

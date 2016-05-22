@@ -39,8 +39,8 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 	//handle firing
 	//controller aiming
 	int controllerSensitivity = 12;
-	int mouseX = input->getMouseX() + controller->getRightThumbX() * controllerSensitivity;
-	int mouseY = input->getMouseY() + controller->getRightThumbY() * controllerSensitivity;
+	int mouseX = input->getMouseX() + (int)(controller->getRightThumbX() * controllerSensitivity);
+	int mouseY = input->getMouseY() + (int)(controller->getRightThumbY() * controllerSensitivity);
 	if (mouseX > SCREEN_WIDTH)mouseX = SCREEN_WIDTH;
 	else if (mouseX < 0)mouseX = 0;
 	if (mouseY > SCREEN_HEIGHT)mouseY = SCREEN_HEIGHT;

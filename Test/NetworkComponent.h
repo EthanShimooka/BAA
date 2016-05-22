@@ -23,7 +23,7 @@ class NetworkComponent :	public Component
 {
 public:
 	NetworkComponent();
-	~NetworkComponent();
+	virtual ~NetworkComponent();
 
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;

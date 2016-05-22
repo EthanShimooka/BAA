@@ -3,6 +3,7 @@
 #include <functional>
 #include <crtdbg.h>
 #include "Invoke.h"
+#include "t.h"
 /**
 *  GameSession.cpp
 *  Authors:
@@ -105,10 +106,15 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 
 	renderMan->setBackground("Muscle-Beach-Background__0007_sky-gradient.png");
 
+	std::vector<UIObject*> UIObjs;
+
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR, 30, 30);
-	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30));
+	UIObjs.push_back(birdseedMeter);
 	queue.AddObject(birdseedMeter);
+	UIObject* birdseedShell = HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30);
+	UIObjs.push_back(birdseedShell);
+	queue.AddObject(birdseedShell);
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	PlayerUIComponent* playerUI = dynamic_cast<PlayerUIComponent*>(player->GetComponent(COMPONENT_UI));
 	playerUI->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
@@ -116,20 +122,23 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
+	UIObjs.push_back(countdownTimer);
 	queue.AddObject(countdownTimer);
 	playerUI->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
 	//add ui components to show player kills
+	
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
 		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,100,200+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
-
+		UIObjs.push_back(currKillHUD);
 	}
 	playerUI->killHUD = killHUD;
+	playerUI->UIObjs = UIObjs;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -172,7 +181,7 @@ void cullObjects(){
 // Run contains the main Gameloop
 // TODO: create arguements once lobby system is implemented.
 
-int GameSession::Run(vector<player*> players){
+int GameSession::Run(){
 
 	// temp
 	int numLobbyPlayer = 0;
@@ -215,33 +224,34 @@ int GameSession::Run(vector<player*> players){
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
-	for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
+	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
 		std::cout << iter.first << std::endl;
 		std::cout << "\tClass:" << iter.second.classType << std::endl;
-	}
+	}*/
 
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
 	//if (numPlayers != 1){
-	map< uint64_t, string > lobby = NetworkManager::sInstance->getLobbyMap();
+	unordered_map< uint64_t, PlayerInfo > lobby = NetworkManager::sInstance->getLobbyInfoMap();
 	int i = 0;
 	bool local = true;
 	for (auto &iter : lobby){
-		int classType = NetworkManager::sInstance->lobbyInfoMap.find(iter.first)->second.classType;
+		int classType = iter.second.classType;
+		std::cout << "classType: " << classType << std::endl;
+		//NetworkManager::sInstance->getLobbyInfoMap();
+		//int classType = NetworkManager::sInstance->getLobbyInfoMap().find(iter.first)->second.classType;
 		//int classType = 6;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-			std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
-			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 1000) / 100 + 1, (i % 2) + 1, local));
+			//std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
+			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
 		}
 		else{
-			GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 1000) / 100 + 1, (i % 2) + 1, !local));
+			GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, !local));
 		}
 		++i;
 	}
-		
-	//}
-	/// create a local player with ID of 10000
+	// create a local player with ID of 10000
 	/*else{
 		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
 	}*/
@@ -443,7 +453,7 @@ int GameSession::Run(vector<player*> players){
 
 		//crosshair updating
 		float crossX, crossY;
-		renderMan->windowCoordToWorldCoord(crossX, crossY, (float)(input->getMouseX()), (float)(input->getMouseY()));
+		renderMan->windowCoordToWorldCoord(crossX, crossY, input->getMouseX(), input->getMouseY());
 		crosshair->posX = crosshairCharging->posX = crossX;
 		crosshair->posY = crosshairCharging->posY = crossY;
 		float attackCDPercent = Timing::sInstance.GetAttackCooldownRemaining();
@@ -557,8 +567,11 @@ int GameSession::Run(vector<player*> players){
 
 	log->close();
 
+	delete surf;
+	//delete fount;
+	//delete runWater;
 
 	GameWorld::getInstance()->~GameWorld();
-	return 0;
+	return SCENE_END;
 }
 

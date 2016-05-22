@@ -61,6 +61,26 @@ void LauncherPhysicsComponent::handleCollision(GameObject* otherObj){
 
 
 
+void LauncherPhysicsComponent::endCollision(GameObject* otherObj){
+	switch (otherObj->type){
+
+	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
+											//if (otherObj->team)
+											LauncherLogicComponent * logic = dynamic_cast<LauncherLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											logic->showButton();
+											/// put render animation, or a call to render animate (the switch)
+											break;
+	}
+	default:
+		break;
+	}
+}
+
+
+
+
+
+
 
 void LauncherPhysicsComponent::Update(){
 

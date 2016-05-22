@@ -51,4 +51,4 @@ void FeatherLogicComponent::giveBirdseed(int numSeeds) {
 		createAbsorbParticle(gameObjectRef, owner, classComp->currBirdseed, 0, 0);
 	}
 	else classComp->currBirdseed = classComp->maxsBirdseed;
-} 
+}

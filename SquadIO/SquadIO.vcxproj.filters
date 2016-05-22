@@ -173,6 +173,7 @@
     <ClInclude Include="Controller.h">
       <Filter>Header Files\Input Classes</Filter>
     </ClInclude>
+    <ClInclude Include="t.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="zlib\lib\zdll.lib" />

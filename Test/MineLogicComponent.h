@@ -14,8 +14,14 @@ public:
 	void Update();
 	/// Signals the 1 second delay before exploding
 	void lightFuse();
-
-	GameObject* spawner;
+	/// Destroys mine object
+	void detonateMine();
+	/// Detonates the mine if it's been alive longer than 20 seconds
+	void checkTimer();
+	//Refactored method to increment the birds seed count
+	void giveBirdseed(int numSeeds);
+	/// This is a reference to the player that spawned it
+	GameObject* owner;
 	bool fuseLit = false;
 	int blownUp = 0;
 	clock_t timeSinceBirth;
@@ -26,5 +32,6 @@ private:
 	/// destroy the object or send it to the object pool. Entites should only
 	/// be able to trip the fuse, but not directly call this function. Only itself can.
 	void blowUp();
+	unsigned int mineLength = 20000;
 };
 #endif

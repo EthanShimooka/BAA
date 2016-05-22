@@ -76,7 +76,7 @@ void BoomerangPhysicsComponent::Update(){
 		b2Vec2 movementVec = destPos - currPos;
 
 		movementVec.Normalize();
-		movementVec *= moveSpeed;
+		movementVec *= (float32)moveSpeed;
 		mBody->SetLinearVelocity(movementVec);
 	}
 	else{
@@ -88,7 +88,7 @@ void BoomerangPhysicsComponent::Update(){
 			returning = true;
 		}
 		movementVec.Normalize();
-		movementVec *= moveSpeed;
+		movementVec *= (float32)moveSpeed;
 		mBody->SetLinearVelocity(movementVec);
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;

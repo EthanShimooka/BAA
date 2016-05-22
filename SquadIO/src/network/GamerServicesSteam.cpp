@@ -339,23 +339,42 @@ uint64_t GamerServices::GetMasterPeerId(uint64_t inLobbyId)
 	return masterId.ConvertToUint64();
 }
 
-void GamerServices::GetLobbyPlayerMap(uint64_t inLobbyId, map< uint64_t, string >& outPlayerMap)
+bool GamerServices::GetLobbyPlayerMap(uint64_t inLobbyId, map< uint64_t, string >& outPlayerMap, unordered_map<uint64_t, PlayerInfo>& lobbyInfoMap)
 {
+	bool updated = false;
 	CSteamID myId = GetLocalPlayerId();
 	outPlayerMap.clear();
 	int count = GetLobbyNumPlayers(inLobbyId);
 	for (int i = 0; i < count; ++i)
 	{
 		CSteamID playerId = SteamMatchmaking()->GetLobbyMemberByIndex(inLobbyId, i);
+		uint64_t pID = playerId.ConvertToUint64();
+		if (lobbyInfoMap.find(pID) == lobbyInfoMap.end()){
+			PlayerInfo pInfo;
+			lobbyInfoMap.emplace(pID, pInfo);
+			updated = true;
+		}
 		if (playerId == myId)
 		{
-			outPlayerMap.emplace(playerId.ConvertToUint64(), GetLocalPlayerName());
+			outPlayerMap.emplace(pID, GetLocalPlayerName());
 		}
 		else
 		{
-			outPlayerMap.emplace(playerId.ConvertToUint64(), GetRemotePlayerName(playerId.ConvertToUint64()));
+			outPlayerMap.emplace(pID, GetRemotePlayerName(pID));
 		}
 	}
+	// removing player that are no longer in the lobby
+	if (outPlayerMap.size() != lobbyInfoMap.size()){
+		for (auto it = lobbyInfoMap.begin(); it != lobbyInfoMap.end();) {
+			if (outPlayerMap.find(it->first) == outPlayerMap.end()) {
+				it = lobbyInfoMap.erase(it);
+				updated = true;
+			}
+			else
+				++it;
+		}
+	}
+	return updated;
 }
 
 void GamerServices::SetLobbyReady(uint64_t inLobbyId)

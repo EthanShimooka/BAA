@@ -20,6 +20,7 @@ ClassComponent::ClassComponent()
 
 ClassComponent::~ClassComponent()
 {
+	std::cout << "destructing base class" << std::endl;
 }
 
 
