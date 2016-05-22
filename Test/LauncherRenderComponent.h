@@ -22,6 +22,8 @@ public:
 	~LauncherRenderComponent();
 	void Update();
 	void buildAnimation();
+	void showLauncher();
+	void hideLauncher();
 };
 
 #endif

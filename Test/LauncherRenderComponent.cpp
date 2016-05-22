@@ -7,7 +7,7 @@ LauncherRenderComponent::LauncherRenderComponent(GameObject * launcher, int team
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 
 	buildAnimation();
-	setAnimation("idle");
+	setAnimation("throw");
 
 }
 
@@ -57,13 +57,37 @@ void LauncherRenderComponent::buildAnimation(){
 
 		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], -10, 10), 0, 1));
 	}
-	animations["throw"] = new Animation(400, motions);
+	animations["throw"] = new Animation(400, motions2);
 	
 
+	std::list<motion> motions3;
+	if (gameObjectRef->team == TEAM_PURPLE){
+		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], 0, 0), 0, 1));
+	}
+	else{
+
+		motions.push_back(makeMotion(rotateTransform(allObjs["launcher1"], -10, 10), 0, 1));
+	}
+
+
+	animations["show"] = new Animation(400, motions3);
+
+
+
+
+
+	animations["hide"] = new Animation(400, motions);
 
 }
 
+void LauncherRenderComponent::showLauncher(){
+	setAnimation("show");
+}
 
+void LauncherRenderComponent::hideLauncher(){
+	setAnimation("hide");
+
+}
 
 LauncherRenderComponent::~LauncherRenderComponent(){
 	for (auto i : animations){
@@ -74,7 +98,5 @@ LauncherRenderComponent::~LauncherRenderComponent(){
 
 void LauncherRenderComponent::Update(){
 	RenderComponent::Update();
-	
-
 	RenderComponent::animate();
 }
