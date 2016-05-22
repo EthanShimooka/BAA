@@ -45,6 +45,7 @@ private:
 	/// the top bound for feather timer
 	float maxCharge = 1300;
 	float playerSpeed;
+	float jumpSpeed;
 	float featherSpeed;
 
 	PlayerPhysicsComponent* physicsComp;

@@ -9,6 +9,7 @@ ClassComponent::ClassComponent()
 	isTurkey = false;
 	isFlamingo = false;
 	speed = 16;
+	jumpSpeed = 16;
 	width = 1.33f;
 	height = 1.35f;
 	seedRequired = 8;

@@ -49,6 +49,7 @@ public:
 	virtual int getClass();
 
 	float speed;
+	float jumpSpeed;
 	float width, height;
 	int   seedRequired;
 	float featherSpeed;
