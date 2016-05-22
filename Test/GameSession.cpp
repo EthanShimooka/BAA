@@ -386,13 +386,6 @@ int GameSession::Run(){
 			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
 		}
 
-		//HOW-TO INVOKE
-		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
-			bruh->destroy(); //call bruh's destroy so as to not cause memleak
-			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
-			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
-		}
-
 		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
 				renderMan->cameraPoint.z += 1;
