@@ -109,10 +109,15 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 
 	renderMan->setBackground("Muscle-Beach-Background__0007_sky-gradient.png");
 
+	std::vector<UIObject*> UIObjs;
+
 	//add the birdseed reference to player logic
 	UIObject* birdseedMeter = HUDFactory.Spawn(BIRDSEED_BAR, 30, 30);
-	queue.AddObject(HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30));
+	UIObjs.push_back(birdseedMeter);
 	queue.AddObject(birdseedMeter);
+	UIObject* birdseedShell = HUDFactory.Spawn(BIRDSEED_SHELL, 30, 30);
+	UIObjs.push_back(birdseedShell);
+	queue.AddObject(birdseedShell);
 	PlayerLogicComponent* playerLogic = dynamic_cast<PlayerLogicComponent*>(player->GetComponent(COMPONENT_LOGIC));
 	PlayerUIComponent* playerUI = dynamic_cast<PlayerUIComponent*>(player->GetComponent(COMPONENT_UI));
 	playerUI->birdseedHUD = dynamic_cast<UIRenderComponent*>(birdseedMeter->GetComponent(COMPONENT_RENDER))->objRef;
@@ -120,20 +125,23 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 
 	//add a timer to top of screen
 	UIObject* countdownTimer = HUDFactory.Spawn(TIMER, SCREEN_WIDTH - 200, 30);
+	UIObjs.push_back(countdownTimer);
 	queue.AddObject(countdownTimer);
 	playerUI->timerHUD = dynamic_cast<UIRenderComponent*>(countdownTimer->GetComponent(COMPONENT_RENDER))->objRef;
 
 	PlayerRenderComponent* playerRender = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
 	//add ui components to show player kills
+	
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
 		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,100,200+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
-
+		UIObjs.push_back(currKillHUD);
 	}
 	playerUI->killHUD = killHUD;
+	playerUI->UIObjs = UIObjs;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -452,7 +460,7 @@ int GameSession::Run(){
 
 		//crosshair updating
 		float crossX, crossY;
-		renderMan->windowCoordToWorldCoord(crossX, crossY, (float)(input->getMouseX()), (float)(input->getMouseY()));
+		renderMan->windowCoordToWorldCoord(crossX, crossY, input->getMouseX(), input->getMouseY());
 		crosshair->posX = crosshairCharging->posX = crossX;
 		crosshair->posY = crosshairCharging->posY = crossY;
 		float attackCDPercent = Timing::sInstance.GetAttackCooldownRemaining();
@@ -566,6 +574,9 @@ int GameSession::Run(){
 
 	log->close();
 
+	delete surf;
+	//delete fount;
+	//delete runWater;
 
 	GameWorld::getInstance()->~GameWorld();
 	return SCENE_END;

@@ -15,10 +15,10 @@ void MidBaseRenderComponent::buildBody(int team){
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), bodyID, 0, 100 * bodyAY);
 	SDLRenderObject * nest = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2017, 0, (1193 - 595)* bodyAY);
 	SDLRenderObject * head = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2018, (1408 - 1072) * bodyAX, (404 - 595) * bodyAY);
-	SDLRenderObject * hair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), hairID, (1074 - 1133 * 0.413)*headAX, (375 - 1499 * 0.737) * headAY);
-	SDLRenderObject * beak_bot = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2021, (879 - 1133 * 0.413) * headAX, (582 - 1499 * 0.737) * headAY);
-	SDLRenderObject * beak_top = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2020, (768 - 1133 * 0.413) * headAX, (624 - 1499 * 0.737) * headAY);
-	SDLRenderObject * eye = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2019, (732 - 1133 * 0.413) * headAX, (333 - 1499 * 0.737) * headAY);
+	SDLRenderObject * hair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), hairID, (1074 - 1133 * 0.413f)*headAX, (375 - 1499 * 0.737f) * headAY);
+	SDLRenderObject * beak_bot = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2021, (879 - 1133 * 0.413f) * headAX, (582 - 1499 * 0.737f) * headAY);
+	SDLRenderObject * beak_top = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2020, (768 - 1133 * 0.413f) * headAX, (624 - 1499 * 0.737f) * headAY);
+	SDLRenderObject * eye = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2019, (732 - 1133 * 0.413f) * headAX, (333 - 1499 * 0.737f) * headAY);
 	SDLRenderObject * arm = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2023, (874 - 1072) * bodyAX, (506 - 595) * bodyAY);
 
 	body->setAnchor(0.5, 0.5);
@@ -85,8 +85,10 @@ MidBaseRenderComponent::MidBaseRenderComponent(GameObject * base, int team)
 }
 
 
-MidBaseRenderComponent::~MidBaseRenderComponent()
-{
+MidBaseRenderComponent::~MidBaseRenderComponent(){
+	for (auto i : animations){
+		delete i.second;
+	}
 }
 
 void MidBaseRenderComponent::Update(){

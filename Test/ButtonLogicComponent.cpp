@@ -37,9 +37,8 @@ bool ButtonLogicComponent::isButtonPressed(){
 				AudioManager::getAudioInstance()->playByName(sound);
 			return true;
 		}
-			
-		return false;
 	}
+	return false;
 }
 
 bool ButtonLogicComponent::isMouseHovering(){

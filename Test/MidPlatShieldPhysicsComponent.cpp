@@ -13,7 +13,7 @@ MidPlatShieldPhysicsComponent::MidPlatShieldPhysicsComponent(GameObject * platfo
 {
 	gameObjectRef = platform;
 	gameObjectRef->AddComponent(COMPONENT_PHYSICS, this);
-	init(size);
+	init((float)size);
 }
 
 

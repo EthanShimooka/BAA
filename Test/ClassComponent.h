@@ -31,7 +31,7 @@ public:
 	/// Constructor
 	ClassComponent();
 	/// Destructor
-	~ClassComponent();
+	virtual ~ClassComponent();
 
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;

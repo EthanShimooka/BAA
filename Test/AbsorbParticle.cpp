@@ -34,9 +34,9 @@ AbsorbParticle::AbsorbParticle(GameObject * startObj, GameObject * goalObj, unsi
 		//sprite->setScaleY(base->getScaleY());
 		//sprite->setRenderRect(rect);
 
-		float u = (rand() % 360) / 360.0;
-		float v = (rand() % 360) / 360.0;
-		float angle1 = 3.14 * 2 * u;
+		float u = (rand() % 360) / 360.0f;
+		float v = (rand() % 360) / 360.0f;
+		float angle1 = 3.14f * 2 * u;
 		float angle2 = acos(2 * v - 1);
 		std::list<motion> movements;
 		//auto bezierX = getBezier(posX, posX + sin(angle1)*cos(angle2) * 200, goal->posX, goal->posX);
@@ -49,13 +49,13 @@ AbsorbParticle::AbsorbParticle(GameObject * startObj, GameObject * goalObj, unsi
 		//movements.push_back(makeMotion(keyframeAnimate(sprite, 0, 3), 0.0, 1.0, ease_QuadIn));
 		//movements.push_back(makeMotion(moveLinearZ(sprite, 0, cos(angle1) * 10), 0, 1, ease_QuadOut));
 		//movements.push_back(makeMotion(rotateTransform(sprite, rand() % 360, (rand() % 90) - 45), 0, 1));
-		Animation * movement = new Animation(1000 - (rand() % 200), movements);
+		Animation * movement = new Animation((float)(1000 - (rand() % 200)), movements);
 		//int maxtime = 100000; //in seconds
 		//std:list<motion> motions;
 		particle p;
 		p.animations = movement;
 		p.sprite = sprite;
-		p.timer = progress;
+		p.timer = (float)progress;
 		particles.push_back(p);
 	}
 }
@@ -78,9 +78,10 @@ void AbsorbParticle::Update(){
 	}
 	if (particles.empty() && !alive){
 		//delete self and remove GameObject from list of objects
+		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
-		float curr = iter->animations->lengthConversion(progress - iter->timer);
+		float curr = iter->animations->lengthConversion((int)(progress - iter->timer));
 		//if (curr >= 1.0) iter->sprite->setIfRenderImage(false);
 		if (curr >= 1.0){
 			//iter->sprite->setIfRenderImage(false);
@@ -110,5 +111,6 @@ void createAbsorbParticle(GameObject * startObj, GameObject * goalObj, unsigned 
 	particleBase->setPos(0, 0);
 	AbsorbParticle* rend = new AbsorbParticle(startObj, goalObj, numParticles,offsetX, offsetY);
 	particleBase->AddComponent(COMPONENT_RENDER, rend);
+	rend->gameObjectRef = particleBase;
 	GameObjects.AddObject(particleBase);
 }

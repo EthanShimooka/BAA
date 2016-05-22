@@ -104,6 +104,7 @@
     <ClInclude Include="EagleClassComponent.h" />
     <ClInclude Include="EffectObjectFactory.h" />
     <ClInclude Include="EffectRenderComponent.h" />
+    <ClInclude Include="EggImplosionParticle.h" />
     <ClInclude Include="FanComponentIncludes.h" />
     <ClInclude Include="FanLogicComponent.h" />
     <ClInclude Include="FanObjectFactory.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="EagleClassComponent.cpp" />
     <ClCompile Include="EffectObjectFactory.cpp" />
     <ClCompile Include="EffectRenderComponent.cpp" />
+    <ClCompile Include="EggImplosionParticle.cpp" />
     <ClCompile Include="FanLogicComponent.cpp" />
     <ClCompile Include="FanObjectFactory.cpp" />
     <ClCompile Include="FanPhysicsComponent.cpp" />

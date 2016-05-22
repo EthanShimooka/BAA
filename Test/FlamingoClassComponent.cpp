@@ -120,10 +120,10 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 
 void FlamingoClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	uint64_t PID;
-	uint64_t owner;
-	int classEnum;
+	//uint64_t owner;
+	//int classEnum;
 	float destX, destY;
-	int team;
+	//int team;
 	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);
@@ -153,7 +153,7 @@ int FlamingoClassComponent::useAbility(){
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float targetX, targetY;
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
-		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, (int)targetX, (int)targetY);
+		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, targetX, targetY);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);

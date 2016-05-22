@@ -43,7 +43,7 @@ int Start::mainMenu(){
 	SystemLogicUpdater sysLogic;*/
 
 	// making buttons
-	playButt = bFactory.Spawn(3521, 200, 150, 19, w / 2.0 + 25, h / 2.0 -25);
+	playButt = bFactory.Spawn(3521, 200, 150, 19, w / 2.0f + 25, h / 2.0f -25);
 	GameObjects.AddObject(playButt);
 
 	int nextScene = waitForInput();

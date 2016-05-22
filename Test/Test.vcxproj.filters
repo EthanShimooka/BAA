@@ -558,6 +558,9 @@
     <ClInclude Include="GameOver.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+	<ClInclude Include="EggImplosionParticle.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
     <ClInclude Include="LobbyMenu.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -928,6 +931,9 @@
     </ClCompile>
     <ClCompile Include="TutorialRenderComponent.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="EggImplosionParticle.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
     <ClCompile Include="TutorialObjectFactory.cpp">
       <Filter>Source Files</Filter>

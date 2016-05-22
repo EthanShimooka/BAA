@@ -23,7 +23,7 @@ class PhysicsComponent : public Component
 {
 public:
 	PhysicsComponent();
-	~PhysicsComponent();
+	virtual ~PhysicsComponent();
 
 	/// GameObject Container Reference
 	GameObject* gameObjectRef;
