@@ -18,6 +18,9 @@ public:
 	void writeNetAbility(uint64_t PID, float posX, float posY, int team);
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();
+
+	int maxMinesAllowed = 3;
+	int numMinesThrown = 0;
 };
 
 #endif

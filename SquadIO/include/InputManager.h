@@ -23,25 +23,25 @@
 class InputManager {
 public:
 	Controller* controller;
-	// returns this instance of InputManager
+	/// returns this instance of InputManager
 	SQUADIO_API static InputManager* getInstance();
 
-	// updates at every frame for new input
+	/// updates at every frame for new input
 	SQUADIO_API void update();
 
-	// return true if keydown
+	/// return true if keydown
 	SQUADIO_API bool isKeyDown(int key);
 
-	// return true if keyup
+	/// return true if keyup
 	SQUADIO_API bool isKeyUp(int key);
 
-	// return true if mousedown
+	/// return true if mousedown
 	SQUADIO_API bool isMouseDown(int b);
 
-	// return true if mouseup
+	/// return true if mouseup
 	SQUADIO_API bool isMouseUp(int b);
 
-	// get mouse x and y positions
+	/// get mouse x and y positions
 	SQUADIO_API int getMouseX();
 	SQUADIO_API int getMouseY();
 
@@ -50,21 +50,24 @@ public:
 	SQUADIO_API void setMouseX(int x);
 	SQUADIO_API void setMouseY(int y);
 
-	// lock and unlock input
+	/// lock and unlock input
 	SQUADIO_API void lock();
 	SQUADIO_API void unlock();
 
-	// if mouse was pressed this frame
+	/// if mouse was pressed this frame
 	SQUADIO_API bool isMouseLeftPressed();
 
-	// if mouse was released this frame
+	/// if mouse was released this frame
 	SQUADIO_API bool isMouseLeftReleased();
 
-	// returns the duration of the last left mouse press in milliseconds
+	/// returns the duration of the last left mouse press in milliseconds
 	SQUADIO_API double getMousePressDuration();
 
 	/// resets the time for the mouse pressed down clock
 	SQUADIO_API void resetMousePressClock();
+
+	/// resets the time for the mouse pressed down clock
+	SQUADIO_API bool isWindowClose(){ return quitGame; }
 
 protected:
 	// constructor only called by getInstance()
@@ -97,6 +100,8 @@ private:
 
 	// keyboard input allowed or not
 	bool locked;
+
+	bool quitGame;
 };
 
 #endif // INPUTMANAGER_H_INCLUDED

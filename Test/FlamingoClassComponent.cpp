@@ -147,7 +147,7 @@ void FlamingoClassComponent::writeNetAbility(uint64_t PID, float posX, float pos
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed >= seedRequired){
+	if (currBirdseed >= seedRequired && numMinesThrown<maxMinesAllowed){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
@@ -157,6 +157,7 @@ int FlamingoClassComponent::useAbility(){
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);
+		numMinesThrown++;
 		return true;
 	}else{
 	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
