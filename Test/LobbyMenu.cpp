@@ -38,7 +38,7 @@ int LobbyMenu::runScene(){
 
 		// back button is pressed
 		if (buttonPressed == BUTTON_BACK){
-			return SCENE_END;
+			return SCENE_GAMEOVER;
 		}
 
 		// try to start the game if everyone is ready

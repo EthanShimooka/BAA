@@ -196,7 +196,7 @@ void PlayerInputComponent::Update(){
 	}
 
 	//check for quail ability
-	if (dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->isQuail){
+	if (dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->getClass() == CLASS_QUAIL){
 		QuailClassComponent* quailComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 		playerSpeed = quailComp->speed;
 	}
