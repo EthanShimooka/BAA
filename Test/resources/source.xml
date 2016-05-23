@@ -133,6 +133,7 @@
 <resource UID="6016" type="audio" filename="feathersfx.ogg" scenescope="0"></resource>
 <resource UID="6017" type="audio" filename="abilityusesfx.ogg" scenescope="0"></resource>
 <resource UID="6018" type="audio" filename="readyupsfx.ogg" scenescope="0"></resource>
+<resource UID="6019" type="audio" filename="minesfx.ogg" scenescope="0"></resource>
 <resource UID="6009" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
