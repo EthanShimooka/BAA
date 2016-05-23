@@ -155,7 +155,11 @@ int FlamingoClassComponent::useAbility(){
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
 		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, targetX, targetY);
 		GameObjects.AddObject(mine);
-		currBirdseed = 0;
+		currMinesSpawned++;
+		if (currMinesSpawned >= 3){
+			currBirdseed = 0;
+			currMinesSpawned = 0;
+		}
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);
 		return true;
 	}else{
