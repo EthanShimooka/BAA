@@ -20,22 +20,27 @@ void LauncherRenderComponent::buildAnimation(){
 	//base->toggleIfRenderImage();
 	SDLRenderObject * launcher1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, -300, -600);
 	SDLRenderObject * launcher2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2027, -300, -600);
+	SDLRenderObject * launcher3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2029, 30, -25);
 
 
 	allObjs["base"] = objRef;
 	allObjs["launcher1"] = launcher1;
 	allObjs["launcher1"]->visible = true;
 	allObjs["launcher1"]->setScale(0.8f);
+	
 	allObjs["launcher2"] = launcher2;
 	allObjs["launcher2"]->setScale(0.8f);
 	allObjs["launcher2"]->visible = false;
-
+	
+	allObjs["launcher3"] = launcher3;
+	allObjs["launcher3"]->setScale(0.25f);
+	allObjs["launcher3"]->visible = true;
 
 	launcher1->setParent(objRef);
 	launcher2->setParent(objRef);
+	launcher3->setParent(objRef);
 	launcher1->setAnchor(0.5f, 1.0f);
 	launcher2->setAnchor(0.5f, 1.0f);
-
 	////////////////////////////////////////////
 
 
@@ -104,7 +109,7 @@ void LauncherRenderComponent::throwLauncher(){
 	setAnimation("throw");
 	setNextAnimation("hide");
 	setNextAnimation("idle");
-	std::cout << "SHIGGLE BUZZ BUZZ" << std::endl;
+	//std::cout << "SHIGGLE BUZZ BUZZ" << std::endl;
 
 	//allObjs["launcher1"]->visible = false;
 	//allObjs["launcher2"]->visible = true;
