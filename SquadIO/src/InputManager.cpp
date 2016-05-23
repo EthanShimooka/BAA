@@ -43,7 +43,6 @@ void InputManager::update() {
 	}
 	mouseLeftPressed = false;
 	mouseLeftReleased = false;
-	quitGame = false;
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	//	int index;
@@ -51,7 +50,6 @@ void InputManager::update() {
 	while (SDL_PollEvent(&ev)) {
 		switch (ev.type) {
 		case SDL_QUIT:
-			quitGame = true;
 			cout << "quit the game" << endl;
 			break;
 			// SDL_MouseButtonEvent
