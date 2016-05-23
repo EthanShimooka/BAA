@@ -63,30 +63,23 @@ void LauncherRenderComponent::buildAnimation(){
 	////////////////////////////////////////////
 
 	std::list<motion> motions3;
-	if (gameObjectRef->team == TEAM_PURPLE){
-		motions3.push_back(makeMotion(moveLinearY(allObjs["launcher1"], 450, 0), 0, 1));
 
-	}
-	else{
 		motions3.push_back(makeMotion(rotateTransform(allObjs["launcher1"], 20, -20), 0, 1));
 		motions3.push_back(makeMotion(moveLinearXY(allObjs["launcher1"], -450, -450, -250 , 100), 0, 1));
 		motions3.push_back(makeMotion(rotateTransform(allObjs["launcher2"], 20, -20), 0, 1));
 		motions3.push_back(makeMotion(moveLinearXY(allObjs["launcher2"], -450, -450, -250, 100), 0, 1));
-	}
+
 	animations["show"] = new Animation(200, motions3);
 
 	///////////
 
 	std::list<motion> motions4;
-	if (gameObjectRef->team == TEAM_PURPLE){
-		motions4.push_back(makeMotion(moveLinearY(allObjs["launcher1"], 0, -450), 0, 1));
-	}
-	else{
+
 		motions4.push_back(makeMotion(rotateTransform(allObjs["launcher1"], -20, 20), 0, 1));
 		motions4.push_back(makeMotion(moveLinearXY(allObjs["launcher1"], -250, 100, -450, -450), 0, 1));
 		motions4.push_back(makeMotion(rotateTransform(allObjs["launcher2"], -20, 20), 0, 1));
 		motions4.push_back(makeMotion(moveLinearXY(allObjs["launcher2"], -250, 100, -450, -450), 0, 1));
-	}
+
 
 	animations["hide"] = new Animation(200, motions4);
 
