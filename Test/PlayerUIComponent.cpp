@@ -8,7 +8,9 @@ PlayerUIComponent::PlayerUIComponent(GameObject* player){
 
 
 PlayerUIComponent::~PlayerUIComponent(){
-	std::cout << "delete the class" << std::endl;
+	for (auto currUIObj : UIObjs){
+		delete currUIObj;
+	}
 }
 
 void PlayerUIComponent::addToKillList(uint64_t shooter, uint64_t victim){
@@ -77,7 +79,7 @@ void PlayerUIComponent::Update(){
 	float meterPercent = (classComp->currBirdseed / (float)maxBirdseed);
 	if (meterPercent > 1) meterPercent = 1;
 	SDL_Rect rect = birdseedHUD->getRenderRect();
-	SDL_Rect seedRect = { defaultRect.x, defaultRect.y + defaultRect.h*(1 - meterPercent), defaultRect.w, defaultRect.h*meterPercent };
+	SDL_Rect seedRect = { defaultRect.x, (int)(defaultRect.y + defaultRect.h*(1 - meterPercent)), defaultRect.w, (int)(defaultRect.h*meterPercent) };
 	birdseedHUD->posY = 30 + defaultRect.h*(1 - meterPercent);
 	birdseedHUD->setRenderRect(seedRect);
 

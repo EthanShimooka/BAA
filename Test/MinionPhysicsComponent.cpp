@@ -117,7 +117,6 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  if (otherObj->team == gameObjectRef->team) break;
 										  //Still need to visually update dmg to base
-										  //Currently destroys minions, updates base health logic, and shakes screen
 										  AudioManager* audioMan = AudioManager::getAudioInstance();
 										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 										  //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
@@ -125,9 +124,11 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 										  logicComp->MinionDeath();
 										  //gameObjectRef->setPos(-10000, 0);
 										  //gameObjectRef->isAlive = false;
-
-										  RenderManager* renderMan = RenderManager::getRenderManager();
-										  renderMan->ShakeScreen(0.3f, 0.2f);
+										  //Only shake if our own base is being attacked
+										  if (gameObjectRef->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+											  RenderManager* renderMan = RenderManager::getRenderManager();
+											  renderMan->ShakeScreen(0.3f, 0.2f);
+										  }
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{

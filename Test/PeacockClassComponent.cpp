@@ -5,7 +5,6 @@
 PeacockClassComponent::PeacockClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	isPeacock = true;
 	speed += 2;
 	seedRequired = 7;
 	gameObjectRef = player;
@@ -280,7 +279,7 @@ void PeacockClassComponent::writeNetAbility(uint64_t PID, float posX, float posY
 void PeacockClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	FanObjectFactory fFactory;
 	uint64_t ID;
-	float posX, posY, forceX, forceY, rotation;
+	float posX, posY, rotation;
 	aPacket.Read(ID);
 	aPacket.Read(posX);
 	aPacket.Read(posY);

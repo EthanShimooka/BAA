@@ -22,11 +22,11 @@ DustCloudParticle::DustCloudParticle(unsigned int numParticles, float minSize, f
 		movements.push_back(makeMotion(moveLinearXY(sprite, xPos, yPos, xPos+ 40 -(rand() % 80),
 													yPos + 40 - (rand() % 80)),0, 1, ease_QuadIn));
 		movements.push_back(makeMotion(rotateTransform(sprite, rand() % 360, (rand() % 90) - 45), 0, 1));
-		Animation * movement = new Animation(700 - (rand() % 200), movements);
+		Animation * movement = new Animation((float)(700 - (rand() % 200)), movements);
 		particle p;
 		p.animations = movement;
 		p.sprite = sprite;
-		p.timer = progress;
+		p.timer = (float)progress;
 		particles.push_back(p);
 	}
 }
@@ -48,7 +48,7 @@ void DustCloudParticle::Update(){
 		gameObjectRef->isAlive = false;
 	}
 	for (auto iter = particles.begin(); iter != particles.end();){
-		float curr = iter->animations->lengthConversion(progress - iter->timer);
+		float curr = iter->animations->lengthConversion((int)(progress - iter->timer));
 		//if (curr >= 1.0) iter->sprite->setIfRenderImage(false);
 		if (curr >= 1.0){
 			//iter->sprite->setIfRenderImage(false);
@@ -64,7 +64,7 @@ void DustCloudParticle::Update(){
 		else{
 			iter->animations->animate(curr);
 			//float parab = curr < 0.5 ? ease_QuadOut(curr * 2) : ease_QuadIn(1-(curr-0.5) * 2);
-			iter->sprite->renderResource->setAlpha(255 *ease_QuadOut(1.0-curr)*0.75);
+			iter->sprite->renderResource->setAlpha((Uint8)(255 *ease_QuadOut(1.0f-curr)*0.75f));
 			//iter->sprite->renderResource->setColor(rand() % 255, 255, rand() % 255);
 			iter++;
 		}

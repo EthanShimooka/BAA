@@ -12,7 +12,7 @@ PlayerLogicComponent::PlayerLogicComponent(GameObject* player, int team)
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
 	gameObjectRef->team = team;
 	eggTimer = 1000.0;
-	lasttime = clock();
+	lasttime = (float)clock();
 	child_id_counter = childID;
 	childID += 1000;
 	std::cout << child_id_counter << std::endl;
@@ -87,7 +87,7 @@ void PlayerLogicComponent::becomeEgg(){
 
 		// if this is the local Player
 		if (gameObjectRef->isLocal){
-			RenderManager::getRenderManager()->ShakeScreen(0.3f, 1.0f);
+			RenderManager::getRenderManager()->ShakeScreen(0.2f, 0.2f);
 		}
 	}
 

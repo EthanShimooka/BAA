@@ -5,6 +5,7 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 	input = InputManager::getInstance();
 	gameObjectRef = player;
 	playerSpeed = _classComp->speed;
+	jumpSpeed = _classComp->jumpSpeed;
 	featherSpeed = _classComp->featherSpeed;
 	classComp = _classComp;
 	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
@@ -32,15 +33,15 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 	//handle jumping
 	if (controller->isJoystickPressed(JOYSTICK_A) && !physicsComp->inAir) {
 		physicsComp->inAir = true;
-		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
-		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -jumpSpeed));
+		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, jumpSpeed));
 	}
 
 	//handle firing
 	//controller aiming
 	int controllerSensitivity = 12;
-	int mouseX = input->getMouseX() + controller->getRightThumbX() * controllerSensitivity;
-	int mouseY = input->getMouseY() + controller->getRightThumbY() * controllerSensitivity;
+	int mouseX = input->getMouseX() + (int)(controller->getRightThumbX() * controllerSensitivity);
+	int mouseY = input->getMouseY() + (int)(controller->getRightThumbY() * controllerSensitivity);
 	if (mouseX > SCREEN_WIDTH)mouseX = SCREEN_WIDTH;
 	else if (mouseX < 0)mouseX = 0;
 	if (mouseY > SCREEN_HEIGHT)mouseY = SCREEN_HEIGHT;
@@ -101,8 +102,8 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
 			physicsComp->inAir = true;
-			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
-			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -jumpSpeed));
+			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, jumpSpeed));
 			logic->launchable = true;
 	}
 
@@ -195,7 +196,7 @@ void PlayerInputComponent::Update(){
 	}
 
 	//check for quail ability
-	if (dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->isQuail){
+	if (dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS))->getClass() == CLASS_QUAIL){
 		QuailClassComponent* quailComp = dynamic_cast<QuailClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 		playerSpeed = quailComp->speed;
 	}

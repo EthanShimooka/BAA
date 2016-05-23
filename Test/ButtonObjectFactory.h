@@ -23,6 +23,7 @@ enum BUTTONS{
 	BUTTON_READY = 1,
 	BUTTON_BACK = 2,
 	BUTTON_MENU = 3,
+	BUTTON_QUIT = 4,
 };
 
 #endif

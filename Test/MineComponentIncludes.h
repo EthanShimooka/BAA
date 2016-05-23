@@ -5,5 +5,7 @@
 #include "MineLogicComponent.h"
 #include "MinePhysicsComponent.h"
 #include "MineRenderComponent.h"
-
+#include "MineObjectFactory.h"
+#include "ClassComponent.h"
+#include "AbsorbParticle.h"
 #endif

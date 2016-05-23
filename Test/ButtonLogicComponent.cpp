@@ -28,8 +28,8 @@ bool ButtonLogicComponent::isButtonPressed(){
 		RenderManager::getRenderManager()->windowCoordToWorldCoord(x, y, input->getMouseX(), input->getMouseY());
 		x -= width / 2;
 		y -= height / 2;
-		//std::cout << "top bottom left right " << gameObjectRef->posY << ", " << gameObjectRef->posY + height << ", " << gameObjectRef->posX << ", " << gameObjectRef->posX + width << std::endl;
-		//std::cout << "x: " << x << ", y: " << y << std::endl;// << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << width << ", " << height << std::endl;
+		std::cout << "top bottom left right " << gameObjectRef->posY << ", " << gameObjectRef->posY + height << ", " << gameObjectRef->posX << ", " << gameObjectRef->posX + width << std::endl;
+		std::cout << "x: " << x << ", y: " << y << std::endl;// << ", " << gameObjectRef->posX << ", " << gameObjectRef->posY << ", " << width << ", " << height << std::endl;
 		// returns true if mouse within bounds
 		if (x <= gameObjectRef->posX && x + width >= gameObjectRef->posX &&
 			y <= gameObjectRef->posY && y + height >= gameObjectRef->posY){
@@ -37,9 +37,8 @@ bool ButtonLogicComponent::isButtonPressed(){
 				AudioManager::getAudioInstance()->playByName(sound);
 			return true;
 		}
-			
-		return false;
 	}
+	return false;
 }
 
 bool ButtonLogicComponent::isMouseHovering(){

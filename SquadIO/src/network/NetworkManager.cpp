@@ -291,7 +291,7 @@ void NetworkManager::handleReadyUpPacket(InputMemoryBitStream& inInputStream, ui
 	inInputStream.Read(ready);
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(inFromPlayer);
 	if (iter != lobbyInfoMap.end()){
-		iter->second.ready = ready;
+		iter->second.ready = (ready == 1 ? true : false);
 		lobbyUpdate = true;
 	}
 }
@@ -314,7 +314,7 @@ void NetworkManager::SendRdyUpPacket(int ready)
 {
 	LobbyInfoMap::iterator iter = lobbyInfoMap.find(mPlayerId);
 	if (iter != lobbyInfoMap.end()){
-		iter->second.ready = ready;
+		iter->second.ready = (ready == 1 ? true : false);
 		lobbyUpdate = true;
 	}
 	OutputMemoryBitStream outPacket;

@@ -4,7 +4,6 @@
 FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	isFlamingo = true;
 	speed -= 2;
 	//width = 1.33f;
 	//height = 1.35f;
@@ -120,10 +119,10 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 
 void FlamingoClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	uint64_t PID;
-	uint64_t owner;
-	int classEnum;
+	//uint64_t owner;
+	//int classEnum;
 	float destX, destY;
-	int team;
+	//int team;
 	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);
@@ -147,7 +146,7 @@ void FlamingoClassComponent::writeNetAbility(uint64_t PID, float posX, float pos
 }
 
 int FlamingoClassComponent::useAbility(){
-	if (currBirdseed >= 1){//seedRequired){
+	if (currBirdseed >= seedRequired){
 		MineObjectFactory mFactory;
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();

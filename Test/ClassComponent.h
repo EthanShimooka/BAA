@@ -45,10 +45,13 @@ public:
 	virtual int useAbility();
 	virtual void writeNetAbility();
 	virtual void readNetAbility(InputMemoryBitStream& aPacket);
+	void setTimer();
+	bool endTimer();
 
 	virtual int getClass();
 
 	float speed;
+	float jumpSpeed;
 	float width, height;
 	int   seedRequired;
 	float featherSpeed;
@@ -57,10 +60,11 @@ public:
 
 	int currBirdseed = 0;
 	int maxsBirdseed = 8;
-
 	uint64_t *powerNum;
 
-	bool isChicken, isEagle, isFlamingo, isPeacock, isQuail, isTurkey;
+protected :
+	float timer = 0;
+	int timerLength;
 };
 
 #endif

@@ -4,7 +4,6 @@
 TurkeyClassComponent::TurkeyClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	isTurkey = true;
 	speed -= 3;
 	//width = 1.33f;
 	//height = 1.35f;
@@ -124,10 +123,10 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 
 void TurkeyClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	uint64_t PID;
-	uint64_t owner;
-	int classEnum;
+	//uint64_t owner;
+	//int classEnum;
 	float destX, destY;
-	int team;
+	//int team;
 	aPacket.Read(PID);
 	aPacket.Read(destX);
 	aPacket.Read(destY);
@@ -151,7 +150,7 @@ void TurkeyClassComponent::writeNetAbility(uint64_t PID, float posX, float posY,
 }
 
 int TurkeyClassComponent::useAbility(){
-	if (currBirdseed >= 1){
+	if (currBirdseed >= maxsBirdseed){
 	//if (currBirdseed >= seedRequired){
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();

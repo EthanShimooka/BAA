@@ -17,7 +17,7 @@ GameObject* ButtonObjectFactory::Spawn(uint64_t PID, float posX, float posY, int
 	button->ID = PID;
 	button->isAlive = true;
 	button->setPos(posX, posY);
-	ButtonLogicComponent* buttLog = new ButtonLogicComponent(button, width, height);
+	ButtonLogicComponent* buttLog = new ButtonLogicComponent(button, (int)width, (int)height);
 	ButtonRenderComponent* buttRend = new ButtonRenderComponent(button, imageID, scale);
 	
 

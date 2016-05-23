@@ -570,6 +570,12 @@
     <ClInclude Include="TutorialObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inGameStatsRenderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextAlignment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -930,6 +936,12 @@
       <Filter>Source Files\Component</Filter>
     </ClCompile>
     <ClCompile Include="TutorialObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inGameStatsRenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextAlignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -13,7 +13,7 @@ PlatformObjectFactory::~PlatformObjectFactory()
 /// Spawn() assembles nessasary Components and throws them into
 /// a "GameObject" Container.
 
-GameObject* PlatformObjectFactory::Spawn(uint64_t PID, float posX, float posY, float team)
+GameObject* PlatformObjectFactory::Spawn(uint64_t PID, float posX, float posY, int team)
 {
 
 	GameObject* platform = new GameObject();
@@ -22,7 +22,7 @@ GameObject* PlatformObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 	platform->setPos(posX, posY);
 	platform->isAlive = true;
 	platform->type = GAMEOBJECT_TYPE::OBJECT_PLATFORM;
-	platform->team = team;
+	platform->team = (int)team;
 
 	// Minion Specific Render Component. In future will have flag
 	// for type of class,  which will instatiate based on flag
