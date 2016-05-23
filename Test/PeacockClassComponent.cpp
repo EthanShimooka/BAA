@@ -177,6 +177,7 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int PeacockClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
+		playAbilityUseSound();
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
 		activeFans++;
