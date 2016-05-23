@@ -24,55 +24,7 @@ void PeacockClassComponent::Update()
 		activeFans--;
 		invokeHelper = false;
 		destroyFan();
-		//std::cout << "Destroyed fan 1!" << std::endl;
-		//std::cout << "activeFans = " << activeFans << std::endl;
 	}
-	/*if (invokeHelper2 && timer2->isDone()){
-		timer2->destroy();
-		activeFans--;
-		invokeHelper2 = false;
-		destroyFan();
-		std::cout << "Destroyed fan 2!" << std::endl;
-		std::cout << "activeFans = " << activeFans << std::endl;
-	}
-	if (invokeHelper3 && timer3->isDone()){
-		timer3->destroy();
-		activeFans--;
-		invokeHelper3 = false;
-		destroyFan();
-		std::cout << "Destroyed fan 3!" << std::endl;
-		std::cout << "activeFans = " << activeFans << std::endl;
-	}
-	if (invokeHelper4 && timer4->isDone()){
-		timer4->destroy();
-		activeFans--;
-		invokeHelper4 = false;
-		destroyFan();
-	}
-	if (invokeHelper5 && timer5->isDone()){
-		timer5->destroy();
-		activeFans--;
-		invokeHelper5 = false;
-		destroyFan();
-	}
-	if (invokeHelper6 && timer6->isDone()){
-		timer6->destroy();
-		activeFans--;
-		invokeHelper6 = false;
-		destroyFan();
-	}
-	if (invokeHelper7 && timer7->isDone()){
-		timer7->destroy();
-		activeFans--;
-		invokeHelper7 = false;
-		destroyFan();
-	}
-	if (invokeHelper8 && timer8->isDone()){
-		timer8->destroy();
-		activeFans--;
-		invokeHelper8 = false;
-		destroyFan();
-	}*/
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
@@ -181,49 +133,7 @@ int PeacockClassComponent::useAbility(){
 		timer = new Invoke(fanLength);
 		invokeHelper = true;
 		activeFans++;
-		/*switch (++activeFans){
-		case 1:
-			timer = new Invoke(fanLength);
-			invokeHelper = true;
-			std::cout << "Starting timer for fan 1!" << std::endl;
-			std::cout << "activeFans = " << activeFans << std::endl;
-			break;
-		case 2:
-			timer2 = new Invoke(fanLength);
-			invokeHelper2 = true;
-			std::cout << "Starting timer for fan 2!" << std::endl;
-			std::cout << "activeFans = " << activeFans << std::endl;
-			break;
-		case 3:
-			timer3 = new Invoke(fanLength);
-			invokeHelper3 = true;
-			std::cout << "Starting timer for fan 3!" << std::endl;
-			std::cout << "activeFans = " << activeFans << std::endl;
-			break;
-		case 4:
-			timer4 = new Invoke(fanLength);
-			invokeHelper4 = true;
-			break;
-		case 5:
-			timer5 = new Invoke(fanLength);
-			invokeHelper5 = true;
-			break;
-		case 6:
-			timer6 = new Invoke(fanLength);
-			invokeHelper6 = true;
-			break;
-		case 7:
-			timer7 = new Invoke(fanLength);
-			invokeHelper7 = true;
-			break;
-		case 8:
-			timer8 = new Invoke(fanLength);
-			invokeHelper8 = true;
-			break;
-		default:
-			break;
-		}*/
-
+		
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float posX, posY, forceX, forceY, rotation;
