@@ -61,6 +61,7 @@ void LauncherPhysicsComponent::endCollision(GameObject* otherObj){
 	switch (otherObj->type){
 
 	case GAMEOBJECT_TYPE::OBJECT_PLAYER:{
+											LauncherRenderComponent * render = dynamic_cast<LauncherRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 											render->hideLauncher();
 											break;
 	}

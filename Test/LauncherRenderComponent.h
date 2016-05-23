@@ -24,6 +24,7 @@ public:
 	void buildAnimation();
 	void showLauncher();
 	void hideLauncher();
+	void throwLauncher();
 };
 
 #endif

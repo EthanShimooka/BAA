@@ -21,8 +21,8 @@ public:
 
 	/// boolean to keep track of the players jumping
 	bool inAir;
-
 	bool currLaunch;
+	bool launchThrow = false;
 
 };
 
