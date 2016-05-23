@@ -14,7 +14,6 @@ FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 	//featherHeight = 1;
 	//abilityCooldown = 15;
 	seedRequired = 7;
-	currBirdseed = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
 }
