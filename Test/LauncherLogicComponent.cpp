@@ -15,15 +15,15 @@ LauncherLogicComponent::~LauncherLogicComponent()
 void LauncherLogicComponent::showButton()
 {
 	LauncherRenderComponent * render = dynamic_cast<LauncherRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
-	render->allObjs["launcher1"]->setVisible(true);
-	render->objRef = render->allObjs["launcher1"];
+	//render->allObjs["launcher1"]->setVisible(true);
+	//render->objRef = render->allObjs["launcher1"];
 	launchable = true;
 }
 
 void LauncherLogicComponent::triggerButton()
 {
 	LauncherRenderComponent * render = dynamic_cast<LauncherRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
-	render->allObjs["launcher2"]->setVisible(false);
+	//render->allObjs["launcher2"]->setVisible(false);
 	timeSinceToggle = clock();
 
 }
@@ -31,9 +31,9 @@ void LauncherLogicComponent::triggerButton()
 void LauncherLogicComponent::hideButton()
 {
 	LauncherRenderComponent * render = dynamic_cast<LauncherRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
-	render->allObjs["launcher2"]->setVisible(false);
-	render->allObjs["launcher1"]->setVisible(false);
-	render->objRef = render->allObjs["base"];
+	//render->allObjs["launcher2"]->setVisible(false);
+	//render->allObjs["launcher1"]->setVisible(false);
+	//render->objRef = render->allObjs["base"];
 	timeSinceToggle = 0;
 	clockDiff = 0;
 
@@ -43,6 +43,7 @@ void LauncherLogicComponent::hideButton()
 
 void LauncherLogicComponent::Update()
 {
+	/*
 	clockDiff++;
 	clockDiff = clockDiff - timeSinceToggle;
 	//std::cout << "Clock DIFF : " << clockDiff << std::endl;
@@ -54,7 +55,7 @@ void LauncherLogicComponent::Update()
 			hideButton();
 		}
 	}
-
+	*/
 }
 
 //void Launch
