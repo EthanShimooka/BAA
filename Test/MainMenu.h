@@ -18,5 +18,6 @@ private:
 	ButtonObjectFactory bFactory;
 
 	GameObject* playButt;
+	GameObject* quitButt;
 };
 

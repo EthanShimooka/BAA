@@ -22,6 +22,7 @@ int main() {
 
 int _tmain(int argc, _TCHAR* argv[]){
 	int nextScene = SCENE_MENU;
+	bool game = true;
 	Scene* scene;
 	GameSession* scn;
 
@@ -38,10 +39,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 		std::cout << "NetworkManager::StaticInit() failed!" << "\n";
 	}
 
-	Stats s;
-	s.setLocalTeam (1);
-
-	while (true){
+	while (game){
 		switch (nextScene){
 		case SCENE_MENU:
 			scene = new MainMenu();
@@ -58,14 +56,15 @@ int _tmain(int argc, _TCHAR* argv[]){
 			nextScene = scn->Run();
 			delete scn;
 			break;
-		case SCENE_END:
+		case SCENE_GAMEOVER:
 			scene = new GameOver();
 			nextScene = scene->runScene();
 			delete scene;
 			break;
+		case SCENE_END:
+			game = false;
+			break;
 		}
-		/*if (nextScene == SCENE_GAME)
-			break;*/
 	}
 
 
