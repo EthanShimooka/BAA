@@ -125,6 +125,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
+		playAbilityUseSound();
 		timer = new Invoke(shieldLength);
 		invokeHelper = true;
 		activeShields++;

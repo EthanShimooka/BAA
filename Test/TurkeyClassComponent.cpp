@@ -155,6 +155,7 @@ int TurkeyClassComponent::useAbility(){
 	//if (currBirdseed >= seedRequired){
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
+		playAbilityUseSound();
 		//find target destination for boomerang arms
 		float targetX, targetY;
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());

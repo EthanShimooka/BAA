@@ -47,6 +47,8 @@ public:
 	virtual void readNetAbility(InputMemoryBitStream& aPacket);
 
 	virtual int getClass();
+	/// Plays successful ability use sound
+	void playAbilityUseSound();
 
 	float speed;
 	float jumpSpeed;

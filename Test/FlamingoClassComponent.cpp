@@ -149,6 +149,7 @@ void FlamingoClassComponent::writeNetAbility(uint64_t PID, float posX, float pos
 int FlamingoClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		MineObjectFactory mFactory;
+		playAbilityUseSound();
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float targetX, targetY;
