@@ -24,6 +24,9 @@ GameSession::GameSession(){
 // Destructor
 
 GameSession::~GameSession(){
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	sceneMan->RemoveAllObjects();
+	sceneMan->AssembleScene();
 }
 
 //variables used to keep track of bases and for camera shaking
@@ -189,7 +192,6 @@ void cullObjects(){
 int GameSession::Run(){
 
 	// temp
-	int numLobbyPlayer = 0;
 	int numPlayers = 1;
 	//
 
@@ -228,12 +230,6 @@ int GameSession::Run(){
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	
-	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
-	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
-		std::cout << iter.first << std::endl;
-		std::cout << "\tClass:" << iter.second.classType << std::endl;
-	}*/
-
 	GameObject * player = NULL;
 	Stats stats;
 	/// try to join a game and give each user a unique character in the game
@@ -575,6 +571,6 @@ int GameSession::Run(){
 	//delete runWater;
 	GameObjects.DeleteObjects();
 	GameWorld::getInstance()->~GameWorld();
-	sceneMan->AssembleScene();
+	
 	return SCENE_GAMEOVER;
 }

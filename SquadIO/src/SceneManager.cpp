@@ -396,3 +396,18 @@ void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
 	layer->m_SceneObjects.erase(findIter);//probably causes memleak, need to kill all the scene object values first?
 
 }
+
+
+void SceneManager::RemoveAllObjects(){
+	for (std::list<Layer*>::iterator iter1 = m_Layers.begin(); iter1 != m_Layers.end(); ++iter1){
+		//layer->m_SceneObjects.clear();
+		//layer->m_WindowObjects.clear();
+		for (std::list<SDLRenderObject*>::iterator iter = (*iter1)->m_SceneObjects.begin(); iter != (*iter1)->m_SceneObjects.end(); ++iter){
+			(*iter1)->m_SceneObjects.erase(iter);
+		}
+		for (std::list<SDLRenderObject*>::iterator iter = (*iter1)->m_WindowObjects.begin(); iter != (*iter1)->m_WindowObjects.end(); ++iter){
+			(*iter1)->m_WindowObjects.erase(iter);
+		}
+	}
+	//m_Layers.clear();
+}

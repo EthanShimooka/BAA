@@ -107,6 +107,7 @@ public:
 	/// since it currently exists to work with the hardcoded instantiation of the local player.
 	/// Once we actually use LoadPlayers, we can get rid of the parameter
 	void LoadHUD(GameObject* player, SystemUIObjectQueue queue);
+
 };
 
 #endif
