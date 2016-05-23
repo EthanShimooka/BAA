@@ -10,7 +10,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	std::string playerName = NetworkManager::sInstance->getLobbyMap().find(gameObjectRef->ID)->second;
 
-	SDLRenderObject * name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
+	name = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	int r, g, b;
 	if (gameObjectRef->posY < 0){
 		r = 200, g=0, b = 200;
@@ -36,9 +36,16 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 
 PlayerRenderComponent::~PlayerRenderComponent()
 {
+	// removing the name
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	name->setVisible(false);
+	sceneMan->RemoveObject(name, sceneMan->findLayer("layer1"));
+
 	for (auto i = animations.begin(); i != animations.end(); i++){
 		delete i->second;
 	}
+	objRef->setVisible(false);
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer2"));
 }
 
 void PlayerRenderComponent::setAnimation(std::string name){

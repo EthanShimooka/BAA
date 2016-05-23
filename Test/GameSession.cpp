@@ -571,7 +571,8 @@ int GameSession::Run(){
 	delete surf;
 	//delete fount;
 	//delete runWater;
-
+	GameObjects.DeleteObjects();
 	GameWorld::getInstance()->~GameWorld();
+	sceneMan->AssembleScene();
 	return SCENE_GAMEOVER;
 }

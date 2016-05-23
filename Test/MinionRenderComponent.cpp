@@ -36,6 +36,9 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 
 MinionRenderComponent::~MinionRenderComponent()
 {
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	objRef->setVisible(false);
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer1"));
 }
 
 void MinionRenderComponent::Update(){

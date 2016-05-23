@@ -40,6 +40,7 @@ public:
 	// Reference to charge bar that follows player
 	//SDLRenderObject* chargebarMeterRef;
 	//SDLRenderObject* chargebarShellRef;
+	SDLRenderObject * name;
 };
 
 

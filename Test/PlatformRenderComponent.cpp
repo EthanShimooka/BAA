@@ -22,6 +22,9 @@ PlatformRenderComponent::PlatformRenderComponent(GameObject* platform, int team)
 
 PlatformRenderComponent::~PlatformRenderComponent()
 {
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	objRef->setVisible(false);
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer2"));
 }
 
 void PlatformRenderComponent::Update(){

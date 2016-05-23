@@ -89,6 +89,9 @@ MidBaseRenderComponent::~MidBaseRenderComponent(){
 	for (auto i : animations){
 		delete i.second;
 	}
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	objRef->setVisible(false);
+	sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer1"));
 }
 
 void MidBaseRenderComponent::Update(){
