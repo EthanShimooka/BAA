@@ -24,6 +24,9 @@ int MainMenu::runScene(){
 		case BUTTON_PLAY:
 			removeButtons();
 			return SCENE_LOBBY;
+		case BUTTON_QUIT:
+			removeButtons();
+			return SCENE_END;
 		}
 	}
 }
@@ -34,14 +37,18 @@ void MainMenu::createButtons(){
 	RenderManager::getRenderManager()->getWindowSize(&w, &h);
 	
 	// play button
-	playButt = bFactory.Spawn(3521, 200.0f, 150.0f, 19, (float)(w / 2.0 + 25), (float)(h / 2.0 - 25));
+	playButt = bFactory.Spawn(3521, 200.0f, 90.0f, 19);
 	GameObjects.AddObject(playButt);
+	quitButt = bFactory.Spawn(3522, 200.0f, 150.0f, 22);
+	GameObjects.AddObject(quitButt);
 }
 
 int MainMenu::checkButtons(){
 	InputManager::getInstance()->update();
 	if (dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed())
 		return BUTTON_PLAY;
+	if (dynamic_cast<ButtonLogicComponent*>(quitButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed())
+		return BUTTON_QUIT;
 	return BUTTON_NONE;
 }
 

@@ -85,6 +85,8 @@ void GameSession::LoadWorld(){
 	//LAUNCHERS
 	GameObjects.AddObject(launchFactory.Spawn(launcherID++, -1450, (SCREEN_HEIGHT / 4.0f), 0, TEAM_YELLOW));
 	GameObjects.AddObject(launchFactory.Spawn(launcherID++, 1450, -(SCREEN_HEIGHT / 4.0f), 0, TEAM_PURPLE));
+	//GameObjects.AddObject(launchFactory.Spawn(launcherID++, -1450, 0, 0, TEAM_YELLOW));
+	//GameObjects.AddObject(launchFactory.Spawn(launcherID++, 1450, 0, 0, TEAM_PURPLE));
 
 	//FANS                                 ID,     POSX, POSY, ANGLE
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, -150, 60, TEAM_YELLOW)); //left top
@@ -233,7 +235,7 @@ int GameSession::Run(){
 	}*/
 
 	GameObject * player = NULL;
-
+	Stats stats;
 	/// try to join a game and give each user a unique character in the game
 	unordered_map< uint64_t, PlayerInfo > lobby = NetworkManager::sInstance->getLobbyInfoMap();
 	Stats::resetStats();
@@ -244,6 +246,7 @@ int GameSession::Run(){
 		std::cout << "classType: " << classType << std::endl;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
+			stats.setLocalTeam((i % 2) + 1);
 			Stats::addPlayer(iter.first, (i % 2) + 1);
 		}
 		else{
@@ -572,5 +575,5 @@ int GameSession::Run(){
 	//delete runWater;
 
 	GameWorld::getInstance()->~GameWorld();
-	return SCENE_END;
+	return SCENE_GAMEOVER;
 }

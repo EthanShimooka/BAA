@@ -3,7 +3,6 @@
 ChickenClassComponent::ChickenClassComponent(GameObject* player)
 {	
 	ClassComponent::ClassComponent();
-	isChicken = true;
 	//width = 1.33f;
 	//height = 1.35f;
 	//seedRequired = 5;

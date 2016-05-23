@@ -4,7 +4,6 @@
 FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	isFlamingo = true;
 	speed -= 2;
 	//width = 1.33f;
 	//height = 1.35f;

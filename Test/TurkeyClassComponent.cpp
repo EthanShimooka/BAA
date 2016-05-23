@@ -4,7 +4,6 @@
 TurkeyClassComponent::TurkeyClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	isTurkey = true;
 	speed -= 3;
 	//width = 1.33f;
 	//height = 1.35f;

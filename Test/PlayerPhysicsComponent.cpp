@@ -112,6 +112,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											logicComp->launchableZone = true;
 
+											if (launchThrow){
+												LauncherRenderComponent* launcherRend = dynamic_cast<LauncherRenderComponent*>(otherObj->GetComponent(COMPONENT_RENDER));
+												launcherRend->throwLauncher();
+												launchThrow = false;
+											}
 
 											break;
 	}
@@ -137,11 +142,10 @@ void PlayerPhysicsComponent::endCollision(GameObject* otherObj){
 											   break;
 	}
 
-	case GAMEOBJECT_TYPE::OBJECT_LAUNCHER:{
-											  //do nothing or push past each other
-											  //		LauncherLogicComponent* logic = dynamic_cast<LauncherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+	case GAMEOBJECT_TYPE::OBJECT_LAUNCHER:{									
 											  PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											  logicComp->launchableZone = false;
+											
 											  break;
 	}
 	default:
@@ -212,6 +216,7 @@ void PlayerPhysicsComponent::Update(){
 	if (logicComp->launchable && logicComp->launchableZone){
 		currLaunch = true;
 		launchPlayer();
+		launchThrow = true;
 		}
 
 	if (currLaunch)

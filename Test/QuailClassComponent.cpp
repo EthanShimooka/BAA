@@ -4,7 +4,6 @@
 QuailClassComponent::QuailClassComponent(GameObject* player)
 {
 	ClassComponent::ClassComponent();
-	isQuail = true;
 	speed += 3;
 	//width = 1.33f;
 	//height = 1.35f;
@@ -16,6 +15,7 @@ QuailClassComponent::QuailClassComponent(GameObject* player)
 	seedRequired = 6;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
+	timerLength = 3;
 }
 
 QuailClassComponent::~QuailClassComponent()
@@ -24,8 +24,8 @@ QuailClassComponent::~QuailClassComponent()
 
 void QuailClassComponent::Update()
 {
-	if (Timing::sInstance.EndQuailAbilityTimer()) {
-			speed = 19;
+	if (endTimer()) {
+		speed = 19;
 	}
 }
 
@@ -128,6 +128,7 @@ int QuailClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		playAbilityUseSound();
 		Timing::sInstance.SetQuailAbilityTimer();
+		setTimer();
 		speed *= 3;
 		currBirdseed = 0;
 		return true;

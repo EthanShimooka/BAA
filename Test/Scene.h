@@ -14,5 +14,6 @@ typedef enum {
 	SCENE_MENU = 1,
 	SCENE_LOBBY = 2,
 	SCENE_GAME = 3,
-	SCENE_END = 4,
+	SCENE_GAMEOVER = 4,
+	SCENE_END = 5,
 } SCENES;

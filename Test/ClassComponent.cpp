@@ -2,12 +2,6 @@
 
 ClassComponent::ClassComponent()
 {
-	isChicken = false;
-	isEagle = false;
-	isQuail = false;
-	isPeacock = false;
-	isTurkey = false;
-	isFlamingo = false;
 	speed = 16;
 	jumpSpeed = 16;
 	width = 1.33f;
@@ -27,7 +21,6 @@ ClassComponent::~ClassComponent()
 
 void ClassComponent::Update()
 {
-
 }
 
 int ClassComponent::useAbility(){
@@ -49,4 +42,18 @@ void ClassComponent::playAbilityUseSound(){
 
 int ClassComponent::getClass(){
 	return 0;
+}
+
+void ClassComponent::setTimer(){
+	timer = ((float)clock()) / CLOCKS_PER_SEC + timerLength;
+}
+
+bool ClassComponent::endTimer(){
+	// if timer is 0 no need to find the difference
+	if (timer == 0) return true;
+	if (timer <= ((float)clock()) / CLOCKS_PER_SEC){
+		timer = 0;
+		return true;
+	}
+	return false;
 }
