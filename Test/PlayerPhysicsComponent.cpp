@@ -1,4 +1,5 @@
 #include "PlayerPhysicsComponent.h"
+#include "Stats.h"
 
 PlayerPhysicsComponent::PlayerPhysicsComponent(GameObject* player, float height, float width)
 {
@@ -64,7 +65,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
-
 			dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
 			//debug this line below. I added in the if statement since it was breaking when calling it on gameobjects that didn't have UIComponents (HUD)
 			//I'm not sure why I originally was calling it if didn't have HUD stuff

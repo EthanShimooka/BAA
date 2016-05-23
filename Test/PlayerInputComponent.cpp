@@ -5,6 +5,7 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 	input = InputManager::getInstance();
 	gameObjectRef = player;
 	playerSpeed = _classComp->speed;
+	jumpSpeed = _classComp->jumpSpeed;
 	featherSpeed = _classComp->featherSpeed;
 	classComp = _classComp;
 	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
@@ -32,8 +33,8 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 	//handle jumping
 	if (controller->isJoystickPressed(JOYSTICK_A) && !physicsComp->inAir) {
 		physicsComp->inAir = true;
-		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
-		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -jumpSpeed));
+		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, jumpSpeed));
 	}
 
 	//handle firing
@@ -101,8 +102,8 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
 			physicsComp->inAir = true;
-			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -playerSpeed));
-			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, playerSpeed));
+			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -jumpSpeed));
+			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, jumpSpeed));
 			logic->launchable = true;
 	}
 

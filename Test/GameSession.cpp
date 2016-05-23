@@ -3,7 +3,10 @@
 #include <functional>
 #include <crtdbg.h>
 #include "Invoke.h"
+#include "inGameStatsRenderComponent.h"
 #include "t.h"
+#include "stats.h"
+
 /**
 *  GameSession.cpp
 *  Authors:
@@ -232,29 +235,23 @@ int GameSession::Run(){
 	GameObject * player = NULL;
 
 	/// try to join a game and give each user a unique character in the game
-	//if (numPlayers != 1){
 	unordered_map< uint64_t, PlayerInfo > lobby = NetworkManager::sInstance->getLobbyInfoMap();
+	Stats::resetStats();
 	int i = 0;
 	bool local = true;
 	for (auto &iter : lobby){
 		int classType = iter.second.classType;
 		std::cout << "classType: " << classType << std::endl;
-		//NetworkManager::sInstance->getLobbyInfoMap();
-		//int classType = NetworkManager::sInstance->getLobbyInfoMap().find(iter.first)->second.classType;
-		//int classType = 6;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
-			//std::cout << "Gamesession.cpp (215) Local Player ID: " << iter.second << ", " << iter.first << std::endl;
 			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
+			Stats::addPlayer(iter.first, (i % 2) + 1);
 		}
 		else{
 			GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, !local));
+			Stats::addPlayer(iter.first, (i % 2) + 1);
 		}
 		++i;
 	}
-	// create a local player with ID of 10000
-	/*else{
-		player = GameObjects.AddObject(pFactory.Spawn(10000, CLASS_CHICKEN, TEAM_PURPLE, true));
-	}*/
 
 
 
@@ -362,22 +359,25 @@ int GameSession::Run(){
 	//////////////////////////////////////////////////
 
 	bool gameEnd = false;
+	inGameStatsRenderComponent inGameStats;
 
 	while (gameloop) {
 		current_ticks = clock();
+
+
+		if (input->isKeyDown(KEY_TAB)){
+			inGameStats.updateText();
+			inGameStats.toggleOn(true);
+		}
+		else{
+			inGameStats.toggleOn(false);
+		}
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
 		runWater->animate(float(aniCounter) / 100);
 		surf->animate(float(aniCounter) / 100);
 		aniCounter++;
 		aniCounter = aniCounter % 100;
-
-		//HOW-TO INVOKE
-		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
-			bruh->destroy(); //call bruh's destroy so as to not cause memleak
-			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
-			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
-		}
 
 		//HOW-TO INVOKE
 		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
@@ -574,4 +574,3 @@ int GameSession::Run(){
 	GameWorld::getInstance()->~GameWorld();
 	return SCENE_END;
 }
-
