@@ -161,6 +161,7 @@ int FlamingoClassComponent::useAbility(){
 		return true;
 	}else{
 	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
 		return false;
 	}
 }

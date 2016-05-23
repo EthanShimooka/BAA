@@ -129,7 +129,6 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 			chargeTime = maxCharge;
 		isChargingAttack = false;
 		logicComp->currChargePercentage = 0;
-		
 
 		Timing::sInstance.StartAttackCooldown();
 		canFire = false;
@@ -138,6 +137,10 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		netComp->createFeatherPacket(id, (int)dx, (int)dy, featherSpeed);
+	}
+	else if(input->isMouseLeftReleased()){
+		//Attempting to fire feather before cd over
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
 	}
 	
 	

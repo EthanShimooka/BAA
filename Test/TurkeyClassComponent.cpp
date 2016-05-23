@@ -174,7 +174,11 @@ int TurkeyClassComponent::useAbility(){
 		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
 		currBirdseed = 0;
 		return true;
-	}else return false;
+	}
+	else{
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
+		return false;
+	}
 }
 
 int TurkeyClassComponent::getClass(){

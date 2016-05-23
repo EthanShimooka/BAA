@@ -95,7 +95,7 @@ void PlayerLogicComponent::becomeEgg(){
 
 void PlayerLogicComponent::hatchBird(bool respawn){
 	if (isEgg){
-		if (respawn){
+		if (respawn && gameObjectRef->isLocal){
 			AudioManager* audioMan = AudioManager::getAudioInstance();
 			audioMan->playByName("roostersfx.ogg");
 		}
@@ -155,7 +155,11 @@ void PlayerLogicComponent::playDeathSFX(int playerClass){
 		//audioMan->playByName("eaglesfx.ogg");
 		break;
 	}
-	
+}
+
+void PlayerLogicComponent::playFailSound(){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->playByName("abilityfailsfx.ogg");
 }
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
