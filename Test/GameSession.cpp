@@ -390,12 +390,12 @@ int GameSession::Run(){
 	string leftBaseHealth = "";
 	SDLRenderObject * leftbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	leftbaseHUD->setPos(66, 700);
+	leftbaseHUD->setPos(66, 600);
 
 	string rightBaseHealth = "";
 	SDLRenderObject * rightbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	rightbaseHUD->setPos(1300, 700);
+	rightbaseHUD->setPos(1260, 600);
 
 
 	renderMan->toggleCursor(0);

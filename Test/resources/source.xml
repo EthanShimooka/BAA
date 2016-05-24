@@ -12,7 +12,6 @@
 <resource UID="100104" type="graphic" filename="chicken_leg_right.png" scenescope="0"></resource>
 <resource UID="100105" type="graphic" filename="chicken_leg_left.png" scenescope="0"></resource>
 <resource UID="101001" type="graphic" filename="Platform1.png" scenescope="0"></resource>
-<resource UID="101002" type="graphic" filename="Column.png" scenescope="0"></resource>
 <resource UID="101003" type="graphic" filename="Platform2.png" scenescope="0"></resource>
 <resource UID="101004" type="graphic" filename="fountainS.png" scenescope="0" height="2" width="8" max="16"></resource>
 <resource UID="3" type="text" filename="text.txt" scenescope="0"></resource>
