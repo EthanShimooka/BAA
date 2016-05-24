@@ -65,6 +65,8 @@ void GameSession::LoadWorld(){
 		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 149), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
+
+	//well colliders
 	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(-1800), 0, 0));
 	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(1800), 0, 0));
 	
@@ -356,14 +358,6 @@ int GameSession::Run(){
 	rightbaseHUD->setPos(1300, 700);
 
 
-
-	//HOW-TO: Invoke timers
-	Invoke* bruh; //put something like this in your header or whereever to store a reference
-	bruh = new Invoke(1.0f); //call new invoke to begin the timer, passing in a float corresponding to the number of seconds you want it to run.
-	bool invokeHelper = true; //NEEDS A HELPER BOOL TO NOT CAUSE RUNTIME ERRORS
-	//how-to continued a few lines below in gameloop
-
-
 	renderMan->toggleCursor(0);
 
 	/////////////Flip screen if needed/////////////////
@@ -395,12 +389,7 @@ int GameSession::Run(){
 		aniCounter++;
 		aniCounter = aniCounter % 100;
 
-		//HOW-TO INVOKE
-		if (invokeHelper && bruh->isDone()) { //PUT HELPER BOOL FIRST SO THE ISDONE CHECK DOESNT CAUSE RUNTIME ERRORS
-			bruh->destroy(); //call bruh's destroy so as to not cause memleak
-			invokeHelper = false; //set the helper variable so as to not cause runtimer errors
-			std::cout << "this is how to use an Invoke timer!!!!" << std::endl; //call whatever you want now that the timer is done.
-		}
+	
 
 		/*if (input->isKeyDown(KEY_Q)){
 			if (renderMan->cameraPoint.z < -5){
@@ -575,10 +564,13 @@ int GameSession::Run(){
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
 		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+		leftBaseHealth = std::to_string(Stats::baseHealth_purple());
 
-		leftBaseHealth = std::to_string(leftBase->health);
+	//	leftBaseHealth = std::to_string(leftBase->health);
 		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 60, "BowlbyOneSC-Regular"));
-		rightBaseHealth = std::to_string(rightBase->health);
+		rightBaseHealth = std::to_string(Stats::baseHealth_yellow());
+
+	//	rightBaseHealth = std::to_string(rightBase->health);
 		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 60, "BowlbyOneSC-Regular"));
 
 
