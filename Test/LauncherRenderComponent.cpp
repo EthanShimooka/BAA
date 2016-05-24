@@ -20,7 +20,7 @@ void LauncherRenderComponent::buildAnimation(){
 	//base->toggleIfRenderImage();
 	SDLRenderObject * launcher1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2026, -300, -600);
 	SDLRenderObject * launcher2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2027, -300, -600);
-	SDLRenderObject * launcher3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2029, 30, -25);
+	SDLRenderObject * launcher3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2029, 30, -22);
 
 
 	allObjs["base"] = objRef;
