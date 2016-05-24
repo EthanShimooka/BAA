@@ -8,6 +8,7 @@ GameOver::GameOver()
 	createButtons();
 	createText();
 	sceneMan->AssembleScene();
+	//renderMan->setBackground();
 }
 
 GameOver::~GameOver()
@@ -57,11 +58,11 @@ void GameOver::createText(){
 	TextAlignment::COLOR *color = nullptr;
 
 
-	if (Stats::baseHealthLost_purple() == Stats::baseHealthLost_yellow()){
+	if (Stats::baseHealth_purple() == Stats::baseHealth_yellow()){
 		text = "No Contest!";
 		color = new TextAlignment::COLOR(255, 255, 0);
 	}
-	else if (Stats::baseHealthLost_purple() < Stats::baseHealthLost_yellow()){
+	else if (Stats::baseHealth_purple() < Stats::baseHealth_yellow()){
 		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Victory!";
 			color = new TextAlignment::COLOR(0, 153, 0);
@@ -71,7 +72,7 @@ void GameOver::createText(){
 			color = new TextAlignment::COLOR(204, 0, 0);
 		}
 	}
-	else if (Stats::baseHealthLost_purple() > Stats::baseHealthLost_yellow()){
+	else if (Stats::baseHealth_purple() > Stats::baseHealth_yellow()){
 		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Defeat!";
 			color = new TextAlignment::COLOR(204, 0, 0);
@@ -97,7 +98,7 @@ void GameOver::createStatsText(){
 	statsText->setStartingYPos(1 / 3.0);
 	statsText->setFontSize(30);
 	// yellow team
-	statsText->createText(std::to_string(Stats::baseHealthLost_yellow()) + " nest health lost", yellowColor, 1 / 4.0);
+	statsText->createText(std::to_string(Stats::baseHealth_yellow()) + " nest health lost", yellowColor, 1 / 4.0);
 	statsText->createText(std::to_string(Stats::otherTeamMinionsKilled_yellow()) + " minions killed", yellowColor, 1 / 4.0);
 	statsText->createText(std::to_string(Stats::otherTeamPlayersKilled_yellow()) + " enemies killed", yellowColor, 1 / 4.0);
 	statsText->createText(std::to_string(Stats::feathersFired_yellow()) + " feathers thrown", yellowColor, 1 / 4.0);
@@ -105,7 +106,7 @@ void GameOver::createStatsText(){
 	// reset the offset
 	statsText->resetOffset();
 	// purple team
-	statsText->createText(std::to_string(Stats::baseHealthLost_purple()) + " nest health lost", purpleColor, 3 / 4.0);
+	statsText->createText(std::to_string(Stats::baseHealth_purple()) + " nest health lost", purpleColor, 3 / 4.0);
 	statsText->createText(std::to_string(Stats::otherTeamMinionsKilled_purple()) + " minions killed", purpleColor, 3 / 4.0);
 	statsText->createText(std::to_string(Stats::otherTeamPlayersKilled_purple()) + " enemies killed", purpleColor, 3 / 4.0);
 	statsText->createText(std::to_string(Stats::feathersFired_purple()) + " feathers thrown", purpleColor, 3 / 4.0);

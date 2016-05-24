@@ -28,8 +28,8 @@ void Stats::playerDied(uint64_t PID, int& kills, int& deaths){
 
 void Stats::resetStats(){
 	// Base health
-	purple.baseHealthLost = 0;
-	yellow.baseHealthLost = 0;
+	purple.baseHealth = 0;
+	yellow.baseHealth = 0;
 	// Minion killed
 	purple.otherTeamMinionsKilled = 0;
 	yellow.otherTeamMinionsKilled = 0;
