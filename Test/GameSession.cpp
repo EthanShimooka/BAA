@@ -57,12 +57,12 @@ void GameSession::LoadWorld(){
 	// Fans should have an ID between 201-300
 	uint64_t fanID = 201;
 
-
-	for (int i = 0; i < 6; i++){
-		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
-		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
-		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 414), (SCREEN_HEIGHT / 3.35f), 1));//bot
-		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 414), -(SCREEN_HEIGHT / 3.35f), 2));
+	//PLATFORMS
+	for (int i = 0; i < 14; i++){
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 149), (SCREEN_HEIGHT / 3.35f), 1));//bot
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(i * 149), -(SCREEN_HEIGHT / 3.35f), 2));
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 149), (SCREEN_HEIGHT / 3.35f), 1));//bot
+		GameObjects.AddObject(plFactory.Spawn(platformID++, (float)(-i * 149), -(SCREEN_HEIGHT / 3.35f), 2));
 	}
 	
 	GameObjects.AddObject(mpFactory.Spawn(WallID++, (float)(-1800), 0, 0));
@@ -344,6 +344,19 @@ int GameSession::Run(){
 	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
 	fpsHUD->setPos(0, 0);
 
+
+	string leftBaseHealth = "";
+	SDLRenderObject * leftbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
+	leftbaseHUD->setPos(66, 700);
+
+	string rightBaseHealth = "";
+	SDLRenderObject * rightbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
+	rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
+	rightbaseHUD->setPos(1300, 700);
+
+
+
 	//HOW-TO: Invoke timers
 	Invoke* bruh; //put something like this in your header or whereever to store a reference
 	bruh = new Invoke(1.0f); //call new invoke to begin the timer, passing in a float corresponding to the number of seconds you want it to run.
@@ -556,9 +569,18 @@ int GameSession::Run(){
 			fps = CLOCKS_PER_SEC / delta_ticks;
 		//std::cout <<" FPS : " << fps << std::endl;
 		fpscounter = std::to_string(fps);
+		
+		//leftBase->health
+
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
-		//fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
+
+		leftBaseHealth = std::to_string(leftBase->health);
+		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 60, "BowlbyOneSC-Regular"));
+		rightBaseHealth = std::to_string(rightBase->health);
+		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 60, "BowlbyOneSC-Regular"));
+
 
 	}
 	/////////////////////////////////////////////////////
