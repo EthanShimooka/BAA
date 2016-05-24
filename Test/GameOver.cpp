@@ -8,7 +8,8 @@ GameOver::GameOver()
 	createButtons();
 	createText();
 	sceneMan->AssembleScene();
-	//renderMan->setBackground();
+	RenderManager::getRenderManager()->setBackground("Menu_bg.png");
+
 }
 
 GameOver::~GameOver()
