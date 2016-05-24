@@ -158,6 +158,8 @@ int LobbyMenu::checkButtons(){
 	}
 	if (selected != -1 && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 		ready = !ready;
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("readyupsfx.ogg");
 		playerReady(ready);
 		return BUTTON_READY;
 	}

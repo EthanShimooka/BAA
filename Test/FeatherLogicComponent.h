@@ -18,8 +18,12 @@ public:
 	void Update();
 	/// init Function
 	void init();
-	//Refactored method to increment the birds seed count
+	///Refactored method to increment the birds seed count
 	void giveBirdseed(int numSeeds);
+	/// Plays feather sound effect if feather is onscreen for local simulation
+	void playSound();
+	/// Indicates whether sfx for this object has already been played
+	bool soundPlayed = false;
 };
 
 #endif

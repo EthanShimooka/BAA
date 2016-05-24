@@ -126,6 +126,8 @@ void QuailClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, 
 
 int QuailClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
+		playAbilityUseSound();
+		Timing::sInstance.SetQuailAbilityTimer();
 		setTimer();
 		speed *= 3;
 		currBirdseed = 0;
@@ -133,6 +135,7 @@ int QuailClassComponent::useAbility(){
 	}
 	else{
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
 		return false;
 	}
 }

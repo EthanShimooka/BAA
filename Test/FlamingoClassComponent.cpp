@@ -148,6 +148,7 @@ void FlamingoClassComponent::writeNetAbility(uint64_t PID, float posX, float pos
 int FlamingoClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		MineObjectFactory mFactory;
+		playAbilityUseSound();
 		InputManager* input = InputManager::getInstance();
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		float targetX, targetY;
@@ -159,6 +160,7 @@ int FlamingoClassComponent::useAbility(){
 		return true;
 	}else{
 	//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
 		return false;
 	}
 }

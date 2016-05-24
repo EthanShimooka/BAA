@@ -59,6 +59,8 @@ public:
 	/// in order to update charge bar appropriately
 	void startCharge();
 	void endCharge();
+	/// Plays the sound to indicate feather cd not up or ability not ready
+	void playFailSound();
 	/// Returns the maximum birdseed for each individual class
 	int getMaxBirdseedByClass(int playerClass);
 	/// Shield Object Factory. Will need to be changed eventually
