@@ -20,6 +20,10 @@ public:
 	void checkTimer();
 	//Refactored method to increment the birds seed count
 	void giveBirdseed(int numSeeds);
+	/// Plays mine sound effect if mine is onscreen for local simulation
+	void playSound();
+	/// Indicates whether sfx for this object has already been played
+	bool soundPlayed = false;
 	/// This is a reference to the player that spawned it
 	GameObject* owner;
 	bool fuseLit = false;

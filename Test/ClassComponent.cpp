@@ -35,6 +35,10 @@ void ClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 	std::cout << "class read" << std::endl;
 }
 
+void ClassComponent::playAbilityUseSound(){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->playByName("abilityusesfx.ogg");
+}
 
 int ClassComponent::getClass(){
 	return 0;

@@ -49,6 +49,8 @@ public:
 	bool endTimer();
 
 	virtual int getClass();
+	/// Plays successful ability use sound
+	void playAbilityUseSound();
 
 	float speed;
 	float jumpSpeed;

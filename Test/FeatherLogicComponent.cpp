@@ -38,6 +38,7 @@ void FeatherLogicComponent::Update(){
 		}
 		GameObjects.dead_feathers.push_back(gameObjectRef);*/
 	}
+	if (!soundPlayed) playSound();
 }
 
 
@@ -51,4 +52,14 @@ void FeatherLogicComponent::giveBirdseed(int numSeeds) {
 		createAbsorbParticle(gameObjectRef, owner, classComp->currBirdseed, 0, 0);
 	}
 	else classComp->currBirdseed = classComp->maxsBirdseed;
+}
+
+void FeatherLogicComponent::playSound(){
+	FeatherRenderComponent* rendComp = dynamic_cast<FeatherRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	if (!soundPlayed && renderMan->isObjOnScreen(rendComp->objRef)){
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("feathersfx.ogg");
+		soundPlayed = true;
+	}
 }
