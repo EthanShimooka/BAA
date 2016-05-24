@@ -109,7 +109,7 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	//SystemUIObjectQueue queue;
 	UIObjectFactory HUDFactory;
 
-	renderMan->setBackground("Muscle-Beach-Background__0007_sky-gradient.png");
+	renderMan->setBackground("Space-Muscle-Beach__0011_Sky.png");
 
 	std::vector<UIObject*> UIObjs;
 
@@ -290,14 +290,54 @@ int GameSession::Run(){
 
 	
 	//Planets
-	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(10);
+	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(20);
 	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f))->setScale(200);
 	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, -80000.0f, 40000.0f, 4000.0f))->setScale(200);
 
+	//Clouds
+	auto cloudB1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, 25000.0f, 4000.1f);
+	cloudB1->setScale(300);
+	auto cloudT1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, -25000.0f, 4000.1f);
+	cloudT1->setScale(300);
+	cloudT1->setRotation(180);
+	auto cloudB2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, 1400.0f, 300.0f);
+	cloudB2->setScale(25);
+	auto cloudT2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, -1400.0f, 300.0f);
+	cloudT2->setScale(25);
+	cloudT2->setRotation(180);
+
+	//Boids
+	auto boidB1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, 3250.0f, 2200.0f, 99.9f);
+	boidB1->setScale(3);
+	auto boidB2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, 1200.0f, 2000.0f, 99.9f);
+	boidB2->setScale(3);
+	boidB2->setFlippedH(true);
+	auto boidB3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, -1500.0f, 2100.0f, 99.9f);
+	boidB3->setScale(3);
+	boidB3->setFlippedH(true);
+	auto boidB4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, -3400.0f, 2200.0f, 99.9f);
+	boidB4->setScale(3);
+
+	auto boidT1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, -3250.0f, -2200.0f, 99.9f);
+	boidT1->setScale(3);
+	boidT1->setFlippedV(true);
+	auto boidT2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, -1200.0f, -2000.0f, 99.9f);
+	boidT2->setScale(3);
+	boidT2->setFlippedH(true);
+	boidT2->setFlippedV(true);
+	auto boidT3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, 1500.0f, -2100.0f, 99.9f);
+	boidT3->setScale(3);
+	boidT3->setFlippedH(true);
+	boidT3->setFlippedV(true);
+	auto boidT4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, 3400.0f, -2200.0f, 99.9f);
+	boidT4->setScale(3);
+	boidT4->setFlippedV(true);
+	//cloudT2->setRotation(180);
+
 	//Beaches
 
-	auto beach1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, 2000.0f, 100.0f);
-	auto beach2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, -2000.0f, 100.0f);
+	auto beach1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, 2200.0f, 100.0f);
+	auto beach2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, -2200.0f, 100.0f);
 	auto surf1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
 	auto surf2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
 	beach1->setScale(6);
