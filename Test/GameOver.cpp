@@ -19,6 +19,7 @@ GameOver::~GameOver()
 }
 
 int GameOver::runScene(){
+	RenderManager::getRenderManager()->toggleCursor(true);
 	int buttonPressed = -2;
 	while (true){
 		buttonPressed = checkButtons();
