@@ -81,9 +81,14 @@
 
 <resource UID="2101" type="graphic" filename="Background_Beach.png" scenescope="0"></resource>
 <resource UID="2102" type="graphic" filename="Background_Surf.png" scenescope="0"></resource>
-<resource UID="2103" type="graphic" filename="Background_Blue.png" scenescope="0"></resource>
-<resource UID="2104" type="graphic" filename="Background_Orange.png" scenescope="0"></resource>
-<resource UID="2105" type="graphic" filename="Background_Red.png" scenescope="0"></resource>
+<resource UID="2103" type="graphic" filename="Space-Muscle-Beach__0009_Large-Blue-Planet.png" scenescope="0"></resource>
+<resource UID="2104" type="graphic" filename="Space-Muscle-Beach__0008_Small-Brown-Planet.png" scenescope="0"></resource>
+<resource UID="2105" type="graphic" filename="Space-Muscle-Beach__0007_Medium-Red-Planet.png" scenescope="0"></resource>
+<resource UID="2106" type="graphic" filename="Space-Muscle-Beach__0010_Clouds-Back.png" scenescope="0"></resource>
+<resource UID="2107" type="graphic" filename="Space-Muscle-Beach__0006_Clouds-Front.png" scenescope="0"></resource>
+<resource UID="2108" type="graphic" filename="Space-Muscle-Beach__0000_Owl.png" scenescope="0"></resource>
+<resource UID="2109" type="graphic" filename="Space-Muscle-Beach__0001_Eagle.png" scenescope="0"></resource>
+
 
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>
