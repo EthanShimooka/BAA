@@ -82,7 +82,7 @@ void ChargeParticle::Update(){
 			//iter->sprite->setIfRenderImage(false);
 			delete iter->animations;
 			SceneManager* sceneMan = SceneManager::GetSceneManager();
-			sceneMan->RemoveObject(iter->sprite, sceneMan->findLayer("layer2"));
+			sceneMan->RemoveObject(iter->sprite);
 			auto toErase = iter;
 			iter++;
 			particles.erase(toErase);

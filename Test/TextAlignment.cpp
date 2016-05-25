@@ -14,7 +14,7 @@ TextAlignment::~TextAlignment()
 {
 	for (auto& iter : texts){
 		iter->setVisible(false);
-		sceneMan->RemoveObject(iter, sceneMan->findLayer(layer));
+		sceneMan->RemoveObject(iter);
 	}
 }
 
@@ -77,5 +77,5 @@ void TextAlignment::updateText(std::string text, int textNum, COLOR* color){
 
 void TextAlignment::removeText(int textNum){
 	texts[textNum]->setVisible(false);
-	sceneMan->RemoveObject(texts[textNum], sceneMan->findLayer(layer));
+	sceneMan->RemoveObject(texts[textNum]);
 }

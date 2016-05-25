@@ -288,7 +288,7 @@ void LobbyMenu::removePlayerCount(){
 	if (playersInLobby){
 		// this has to change later (removeObject doesn't work on text)
 		playersInLobby->setVisible(false);
-		sceneMan->RemoveObject(playersInLobby, sceneMan->findLayer("layer1"));
+		sceneMan->RemoveObject(playersInLobby);
 	}
 }
 
