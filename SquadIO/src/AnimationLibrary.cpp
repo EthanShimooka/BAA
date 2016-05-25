@@ -137,7 +137,7 @@ bool Animation::animate(float i){
 	}
 	return ((i>1.0) || (i<0.0));
 }
-void Animation::push(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease){
+void Animation::push(std::function<void(float)> trans, float start, float duration, std::function<float(float)> ease){
 	motion m = { trans, ease, start, duration };
 	motions.push_back(m);
 }

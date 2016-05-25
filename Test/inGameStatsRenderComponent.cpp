@@ -19,7 +19,7 @@ inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float sc
 
 inGameStatsRenderComponent::~inGameStatsRenderComponent()
 {
-	sceneMan->RemoveObject(objRef, sceneMan->findLayer(layer));
+	sceneMan->RemoveObject(objRef);
 }
 
 void inGameStatsRenderComponent::toggleOn(bool on){

@@ -118,8 +118,7 @@ int Start::waitForInput(){
 }
 
 void Start::removeButtons(){
-	SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(playButt->GetComponent(COMPONENT_RENDER))->objRef, 
-													SceneManager::GetSceneManager()->findLayer("layer1"));
+	SceneManager::GetSceneManager()->RemoveObject(dynamic_cast<ButtonRenderComponent*>(playButt->GetComponent(COMPONENT_RENDER))->objRef);
 	GameObjects.DeleteObjects();
 	SceneManager::GetSceneManager()->AssembleScene();
 }

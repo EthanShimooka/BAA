@@ -391,15 +391,14 @@ SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, flo
 	return object;
 }
 
-void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
-	auto name = object->getLayer();
-	layer = findLayer(object->getLayer());
+void SceneManager::RemoveObject(SDLRenderObject* object) {
+	std::string name = object->getLayer();
+	Layer * layer = findLayer(object->getLayer());
 	if (!layer || !object)
 		return;
 	//for (std::list<SDLRenderObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
 		//if (obj_it == &object) {
 	std::list<SDLRenderObject*>::iterator findIter;
-	std::list<SDLRenderObject*> list;
 	if (object->isWindowObj){
 		findIter = std::find(layer->m_WindowObjects.begin(), layer->m_WindowObjects.end(), object);
 		if (findIter == layer->m_WindowObjects.end()) return;
