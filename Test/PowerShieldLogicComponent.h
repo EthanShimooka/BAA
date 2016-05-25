@@ -29,7 +29,8 @@ public:
 	void spawnShield(int xpos, int ypos);
 
 	void spawnShield(uint64_t ID, float initialX, float initialY, int destX, int destY);
-
+	/// Plays the shield collision sfx
+	void playShieldCollisionSFX();
 	/// PowerShieldObjectFactory fFactory;
 	/// uint64_t featherNum = 0;
 

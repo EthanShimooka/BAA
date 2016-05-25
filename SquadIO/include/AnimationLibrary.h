@@ -55,7 +55,7 @@ public:
 	unsigned int duration;
 	SQUADIO_API float lengthConversion(int progress);
 	SQUADIO_API bool animate(float i);
-	SQUADIO_API void push(std::function<void(float)> trans, int start, int duration, std::function<float(float)> ease = ease_linear);
+	SQUADIO_API void push(std::function<void(float)> trans, float start, float duration, std::function<float(float)> ease = ease_linear);
 };
 
 #endif

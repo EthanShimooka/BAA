@@ -17,7 +17,7 @@ TutorialRenderComponent::TutorialRenderComponent(GameObject* tutorial, int _imag
 
 TutorialRenderComponent::~TutorialRenderComponent()
 {
-	sceneMan->RemoveObject(objRef, sceneMan->findLayer(layer));
+	sceneMan->RemoveObject(objRef);
 }
 
 void TutorialRenderComponent::toggleImage(bool on){

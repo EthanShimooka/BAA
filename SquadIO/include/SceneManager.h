@@ -192,7 +192,8 @@ public:
 	/// Deletes object specified, must pass in the objects layer to properly remove.
 	SQUADIO_API void RemoveObject(SDLRenderObject* object, Layer* layer);
 	/// Deletes all objects
-	SQUADIO_API void RemoveAllObjects();
+	//SQUADIO_API void RemoveAllObjects();
+	SQUADIO_API void RemoveObject(SDLRenderObject* object);
 };//end class SceneManager
 
 /////////////////////////////////////////////////////////////////////////////////////////////
