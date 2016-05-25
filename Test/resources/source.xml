@@ -75,6 +75,8 @@
 <resource UID="2107" type="graphic" filename="Space-Muscle-Beach__0006_Clouds-Front.png" scenescope="0"></resource>
 <resource UID="2108" type="graphic" filename="Space-Muscle-Beach__0000_Owl.png" scenescope="0"></resource>
 <resource UID="2109" type="graphic" filename="Space-Muscle-Beach__0001_Eagle.png" scenescope="0"></resource>
+<resource UID="2110" type="graphic" filename="Space-Muscle-Beach__0005_Protein-Mountain-Left.png" scenescope="0"></resource>
+<resource UID="2111" type="graphic" filename="Space-Muscle-Beach__0003_Protein-Moutain-Right.png" scenescope="0"></resource>
 
 
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>

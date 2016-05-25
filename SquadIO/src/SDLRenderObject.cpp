@@ -20,6 +20,12 @@ SDLRenderObject::SDLRenderObject(){
 }
 //SDLRenderObject::~SDLRenderObject(){}
 
+SDLRenderObject::~SDLRenderObject(){
+	if (renderResource){
+		//renderResource->unload();
+		//delete renderResource;
+	}
+}
 
 void SDLRenderObject::setResourceObject(RenderResource *source){
 	if (source){
@@ -254,4 +260,11 @@ void SDLRenderObject::setFrames(unsigned int w, unsigned int h, unsigned int tot
 	frameWidth = (w>0) ? w : 1 ;
 	frameHeight = (h>0) ? h : 1;
 	frameTotal = (frameTotal > frameWidth*frameHeight || frameTotal >= 0) ? frameWidth*frameHeight : totalFrames;
+}
+
+void SDLRenderObject::setLayer(std::string layer){
+	this->layer = layer;
+}
+std::string SDLRenderObject::getLayer(){
+	return layer;
 }
