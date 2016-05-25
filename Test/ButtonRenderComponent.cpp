@@ -20,7 +20,7 @@ ButtonRenderComponent::~ButtonRenderComponent()
 }
 
 void ButtonRenderComponent::Update(){
-
+	objRef->rotation = gameObjectRef->rotation;
 }
 
 void ButtonRenderComponent::changeSprite(int imageID){
