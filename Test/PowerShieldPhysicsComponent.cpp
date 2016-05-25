@@ -48,6 +48,8 @@ void PowerShieldPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:
 		//std::cout << "COLLISION BETWEEN SHIELD AND FEATHER" << std::endl;
+		if (otherObj->team != gameObjectRef->team)
+			dynamic_cast<PowerShieldLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playShieldCollisionSFX();
 		break;
 	default:
 		break;
