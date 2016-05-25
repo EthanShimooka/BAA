@@ -59,7 +59,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
 			featherLogicComp->giveBirdseed(3);
-			logicComp->playDeathSFX(localClass);
+			logicComp->playDeathSFX(localClass, gameObjectRef->ID);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
 		}
@@ -91,7 +91,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 											   int localClass = classComp->getClass();
 											   mineLogicComp->giveBirdseed(3);
-											   logicComp->playDeathSFX(localClass);
+											   logicComp->playDeathSFX(localClass, gameObjectRef->ID);
 											   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 											   networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
 										   }

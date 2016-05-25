@@ -5,7 +5,6 @@
 <resource UID="9991" type="graphic" filename="playerplatform.png" scenescope="0"></resource>
 <resource UID="1" type="graphic" filename="Duck.bmp" scenescope="0"></resource>
 <resource UID="20" type="graphic" filename="Feather.png" scenescope="0"></resource>
-<resource UID="21" type="graphic" filename="Arrow.png" scenescope="0"></resource>
 <resource UID="100101" type="graphic" filename="chicken_body.png" scenescope="0"></resource>
 <resource UID="100102" type="graphic" filename="chicken_arm_right_sp.png" scenescope="0" height="2" width="1" max="2"></resource>
 <resource UID="100103" type="graphic" filename="chicken_arm_left.png" scenescope="0"></resource>
@@ -14,9 +13,6 @@
 <resource UID="101001" type="graphic" filename="Platform1.png" scenescope="0"></resource>
 <resource UID="101003" type="graphic" filename="Platform2.png" scenescope="0"></resource>
 <resource UID="101004" type="graphic" filename="fountainS.png" scenescope="0" height="2" width="8" max="16"></resource>
-<resource UID="3" type="text" filename="text.txt" scenescope="0"></resource>
-<resource UID="4" type="audio" filename="meow.ogg" scenescope="2"></resource>
-<resource UID="5" type="audio" filename="bear.wav" scenescope="0"></resource>
 <resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
 <resource UID="24" type="graphic" filename="join.png" scenescope="0"></resource>
 <resource UID="22" type="graphic" filename="cancel.png" scenescope="0"></resource>
@@ -130,6 +126,7 @@
 <resource UID="6018" type="audio" filename="readyupsfx.ogg" scenescope="0"></resource>
 <resource UID="6019" type="audio" filename="minesfx.ogg" scenescope="0"></resource>
 <resource UID="6020" type="audio" filename="abilityfailsfx.ogg" scenescope="0"></resource>
+<resource UID="6021" type="audio" filename="chickenshieldsfx.ogg" scenescope="0"></resource>
 <resource UID="6009" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
