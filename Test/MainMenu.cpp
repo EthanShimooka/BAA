@@ -49,6 +49,13 @@ void MainMenu::createButtons(){
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(1 / 2.0)), (int)(h*(55 / 100.0)));
 	quitButt = bFactory.Spawn(3522, x, y, 22, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(quitButt);
+
+	//configure buttons to work with controller
+	ButtonLogicComponent* playLogic = dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC));
+	playLogic->setNavButtons(NULL, quitButt, NULL, NULL);
+	playLogic->selected = true;
+	ButtonLogicComponent* quitLogic = dynamic_cast<ButtonLogicComponent*>(quitButt->GetComponent(COMPONENT_LOGIC));
+	quitLogic->setNavButtons(playButt, NULL, NULL, NULL);
 }
 
 int MainMenu::checkButtons(){

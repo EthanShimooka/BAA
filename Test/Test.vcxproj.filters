@@ -145,11 +145,11 @@
     <Filter Include="Source Files\Component\Boomerang Component">
       <UniqueIdentifier>{e688c01d-41a4-4e83-b40f-2c7e067b5cb6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Button">
-      <UniqueIdentifier>{d128a0a4-9d8b-41d6-ba07-e5112273c5bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Button">
       <UniqueIdentifier>{36f501cd-a269-46d5-8975-397b900899ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Button Component">
+      <UniqueIdentifier>{d128a0a4-9d8b-41d6-ba07-e5112273c5bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -909,10 +909,10 @@
       <Filter>Source Files\Component\Player Component</Filter>
     </ClCompile>
     <ClCompile Include="ButtonLogicComponent.cpp">
-      <Filter>Source Files\Button</Filter>
+      <Filter>Source Files\Component\Button Component</Filter>
     </ClCompile>
     <ClCompile Include="ButtonRenderComponent.cpp">
-      <Filter>Source Files\Button</Filter>
+      <Filter>Source Files\Component\Button Component</Filter>
     </ClCompile>
     <ClCompile Include="ButtonObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>

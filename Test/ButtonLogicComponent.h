@@ -1,8 +1,23 @@
 #pragma once
 
+#ifndef BUTTONLOGICCOMPONENT_H_INCLUDED
+#define BUTTONLOGICCOMPONENT_H_INCLUDED
+
 #include "LogicComponent.h"
 #include "ButtonObjectFactory.h"
 #include "include\network\NetIncludes.h"
+
+
+/// This struct contains a list of neighboring pointers to which buttons 
+/// can be navigated across using a controller.
+class ButtonLogicComponent;
+
+struct UINavMap{
+	ButtonLogicComponent* up;
+	ButtonLogicComponent* down;
+	ButtonLogicComponent* left;
+	ButtonLogicComponent* right;
+};
 
 class ButtonLogicComponent :
 	public LogicComponent
@@ -19,5 +34,10 @@ public:
 	void setSound(std::string _sound);
 
 	InputManager* input;
+
+	UINavMap navMap;
+	bool selected = false;
+	void setNavButtons(GameObject* _up, GameObject* _down, GameObject* _left, GameObject* _right);
 };
 
+#endif

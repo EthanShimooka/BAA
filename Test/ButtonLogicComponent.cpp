@@ -16,9 +16,6 @@ ButtonLogicComponent::~ButtonLogicComponent()
 {
 }
 
-void ButtonLogicComponent::Update(){
-
-}
 
 bool ButtonLogicComponent::isButtonPressed(){
 	if (input->isMouseLeftReleased()){
@@ -58,4 +55,19 @@ bool ButtonLogicComponent::isMouseHovering(){
 
 void ButtonLogicComponent::setSound(std::string _sound){
 	sound = _sound;
+}
+
+void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, GameObject* _left, GameObject* _right){
+	//Must passing in a GameObjects refering to other buttons
+	navMap.up = dynamic_cast<ButtonLogicComponent*>(_up->GetComponent(COMPONENT_LOGIC));
+	navMap.down = dynamic_cast<ButtonLogicComponent*>(_down->GetComponent(COMPONENT_LOGIC));
+	navMap.left = dynamic_cast<ButtonLogicComponent*>(_left->GetComponent(COMPONENT_LOGIC));
+	navMap.right = dynamic_cast<ButtonLogicComponent*>(_right->GetComponent(COMPONENT_LOGIC));
+}
+
+void ButtonLogicComponent::Update(){
+	if (selected){
+		//this button is the one currently 'hovered' over by the controller
+		
+	}
 }
