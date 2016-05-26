@@ -181,7 +181,7 @@ int TurkeyClassComponent::useAbility(){
 		float destX, destY;
 		renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
 		currArmsSpawned++;
-		if (currArmsSpawned >= 3){
+		if (currArmsSpawned >= 2){
 			currBirdseed = 0;
 			currArmsSpawned = 0;
 			m_allObjs["ammoIcon1"]->visible = false;
