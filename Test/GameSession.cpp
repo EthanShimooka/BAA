@@ -235,6 +235,7 @@ int GameSession::Run(){
 	MidPlatObjectFactory mpFactory;
 
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
+
 	
 	//std::cout << NetworkManager::sInstance->GetLobbyId() << std::endl;
 	/*for (const auto& iter : NetworkManager::sInstance->lobbyInfoMap){
@@ -290,6 +291,9 @@ int GameSession::Run(){
 
 	//World Loading
 	GameSession::LoadWorld();
+
+
+
 	GameSession::LoadPlayers();
 	GameSession::LoadHUD(player, queue);
 
@@ -367,6 +371,9 @@ int GameSession::Run(){
 	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0.5, 1.0));
 	Animation * surf = new Animation(100, surfMotions);
 
+
+
+
 	//crosshair variables
 	SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, -1000, -1000, -0.05f);
 	SDLRenderObject * crosshairCharging = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1111, -1000, -1000, -0.05f);
@@ -421,6 +428,7 @@ int GameSession::Run(){
 		renderMan->flippedScreen = true;
 	}
 	//////////////////////////////////////////////////
+
 
 	bool gameEnd = false;
 	inGameStatsRenderComponent inGameStats;

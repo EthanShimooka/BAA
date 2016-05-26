@@ -32,6 +32,7 @@ void MinionLogicComponent::MinionDeath(){
 	// start 1second timer, which destroys poof object when it runs out (set gameObjectRef->isAlive = false)
 	//GameObjects.AddObject(efFactory.Spawn(gameObjectRef->posX, gameObjectRef->posY, EFFECT_EXPLOSION));
 	createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
+
 	createDustCloudParticle(2, 150, 200, gameObjectRef->posX, gameObjectRef->posY);
 
 	gameObjectRef->setPos(-10000, 0);

@@ -2,6 +2,8 @@
 
 
 MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
+	
+	/*
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
@@ -26,8 +28,26 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	allObjs["leftArm"]->setParent(allObjs["body"]);
 	allObjs["rightArm"]->setParent(allObjs["body"]);
 	allObjs["body"]->setScale(allObjs["body"]->calcXScale(30));
-	
-	
+	*/
+
+	gameObjectRef = minion;
+	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 0, 0);
+	allObjs["base"] = objRef;
+	if (team == 1){
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
+		allObjs["body"]->setParent(allObjs["base"]);
+		allObjs["body"]->setScale(0.1f);
+
+	}
+	else{
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2031, 0, 0);
+		allObjs["body"]->setParent(allObjs["base"]);
+		allObjs["body"]->setScale(0.1f);
+
+	}
+
 }
 
 
