@@ -49,12 +49,12 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 		rend = new PlayerRenderComponent(player, PeacockClassComponent::animation);
 		break;
 	case CLASS_FLAMINGO:
-		classComp = new FlamingoClassComponent(player);
 		rend = new PlayerRenderComponent(player, FlamingoClassComponent::animation);
+		classComp = new FlamingoClassComponent(player);
 		break;
 	case CLASS_TURKEY:
-		classComp = new TurkeyClassComponent(player);
 		rend = new PlayerRenderComponent(player, TurkeyClassComponent::animation);
+		classComp = new TurkeyClassComponent(player);
 		break;
 	case CLASS_QUAIL:
 		classComp = new QuailClassComponent(player);

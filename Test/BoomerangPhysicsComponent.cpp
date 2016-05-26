@@ -84,9 +84,6 @@ void BoomerangPhysicsComponent::Update(){
 		b2Vec2 currPos = mBody->GetPosition();
 		b2Vec2 movementVec = targetDest - currPos;
 		//check to see how close we are
-		if (movementVec.Length() < 1){
-			returning = true;
-		}
 		movementVec.Normalize();
 		movementVec *= (float32)moveSpeed;
 		mBody->SetLinearVelocity(movementVec);

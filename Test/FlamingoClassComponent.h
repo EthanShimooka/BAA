@@ -18,6 +18,10 @@ public:
 	void writeNetAbility(uint64_t PID, float posX, float posY, int team);
 	static void animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations);
 	int getClass();
+
+	int currMinesSpawned = 0;
+
+	std::unordered_map<std::string, SDLRenderObject*> m_allObjs;
 };
 
 #endif

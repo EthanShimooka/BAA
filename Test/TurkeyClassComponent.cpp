@@ -15,16 +15,21 @@ TurkeyClassComponent::TurkeyClassComponent(GameObject* player)
 	seedRequired = 8;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
+	m_allObjs = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->allObjs;
 }
 
 
-TurkeyClassComponent::~TurkeyClassComponent()
-{
+TurkeyClassComponent::~TurkeyClassComponent(){
 }
 
-void TurkeyClassComponent::Update()
-{
+void TurkeyClassComponent::Update(){
 	ClassComponent::Update();
+	if (currBirdseed == seedRequired){
+		m_allObjs["ammoIcon1"]->visible = true;
+		m_allObjs["ammoIcon2"]->visible = true;
+		if (currArmsSpawned >= 1)m_allObjs["ammoIcon1"]->visible = false;
+		if (currArmsSpawned >= 2)m_allObjs["ammoIcon2"]->visible = false;
+	}
 }
 
 void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)
@@ -41,8 +46,10 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3503, (float)(96 - bodyAX), (float)(128 - bodyAY));
 	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3501, (float)(81 - bodyAX), (float)(83 - bodyAY));
 
-	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
-
+	SDLRenderObject * ammoIcon1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(-20 - bodyAY));
+	SDLRenderObject * ammoIcon2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(40 - bodyAY));
+	ammoIcon1->visible = false;
+	ammoIcon2->visible = false;
 
 	//objRef->setAnchor(0.5, 0.5);
 	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
@@ -52,6 +59,8 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	legL->setAnchor(23 / double(legL->renderRect.w), 18 / double(legL->renderRect.h));
 	//armR->setCurrentFrame(1);
 	body->setParent(base);
+	ammoIcon1->setParent(body);
+	ammoIcon2->setParent(body);
 	armL->setParent(body);
 	armR->setParent(body);
 	legL->setParent(body);
@@ -69,7 +78,8 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	allObjs["legR"] = legR;
 	allObjs["armL"] = armL;
 	allObjs["armR"] = armR;
-
+	allObjs["ammoIcon1"] = ammoIcon1;
+	allObjs["ammoIcon2"] = ammoIcon2;
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	box->setIfRenderRect(true);
 	//box->setParent(base);
@@ -171,9 +181,15 @@ int TurkeyClassComponent::useAbility(){
 		//send it over the wire
 		float destX, destY;
 		renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
+		currArmsSpawned++;
+		if (currArmsSpawned >= 2){
+			currBirdseed = 0;
+			birdseedFullPlayed = false;
+			currArmsSpawned = 0;
+			m_allObjs["ammoIcon1"]->visible = false;
+			m_allObjs["ammoIcon2"]->visible = false;
+		}
 		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
-		currBirdseed = 0;
-		birdseedFullPlayed = false;
 		return true;
 	}
 	else{
