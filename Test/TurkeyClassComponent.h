@@ -19,6 +19,10 @@ public:
 
 	b2Vec2 turkeyArmsPos;
 	int armsMovementState=0;
+
+	int currArmsSpawned = 0;
+
+	std::unordered_map<std::string, SDLRenderObject*> m_allObjs;
 };
 
 #endif

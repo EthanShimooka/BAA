@@ -558,7 +558,7 @@
     <ClInclude Include="GameOver.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-	<ClInclude Include="EggImplosionParticle.h">
+    <ClInclude Include="EggImplosionParticle.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="LobbyMenu.h">
@@ -575,6 +575,9 @@
     </ClInclude>
     <ClInclude Include="TextAlignment.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangNetworkComponent.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -932,7 +935,7 @@
     <ClCompile Include="TutorialRenderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="EggImplosionParticle.cpp">
+    <ClCompile Include="EggImplosionParticle.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
     <ClCompile Include="TutorialObjectFactory.cpp">
@@ -943,6 +946,9 @@
     </ClCompile>
     <ClCompile Include="TextAlignment.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangNetworkComponent.cpp">
+      <Filter>Source Files\Component\Boomerang Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
