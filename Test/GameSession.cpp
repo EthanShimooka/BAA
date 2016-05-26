@@ -80,8 +80,10 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(leftBase);
 
 	//WELLS
-	GameObjects.AddObject(wellFactory.Spawn(wellID++, -1850, (SCREEN_HEIGHT / 5.8f), 0, TEAM_YELLOW));
-	GameObjects.AddObject(wellFactory.Spawn(wellID++, 1850, -(SCREEN_HEIGHT / 5.8f), 0, TEAM_PURPLE));
+	//GameObjects.AddObject(wellFactory.Spawn(wellID++, -1850, (SCREEN_HEIGHT / 5.8f), 0, TEAM_YELLOW));
+	//GameObjects.AddObject(wellFactory.Spawn(wellID++, 1850, -(SCREEN_HEIGHT / 5.8f), 0, TEAM_PURPLE));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, -1800, 0, 0, TEAM_YELLOW));
+	GameObjects.AddObject(wellFactory.Spawn(wellID++, 1800, 0, 0, TEAM_PURPLE));
 
 
 	//LAUNCHERS
@@ -335,6 +337,9 @@ int GameSession::Run(){
 	boidT4->setScale(3);
 	boidT4->setFlippedV(true);
 	//cloudT2->setRotation(180);
+
+	//Protein Mountain
+
 
 	//Beaches
 

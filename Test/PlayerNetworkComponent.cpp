@@ -99,7 +99,7 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	if(UIComp)UIComp->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
 	PlayerLogicComponent* deadPlayerLogic = dynamic_cast<PlayerLogicComponent*>(GameObjects.GetGameObject(deadPlayerID)->GetComponent(COMPONENT_LOGIC));
 	deadPlayerLogic->death = true;
-	logicComp->playDeathSFX(playerClass);
+	logicComp->playDeathSFX(playerClass, deadPlayerID);
 	logicComp->becomeEgg();
 }
 

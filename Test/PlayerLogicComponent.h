@@ -50,7 +50,7 @@ public:
 	/// turn the player back into a bird and re-init stuff
 
 	/// Triggers the appropriate death sfx
-	void playDeathSFX(int playerClass);
+	void playDeathSFX(int playerClass, uint64_t deadPlayerID);
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 

@@ -358,6 +358,8 @@ SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, f
 
 	object->setPos(x, y, z);
 	layer->m_SceneObjects.push_back(object);
+	object->setLayer(layer->m_Name);
+	object->isWindowObj = false;
 	return object;
 }
 
@@ -372,7 +374,8 @@ SDLRenderObject* SceneManager::InstantiateObject(Layer* layer, int resourceID, f
 	object->posY = y;
 
 	layer->m_WindowObjects.push_back(object);
-
+	object->setLayer(layer->m_Name);
+	object->isWindowObj = true;
 	return object;
 }
 
@@ -383,16 +386,33 @@ SDLRenderObject* SceneManager::InstantiateBlankObject(Layer* layer, float x, flo
 	object->setPos(x, y, z);
 	object->setRenderRect(w, h);
 	layer->m_SceneObjects.push_back(object);
+	object->setLayer(layer->m_Name);
+	object->isWindowObj = false;
 	return object;
 }
 
-void SceneManager::RemoveObject(SDLRenderObject* object, Layer* layer) {
+void SceneManager::RemoveObject(SDLRenderObject* object) {
+	std::string name = object->getLayer();
+	Layer * layer = findLayer(object->getLayer());
 	if (!layer || !object)
 		return;
 	//for (std::list<SDLRenderObject*>::iterator obj_it = layer->m_SceneObjects.begin(); obj_it != layer->m_SceneObjects.end(); obj_it++) {
 		//if (obj_it == &object) {
-	std::list<SDLRenderObject*>::iterator findIter = std::find(layer->m_SceneObjects.begin(), layer->m_SceneObjects.end(), object);
-	if (findIter == layer->m_SceneObjects.end()) return;
-	layer->m_SceneObjects.erase(findIter);//probably causes memleak, need to kill all the scene object values first?
+	std::list<SDLRenderObject*>::iterator findIter;
+	if (object->isWindowObj){
+		findIter = std::find(layer->m_WindowObjects.begin(), layer->m_WindowObjects.end(), object);
+		if (findIter == layer->m_WindowObjects.end()) return;
+		layer->m_WindowObjects.erase(findIter);
+	}
+	else{
+		findIter = std::find(layer->m_SceneObjects.begin(), layer->m_SceneObjects.end(), object);
+		if (findIter == layer->m_SceneObjects.end()) return;
+		layer->m_SceneObjects.erase(findIter);
+	}
+	//std::list<SDLRenderObject*>::iterator findIter = std::find(layer->m_SceneObjects.begin(), layer->m_SceneObjects.end(), object);
+	//if (findIter == layer->m_SceneObjects.end()) return;
+	//(*findIter)->
+	//layer->m_SceneObjects.erase(findIter);//probably causes memleak, need to kill all the scene object values first?
+	//layer->m_SceneObjects.erase(findIter);
 
 }
