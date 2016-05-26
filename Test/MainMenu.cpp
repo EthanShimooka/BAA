@@ -33,6 +33,7 @@ int MainMenu::runScene(){
 		}
 		sysRenderer.RenderUpdate(GameObjects.alive_objects);
 		sysLogic.LogicUpdate(GameObjects.alive_objects);
+		SceneManager::GetSceneManager()->AssembleScene();
 	}
 }
 
@@ -56,7 +57,7 @@ void MainMenu::createButtons(){
 	//configure buttons to work with controller
 	ButtonLogicComponent* playLogic = dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC));
 	playLogic->setNavButtons(NULL, quitButt, NULL, NULL);
-	playLogic->selected = true;
+	playLogic->selectButton();
 	ButtonLogicComponent* quitLogic = dynamic_cast<ButtonLogicComponent*>(quitButt->GetComponent(COMPONENT_LOGIC));
 	quitLogic->setNavButtons(playButt, NULL, NULL, NULL);
 }

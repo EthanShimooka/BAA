@@ -68,10 +68,14 @@ void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, Gam
 
 void ButtonLogicComponent::selectButton(){
 	selected = true;
+	//gameObjectRef->posY += 20;
+	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->changeSprite(27);
 }
 
 void ButtonLogicComponent::unselectButton(){
 	selected = false;
+	//gameObjectRef->posY -= 20;
+	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->setToDefault();
 }
 
 void ButtonLogicComponent::Update(){
@@ -86,15 +90,15 @@ void ButtonLogicComponent::Update(){
 		}
 		else if ((input->isKeyDown(KEY_DOWN) || controller->isDPadPressed(JOYSTICK_DPAD_DOWN)) && navMap.down){
 			this->unselectButton();
-			navMap.up->selectButton();
+			navMap.down->selectButton();
 		}
 		else if ((input->isKeyDown(KEY_LEFT) || controller->isDPadPressed(JOYSTICK_DPAD_LEFT)) && navMap.left){
 			this->unselectButton();
-			navMap.up->selectButton();
+			navMap.left->selectButton();
 		}
 		else if ((input->isKeyDown(KEY_RIGHT) || controller->isDPadPressed(JOYSTICK_DPAD_RIGHT)) && navMap.right){
 			this->unselectButton();
-			navMap.up->selectButton();
+			navMap.right->selectButton();
 		}
 	}
 	//if the button is currently selected, and the enter key

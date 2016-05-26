@@ -1,7 +1,7 @@
 #include "ButtonRenderComponent.h"
 
 
-ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID, float scale)
+ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID, float _scale)
 {
 	gameObjectRef = button;
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
@@ -10,23 +10,26 @@ ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID, fl
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), imageID, gameObjectRef->posX, gameObjectRef->posY);
 	defaultImage = imageID;
 	currentImage = imageID;
+	scale = _scale;
 	objRef->setScale(scale);
 }
 
 
-ButtonRenderComponent::~ButtonRenderComponent()
-{
+ButtonRenderComponent::~ButtonRenderComponent(){
 	sceneMan->RemoveObject(objRef);
 }
 
 void ButtonRenderComponent::Update(){
 	objRef->rotation = gameObjectRef->rotation;
+	objRef->posX = gameObjectRef->posX;
+	objRef->posY = gameObjectRef->posY;
 }
 
 void ButtonRenderComponent::changeSprite(int imageID){
 	sceneMan->RemoveObject(objRef);
 	AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer(layer), imageID, gameObjectRef->posX, gameObjectRef->posY));
 	currentImage = imageID;
+	objRef->setScale(scale);
 }
 
 void ButtonRenderComponent::setToDefault(){

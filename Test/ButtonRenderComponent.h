@@ -12,6 +12,7 @@ public:
 private:
 	int defaultImage;
 	int currentImage;
+	float scale;
 	std::string layer;
 	SceneManager* sceneMan;
 
