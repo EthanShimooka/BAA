@@ -85,19 +85,25 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		if(!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 		else body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
-
+		//if(!startedPlay) Play footsteps
+		//Set bool startedPlay = true
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
 		if (!renderMan->flippedScreen)body->SetLinearVelocity(b2Vec2(-playerSpeed, body->GetLinearVelocity().y));
 		else body->SetLinearVelocity(b2Vec2(playerSpeed, body->GetLinearVelocity().y));
 		logic->launchable = false;
-
+		//if(!startedPlay) Play footsteps
+		//Set bool startedPlay = true
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
 	}
 	else{
 		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 		logic->launchable = false;
-
+		//Stop play footsteps
+		//Set bool startedPlay = false;
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->stopFootstepSFX();
 	}
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {

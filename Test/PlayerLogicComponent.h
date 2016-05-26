@@ -51,6 +51,10 @@ public:
 
 	/// Triggers the appropriate death sfx
 	void playDeathSFX(int playerClass, uint64_t deadPlayerID);
+	/// Loops playing the footstep sfx
+	void playFootstepSFX();
+	/// Stops the footstep loop
+	void stopFootstepSFX();
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 
