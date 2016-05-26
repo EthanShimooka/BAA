@@ -51,6 +51,8 @@ public:
 	virtual int getClass();
 	/// Plays successful ability use sound
 	void playAbilityUseSound();
+	/// Plays the sound for when the birdseed meter first fills up
+	void birdseedFullPlayed();
 
 	float speed;
 	float jumpSpeed;
@@ -67,6 +69,7 @@ public:
 protected :
 	float timer = 0;
 	int timerLength;
+	bool birdseedFullPlayed;
 };
 
 #endif

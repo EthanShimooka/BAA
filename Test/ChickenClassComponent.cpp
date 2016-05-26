@@ -138,6 +138,7 @@ int ChickenClassComponent::useAbility(){
 		}
 		shieldIDs.push_back((*powerNum) - 1);
 		currBirdseed = 0;
+		birdseedFullPlayed = false;
 		return true;
 	}
 	else{
