@@ -20,6 +20,8 @@ public:
 	int getClass();
 
 	int currMinesSpawned = 0;
+
+	std::unordered_map<std::string, SDLRenderObject*> m_allObjs;
 };
 
 #endif
