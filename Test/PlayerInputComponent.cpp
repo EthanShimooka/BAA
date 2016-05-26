@@ -88,7 +88,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		//if(!footstepsPlaying) Play footsteps
 		//Set bool footstepsPlaying = true
 		//Need to check in-air collisions before we play sound
-		if (!physicsComp->inAir) dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
+		//if (!physicsComp->inAir) dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
 	}
 	//keyboard move left
 	else if (input->isKeyDown(KEY_A) || input->isKeyDown(KEY_LEFT)) {
@@ -97,14 +97,14 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		logic->launchable = false;
 		//if(!footstepsPlaying) Play footsteps
 		//Set bool footstepsPlaying = true
-		if (!physicsComp->inAir) dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
+		//if (!physicsComp->inAir) dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
 	}
 	else{
 		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 		logic->launchable = false;
 		//Stop play footsteps
 		//Set bool footstepsPlaying = false;
-		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->stopFootstepSFX();
+		//dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->stopFootstepSFX();
 	}
 	//keyboard jump
 	if (input->isKeyDown(KEY_SPACE)  && !physicsComp->inAir) {
