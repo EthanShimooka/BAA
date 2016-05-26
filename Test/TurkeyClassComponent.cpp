@@ -172,7 +172,7 @@ int TurkeyClassComponent::useAbility(){
 		renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
 		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
 		currBirdseed = 0;
-		//birdseedFullPlayed = false;
+		birdseedFullPlayed = false;
 		return true;
 	}
 	else{

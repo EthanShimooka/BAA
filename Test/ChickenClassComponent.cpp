@@ -23,6 +23,7 @@ ChickenClassComponent::~ChickenClassComponent()
 
 void ChickenClassComponent::Update()
 {
+	ClassComponent::Update();
 	if (invokeHelper && timer->isDone()){
 		timer->destroy();
 		activeShields--;
@@ -138,7 +139,7 @@ int ChickenClassComponent::useAbility(){
 		}
 		shieldIDs.push_back((*powerNum) - 1);
 		currBirdseed = 0;
-		//birdseedFullPlayed = false;
+		birdseedFullPlayed = false;
 		return true;
 	}
 	else{
