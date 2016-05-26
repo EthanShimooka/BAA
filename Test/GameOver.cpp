@@ -2,14 +2,14 @@
 
 GameOver::GameOver()
 {
+	RenderManager::getRenderManager()->setCameraPoint(0, 0);
+	RenderManager::getRenderManager()->setBackground("Menu_bg.png");
 	renderMan = RenderManager::getRenderManager();
 	sceneMan  = SceneManager::GetSceneManager();
 	statsText = new TextAlignment(.25);
 	createButtons();
 	createText();
 	sceneMan->AssembleScene();
-	RenderManager::getRenderManager()->setBackground("Menu_bg.png");
-
 }
 
 GameOver::~GameOver()

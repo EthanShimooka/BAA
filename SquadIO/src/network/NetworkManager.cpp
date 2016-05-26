@@ -874,3 +874,7 @@ void NetworkManager::HandleMinionPacket(InputMemoryBitStream& inInputStream, uin
 uint64_t NetworkManager::GetLobbyId(){
 	return mLobbyId;
 }
+
+void NetworkManager::clearLobbyInfoMap(){
+	lobbyInfoMap.clear();
+}
