@@ -6,6 +6,7 @@ MinionNetworkComponent::MinionNetworkComponent(GameObject* minion)
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	physComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	interval = 1000;
 }
 
 
@@ -82,15 +83,4 @@ void MinionNetworkComponent::SendMinionPos(){
 	posPacket->Write(vel.x);
 	posPacket->Write(vel.y);
 	outgoingPackets.push(posPacket);
-}
-
-
-bool MinionNetworkComponent::canSend(){
-	clock_t difference = clock() - packetInterval;
-	unsigned time = difference / (CLOCKS_PER_SEC / 1000);
-	if (time >= 2000){
-		packetInterval = clock();
-		return true;
-	}
-	return false;
 }

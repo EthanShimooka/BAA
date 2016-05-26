@@ -7,8 +7,10 @@ PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player){
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	physComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	interval = 50;
 }
 
 
@@ -31,14 +33,26 @@ void PlayerNetworkComponent::createFeatherPacket(uint64_t ID, int finalX, int fi
 }
 
 void PlayerNetworkComponent::createMovementPacket(){
-	OutputMemoryBitStream* outData = new OutputMemoryBitStream();
+	/*OutputMemoryBitStream* outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	outData->Write(gameObjectRef->ID);
 	outData->Write((int)CM_MOVE);
 	outData->Write(sequence++);
 	outData->Write(gameObjectRef->posX);
 	outData->Write(gameObjectRef->posY);
-	outgoingPackets.push(outData);
+	outgoingPackets.push(outData);*/
+	OutputMemoryBitStream* posPacket = new OutputMemoryBitStream();
+	posPacket->Write(NetworkManager::sInstance->kPosCC);
+	posPacket->Write(gameObjectRef->ID);
+	posPacket->Write((int)CM_MOVE);
+	posPacket->Write(sequence++);
+	posPacket->Write(gameObjectRef->posX);
+	posPacket->Write(gameObjectRef->posY);
+	b2Vec2 vel = physComp->mBody->GetLinearVelocity();
+	//std::cout << vel.x << ", " << vel.y << std::endl;
+	posPacket->Write(vel.x);
+	posPacket->Write(vel.y);
+	outgoingPackets.push(posPacket);
 }
 
 void PlayerNetworkComponent::createDeathPacket(uint64_t shooter, int playerClass, uint64_t deadPlayerID){
@@ -54,7 +68,7 @@ void PlayerNetworkComponent::createDeathPacket(uint64_t shooter, int playerClass
 }
 
 void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket){
-	uint32_t seq;
+	/*uint32_t seq;
 	mPacket.Read(seq);
 	if (sequence < seq){
 		float x;
@@ -69,6 +83,19 @@ void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket)
 		}
 		gameObjectRef->posX = x;
 		mPacket.Read(gameObjectRef->posY);
+		sequence = seq;
+	}*/
+	float x, y, velX, velY;
+	uint32_t seq;
+	mPacket.Read(seq);
+	if (sequence < seq){
+		mPacket.Read(x);
+		mPacket.Read(y);
+		mPacket.Read(velX);
+		mPacket.Read(velY);
+		gameObjectRef->setPos(x, y);
+		physComp->mBody->SetTransform(b2Vec2(x / worldScale, y / worldScale), 0);
+		physComp->mBody->SetLinearVelocity(b2Vec2(velX, velY));
 		sequence = seq;
 	}
 }
@@ -141,7 +168,7 @@ void PlayerNetworkComponent::Update(){
 	}
 
 	// creating a movement packet
-	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId()){
+	if (gameObjectRef->ID == NetworkManager::sInstance->GetMyPlayerId() && canSend()){
 		createMovementPacket();
 	}
 

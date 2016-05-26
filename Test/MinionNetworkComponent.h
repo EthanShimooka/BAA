@@ -33,8 +33,8 @@ public:
 
 	MinionPhysicsComponent *physComp;
 
-	clock_t			packetInterval;
-	bool			canSend();
+	/*clock_t			packetInterval;
+	bool			canSend();*/
 };
 
 #endif
