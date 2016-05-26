@@ -24,6 +24,10 @@ GameSession::GameSession(){
 // Destructor
 
 GameSession::~GameSession(){
+	GameObjects.DeleteObjects(); 
+	std::cout << "layer1: " << SceneManager::GetSceneManager()->findLayer("layer1")->m_SceneObjects.size() << std::endl;
+	std::cout << "layer2: " << SceneManager::GetSceneManager()->findLayer("layer2")->m_SceneObjects.size() << std::endl;
+	SceneManager::GetSceneManager()->RemoveAllObjects();
 }
 
 //variables used to keep track of bases and for camera shaking

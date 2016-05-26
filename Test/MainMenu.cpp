@@ -3,6 +3,7 @@
 
 MainMenu::MainMenu()
 {
+	RenderManager::getRenderManager()->setCameraPoint(0, 0);
 	RenderManager::getRenderManager()->zoom = 0.5;
 	ResourceManager::GetResourceManager()->setCurrentScope(0);
 	RenderManager::getRenderManager()->setBackground("Menu_bg.png");
@@ -35,6 +36,7 @@ int MainMenu::runScene(){
 void MainMenu::createButtons(){
 	int w, h;
 	RenderManager::getRenderManager()->getWindowSize(&w, &h);
+
 	
 	// play button
 	playButt = bFactory.Spawn(3521, 200.0f, 90.0f, 19);
