@@ -28,6 +28,8 @@ public:
 	PlayerNetworkComponent(GameObject* player);
 	/// Destructor
 	~PlayerNetworkComponent();
+	/// set component pointers
+	void setPointersToComps();
 	/// Update
 	void Update();
 

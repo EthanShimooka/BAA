@@ -5,12 +5,7 @@
 PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
-	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
-	physComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
-	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
-	interval = 50;
+	interval = 10;
 }
 
 
@@ -179,4 +174,12 @@ void PlayerNetworkComponent::Update(){
 		outgoingPackets.pop();
 		delete outData;
 	}
+}
+
+void PlayerNetworkComponent::setPointersToComps(){
+	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	physComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 }

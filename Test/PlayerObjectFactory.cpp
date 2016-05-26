@@ -80,5 +80,7 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 
 	}
 
+	net->setPointersToComps();
+
 	return player;
 }
