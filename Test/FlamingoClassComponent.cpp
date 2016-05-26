@@ -24,6 +24,7 @@ FlamingoClassComponent::~FlamingoClassComponent()
 
 void FlamingoClassComponent::Update()
 {
+	ClassComponent::Update();
 }
 
 void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)

@@ -18,6 +18,7 @@ PeacockClassComponent::~PeacockClassComponent()
 
 void PeacockClassComponent::Update()
 {
+	ClassComponent::Update();
 	if (invokeHelper && timer->isDone()){
 		timer->destroy();
 		activeFans--;

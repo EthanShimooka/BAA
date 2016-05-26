@@ -24,6 +24,7 @@ TurkeyClassComponent::~TurkeyClassComponent()
 
 void TurkeyClassComponent::Update()
 {
+	ClassComponent::Update();
 }
 
 void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)

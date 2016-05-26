@@ -24,6 +24,7 @@ QuailClassComponent::~QuailClassComponent()
 
 void QuailClassComponent::Update()
 {
+	ClassComponent::Update();
 	if (endTimer()) {
 		speed = 19;
 	}
