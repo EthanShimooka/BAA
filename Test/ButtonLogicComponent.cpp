@@ -69,13 +69,13 @@ void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, Gam
 void ButtonLogicComponent::selectButton(){
 	selected = true;
 	//gameObjectRef->posY += 20;
-	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->changeSprite(27);
+	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
 }
 
 void ButtonLogicComponent::unselectButton(){
 	selected = false;
 	//gameObjectRef->posY -= 20;
-	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->setToDefault();
+	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
 }
 
 void ButtonLogicComponent::Update(){

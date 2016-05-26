@@ -48,10 +48,10 @@ void ButtonRenderComponent::addSecondSprite(int imageID) {
 
 void ButtonRenderComponent::toggleSprites(){
 	// if we have two different sprites
-	if (defaultImage != currentImage){
+	//if (defaultImage != currentImage){
 		swap(defaultImage, currentImage);
 		changeSprite(defaultImage);
-	}
+	//}
 }
 
 void ButtonRenderComponent::toggleSprites(int num){
