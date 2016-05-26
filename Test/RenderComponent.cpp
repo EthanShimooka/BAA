@@ -18,6 +18,7 @@ RenderComponent::~RenderComponent()
 		allObjs.pop_back();
 	}
 	*/
+	//std::cout << "Abstract Render Component destructor" << std::endl;
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	for (auto& obj : allObjs){
 		if (obj.second != objRef)

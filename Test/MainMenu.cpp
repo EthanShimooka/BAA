@@ -7,6 +7,7 @@ MainMenu::MainMenu()
 	RenderManager::getRenderManager()->zoom = 0.5;
 	ResourceManager::GetResourceManager()->setCurrentScope(0);
 	RenderManager::getRenderManager()->setBackground("Menu_bg.png");
+	RenderManager::getRenderManager()->update();
 	createButtons();
 	SceneManager::GetSceneManager()->AssembleScene();
 }
@@ -35,13 +36,18 @@ int MainMenu::runScene(){
 
 void MainMenu::createButtons(){
 	int w, h;
-	RenderManager::getRenderManager()->getWindowSize(&w, &h);
-
+	float x, y;
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	renderMan->getWindowSize(&w, &h);
+	
 	
 	// play button
-	playButt = bFactory.Spawn(3521, 200.0f, 90.0f, 19);
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(1 / 2.0)), (int)(h*(45 / 100.0)));
+	playButt = bFactory.Spawn(3521, x, y, 19, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(playButt);
-	quitButt = bFactory.Spawn(3522, 200.0f, 150.0f, 22);
+	// quit button
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(1 / 2.0)), (int)(h*(55 / 100.0)));
+	quitButt = bFactory.Spawn(3522, x, y, 22, 75.0f, 75.0f, 0.75f);
 	GameObjects.AddObject(quitButt);
 }
 
