@@ -19,7 +19,8 @@ MainMenu::~MainMenu()
 
 int MainMenu::runScene(){
 	int buttonPressed = -2;
-
+	SystemRenderUpdater sysRenderer;
+	SystemLogicUpdater sysLogic;
 	while (true){
 		buttonPressed = checkButtons();
 		switch (buttonPressed){
@@ -30,6 +31,8 @@ int MainMenu::runScene(){
 			removeButtons();
 			return SCENE_END;
 		}
+		sysRenderer.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
 	}
 }
 

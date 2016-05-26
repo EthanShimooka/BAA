@@ -58,16 +58,51 @@ void ButtonLogicComponent::setSound(std::string _sound){
 }
 
 void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, GameObject* _left, GameObject* _right){
-	//Must passing in a GameObjects refering to other buttons
-	navMap.up = dynamic_cast<ButtonLogicComponent*>(_up->GetComponent(COMPONENT_LOGIC));
-	navMap.down = dynamic_cast<ButtonLogicComponent*>(_down->GetComponent(COMPONENT_LOGIC));
-	navMap.left = dynamic_cast<ButtonLogicComponent*>(_left->GetComponent(COMPONENT_LOGIC));
-	navMap.right = dynamic_cast<ButtonLogicComponent*>(_right->GetComponent(COMPONENT_LOGIC));
+	//Must passing in a GameObjects refering to other buttons. If there is now button in the specificed
+	//direction, assign it to NULL
+	navMap.up = _up ? dynamic_cast<ButtonLogicComponent*>(_up->GetComponent(COMPONENT_LOGIC)) : NULL;
+	navMap.down = _down ? dynamic_cast<ButtonLogicComponent*>(_down->GetComponent(COMPONENT_LOGIC)) : NULL;
+	navMap.left = _left ? dynamic_cast<ButtonLogicComponent*>(_left->GetComponent(COMPONENT_LOGIC)) : NULL;
+	navMap.right = _right ? dynamic_cast<ButtonLogicComponent*>(_right->GetComponent(COMPONENT_LOGIC)) : NULL;
+}
+
+void ButtonLogicComponent::selectButton(){
+	selected = true;
+}
+
+void ButtonLogicComponent::unselectButton(){
+	selected = false;
 }
 
 void ButtonLogicComponent::Update(){
+	Controller* controller = input->controller;
 	if (selected){
 		//this button is the one currently 'hovered' over by the controller
-		
+		//listen for d-pad and arrow input to navigate to next button
+		if ((input->isKeyDown(KEY_UP) || controller->isDPadPressed(JOYSTICK_DPAD_UP)) && navMap.up){
+			this->unselectButton();
+			navMap.up->selectButton();
+			//maybe something else needs to be updated here (and the other directions too)
+		}
+		else if ((input->isKeyDown(KEY_DOWN) || controller->isDPadPressed(JOYSTICK_DPAD_DOWN)) && navMap.down){
+			this->unselectButton();
+			navMap.up->selectButton();
+		}
+		else if ((input->isKeyDown(KEY_LEFT) || controller->isDPadPressed(JOYSTICK_DPAD_LEFT)) && navMap.left){
+			this->unselectButton();
+			navMap.up->selectButton();
+		}
+		else if ((input->isKeyDown(KEY_RIGHT) || controller->isDPadPressed(JOYSTICK_DPAD_RIGHT)) && navMap.right){
+			this->unselectButton();
+			navMap.up->selectButton();
+		}
+	}
+	//if the button is currently selected, and the enter key
+	//or A key on controller has been pressed, activate the button
+	if (selected){
+		if (controller->isJoystickPressed(JOYSTICK_A) || input->isKeyDown(KEY_RETURN)){
+			//activate the button here
+			std::cout << "activate the button here" << std::endl;
+		}
 	}
 }

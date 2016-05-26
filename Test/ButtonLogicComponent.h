@@ -38,6 +38,8 @@ public:
 	UINavMap navMap;
 	bool selected = false;
 	void setNavButtons(GameObject* _up, GameObject* _down, GameObject* _left, GameObject* _right);
+	void selectButton();
+	void unselectButton();
 };
 
 #endif
