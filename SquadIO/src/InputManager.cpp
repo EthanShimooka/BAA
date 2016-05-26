@@ -43,6 +43,8 @@ void InputManager::update() {
 	}
 	mouseLeftPressed = false;
 	mouseLeftReleased = false;
+	mouseRightPressed = false;
+	mouseRightReleased = false;
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	//	int index;
@@ -65,6 +67,7 @@ void InputManager::update() {
 				this->mouseUp[MOUSE_MIDDLE] = 0;
 			}
 			else if (ev.button.button == SDL_BUTTON_RIGHT) {
+				mouseRightPressed = true;
 				this->mouseDown[MOUSE_RIGHT] = 1;
 				this->mouseUp[MOUSE_RIGHT] = 0;
 			}
@@ -83,6 +86,7 @@ void InputManager::update() {
 				this->mouseDown[MOUSE_MIDDLE] = 0;
 			}
 			else if (ev.button.button == SDL_BUTTON_RIGHT) {
+				mouseRightReleased = true;
 				this->mouseUp[MOUSE_RIGHT] = 1;
 				this->mouseDown[MOUSE_RIGHT] = 0;
 			}
@@ -211,6 +215,14 @@ bool InputManager::isMouseLeftPressed(){
 
 bool InputManager::isMouseLeftReleased(){
 	return mouseLeftReleased;
+}
+
+bool InputManager::isMouseRightPressed(){
+	return mouseRightPressed;
+}
+
+bool InputManager::isMouseRightReleased(){
+	return mouseRightReleased;
 }
 
 double InputManager::getMousePressDuration(){

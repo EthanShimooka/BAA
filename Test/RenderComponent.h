@@ -40,7 +40,7 @@ public:
 	virtual ~RenderComponent();
 
 	/// Renderable Sprite pointer
-	SDLRenderObject* objRef;
+	SDLRenderObject* objRef = nullptr;
 	std::unordered_map<std::string,SDLRenderObject*> allObjs;
 	//hash <animation> animations;
 	GameObject* gameObjectRef;

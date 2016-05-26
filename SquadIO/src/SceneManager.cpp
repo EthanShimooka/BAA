@@ -416,3 +416,10 @@ void SceneManager::RemoveObject(SDLRenderObject* object) {
 	//layer->m_SceneObjects.erase(findIter);
 
 }
+
+void SceneManager::RemoveAllObjects(){
+	for (Layer* currLayer : m_Layers){
+		currLayer->m_SceneObjects.clear();
+		currLayer->m_WindowObjects.clear();
+	}
+}

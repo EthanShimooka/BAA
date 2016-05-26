@@ -1,13 +1,14 @@
 #include "LobbyMenu.h"
 
 LobbyMenu::LobbyMenu() : numPlayersReady(0){
+	NetworkManager::sInstance->clearLobbyInfoMap();
+	RenderManager::getRenderManager()->setCameraPoint(0, 0);
 	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	buttonID = 1;
 	tutorialID = 100;
 	ready = false;
 	selected = -1;
-
 	RenderManager::getRenderManager()->setBackground("Lobby_bg.png");
 
 	// number of players in lobby
@@ -38,7 +39,7 @@ int LobbyMenu::runScene(){
 
 		// back button is pressed
 		if (buttonPressed == BUTTON_BACK){
-			return SCENE_GAMEOVER;
+			return SCENE_MENU;
 		}
 
 		// try to start the game if everyone is ready

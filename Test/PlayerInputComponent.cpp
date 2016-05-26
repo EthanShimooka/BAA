@@ -145,7 +145,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 	
 	
 	//spawn shield, checks for full birdseed in logic component
-	if (input->isMouseDown(MOUSE_RIGHT) ) {
+	if (input->isMouseRightReleased() ) {
 		int powerUsed = classComp->useAbility();
 		//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
 		// PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));

@@ -24,6 +24,10 @@ GameSession::GameSession(){
 // Destructor
 
 GameSession::~GameSession(){
+	GameObjects.DeleteObjects(); 
+	std::cout << "layer1: " << SceneManager::GetSceneManager()->findLayer("layer1")->m_SceneObjects.size() << std::endl;
+	std::cout << "layer2: " << SceneManager::GetSceneManager()->findLayer("layer2")->m_SceneObjects.size() << std::endl;
+	SceneManager::GetSceneManager()->RemoveAllObjects();
 }
 
 //variables used to keep track of bases and for camera shaking
@@ -371,12 +375,17 @@ int GameSession::Run(){
 	PlayerRenderComponent* playerRend = dynamic_cast<PlayerRenderComponent*>(player->GetComponent(COMPONENT_RENDER));
 
 	//midway fountain
+	/*
 	SDLRenderObject * fount = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 101004, 40, 150, 0.005f);
 	fount->setScale(0.5f);
 	list<motion> motions;
 	motions.push_back(makeMotion(keyframeAnimate(fount, 0, 15), 0, 1));
 	Animation * runWater = new Animation(100, motions);
 	int aniCounter = 0;
+	*/
+
+	int aniCounter = 0;
+
 
 	bool firstTime = true;
 	Timing::sInstance.SetCountdownStart();
@@ -429,7 +438,7 @@ int GameSession::Run(){
 		}
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		runWater->animate(float(aniCounter) / 100);
+		//runWater->animate(float(aniCounter) / 100);
 		surf->animate(float(aniCounter) / 100);
 		aniCounter++;
 		aniCounter = aniCounter % 100;
