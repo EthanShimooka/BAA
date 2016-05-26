@@ -25,6 +25,7 @@ FlamingoClassComponent::~FlamingoClassComponent()
 }
 
 void FlamingoClassComponent::Update(){
+	ClassComponent::Update();
 	if (currBirdseed == seedRequired){
 		m_allObjs["ammoIcon1"]->visible = true;
 		m_allObjs["ammoIcon2"]->visible = true;
@@ -182,6 +183,7 @@ int FlamingoClassComponent::useAbility(){
 		currMinesSpawned++;
 		if (currMinesSpawned >= 3){
 			currBirdseed = 0;
+			birdseedFullPlayed = false;
 			currMinesSpawned = 0;
 			m_allObjs["ammoIcon1"]->visible = false;
 			m_allObjs["ammoIcon2"]->visible = false;

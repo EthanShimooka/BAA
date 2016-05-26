@@ -23,6 +23,7 @@ TurkeyClassComponent::~TurkeyClassComponent(){
 }
 
 void TurkeyClassComponent::Update(){
+	ClassComponent::Update();
 	if (currBirdseed == seedRequired){
 		m_allObjs["ammoIcon1"]->visible = true;
 		m_allObjs["ammoIcon2"]->visible = true;
@@ -183,6 +184,7 @@ int TurkeyClassComponent::useAbility(){
 		currArmsSpawned++;
 		if (currArmsSpawned >= 2){
 			currBirdseed = 0;
+			birdseedFullPlayed = false;
 			currArmsSpawned = 0;
 			m_allObjs["ammoIcon1"]->visible = false;
 			m_allObjs["ammoIcon2"]->visible = false;

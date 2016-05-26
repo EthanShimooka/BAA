@@ -139,7 +139,6 @@ void PlayerLogicComponent::playDeathSFX(int playerClass, uint64_t deadPlayerID){
 	RenderManager* renderMan = RenderManager::getRenderManager();
 	if (renderMan->isObjOnScreen(rendComp->objRef)){
 		AudioManager* audioMan = AudioManager::getAudioInstance();
-		std::cout << "I SHOULD SEE THIS!!!!!!!!!!" << std::endl;
 		switch (playerClass){
 		case CLASS_CHICKEN:
 			audioMan->playByName("chickensfx.ogg");
@@ -167,6 +166,16 @@ void PlayerLogicComponent::playDeathSFX(int playerClass, uint64_t deadPlayerID){
 void PlayerLogicComponent::playFailSound(){
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	audioMan->playByName("abilityfailsfx.ogg");
+}
+
+void PlayerLogicComponent::playFootstepSFX(){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->playByName("bgmfootstepsfx.ogg");
+}
+
+void PlayerLogicComponent::stopFootstepSFX(){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->stopByName("bgmfootstepsfx.ogg");
 }
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){
