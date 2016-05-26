@@ -4,6 +4,8 @@
 BoomerangLogicComponent::BoomerangLogicComponent(GameObject* boomerang){
 	gameObjectRef = boomerang;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this); 
+	flightClock = clock();
+	updateClock = clock();
 }
 
 

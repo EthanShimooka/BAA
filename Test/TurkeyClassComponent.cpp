@@ -45,8 +45,8 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3503, (float)(96 - bodyAX), (float)(128 - bodyAY));
 	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3501, (float)(81 - bodyAX), (float)(83 - bodyAY));
 
-	SDLRenderObject * ammoIcon1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(-30 - bodyAY));
-	SDLRenderObject * ammoIcon2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(0 - bodyAY));
+	SDLRenderObject * ammoIcon1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(-20 - bodyAY));
+	SDLRenderObject * ammoIcon2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(40 - bodyAY));
 	ammoIcon1->visible = false;
 	ammoIcon2->visible = false;
 
