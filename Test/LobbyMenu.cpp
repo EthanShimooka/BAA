@@ -30,7 +30,8 @@ LobbyMenu::~LobbyMenu(){
 
 int LobbyMenu::runScene(){
 	int buttonPressed = -2;
-
+	SystemRenderUpdater sysRenderer;
+	SystemLogicUpdater sysLogic;
 	while (true){
 		updateLobby();
 		buttonPressed = checkButtons();
@@ -51,6 +52,8 @@ int LobbyMenu::runScene(){
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 			return SCENE_GAME;
 		}
+		sysRenderer.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
 	}
 }
 
@@ -64,12 +67,24 @@ void LobbyMenu::createButtons(){
 	// ready button
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0)), (int)(h*(48 / 100.0)));
 	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f);
+	ButtonRenderComponent* readyRender = dynamic_cast<ButtonRenderComponent*>(readyButt->GetComponent(COMPONENT_RENDER));
+	readyRender->addSecondSprite(27);
+	
 	GameObjects.AddObject(readyButt);
 
 	// back button 
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0)), (int)(h*(90 / 100.0)));
 	backButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.75f);
+	ButtonRenderComponent*backRender = dynamic_cast<ButtonRenderComponent*>(backButt->GetComponent(COMPONENT_RENDER));
+	backRender->addSecondSprite(27);
 	GameObjects.AddObject(backButt);
+
+	//configure buttons for controller
+	ButtonLogicComponent* readyLogic = dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC));
+	readyLogic->setNavButtons(NULL, backButt, NULL, NULL);
+	readyLogic->selectButton();
+	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
+	backLogic->setNavButtons(readyButt, NULL, NULL, NULL);
 }
 
 void LobbyMenu::createClassButts(){
