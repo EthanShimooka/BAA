@@ -83,6 +83,7 @@ public:
 	bool colorKeyEnabled;
 	///  Constructor?
 	SQUADIO_API SDLRenderObject();
+	SQUADIO_API ~SDLRenderObject();
 	/// Set a resource object from a Render Resource onto a SDL surface 
 	SQUADIO_API void setResourceObject(RenderResource *source);
 	SQUADIO_API void replaceResourceObject(RenderResource *source);
@@ -190,7 +191,11 @@ public:
 	SQUADIO_API SDL_Rect getRenderRect();
 	/// Set the number of frames on framesheet
 	SQUADIO_API void setFrames(unsigned int w, unsigned int h, unsigned int totalFrames = 0);
-
+	bool isWindowObj = false;
+	/// Layer the object lies on
+	std::string layer;
+	SQUADIO_API void setLayer(std::string layer);
+	SQUADIO_API std::string getLayer();
 
 	/// Abstract update function to be overriden.
 	SQUADIO_API void setColorKey(unsigned int r, unsigned int g, unsigned int b);

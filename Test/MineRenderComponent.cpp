@@ -20,4 +20,5 @@ MineRenderComponent::~MineRenderComponent(){
 
 void MineRenderComponent::Update(){
 	RenderComponent::Update();
+	if (RenderManager::getRenderManager()->flippedScreen)objRef->rotation = 180;
 }

@@ -190,7 +190,7 @@ public:
 	/// Creates an object with no set image, and adds it to specified layer
 	SQUADIO_API SDLRenderObject* InstantiateBlankObject(Layer* layer, float x, float y, int w, int h, float z = 0.0);
 	/// Deletes object specified, must pass in the objects layer to properly remove.
-	SQUADIO_API void RemoveObject(SDLRenderObject* object, Layer* layer);
+	SQUADIO_API void RemoveObject(SDLRenderObject* object);
 };//end class SceneManager
 
 /////////////////////////////////////////////////////////////////////////////////////////////

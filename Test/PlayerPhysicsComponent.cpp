@@ -59,7 +59,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
 			featherLogicComp->giveBirdseed(3);
-			logicComp->playDeathSFX(localClass);
+			logicComp->playDeathSFX(localClass, gameObjectRef->ID);
 			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
 		}
@@ -91,11 +91,11 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 											   int localClass = classComp->getClass();
 											   mineLogicComp->giveBirdseed(3);
-											   logicComp->playDeathSFX(localClass);
+											   logicComp->playDeathSFX(localClass, gameObjectRef->ID);
 											   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 											   networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
 										   }
-										   GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+										   GameObject* killer = dynamic_cast<MineLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 										   if (killer->isLocal){
 
 											   dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
