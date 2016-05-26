@@ -47,7 +47,8 @@ void TurkeyClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs,
 
 	SDLRenderObject * ammoIcon1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(-30 - bodyAY));
 	SDLRenderObject * ammoIcon2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3502, (float)(-60 - bodyAX), (float)(0 - bodyAY));
-
+	ammoIcon1->visible = false;
+	ammoIcon2->visible = false;
 
 	//objRef->setAnchor(0.5, 0.5);
 	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
@@ -187,7 +188,6 @@ int TurkeyClassComponent::useAbility(){
 			m_allObjs["ammoIcon2"]->visible = false;
 		}
 		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
-		currBirdseed = 0;
 		return true;
 	}
 	else{
