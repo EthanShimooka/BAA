@@ -86,9 +86,9 @@ MidBaseRenderComponent::MidBaseRenderComponent(GameObject * base, int team)
 
 
 MidBaseRenderComponent::~MidBaseRenderComponent(){
-	for (auto i : animations){
+	/*for (auto i : animations){
 		delete i.second;
-	}
+	}*/
 }
 
 void MidBaseRenderComponent::Update(){
