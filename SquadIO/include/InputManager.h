@@ -60,6 +60,12 @@ public:
 	// if mouse was released this frame
 	SQUADIO_API bool isMouseLeftReleased();
 
+	// if mouse was pressed this frame
+	SQUADIO_API bool isMouseRightPressed();
+
+	// if mouse was released this frame
+	SQUADIO_API bool isMouseRightReleased();
+
 	// returns the duration of the last left mouse press in milliseconds
 	SQUADIO_API double getMousePressDuration();
 
@@ -94,6 +100,9 @@ private:
 
 	bool mouseLeftPressed;
 	bool mouseLeftReleased;
+
+	bool mouseRightPressed;
+	bool mouseRightReleased;
 
 	// keyboard input allowed or not
 	bool locked;

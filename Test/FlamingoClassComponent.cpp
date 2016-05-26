@@ -15,6 +15,8 @@ FlamingoClassComponent::FlamingoClassComponent(GameObject* player)
 	seedRequired = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
+	m_allObjs = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->allObjs;
+
 }
 
 
@@ -22,8 +24,15 @@ FlamingoClassComponent::~FlamingoClassComponent()
 {
 }
 
-void FlamingoClassComponent::Update()
-{
+void FlamingoClassComponent::Update(){
+	if (currBirdseed == seedRequired){
+		m_allObjs["ammoIcon1"]->visible = true;
+		m_allObjs["ammoIcon2"]->visible = true;
+		m_allObjs["ammoIcon3"]->visible = true;
+		if (currMinesSpawned >= 1)m_allObjs["ammoIcon1"]->visible = false;
+		if (currMinesSpawned >= 2)m_allObjs["ammoIcon2"]->visible = false;
+		if (currMinesSpawned >= 3)m_allObjs["ammoIcon3"]->visible = false;
+	}
 }
 
 void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations)
@@ -40,8 +49,17 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3203, (float)(43 - bodyAX), (float)(82 - bodyAY));
 	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3201, (float)(46 - bodyAX), (float)(54 - bodyAY));
 
-	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
+	//dealing with flamingo mine ammo count
+	SDLRenderObject * ammoIcon1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3200, (float)(-60 - bodyAX), (float)(-30 - bodyAY));
+	SDLRenderObject * ammoIcon2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3200, (float)(-60 - bodyAX), (float)(0 - bodyAY));
+	SDLRenderObject * ammoIcon3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3200, (float)(-60 - bodyAX), (float)(30 - bodyAY));
+	ammoIcon1->visible = false;
+	ammoIcon2->visible = false;
+	ammoIcon3->visible = false;
+	ammoIcon1->setScale(0.4);
+	ammoIcon2->setScale(0.4);
+	ammoIcon3->setScale(0.4);
 
 	//objRef->setAnchor(0.5, 0.5);
 	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));
@@ -51,6 +69,9 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	legL->setAnchor(6 / double(legL->renderRect.w), 5 / double(legL->renderRect.h));
 	//armR->setCurrentFrame(1);
 	body->setParent(base);
+	ammoIcon1->setParent(body);
+	ammoIcon2->setParent(body);
+	ammoIcon3->setParent(body);
 	armL->setParent(body);
 	armR->setParent(body);
 	legL->setParent(body);
@@ -68,6 +89,9 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	allObjs["legR"] = legR;
 	allObjs["armL"] = armL;
 	allObjs["armR"] = armR;
+	allObjs["ammoIcon1"] = ammoIcon1;
+	allObjs["ammoIcon2"] = ammoIcon2;
+	allObjs["ammoIcon3"] = ammoIcon3;
 
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	box->setIfRenderRect(true);
@@ -155,7 +179,14 @@ int FlamingoClassComponent::useAbility(){
 		renderMan->windowCoordToWorldCoord(targetX, targetY, input->getMouseX(), input->getMouseY());
 		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, targetX, targetY);
 		GameObjects.AddObject(mine);
-		currBirdseed = 0;
+		currMinesSpawned++;
+		if (currMinesSpawned >= 3){
+			currBirdseed = 0;
+			currMinesSpawned = 0;
+			m_allObjs["ammoIcon1"]->visible = false;
+			m_allObjs["ammoIcon2"]->visible = false;
+			m_allObjs["ammoIcon3"]->visible = false;
+		}
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);
 		return true;
 	}else{
