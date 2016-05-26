@@ -65,11 +65,11 @@ public:
 	int currBirdseed = 0;
 	int maxsBirdseed = 8;
 	uint64_t *powerNum;
+	//bool birdseedFullPlayed = false;
 
 protected :
 	float timer = 0;
 	int timerLength;
-	bool birdseedFullPlayed;
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 ClassComponent::ClassComponent()
 {
-	birdseedFullPlayed = false;
+	//birdseedFullPlayed = false;
 	speed = 16;
 	jumpSpeed = 16;
 	width = 1.33f;
@@ -22,12 +22,12 @@ ClassComponent::~ClassComponent()
 
 void ClassComponent::Update()
 {
-	if (currBirdseed == seedRequired && !birdseedFullPlayed) {
+	/*if (currBirdseed == seedRequired && !birdseedFullPlayed) {
 		AudioManager* audioMan = AudioManager::getAudioInstance();
 		audioMan->playByName("birdseedfullsfx.ogg");
 		birdseedFullPlayed = true;
 		//Possible need to call superclass's Update in each individual ClassComponent's Update
-	}
+	}*/
 }
 
 int ClassComponent::useAbility(){

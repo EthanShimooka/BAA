@@ -131,7 +131,7 @@ int QuailClassComponent::useAbility(){
 		setTimer();
 		speed *= 3;
 		currBirdseed = 0;
-		birdseedFullPlayed = false;
+		//birdseedFullPlayed = false;
 		return true;
 	}
 	else{

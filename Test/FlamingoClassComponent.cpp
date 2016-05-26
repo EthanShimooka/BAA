@@ -156,7 +156,7 @@ int FlamingoClassComponent::useAbility(){
 		GameObject* mine = mFactory.Spawn((*powerNum)++, gameObjectRef, targetX, targetY);
 		GameObjects.AddObject(mine);
 		currBirdseed = 0;
-		birdseedFullPlayed = false;
+		//birdseedFullPlayed = false;
 		writeNetAbility(gameObjectRef->ID, targetX, targetY, gameObjectRef->team);
 		return true;
 	}else{
