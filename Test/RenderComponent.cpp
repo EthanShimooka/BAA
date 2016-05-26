@@ -18,7 +18,17 @@ RenderComponent::~RenderComponent()
 		allObjs.pop_back();
 	}
 	*/
-	//std::cout << "Render COmponent destructor" << std::endl;
+	//std::cout << "Abstract Render Component destructor" << std::endl;
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	for (auto& obj : allObjs){
+		if (obj.second != objRef)
+			sceneMan->RemoveObject(obj.second);
+	}	
+	for (auto& i : animations){
+		delete i.second;
+	}
+	if (objRef)
+		sceneMan->RemoveObject(objRef);
 }
 
 /// Assign a Diffrent SDL render Object
@@ -33,7 +43,7 @@ void RenderComponent::AssignSprite(SDLRenderObject* rend){
 		//there is an SDLObject here that should be removed from the render/scene managers
 		std::cout << "AssignSprite(34): free old objRef here" << std::endl;
 		SceneManager* sceneMan = SceneManager::GetSceneManager();
-		sceneMan->RemoveObject(objRef, sceneMan->findLayer("layer2"));
+		sceneMan->RemoveObject(objRef);
 	}
 	objRef = rend;
 }

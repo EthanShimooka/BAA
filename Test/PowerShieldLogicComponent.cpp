@@ -27,3 +27,13 @@ void PowerShieldLogicComponent::spawnShield(uint64_t ID, float initialX, float i
 
 
 }
+
+void PowerShieldLogicComponent::playShieldCollisionSFX(){
+	//Need shield object
+	PowerShieldRenderComponent* rendComp = dynamic_cast<PowerShieldRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	if (renderMan->isObjOnScreen(rendComp->objRef)){
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("chickenshieldsfx.ogg");
+	}
+}

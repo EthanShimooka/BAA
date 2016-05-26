@@ -15,12 +15,12 @@ public:
 	typedef std::unordered_map<uint64_t, playerStats> mapStat;
 private:
 	struct teamStats{
-		int baseHealthLost;
+		int baseHealth;
 		int otherTeamMinionsKilled;
 		int otherTeamPlayersKilled;
 		int feathersFired;
 		int abilitiesUsed;
-		teamStats() : baseHealthLost(0), otherTeamMinionsKilled(0), 
+		teamStats() : baseHealth(0), otherTeamMinionsKilled(0), 
 			otherTeamPlayersKilled(0), feathersFired(0), abilitiesUsed(0) {}
 	};
 
@@ -35,8 +35,8 @@ public:
 
 	// Increments
 	// Base health
-	static void incBaseHealthLost_purple() { ++purple.baseHealthLost; }
-	static void incBaseHealthLost_yellow() { ++yellow.baseHealthLost; }
+	static void incBaseHealth_purple() { ++purple.baseHealth; }
+	static void incBaseHealth_yellow() { ++yellow.baseHealth; }
 	// Minion killed
 	static void incOtherTeamMinionsKilled_purple() { ++purple.otherTeamMinionsKilled; }
 	static void incOtherTeamMinionsKilled_yellow() { ++yellow.otherTeamMinionsKilled; }
@@ -59,8 +59,8 @@ public:
 
 	// Getter
 	// Base health
-	static int baseHealthLost_purple() { return purple.baseHealthLost; }
-	static int baseHealthLost_yellow() { return yellow.baseHealthLost; }
+	static int baseHealth_purple() { return purple.baseHealth; }
+	static int baseHealth_yellow() { return yellow.baseHealth; }
 	// Minion killed
 	static int otherTeamMinionsKilled_purple() { return purple.otherTeamMinionsKilled; }
 	static int otherTeamMinionsKilled_yellow() { return yellow.otherTeamMinionsKilled; }

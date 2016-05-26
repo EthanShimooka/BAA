@@ -1,5 +1,5 @@
 #include "MidBasePhysicsComponent.h"
-
+#include "Stats.h"
 
 MidBasePhysicsComponent::MidBasePhysicsComponent(GameObject * base)
 {
@@ -61,9 +61,15 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 // MidBaseLogicComponent* logicComponent = dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 											 // logicComponent->attacked();
 											 gameObjectRef->health++;
+
 											 std::cout << "Health = " << gameObjectRef->health << std::endl;
-											 //
-											 //		}
+
+											 if (gameObjectRef->team == TEAM_YELLOW){
+												 Stats::incBaseHealth_yellow();
+											 }
+											 else{
+												 Stats::incBaseHealth_purple();
+											 }
 
 											 break;
 	}

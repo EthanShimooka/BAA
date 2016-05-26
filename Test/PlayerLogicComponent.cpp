@@ -95,7 +95,7 @@ void PlayerLogicComponent::becomeEgg(){
 
 void PlayerLogicComponent::hatchBird(bool respawn){
 	if (isEgg){
-		if (respawn){
+		if (respawn && gameObjectRef->isLocal){
 			AudioManager* audioMan = AudioManager::getAudioInstance();
 			audioMan->playByName("roostersfx.ogg");
 		}
@@ -132,30 +132,41 @@ void PlayerLogicComponent::endCharge() {
 
 
 
-void PlayerLogicComponent::playDeathSFX(int playerClass){
-	AudioManager* audioMan = AudioManager::getAudioInstance();
-	switch (playerClass){
-	case CLASS_CHICKEN:
-		audioMan->playByName("chickensfx.ogg");
-		break;
-	case CLASS_PEACOCK:
-		audioMan->playByName("peacocksfx.ogg");
-		break;
-	case CLASS_FLAMINGO:
-		audioMan->playByName("flamingosfx.ogg");
-		break;
-	case CLASS_QUAIL:
-		audioMan->playByName("quailsfx.ogg");
-		break;
-	case CLASS_TURKEY:
-		audioMan->playByName("turkeysfx.ogg");
-		break;
-	case CLASS_EAGLE:
-		//Unimplemented
-		//audioMan->playByName("eaglesfx.ogg");
-		break;
+void PlayerLogicComponent::playDeathSFX(int playerClass, uint64_t deadPlayerID){
+	//Need to pass a reference to the GameObject* associated with player who was killed
+	GameObject* deadPlayer = GameObjects.GetGameObject(deadPlayerID);
+	PlayerRenderComponent* rendComp = dynamic_cast<PlayerRenderComponent*>(deadPlayer->GetComponent(COMPONENT_RENDER));
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	if (renderMan->isObjOnScreen(rendComp->objRef)){
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		std::cout << "I SHOULD SEE THIS!!!!!!!!!!" << std::endl;
+		switch (playerClass){
+		case CLASS_CHICKEN:
+			audioMan->playByName("chickensfx.ogg");
+			break;
+		case CLASS_PEACOCK:
+			audioMan->playByName("peacocksfx.ogg");
+			break;
+		case CLASS_FLAMINGO:
+			audioMan->playByName("flamingosfx.ogg");
+			break;
+		case CLASS_QUAIL:
+			audioMan->playByName("quailsfx.ogg");
+			break;
+		case CLASS_TURKEY:
+			audioMan->playByName("turkeysfx.ogg");
+			break;
+		case CLASS_EAGLE:
+			//Unimplemented
+			//audioMan->playByName("eaglesfx.ogg");
+			break;
+		}
 	}
-	
+}
+
+void PlayerLogicComponent::playFailSound(){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->playByName("abilityfailsfx.ogg");
 }
 
 int PlayerLogicComponent::getMaxBirdseedByClass(int playerClass){

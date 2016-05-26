@@ -1,13 +1,14 @@
 #include "LobbyMenu.h"
 
 LobbyMenu::LobbyMenu() : numPlayersReady(0){
+	NetworkManager::sInstance->clearLobbyInfoMap();
+	RenderManager::getRenderManager()->setCameraPoint(0, 0);
 	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
 	buttonID = 1;
 	tutorialID = 100;
 	ready = false;
 	selected = -1;
-
 	RenderManager::getRenderManager()->setBackground("Lobby_bg.png");
 
 	// number of players in lobby
@@ -38,7 +39,7 @@ int LobbyMenu::runScene(){
 
 		// back button is pressed
 		if (buttonPressed == BUTTON_BACK){
-			return SCENE_GAMEOVER;
+			return SCENE_MENU;
 		}
 
 		// try to start the game if everyone is ready
@@ -158,6 +159,8 @@ int LobbyMenu::checkButtons(){
 	}
 	if (selected != -1 && readyButt && dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed()){
 		ready = !ready;
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("readyupsfx.ogg");
 		playerReady(ready);
 		return BUTTON_READY;
 	}
@@ -286,7 +289,7 @@ void LobbyMenu::removePlayerCount(){
 	if (playersInLobby){
 		// this has to change later (removeObject doesn't work on text)
 		playersInLobby->setVisible(false);
-		sceneMan->RemoveObject(playersInLobby, sceneMan->findLayer("layer1"));
+		sceneMan->RemoveObject(playersInLobby);
 	}
 }
 

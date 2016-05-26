@@ -41,6 +41,7 @@ void MineLogicComponent::detonateMine(){
 	gameObjectRef->isAlive = false;
 	MinePhysicsComponent* physicsComp = dynamic_cast<MinePhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	physicsComp->setCollisionFilter(COLLISION_MINE, 0);
+	playSound();
 }
 
 void MineLogicComponent::checkTimer(){
@@ -83,4 +84,14 @@ void MineLogicComponent::Update(){
 		}
 		blownUp++;
 	}*/
+}
+
+void MineLogicComponent::playSound(){
+	MineRenderComponent* rendComp = dynamic_cast<MineRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	if (!soundPlayed && renderMan->isObjOnScreen(rendComp->objRef)){
+		AudioManager* audioMan = AudioManager::getAudioInstance();
+		audioMan->playByName("minesfx.ogg");
+		soundPlayed = true;
+	}
 }

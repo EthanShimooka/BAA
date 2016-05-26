@@ -50,7 +50,7 @@ public:
 	/// turn the player back into a bird and re-init stuff
 
 	/// Triggers the appropriate death sfx
-	void playDeathSFX(int playerClass);
+	void playDeathSFX(int playerClass, uint64_t deadPlayerID);
 	/// triggered from physics componet to catapault player to middle of screen
 	void launchPlayer();
 
@@ -59,6 +59,8 @@ public:
 	/// in order to update charge bar appropriately
 	void startCharge();
 	void endCharge();
+	/// Plays the sound to indicate feather cd not up or ability not ready
+	void playFailSound();
 	/// Returns the maximum birdseed for each individual class
 	int getMaxBirdseedByClass(int playerClass);
 	/// Shield Object Factory. Will need to be changed eventually

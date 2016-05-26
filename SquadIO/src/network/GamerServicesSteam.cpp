@@ -141,7 +141,7 @@ void GamerServices::Impl::OnLobbyMatchListCallback(LobbyMatchList_t* inCallback,
 	else
 	{
 		//need to make our own lobby
-		SteamAPICall_t call = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 4);
+		SteamAPICall_t call = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 8);
 		mLobbyCreateResult.Set(call, this, &Impl::OnLobbyCreateCallback);
 	}
 }

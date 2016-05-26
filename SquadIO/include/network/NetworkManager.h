@@ -311,5 +311,6 @@ private:
 public:
 	SQUADIO_API		const bool lobbyUpdated() { return lobbyUpdate; }
 	SQUADIO_API		const LobbyInfoMap& getLobbyInfoMap() { lobbyUpdate = false; return lobbyInfoMap; }
+	SQUADIO_API		void clearLobbyInfoMap();
 };
 #endif

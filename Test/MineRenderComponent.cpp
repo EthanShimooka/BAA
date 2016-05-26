@@ -13,11 +13,12 @@ MineRenderComponent::MineRenderComponent(GameObject* player){
 }
 
 MineRenderComponent::~MineRenderComponent(){
-	for (auto i = animations.begin(); i != animations.end(); i++){
+	/*for (auto i = animations.begin(); i != animations.end(); i++){
 		delete i->second;
-	}
+	}*/
 }
 
 void MineRenderComponent::Update(){
 	RenderComponent::Update();
+	if (RenderManager::getRenderManager()->flippedScreen)objRef->rotation = 180;
 }

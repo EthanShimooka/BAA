@@ -124,6 +124,7 @@ void ChickenClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 int ChickenClassComponent::useAbility(){
 	if (currBirdseed >= seedRequired){
 		PowerShieldObjectFactory sFactory;
+		playAbilityUseSound();
 		timer = new Invoke(shieldLength);
 		invokeHelper = true;
 		activeShields++;
@@ -141,6 +142,7 @@ int ChickenClassComponent::useAbility(){
 	}
 	else{
 		//not enough birdseed to use power. Maybe play a dry firing sound like how guns make a click when they're empty
+		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
 		return false;
 	}
 }

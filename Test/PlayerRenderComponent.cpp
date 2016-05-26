@@ -36,9 +36,7 @@ PlayerRenderComponent::PlayerRenderComponent(GameObject* player, function_t func
 
 PlayerRenderComponent::~PlayerRenderComponent()
 {
-	for (auto i = animations.begin(); i != animations.end(); i++){
-		delete i->second;
-	}
+	
 }
 
 void PlayerRenderComponent::setAnimation(std::string name){
@@ -52,6 +50,7 @@ void PlayerRenderComponent::setAnimation(std::string name){
 		}
 	}
 }
+
 void PlayerRenderComponent::setNextAnimation(std::string name){
 	if (animations.count(name)){
 		nextAnimation = animations[name];
