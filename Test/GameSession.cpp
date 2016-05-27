@@ -49,6 +49,7 @@ void GameSession::LoadWorld(){
 	FanObjectFactory fanFactory;
 	WellObjectFactory wellFactory;
 	LauncherObjectFactory launchFactory;
+	MidBirdObjectFactory midBirdFactory;
 
 	// Bases should have an ID between 1-10
 	uint64_t baseID = 1;
@@ -62,6 +63,9 @@ void GameSession::LoadWorld(){
 	uint64_t platformID = 101;
 	// Fans should have an ID between 201-300
 	uint64_t fanID = 201;
+
+	uint64_t birdID = 384;
+
 
 	//PLATFORMS
 	for (int i = 0; i < 14; i++){
@@ -103,6 +107,10 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, 150, -60, TEAM_PURPLE)); //left bot
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, -150, 120,TEAM_PURPLE)); //right top
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120, TEAM_YELLOW)); //right bot
+
+	//Mid Bird
+	GameObjects.AddObject(midBirdFactory.Spawn(birdID, 0, (SCREEN_HEIGHT / 4.0f))); //right bot
+
 }
 
 // Loads player Objects from session arguments (instantiated player list).

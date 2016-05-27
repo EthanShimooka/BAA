@@ -6,6 +6,7 @@
 #include "BoomerangLogicComponent.h"
 #include "BoomerangPhysicsComponent.h"
 #include "BoomerangRenderComponent.h"
+#include "BoomerangNetworkComponent.h"
 #include "BoomerangObjectFactory.h"
 
 #endif

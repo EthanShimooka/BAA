@@ -19,6 +19,7 @@ GameObject* BoomerangObjectFactory::Spawn(GameObject* owner, uint64_t PID, float
 	BoomerangRenderComponent* rendComp = new BoomerangRenderComponent(boomerang);
 	BoomerangPhysicsComponent* physicsComp = new BoomerangPhysicsComponent(boomerang, owner, (int)destX, (int)destY);
 	BoomerangLogicComponent* logicComp = new BoomerangLogicComponent(boomerang);
+	BoomerangNetworkComponent* networkComp = new BoomerangNetworkComponent(boomerang);
 
 	return boomerang;
 }

@@ -2,6 +2,7 @@
 
 ClassComponent::ClassComponent()
 {
+	birdseedFullPlayed = false;
 	speed = 16;
 	jumpSpeed = 16;
 	width = 1.33f;
@@ -21,6 +22,10 @@ ClassComponent::~ClassComponent()
 
 void ClassComponent::Update()
 {
+	if (currBirdseed == seedRequired && !birdseedFullPlayed) {
+		birdseedFullSFXPlayed();
+		birdseedFullPlayed = true;
+	}
 }
 
 int ClassComponent::useAbility(){
@@ -38,6 +43,11 @@ void ClassComponent::readNetAbility(InputMemoryBitStream& aPacket){
 void ClassComponent::playAbilityUseSound(){
 	AudioManager* audioMan = AudioManager::getAudioInstance();
 	audioMan->playByName("abilityusesfx.ogg");
+}
+
+void ClassComponent::birdseedFullSFXPlayed(){
+	AudioManager* audioMan = AudioManager::getAudioInstance();
+	audioMan->playByName("birdseedfullsfx.ogg");
 }
 
 int ClassComponent::getClass(){

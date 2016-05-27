@@ -24,6 +24,7 @@ QuailClassComponent::~QuailClassComponent()
 
 void QuailClassComponent::Update()
 {
+	ClassComponent::Update();
 	if (endTimer()) {
 		speed = 19;
 	}
@@ -131,6 +132,7 @@ int QuailClassComponent::useAbility(){
 		setTimer();
 		speed *= 3;
 		currBirdseed = 0;
+		birdseedFullPlayed = false;
 		return true;
 	}
 	else{

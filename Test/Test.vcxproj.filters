@@ -151,6 +151,12 @@
     <Filter Include="Header Files\Button">
       <UniqueIdentifier>{36f501cd-a269-46d5-8975-397b900899ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component\MidBird Component">
+      <UniqueIdentifier>{c0960181-1c7d-4307-826a-3196445e586c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\MidBird Component">
+      <UniqueIdentifier>{605e55d4-ef0b-43cf-82f7-10561c9f30cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -577,6 +583,14 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundProps.h">
+    </ClInclude>
+    <ClInclude Include="BoomerangNetworkComponent.h">
+      <Filter>Header Files\Component\Boomerang Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBirdRenderComponent.h">
+      <Filter>Header Files\Component\MidBird Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBirdObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -949,6 +963,15 @@
     </ClCompile>
     <ClCompile Include="BackgroundProps.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangNetworkComponent.cpp">
+      <Filter>Source Files\Component\Boomerang Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBirdRenderComponent.cpp">
+      <Filter>Source Files\Component\MidBird Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBirdObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
