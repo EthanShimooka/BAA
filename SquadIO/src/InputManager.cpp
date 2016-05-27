@@ -45,6 +45,10 @@ void InputManager::update() {
 	mouseLeftReleased = false;
 	mouseRightPressed = false;
 	mouseRightReleased = false;
+	//reset the up/down flags for the keys
+	for (int i = 0; i < KEYBOARD_SIZE; i++){
+		keyboardUpDown[i] = 0;
+	}
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	//	int index;
@@ -55,6 +59,12 @@ void InputManager::update() {
 			cout << "quit the game" << endl;
 			break;
 			// SDL_MouseButtonEvent
+		case SDL_KEYUP:
+			keyboardUpDown[ev.key.keysym.scancode] = 2;
+			break;
+		case SDL_KEYDOWN:
+			keyboardUpDown[ev.key.keysym.scancode] = 1;
+			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if (ev.button.button == SDL_BUTTON_LEFT) {
 				mouseLeftPressed = true;
@@ -138,11 +148,7 @@ void InputManager::update() {
 			break;
 		}
 	}
-	if (keyboardState){
-		for (int i = 0; i < KEYBOARD_SIZE; i++){
-			prevKeyboardState[i] = keyboardState[i] ? true : false;
-		}
-	}
+	
 	keyboardState = SDL_GetKeyboardState(nullptr);
 }
 // return true on first frame of keydown
@@ -153,9 +159,7 @@ bool InputManager::isKeyPressed(int key) {
 	if (key < 0 || key >= KEYBOARD_SIZE) {
 		return false;
 	}
-	bool prevState = prevKeyboardState[key] ? true : false;
-	bool currState = keyboardState[key] ? true : false;
-	return currState&&!prevState;
+	return (keyboardUpDown[key] == 1);
 }
 
 // return true if keydown
@@ -177,7 +181,7 @@ bool InputManager::isKeyReleased(int key) {
 	if (key < 0 || key >= KEYBOARD_SIZE) {
 		return false;
 	}
-	return (!keyboardState[key] && prevKeyboardState[key])?true:false;
+	return (keyboardUpDown[key] == 2);
 }
 
 // return true if keyup
