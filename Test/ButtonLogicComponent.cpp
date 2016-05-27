@@ -110,4 +110,7 @@ void ButtonLogicComponent::Update(){
 			std::cout << "activate the button here" << std::endl;
 		}
 	}
+	if (buttonType == BUTTON_ICON){
+		//do something special for the icon buttons like make them jump or something
+	}
 }
