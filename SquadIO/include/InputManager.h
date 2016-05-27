@@ -89,7 +89,8 @@ protected:
 
 private:
 	// keyboard state
-	uint8_t keyboardUpDown[KEYBOARD_SIZE];
+	bool prevkeyboardState[KEYBOARD_SIZE]; 
+	bool currkeyboardState[KEYBOARD_SIZE];
 	const uint8_t* keyboardState;
 
 	// mouse state

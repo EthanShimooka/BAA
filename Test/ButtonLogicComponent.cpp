@@ -68,13 +68,13 @@ void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, Gam
 }
 
 void ButtonLogicComponent::selectButton(){
-	selected = true;
+	selected = 2;
 	//gameObjectRef->posY += 20;
 	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
 }
 
 void ButtonLogicComponent::unselectButton(){
-	selected = false;
+	selected = 0;
 	//gameObjectRef->posY -= 20;
 	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
 }
@@ -84,7 +84,7 @@ void ButtonLogicComponent::Update(){
 	if (input->isKeyPressed(KEY_UP))std::cout << "up" << std::endl;
 	if (input->isKeyPressed(KEY_LEFT))std::cout << "left" << std::endl;
 	Controller* controller = input->controller;
-	if (selected){
+	if (selected==1){
 		//this button is the one currently 'hovered' over by the controller
 		//listen for d-pad and arrow input to navigate to next button
 		if ((input->isKeyPressed(KEY_UP) || controller->isDPadPressed(JOYSTICK_DPAD_UP)) && navMap.up){
@@ -114,6 +114,7 @@ void ButtonLogicComponent::Update(){
 			std::cout << "activate the button here" << std::endl;
 		}
 	}
+	if (selected == 2)selected--;
 	if (buttonType == BUTTON_ICON){
 		//do something special for the icon buttons like make them jump or something
 	}
