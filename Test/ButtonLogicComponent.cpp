@@ -36,6 +36,16 @@ bool ButtonLogicComponent::isButtonPressed(){
 			return true;
 		}
 	}
+	//if the button is currently selected, and the enter key
+	//or A key on controller has been pressed, activate the button
+	if (selected){
+		if (input->controller->isJoystickPressed(JOYSTICK_A) || input->isKeyPressed(KEY_RETURN)){
+			if (sound != "")
+				AudioManager::getAudioInstance()->playByName(sound);
+			return true;
+		}
+	}
+	
 	return false;
 }
 
@@ -104,14 +114,6 @@ void ButtonLogicComponent::Update(){
 			std::cout << "move right" << std::endl;
 			this->unselectButton();
 			navMap.right->selectButton();
-		}
-	}
-	//if the button is currently selected, and the enter key
-	//or A key on controller has been pressed, activate the button
-	if (selected){
-		if (controller->isJoystickPressed(JOYSTICK_A) || input->isKeyPressed(KEY_RETURN)){
-			//activate the button here
-			std::cout << "activate the button here" << std::endl;
 		}
 	}
 	if (selected == 2)selected--;
