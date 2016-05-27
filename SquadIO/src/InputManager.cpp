@@ -28,7 +28,7 @@ InputManager* InputManager::getInstance() {
 
 // updates at every frame for new input
 void InputManager::update() {
-	controller->update();
+	//controller->update();
 	// reset mouse to neutral state, continue polling for up/down events
 	/*for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;
@@ -45,6 +45,8 @@ void InputManager::update() {
 	mouseLeftReleased = false;
 	mouseRightPressed = false;
 	mouseRightReleased = false;
+	//reset the up/down flags for the keys
+
 	// poll for mouse events
 	// http://wiki.libsdl.org/SDL_Event for case types
 	//	int index;
@@ -55,6 +57,16 @@ void InputManager::update() {
 			cout << "quit the game" << endl;
 			break;
 			// SDL_MouseButtonEvent
+		/*case SDL_KEYDOWN:
+			keyboardUpDown[ev.key.keysym.scancode] = 1;
+			keyboardCheck[ev.key.keysym.scancode] = true;
+			break;
+		case SDL_KEYUP:
+			if (keyboardUpDown[ev.key.keysym.scancode] == 1)
+				std::cout << "it has been released" << std::endl;
+			keyboardUpDown[ev.key.keysym.scancode] = 2;
+			keyboardCheck[ev.key.keysym.scancode] = false;
+			break;*/
 		case SDL_MOUSEBUTTONDOWN:
 			if (ev.button.button == SDL_BUTTON_LEFT) {
 				mouseLeftPressed = true;
@@ -139,6 +151,21 @@ void InputManager::update() {
 		}
 	}
 	keyboardState = SDL_GetKeyboardState(nullptr);
+	for (int i = 0; i < KEYBOARD_SIZE; i++){
+		prevkeyboardState[i] = currkeyboardState[i];
+		currkeyboardState[i] = keyboardState[i] ? true : false;
+	}
+
+}
+// return true on first frame of keydown
+bool InputManager::isKeyPressed(int key) {
+	if (this->locked) {
+		return false;
+	}
+	if (key < 0 || key >= KEYBOARD_SIZE) {
+		return false;
+	}
+	return (!prevkeyboardState[key]&&currkeyboardState[key]);
 }
 
 // return true if keydown
@@ -150,6 +177,17 @@ bool InputManager::isKeyDown(int key) {
 		return false;
 	}
 	return this->keyboardState[key] ? true : false;
+}
+
+// return true on first frame of key up
+bool InputManager::isKeyReleased(int key) {
+	if (this->locked) {
+		return false;
+	}
+	if (key < 0 || key >= KEYBOARD_SIZE) {
+		return false;
+	}
+	return (prevkeyboardState[key] && !currkeyboardState[key]);
 }
 
 // return true if keyup

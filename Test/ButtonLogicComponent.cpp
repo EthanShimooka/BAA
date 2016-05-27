@@ -1,7 +1,7 @@
 #include "ButtonLogicComponent.h"
 
 
-ButtonLogicComponent::ButtonLogicComponent(GameObject* button, int _width, int _height, std::string _sound)
+ButtonLogicComponent::ButtonLogicComponent(GameObject* button, int _width, int _height, std::string _sound, int type)
 {
 	gameObjectRef = button;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
@@ -9,6 +9,7 @@ ButtonLogicComponent::ButtonLogicComponent(GameObject* button, int _width, int _
 	width = _width;
 	height = _height;
 	sound = _sound;
+	buttonType = type;
 }
 
 
@@ -16,9 +17,6 @@ ButtonLogicComponent::~ButtonLogicComponent()
 {
 }
 
-void ButtonLogicComponent::Update(){
-
-}
 
 bool ButtonLogicComponent::isButtonPressed(){
 	if (input->isMouseLeftReleased()){
@@ -38,6 +36,16 @@ bool ButtonLogicComponent::isButtonPressed(){
 			return true;
 		}
 	}
+	//if the button is currently selected, and the enter key
+	//or A key on controller has been pressed, activate the button
+	if (selected){
+		if (input->controller->isJoystickPressed(JOYSTICK_A) || input->isKeyPressed(KEY_RETURN)){
+			if (sound != "")
+				AudioManager::getAudioInstance()->playByName(sound);
+			return true;
+		}
+	}
+	
 	return false;
 }
 
@@ -58,4 +66,58 @@ bool ButtonLogicComponent::isMouseHovering(){
 
 void ButtonLogicComponent::setSound(std::string _sound){
 	sound = _sound;
+}
+
+void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, GameObject* _left, GameObject* _right){
+	//Must passing in a GameObjects refering to other buttons. If there is now button in the specificed
+	//direction, assign it to NULL
+	navMap.up = _up ? dynamic_cast<ButtonLogicComponent*>(_up->GetComponent(COMPONENT_LOGIC)) : NULL;
+	navMap.down = _down ? dynamic_cast<ButtonLogicComponent*>(_down->GetComponent(COMPONENT_LOGIC)) : NULL;
+	navMap.left = _left ? dynamic_cast<ButtonLogicComponent*>(_left->GetComponent(COMPONENT_LOGIC)) : NULL;
+	navMap.right = _right ? dynamic_cast<ButtonLogicComponent*>(_right->GetComponent(COMPONENT_LOGIC)) : NULL;
+}
+
+void ButtonLogicComponent::selectButton(){
+	selected = 2;
+	//gameObjectRef->posY += 20;
+	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
+}
+
+void ButtonLogicComponent::unselectButton(){
+	selected = 0;
+	//gameObjectRef->posY -= 20;
+	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
+}
+
+void ButtonLogicComponent::Update(){
+	if (input->isKeyPressed(KEY_RIGHT))std::cout << "right" << std::endl;
+	if (input->isKeyPressed(KEY_UP))std::cout << "up" << std::endl;
+	if (input->isKeyPressed(KEY_LEFT))std::cout << "left" << std::endl;
+	Controller* controller = input->controller;
+	if (selected==1){
+		//this button is the one currently 'hovered' over by the controller
+		//listen for d-pad and arrow input to navigate to next button
+		if ((input->isKeyPressed(KEY_UP) || controller->isDPadPressed(JOYSTICK_DPAD_UP)) && navMap.up){
+			this->unselectButton();
+			navMap.up->selectButton();
+			//maybe something else needs to be updated here (and the other directions too)
+		}
+		else if ((input->isKeyPressed(KEY_DOWN) || controller->isDPadPressed(JOYSTICK_DPAD_DOWN)) && navMap.down){
+			this->unselectButton();
+			navMap.down->selectButton();
+		}
+		else if ((input->isKeyPressed(KEY_LEFT) || controller->isDPadPressed(JOYSTICK_DPAD_LEFT)) && navMap.left){
+			this->unselectButton();
+			navMap.left->selectButton();
+		}
+		else if ((input->isKeyPressed(KEY_RIGHT) || controller->isDPadPressed(JOYSTICK_DPAD_RIGHT)) && navMap.right){
+			std::cout << "move right" << std::endl;
+			this->unselectButton();
+			navMap.right->selectButton();
+		}
+	}
+	if (selected == 2)selected--;
+	if (buttonType == BUTTON_ICON){
+		//do something special for the icon buttons like make them jump or something
+	}
 }
