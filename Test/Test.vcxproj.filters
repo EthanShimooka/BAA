@@ -582,6 +582,8 @@
     <ClInclude Include="TextAlignment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BackgroundProps.h">
+    </ClInclude>
     <ClInclude Include="BoomerangNetworkComponent.h">
       <Filter>Header Files\Component\Boomerang Component</Filter>
     </ClInclude>
@@ -958,6 +960,9 @@
     </ClCompile>
     <ClCompile Include="TextAlignment.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundProps.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
     <ClCompile Include="BoomerangNetworkComponent.cpp">
       <Filter>Source Files\Component\Boomerang Component</Filter>
