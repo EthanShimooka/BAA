@@ -186,6 +186,7 @@ void PlayerPhysicsComponent::launchPlayer(){
 }
 
 void PlayerPhysicsComponent::Update(){
+	//add gravity
 	b2Vec2 vel = mBody->GetLinearVelocity();
 	if (gameObjectRef->team==TEAM_PURPLE){
 		//mBody->ApplyForce(b2Vec2(200, 0), mBody->GetWorldCenter(), true);
@@ -202,6 +203,19 @@ void PlayerPhysicsComponent::Update(){
 	else{
 		mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale),mBody->GetAngle());
 	}
+	//handle walking animations and orientation
+	PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	float32 xVel = mBody->GetLinearVelocity().x;
+	if (abs(xVel) > 0){
+		renderComp->setAnimation("walk");
+	}else renderComp->setAnimation("idle");
+	if (xVel<0){
+		gameObjectRef->flipH = true;
+	}
+	else if (xVel>0){
+		gameObjectRef->flipH = false;
+	}
+	//handle egg physics
 	PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 	if (logicComp->isEgg){
 		mBody->SetAngularVelocity(-5);
