@@ -1,7 +1,7 @@
 #include "ButtonLogicComponent.h"
 
 
-ButtonLogicComponent::ButtonLogicComponent(GameObject* button, int _width, int _height, std::string _sound)
+ButtonLogicComponent::ButtonLogicComponent(GameObject* button, int _width, int _height, std::string _sound, int type)
 {
 	gameObjectRef = button;
 	gameObjectRef->AddComponent(COMPONENT_LOGIC, this);
@@ -9,6 +9,7 @@ ButtonLogicComponent::ButtonLogicComponent(GameObject* button, int _width, int _
 	width = _width;
 	height = _height;
 	sound = _sound;
+	buttonType = type;
 }
 
 

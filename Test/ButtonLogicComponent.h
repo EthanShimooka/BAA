@@ -23,13 +23,14 @@ class ButtonLogicComponent :
 	public LogicComponent
 {
 public:
-	ButtonLogicComponent(GameObject* button, int _width = 100, int _height = 50, std::string _sound = "");
+	ButtonLogicComponent(GameObject* button, int _width = 100, int _height = 50, std::string _sound = "", int type=-1);
 	~ButtonLogicComponent();
 	void Update();
 	bool isMouseHovering();
 	bool isButtonPressed();
 	int width;
 	int height;
+	int buttonType;
 	std::string sound;
 	void setSound(std::string _sound);
 

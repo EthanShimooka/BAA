@@ -145,19 +145,17 @@
     <Filter Include="Source Files\Component\Boomerang Component">
       <UniqueIdentifier>{e688c01d-41a4-4e83-b40f-2c7e067b5cb6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Button">
-      <UniqueIdentifier>{36f501cd-a269-46d5-8975-397b900899ab}</UniqueIdentifier>
-    </Filter>
-<<<<<<< HEAD
     <Filter Include="Source Files\Component\Button Component">
       <UniqueIdentifier>{d128a0a4-9d8b-41d6-ba07-e5112273c5bb}</UniqueIdentifier>
-=======
+    </Filter>
     <Filter Include="Source Files\Component\MidBird Component">
       <UniqueIdentifier>{c0960181-1c7d-4307-826a-3196445e586c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Component\MidBird Component">
       <UniqueIdentifier>{605e55d4-ef0b-43cf-82f7-10561c9f30cf}</UniqueIdentifier>
->>>>>>> refs/remotes/origin/master
+    </Filter>
+    <Filter Include="Header Files\Component\Button Component">
+      <UniqueIdentifier>{36f501cd-a269-46d5-8975-397b900899ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -543,16 +541,16 @@
       <Filter>Header Files\Component\Player Component</Filter>
     </ClInclude>
     <ClInclude Include="ButtonLogicComponent.h">
-      <Filter>Header Files\Button</Filter>
+      <Filter>Header Files\Component\Button Component</Filter>
     </ClInclude>
     <ClInclude Include="ButtonRenderComponent.h">
-      <Filter>Header Files\Button</Filter>
+      <Filter>Header Files\Component\Button Component</Filter>
     </ClInclude>
     <ClInclude Include="ButtonObjectFactory.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="ButtonComponentIncludes.h">
-      <Filter>Header Files\Button</Filter>
+      <Filter>Header Files\Component\Button Component</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scenes</Filter>
