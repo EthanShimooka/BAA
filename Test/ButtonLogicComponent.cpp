@@ -80,24 +80,28 @@ void ButtonLogicComponent::unselectButton(){
 }
 
 void ButtonLogicComponent::Update(){
+	if (input->isKeyDown(KEY_UP))
+	if (input->isKeyPressed(KEY_UP)){
+		std::cout << "o shit waddup" << std::endl;
+	}
 	Controller* controller = input->controller;
 	if (selected){
 		//this button is the one currently 'hovered' over by the controller
 		//listen for d-pad and arrow input to navigate to next button
-		if ((input->isKeyDown(KEY_UP) || controller->isDPadPressed(JOYSTICK_DPAD_UP)) && navMap.up){
+		if ((input->isKeyPressed(KEY_UP) || controller->isDPadPressed(JOYSTICK_DPAD_UP)) && navMap.up){
 			this->unselectButton();
 			navMap.up->selectButton();
 			//maybe something else needs to be updated here (and the other directions too)
 		}
-		else if ((input->isKeyDown(KEY_DOWN) || controller->isDPadPressed(JOYSTICK_DPAD_DOWN)) && navMap.down){
+		else if ((input->isKeyPressed(KEY_DOWN) || controller->isDPadPressed(JOYSTICK_DPAD_DOWN)) && navMap.down){
 			this->unselectButton();
 			navMap.down->selectButton();
 		}
-		else if ((input->isKeyDown(KEY_LEFT) || controller->isDPadPressed(JOYSTICK_DPAD_LEFT)) && navMap.left){
+		else if ((input->isKeyPressed(KEY_LEFT) || controller->isDPadPressed(JOYSTICK_DPAD_LEFT)) && navMap.left){
 			this->unselectButton();
 			navMap.left->selectButton();
 		}
-		else if ((input->isKeyDown(KEY_RIGHT) || controller->isDPadPressed(JOYSTICK_DPAD_RIGHT)) && navMap.right){
+		else if ((input->isKeyPressed(KEY_RIGHT) || controller->isDPadPressed(JOYSTICK_DPAD_RIGHT)) && navMap.right){
 			this->unselectButton();
 			navMap.right->selectButton();
 		}
@@ -105,7 +109,7 @@ void ButtonLogicComponent::Update(){
 	//if the button is currently selected, and the enter key
 	//or A key on controller has been pressed, activate the button
 	if (selected){
-		if (controller->isJoystickPressed(JOYSTICK_A) || input->isKeyDown(KEY_RETURN)){
+		if (controller->isJoystickPressed(JOYSTICK_A) || input->isKeyPressed(KEY_RETURN)){
 			//activate the button here
 			std::cout << "activate the button here" << std::endl;
 		}

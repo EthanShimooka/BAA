@@ -138,7 +138,24 @@ void InputManager::update() {
 			break;
 		}
 	}
+	if (keyboardState){
+		for (int i = 0; i < KEYBOARD_SIZE; i++){
+			prevKeyboardState[i] = keyboardState[i] ? true : false;
+		}
+	}
 	keyboardState = SDL_GetKeyboardState(nullptr);
+}
+// return true on first frame of keydown
+bool InputManager::isKeyPressed(int key) {
+	if (this->locked) {
+		return false;
+	}
+	if (key < 0 || key >= KEYBOARD_SIZE) {
+		return false;
+	}
+	bool prevState = prevKeyboardState[key] ? true : false;
+	bool currState = keyboardState[key] ? true : false;
+	return currState&&!prevState;
 }
 
 // return true if keydown
@@ -150,6 +167,17 @@ bool InputManager::isKeyDown(int key) {
 		return false;
 	}
 	return this->keyboardState[key] ? true : false;
+}
+
+// return true on first frame of key up
+bool InputManager::isKeyReleased(int key) {
+	if (this->locked) {
+		return false;
+	}
+	if (key < 0 || key >= KEYBOARD_SIZE) {
+		return false;
+	}
+	return (!keyboardState[key] && prevKeyboardState[key])?true:false;
 }
 
 // return true if keyup

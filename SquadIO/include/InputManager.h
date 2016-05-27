@@ -35,6 +35,12 @@ public:
 	// return true if keyup
 	SQUADIO_API bool isKeyUp(int key);
 
+	// return true only on first frame of key being pushed
+	SQUADIO_API bool isKeyPressed(int key);
+
+	// return true only on first frame of key being released
+	SQUADIO_API bool isKeyReleased(int key);
+
 	// return true if mousedown
 	SQUADIO_API bool isMouseDown(int b);
 
@@ -83,6 +89,7 @@ protected:
 
 private:
 	// keyboard state
+	bool prevKeyboardState[KEYBOARD_SIZE];
 	const uint8_t* keyboardState;
 
 	// mouse state
