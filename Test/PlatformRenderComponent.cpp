@@ -13,11 +13,11 @@ PlatformRenderComponent::PlatformRenderComponent(GameObject* platform, int team)
 	//objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 9991, 0, 0);
 	if (team == 1){
 	//	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2013, 0, 0);
-		plat = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2013, 0, 0);
+		plat = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2013, 0, -15);
 
 	} else{
 	// objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2014, 0, 0);
-	    plat = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2014, 0, 0);
+	    plat = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2014, 0, 15);
 	}
 	
 	allObjs["base"] = objRef;
