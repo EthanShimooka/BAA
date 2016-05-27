@@ -74,6 +74,15 @@
 <resource UID="2110" type="graphic" filename="Space-Muscle-Beach__0005_Protein-Mountain-Left.png" scenescope="0"></resource>
 <resource UID="2111" type="graphic" filename="Space-Muscle-Beach__0003_Protein-Moutain-Right.png" scenescope="0"></resource>
 
+<resource UID="2200" type="graphic" filename="Gull_body.png" scenescope="0"></resource>
+<resource UID="2201" type="graphic" filename="Gull_MLG.png" scenescope="0"></resource>
+<resource UID="2202" type="graphic" filename="Gull_arm_left.png" scenescope="0"></resource>
+<resource UID="2203" type="graphic" filename="Gull_arm_right.png" scenescope="0"></resource>
+<resource UID="2204" type="graphic" filename="Gull_flag_yellow.png" scenescope="0"></resource>
+<resource UID="2205" type="graphic" filename="Gull_flag_purple.png" scenescope="0"></resource>
+<resource UID="2206" type="graphic" filename="Gull_buoy_left.png" scenescope="0"></resource>
+
+
 
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>

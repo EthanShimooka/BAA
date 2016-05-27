@@ -54,6 +54,7 @@ configurations.
 #include "LauncherObjectFactory.h"
 #include "WellObjectFactory.h"
 #include "FanObjectFactory.h"
+#include "MidBirdObjectFactory.h"
 #include "PhysicsListener.h"
 
 
