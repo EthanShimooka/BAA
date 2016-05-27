@@ -12,7 +12,7 @@
 
 #include "RenderComponent.h"
 #include "include\SceneManager.h"
-
+#include "Stats.h"
 
 #include "RenderComponent.h"
 class MidBirdRenderComponent :
@@ -21,7 +21,13 @@ class MidBirdRenderComponent :
 public:
 	MidBirdRenderComponent(GameObject * bird);
 	~MidBirdRenderComponent();
+	void buildAnimation();
+	void animationLogic();
 	void Update();
+	bool idleToggle = false;
+	int flagUp = 0;
+
+
 };
 
 #endif
