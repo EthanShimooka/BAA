@@ -21,7 +21,7 @@ TextAlignment::~TextAlignment()
 void TextAlignment::findOffset(){
 	int w, h;
 	renderMan->getWindowSize(&w, &h);
-	offset = (((w * h) * fontSize) / 1049088.0) * 2;
+	offset = (int)((((w * h) * fontSize) / 1049088.0) * 2);
 	totalOffest = 0;
 }
 
@@ -31,8 +31,8 @@ void TextAlignment::createText(std::string text, COLOR* color, float x_offset){
 	renderMan->getWindowSize(&w, &h);
 	sdlText = sceneMan->InstantiateObject(sceneMan->findLayer(layer), -1, 5, 0, true);
 	// have to devide by 1049088.0 to acount for resolution change
-	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * fontSize) / 1049088.0, font));
-	sdlText->setPos((w * x_offset) - (sdlText->getWidth() / 2.0), (h * startingYPos) - (sdlText->getHeight() / 2.0) + totalOffest);
+	sdlText->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, (int)(((w * h) * fontSize) / 1049088.0), font));
+	sdlText->setPos((w * x_offset) - (sdlText->getWidth() / 2.0f), (h * startingYPos) - (sdlText->getHeight() / 2.0f) + totalOffest);
 	totalOffest += offset;
 	texts.push_back(sdlText);
 }
@@ -42,7 +42,7 @@ void TextAlignment::createText(std::string text, COLOR* color){
 }
 
 void TextAlignment::createText(std::string text, COLOR* color, TEXT_POS pos){
-	createText(text, color, pos / 4.0);
+	createText(text, color, pos / 4.0f);
 }
 
 void TextAlignment::toggleAllOn(bool on){
@@ -67,12 +67,12 @@ void TextAlignment::updateText(std::string text, int textNum, COLOR* color){
 	float posY = texts[textNum]->posY;
 	int w, h;
 	renderMan->getWindowSize(&w, &h);
-	float x_offset = (posX + (texts[textNum]->getWidth() / 2.0)) / w;
+	float x_offset = (posX + (texts[textNum]->getWidth() / 2.0f)) / w;
 	removeText(textNum);
 	texts[textNum] = sceneMan->InstantiateObject(sceneMan->findLayer(layer), -1, 5, 0, true);
 	// have to devide by 1049088.0 to acount for resolution change
-	texts[textNum]->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, ((w * h) * fontSize) / 1049088.0, font));
-	texts[textNum]->setPos((w * x_offset) - (texts[textNum]->getWidth() / 2.0), posY);
+	texts[textNum]->setResourceObject(renderMan->renderText(text.c_str(), color->r, color->g, color->b, (int)(((w * h) * fontSize) / 1049088.0), font));
+	texts[textNum]->setPos((w * x_offset) - (texts[textNum]->getWidth() / 2.0f), posY);
 }
 
 void TextAlignment::removeText(int textNum){
