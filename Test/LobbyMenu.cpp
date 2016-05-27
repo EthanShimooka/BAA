@@ -30,7 +30,8 @@ LobbyMenu::~LobbyMenu(){
 
 int LobbyMenu::runScene(){
 	int buttonPressed = -2;
-
+	SystemRenderUpdater sysRenderer;
+	SystemLogicUpdater sysLogic;
 	while (true){
 		updateLobby();
 		buttonPressed = checkButtons();
@@ -51,6 +52,8 @@ int LobbyMenu::runScene(){
 		if (NetworkManager::sInstance->GetState() >= NetworkManager::NMS_Starting){
 			return SCENE_GAME;
 		}
+		sysRenderer.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
 	}
 }
 
@@ -63,18 +66,27 @@ void LobbyMenu::createButtons(){
 
 	// ready button
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0)), (int)(h*(48 / 100.0)));
-	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f);
+	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.75f,BUTTON_ICON);
+	ButtonRenderComponent* readyRender = dynamic_cast<ButtonRenderComponent*>(readyButt->GetComponent(COMPONENT_RENDER));
+	readyRender->addSecondSprite(27);
+	
 	GameObjects.AddObject(readyButt);
 
 	// back button 
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(7 / 8.0)), (int)(h*(90 / 100.0)));
 	backButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.75f);
+	ButtonRenderComponent*backRender = dynamic_cast<ButtonRenderComponent*>(backButt->GetComponent(COMPONENT_RENDER));
+	backRender->addSecondSprite(27);
 	GameObjects.AddObject(backButt);
+
+	//configure buttons for controller
+	
+	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
+	backLogic->setNavButtons(readyButt, NULL, NULL, NULL);
 }
 
 void LobbyMenu::createClassButts(){
 	RenderManager* renderMan = RenderManager::getRenderManager();
-	GameObject* button;
 	GameObject* tutorial;
 
 	int w, h;
@@ -89,54 +101,79 @@ void LobbyMenu::createClassButts(){
 
 	// chicken button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
-	button = bFactory.Spawn(buttonID++, x, y, 50, 75.0f, 75.0f, 0.75f);
-	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("chickensfx.ogg");
-	classButt.push_back(button);
-	GameObjects.AddObject(button);
+	GameObject* chickButton = bFactory.Spawn(buttonID++, x, y, 50, 75.0f, 75.0f, 0.75f);
+	ButtonLogicComponent* chickLogic = dynamic_cast<ButtonLogicComponent*>(chickButton->GetComponent(COMPONENT_LOGIC));
+	ButtonRenderComponent* chickRender = dynamic_cast<ButtonRenderComponent*>(chickButton->GetComponent(COMPONENT_RENDER));
+	chickRender->addSecondSprite(27);
+	chickLogic->setSound("chickensfx.ogg");
+	classButt.push_back(chickButton);
+	GameObjects.AddObject(chickButton);
 	offset += w * (1 / 9.0f);
 		// chicken tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 50, x, y - 70);
 	tutorials.push_back(tutorial);
 	// peacock button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
-	button = bFactory.Spawn(buttonID++, x, y, 51, 75.0f, 75.0f, 0.75f);
-	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("peacocksfx.ogg");
-	classButt.push_back(button);
-	GameObjects.AddObject(button);
+	GameObject* peaButton = bFactory.Spawn(buttonID++, x, y, 51, 75.0f, 75.0f, 0.75f);
+	ButtonLogicComponent* peaLogic = dynamic_cast<ButtonLogicComponent*>(peaButton->GetComponent(COMPONENT_LOGIC));
+	ButtonRenderComponent* peaRender = dynamic_cast<ButtonRenderComponent*>(peaButton->GetComponent(COMPONENT_RENDER));
+	peaRender->addSecondSprite(27);
+	peaLogic->setSound("peacocksfx.ogg");
+	classButt.push_back(peaButton);
+	GameObjects.AddObject(peaButton);
 	offset += w * (1 / 9.0f);
 		// peacock tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 51, x, y - 70);
 	tutorials.push_back(tutorial);
 	// flamingo button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
-	button = bFactory.Spawn(buttonID++, x, y, 52, 75.0f, 75.0f, 0.75f);
-	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("flamingosfx.ogg");
-	classButt.push_back(button);
-	GameObjects.AddObject(button);
+	GameObject* flamButton = bFactory.Spawn(buttonID++, x, y, 52, 75.0f, 75.0f, 0.75f);
+	ButtonLogicComponent* flamLogic = dynamic_cast<ButtonLogicComponent*>(flamButton->GetComponent(COMPONENT_LOGIC));
+	ButtonRenderComponent* flamRender = dynamic_cast<ButtonRenderComponent*>(flamButton->GetComponent(COMPONENT_RENDER));
+	flamRender->addSecondSprite(27);
+	flamLogic->setSound("flamingosfx.ogg");
+	classButt.push_back(flamButton);
+	GameObjects.AddObject(flamButton);
 	offset += w * (1 / 9.0f);
 		// flamingo tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 52, x, y - 70);
 	tutorials.push_back(tutorial);
 	// quail button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
-	button = bFactory.Spawn(buttonID++, x, y, 53, 75.0f, 75.0f, 0.75f);
-	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("quailsfx.ogg");
-	classButt.push_back(button);
-	GameObjects.AddObject(button);
+	GameObject* quaButton = bFactory.Spawn(buttonID++, x, y, 53, 75.0f, 75.0f, 0.75f);
+	ButtonLogicComponent* quaLogic = dynamic_cast<ButtonLogicComponent*>(quaButton->GetComponent(COMPONENT_LOGIC));
+	ButtonRenderComponent* quaRender = dynamic_cast<ButtonRenderComponent*>(quaButton->GetComponent(COMPONENT_RENDER));
+	quaRender->addSecondSprite(27);
+	quaLogic->setSound("quailsfx.ogg");
+	classButt.push_back(quaButton);
+	GameObjects.AddObject(quaButton);
 	offset += w * (1 / 9.0f);
 		// quail tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 53, x, y - 70);
 	tutorials.push_back(tutorial);
 	// turkey button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
-	button = bFactory.Spawn(buttonID++, x, y, 54, 75.0f, 75.0f, 0.75f);
-	dynamic_cast<ButtonLogicComponent*>(button->GetComponent(COMPONENT_LOGIC))->setSound("turkeysfx.ogg");
-	classButt.push_back(button);
-	GameObjects.AddObject(button);
+	GameObject* turkButton = bFactory.Spawn(buttonID++, x, y, 54, 75.0f, 75.0f, 0.75f);
+	ButtonLogicComponent* turkLogic = dynamic_cast<ButtonLogicComponent*>(turkButton->GetComponent(COMPONENT_LOGIC));
+	ButtonRenderComponent* turkRender = dynamic_cast<ButtonRenderComponent*>(turkButton->GetComponent(COMPONENT_RENDER));
+	turkRender->addSecondSprite(27);
+	turkLogic->setSound("turkeysfx.ogg");
+	classButt.push_back(turkButton);
+	GameObjects.AddObject(turkButton);
 	offset += w * (1 / 9.0f);
 		// turkey tutorial
 	tutorial = tFactory.Spawn(tutorialID++, 54, x, y - 70);
 	tutorials.push_back(tutorial);
+
+	//Now assing all the controller mapping stuff
+	chickLogic->setNavButtons(NULL, NULL, NULL, peaButton);
+	peaLogic->setNavButtons(NULL, NULL, chickButton, flamButton);
+	flamLogic->setNavButtons(NULL, NULL, peaButton, quaButton);
+	quaLogic->setNavButtons(NULL, NULL, flamButton, turkButton);
+	turkLogic->setNavButtons(NULL, NULL, quaButton, readyButt);
+	ButtonLogicComponent* readyLogic = dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC));
+	readyLogic->setNavButtons(NULL, backButt, turkButton, NULL);
+	readyLogic->selectButton();
 }
 
 int LobbyMenu::checkButtons(){

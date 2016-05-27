@@ -59,6 +59,7 @@ struct uiT_component {
 
 };
 
+
 /// UIObject (entity) main class
 
 class UIObject{
@@ -135,8 +136,7 @@ public:
 
 	int getHeight();
 
-	///	void UpdateComponentType(ComponentType typeOfComponentToUpdate);
-
+	
 	///	void HandleMessage(MessageType message);// echoes to all attached component
 
 private:
