@@ -90,9 +90,6 @@ void ButtonLogicComponent::unselectButton(){
 }
 
 void ButtonLogicComponent::Update(){
-	if (input->isKeyPressed(KEY_RIGHT))std::cout << "right" << std::endl;
-	if (input->isKeyPressed(KEY_UP))std::cout << "up" << std::endl;
-	if (input->isKeyPressed(KEY_LEFT))std::cout << "left" << std::endl;
 	Controller* controller = input->controller;
 	if (selected==1){
 		//this button is the one currently 'hovered' over by the controller
@@ -100,7 +97,6 @@ void ButtonLogicComponent::Update(){
 		if ((input->isKeyPressed(KEY_UP) || controller->isDPadPressed(JOYSTICK_DPAD_UP)) && navMap.up){
 			this->unselectButton();
 			navMap.up->selectButton();
-			//maybe something else needs to be updated here (and the other directions too)
 		}
 		else if ((input->isKeyPressed(KEY_DOWN) || controller->isDPadPressed(JOYSTICK_DPAD_DOWN)) && navMap.down){
 			this->unselectButton();
@@ -111,7 +107,6 @@ void ButtonLogicComponent::Update(){
 			navMap.left->selectButton();
 		}
 		else if ((input->isKeyPressed(KEY_RIGHT) || controller->isDPadPressed(JOYSTICK_DPAD_RIGHT)) && navMap.right){
-			std::cout << "move right" << std::endl;
 			this->unselectButton();
 			navMap.right->selectButton();
 		}

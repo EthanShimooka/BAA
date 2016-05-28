@@ -28,7 +28,7 @@ InputManager* InputManager::getInstance() {
 
 // updates at every frame for new input
 void InputManager::update() {
-	//controller->update();
+	controller->update();
 	// reset mouse to neutral state, continue polling for up/down events
 	/*for (int i = 0; i < MOUSE_SIZE; i++) {
 		this->mouseDown[i] = 0;
@@ -56,17 +56,6 @@ void InputManager::update() {
 		case SDL_QUIT:
 			cout << "quit the game" << endl;
 			break;
-			// SDL_MouseButtonEvent
-		/*case SDL_KEYDOWN:
-			keyboardUpDown[ev.key.keysym.scancode] = 1;
-			keyboardCheck[ev.key.keysym.scancode] = true;
-			break;
-		case SDL_KEYUP:
-			if (keyboardUpDown[ev.key.keysym.scancode] == 1)
-				std::cout << "it has been released" << std::endl;
-			keyboardUpDown[ev.key.keysym.scancode] = 2;
-			keyboardCheck[ev.key.keysym.scancode] = false;
-			break;*/
 		case SDL_MOUSEBUTTONDOWN:
 			if (ev.button.button == SDL_BUTTON_LEFT) {
 				mouseLeftPressed = true;

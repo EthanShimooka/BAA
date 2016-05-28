@@ -54,7 +54,8 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 	//firing with controller
 	if (controller->getRightTrigger() < 0.75&& controller->lastRightTriggerValue>0.75&& canFire&&isChargingAttack){
 		canFire = false;
-		isChargingAttack = false;
+		isChargingAttack = true;
+		logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 		Timing::sInstance.StartAttackCooldown();
 		controller->rumble(1, 200);
 		float xDir, yDir;

@@ -78,11 +78,6 @@ void LobbyMenu::createButtons(){
 	ButtonRenderComponent*backRender = dynamic_cast<ButtonRenderComponent*>(backButt->GetComponent(COMPONENT_RENDER));
 	backRender->addSecondSprite(27);
 	GameObjects.AddObject(backButt);
-
-	//configure buttons for controller
-	
-	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
-	backLogic->setNavButtons(readyButt, NULL, NULL, NULL);
 }
 
 void LobbyMenu::createClassButts(){
@@ -189,6 +184,8 @@ void LobbyMenu::createClassButts(){
 	ButtonLogicComponent* readyLogic = dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC));
 	readyLogic->setNavButtons(NULL, backButt, turkButton, NULL);
 	readyLogic->selectButton();
+	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
+	backLogic->setNavButtons(readyButt, NULL, turkButton, NULL);
 
 }
 
