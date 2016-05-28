@@ -110,9 +110,6 @@ void LauncherRenderComponent::throwLauncher(){
 }
 
 LauncherRenderComponent::~LauncherRenderComponent(){
-	for (auto i : animations){
-		delete i.second;
-	}
 }
 
 
