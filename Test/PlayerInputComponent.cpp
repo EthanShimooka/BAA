@@ -35,6 +35,8 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 		physicsComp->inAir = true;
 		if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -jumpSpeed));
 		else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, jumpSpeed));
+		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		logic->launchable = true;
 	}
 
 	//handle firing
@@ -99,7 +101,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		//Set bool footstepsPlaying = true
 		//if (!physicsComp->inAir) dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFootstepSFX();
 	}
-	else{
+	else if(!controller->isControllerOn()){
 		body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 		logic->launchable = false;
 		//Stop play footsteps
@@ -112,12 +114,6 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 			if (gameObjectRef->posY > 0)body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, -jumpSpeed));
 			else body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, jumpSpeed));
 			logic->launchable = true;
-	}
-
-	//TEST ONLY
-	if (input->isKeyDown(KEY_P) && !physicsComp->inAir) {
-		PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		logic->launchable = true;
 	}
 
 	//shoot feather
