@@ -39,8 +39,7 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 		logic->launchable = true;
 	}
 
-	//handle firing
-	//controller aiming
+	//limit controller aiming to screen size
 	int controllerSensitivity = 12;
 	int mouseX = input->getMouseX() + (int)(controller->getRightThumbX() * controllerSensitivity);
 	int mouseY = input->getMouseY() + (int)(controller->getRightThumbY() * controllerSensitivity);
@@ -58,23 +57,17 @@ void PlayerInputComponent::handleControllerInput(RenderManager* renderMan, Input
 		logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
 		Timing::sInstance.StartAttackCooldown();
 		controller->rumble(1, 200);
-		float xDir, yDir;
-		renderMan->windowCoordToWorldCoord(xDir, yDir, (int)renderComp->crosshairRef->posX, (int)renderComp->crosshairRef->posY);
-		//std::cout << "xdir=" << xDir << " ydir=" << std::endl;
-		//PlayerLogicComponent* logic = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-		uint64_t id = logicComp->spawnFeather((int)xDir, (int)yDir, featherSpeed);
+		float dx, dy;
+		renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
+		uint64_t id = logicComp->spawnFeather(dx, dy, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-		//not working yet
-		netComp->createFeatherPacket(id, (int)xDir, (int)yDir, featherSpeed);
+		netComp->createFeatherPacket(id, (int)dx, (int)dy, featherSpeed);
 	}
 	if (controller->getRightTrigger() > 0.75)isChargingAttack = true;
 
 	//handle special abilites
 	if (controller->isJoystickReleased(JOYSTICK_RIGHTSHOULDER)) {
 		int powerUsed = classComp->useAbility();
-		//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
-		// PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-		//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 	}
 
 }
@@ -122,8 +115,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		//old check that doesn't allow for charging during shot cool down. This breaks the charge up bar.
 		isChargingAttack = true;
 		logicComp->startCharge(); // need to synchronize charge bar "animation" wtih actual charging time
-	}
-	else{
+	}else{
 		logicComp->endCharge();
 	}
 
@@ -138,7 +130,7 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		canFire = false;
 		float dx, dy;
 		renderMan->windowCoordToWorldCoord(dx, dy, input->getMouseX(), input->getMouseY());
-		uint64_t id = logicComp->spawnFeather((int)dx, (int)dy, featherSpeed);
+		uint64_t id = logicComp->spawnFeather(dx, dy, featherSpeed);
 		//PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 		netComp->createFeatherPacket(id, (int)dx, (int)dy, featherSpeed);
 	}
@@ -147,13 +139,9 @@ void PlayerInputComponent::handleKeyboardInput(RenderManager* renderMan, InputMa
 		dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC))->playFailSound();
 	}
 	
-	
 	//spawn shield, checks for full birdseed in logic component
 	if (input->isMouseRightReleased() ) {
 		int powerUsed = classComp->useAbility();
-		//	uint64_t id = logic->spawnFeather(input->getMouseX(), input->getMouseY());
-		// PlayerNetworkComponent* net = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-		//	net->createFeatherPacket(id, input->getMouseX(), input->getMouseY());
 	}
 }
 

@@ -35,7 +35,7 @@ public:
 	/// Update Function
 	void Update();
 	/// Spawn Feather Function
-	uint64_t spawnFeather(int mouseX, int mouseY, float speed);
+	uint64_t spawnFeather(float mouseX, float mouseY, float speed);
 	/// Spawn Feather (networked)
 	void spawnFeather(uint64_t ID, float initialX, float initialY, int destX, int destY, float speed);
 	float eggTimer;

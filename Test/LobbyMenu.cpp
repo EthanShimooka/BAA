@@ -177,13 +177,13 @@ void LobbyMenu::createClassButts(){
 
 
 	//Now assing all the controller mapping stuff
-	chickLogic->setNavButtons(NULL, NULL, NULL, peaButton);
-	peaLogic->setNavButtons(NULL, NULL, chickButton, flamButton);
-	flamLogic->setNavButtons(NULL, NULL, peaButton, quaButton);
-	quaLogic->setNavButtons(NULL, NULL, flamButton, turkButton);
-	turkLogic->setNavButtons(NULL, NULL, quaButton, readyButt);
+	chickLogic->setNavButtons(NULL, backButt, NULL, peaButton);
+	peaLogic->setNavButtons(flamButton, backButt, chickButton, flamButton);
+	flamLogic->setNavButtons(NULL, backButt, peaButton, quaButton);
+	quaLogic->setNavButtons(flamButton, backButt, flamButton, turkButton);
+	turkLogic->setNavButtons(NULL, backButt, quaButton, readyButt);
 	ButtonLogicComponent* readyLogic = dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC));
-	readyLogic->setNavButtons(NULL, backButt, turkButton, NULL);
+	readyLogic->setNavButtons(turkButton, backButt, NULL, NULL);
 	readyLogic->selectButton();
 	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
 	backLogic->setNavButtons(readyButt, NULL, turkButton, NULL);
