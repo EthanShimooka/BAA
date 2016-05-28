@@ -13,6 +13,7 @@
 <resource UID="101001" type="graphic" filename="Platform1.png" scenescope="0"></resource>
 <resource UID="101003" type="graphic" filename="Platform2.png" scenescope="0"></resource>
 <resource UID="101004" type="graphic" filename="fountainS.png" scenescope="0" height="2" width="8" max="16"></resource>
+
 <resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
 <resource UID="24" type="graphic" filename="join.png" scenescope="0"></resource>
 <resource UID="22" type="graphic" filename="cancel.png" scenescope="0"></resource>
@@ -23,6 +24,7 @@
 <resource UID="28" type="graphic" filename="playerSlot.png" scenescope="0"></resource>
 <resource UID="29" type="graphic" filename="options.png" scenescope="0"></resource>
 <resource UID="30" type="graphic" filename="playerSlotReady.png" scenescope="0"></resource>
+
 <resource UID="1100" type="graphic" filename="birdseed_counter_shell.png" scenescope="0"></resource>
 <resource UID="1101" type="graphic" filename="birdseed_counter_gradient2.png" scenescope="0"></resource>
 <resource UID="1102" type="graphic" filename="chargebar_shell.png" scenescope="0"></resource>
@@ -31,7 +33,9 @@
 <resource UID="1110" type="graphic" filename="Menu_bg.png" scenescope="0"></resource>
 <resource UID="1111" type="graphic" filename="Game_UI_Crosshair_Charging.png" scenescope="0"></resource>
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
+
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
+
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
 <resource UID="2003" type="graphic" filename="Game_Fan_Off.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
@@ -114,6 +118,8 @@
 <resource UID="3503" type="graphic" filename="Player_Turkey_Leg_1.png" scenescope="0"></resource>
 <resource UID="3504" type="graphic" filename="Player_Turkey_Leg_2.png" scenescope="0"></resource>
 <resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
+
+
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
 <resource UID="4003" type="graphic" filename="Power_Shield.png" scenescope="0"></resource>
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
@@ -142,17 +148,19 @@
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
-<resource UID="50" type="graphic" filename="CLobby.png" scenescope="0"></resource>
-<resource UID="51" type="graphic" filename="PLobby.png" scenescope="0"></resource>
-<resource UID="52" type="graphic" filename="FLobby.png" scenescope="0"></resource>
-<resource UID="53" type="graphic" filename="QLobby.png" scenescope="0"></resource>
-<resource UID="54" type="graphic" filename="TLobby.png" scenescope="0"></resource>
 
-<resource UID="55" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
-<resource UID="56" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
-<resource UID="57" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
-<resource UID="58" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
-<resource UID="59" type="graphic" filename="THLobby.png" scenescope="0"></resource>
+
+<resource UID="9150" type="graphic" filename="CLobby.png" scenescope="0"></resource>
+<resource UID="9151" type="graphic" filename="PLobby.png" scenescope="0"></resource>
+<resource UID="9152" type="graphic" filename="FLobby.png" scenescope="0"></resource>
+<resource UID="9153" type="graphic" filename="QLobby.png" scenescope="0"></resource>
+<resource UID="9154" type="graphic" filename="TLobby.png" scenescope="0"></resource>
+
+<resource UID="9250" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
+<resource UID="9251" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
+<resource UID="9252" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
+<resource UID="9253" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
+<resource UID="9254" type="graphic" filename="THLobby.png" scenescope="0"></resource>
 
 
 
