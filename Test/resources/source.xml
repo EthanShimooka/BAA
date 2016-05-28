@@ -150,6 +150,7 @@
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
 
 
+
 <resource UID="9150" type="graphic" filename="CLobby.png" scenescope="0"></resource>
 <resource UID="9151" type="graphic" filename="PLobby.png" scenescope="0"></resource>
 <resource UID="9152" type="graphic" filename="FLobby.png" scenescope="0"></resource>
@@ -162,6 +163,7 @@
 <resource UID="9253" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
 <resource UID="9254" type="graphic" filename="THLobby.png" scenescope="0"></resource>
 
+<resource UID="9300" type="graphic" filename="Lobby_tutorial_menu.png" scenescope="0"></resource>
 
 
 </resources>
