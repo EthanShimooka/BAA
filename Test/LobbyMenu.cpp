@@ -68,7 +68,7 @@ void LobbyMenu::createButtons(){
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.9f)), (int)(h*(90 / 100.0)));
 	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.30f,BUTTON_ICON);
 	ButtonRenderComponent* readyRender = dynamic_cast<ButtonRenderComponent*>(readyButt->GetComponent(COMPONENT_RENDER));
-	readyRender->addSecondSprite(25);
+	readyRender->addSecondSprite(34);
 	
 	GameObjects.AddObject(readyButt);
 
@@ -77,7 +77,7 @@ void LobbyMenu::createButtons(){
 	backButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.30f);
 
 	ButtonRenderComponent*backRender = dynamic_cast<ButtonRenderComponent*>(backButt->GetComponent(COMPONENT_RENDER));
-	backRender->addSecondSprite(23);
+	backRender->addSecondSprite(33);
 	GameObjects.AddObject(backButt);
 }
 

@@ -49,13 +49,13 @@ void MainMenu::createButtons(){
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.91f)), (int)(h*(0.75f)));
 	playButt = bFactory.Spawn(3521, x, y, 19, 55.0f, 75.0f, 0.3f);
 	ButtonRenderComponent* playRender = dynamic_cast<ButtonRenderComponent*>(playButt->GetComponent(COMPONENT_RENDER));
-	playRender->addSecondSprite(19);
+	playRender->addSecondSprite(31);
 	GameObjects.AddObject(playButt);
 	// quit button
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.91f)), (int)(h*(0.9f)));
 	quitButt = bFactory.Spawn(3522, x, y, 22, 55.0f, 75.0f, 0.3f);
 	ButtonRenderComponent* quitRender = dynamic_cast<ButtonRenderComponent*>(quitButt->GetComponent(COMPONENT_RENDER));
-	quitRender->addSecondSprite(27);
+	quitRender->addSecondSprite(32);
 	GameObjects.AddObject(quitButt);
 
 	//configure buttons to work with controller
