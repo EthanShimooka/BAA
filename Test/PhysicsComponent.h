@@ -26,7 +26,7 @@ public:
 	virtual ~PhysicsComponent();
 
 	/// GameObject Container Reference
-	GameObject* gameObjectRef;
+	GameObject* gameObjectRef = nullptr;
 	b2Body* mBody;
 	b2Fixture* mFixture;
 	b2FixtureDef boxFixtureDef;

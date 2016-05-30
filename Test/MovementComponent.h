@@ -26,7 +26,7 @@ public:
 	/// Destructor
 	virtual ~MovementComponent();
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
-	GameObject* gameObjectRef;
+	GameObject* gameObjectRef = nullptr;
 
 	/// Update Function
 	virtual void Update();

@@ -31,7 +31,7 @@ public:
 	/// Destructor
 	virtual ~InputComponent();
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
-	GameObject* gameObjectRef;
+	GameObject* gameObjectRef = nullptr;
 
 	/// update object Positions from Input
 	virtual void Update();

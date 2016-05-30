@@ -25,8 +25,8 @@ public:
 	NetworkComponent();
 	virtual ~NetworkComponent();
 
-	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
-	GameObject* gameObjectRef;
+	/// GameObject Container Reference. (Assigned upon GameObject Creation) 
+	GameObject* gameObjectRef = nullptr;
 	uint32_t sequence = 0;
 
 

@@ -23,7 +23,7 @@ public:
 	/// Destructor
 	virtual ~LogicComponent();
 	/// GameObject Container Reference
-	GameObject* gameObjectRef;
+	GameObject* gameObjectRef = nullptr;
 
 	/// Virtual Update function
 	virtual void Update();
