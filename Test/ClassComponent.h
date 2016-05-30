@@ -54,22 +54,24 @@ public:
 	/// Plays the sound for when the birdseed meter first fills up
 	void birdseedFullSFXPlayed();
 
-	float speed;
-	float jumpSpeed;
-	float width, height;
-	int   seedRequired;
-	float featherSpeed;
-	float featherWidth, featherHeight;
-	float abilityCooldown;
+	float speed = 16;
+	float jumpSpeed = 16;
+	float width = 1.33f;
+	float height = 1.35f;
+	int   seedRequired = 8;
+	float featherSpeed = 70.0f;
+	float featherWidth = 1;
+	float featherHeight = 1;
+	float abilityCooldown = 15;
 
 	int currBirdseed = 0;
 	int maxsBirdseed = 8;
-	uint64_t *powerNum;
-	bool birdseedFullPlayed;
+	uint64_t *powerNum = 0;
+	bool birdseedFullPlayed = false;
 
 protected :
 	float timer = 0;
-	int timerLength;
+	int timerLength = 0;
 };
 
 #endif

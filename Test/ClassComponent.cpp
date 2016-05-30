@@ -2,16 +2,6 @@
 
 ClassComponent::ClassComponent()
 {
-	birdseedFullPlayed = false;
-	speed = 16;
-	jumpSpeed = 16;
-	width = 1.33f;
-	height = 1.35f;
-	seedRequired = 8;
-	featherSpeed = 70.0f;
-	featherWidth = 1;
-	featherHeight = 1;
-	abilityCooldown = 15;
 }
 
 ClassComponent::~ClassComponent()
