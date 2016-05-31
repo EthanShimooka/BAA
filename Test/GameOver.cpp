@@ -37,7 +37,8 @@ void GameOver::createButtons(){
 	renderMan->getWindowSize(&w, &h);
 
 	// menu button
-	renderMan->windowCoordToWorldCoord(x, y, w*(7 / 8), h*(90 / 100));
+	
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.91f)), (int)(h*(0.85f)));
 	mainMenuButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.3f);
 	if (RenderManager::getRenderManager()->flippedScreen)mainMenuButt->rotation = 180;
 	GameObjects.AddObject(mainMenuButt);
