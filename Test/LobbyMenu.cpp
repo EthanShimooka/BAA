@@ -1,7 +1,7 @@
 #include "LobbyMenu.h"
 
 LobbyMenu::LobbyMenu() : numPlayersReady(0){
-	NetworkManager::sInstance->clearLobbyInfoMap();
+	//NetworkManager::sInstance->clearLobbyInfoMap();
 	RenderManager::getRenderManager()->setCameraPoint(0, 0);
 	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
