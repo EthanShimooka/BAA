@@ -2,11 +2,13 @@
 #ifndef MINIONNETWORKCOMPONENT_H_INCLUDED
 #define MINIONNETWORKCOMPONENT_H_INCLUDED
 #include "NetworkComponent.h"
+#include "Stats.h"
 #include "MinionComponentIncludes.h"
 
 typedef enum {
 	MIN_POS = 1,
 	MIN_DIE = 2,
+	MIN_HIT = 3,
 }COMMAND;
 
 class MinionPhysicsComponent;
@@ -21,7 +23,10 @@ public:
 	~MinionNetworkComponent();
 	/// Update
 	void Update();
-
+	///Send base hit
+	void SendBaseHit(int teamHit, uint64_t minionID, uint64_t baseID);
+	///Handle base hit
+	void HandleBaseHit(InputMemoryBitStream& packet);
 	///Send minion death
 	void SendMinionDeath();
 	///Handle minion death
