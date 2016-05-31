@@ -37,8 +37,9 @@ void GameOver::createButtons(){
 	renderMan->getWindowSize(&w, &h);
 
 	// menu button
-	renderMan->windowCoordToWorldCoord(x, y, w*(7 / 8.0), h*(90 / 100.0));
-	mainMenuButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.75f);
+	
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.91f)), (int)(h*(0.85f)));
+	mainMenuButt = bFactory.Spawn(buttonID++, x, y, 23, 75.0f, 75.0f, 0.3f);
 	if (RenderManager::getRenderManager()->flippedScreen)mainMenuButt->rotation = 180;
 	GameObjects.AddObject(mainMenuButt);
 
@@ -97,7 +98,7 @@ void GameOver::createText(){
 void GameOver::createStatsText(){
 	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(255, 255, 0);
 	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(200, 0, 200);
-	statsText->setStartingYPos(1 / 3.0);
+	statsText->setStartingYPos(1 / 3.0f);
 	statsText->setFontSize(30);
 	// yellow team
 	statsText->createText(std::to_string(Stats::baseHealth_yellow()) + " nest health lost", yellowColor, 1 / 4.0);

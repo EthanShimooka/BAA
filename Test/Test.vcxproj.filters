@@ -835,9 +835,6 @@
     <ClCompile Include="MinePhysicsComponent.cpp">
       <Filter>Source Files\Component\Mine Component</Filter>
     </ClCompile>
-    <ClCompile Include="SystemTimerUpdater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Invoke.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -946,14 +943,8 @@
     <ClCompile Include="LobbyMenu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialRenderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EggImplosionParticle.cpp">
       <Filter>Source Files\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="TutorialObjectFactory.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="inGameStatsRenderComponent.cpp">
       <Filter>Source Files</Filter>
@@ -972,6 +963,15 @@
     </ClCompile>
     <ClCompile Include="MidBirdObjectFactory.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialObjectFactory.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemTimerUpdater.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialRenderComponent.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -14,9 +14,6 @@ MidBirdRenderComponent::MidBirdRenderComponent(GameObject * bird)
 
 MidBirdRenderComponent::~MidBirdRenderComponent()
 {
-	for (auto i : animations){
-		delete i.second;
-	}
 }
 
 void MidBirdRenderComponent::buildAnimation(){

@@ -23,7 +23,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 	
 	std::cout << "ID: " << PID << std::endl;
 
-	if (GameObjects.dead_feathers.empty()){ //pool not large enough, add new feather
+	//if (GameObjects.dead_feathers.empty()){ //pool not large enough, add new feather
 		feather = new GameObject();
 		if (owner->isLocal)
 			feather->isLocal = true;
@@ -39,7 +39,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		physics = new FeatherPhysicsComponent(feather, posX, posY, dx, dy, speed);
 		logic->owner = owner;
 
-	} else { //reuse feather from pool
+	/*} else { //reuse feather from pool
 		feather = GameObjects.dead_feathers.back();
 		GameObjects.dead_feathers.pop_back();
 		//std::cout << "Feather Pool Reusing " << feather->ID << " as " << PID << std::endl;
@@ -51,7 +51,7 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		dynamic_cast<FeatherPhysicsComponent*>(feather->GetComponent(COMPONENT_PHYSICS))->init(posX, posY, dx, dy, speed);
 		dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->owner = owner;
 		dynamic_cast<FeatherLogicComponent*>(feather->GetComponent(COMPONENT_LOGIC))->soundPlayed = false;
-	}
+	}*/
 	createFeatherParticle(feather, 1,100);
 	//std::cout << feather->isLocal << std::endl;
 	// Feather Specific Render Component. In future will have flag

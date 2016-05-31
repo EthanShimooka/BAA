@@ -57,6 +57,10 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 		//check to see what team it's affiliated with, and detonate if needed
 		if (otherObj->team != gameObjectRef->team){
 			//if hit a minion, kill the minion
+			if (gameObjectRef->isLocal){
+				AudioManager* audioMan = AudioManager::getAudioInstance();
+				audioMan->playByName("miniondeathsfx.ogg");
+			}
 			MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 			logicComp->MinionDeath();
 			otherObj->isAlive = false;
