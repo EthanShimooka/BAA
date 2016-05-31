@@ -2,6 +2,7 @@
 #ifndef MINIONNETWORKCOMPONENT_H_INCLUDED
 #define MINIONNETWORKCOMPONENT_H_INCLUDED
 #include "NetworkComponent.h"
+#include "Stats.h"
 #include "MinionComponentIncludes.h"
 
 typedef enum {
@@ -23,7 +24,7 @@ public:
 	/// Update
 	void Update();
 	///Send base hit
-	void SendBaseHit(int teamHit);
+	void SendBaseHit(int teamHit, uint64_t minionID, uint64_t baseID);
 	///Handle base hit
 	void HandleBaseHit(InputMemoryBitStream& packet);
 	///Send minion death

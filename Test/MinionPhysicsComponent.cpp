@@ -111,18 +111,9 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  if (otherObj->team == gameObjectRef->team) break;
-										  if (NetworkManager::sInstance->IsMasterPeer())
-											  dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendBaseHit(otherObj->team);
 										  //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
-										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										  logicComp->MinionDeath();
 										  //gameObjectRef->setPos(-10000, 0);
 										  //gameObjectRef->isAlive = false;
-										  //Only shake if our own base is being attacked
-										  if (gameObjectRef->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
-											  RenderManager* renderMan = RenderManager::getRenderManager();
-											  renderMan->ShakeScreen(0.3f, 0.2f);
-										  }
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
