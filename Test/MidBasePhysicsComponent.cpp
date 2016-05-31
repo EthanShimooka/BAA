@@ -62,6 +62,9 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 // logicComponent->attacked();
 
 											 std::cout << "Health = " << gameObjectRef->health << std::endl;
+											 MidBaseRenderComponent* renderComp = dynamic_cast<MidBaseRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+											 renderComp->setAnimation("damage");
+											 renderComp->setNextAnimation("idle");
 
 											 if (gameObjectRef->team == TEAM_YELLOW && NetworkManager::sInstance->IsMasterPeer()){
 												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_YELLOW, otherObj->ID, gameObjectRef->ID);
