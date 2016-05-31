@@ -152,10 +152,12 @@
 <resource UID="6023" type="audio" filename="birdseedfullsfx.ogg" scenescope="0"></resource>
 <resource UID="6024" type="audio" filename="miniondeathsfx.ogg" scenescope="0"></resource>
 
+<resource UID="7005" type="graphic" filename="UI_base_yellow.png" scenescope="0"></resource>
+<resource UID="7006" type="graphic" filename="UI_base_purple.png" scenescope="0"></resource>
+
+
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
-
-
 
 <resource UID="9150" type="graphic" filename="CLobby.png" scenescope="0"></resource>
 <resource UID="9151" type="graphic" filename="PLobby.png" scenescope="0"></resource>
