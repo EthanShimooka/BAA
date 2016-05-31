@@ -277,10 +277,12 @@ RenderResource * RenderManager::renderText(const char* text, int r, int g, int b
 	std::string path = "resources/" + fontname + ".ttf";
 	TTF_Font* font = TTF_OpenFont(path.c_str(), fontsize); // change function to take fontname in string version
 	if (!font) { // error opening file, use default computer font instead
-		// font = TTF_OpenFont();
+		std::cout << "TTF_OpenFont: " << TTF_GetError() << std::endl;
+		return resource;
 	}
 	SDL_Color color = { r, g, b };
 	SDL_Surface *tempSurface = TTF_RenderText_Solid(font, text, color); //load image as surface
+	TTF_CloseFont(font);
 	if (tempSurface){
 		//if surface is loaded correctly, then make texture
 		SDL_Texture*tempTexture = SDL_CreateTextureFromSurface(RenderManager::getRenderManagerRenderer(), tempSurface);

@@ -56,18 +56,35 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_MINION:{
 											 // chack to see if it is of opposing minion type
 											if (otherObj->team == gameObjectRef->team) break;
-											 std::cout << "base hit! \n" << std::endl;
 											 base_hit = true;
-											 // MidBaseLogicComponent* logicComponent = dynamic_cast<MidBaseLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-											 // logicComponent->attacked();
-											 gameObjectRef->health++;
 
-											 std::cout << "Health = " << gameObjectRef->health << std::endl;
+											 //std::cout << "Health = " << gameObjectRef->health << std::endl;
+											 MidBaseRenderComponent* renderComp = dynamic_cast<MidBaseRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+											 renderComp->setAnimation("damage");
+											 renderComp->setNextAnimation("idle");
 
-											 if (gameObjectRef->team == TEAM_YELLOW){
+											 if (gameObjectRef->team == TEAM_YELLOW && NetworkManager::sInstance->IsMasterPeer()){
+												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_YELLOW, otherObj->ID, gameObjectRef->ID);
+												 gameObjectRef->health++;
+												 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+												 logicComp->MinionDeath();
+												 //Only shake if our own base is being attacked
+												 if (otherObj->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+													 RenderManager* renderMan = RenderManager::getRenderManager();
+													 renderMan->ShakeScreen(0.3f, 0.2f);
+												 }
 												 Stats::incBaseHealth_yellow();
 											 }
-											 else{
+											 else if (gameObjectRef->team == TEAM_PURPLE && NetworkManager::sInstance->IsMasterPeer()){
+												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_PURPLE, otherObj->ID, gameObjectRef->ID);
+												 gameObjectRef->health++;
+												 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+												 logicComp->MinionDeath();
+												 //Only shake if our own base is being attacked
+												 if (otherObj->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+													 RenderManager* renderMan = RenderManager::getRenderManager();
+													 renderMan->ShakeScreen(0.3f, 0.2f);
+												 }
 												 Stats::incBaseHealth_purple();
 											 }
 

@@ -79,9 +79,10 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
 											 if (otherObj->team == gameObjectRef->team)break;
-											 //Cue Audio/Visual death (UPDATE: Audio is placeholder)
-											 AudioManager* audioMan = AudioManager::getAudioInstance();
-											 audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
+											 if (otherObj->isLocal){
+												 AudioManager* audioMan = AudioManager::getAudioInstance();
+												 audioMan->playByName("miniondeathsfx.ogg");
+											 }
 											 dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
 											 //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 //createDustCloudParticle(4, 50, 200, gameObjectRef->posX, gameObjectRef->posY);
@@ -98,17 +99,11 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											if (otherObj->team != gameObjectRef->team){
 												if (gameObjectRef->team == TEAM_YELLOW)
 													std::cout << gameObjectRef->ID % 1000 << ", " << otherObj->ID % 1000 << ", " << gameObjectRef->posX << std::endl;
-												//std::cout << "shig buzz \n" << std::endl;
-												//Cue Audio/Visual death (UPDATE: Audio is placeholder)
-												AudioManager* audioMan = AudioManager::getAudioInstance();
-												//std::cout << "MINION ON MINION COLLISION" << std::endl;
-												audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 												//createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 												//createDustCloudParticle(4, 50, 200, gameObjectRef->posX, gameObjectRef->posY);
 												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												logicComp->MinionDeath();
 											}
-
 
 											//gameObjectRef->isAlive = false;//currently setting the poof to dead,
 											//w/o this obj keeps moving around
@@ -116,19 +111,9 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  if (otherObj->team == gameObjectRef->team) break;
-										  //Still need to visually update dmg to base
-										  AudioManager* audioMan = AudioManager::getAudioInstance();
-										  audioMan->playByName("coinjingling.ogg");//Going to be different audio asset in each case
 										  //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
-										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										  logicComp->MinionDeath();
 										  //gameObjectRef->setPos(-10000, 0);
 										  //gameObjectRef->isAlive = false;
-										  //Only shake if our own base is being attacked
-										  if (gameObjectRef->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
-											  RenderManager* renderMan = RenderManager::getRenderManager();
-											  renderMan->ShakeScreen(0.3f, 0.2f);
-										  }
 										  break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FAN:{
@@ -165,6 +150,10 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_MINE:{
 
 										  if (gameObjectRef->team == otherObj->team) break;
+										  if (otherObj->isLocal){
+											  AudioManager* audioMan = AudioManager::getAudioInstance();
+											  audioMan->playByName("miniondeathsfx.ogg");
+										  }
 										 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 										 logicComp->MinionDeath();
 										 break;

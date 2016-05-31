@@ -13,9 +13,9 @@ WellRenderComponent::WellRenderComponent(GameObject * well, int team)
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 0, 0);
 	auto wellObj = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2110, 0, 0);
 	wellObj->setParent(objRef);
-	if (team == TEAM_PURPLE){
-		wellObj->setRotation(180);
-	}
+//	if (team == TEAM_PURPLE){
+	//	wellObj->setRotation(180);
+//	}
 
 }
 

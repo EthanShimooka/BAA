@@ -43,4 +43,10 @@ public:
 	bool invokeHelper8 = false;
 	/// Number of peacock fans currently active
 	int activeFans = 0;
+
+	//number of fans spawned before reseting birdseed meter
+	int currFansSpawned = 0;
+
+	std::unordered_map<std::string, SDLRenderObject*> m_allObjs;
+
 };

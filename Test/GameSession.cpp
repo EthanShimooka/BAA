@@ -1,11 +1,13 @@
 #include "vld.h"
 #include "GameSession.h"
 #include <functional>
-#include <crtdbg.h>
+//#include <crtdbg.h>
 #include "Invoke.h"
 #include "inGameStatsRenderComponent.h"
 #include "t.h"
 #include "stats.h"
+#include "BackgroundProps.h"
+
 
 /**
 *  GameSession.cpp
@@ -47,6 +49,7 @@ void GameSession::LoadWorld(){
 	FanObjectFactory fanFactory;
 	WellObjectFactory wellFactory;
 	LauncherObjectFactory launchFactory;
+	MidBirdObjectFactory midBirdFactory;
 
 	// Bases should have an ID between 1-10
 	uint64_t baseID = 1;
@@ -60,6 +63,9 @@ void GameSession::LoadWorld(){
 	uint64_t platformID = 101;
 	// Fans should have an ID between 201-300
 	uint64_t fanID = 201;
+
+	uint64_t birdID = 384;
+
 
 	//PLATFORMS
 	for (int i = 0; i < 14; i++){
@@ -101,6 +107,10 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, -350, 150, -60, TEAM_PURPLE)); //left bot
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, -150, 120,TEAM_PURPLE)); //right top
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120, TEAM_YELLOW)); //right bot
+
+	//Mid Bird
+	GameObjects.AddObject(midBirdFactory.Spawn(birdID, 0, (SCREEN_HEIGHT / 4.0f))); //right bot
+
 }
 
 // Loads player Objects from session arguments (instantiated player list).
@@ -282,7 +292,8 @@ int GameSession::Run(){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	//audioMan->playByName("bgmBAAGameplay.ogg");
+	audioMan->playByName("bgmBAAGameplay.ogg");
+	bool gameEndMusic = false;
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	
@@ -295,77 +306,6 @@ int GameSession::Run(){
 
 	///*auto spawning minion variables
 	int minionCounter = 10000;
-
-	
-	//Planets
-	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f))->setScale(20);
-	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f))->setScale(200);
-	(sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, -80000.0f, 40000.0f, 4000.0f))->setScale(200);
-
-	//Clouds
-	auto cloudB1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, 25000.0f, 4000.1f);
-	cloudB1->setScale(300);
-	auto cloudT1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, -25000.0f, 4000.1f);
-	cloudT1->setScale(300);
-	cloudT1->setRotation(180);
-	auto cloudB2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, 1400.0f, 300.0f);
-	cloudB2->setScale(25);
-	auto cloudT2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, -1400.0f, 300.0f);
-	cloudT2->setScale(25);
-	cloudT2->setRotation(180);
-
-	//Boids
-	auto boidB1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, 3250.0f, 2200.0f, 99.9f);
-	boidB1->setScale(3);
-	auto boidB2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, 1200.0f, 2000.0f, 99.9f);
-	boidB2->setScale(3);
-	boidB2->setFlippedH(true);
-	auto boidB3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, -1500.0f, 2100.0f, 99.9f);
-	boidB3->setScale(3);
-	boidB3->setFlippedH(true);
-	auto boidB4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, -3400.0f, 2200.0f, 99.9f);
-	boidB4->setScale(3);
-
-	auto boidT1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, -3250.0f, -2200.0f, 99.9f);
-	boidT1->setScale(3);
-	boidT1->setFlippedV(true);
-	auto boidT2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, -1200.0f, -2000.0f, 99.9f);
-	boidT2->setScale(3);
-	boidT2->setFlippedH(true);
-	boidT2->setFlippedV(true);
-	auto boidT3 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, 1500.0f, -2100.0f, 99.9f);
-	boidT3->setScale(3);
-	boidT3->setFlippedH(true);
-	boidT3->setFlippedV(true);
-	auto boidT4 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, 3400.0f, -2200.0f, 99.9f);
-	boidT4->setScale(3);
-	boidT4->setFlippedV(true);
-	//cloudT2->setRotation(180);
-
-	//Protein Mountain
-
-
-	//Beaches
-
-	auto beach1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, 2200.0f, 100.0f);
-	auto beach2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2101, 0.0f, -2200.0f, 100.0f);
-	auto surf1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
-	auto surf2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2102, 0.0f, 0.0f, 0.0f);
-	beach1->setScale(6);
-	beach2->setScale(6);
-	surf1->setParent(beach1);
-	surf2->setParent(beach2);
-	beach2->setRotation(180);
-	list<motion> surfMotions;
-	surfMotions.push_back(makeMotion(transformFlipH(surf1, false), 0.0, 0.0));
-	surfMotions.push_back(makeMotion(transformFlipH(surf2, false), 0.0, 0.0));
-	surfMotions.push_back(makeMotion(moveLinearY(surf1, -21, -6), 0, 0.5));
-	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0, 0.5));
-	surfMotions.push_back(makeMotion(transformFlipH(surf1, true), 0.5, 0.5));
-	surfMotions.push_back(makeMotion(transformFlipH(surf2, true), 0.5, 0.5));
-	surfMotions.push_back(makeMotion(moveLinearY(surf1, -21, -6), 0.5, 1.0));
-	surfMotions.push_back(makeMotion(moveLinearY(surf2, -21, -6), 0.5, 1.0));
-	Animation * surf = new Animation(100, surfMotions);
 
 	//crosshair variables
 	SDLRenderObject * crosshair = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 1109, -1000, -1000, -0.05f);
@@ -383,6 +323,7 @@ int GameSession::Run(){
 	Animation * runWater = new Animation(100, motions);
 	int aniCounter = 0;
 	*/
+	LoadBackgroundProps();
 
 	int aniCounter = 0;
 
@@ -401,16 +342,24 @@ int GameSession::Run(){
 	fpsHUD->setPos(0, 0);
 
 
+	SDLRenderObject * leftbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7005, 0, 0, true);
+	leftbaseHUDicon->setPos(-150, 600);
+
 	string leftBaseHealth = "";
 	SDLRenderObject * leftbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	leftbaseHUD->setPos(66, 600);
+	leftbaseHUD->setPos(25, 650);
+
+	SDLRenderObject * rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
+	rightbaseHUDicon->setPos(1214, 600);
 
 	string rightBaseHealth = "";
 	SDLRenderObject * rightbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	rightbaseHUD->setPos(1260, 600);
+	rightbaseHUD->setPos(1291, 650);
 
+
+	
 
 	renderMan->toggleCursor(0);
 
@@ -438,11 +387,7 @@ int GameSession::Run(){
 		}
 
 		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		//runWater->animate(float(aniCounter) / 100);
-		surf->animate(float(aniCounter) / 100);
-		aniCounter++;
-		aniCounter = aniCounter % 100;
-
+		
 	
 
 		/*if (input->isKeyDown(KEY_Q)){
@@ -590,7 +535,7 @@ int GameSession::Run(){
 		sceneMan->AssembleScene();
 
 		//triggers endgame screen
-		if (Timing::sInstance.GetTimeRemainingS() <= 0 ) {
+		if (Timing::sInstance.GetTimeRemainingS() <= 0) {
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -603,6 +548,12 @@ int GameSession::Run(){
 		  //GameEnd end = GameEnd::GameEnd();
 		  //end.runGameEnd(myTeam, leftBase, rightBase);
 		  gameloop = false;
+		}
+
+		if (Timing::sInstance.GetTimeRemainingS() <= 30 && !gameEndMusic){
+			gameEndMusic = true;
+			audioMan->stopByName("bgmBAAGameplay.ogg");
+			audioMan->playByName("bgmBAAGameEnd.ogg");
 		}
 
 		firstTime = false;
@@ -621,24 +572,24 @@ int GameSession::Run(){
 		leftBaseHealth = std::to_string(Stats::baseHealth_purple());
 
 	//	leftBaseHealth = std::to_string(leftBase->health);
-		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 60, "BowlbyOneSC-Regular"));
+		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 75, "BowlbyOneSC-Regular"));
 		rightBaseHealth = std::to_string(Stats::baseHealth_yellow());
 
 	//	rightBaseHealth = std::to_string(rightBase->health);
-		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 60, "BowlbyOneSC-Regular"));
+		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 75, "BowlbyOneSC-Regular"));
 
 
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-
+	audioMan->stopByName("bgmBAAGameEnd.ogg");
 	std::cout << renderMan << std::endl;
 	std::cout << renderMan << std::endl;
 
 	log->close();
 
-	delete surf;
+	//delete surf;
 	//delete fount;
 	//delete runWater;
 

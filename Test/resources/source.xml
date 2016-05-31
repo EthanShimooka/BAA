@@ -13,16 +13,24 @@
 <resource UID="101001" type="graphic" filename="Platform1.png" scenescope="0"></resource>
 <resource UID="101003" type="graphic" filename="Platform2.png" scenescope="0"></resource>
 <resource UID="101004" type="graphic" filename="fountainS.png" scenescope="0" height="2" width="8" max="16"></resource>
-<resource UID="19" type="graphic" filename="playButton.png" scenescope="0"></resource>
+
+<resource UID="19" type="graphic" filename="Button_start.png" scenescope="0"></resource>
+<resource UID="22" type="graphic" filename="Button_quit.png" scenescope="0"></resource>
+<resource UID="23" type="graphic" filename="Button_back.png" scenescope="0"></resource>
 <resource UID="24" type="graphic" filename="join.png" scenescope="0"></resource>
-<resource UID="22" type="graphic" filename="cancel.png" scenescope="0"></resource>
-<resource UID="23" type="graphic" filename="back.png" scenescope="0"></resource>
-<resource UID="25" type="graphic" filename="ready.png" scenescope="0"></resource>
+<resource UID="25" type="graphic" filename="Button_ready.png" scenescope="0"></resource>
 <resource UID="26" type="graphic" filename="notReady.png" scenescope="0"></resource>
 <resource UID="27" type="graphic" filename="playerReady.png" scenescope="0"></resource>
 <resource UID="28" type="graphic" filename="playerSlot.png" scenescope="0"></resource>
 <resource UID="29" type="graphic" filename="options.png" scenescope="0"></resource>
 <resource UID="30" type="graphic" filename="playerSlotReady.png" scenescope="0"></resource>
+<resource UID="31" type="graphic" filename="Button_start_select.png" scenescope="0"></resource>
+<resource UID="32" type="graphic" filename="Button_quit_select.png" scenescope="0"></resource>
+<resource UID="33" type="graphic" filename="Button_back_select.png" scenescope="0"></resource>
+<resource UID="34" type="graphic" filename="Button_ready_select.png" scenescope="0"></resource>
+
+
+
 <resource UID="1100" type="graphic" filename="birdseed_counter_shell.png" scenescope="0"></resource>
 <resource UID="1101" type="graphic" filename="birdseed_counter_gradient2.png" scenescope="0"></resource>
 <resource UID="1102" type="graphic" filename="chargebar_shell.png" scenescope="0"></resource>
@@ -31,7 +39,9 @@
 <resource UID="1110" type="graphic" filename="Menu_bg.png" scenescope="0"></resource>
 <resource UID="1111" type="graphic" filename="Game_UI_Crosshair_Charging.png" scenescope="0"></resource>
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
+
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
+
 <resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
 <resource UID="2003" type="graphic" filename="Game_Fan_Off.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
@@ -64,15 +74,24 @@
 
 <resource UID="2101" type="graphic" filename="Background_Beach.png" scenescope="0"></resource>
 <resource UID="2102" type="graphic" filename="Background_Surf.png" scenescope="0"></resource>
-<resource UID="2103" type="graphic" filename="Space-Muscle-Beach__0009_Large-Blue-Planet.png" scenescope="0"></resource>
-<resource UID="2104" type="graphic" filename="Space-Muscle-Beach__0008_Small-Brown-Planet.png" scenescope="0"></resource>
-<resource UID="2105" type="graphic" filename="Space-Muscle-Beach__0007_Medium-Red-Planet.png" scenescope="0"></resource>
+<resource UID="2103" type="graphic" filename="toned-down__0004_planet-blue.png" scenescope="0"></resource>
+<resource UID="2104" type="graphic" filename="toned-down__0003_planet-bronze.png" scenescope="0"></resource>
+<resource UID="2105" type="graphic" filename="toned-down__0002_planet-purple.png" scenescope="0"></resource>
 <resource UID="2106" type="graphic" filename="Space-Muscle-Beach__0010_Clouds-Back.png" scenescope="0"></resource>
 <resource UID="2107" type="graphic" filename="Space-Muscle-Beach__0006_Clouds-Front.png" scenescope="0"></resource>
 <resource UID="2108" type="graphic" filename="Space-Muscle-Beach__0000_Owl.png" scenescope="0"></resource>
 <resource UID="2109" type="graphic" filename="Space-Muscle-Beach__0001_Eagle.png" scenescope="0"></resource>
 <resource UID="2110" type="graphic" filename="Space-Muscle-Beach__0005_Protein-Mountain-Left.png" scenescope="0"></resource>
 <resource UID="2111" type="graphic" filename="Space-Muscle-Beach__0003_Protein-Moutain-Right.png" scenescope="0"></resource>
+
+<resource UID="2200" type="graphic" filename="Gull_body.png" scenescope="0"></resource>
+<resource UID="2201" type="graphic" filename="Gull_MLG.png" scenescope="0"></resource>
+<resource UID="2202" type="graphic" filename="Gull_arm_left.png" scenescope="0"></resource>
+<resource UID="2203" type="graphic" filename="Gull_arm_right.png" scenescope="0"></resource>
+<resource UID="2204" type="graphic" filename="Gull_flag_yellow.png" scenescope="0"></resource>
+<resource UID="2205" type="graphic" filename="Gull_flag_purple.png" scenescope="0"></resource>
+<resource UID="2206" type="graphic" filename="Gull_buoy_left.png" scenescope="0"></resource>
+
 
 
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
@@ -105,6 +124,8 @@
 <resource UID="3503" type="graphic" filename="Player_Turkey_Leg_1.png" scenescope="0"></resource>
 <resource UID="3504" type="graphic" filename="Player_Turkey_Leg_2.png" scenescope="0"></resource>
 <resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
+
+
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
 <resource UID="4003" type="graphic" filename="Power_Shield.png" scenescope="0"></resource>
 <resource UID="4001" type="graphic" filename="poof.png" scenescope="0"></resource>
@@ -115,6 +136,7 @@
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
+<resource UID="6002" type="audio" filename="bgmBAAGameEnd.ogg" scenescope="0"></resource>
 <resource UID="6010" type="audio" filename="chickensfx.ogg" scenescope="0"></resource>
 <resource UID="6011" type="audio" filename="peacocksfx.ogg" scenescope="0"></resource>
 <resource UID="6012" type="audio" filename="quailsfx.ogg" scenescope="0"></resource>
@@ -129,22 +151,28 @@
 <resource UID="6021" type="audio" filename="chickenshieldsfx.ogg" scenescope="0"></resource>
 <resource UID="6022" type="audio" filename="bgmfootstepsfx.ogg" scenescope="0"></resource>
 <resource UID="6023" type="audio" filename="birdseedfullsfx.ogg" scenescope="0"></resource>
-<resource UID="6009" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
+<resource UID="6024" type="audio" filename="miniondeathsfx.ogg" scenescope="0"></resource>
+
+<resource UID="7005" type="graphic" filename="UI_base_yellow.png" scenescope="0"></resource>
+<resource UID="7006" type="graphic" filename="UI_base_purple.png" scenescope="0"></resource>
+
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
-<resource UID="50" type="graphic" filename="CLobby.png" scenescope="0"></resource>
-<resource UID="51" type="graphic" filename="PLobby.png" scenescope="0"></resource>
-<resource UID="52" type="graphic" filename="FLobby.png" scenescope="0"></resource>
-<resource UID="53" type="graphic" filename="QLobby.png" scenescope="0"></resource>
-<resource UID="54" type="graphic" filename="TLobby.png" scenescope="0"></resource>
 
-<resource UID="55" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
-<resource UID="56" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
-<resource UID="57" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
-<resource UID="58" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
-<resource UID="59" type="graphic" filename="THLobby.png" scenescope="0"></resource>
+<resource UID="9150" type="graphic" filename="CLobby.png" scenescope="0"></resource>
+<resource UID="9151" type="graphic" filename="PLobby.png" scenescope="0"></resource>
+<resource UID="9152" type="graphic" filename="FLobby.png" scenescope="0"></resource>
+<resource UID="9153" type="graphic" filename="QLobby.png" scenescope="0"></resource>
+<resource UID="9154" type="graphic" filename="TLobby.png" scenescope="0"></resource>
 
+<resource UID="9250" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
+<resource UID="9251" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
+<resource UID="9252" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
+<resource UID="9253" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
+<resource UID="9254" type="graphic" filename="THLobby.png" scenescope="0"></resource>
+
+<resource UID="9300" type="graphic" filename="Lobby_tutorial_menu.png" scenescope="0"></resource>
 
 
 </resources>

@@ -20,11 +20,12 @@ void FanRenderComponent::buildAnimations(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 0, 0);
-	SDLRenderObject * arm = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2003, 0, 0);
+	SDLRenderObject * arm = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2003, 0, 0);
 
 	allObjs["base"] = objRef;
 	allObjs["arm"] = arm;
 	allObjs["arm"]->visible = true;
+	allObjs["arm"]->setScale(.70f);
 	arm->setParent(objRef);
 	arm->setAnchor(0.5f, 0.5f);
 	

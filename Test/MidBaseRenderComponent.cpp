@@ -59,8 +59,10 @@ void MidBaseRenderComponent::buildBody(int team){
 	allObjs["tail"] = tail;
 }
 void MidBaseRenderComponent::buildAnimations(){
-std::list<motion> motions;
-	motions.push_back(makeMotion(rotateTransform(allObjs["arm"], 0, 360), 0, 1));
+	std::list<motion> motions;
+	motions.push_back(makeMotion(visibleSprite(allObjs["body"], true), 0, 1.0));
+	motions.push_back(makeMotion(rotateTransform(allObjs["arm"], 0, -90), 0, 0.5,ease_QuadOut));
+	motions.push_back(makeMotion(rotateTransform(allObjs["arm"], -90, 90), 0.5, 0.5,ease_QuadOut));
 	motions.push_back(makeMotion(rotateTransform(allObjs["eye"], 0, -360), 0, 1));
 	motions.push_back(makeMotion(rotateTransform(allObjs["head"], -10, 20), 0, 0.5, ease_QuadInOut));
 	motions.push_back(makeMotion(rotateTransform(allObjs["head"], 10, -20), 0.5, 0.5, ease_QuadInOut));
@@ -69,6 +71,19 @@ std::list<motion> motions;
 	motions.push_back(makeMotion(rotateTransform(allObjs["tail"], 20, -40), 0, 0.5, ease_QuadInOut));
 	motions.push_back(makeMotion(rotateTransform(allObjs["tail"], -20, 40), 0.5, 0.5, ease_QuadInOut));
 	animations["idle"] = new Animation(800, motions);
+	std::list<motion> motions2;
+	motions2.push_back(makeMotion(flashSprite(allObjs["body"],5), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(allObjs["arm"], 0, 360), 0, 1));
+	motions2.push_back(makeMotion(rotateTransform(allObjs["eye"], 0, -360), 0, 1));
+	motions2.push_back(makeMotion(rescaleTransform(allObjs["eye"], 0.4, 1.0), 0, 1,ease_QuadIn));
+	//motions2.push_back(makeMotion(rotateTransform(allObjs["head"], -10, 20), 0, 0.5, ease_QuadInOut));
+	motions2.push_back(makeMotion(rotateTransform(allObjs["head"], 10, -20), 0, 1));
+	//motions2.push_back(makeMotion(rotateTransform(allObjs["beak_bot"], 20, -40), 0, 0.5, ease_QuadInOut));
+	//motions2.push_back(makeMotion(rotateTransform(allObjs["beak_bot"], -20, 40), 0.5, 0.5, ease_QuadInOut));
+	//motions2.push_back(makeMotion(rotateTransform(allObjs["tail"], 20, 0), 0, 1.0, ease_QuadInOut));
+	//motions2.push_back(makeMotion(rotateTransform(allObjs["tail"], -20, 40), 0.5, 0.5, ease_QuadInOut));
+	animations["damage"] = new Animation(800, motions2);
+
 
 }
 MidBaseRenderComponent::MidBaseRenderComponent(GameObject * base, int team)

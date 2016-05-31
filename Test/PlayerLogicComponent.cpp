@@ -39,13 +39,13 @@ void PlayerLogicComponent::Update(){
 	
 }
 
-/// For spawning local feathers
-uint64_t PlayerLogicComponent::spawnFeather(int dx, int dy, float speed){
+/// Given a destination in world coordinates, spawn a feather at self and move it to destination
+uint64_t PlayerLogicComponent::spawnFeather(float destX, float destY, float speed){
 	PlayerRenderComponent * render = (PlayerRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
-	gameObjectRef->flipH = dx < 0;
+	gameObjectRef->flipH = destX < 0;
 	render->setAnimation("throw");
 	render->setNextAnimation("idle");
-	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, (float)dx, (float)dy, speed);
+	GameObject* newFeather = fFactory.Spawn(gameObjectRef, child_id_counter++, gameObjectRef->posX, gameObjectRef->posY, destX, destY, speed);
 	GameObjects.AddObject(newFeather);
 	return child_id_counter - 1;
 }
