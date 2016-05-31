@@ -4,7 +4,7 @@
 
 #include "GameObject.h"
 #include "GameObjectFactory.h"
-
+#include "Stats.h"
 
 // Component Includes
 #include "Component.h"

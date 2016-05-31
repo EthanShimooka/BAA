@@ -33,6 +33,13 @@ GameObject* FeatherObjectFactory::Spawn(GameObject* owner, uint64_t PID, float p
 		feather->team = owner->team;
 		feather->setPos(posX, posY);
 
+		if (feather->team == TEAM_YELLOW){
+			Stats::incFeathersFired_yellow();
+		}
+		else if (feather->team == TEAM_PURPLE){
+			Stats::incFeathersFired_purple();
+		}
+
 		rend = new FeatherRenderComponent(feather);
 		logic = new FeatherLogicComponent(feather);
 
