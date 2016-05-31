@@ -64,10 +64,12 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 
 											 std::cout << "Health = " << gameObjectRef->health << std::endl;
 
-											 if (gameObjectRef->team == TEAM_YELLOW){
+											 if (gameObjectRef->team == TEAM_YELLOW && NetworkManager::sInstance->IsMasterPeer()){
+												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_YELLOW);
 												 Stats::incBaseHealth_yellow();
 											 }
-											 else{
+											 else if (gameObjectRef->team == TEAM_PURPLE && NetworkManager::sInstance->IsMasterPeer()){
+												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_PURPLE);
 												 Stats::incBaseHealth_purple();
 											 }
 

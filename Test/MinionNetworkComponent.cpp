@@ -57,6 +57,12 @@ void MinionNetworkComponent::SendBaseHit(int teamHit){//Or pass it yellowScore &
 void MinionNetworkComponent::HandleBaseHit(InputMemoryBitStream& packet){
 	int teamHit = -1;
 	packet.Read(teamHit);
+	if (teamHit == TEAM_YELLOW){
+		Stats::incBaseHealth_yellow();
+	}
+	else if (teamHit == TEAM_PURPLE){
+		Stats::incBaseHealth_purple();
+	}
 	//Do something to update scoreboard UI
 }
 
