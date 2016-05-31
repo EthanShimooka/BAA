@@ -579,5 +579,9 @@ int GameSession::Run(){
 	//delete runWater;
 
 	GameWorld::getInstance()->~GameWorld();
+
+		renderMan->flippedScreen = false;
+	
+
 	return SCENE_GAMEOVER;
 }
