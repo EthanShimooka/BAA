@@ -59,6 +59,7 @@ bool NetworkManager::Init()
 }
 
 void NetworkManager::StartLobbySearch(){
+	lobbyInfoMap.clear();
 	mState = NMS_Searching;
 	GamerServices::sInstance->LobbySearchAsync();
 	//update until lobby found or created
