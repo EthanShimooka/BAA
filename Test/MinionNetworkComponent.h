@@ -21,7 +21,10 @@ public:
 	~MinionNetworkComponent();
 	/// Update
 	void Update();
-
+	///Send base hit
+	void SendBaseHit();
+	///Handle base hit
+	void HandleBaseHit(InputMemoryBitStream& packet);
 	///Send minion death
 	void SendMinionDeath();
 	///Handle minion death

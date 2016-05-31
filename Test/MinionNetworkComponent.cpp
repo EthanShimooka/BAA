@@ -41,6 +41,14 @@ void MinionNetworkComponent::Update(){
 	}
 }
 
+void MinionNetworkComponent::SendBaseHit(){
+
+}
+
+void MinionNetworkComponent::HandleBaseHit(InputMemoryBitStream& packet){
+
+}
+
 void MinionNetworkComponent::SendMinionDeath(){
 	OutputMemoryBitStream* deathPacket = new OutputMemoryBitStream();
 	deathPacket->Write(NetworkManager::sInstance->kPosCC);
