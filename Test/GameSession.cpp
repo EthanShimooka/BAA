@@ -292,7 +292,7 @@ int GameSession::Run(){
 	int pressed = 0;
 	int pressedTime = 3;
 	int rotation = 0;
-	//audioMan->playByName("bgmBAAGameplay.ogg");
+	audioMan->playByName("bgmBAAGameplay.ogg");
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	
@@ -576,7 +576,7 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-
+	audioMan->stopByName("bgmBAAGameplay.ogg");
 	std::cout << renderMan << std::endl;
 	std::cout << renderMan << std::endl;
 
