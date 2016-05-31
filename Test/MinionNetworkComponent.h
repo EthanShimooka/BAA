@@ -7,6 +7,7 @@
 typedef enum {
 	MIN_POS = 1,
 	MIN_DIE = 2,
+	MIN_HIT = 3,
 }COMMAND;
 
 class MinionPhysicsComponent;
@@ -22,7 +23,7 @@ public:
 	/// Update
 	void Update();
 	///Send base hit
-	void SendBaseHit();
+	void SendBaseHit(int teamHit);
 	///Handle base hit
 	void HandleBaseHit(InputMemoryBitStream& packet);
 	///Send minion death

@@ -111,6 +111,8 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 	}
 	case GAMEOBJECT_TYPE::OBJECT_BASE:{
 										  if (otherObj->team == gameObjectRef->team) break;
+										  if (NetworkManager::sInstance->IsMasterPeer())
+											  dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendBaseHit(otherObj->team);
 										  //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 										  MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 										  logicComp->MinionDeath();

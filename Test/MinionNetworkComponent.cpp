@@ -26,10 +26,14 @@ void MinionNetworkComponent::Update(){
 		case COMMAND::MIN_DIE:
 			HandleMinionDeath();
 			break;
+		case COMMAND::MIN_HIT:
+			HandleBaseHit(packet);
+			break;
 		case COMMAND::MIN_POS:
 			HandleMinionPos(packet);
+			break;
 		}
-
+		
 		incomingPackets.pop();
 	}
 
@@ -41,12 +45,19 @@ void MinionNetworkComponent::Update(){
 	}
 }
 
-void MinionNetworkComponent::SendBaseHit(){
-
+void MinionNetworkComponent::SendBaseHit(int teamHit){//Or pass it yellowScore & purpleScore
+	OutputMemoryBitStream* hitPacket = new OutputMemoryBitStream();
+	hitPacket->Write(NetworkManager::sInstance->kPosCC);
+	hitPacket->Write(gameObjectRef->ID);
+	hitPacket->Write((int)MIN_HIT);
+	hitPacket->Write(teamHit);
+	outgoingPackets.push(hitPacket);
 }
 
 void MinionNetworkComponent::HandleBaseHit(InputMemoryBitStream& packet){
-
+	int teamHit = -1;
+	packet.Read(teamHit);
+	//Do something to update scoreboard UI
 }
 
 void MinionNetworkComponent::SendMinionDeath(){
