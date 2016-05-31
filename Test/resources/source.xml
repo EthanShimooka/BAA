@@ -150,7 +150,7 @@
 <resource UID="6021" type="audio" filename="chickenshieldsfx.ogg" scenescope="0"></resource>
 <resource UID="6022" type="audio" filename="bgmfootstepsfx.ogg" scenescope="0"></resource>
 <resource UID="6023" type="audio" filename="birdseedfullsfx.ogg" scenescope="0"></resource>
-<resource UID="6009" type="audio" filename="coinjingling.ogg" scenescope="0"></resource>
+<resource UID="6024" type="audio" filename="miniondeathsfx.ogg" scenescope="0"></resource>
 
 <resource UID="8000" type="graphic" filename="Feather_Team_Yellow.png" scenescope="0"></resource>
 <resource UID="8001" type="graphic" filename="Feather_Team_Purple.png" scenescope="0"></resource>
