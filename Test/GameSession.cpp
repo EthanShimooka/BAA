@@ -293,6 +293,7 @@ int GameSession::Run(){
 	int pressedTime = 3;
 	int rotation = 0;
 	audioMan->playByName("bgmBAAGameplay.ogg");
+	bool gameEndMusic = false;
 	int mousecounter = 5;
 	renderMan->zoom = 0.6f;
 	
@@ -534,7 +535,7 @@ int GameSession::Run(){
 		sceneMan->AssembleScene();
 
 		//triggers endgame screen
-		if (Timing::sInstance.GetTimeRemainingS() <= 0 ) {
+		if (Timing::sInstance.GetTimeRemainingS() <= 0) {
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -547,6 +548,12 @@ int GameSession::Run(){
 		  //GameEnd end = GameEnd::GameEnd();
 		  //end.runGameEnd(myTeam, leftBase, rightBase);
 		  gameloop = false;
+		}
+
+		if (Timing::sInstance.GetTimeRemainingS() <= 30 && !gameEndMusic){
+			gameEndMusic = true;
+			audioMan->stopByName("bgmBAAGameplay.ogg");
+			audioMan->playByName("bgmBAAGameEnd.ogg");
 		}
 
 		firstTime = false;
@@ -576,7 +583,7 @@ int GameSession::Run(){
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
-	audioMan->stopByName("bgmBAAGameplay.ogg");
+	audioMan->stopByName("bgmBAAGameEnd.ogg");
 	std::cout << renderMan << std::endl;
 	std::cout << renderMan << std::endl;
 
