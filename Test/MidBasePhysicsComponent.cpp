@@ -63,7 +63,9 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 gameObjectRef->health++;
 
 											 std::cout << "Health = " << gameObjectRef->health << std::endl;
-
+											 MidBaseRenderComponent* renderComp = dynamic_cast<MidBaseRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+											 renderComp->setAnimation("damage");
+											 renderComp->setNextAnimation("idle");
 											 if (gameObjectRef->team == TEAM_YELLOW){
 												 Stats::incBaseHealth_yellow();
 											 }

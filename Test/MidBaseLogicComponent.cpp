@@ -27,6 +27,7 @@ void MidBaseLogicComponent::attacked()
 	
 //	base_health--;
 	std::cout << "base: " << gameObjectRef->team << "  " << "Base health now = " << gameObjectRef->health << std::endl;
+	
 
 }
 
