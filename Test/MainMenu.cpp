@@ -19,7 +19,8 @@ MainMenu::~MainMenu()
 
 int MainMenu::runScene(){
 	int buttonPressed = -2;
-
+	SystemRenderUpdater sysRenderer;
+	SystemLogicUpdater sysLogic;
 	while (true){
 		buttonPressed = checkButtons();
 		switch (buttonPressed){
@@ -30,6 +31,9 @@ int MainMenu::runScene(){
 			removeButtons();
 			return SCENE_END;
 		}
+		sysRenderer.RenderUpdate(GameObjects.alive_objects);
+		sysLogic.LogicUpdate(GameObjects.alive_objects);
+		SceneManager::GetSceneManager()->AssembleScene();
 	}
 }
 
@@ -42,13 +46,24 @@ void MainMenu::createButtons(){
 	
 	
 	// play button
-	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(1 / 2.0)), (int)(h*(45 / 100.0)));
-	playButt = bFactory.Spawn(3521, x, y, 19, 75.0f, 75.0f, 0.75f);
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.91f)), (int)(h*(0.75f)));
+	playButt = bFactory.Spawn(3521, x, y, 19, 55.0f, 75.0f, 0.3f);
+	ButtonRenderComponent* playRender = dynamic_cast<ButtonRenderComponent*>(playButt->GetComponent(COMPONENT_RENDER));
+	playRender->addSecondSprite(31);
 	GameObjects.AddObject(playButt);
 	// quit button
-	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(1 / 2.0)), (int)(h*(55 / 100.0)));
-	quitButt = bFactory.Spawn(3522, x, y, 22, 75.0f, 75.0f, 0.75f);
+	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.91f)), (int)(h*(0.9f)));
+	quitButt = bFactory.Spawn(3522, x, y, 22, 55.0f, 75.0f, 0.3f);
+	ButtonRenderComponent* quitRender = dynamic_cast<ButtonRenderComponent*>(quitButt->GetComponent(COMPONENT_RENDER));
+	quitRender->addSecondSprite(32);
 	GameObjects.AddObject(quitButt);
+
+	//configure buttons to work with controller
+	ButtonLogicComponent* playLogic = dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC));
+	playLogic->setNavButtons(NULL, quitButt, NULL, NULL);
+	playLogic->selectButton();
+	ButtonLogicComponent* quitLogic = dynamic_cast<ButtonLogicComponent*>(quitButt->GetComponent(COMPONENT_LOGIC));
+	quitLogic->setNavButtons(playButt, NULL, NULL, NULL);
 }
 
 int MainMenu::checkButtons(){

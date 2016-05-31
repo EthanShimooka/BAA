@@ -1,6 +1,6 @@
 #include "main.h"
 #include <functional>
-#include <crtdbg.h>
+//#include <crtdbg.h>
 
 
 #include "MainMenu.h"
@@ -31,6 +31,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 	ResourceManager::GetResourceManager()->loadFromXMLFile("source.xml");
 	InputManager::getInstance()->update();
 	RenderManager::getRenderManager()->init(SCREEN_WIDTH, SCREEN_HEIGHT, false, "Birds At Arms");
+	AudioManager* audioMan = AudioManager::getAudioInstance();
 
 	if (!GamerServices::StaticInit())
 		std::cout << "Failed to initialize Steam" << "\n";
@@ -42,6 +43,8 @@ int _tmain(int argc, _TCHAR* argv[]){
 	while (game){
 		switch (nextScene){
 		case SCENE_MENU:
+			audioMan->loadAllAudio();
+			audioMan->playByName("bgmBAALobby.ogg");
 			scene = new MainMenu();
 			nextScene = scene->runScene();
 			delete scene;
@@ -50,6 +53,7 @@ int _tmain(int argc, _TCHAR* argv[]){
 			scene = new LobbyMenu();
 			nextScene = scene->runScene();
 			delete scene;
+			audioMan->stopByName("bgmBAALobby.ogg");
 			break;
 		case SCENE_GAME:
 			scn = new GameSession();

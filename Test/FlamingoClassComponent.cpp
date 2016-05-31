@@ -58,9 +58,9 @@ void FlamingoClassComponent::animation(SDLRenderObject** objRef, map_obj& allObj
 	ammoIcon1->visible = false;
 	ammoIcon2->visible = false;
 	ammoIcon3->visible = false;
-	ammoIcon1->setScale(0.4);
-	ammoIcon2->setScale(0.4);
-	ammoIcon3->setScale(0.4);
+	ammoIcon1->setScale(0.4f);
+	ammoIcon2->setScale(0.4f);
+	ammoIcon3->setScale(0.4f);
 
 	//objRef->setAnchor(0.5, 0.5);
 	body->setAnchor(bodyAX / double(body->renderRect.w), bodyAY / double(body->renderRect.h));

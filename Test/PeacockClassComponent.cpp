@@ -2,13 +2,13 @@
 
 //Does not compile, not sure why it doesn't
 
-PeacockClassComponent::PeacockClassComponent(GameObject* player)
-{
+PeacockClassComponent::PeacockClassComponent(GameObject* player){
 	ClassComponent::ClassComponent();
 	speed += 2;
 	seedRequired = 7;
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_CLASS, this);
+	m_allObjs = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->allObjs;
 }
 
 
@@ -25,6 +25,13 @@ void PeacockClassComponent::Update()
 		invokeHelper = false;
 		destroyFan();
 	}
+	//this next if deals with showing the available fan icons
+	if (currBirdseed == seedRequired){
+		m_allObjs["ammoIcon1"]->visible = true;
+		m_allObjs["ammoIcon2"]->visible = true;
+		if (currFansSpawned >= 1)m_allObjs["ammoIcon1"]->visible = false;
+		if (currFansSpawned >= 2)m_allObjs["ammoIcon2"]->visible = false;
+	}
 }
 
 void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs, map_anim& animations){
@@ -40,7 +47,11 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	SDLRenderObject * legR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3103, (float)(156 - bodyAX), (float)(117 - bodyAY));
 	SDLRenderObject * body = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3100, 0, -8);
 	SDLRenderObject * armR = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 3101, (float)(140 - bodyAX), (float)(85 - bodyAY));
-
+	//arm icons
+	SDLRenderObject * ammoIcon1 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2003, (float)(-60 - bodyAX), (float)(-20 - bodyAY));
+	SDLRenderObject * ammoIcon2 = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2003, (float)(-60 - bodyAX), (float)(40 - bodyAY));
+	ammoIcon1->visible = false;
+	ammoIcon2->visible = false;
 	//PlayerPhysicsComponent pos = gameObjectRef->GetComponent(COMPONENT_PHYSICS); 
 
 
@@ -53,6 +64,8 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	//armR->setCurrentFrame(1);
 	armR->toggleFlippedH();
 	body->setParent(base);
+	ammoIcon1->setParent(body);
+	ammoIcon2->setParent(body);
 	armL->setParent(body);
 	armR->setParent(body);
 	legL->setParent(body);
@@ -70,6 +83,8 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 	allObjs["legR"] = legR;
 	allObjs["armL"] = armL;
 	allObjs["armR"] = armR;
+	allObjs["ammoIcon1"] = ammoIcon1;
+	allObjs["ammoIcon2"] = ammoIcon2;
 
 	SDLRenderObject * box = sceneMan->InstantiateBlankObject(sceneMan->findLayer("layer2"), 0, 0, 0, 0);
 	box->setIfRenderRect(true);
@@ -127,6 +142,7 @@ void PeacockClassComponent::animation(SDLRenderObject** objRef, map_obj& allObjs
 }
 
 int PeacockClassComponent::useAbility(){
+	std::cout << "use ability" << std::endl;
 	if (currBirdseed >= seedRequired){
 		FanObjectFactory fFactory;
 		playAbilityUseSound();
@@ -156,10 +172,19 @@ int PeacockClassComponent::useAbility(){
 		else{
 			forceX = 5;
 		}
+		//handle ammo counter
+		currFansSpawned++;
+		if (currFansSpawned >= 2){
+			currBirdseed = 0;
+			birdseedFullPlayed = false;
+			currFansSpawned = 0;
+			m_allObjs["ammoIcon1"]->visible = false;
+			m_allObjs["ammoIcon2"]->visible = false;
+		}
+		//instantiate new fan
 		GameObjects.AddObject(fFactory.Spawn((*powerNum)++, posX, posY, rotation, gameObjectRef->team));
 		writeNetAbility((*powerNum) - 1, posX, posY, rotation);
 		fanIDs.push_back((*powerNum) - 1);
-		currBirdseed = 0;
 		birdseedFullPlayed = false;
 		return true;
 	}

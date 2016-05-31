@@ -28,6 +28,7 @@ private:
 	GameObject* readyButt;
 	GameObject* backButt;
 
+
 	uint64_t buttonID;
 	uint64_t tutorialID;
 	SDLRenderObject * playersInLobby;

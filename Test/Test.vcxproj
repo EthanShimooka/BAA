@@ -93,6 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\SquadIO;$(ProjectDir)\..\Debug;$(ProjectDir)\..\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="AbsorbParticle.h" />
     <ClInclude Include="AllComponentIncludes.h" />
+    <ClInclude Include="BackgroundProps.h" />
     <ClInclude Include="BoomerangComponentIncludes.h" />
     <ClInclude Include="BoomerangLogicComponent.h" />
     <ClInclude Include="BoomerangNetworkComponent.h" />
@@ -158,6 +160,8 @@
     <ClInclude Include="LauncherComponentIncludes.h" />
     <ClInclude Include="LobbyMenu.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MidBirdObjectFactory.h" />
+    <ClInclude Include="MidBirdRenderComponent.h" />
     <ClInclude Include="PlayerUIComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Stats.h" />
@@ -267,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbsorbParticle.cpp" />
+    <ClCompile Include="BackgroundProps.cpp" />
     <ClCompile Include="BoomerangLogicComponent.cpp" />
     <ClCompile Include="BoomerangNetworkComponent.cpp" />
     <ClCompile Include="BoomerangObjectFactory.cpp" />
@@ -310,6 +315,8 @@
     <ClCompile Include="FeatherObjectFactory.cpp" />
     <ClCompile Include="FeatherPhysicsComponent.cpp" />
     <ClCompile Include="FeatherRenderComponent.cpp" />
+    <ClCompile Include="MidBirdObjectFactory.cpp" />
+    <ClCompile Include="MidBirdRenderComponent.cpp" />
     <ClCompile Include="MidPlatShieldObjectFactory.cpp" />
     <ClCompile Include="MineLogicComponent.cpp" />
     <ClCompile Include="MineObjectFactory.cpp" />

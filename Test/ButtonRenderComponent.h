@@ -10,8 +10,10 @@ public:
 	void Update();
 
 private:
-	int defaultImage;
+	int firstImage;
+	int secondImage = NULL;
 	int currentImage;
+	float scale;
 	std::string layer;
 	SceneManager* sceneMan;
 
@@ -23,6 +25,6 @@ public:
 	void addSecondSprite(int imageID);
 	void changeLayer(std::string layer);
 	std::string getLayer() const { return layer; }
-	int getCurrImage() const { return currentImage; }
+	int getCurrImage() const { return firstImage; }
 };
 

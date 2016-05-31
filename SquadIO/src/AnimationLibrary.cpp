@@ -33,6 +33,21 @@ std::function<float(float)> getBezierTracking(float x0, float x1, float x2, std:
 std::function<void(float)> rotateTransform(SDLRenderObject* obj, double start, double end){
 	return [=](float i) {obj->rotation = end*i + start; };
 }
+std::function<void(float)> rescaleTransform(SDLRenderObject* obj, double start, double end){
+	start = (start <= 0) ? 0.001 : start;
+	end = (end <= 0) ? 0.001 : end;
+	return [=](float i) {obj->setScale(end*i + start); };
+}
+std::function<void(float)> rescaleXTransform(SDLRenderObject* obj, double start, double end){
+	start = (start <= 0) ? 0.001 : start;
+	end = (end <= 0) ? 0.001 : end;
+	return [=](float i) {obj->setScaleX(end*i + start); };
+}
+std::function<void(float)> rescaleYTransform(SDLRenderObject* obj, double start, double end){
+	start = (start <= 0) ? 0.001 : start;
+	end = (end <= 0) ? 0.001 : end;
+	return [=](float i) {obj->setScaleY(end*i + start); };
+}
 
 std::function<void(float)> moveCircArc(SDLRenderObject* obj, float centerx, float centery, double radius, double start_angle, double end_angle){
 	return [=](float i) {
@@ -105,6 +120,25 @@ std::function<void(float)> keyframeAnimate(SDLRenderObject* obj, unsigned int st
 		else if (i >= 1){ obj->frameCurrent = endFrame; }
 		else {
 			obj->frameCurrent = (unsigned int)round(float(endFrame - startFrame)*i) + startFrame;
+		}
+	};
+}
+std::function<void(float)> visibleSprite(SDLRenderObject* obj, bool isVisible){
+	return [=](float i) {
+		obj->setVisible(isVisible);
+	};
+}
+std::function<void(float)> flashSprite(SDLRenderObject* obj,unsigned int perFrame){
+	bool original = obj->visible;
+	return [=](float i) {
+		if (int(i*100)%perFrame == 0){
+			obj->setVisible(false);
+		}
+		else{
+			obj->setVisible(true);
+		}
+		if (i > 1){
+			obj->setVisible(original);
 		}
 	};
 }

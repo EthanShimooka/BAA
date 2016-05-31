@@ -27,10 +27,14 @@ void MinionNetworkComponent::Update(){
 		case COMMAND::MIN_DIE:
 			HandleMinionDeath();
 			break;
+		case COMMAND::MIN_HIT:
+			HandleBaseHit(packet);
+			break;
 		case COMMAND::MIN_POS:
 			HandleMinionPos(packet);
+			break;
 		}
-
+		
 		incomingPackets.pop();
 	}
 
@@ -39,6 +43,40 @@ void MinionNetworkComponent::Update(){
 		NetworkManager::sInstance->sendPacketToAllPeers(*outData);
 		outgoingPackets.pop();
 		delete outData;
+	}
+}
+
+void MinionNetworkComponent::SendBaseHit(int teamHit, uint64_t minionID, uint64_t baseID){//Or pass it yellowScore & purpleScore
+	OutputMemoryBitStream* hitPacket = new OutputMemoryBitStream();
+	hitPacket->Write(NetworkManager::sInstance->kPosCC);
+	hitPacket->Write(gameObjectRef->ID);
+	hitPacket->Write((int)MIN_HIT);
+	hitPacket->Write(teamHit);
+	hitPacket->Write(minionID);
+	hitPacket->Write(baseID);
+	outgoingPackets.push(hitPacket);
+}
+
+void MinionNetworkComponent::HandleBaseHit(InputMemoryBitStream& packet){
+	int teamHit = -1;
+	uint64_t minionID = 0;
+	uint64_t baseID = 0;
+	packet.Read(teamHit);
+	packet.Read(minionID);
+	packet.Read(baseID);
+	GameObjects.GetGameObject(baseID)->health++;
+	MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(GameObjects.GetGameObject(minionID)->GetComponent(COMPONENT_LOGIC));
+	logicComp->MinionDeath();
+	//Only shake if our own base is being attacked
+	if (GameObjects.GetGameObject(minionID)->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		renderMan->ShakeScreen(0.3f, 0.2f);
+	}
+	if (teamHit == TEAM_YELLOW){
+		Stats::incBaseHealth_yellow();
+	}
+	else if (teamHit == TEAM_PURPLE){
+		Stats::incBaseHealth_purple();
 	}
 }
 
