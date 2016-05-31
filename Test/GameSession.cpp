@@ -347,7 +347,7 @@ int GameSession::Run(){
 	string leftBaseHealth = "";
 	SDLRenderObject * leftbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	leftbaseHUD->setPos(50, 650);
+	leftbaseHUD->setPos(25, 650);
 
 	SDLRenderObject * rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
 	rightbaseHUDicon->setPos(1214, 600);
@@ -355,7 +355,7 @@ int GameSession::Run(){
 	string rightBaseHealth = "";
 	SDLRenderObject * rightbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	rightbaseHUD->setPos(1266, 650);
+	rightbaseHUD->setPos(1291, 650);
 
 
 	
@@ -565,11 +565,11 @@ int GameSession::Run(){
 		leftBaseHealth = std::to_string(Stats::baseHealth_purple());
 
 	//	leftBaseHealth = std::to_string(leftBase->health);
-		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 60, "BowlbyOneSC-Regular"));
+		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 75, "BowlbyOneSC-Regular"));
 		rightBaseHealth = std::to_string(Stats::baseHealth_yellow());
 
 	//	rightBaseHealth = std::to_string(rightBase->health);
-		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 60, "BowlbyOneSC-Regular"));
+		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 75, "BowlbyOneSC-Regular"));
 
 
 	}
