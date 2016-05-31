@@ -136,6 +136,7 @@
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
+<resource UID="6002" type="audio" filename="bgmBAAGameEnd.ogg" scenescope="0"></resource>
 <resource UID="6010" type="audio" filename="chickensfx.ogg" scenescope="0"></resource>
 <resource UID="6011" type="audio" filename="peacocksfx.ogg" scenescope="0"></resource>
 <resource UID="6012" type="audio" filename="quailsfx.ogg" scenescope="0"></resource>
