@@ -74,9 +74,9 @@
 
 <resource UID="2101" type="graphic" filename="Background_Beach.png" scenescope="0"></resource>
 <resource UID="2102" type="graphic" filename="Background_Surf.png" scenescope="0"></resource>
-<resource UID="2103" type="graphic" filename="Space-Muscle-Beach__0009_Large-Blue-Planet.png" scenescope="0"></resource>
-<resource UID="2104" type="graphic" filename="Space-Muscle-Beach__0008_Small-Brown-Planet.png" scenescope="0"></resource>
-<resource UID="2105" type="graphic" filename="Space-Muscle-Beach__0007_Medium-Red-Planet.png" scenescope="0"></resource>
+<resource UID="2103" type="graphic" filename="toned-down__0004_planet-blue.png" scenescope="0"></resource>
+<resource UID="2104" type="graphic" filename="toned-down__0003_planet-bronze.png" scenescope="0"></resource>
+<resource UID="2105" type="graphic" filename="toned-down__0002_planet-purple.png" scenescope="0"></resource>
 <resource UID="2106" type="graphic" filename="Space-Muscle-Beach__0010_Clouds-Back.png" scenescope="0"></resource>
 <resource UID="2107" type="graphic" filename="Space-Muscle-Beach__0006_Clouds-Front.png" scenescope="0"></resource>
 <resource UID="2108" type="graphic" filename="Space-Muscle-Beach__0000_Owl.png" scenescope="0"></resource>
@@ -136,6 +136,7 @@
 <resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
+<resource UID="6002" type="audio" filename="bgmBAAGameEnd.ogg" scenescope="0"></resource>
 <resource UID="6010" type="audio" filename="chickensfx.ogg" scenescope="0"></resource>
 <resource UID="6011" type="audio" filename="peacocksfx.ogg" scenescope="0"></resource>
 <resource UID="6012" type="audio" filename="quailsfx.ogg" scenescope="0"></resource>
