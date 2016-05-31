@@ -8,21 +8,21 @@ BackgroundProps::BackgroundProps()
 	//Planets
 	allObjs["planet1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f);
 	allObjs["planet1"]->setScale(20);
-	allObjs["planet2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, 0.0f, 4000.0f);
+	allObjs["planet2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2104, 80000.0f, -20000.0f, 4000.0f);
 	allObjs["planet2"]->setScale(200);
 	allObjs["planet3"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, -80000.0f, 40000.0f, 4000.0f);
 	allObjs["planet3"]->setScale(200);
 
 	//Clouds
-	allObjs["cloudB1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, 25000.0f, 4000.1f);
-	allObjs["cloudB1"]->setScale(300);
-	allObjs["cloudT1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, -25000.0f, 4000.1f);
-	allObjs["cloudT1"]->setScale(300);
+	allObjs["cloudB1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, 500.0f, 4000.1f);
+	allObjs["cloudB1"]->setScale(170);
+	allObjs["cloudT1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2106, 0.0f, -500.0f, 4000.1f);
+	allObjs["cloudT1"]->setScale(170);
 	allObjs["cloudT1"]->setRotation(180);
-	allObjs["cloudB2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, 1400.0f, 300.0f);
-	allObjs["cloudB2"]->setScale(25);
-	allObjs["cloudT2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, -1400.0f, 300.0f);
-	allObjs["cloudT2"]->setScale(25);
+	allObjs["cloudB2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, 4800.0f, 300.0f);
+	allObjs["cloudB2"]->setScale(20);
+	allObjs["cloudT2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2107, 0.0f, -4800.0f, 300.0f);
+	allObjs["cloudT2"]->setScale(20);
 	allObjs["cloudT2"]->setRotation(180);
 
 	//Boids
