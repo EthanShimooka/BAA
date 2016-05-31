@@ -591,6 +591,11 @@ int GameSession::Run(){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0 ) {
+			if (player->team == TEAM_PURPLE){
+				std::cout << "flip the screen" << std::endl;
+				renderMan->flippedScreen = false;
+			}
+
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -641,6 +646,7 @@ int GameSession::Run(){
 	delete surf;
 	//delete fount;
 	//delete runWater;
+
 
 	GameWorld::getInstance()->~GameWorld();
 	return SCENE_GAMEOVER;
