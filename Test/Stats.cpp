@@ -112,3 +112,10 @@ int Stats::abilitiesUsed(int team){
 		return purple.abilitiesUsed;
 	return -1;
 }
+
+void Stats::setBaseHealth(int team, int value){
+	if (team == 1)
+		yellow.baseHealth = value;
+	else if (team == 2)
+		purple.baseHealth = value;
+}

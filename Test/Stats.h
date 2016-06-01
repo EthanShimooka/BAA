@@ -38,6 +38,7 @@ public:
 	static void incBaseHealth_purple() { ++purple.baseHealth; }
 	static void incBaseHealth_yellow() { ++yellow.baseHealth; }
 	static void incBaseHealth(int team);
+	static void setBaseHealth(int team, int value);
 	// Minion killed
 	static void incOtherTeamMinionsKilled_purple() { ++purple.otherTeamMinionsKilled; }
 	static void incOtherTeamMinionsKilled_yellow() { ++yellow.otherTeamMinionsKilled; }
