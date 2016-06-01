@@ -63,8 +63,8 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 renderComp->setAnimation("damage");
 											 renderComp->setNextAnimation("idle");
 
-											 if (gameObjectRef->team == TEAM_YELLOW /*&& NetworkManager::sInstance->IsMasterPeer()*/){
-												// dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_YELLOW, otherObj->ID, gameObjectRef->ID);
+											 if (gameObjectRef->team == TEAM_YELLOW && NetworkManager::sInstance->IsMasterPeer()){
+												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_YELLOW, otherObj->ID, gameObjectRef->ID);
 												 gameObjectRef->health++;
 												 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 												 logicComp->MinionDeath();
@@ -75,8 +75,8 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 												 }
 												 Stats::incBaseHealth_yellow();
 											 }
-											 else if (gameObjectRef->team == TEAM_PURPLE /*&& NetworkManager::sInstance->IsMasterPeer()*/){
-												// dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_PURPLE, otherObj->ID, gameObjectRef->ID);
+											 else if (gameObjectRef->team == TEAM_PURPLE && NetworkManager::sInstance->IsMasterPeer()){
+												 dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_PURPLE, otherObj->ID, gameObjectRef->ID);
 												 gameObjectRef->health++;
 												 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 												 logicComp->MinionDeath();
