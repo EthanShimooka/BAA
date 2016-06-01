@@ -108,7 +108,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 12.0f);
 
 		// chicken tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9150, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9350, 80, 0);
 	tutorials.push_back(tutorial);
 
 	// peacock button
@@ -124,7 +124,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 11.0f);
 
 		// peacock tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9151,80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9351,80, 0);
 	tutorials.push_back(tutorial);
 
 	// flamingo button
@@ -140,7 +140,7 @@ void LobbyMenu::createClassButts(){
 
 
 		// flamingo tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9152, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9352, 80, 0);
 	tutorials.push_back(tutorial);
 
 	// quail button
@@ -156,7 +156,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 8.0f);
 
 		// quail tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9153, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9353, 80, 0);
 	tutorials.push_back(tutorial);
 
 	// turkey button
@@ -172,7 +172,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 11.0f);
 
 		// turkey tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9154, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9354, 80, 0);
 	tutorials.push_back(tutorial);
 
 
