@@ -183,10 +183,10 @@ void LobbyMenu::createClassButts(){
 	quaLogic->setNavButtons(flamButton, backButt, flamButton, turkButton);
 	turkLogic->setNavButtons(NULL, backButt, quaButton, readyButt);
 	ButtonLogicComponent* readyLogic = dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC));
-	readyLogic->setNavButtons(turkButton, backButt, NULL, NULL);
+	readyLogic->setNavButtons(turkButton, NULL, backButt, NULL);
 	readyLogic->selectButton();
 	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
-	backLogic->setNavButtons(readyButt, NULL, turkButton, NULL);
+	backLogic->setNavButtons(chickButton, NULL, NULL, readyButt);
 
 }
 
