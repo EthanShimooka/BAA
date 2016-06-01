@@ -129,7 +129,7 @@ void MinionNetworkComponent::SendMinionPos(){
 void MinionNetworkComponent::SendSpawnMinion(uint64_t ID, uint8_t team){
 	OutputMemoryBitStream* packet = new OutputMemoryBitStream();
 	packet->Write(NetworkManager::sInstance->kPosCC);
-	packet->Write((uint8_t)-1);
+	packet->Write((uint64_t)-1);
 	packet->Write(ID);
 	packet->Write(team);
 	outgoingPackets.push(packet);
