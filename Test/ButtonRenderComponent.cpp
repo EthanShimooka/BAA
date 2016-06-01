@@ -7,7 +7,9 @@ ButtonRenderComponent::ButtonRenderComponent(GameObject* button, int imageID, fl
 	gameObjectRef->AddComponent(COMPONENT_RENDER, this);
 	sceneMan = SceneManager::GetSceneManager();
 	layer = "layer1";
+	selectedGlow = sceneMan->InstantiateObject(sceneMan->findLayer(layer), 1211, gameObjectRef->posX, gameObjectRef->posY);
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), imageID, gameObjectRef->posX, gameObjectRef->posY);
+	selectedGlow->visible = false;
 	firstImage = imageID;
 	currentImage = imageID;
 	scale = _scale;
@@ -23,6 +25,9 @@ void ButtonRenderComponent::Update(){
 	objRef->rotation = gameObjectRef->rotation;
 	objRef->posX = gameObjectRef->posX;
 	objRef->posY = gameObjectRef->posY;
+	if (selectedGlow->visible){
+		selectedGlow->rotation += 0.5;
+	}
 }
 
 void ButtonRenderComponent::changeSprite(int imageID){
@@ -71,4 +76,8 @@ void ButtonRenderComponent::changeLayer(std::string _layer){
 	sceneMan->RemoveObject(objRef);
 	AssignSprite(sceneMan->InstantiateObject(sceneMan->findLayer(_layer), currentImage, gameObjectRef->posX, gameObjectRef->posY));
 	layer = _layer;
+}
+
+void ButtonRenderComponent::setSelectedGlow(bool flag){
+	selectedGlow->visible = flag;
 }

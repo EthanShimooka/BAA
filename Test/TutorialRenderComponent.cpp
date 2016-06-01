@@ -22,7 +22,7 @@ TutorialRenderComponent::TutorialRenderComponent(GameObject* tutorial, int _imag
 	allObjs["board"]->setScale(0.25f);
 	allObjs["info"] = info;
 	allObjs["info"]->visible = false;
-	allObjs["info"]->setScale(0.8f);
+	allObjs["info"]->setScale(0.2f);
 
 	allObjs["board"]->setParent(objRef);
 	allObjs["info"]->setParent(objRef);

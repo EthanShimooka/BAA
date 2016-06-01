@@ -39,6 +39,7 @@
 <resource UID="1110" type="graphic" filename="Menu_bg.png" scenescope="0"></resource>
 <resource UID="1111" type="graphic" filename="Game_UI_Crosshair_Charging.png" scenescope="0"></resource>
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
+<resource UID="1211" type="graphic" filename="Lobby_UI_Icon_Aura.png" scenescope="0"></resource>
 
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 
@@ -173,6 +174,10 @@
 <resource UID="9254" type="graphic" filename="THLobby.png" scenescope="0"></resource>
 
 <resource UID="9300" type="graphic" filename="Lobby_tutorial_menu.png" scenescope="0"></resource>
-
+<resource UID="9350" type="graphic" filename="Tut_Chicken.png" scenescope="0"></resource>
+<resource UID="9351" type="graphic" filename="Tut_Peacock.png" scenescope="0"></resource>
+<resource UID="9352" type="graphic" filename="Tut_Flamingo.png" scenescope="0"></resource>
+<resource UID="9353" type="graphic" filename="Tut_Quail.png" scenescope="0"></resource>
+<resource UID="9354" type="graphic" filename="Tut_Turkey.png" scenescope="0"></resource>
 
 </resources>
