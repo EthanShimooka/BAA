@@ -91,7 +91,7 @@ public:
 
 
 	static void resetStats();
-	static void setLocalTeam(int localTeam) { localTeam = localTeam; }
+	static void setLocalTeam(int _localTeam) { localTeam = _localTeam; }
 	static int getLocalTeam() { return localTeam; }
 
 

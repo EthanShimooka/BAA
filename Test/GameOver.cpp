@@ -57,7 +57,7 @@ void GameOver::removeButtons(){
 }
 
 void GameOver::createText(){
-	std::string text = "";
+	std::string text = "ERROR!";
 	TextAlignment::COLOR *color = nullptr;
 
 	std::cout << "team: " << Stats::getLocalTeam() << std::endl;
@@ -70,7 +70,7 @@ void GameOver::createText(){
 			text = "Victory!";
 			color = new TextAlignment::COLOR(0, 153, 0);
 		}
-		else{
+		else if (Stats::getLocalTeam() == TEAM_YELLOW){
 			text = "Defeat!";
 			color = new TextAlignment::COLOR(204, 0, 0);
 		}
@@ -80,7 +80,7 @@ void GameOver::createText(){
 			text = "Defeat!";
 			color = new TextAlignment::COLOR(204, 0, 0);
 		}
-		else{
+		else if(Stats::getLocalTeam() == TEAM_YELLOW){
 			text = "Victory!";
 			color = new TextAlignment::COLOR(0, 153, 0);
 		}
