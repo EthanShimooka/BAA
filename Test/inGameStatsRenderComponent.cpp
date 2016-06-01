@@ -1,4 +1,5 @@
 #include "inGameStatsRenderComponent.h"
+#include "SystemGameObjectQueue.h"
 
 
 
@@ -8,11 +9,14 @@ inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float sc
 	layer = "layer1";
 	int w, h;
 	RenderManager::getRenderManager()->getWindowSize(&w, &h);
+	purple = new TextAlignment::COLOR(160, 32, 240);
+	yellow = new TextAlignment::COLOR(250, 165, 10);
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), _background, -5, 1, true);
 	objRef->setPos(w / 2.0f, h / 2.0f);
 	background = _background;
 	objRef->setScale(scale);
 	createText();
+	createScoreText();
 	toggleOn(false);
 }
 
@@ -46,8 +50,6 @@ void inGameStatsRenderComponent::createText(){
 
 void inGameStatsRenderComponent::updateText(){
 	Stats::mapStat map = Stats::getPlayersStatsMap();
-	TextAlignment::COLOR* purple = new TextAlignment::COLOR(200, 0, 200);
-	TextAlignment::COLOR* yellow = new TextAlignment::COLOR(255, 255, 0);
 	std::string text = "";
 	int teamYellow = 0;
 	int teamPurple = map.size() / 2 + map.size() % 2;
@@ -61,7 +63,19 @@ void inGameStatsRenderComponent::updateText(){
 			statsTexts.updateText(text, teamYellow++, yellow);
 		}
 	}
-	delete purple;
-	delete yellow;
 }
 
+void inGameStatsRenderComponent::createScoreText(){
+	std::string text = "0";
+	scoreTexts.setFontSize(80);
+	scoreTexts.setStartingYPos(0.92);
+	scoreTexts.setStartingXPos(0.20);
+	scoreTexts.createText(text, yellow, 0.045);
+	scoreTexts.resetOffset();
+	scoreTexts.createText(text, purple, 0.955);
+}
+
+void inGameStatsRenderComponent::Update(){
+	scoreTexts.updateText(std::to_string(Stats::baseHealth_purple()), 0, yellow);
+	scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 1, purple);
+}

@@ -574,16 +574,7 @@ int GameSession::Run(){
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
 		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
-		leftBaseHealth = std::to_string(Stats::baseHealth_purple());
-
-	//	leftBaseHealth = std::to_string(leftBase->health);
-		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 75, "BowlbyOneSC-Regular"));
-		rightBaseHealth = std::to_string(Stats::baseHealth_yellow());
-
-	//	rightBaseHealth = std::to_string(rightBase->health);
-		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 75, "BowlbyOneSC-Regular"));
-
-
+		inGameStats.Update();
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////

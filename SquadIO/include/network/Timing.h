@@ -73,6 +73,6 @@ private:
 	unsigned int	explosionLengthInMS = 150;
 	unsigned int	quailAbilityLengthInMS = 3000;
 	unsigned int	chickenAbilityLengthInMS = 5500;
-	int				playTimeLengthInSecs = 30;
+	int				playTimeLengthInSecs = 120;
 };
 #endif

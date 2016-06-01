@@ -17,9 +17,16 @@ public:
 	SceneManager* sceneMan;
 	RenderManager* rendMan;
 	TextAlignment statsTexts;
+	TextAlignment scoreTexts;
 	void toggleOn(bool on);
 	void toggleOn();
 	void createText();
 	void updateText();
+	void createScoreText();
+	void Update();
+
+	TextAlignment::COLOR* purple;
+	TextAlignment::COLOR* yellow;
+
 };
 
