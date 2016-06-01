@@ -65,7 +65,7 @@ void GameOver::createText(){
 		text = "No Contest!";
 		color = new TextAlignment::COLOR(255, 255, 0);
 	}
-	else if (Stats::baseHealth_purple() > Stats::baseHealth_yellow()){
+	else if (Stats::baseHealth_purple() < Stats::baseHealth_yellow()){
 		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Victory!";
 			color = new TextAlignment::COLOR(0, 153, 0);
@@ -75,7 +75,7 @@ void GameOver::createText(){
 			color = new TextAlignment::COLOR(204, 0, 0);
 		}
 	}
-	else if (Stats::baseHealth_purple() < Stats::baseHealth_yellow()){
+	else if (Stats::baseHealth_purple() > Stats::baseHealth_yellow()){
 		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Defeat!";
 			color = new TextAlignment::COLOR(204, 0, 0);
