@@ -8,6 +8,7 @@
 #include "PlayerComponentIncludes.h"
 #include "MidBaseLogicComponent.h"
 #include "MidBaseRenderComponent.h"
+#include "MidBaseNetworkComponent.h"
 
 
 class MidBasePhysicsComponent :

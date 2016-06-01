@@ -66,6 +66,7 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 											 if (NetworkManager::sInstance->IsMasterPeer()){
 												 gameObjectRef->health++;
 												 Stats::incBaseHealth(gameObjectRef->team);
+												 dynamic_cast<MidBaseNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendBaseHealth();
 											 }
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
 											 logicComp->MinionDeath();
