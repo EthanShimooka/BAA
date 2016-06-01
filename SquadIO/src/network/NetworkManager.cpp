@@ -59,6 +59,7 @@ bool NetworkManager::Init()
 }
 
 void NetworkManager::StartLobbySearch(){
+	mIsMasterPeer = false;
 	lobbyInfoMap.clear();
 	mState = NMS_Searching;
 	GamerServices::sInstance->LobbySearchAsync();
