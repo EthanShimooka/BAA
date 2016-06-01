@@ -133,4 +133,5 @@ void MinionNetworkComponent::SendSpawnMinion(uint64_t ID, uint8_t team){
 	packet->Write(ID);
 	packet->Write(team);
 	outgoingPackets.push(packet);
+
 }
