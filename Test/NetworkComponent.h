@@ -28,10 +28,13 @@ public:
 	/// GameObject Container Refrence. (Assigned upon GameObject Creation) 
 	GameObject* gameObjectRef;
 	uint32_t sequence = 0;
-
+	clock_t	lastTimeSent;
+	int interval;
+	
 
 	/// update object Positions from Input
 	virtual void Update();
+	bool canSend();
 
 	queue<OutputMemoryBitStream*> outgoingPackets;
 	queue<InputMemoryBitStream> incomingPackets;

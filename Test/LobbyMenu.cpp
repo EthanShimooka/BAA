@@ -1,7 +1,6 @@
 #include "LobbyMenu.h"
 
 LobbyMenu::LobbyMenu() : numPlayersReady(0){
-	NetworkManager::sInstance->clearLobbyInfoMap();
 	RenderManager::getRenderManager()->setCameraPoint(0, 0);
 	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
@@ -40,6 +39,7 @@ int LobbyMenu::runScene(){
 
 		// back button is pressed
 		if (buttonPressed == BUTTON_BACK){
+			GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
 			return SCENE_MENU;
 		}
 

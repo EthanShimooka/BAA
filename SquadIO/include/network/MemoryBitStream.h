@@ -47,7 +47,7 @@ public:
 	void Write( int16_t inData, uint32_t inBitCount = 16 )	{ WriteBits( &inData, inBitCount ); }
 	void Write( uint8_t inData, uint32_t inBitCount = 8 )	{ WriteBits( &inData, inBitCount ); }
 	*/
-
+	SQUADIO_API void Write(uint8_t inData, uint32_t inBitCount = 8)		{ WriteBits(&inData, inBitCount); }
 	SQUADIO_API void Write(uint64_t inData, uint32_t inBitCount = 64)	{ WriteBits(&inData, inBitCount); }
 	SQUADIO_API void Write(uint32_t inData, uint32_t inBitCount = 32)	{ WriteBits(&inData, inBitCount); }
 	SQUADIO_API void Write(float inData)								{ WriteBits(&inData, 32); }
@@ -134,7 +134,7 @@ public:
 	void		Read(uint16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
 	void		Read(int16_t& outData, uint32_t inBitCount = 16)		{ ReadBits(&outData, inBitCount); }
 
-	void		Read(uint8_t& outData, uint32_t inBitCount = 8)		{ ReadBits(&outData, inBitCount); }
+	SQUADIO_API void		Read(uint8_t& outData, uint32_t inBitCount = 8)		{ ReadBits(&outData, inBitCount); }
 	SQUADIO_API void		Read(bool& outData)									{ ReadBits(&outData, 1); }
 
 	//void		Read(Quaternion& outQuat);
