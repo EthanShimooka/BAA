@@ -6,7 +6,7 @@ MinionNetworkComponent::MinionNetworkComponent(GameObject* minion)
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	physComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
-	interval = 500;
+	interval = 1000;
 	if (NetworkManager::sInstance->IsMasterPeer()){
 		SendSpawnMinion(gameObjectRef->ID, gameObjectRef->team);
 	}
