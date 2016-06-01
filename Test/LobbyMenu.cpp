@@ -39,6 +39,7 @@ int LobbyMenu::runScene(){
 
 		// back button is pressed
 		if (buttonPressed == BUTTON_BACK){
+			GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
 			return SCENE_MENU;
 		}
 
