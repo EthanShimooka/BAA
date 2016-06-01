@@ -264,7 +264,7 @@ int GameSession::Run(){
 		std::cout << "classType: " << classType << std::endl;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
-			stats.setLocalTeam((i % 2) + 1);
+			Stats::setLocalTeam((i % 2) + 1);
 			Stats::addPlayer(iter.first, (i % 2) + 1);
 		}
 		else{

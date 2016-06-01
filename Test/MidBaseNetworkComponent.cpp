@@ -1,4 +1,5 @@
 #include "MidBaseNetworkComponent.h"
+#include "SystemGameObjectQueue.h"
 
 
 MidBaseNetworkComponent::MidBaseNetworkComponent(GameObject* base)
@@ -52,4 +53,8 @@ void MidBaseNetworkComponent::HandleBaseHealth(InputMemoryBitStream& packet){
 	packet.Read(health);
 	Stats::setBaseHealth(gameObjectRef->team, health);
 	gameObjectRef->health = health;
+	if (gameObjectRef->team == GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
+		RenderManager* renderMan = RenderManager::getRenderManager();
+		renderMan->ShakeScreen(0.3f, 0.2f);
+	}
 }
