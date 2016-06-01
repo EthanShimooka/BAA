@@ -35,11 +35,10 @@ public:
 	void SendMinionPos();
 	///Handle minion position
 	void HandleMinionPos(InputMemoryBitStream& packet);
+	///issues minion spawning
+	void SendSpawnMinion(uint64_t ID, uint8_t team);
 
 	MinionPhysicsComponent *physComp;
-
-	/*clock_t			packetInterval;
-	bool			canSend();*/
 };
 
 #endif

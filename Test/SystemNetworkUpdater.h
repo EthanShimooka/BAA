@@ -12,6 +12,7 @@ System class for updating all known Network Components.
 
 #include "GameObject.h"
 #include <vector>
+#include "MinionObjectFactory.h"
 class SystemNetworkUpdater
 {
 public:
@@ -21,6 +22,8 @@ public:
 	~SystemNetworkUpdater();
 	/// Accepts a global vector of all GameObjects (entities) and cycles through them
 	void NetworkUpdate(std::vector<GameObject*> obj);
+	///
+	MinionObjectFactory mFactory;
 };
 
 #endif

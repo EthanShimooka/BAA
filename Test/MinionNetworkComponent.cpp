@@ -6,7 +6,10 @@ MinionNetworkComponent::MinionNetworkComponent(GameObject* minion)
 	gameObjectRef = minion;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	physComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
-	interval = 1000;
+	interval = 500;
+	if (NetworkManager::sInstance->IsMasterPeer()){
+		SendSpawnMinion(gameObjectRef->ID, gameObjectRef->team);
+	}
 }
 
 
@@ -121,4 +124,13 @@ void MinionNetworkComponent::SendMinionPos(){
 	posPacket->Write(vel.x);
 	posPacket->Write(vel.y);
 	outgoingPackets.push(posPacket);
+}
+
+void MinionNetworkComponent::SendSpawnMinion(uint64_t ID, uint8_t team){
+	OutputMemoryBitStream* packet = new OutputMemoryBitStream();
+	packet->Write(NetworkManager::sInstance->kPosCC);
+	packet->Write((uint8_t)-1);
+	packet->Write(ID);
+	packet->Write(team);
+	outgoingPackets.push(packet);
 }

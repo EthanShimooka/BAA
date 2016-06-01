@@ -365,10 +365,10 @@ int GameSession::Run(){
 
 	/////////////Flip screen if needed/////////////////
 
-	if (player->team == TEAM_PURPLE){
+	/*if (player->team == TEAM_PURPLE){
 		std::cout << "flip the screen" << std::endl;
 		renderMan->flippedScreen = true;
-	}
+	}*/
 	//////////////////////////////////////////////////
 
 	bool gameEnd = false;
@@ -526,7 +526,8 @@ int GameSession::Run(){
 		if (!firstTime) //allows culling to start after all initialization happens
 			cullObjects();
 
-		if (Timing::sInstance.SpawnMinions()){
+
+		if (NetworkManager::sInstance->IsMasterPeer() && Timing::sInstance.SpawnMinions()){
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
