@@ -386,25 +386,6 @@ int GameSession::Run(){
 			inGameStats.toggleOn(false);
 		}
 
-		//std::cout << NetworkManager::sInstance->GetState() << std::endl;
-		
-	
-
-		/*if (input->isKeyDown(KEY_Q)){
-			if (renderMan->cameraPoint.z < -5){
-				renderMan->cameraPoint.z += 1;
-			}
-		}
-		if (input->isKeyDown(KEY_W)){
-			renderMan->cameraPoint.z -= 1;
-		}
-		if (input->isKeyDown(KEY_E)){
-			renderMan->flippedScreen = !renderMan->flippedScreen;
-		}*/
-
-		/*clock_t t;
-		t = clock();*/
-
 		
 
 		if (input->isKeyDown(KEY_F)){
@@ -528,6 +509,7 @@ int GameSession::Run(){
 
 
 		if (NetworkManager::sInstance->IsMasterPeer() && Timing::sInstance.SpawnMinions()){
+			std::cout << "i must be master peer" << std::endl;
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
