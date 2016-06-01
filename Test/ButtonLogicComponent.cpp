@@ -80,13 +80,23 @@ void ButtonLogicComponent::setNavButtons(GameObject* _up, GameObject* _down, Gam
 void ButtonLogicComponent::selectButton(){
 	selected = 2;
 	//gameObjectRef->posY += 20;
-	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
+	ButtonRenderComponent* rendComp = dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	if (buttonType == BUTTON_ICON){
+		//turn on the background glow
+		rendComp->setSelectedGlow(true);
+	}
+	rendComp->toggleSprites();
 }
 
 void ButtonLogicComponent::unselectButton(){
 	selected = 0;
 	//gameObjectRef->posY -= 20;
-	dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER))->toggleSprites();
+	ButtonRenderComponent* rendComp = dynamic_cast<ButtonRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	if (buttonType == BUTTON_ICON){
+		//turn on the background glow
+		rendComp->setSelectedGlow(false);
+	}
+	rendComp->toggleSprites();
 }
 
 void ButtonLogicComponent::Update(){
