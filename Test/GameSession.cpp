@@ -365,10 +365,10 @@ int GameSession::Run(){
 
 	/////////////Flip screen if needed/////////////////
 
-	/*if (player->team == TEAM_PURPLE){
+	if (player->team == TEAM_PURPLE){
 		std::cout << "flip the screen" << std::endl;
 		renderMan->flippedScreen = true;
-	}*/
+	}
 	//////////////////////////////////////////////////
 
 	bool gameEnd = false;
