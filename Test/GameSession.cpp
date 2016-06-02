@@ -30,6 +30,9 @@ GameSession::~GameSession(){
 	std::cout << "layer1: " << SceneManager::GetSceneManager()->findLayer("layer1")->m_SceneObjects.size() << std::endl;
 	std::cout << "layer2: " << SceneManager::GetSceneManager()->findLayer("layer2")->m_SceneObjects.size() << std::endl;
 	SceneManager::GetSceneManager()->RemoveAllObjects();
+	RenderManager::getRenderManager()->flippedScreen = false;
+	SceneManager::GetSceneManager()->AssembleScene();
+	
 }
 
 //variables used to keep track of bases and for camera shaking
@@ -537,10 +540,10 @@ int GameSession::Run(){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0) {
-			if (player->team == TEAM_PURPLE){
+			/*if (player->team == TEAM_PURPLE){
 					std::cout << "flip the screen" << std::endl;
 					renderMan->flippedScreen = false;
-			}
+			}*/
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
