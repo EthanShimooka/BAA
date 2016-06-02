@@ -167,11 +167,11 @@
 <resource UID="9153" type="graphic" filename="QLobby.png" scenescope="0"></resource>
 <resource UID="9154" type="graphic" filename="TLobby.png" scenescope="0"></resource>
 
-<resource UID="9250" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
-<resource UID="9251" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
-<resource UID="9252" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
-<resource UID="9253" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
-<resource UID="9254" type="graphic" filename="THLobby.png" scenescope="0"></resource>
+<resource UID="9250" type="graphic" filename="Lobby_head_chicken.png" scenescope="0"></resource>
+<resource UID="9251" type="graphic" filename="Lobby_head_peacock.png" scenescope="0"></resource>
+<resource UID="9252" type="graphic" filename="Lobby_head_flamingo.png" scenescope="0"></resource>
+<resource UID="9253" type="graphic" filename="Lobby_head_quail.png" scenescope="0"></resource>
+<resource UID="9254" type="graphic" filename="Lobby_head_turkey.png" scenescope="0"></resource>
 
 <resource UID="9300" type="graphic" filename="Lobby_tutorial_menu.png" scenescope="0"></resource>
 <resource UID="9350" type="graphic" filename="Tut_Chicken.png" scenescope="0"></resource>
