@@ -47,6 +47,7 @@ void MinionNetworkComponent::Update(){
 }
 
 void MinionNetworkComponent::SendMinionDeath(){
+	if (!NetworkManager::sInstance->IsMasterPeer()) return;
 	OutputMemoryBitStream* deathPacket = new OutputMemoryBitStream();
 	deathPacket->Write(NetworkManager::sInstance->kPosCC);
 	deathPacket->Write(gameObjectRef->ID);
