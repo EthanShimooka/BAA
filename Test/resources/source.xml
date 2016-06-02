@@ -39,6 +39,7 @@
 <resource UID="1110" type="graphic" filename="Menu_bg.png" scenescope="0"></resource>
 <resource UID="1111" type="graphic" filename="Game_UI_Crosshair_Charging.png" scenescope="0"></resource>
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
+<resource UID="1212" type="graphic" filename="Game_UI_pop_menu.png" scenescope="0"></resource>
 
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 
