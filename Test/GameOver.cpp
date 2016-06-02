@@ -92,29 +92,51 @@ void GameOver::createText(){
 	delete color;
 
 	createStatsText();
-	
+	createStatsText2();
+
 }
+
+void GameOver::createStatsText2(){
+	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(255, 255, 0);
+	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(200, 0, 200);
+	statsText->setStartingYPos(1 / 3.0f);
+	statsText->setFontSize(180);
+	// yellow team
+	statsText->createText(std::to_string(Stats::baseHealth_purple()), yellowColor, 1 / 4.0);
+
+	statsText->resetOffset();
+
+	statsText->createText(std::to_string(Stats::baseHealth_yellow()), purpleColor, 3 / 4.0);
+
+	delete yellowColor;
+	delete purpleColor;
+}
+
+
 
 void GameOver::createStatsText(){
 	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(255, 255, 0);
 	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(200, 0, 200);
 	statsText->setStartingYPos(1 / 3.0f);
-	statsText->setFontSize(30);
+	statsText->setFontSize(60);
 	// yellow team
-	statsText->createText(std::to_string(Stats::baseHealth_yellow()) + " nest health lost", yellowColor, 1 / 4.0);
-	statsText->createText(std::to_string(Stats::otherTeamMinionsKilled_yellow()) + " minions killed", yellowColor, 1 / 4.0);
-	statsText->createText(std::to_string(Stats::otherTeamPlayersKilled_yellow()) + " enemies killed", yellowColor, 1 / 4.0);
-	statsText->createText(std::to_string(Stats::feathersFired_yellow()) + " feathers thrown", yellowColor, 1 / 4.0);
-	statsText->createText(std::to_string(Stats::abilitiesUsed_yellow()) + " abilities used", yellowColor, 1 / 4.0);
+	statsText->createText("", yellowColor, 1 / 4.0);
+//	statsText->setFontSize(30);
+
+	statsText->createText("YELLOW TEAM", yellowColor, 1 / 4.0);
+
+
 	// reset the offset
 	statsText->resetOffset();
 	// purple team
-	statsText->createText(std::to_string(Stats::baseHealth_purple()) + " nest health lost", purpleColor, 3 / 4.0);
-	statsText->createText(std::to_string(Stats::otherTeamMinionsKilled_purple()) + " minions killed", purpleColor, 3 / 4.0);
-	statsText->createText(std::to_string(Stats::otherTeamPlayersKilled_purple()) + " enemies killed", purpleColor, 3 / 4.0);
-	statsText->createText(std::to_string(Stats::feathersFired_purple()) + " feathers thrown", purpleColor, 3 / 4.0);
-	statsText->createText(std::to_string(Stats::abilitiesUsed_purple()) + " abilities used", purpleColor, 3 / 4.0);
+	//statsText->setFontSize(60);
 
+	statsText->createText("", purpleColor, 3 / 4.0);
+//	statsText->setFontSize(30);
+
+	statsText->createText("PURPLE TEAM", purpleColor, 3 / 4.0);
+
+	
 	delete yellowColor;
 	delete purpleColor;
 }
