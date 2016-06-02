@@ -251,6 +251,13 @@ void LobbyMenu::changePlayerSelectionImage(){
 			if (iter.second.classType != -1) {
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType + 100);
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef->setScale(0.25f); // CHANGE THIS
+				if (i % 2 == 1){
+					dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef->flipV = false; // CHANGE THIS
+				}
+				else{
+					dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef->flipV = true; // CHANGE THIS
+
+				}
 
 			}
 			else {
