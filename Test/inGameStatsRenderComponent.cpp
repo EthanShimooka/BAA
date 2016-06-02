@@ -12,8 +12,11 @@ inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float sc
 	purple = new TextAlignment::COLOR(160, 32, 240);
 	yellow = new TextAlignment::COLOR(250, 165, 10);
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), _background, -5, 1, true);
-	objRef->setPos(w / 2.0f, h / 2.0f);
+	objRef->setPos(w / 4.0f, h / 5.0f);
+	//objRef->setPos(w / 2.0f, h / 2.0f);
 	background = _background;
+
+	objRef->setPos(w / 4.0f, h / 5.0f);
 	objRef->setScale(scale);
 	createText();
 	createScoreText();

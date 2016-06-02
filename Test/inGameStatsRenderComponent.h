@@ -8,7 +8,7 @@ class inGameStatsRenderComponent :
 	public RenderComponent
 {
 public:
-	inGameStatsRenderComponent(int _background = 1, float scale = 1);
+	inGameStatsRenderComponent(int _background = 1212, float scale = 1);
 	~inGameStatsRenderComponent();
 
 	int background = -1;
