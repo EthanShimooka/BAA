@@ -16,10 +16,8 @@ private:
 	float scale;
 	std::string layer;
 	SceneManager* sceneMan;
-	SDLRenderObject* selectedGlow;
 
 public:
-	void setSelectedGlow(bool flag);
 	void changeSprite(int imageID);
 	void setToDefault();
 	void toggleSprites();
