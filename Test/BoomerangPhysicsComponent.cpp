@@ -75,24 +75,26 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 
 void BoomerangPhysicsComponent::Update(){
 	int moveSpeed = 15;
-	if (returning){
-		//straight line back
-		b2Vec2 currPos = mBody->GetPosition();
-		b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
-		b2Vec2 movementVec = destPos - currPos;
+	if (owner->isLocal){
+		if (returning){
+			//straight line back
+			b2Vec2 currPos = mBody->GetPosition();
+			b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
+			b2Vec2 movementVec = destPos - currPos;
 
-		movementVec.Normalize();
-		movementVec *= (float32)moveSpeed;
-		mBody->SetLinearVelocity(movementVec);
-	}
-	else{
-		//curve to destination
-		b2Vec2 currPos = mBody->GetPosition();
-		b2Vec2 movementVec = targetDest - currPos;
-		//check to see how close we are
-		movementVec.Normalize();
-		movementVec *= (float32)moveSpeed;
-		mBody->SetLinearVelocity(movementVec);
+			movementVec.Normalize();
+			movementVec *= (float32)moveSpeed;
+			mBody->SetLinearVelocity(movementVec);
+		}
+		else{
+			//curve to destination
+			b2Vec2 currPos = mBody->GetPosition();
+			b2Vec2 movementVec = targetDest - currPos;
+			//check to see how close we are
+			movementVec.Normalize();
+			movementVec *= (float32)moveSpeed;
+			mBody->SetLinearVelocity(movementVec);
+		}
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
