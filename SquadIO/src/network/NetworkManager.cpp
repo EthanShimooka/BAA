@@ -884,9 +884,9 @@ void NetworkManager::resetNetwork(){
 	mState = NMS_Unitialized;
 	mPlayerCount = 0;
 	mReadyCount = 0;
-	mDelayHeartbeat = kTimeBetweenDelayHeartbeat;
+	/*mDelayHeartbeat = kTimeBetweenDelayHeartbeat;
 	mTimeToStart = -1.0f;
 	mTurnNumber = -2;
-	mSubTurnNumber = 0;
+	mSubTurnNumber = 0;*/
 	lobbyInfoMap.clear();
 }
