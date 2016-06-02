@@ -5,5 +5,6 @@
 #include "MidBaseLogicComponent.h"
 #include "MidBasePhysicsComponent.h"
 #include "MidBaseRenderComponent.h"
+#include "MidBaseNetworkComponent.h"
 
 #endif

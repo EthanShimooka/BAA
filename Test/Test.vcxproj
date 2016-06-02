@@ -160,6 +160,7 @@
     <ClInclude Include="LauncherComponentIncludes.h" />
     <ClInclude Include="LobbyMenu.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MidBaseNetworkComponent.h" />
     <ClInclude Include="MidBirdObjectFactory.h" />
     <ClInclude Include="MidBirdRenderComponent.h" />
     <ClInclude Include="PlayerUIComponent.h" />
@@ -307,6 +308,7 @@
     <ClCompile Include="LobbyMenu.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
+    <ClCompile Include="MidBaseNetworkComponent.cpp" />
     <ClCompile Include="MidBaseObjectFactory.cpp" />
     <ClCompile Include="MidBasePhysicsComponent.cpp" />
     <ClCompile Include="MidBaseRenderComponent.cpp" />

@@ -16,7 +16,7 @@ public:
 	/// Update Function
 	void Update();
 	/// Visual cues for minion death
-	void MinionDeath();
+	void MinionDeath(bool otherObjLocal);
 	/// indicates how far the minion should travel before going back
 	float length;
 	float initialX;

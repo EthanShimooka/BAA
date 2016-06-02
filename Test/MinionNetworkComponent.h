@@ -23,10 +23,6 @@ public:
 	~MinionNetworkComponent();
 	/// Update
 	void Update();
-	///Send base hit
-	void SendBaseHit(int teamHit, uint64_t minionID, uint64_t baseID);
-	///Handle base hit
-	void HandleBaseHit(InputMemoryBitStream& packet);
 	///Send minion death
 	void SendMinionDeath();
 	///Handle minion death

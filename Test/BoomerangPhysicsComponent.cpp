@@ -47,10 +47,14 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 			PlayerRenderComponent* ownerRenderComp = dynamic_cast<PlayerRenderComponent*>(otherObj->GetComponent(COMPONENT_RENDER));
 			ownerRenderComp->allObjs["armL"]->visible = true;
 			ownerRenderComp->allObjs["armR"]->visible = true;
+			PlayerLogicComponent* otherLogicComp = dynamic_cast<PlayerLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+			otherLogicComp->becomeEgg();
 			gameObjectRef->isAlive = false;
 		}
 		if (otherObj->team != gameObjectRef->team){
 			//maybe kill the other teammates?
+			std::cout << "boomerang hit enemy player" << std::endl;
+			otherObj->isAlive = false;
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
@@ -62,7 +66,7 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 				audioMan->playByName("miniondeathsfx.ogg");
 			}
 			MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-			logicComp->MinionDeath();
+			logicComp->MinionDeath(gameObjectRef->isLocal);
 			otherObj->isAlive = false;
 		}
 		break;
@@ -73,24 +77,26 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 
 void BoomerangPhysicsComponent::Update(){
 	int moveSpeed = 15;
-	if (returning){
-		//straight line back
-		b2Vec2 currPos = mBody->GetPosition();
-		b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
-		b2Vec2 movementVec = destPos - currPos;
+	if (owner->isLocal){
+		if (returning){
+			//straight line back
+			b2Vec2 currPos = mBody->GetPosition();
+			b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
+			b2Vec2 movementVec = destPos - currPos;
 
-		movementVec.Normalize();
-		movementVec *= (float32)moveSpeed;
-		mBody->SetLinearVelocity(movementVec);
-	}
-	else{
-		//curve to destination
-		b2Vec2 currPos = mBody->GetPosition();
-		b2Vec2 movementVec = targetDest - currPos;
-		//check to see how close we are
-		movementVec.Normalize();
-		movementVec *= (float32)moveSpeed;
-		mBody->SetLinearVelocity(movementVec);
+			movementVec.Normalize();
+			movementVec *= (float32)moveSpeed;
+			mBody->SetLinearVelocity(movementVec);
+		}
+		else{
+			//curve to destination
+			b2Vec2 currPos = mBody->GetPosition();
+			b2Vec2 movementVec = targetDest - currPos;
+			//check to see how close we are
+			movementVec.Normalize();
+			movementVec *= (float32)moveSpeed;
+			mBody->SetLinearVelocity(movementVec);
+		}
 	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;

@@ -30,7 +30,6 @@ private:
 	void removeButtons();
 	void createText();
 	void createStatsText();
-	void createStatsText2();
 	TextAlignment *statsText;
 	
 

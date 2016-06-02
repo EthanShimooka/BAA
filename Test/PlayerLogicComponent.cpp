@@ -68,7 +68,7 @@ void PlayerLogicComponent::becomeEgg(){
 
 		//turn all sprites of player invisible
 		//for (auto obj : renderComp->allObjs)obj.second->visible = false;
-		createEggParticle(renderComp->allObjs["body"], 4,0,0);
+		//createEggParticle(renderComp->allObjs["body"], 4,0,0);
 		renderComp->allObjs["body"]->visible = false;
 		renderComp->allObjs["egg"]->visible=true;
 

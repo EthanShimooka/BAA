@@ -30,6 +30,9 @@ GameSession::~GameSession(){
 	std::cout << "layer1: " << SceneManager::GetSceneManager()->findLayer("layer1")->m_SceneObjects.size() << std::endl;
 	std::cout << "layer2: " << SceneManager::GetSceneManager()->findLayer("layer2")->m_SceneObjects.size() << std::endl;
 	SceneManager::GetSceneManager()->RemoveAllObjects();
+	RenderManager::getRenderManager()->flippedScreen = false;
+	SceneManager::GetSceneManager()->AssembleScene();
+	
 }
 
 //variables used to keep track of bases and for camera shaking
@@ -264,7 +267,7 @@ int GameSession::Run(){
 		std::cout << "classType: " << classType << std::endl;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
-			stats.setLocalTeam((i % 2) + 1);
+			Stats::setLocalTeam((i % 2) + 1);
 			Stats::addPlayer(iter.first, (i % 2) + 1);
 		}
 		else{
@@ -537,10 +540,10 @@ int GameSession::Run(){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0) {
-			if (player->team == TEAM_PURPLE){
+			/*if (player->team == TEAM_PURPLE){
 					std::cout << "flip the screen" << std::endl;
 					renderMan->flippedScreen = false;
-			}
+			}*/
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -574,16 +577,7 @@ int GameSession::Run(){
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
 		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
-		leftBaseHealth = std::to_string(Stats::baseHealth_purple());
-
-	//	leftBaseHealth = std::to_string(leftBase->health);
-		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 75, "BowlbyOneSC-Regular"));
-		rightBaseHealth = std::to_string(Stats::baseHealth_yellow());
-
-	//	rightBaseHealth = std::to_string(rightBase->health);
-		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 75, "BowlbyOneSC-Regular"));
-
-
+		inGameStats.Update();
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////

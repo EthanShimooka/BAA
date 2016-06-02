@@ -596,6 +596,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MidBaseNetworkComponent.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -975,6 +978,9 @@
     </ClCompile>
     <ClCompile Include="TutorialRenderComponent.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MidBaseNetworkComponent.cpp">
+      <Filter>Source Files\Component\MidBase Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

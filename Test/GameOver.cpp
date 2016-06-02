@@ -57,20 +57,22 @@ void GameOver::removeButtons(){
 }
 
 void GameOver::createText(){
-	std::string text = "";
+	std::string text = "ERROR!";
 	TextAlignment::COLOR *color = nullptr;
 
-
+	std::cout << "team: " << Stats::getLocalTeam() << std::endl;
+	std::cout << "purple: " << Stats::baseHealth_purple() << std::endl;
+	std::cout << "yellow: " << Stats::baseHealth_yellow() << std::endl;
 	if (Stats::baseHealth_purple() == Stats::baseHealth_yellow()){
 		text = "No Contest!";
-		color = new TextAlignment::COLOR(255, 255, 0);
+		color = new TextAlignment::COLOR(250, 165, 10);
 	}
 	else if (Stats::baseHealth_purple() < Stats::baseHealth_yellow()){
 		if (Stats::getLocalTeam() == TEAM_PURPLE){
 			text = "Victory!";
 			color = new TextAlignment::COLOR(0, 153, 0);
 		}
-		else{
+		else if (Stats::getLocalTeam() == TEAM_YELLOW){
 			text = "Defeat!";
 			color = new TextAlignment::COLOR(204, 0, 0);
 		}
@@ -80,7 +82,7 @@ void GameOver::createText(){
 			text = "Defeat!";
 			color = new TextAlignment::COLOR(204, 0, 0);
 		}
-		else{
+		else if(Stats::getLocalTeam() == TEAM_YELLOW){
 			text = "Victory!";
 			color = new TextAlignment::COLOR(0, 153, 0);
 		}
@@ -92,51 +94,34 @@ void GameOver::createText(){
 	delete color;
 
 	createStatsText();
-	createStatsText2();
+	//createStatsText2();
 
 }
 
-void GameOver::createStatsText2(){
-	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(255, 255, 0);
-	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(200, 0, 200);
-	statsText->setStartingYPos(1 / 3.0f);
-	statsText->setFontSize(180);
+void GameOver::createStatsText(){
+	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(250, 165, 10);
+	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(160, 32, 240);
+	
+
 	// yellow team
+	statsText->setStartingYPos(0.40);
+	statsText->setFontSize(30);
+	statsText->createText("YELLOW TEAM", yellowColor, 1 / 4.0);
+	statsText->setFontSize(180);
+	statsText->setStartingYPos(.60);
 	statsText->createText(std::to_string(Stats::baseHealth_purple()), yellowColor, 1 / 4.0);
 
 	statsText->resetOffset();
 
-	statsText->createText(std::to_string(Stats::baseHealth_yellow()), purpleColor, 3 / 4.0);
-
-	delete yellowColor;
-	delete purpleColor;
-}
-
-
-
-void GameOver::createStatsText(){
-	TextAlignment::COLOR *yellowColor = new TextAlignment::COLOR(255, 255, 0);
-	TextAlignment::COLOR *purpleColor = new TextAlignment::COLOR(200, 0, 200);
-	statsText->setStartingYPos(1 / 3.0f);
-	statsText->setFontSize(60);
-	// yellow team
-	statsText->createText("", yellowColor, 1 / 4.0);
-//	statsText->setFontSize(30);
-
-	statsText->createText("YELLOW TEAM", yellowColor, 1 / 4.0);
-
-
-	// reset the offset
-	statsText->resetOffset();
 	// purple team
-	//statsText->setFontSize(60);
-
-	statsText->createText("", purpleColor, 3 / 4.0);
-//	statsText->setFontSize(30);
-
+	statsText->setStartingYPos(0.40);
+	statsText->setFontSize(30);
 	statsText->createText("PURPLE TEAM", purpleColor, 3 / 4.0);
-
+	statsText->setFontSize(180);
+	statsText->setStartingYPos(.60);
+	statsText->createText(std::to_string(Stats::baseHealth_yellow()), purpleColor, 3 / 4.0);
 	
+
 	delete yellowColor;
 	delete purpleColor;
 }

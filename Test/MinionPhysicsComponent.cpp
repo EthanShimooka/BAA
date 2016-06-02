@@ -83,11 +83,11 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 												 AudioManager* audioMan = AudioManager::getAudioInstance();
 												 audioMan->playByName("miniondeathsfx.ogg");
 											 }
-											 dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
+											 //dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
 											 //createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 											 //createDustCloudParticle(4, 50, 200, gameObjectRef->posX, gameObjectRef->posY);
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-											 logicComp->MinionDeath();
+											 logicComp->MinionDeath(otherObj->isLocal);
 											 
 											 //GameObjects.dead_feathers.push_back(gameObjectRef);
 											 break;
@@ -102,7 +102,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 												//createParticle(minRend->allObjs["body"], 20, gameObjectRef->posX, gameObjectRef->posY);
 												//createDustCloudParticle(4, 50, 200, gameObjectRef->posX, gameObjectRef->posY);
 												MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-												logicComp->MinionDeath();
+												logicComp->MinionDeath(false);
 											}
 
 											//gameObjectRef->isAlive = false;//currently setting the poof to dead,
@@ -155,7 +155,7 @@ void MinionPhysicsComponent::handleCollision(GameObject* otherObj){
 											  audioMan->playByName("miniondeathsfx.ogg");
 										  }
 										 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										 logicComp->MinionDeath();
+										 logicComp->MinionDeath(otherObj->isLocal);
 										 break;
 	}
 	default:
