@@ -348,7 +348,7 @@ int GameSession::Run(){
 	string leftBaseHealth = "";
 	SDLRenderObject * leftbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	leftbaseHUD->setPos(25, 650);
+	leftbaseHUD->setPos(15, 650);
 
 	SDLRenderObject * rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
 	rightbaseHUDicon->setPos(1214, 600);
@@ -356,7 +356,7 @@ int GameSession::Run(){
 	string rightBaseHealth = "";
 	SDLRenderObject * rightbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	rightbaseHUD->setPos(1291, 650);
+	rightbaseHUD->setPos(1281, 650);
 
 
 	

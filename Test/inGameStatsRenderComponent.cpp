@@ -8,9 +8,9 @@ inGameStatsRenderComponent::inGameStatsRenderComponent(int _background, float sc
 	layer = "layer1";
 	int w, h;
 	RenderManager::getRenderManager()->getWindowSize(&w, &h);
-	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), _background, -5, 1, true);
-	objRef->setPos(w / 2.0f, h / 2.0f);
-	background = _background;
+	objRef = sceneMan->InstantiateObject(sceneMan->findLayer(layer), 1212, -5, 1, true);
+	objRef->setPos(w / 4.0f, h / 5.0f);
+	background = 1212;
 	objRef->setScale(scale);
 	createText();
 	toggleOn(false);
