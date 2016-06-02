@@ -877,13 +877,13 @@ uint64_t NetworkManager::GetLobbyId(){
 }
 
 void NetworkManager::resetNetwork(){
-	mPlayerId = 0;
+	/*mPlayerId = 0;
 	mLobbyId = 0;
-	mNewNetworkId = 1;
+	mNewNetworkId = 1;*/
 	mIsMasterPeer = false;
-	mState = NMS_Unitialized;
+	/*mState = NMS_Unitialized;
 	mPlayerCount = 0;
-	mReadyCount = 0;
+	mReadyCount = 0;*/
 	/*mDelayHeartbeat = kTimeBetweenDelayHeartbeat;
 	mTimeToStart = -1.0f;
 	mTurnNumber = -2;
