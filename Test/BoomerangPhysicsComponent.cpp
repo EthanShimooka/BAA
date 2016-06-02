@@ -51,6 +51,8 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		if (otherObj->team != gameObjectRef->team){
 			//maybe kill the other teammates?
+			std::cout << "boomerang hit enemy player" << std::endl;
+			otherObj->isAlive = false;
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
@@ -62,7 +64,7 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 				audioMan->playByName("miniondeathsfx.ogg");
 			}
 			MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-			logicComp->MinionDeath();
+			logicComp->MinionDeath(gameObjectRef->isLocal);
 			otherObj->isAlive = false;
 		}
 		break;

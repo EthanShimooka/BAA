@@ -16,7 +16,8 @@ MinionLogicComponent::~MinionLogicComponent()
 void MinionLogicComponent::Update(){
 }
 
-void MinionLogicComponent::MinionDeath(){
+void MinionLogicComponent::MinionDeath(bool otherObjLocal){
+
 	EffectObjectFactory efFactory;
 	MinionRenderComponent * minRend = (MinionRenderComponent*)gameObjectRef->GetComponent(COMPONENT_RENDER);
 
@@ -27,8 +28,10 @@ void MinionLogicComponent::MinionDeath(){
 	//SDLRenderObject* poofSprite = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 4001, gameObjectRef->posX, gameObjectRef->posY);
 	//renderComp->AssignSprite(poofSprite);
 	MinionPhysicsComponent* physicsComp = dynamic_cast<MinionPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
-	MinionNetworkComponent* netComp = dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-	netComp->SendMinionDeath();
+	if (otherObjLocal)
+		dynamic_cast<MinionNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendMinionDeath();
+	if (!otherObjLocal) std::cout << "not ";
+	std::cout << "local" << std::endl;
 	physicsComp->setCollisionFilter(COLLISION_MINION, 0);
 	// Need to make minion sprite invisible/gone, instantiate poofsprite at correct x,y , then 
 	// start 1second timer, which destroys poof object when it runs out (set gameObjectRef->isAlive = false)

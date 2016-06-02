@@ -23,7 +23,7 @@ void BoomerangLogicComponent::Update(){
 	//update the target of the boomerang while still in flight
 	double elapsedTime = (clock() - updateClock) / (CLOCKS_PER_SEC / 1000);
 	//send update packet every half second
-	if (elapsedTime > updateInterval){
+	if (elapsedTime > updateInterval && gameObjectRef->isLocal){
 		//set the target to be new
 		float newX, newY;
 		RenderManager* renderMan = RenderManager::getRenderManager();

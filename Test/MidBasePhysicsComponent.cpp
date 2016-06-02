@@ -69,36 +69,12 @@ void MidBasePhysicsComponent::handleCollision(GameObject* otherObj){
 												 dynamic_cast<MidBaseNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK))->SendBaseHealth();
 											 }
 											 MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-											 logicComp->MinionDeath();
+											 logicComp->MinionDeath(false);
 											 if (gameObjectRef->team == GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
 												 RenderManager* renderMan = RenderManager::getRenderManager();
 												 renderMan->ShakeScreen(0.3f, 0.2f);
 											 }
 
-											 //if (gameObjectRef->team == TEAM_YELLOW && NetworkManager::sInstance->IsMasterPeer()){
-												// dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_YELLOW, otherObj->ID, gameObjectRef->ID);
-												// gameObjectRef->health++;
-												// MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-												// logicComp->MinionDeath();
-												// //Only shake if our own base is being attacked
-												// if (otherObj->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
-												//	 RenderManager* renderMan = RenderManager::getRenderManager();
-												//	 renderMan->ShakeScreen(0.3f, 0.2f);
-												// }
-												// Stats::incBaseHealth_yellow();
-											 //}
-											 //else if (gameObjectRef->team == TEAM_PURPLE && NetworkManager::sInstance->IsMasterPeer()){
-												// dynamic_cast<MinionNetworkComponent*>(otherObj->GetComponent(COMPONENT_NETWORK))->SendBaseHit(TEAM_PURPLE, otherObj->ID, gameObjectRef->ID);
-												// gameObjectRef->health++;
-												// MinionLogicComponent* logicComp = dynamic_cast<MinionLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-												// logicComp->MinionDeath();
-												// //Only shake if our own base is being attacked
-												// if (otherObj->team != GameObjects.GetGameObject(GamerServices::sInstance->GetLocalPlayerId())->team){
-												//	 RenderManager* renderMan = RenderManager::getRenderManager();
-												//	 renderMan->ShakeScreen(0.3f, 0.2f);
-												// }
-												// Stats::incBaseHealth_purple();
-											 //}
 
 											 break;
 	}
