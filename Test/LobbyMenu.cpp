@@ -66,7 +66,7 @@ void LobbyMenu::createButtons(){
 
 	// ready button
 	renderMan->windowCoordToWorldCoord(x, y, (int)(w*(0.9f)), (int)(h*(90 / 100.0)));
-	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.30f);
+	readyButt = bFactory.Spawn(buttonID++, x, y, 25, 75.0f, 75.0f, 0.30f,BUTTON_ICON);
 	ButtonRenderComponent* readyRender = dynamic_cast<ButtonRenderComponent*>(readyButt->GetComponent(COMPONENT_RENDER));
 	readyRender->addSecondSprite(34);
 	
@@ -98,10 +98,10 @@ void LobbyMenu::createClassButts(){
 	// chicken button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 
-	GameObject* chickButton = bFactory.Spawn(buttonID++, x, y + 10, 9150, 50.0f, 50.0f, 0.30f, BUTTON_ICON);
+	GameObject* chickButton = bFactory.Spawn(buttonID++, x, y + 10, 9150, 50.0f, 50.0f, 0.30f);
 	ButtonLogicComponent* chickLogic = dynamic_cast<ButtonLogicComponent*>(chickButton->GetComponent(COMPONENT_LOGIC));
 	ButtonRenderComponent* chickRender = dynamic_cast<ButtonRenderComponent*>(chickButton->GetComponent(COMPONENT_RENDER));
-	chickRender->addSecondSprite(3000);
+	chickRender->addSecondSprite(27);
 	chickLogic->setSound("chickensfx.ogg");
 	classButt.push_back(chickButton);
 	GameObjects.AddObject(chickButton);
@@ -114,10 +114,10 @@ void LobbyMenu::createClassButts(){
 	// peacock button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 
-	GameObject* peaButton = bFactory.Spawn(buttonID++, x, y, 9151, 50.0f, 50.0f, 0.5, BUTTON_ICON);
+	GameObject* peaButton = bFactory.Spawn(buttonID++, x, y, 9151, 50.0f, 50.0f, 0.5);
 	ButtonLogicComponent* peaLogic = dynamic_cast<ButtonLogicComponent*>(peaButton->GetComponent(COMPONENT_LOGIC));
 	ButtonRenderComponent* peaRender = dynamic_cast<ButtonRenderComponent*>(peaButton->GetComponent(COMPONENT_RENDER));
-	peaRender->addSecondSprite(3100);
+	peaRender->addSecondSprite(27);
 	peaLogic->setSound("peacocksfx.ogg");
 	classButt.push_back(peaButton);
 	GameObjects.AddObject(peaButton);
@@ -129,10 +129,10 @@ void LobbyMenu::createClassButts(){
 
 	// flamingo button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
-	GameObject* flamButton = bFactory.Spawn(buttonID++, x, y - 70, 9152, 59.0f, 59.0f, 0.4f, BUTTON_ICON);
+	GameObject* flamButton = bFactory.Spawn(buttonID++, x, y - 70, 9152, 59.0f, 59.0f, 0.4f);
 	ButtonLogicComponent* flamLogic = dynamic_cast<ButtonLogicComponent*>(flamButton->GetComponent(COMPONENT_LOGIC));
 	ButtonRenderComponent* flamRender = dynamic_cast<ButtonRenderComponent*>(flamButton->GetComponent(COMPONENT_RENDER));
-	flamRender->addSecondSprite(3200);
+	flamRender->addSecondSprite(27);
 	flamLogic->setSound("flamingosfx.ogg");
 	classButt.push_back(flamButton);
 	GameObjects.AddObject(flamButton);
@@ -146,10 +146,10 @@ void LobbyMenu::createClassButts(){
 	// quail button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 
-	GameObject* quaButton = bFactory.Spawn(buttonID++, x, y + 20, 9153, 50.0f, 50.0f, 0.3f, BUTTON_ICON);
+	GameObject* quaButton = bFactory.Spawn(buttonID++, x, y + 20, 9153, 50.0f, 50.0f, 0.3f);
 	ButtonLogicComponent* quaLogic = dynamic_cast<ButtonLogicComponent*>(quaButton->GetComponent(COMPONENT_LOGIC));
 	ButtonRenderComponent* quaRender = dynamic_cast<ButtonRenderComponent*>(quaButton->GetComponent(COMPONENT_RENDER));
-	quaRender->addSecondSprite(3300);
+	quaRender->addSecondSprite(27);
 	quaLogic->setSound("quailsfx.ogg");
 	classButt.push_back(quaButton);
 	GameObjects.AddObject(quaButton);
@@ -162,10 +162,10 @@ void LobbyMenu::createClassButts(){
 	// turkey button
 	renderMan->windowCoordToWorldCoord(x, y, (int)offset, (int)midHeight);
 
-	GameObject* turkButton = bFactory.Spawn(buttonID++, x, y, 9154, 50.0f, 50.0f, 0.6f, BUTTON_ICON);
+	GameObject* turkButton = bFactory.Spawn(buttonID++, x, y, 9154, 50.0f, 50.0f, 0.6f);
 	ButtonLogicComponent* turkLogic = dynamic_cast<ButtonLogicComponent*>(turkButton->GetComponent(COMPONENT_LOGIC));
 	ButtonRenderComponent* turkRender = dynamic_cast<ButtonRenderComponent*>(turkButton->GetComponent(COMPONENT_RENDER));
-	turkRender->addSecondSprite(3500);
+	turkRender->addSecondSprite(27);
 	turkLogic->setSound("turkeysfx.ogg");
 	classButt.push_back(turkButton);
 	GameObjects.AddObject(turkButton);
