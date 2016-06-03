@@ -593,6 +593,9 @@
     <ClInclude Include="MidBirdObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TitleScreenProps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -972,6 +975,9 @@
     </ClCompile>
     <ClCompile Include="TutorialRenderComponent.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreenProps.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

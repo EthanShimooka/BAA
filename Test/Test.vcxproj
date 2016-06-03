@@ -166,6 +166,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Stats.h" />
     <ClInclude Include="TextAlignment.h" />
+    <ClInclude Include="TitleScreenProps.h" />
     <ClInclude Include="TutorialObjectFactory.h" />
     <ClInclude Include="TutorialRenderComponent.h" />
     <ClInclude Include="WellComponentIncludes.h" />
@@ -370,6 +371,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Stats.cpp" />
     <ClCompile Include="TextAlignment.cpp" />
+    <ClCompile Include="TitleScreenProps.cpp" />
     <ClCompile Include="TutorialObjectFactory.cpp" />
     <ClCompile Include="TutorialRenderComponent.cpp" />
     <ClCompile Include="UIRenderComponent.cpp" />

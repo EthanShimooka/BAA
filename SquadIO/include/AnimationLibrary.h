@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iostream>
 #include <functional>
+#include <math.h>
 #include "include\RenderManager.h"
 
 typedef float(*ease_function)(float);
@@ -15,6 +16,9 @@ SQUADIO_API float ease_linear(float i);
 SQUADIO_API float ease_QuadIn(float i);
 SQUADIO_API float ease_QuadOut(float i);
 SQUADIO_API float ease_QuadInOut(float i);
+SQUADIO_API float ease_SineIn(float i);
+SQUADIO_API float ease_SineOut(float i);
+SQUADIO_API float ease_SineInOut(float i);
 SQUADIO_API std::function<float(float)> getBezier(float x0, float x1, float x2, float x3);
 SQUADIO_API std::function<float(float)> getBezierTracking(float x0, float x1, float x2, float * x3);
 SQUADIO_API std::function<float(float)> getBezierTracking(float x0, float x1, float x2, std::function<float(void)> x3);

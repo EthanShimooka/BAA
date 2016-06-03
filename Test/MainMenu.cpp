@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "TitleScreenProps.h"
 
 
 MainMenu::MainMenu()
@@ -21,6 +22,7 @@ int MainMenu::runScene(){
 	int buttonPressed = -2;
 	SystemRenderUpdater sysRenderer;
 	SystemLogicUpdater sysLogic;
+	LoadTitleScreenProps();
 	while (true){
 		buttonPressed = checkButtons();
 		switch (buttonPressed){
