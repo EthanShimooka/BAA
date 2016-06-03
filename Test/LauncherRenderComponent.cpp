@@ -102,7 +102,6 @@ void LauncherRenderComponent::throwLauncher(){
 	setAnimation("throw");
 	setNextAnimation("hide");
 	setNextAnimation("idle");
-	//std::cout << "SHIGGLE BUZZ BUZZ" << std::endl;
 
 	//allObjs["launcher1"]->visible = false;
 	//allObjs["launcher2"]->visible = true;
