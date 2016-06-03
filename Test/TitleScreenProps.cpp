@@ -15,7 +15,12 @@ TitleScreenProps::TitleScreenProps()
 	allObjs["planet3"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, -80000.0f, 40000.0f, 4000.0f);
 	//allObjs["planet3"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2103, 0.0f, 0.0f, 400.0f);
 	allObjs["planet3"]->setScale(200);
-
+	allObjs["boid1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2109, 0.0f, -145.0f, 0.0f);
+	allObjs["boid1"]->setParent(allObjs["planet2"]);
+	allObjs["boid1"]->setScale(0.4);
+	allObjs["boid2"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2108, 0.0f, -90.0f, 0.0f);
+	allObjs["boid2"]->setParent(allObjs["planet1"]);
+	allObjs["boid2"]->setScale(0.4);
 	allObjs["planet1"]->setParent(allObjs["planet3"]);
 	std::list<motion> motions;
 	//motions.push_back(makeMotion(transformFlipH(allObjs["surfB"], false), 0.0, 0.0));
@@ -29,6 +34,16 @@ TitleScreenProps::TitleScreenProps()
 	motions.push_back(makeMotion(moveLinearZ(allObjs["planet1"], zDelta, 0.0f), 0.75, 0.25, ease_SineIn));
 	motions.push_back(makeMotion(rotateTransform(allObjs["planet1"], 0, 720), 0.0, 1.0));
 	motions.push_back(makeMotion(rotateTransform(allObjs["planet2"], 0, 360), 0.0, 1.0));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], false), 0.0, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], true), 0.1, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], false), 0.2, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], true), 0.3, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], false), 0.4, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], true), 0.5, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], false), 0.6, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], true), 0.7, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], false), 0.8, 0.1));
+	motions.push_back(makeMotion(transformFlipH(allObjs["boid1"], true), 0.9, 0.1));
 	animations["idle"] = new Animation(10000, motions);
 	setAnimation("idle");
 }
