@@ -22,6 +22,7 @@ void BoomerangNetworkComponent::sendTargetPacket(){
 	outgoingPackets.push(outData);
 }
 
+
 void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket){
 	BoomerangPhysicsComponent* physicsComp = dynamic_cast<BoomerangPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	int destX, destY;

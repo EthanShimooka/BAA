@@ -77,27 +77,25 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 
 void BoomerangPhysicsComponent::Update(){
 	int moveSpeed = 15;
-	if (owner->isLocal){
+	//if (owner->isLocal){
+	b2Vec2 movementVec;
 		if (returning){
 			//straight line back
 			b2Vec2 currPos = mBody->GetPosition();
 			b2Vec2 destPos = ownerPhysics->mBody->GetPosition();
-			b2Vec2 movementVec = destPos - currPos;
-
-			movementVec.Normalize();
-			movementVec *= (float32)moveSpeed;
-			mBody->SetLinearVelocity(movementVec);
+			 movementVec = destPos - currPos;
 		}
 		else{
 			//curve to destination
 			b2Vec2 currPos = mBody->GetPosition();
-			b2Vec2 movementVec = targetDest - currPos;
+			 movementVec = targetDest - currPos;
 			//check to see how close we are
-			movementVec.Normalize();
-			movementVec *= (float32)moveSpeed;
-			mBody->SetLinearVelocity(movementVec);
+			
 		}
-	}
+		movementVec.Normalize();
+		movementVec *= (float32)moveSpeed;
+		mBody->SetLinearVelocity(movementVec);
+//	}
 	gameObjectRef->posX = mBody->GetPosition().x*worldScale;
 	gameObjectRef->posY = mBody->GetPosition().y*worldScale;
 }
