@@ -3,7 +3,7 @@
 std::unordered_map<uint64_t, Stats::playerStats> Stats::allPlayersStats{};
 struct Stats::teamStats Stats::purple {};
 struct Stats::teamStats Stats::yellow {};
-int Stats::localTeam { 0 };
+int Stats::localTeam = 0 ;
 
 Stats::Stats()
 {

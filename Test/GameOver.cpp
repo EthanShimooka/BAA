@@ -74,7 +74,10 @@ void GameOver::createText(){
 		}
 		else if (Stats::getLocalTeam() == TEAM_YELLOW){
 			text = "Defeat!";
-			color = new TextAlignment::COLOR(204, 0, 0);
+			//color = new TextAlignment::COLOR(204, 0, 0);
+			color = new TextAlignment::COLOR(255, 255, 0);
+
+			
 		}
 	}
 	else if (Stats::baseHealth_purple() > Stats::baseHealth_yellow()){

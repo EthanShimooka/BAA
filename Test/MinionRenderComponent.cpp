@@ -23,6 +23,8 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
 		allObjs["body"]->setParent(allObjs["base"]);
 	}
+
+
 	allObjs["leftArm"]->setParent(allObjs["body"]);
 	allObjs["rightArm"]->setParent(allObjs["body"]);
 	allObjs["body"]->setScale(allObjs["body"]->calcXScale(30));

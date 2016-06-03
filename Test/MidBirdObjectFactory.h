@@ -14,7 +14,7 @@ class MidBirdObjectFactory :
 public:
 	MidBirdObjectFactory();
 	~MidBirdObjectFactory();
-	GameObject * Spawn(uint64_t PID, float posX, float posY);
+	GameObject * Spawn(uint64_t PID, float posX, float posY, int team);
 };
 
 #endif
