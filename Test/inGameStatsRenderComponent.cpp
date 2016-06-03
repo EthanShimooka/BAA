@@ -99,8 +99,8 @@ void inGameStatsRenderComponent::Update(){
 		scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 1, purple);
 	}
 	else{
-		scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 1, yellow);
-		scoreTexts.updateText(std::to_string(Stats::baseHealth_purple()), 0, purple);
+		scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 0, purple);
+		scoreTexts.updateText(std::to_string(Stats::baseHealth_purple()), 1, yellow);
 
 	}
 

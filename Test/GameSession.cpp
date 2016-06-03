@@ -349,8 +349,9 @@ int GameSession::Run(){
 
 	if (player->team == TEAM_PURPLE){
 		leftbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
+		leftbaseHUDicon->flipH = true;
 		rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7005, 0, 0, true);
-
+		rightbaseHUDicon->flipH = true;
 	}
 	else{
 
