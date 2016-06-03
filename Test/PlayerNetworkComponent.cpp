@@ -2,10 +2,16 @@
 #include "Stats.h"
 
 
-PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player){
+PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player, PlayerUIComponent** _localUI){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	interval = 10;
+	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	localUI = _localUI;
+
 }
 
 
@@ -117,8 +123,9 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	dPacket.Read(deadPlayerID);
 	Stats::incPlayerDied(deadPlayerID, shooterID);
 	//std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
-	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
-	if(UIComp)UIComp->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
+	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	//if(UIComp)
+	(*localUI)->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
 	PlayerLogicComponent* deadPlayerLogic = dynamic_cast<PlayerLogicComponent*>(GameObjects.GetGameObject(deadPlayerID)->GetComponent(COMPONENT_LOGIC));
 	deadPlayerLogic->death = true;
 	logicComp->playDeathSFX(playerClass, deadPlayerID);
@@ -181,5 +188,5 @@ void PlayerNetworkComponent::setPointersToComps(){
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	physComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 }
