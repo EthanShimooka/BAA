@@ -51,7 +51,7 @@ void TitleScreenProps::Update(){
 	//aniCounter = aniCounter % 100;
 
 }
-void LoadTitleScreenProps(){
+GameObject * LoadTitleScreenProps(){
 	GameObject* objBase = new GameObject();
 	objBase->isAlive = true;
 	objBase->type = GAMEOBJECT_TYPE::OBJECT_PARTICLE;
@@ -61,4 +61,5 @@ void LoadTitleScreenProps(){
 	objBase->AddComponent(COMPONENT_RENDER, rend);
 	rend->gameObjectRef = objBase;
 	GameObjects.AddObject(objBase);
+	return objBase;
 }

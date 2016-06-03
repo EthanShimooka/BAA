@@ -13,4 +13,4 @@ public:
 };
 
 
-void LoadTitleScreenProps();
+GameObject * LoadTitleScreenProps();
