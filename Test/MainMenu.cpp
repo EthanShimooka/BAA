@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "TitleScreenProps.h"
 
 
 MainMenu::MainMenu()
@@ -21,11 +22,14 @@ int MainMenu::runScene(){
 	int buttonPressed = -2;
 	SystemRenderUpdater sysRenderer;
 	SystemLogicUpdater sysLogic;
+	SceneManager* sceneMan = SceneManager::GetSceneManager();
+	auto planets = LoadTitleScreenProps();
 	while (true){
 		buttonPressed = checkButtons();
 		switch (buttonPressed){
 		case BUTTON_PLAY:
 			removeButtons();
+			sceneMan->RemoveAllObjects();
 			return SCENE_LOBBY;
 		case BUTTON_QUIT:
 			removeButtons();

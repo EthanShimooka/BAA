@@ -593,6 +593,9 @@
     <ClInclude Include="MidBirdObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TitleScreenProps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -978,6 +981,9 @@
     </ClCompile>
     <ClCompile Include="TutorialRenderComponent.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreenProps.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MidBaseNetworkComponent.cpp">
       <Filter>Source Files\Component\MidBase Component</Filter>

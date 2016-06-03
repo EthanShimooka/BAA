@@ -14,7 +14,17 @@ float ease_QuadOut(float i){
 }
 float ease_QuadInOut(float i){
 	return (i < 0.5) ? 2 * i*i : -1 + (4 - 2 * i)*i;
+}float ease_SineIn(float i){
+	return 1-cos(i* (M_PI / 2));
 }
+float ease_SineOut(float i){
+	return sin(i* (M_PI / 2));
+}
+float ease_SineInOut(float i){
+	return - 0.5 * (cos(M_PI* i) - 1);
+}
+
+
 std::function<float(float)> getBezier(float x0, float x1, float x2, float x3){
 	return [=](float i) {
 		return x0 + i*(3 * x1 - 3 * x0) + i*i*(3 * x2 - 6 * x1 + 3 * x0) + i*i*i*(x3 - 3 * x2 + 3 * x1 - x0);
