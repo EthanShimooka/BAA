@@ -5,6 +5,9 @@ TitleScreenProps::TitleScreenProps()
 {
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	objRef = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), -1, 0, 0);
+	//Logo
+	allObjs["logo"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2112, -20000.0f, -5000.0f, 10000.0f);
+	allObjs["logo"]->setScale(700.0f);
 	//Planets
 	//allObjs["planet1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, -200.0f, 400.0f);
 	allObjs["planet1"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer2"), 2105, 0.0f, 0.0f, 0.0f);
