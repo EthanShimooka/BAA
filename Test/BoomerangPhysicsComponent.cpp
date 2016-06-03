@@ -47,13 +47,13 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 			PlayerRenderComponent* ownerRenderComp = dynamic_cast<PlayerRenderComponent*>(otherObj->GetComponent(COMPONENT_RENDER));
 			ownerRenderComp->allObjs["armL"]->visible = true;
 			ownerRenderComp->allObjs["armR"]->visible = true;
-			PlayerLogicComponent* otherLogicComp = dynamic_cast<PlayerLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-			otherLogicComp->becomeEgg();
 			gameObjectRef->isAlive = false;
 		}
 		if (otherObj->team != gameObjectRef->team){
 			//maybe kill the other teammates?
 			std::cout << "boomerang hit enemy player" << std::endl;
+			PlayerLogicComponent* otherLogicComp = dynamic_cast<PlayerLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+			otherLogicComp->becomeEgg();
 			otherObj->isAlive = false;
 		}
 		break;
