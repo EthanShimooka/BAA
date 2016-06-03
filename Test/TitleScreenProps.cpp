@@ -27,10 +27,8 @@ TitleScreenProps::TitleScreenProps()
 	motions.push_back(makeMotion(moveLinearZ(allObjs["planet1"], -zDelta, 0.0f), 0.25, 0.25, ease_SineIn));
 	motions.push_back(makeMotion(moveLinearZ(allObjs["planet1"], 0.0f, zDelta), 0.5, 0.25, ease_SineOut));
 	motions.push_back(makeMotion(moveLinearZ(allObjs["planet1"], zDelta, 0.0f), 0.75, 0.25, ease_SineIn));
-	//motions.push_back(makeMotion(transformFlipH(allObjs["surfB"], true), 0.5, 0.5));
-	//motions.push_back(makeMotion(transformFlipH(allObjs["surfT"], true), 0.5, 0.5));
-	//motions.push_back(makeMotion(moveLinearY(allObjs["surfB"], -21, -6), 0.5, 1.0));
-	//motions.push_back(makeMotion(moveLinearY(allObjs["surfT"], -21, -6), 0.5, 1.0));
+	motions.push_back(makeMotion(rotateTransform(allObjs["planet1"], 0, 720), 0.0, 1.0));
+	motions.push_back(makeMotion(rotateTransform(allObjs["planet2"], 0, 360), 0.0, 1.0));
 	animations["idle"] = new Animation(10000, motions);
 	setAnimation("idle");
 }
