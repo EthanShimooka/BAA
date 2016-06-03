@@ -33,7 +33,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 	mBody->SetUserData(gameObjectRef);
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX/worldScale, gameObjectRef->posY/worldScale), 0);
 
-	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER | COLLISION_SWITCH | COLLISION_BASE);
+	setCollisionFilter(COLLISION_PLAYER, COLLISION_PLATFORM | COLLISION_MINE | COLLISION_FEATHER | COLLISION_SWITCH | COLLISION_BASE | COLLISION_BOOMERANG);
 }
 
 
@@ -44,7 +44,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	case GAMEOBJECT_TYPE::OBJECT_BOOMERANG:{
 											   if (otherObj->team != gameObjectRef->team){
 												   //kill yourself
-												   std::cout << "boomerang hit enemy player" << std::endl;
 												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												   logicComp->becomeEgg();
 												   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
@@ -215,13 +214,13 @@ void PlayerPhysicsComponent::Update(){
 	//handle walking animations and orientation
 	PlayerRenderComponent* renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	float32 xVel = mBody->GetLinearVelocity().x;
-	if (abs(xVel) > 0){
+	if (abs(xVel) > 0.01){
 		renderComp->setAnimation("walk");
 	}else renderComp->setAnimation("idle");
-	if (xVel<0){
+	if (xVel<-0.01){
 		gameObjectRef->flipH = true;
 	}
-	else if (xVel>0){
+	else if (xVel>0.01){
 		gameObjectRef->flipH = false;
 	}
 	//handle egg physics

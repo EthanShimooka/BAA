@@ -28,7 +28,7 @@ void BoomerangPhysicsComponent::init(){
 		mFixture = mBody->CreateFixture(&boxFixtureDef);
 	mBody->SetUserData(gameObjectRef);
 
-	setCollisionFilter(COLLISION_FEATHER, COLLISION_MINION | COLLISION_PLAYER);
+	setCollisionFilter(COLLISION_BOOMERANG, COLLISION_MINION | COLLISION_PLAYER);
 
 	//handle init stuff for positions
 	mBody->SetTransform(b2Vec2(gameObjectRef->posX / worldScale, gameObjectRef->posY / worldScale), gameObjectRef->rotation / (float)(180.0 * M_PI));
