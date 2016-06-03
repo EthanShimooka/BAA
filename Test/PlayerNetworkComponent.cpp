@@ -125,7 +125,7 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	//std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
 	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 	//if(UIComp)
-	(*localUI)->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
+	(*localUI)->addToKillList(shooterID, gameObjectRef->ID);
 	PlayerLogicComponent* deadPlayerLogic = dynamic_cast<PlayerLogicComponent*>(GameObjects.GetGameObject(deadPlayerID)->GetComponent(COMPONENT_LOGIC));
 	deadPlayerLogic->death = true;
 	logicComp->playDeathSFX(playerClass, deadPlayerID);
