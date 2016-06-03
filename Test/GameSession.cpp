@@ -340,12 +340,24 @@ int GameSession::Run(){
 	clock_t current_ticks, delta_ticks;
 	clock_t fps = 0;
 	string fpscounter = "";
+
 	SDLRenderObject * fpsHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 255, 0, 0, 20, "VT323-Regular"));
 	fpsHUD->setPos(0, 0);
+	SDLRenderObject * leftbaseHUDicon = nullptr;
+	SDLRenderObject * rightbaseHUDicon = nullptr;
 
+	if (player->team == TEAM_PURPLE){
+		leftbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
+		rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7005, 0, 0, true);
 
-	SDLRenderObject * leftbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7005, 0, 0, true);
+	}
+	else{
+
+		leftbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7005, 0, 0, true);
+		rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
+	}
+
 	leftbaseHUDicon->setPos(-150, 600);
 
 	string leftBaseHealth = "";
@@ -353,7 +365,8 @@ int GameSession::Run(){
 	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
 	leftbaseHUD->setPos(15, 650);
 
-	SDLRenderObject * rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
+
+
 	rightbaseHUDicon->setPos(1214, 600);
 
 	string rightBaseHealth = "";

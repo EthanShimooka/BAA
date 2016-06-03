@@ -13,6 +13,7 @@ public:
 
 	int background = -1;
 	bool on;
+	bool team;
 	std::string layer;
 	SceneManager* sceneMan;
 	RenderManager* rendMan;

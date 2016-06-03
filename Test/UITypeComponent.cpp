@@ -94,7 +94,7 @@ void UITypeComponent::createUIType(UIType ID){
 	case TIMER:{
 		RenderManager* renderMan = RenderManager::getRenderManager();
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
-		play->setResourceObject(renderMan->renderText("Timer", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		play->setResourceObject(renderMan->renderText("Timer", 247, 92, 15, 50, "BowlbyOneSC-Regular"));
 
 		objRef = play;
 		allObjs.push_back(play);
@@ -104,7 +104,7 @@ void UITypeComponent::createUIType(UIType ID){
 		RenderManager* renderMan = RenderManager::getRenderManager();
 
 		play = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, uiObjectRef->posX, uiObjectRef->posY, true);
-		play->setResourceObject(renderMan->renderText("", 255, 0, 255, 50, "BowlbyOneSC-Regular"));
+		play->setResourceObject(renderMan->renderText("", 247, 92,255, 50, "BowlbyOneSC-Regular"));
 
 		objRef = play;
 		allObjs.push_back(play);

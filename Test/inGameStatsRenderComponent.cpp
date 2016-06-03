@@ -73,12 +73,35 @@ void inGameStatsRenderComponent::createScoreText(){
 	scoreTexts.setFontSize(80);
 	scoreTexts.setStartingYPos(0.92);
 	scoreTexts.setStartingXPos(0.20);
-	scoreTexts.createText(text, yellow, 0.045);
-	scoreTexts.resetOffset();
-	scoreTexts.createText(text, purple, 0.955);
+
+	int i;
+    i = Stats::getLocalTeam();
+
+		if (i == 1){
+			scoreTexts.createText(text, purple, 0.045);
+			scoreTexts.resetOffset();
+			scoreTexts.createText(text, yellow, 0.955);
+		}
+		else{
+			scoreTexts.createText(text, yellow, 0.045);
+			scoreTexts.resetOffset();
+			scoreTexts.createText(text, purple, 0.955);
+
+		}
 }
 
 void inGameStatsRenderComponent::Update(){
-	scoreTexts.updateText(std::to_string(Stats::baseHealth_purple()), 0, yellow);
-	scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 1, purple);
+	int i;
+	i = Stats::getLocalTeam();
+
+	if (i == 1){
+		scoreTexts.updateText(std::to_string(Stats::baseHealth_purple()), 0, yellow);
+		scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 1, purple);
+	}
+	else{
+		scoreTexts.updateText(std::to_string(Stats::baseHealth_yellow()), 1, yellow);
+		scoreTexts.updateText(std::to_string(Stats::baseHealth_purple()), 0, purple);
+
+	}
+
 }
