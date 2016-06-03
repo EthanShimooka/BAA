@@ -304,13 +304,17 @@ void LobbyMenu::createSlots(){
 		}
 		renderMan->windowCoordToWorldCoord(x, y, (int)offset, h);
 		// ready slots
-		readySlot = bFactory.Spawn(buttonID++, x, y, 28);
+		//readySlot = bFactory.Spawn(buttonID++, x, y, 28);
+		readySlot = bFactory.Spawn(buttonID++, x, y-14, 28, 0, 0, 0.3, -1);
+
 		br = dynamic_cast<ButtonRenderComponent*>(readySlot->GetComponent(COMPONENT_RENDER));
 		br->addSecondSprite(30);
 		readySlots.push_back(readySlot);
 		GameObjects.AddObject(readySlot);
 		// slots
-		slot = bFactory.Spawn(buttonID++, x, y, 28);
+		//slot = bFactory.Spawn(buttonID++, x, y, 28);
+		slot = bFactory.Spawn(buttonID++, x, y-14, 28, 0, 0, 0.3, -1);
+
 		br = dynamic_cast<ButtonRenderComponent*>(slot->GetComponent(COMPONENT_RENDER));
 		br->changeLayer("layer2");
 		slots.push_back(slot);
