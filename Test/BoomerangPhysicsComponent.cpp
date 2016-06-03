@@ -51,10 +51,7 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		if (otherObj->team != gameObjectRef->team){
 			//maybe kill the other teammates?
-			std::cout << "boomerang hit enemy player" << std::endl;
-			PlayerLogicComponent* otherLogicComp = dynamic_cast<PlayerLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-			otherLogicComp->becomeEgg();
-			otherObj->isAlive = false;
+			
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:

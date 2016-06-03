@@ -41,10 +41,19 @@ void PlayerPhysicsComponent::init(float height, float width){
 void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "PLAYER handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
-	case GAMEOBJECT_TYPE::OBJECT_PLAYER:
-		//do nothing or push past each other
-		break;
-
+	case GAMEOBJECT_TYPE::OBJECT_BOOMERANG:{
+											   if (otherObj->team != gameObjectRef->team){
+												   //kill yourself
+												   std::cout << "boomerang hit enemy player" << std::endl;
+												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+												   logicComp->becomeEgg();
+												   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+												   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+												   BoomerangPhysicsComponent* boomLogicComp = dynamic_cast<BoomerangPhysicsComponent*>(otherObj->GetComponent(COMPONENT_PHYSICS));
+												   GameObject* boomOwner = boomLogicComp->owner;
+												   networkComp->createDeathPacket(boomOwner->ID, classComp->getClass(), gameObjectRef->ID);
+											   }
+	}
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
 		 if (otherObj->team == gameObjectRef->team)break;
 		 //signal self death and turn to egg
@@ -73,38 +82,38 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		break;
 	}
 	case  GAMEOBJECT_TYPE::OBJECT_PLATFORM:{
-											   inAir = false;
-											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-											   logicComp->launchable = false;
+		inAir = false;
+		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		logicComp->launchable = false;
 											  
-											   break;
+		break;
 	}
 	case  GAMEOBJECT_TYPE::OBJECT_MINE:{
-										   if (otherObj->team == gameObjectRef->team) break;
-										   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-										   MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
-										   GameObject* mineOwner = mineLogicComp->owner;
-										   uint64_t shooter = mineOwner->ID;
-										   if (otherObj->isLocal && !logicComp->isEgg){
-											   logicComp->becomeEgg();
-											   logicComp->death = true;
-											   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-											   int localClass = classComp->getClass();
-											   mineLogicComp->giveBirdseed(3);
-											   logicComp->playDeathSFX(localClass, gameObjectRef->ID);
-											   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
-											   networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
-										   }
-										   GameObject* killer = dynamic_cast<MineLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
-										   if (killer->isLocal){
+		if (otherObj->team == gameObjectRef->team) break;
+		PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+		MineLogicComponent* mineLogicComp = dynamic_cast<MineLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC));
+		GameObject* mineOwner = mineLogicComp->owner;
+		uint64_t shooter = mineOwner->ID;
+		if (otherObj->isLocal && !logicComp->isEgg){
+			logicComp->becomeEgg();
+			logicComp->death = true;
+			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+			int localClass = classComp->getClass();
+			mineLogicComp->giveBirdseed(3);
+			logicComp->playDeathSFX(localClass, gameObjectRef->ID);
+			PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
+			networkComp->createDeathPacket(shooter, localClass, gameObjectRef->ID);
+		}
+		GameObject* killer = dynamic_cast<MineLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
+		if (killer->isLocal){
 
-											   dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
-											   //debug this line below. I added in the if statement since it was breaking when calling it on gameobjects that didn't have UIComponents (HUD)
-											   //I'm not sure why I originally was calling it if didn't have HUD stuff
-											   if (gameObjectRef->isLocal) dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
-										   }
+			dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
+			//debug this line below. I added in the if statement since it was breaking when calling it on gameobjects that didn't have UIComponents (HUD)
+			//I'm not sure why I originally was calling it if didn't have HUD stuff
+			if (gameObjectRef->isLocal) dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
+		}
 										   
-										   break;
+		break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_LAUNCHER:{
 											//do nothing or push past each other
