@@ -23,10 +23,6 @@ public:
 	~MinionNetworkComponent();
 	/// Update
 	void Update();
-	///Send base hit
-	void SendBaseHit(int teamHit, uint64_t minionID, uint64_t baseID);
-	///Handle base hit
-	void HandleBaseHit(InputMemoryBitStream& packet);
 	///Send minion death
 	void SendMinionDeath();
 	///Handle minion death
@@ -35,11 +31,10 @@ public:
 	void SendMinionPos();
 	///Handle minion position
 	void HandleMinionPos(InputMemoryBitStream& packet);
+	///issues minion spawning
+	void SendSpawnMinion(uint64_t ID, uint8_t team);
 
 	MinionPhysicsComponent *physComp;
-
-	clock_t			packetInterval;
-	bool			canSend();
 };
 
 #endif

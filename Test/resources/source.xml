@@ -39,6 +39,7 @@
 <resource UID="1110" type="graphic" filename="Menu_bg.png" scenescope="0"></resource>
 <resource UID="1111" type="graphic" filename="Game_UI_Crosshair_Charging.png" scenescope="0"></resource>
 <resource UID="1210" type="graphic" filename="Lobby_bg.png" scenescope="0"></resource>
+<resource UID="1212" type="graphic" filename="Game_UI_pop_menu.png" scenescope="0"></resource>
 
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 
@@ -166,13 +167,17 @@
 <resource UID="9153" type="graphic" filename="QLobby.png" scenescope="0"></resource>
 <resource UID="9154" type="graphic" filename="TLobby.png" scenescope="0"></resource>
 
-<resource UID="9250" type="graphic" filename="CHLobby.png" scenescope="0"></resource>
-<resource UID="9251" type="graphic" filename="PHLobby.png" scenescope="0"></resource>
-<resource UID="9252" type="graphic" filename="FHLobby.png" scenescope="0"></resource>
-<resource UID="9253" type="graphic" filename="QHLobby.png" scenescope="0"></resource>
-<resource UID="9254" type="graphic" filename="THLobby.png" scenescope="0"></resource>
+<resource UID="9250" type="graphic" filename="Lobby_head_chicken.png" scenescope="0"></resource>
+<resource UID="9251" type="graphic" filename="Lobby_head_peacock.png" scenescope="0"></resource>
+<resource UID="9252" type="graphic" filename="Lobby_head_flamingo.png" scenescope="0"></resource>
+<resource UID="9253" type="graphic" filename="Lobby_head_quail.png" scenescope="0"></resource>
+<resource UID="9254" type="graphic" filename="Lobby_head_turkey.png" scenescope="0"></resource>
 
 <resource UID="9300" type="graphic" filename="Lobby_tutorial_menu.png" scenescope="0"></resource>
-
+<resource UID="9350" type="graphic" filename="Tut_Chicken.png" scenescope="0"></resource>
+<resource UID="9351" type="graphic" filename="Tut_Peacock.png" scenescope="0"></resource>
+<resource UID="9352" type="graphic" filename="Tut_Flamingo.png" scenescope="0"></resource>
+<resource UID="9353" type="graphic" filename="Tut_Quail.png" scenescope="0"></resource>
+<resource UID="9354" type="graphic" filename="Tut_Turkey.png" scenescope="0"></resource>
 
 </resources>

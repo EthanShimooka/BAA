@@ -596,6 +596,12 @@
     <ClInclude Include="TitleScreenProps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MidBaseNetworkComponent.h">
+      <Filter>Header Files\Component\MidBase Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectFactory.cpp">
@@ -979,5 +985,18 @@
     <ClCompile Include="TitleScreenProps.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MidBaseNetworkComponent.cpp">
+      <Filter>Source Files\Component\MidBase Component</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BAA.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\baaicon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

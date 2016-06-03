@@ -1,7 +1,6 @@
 #include "LobbyMenu.h"
 
 LobbyMenu::LobbyMenu() : numPlayersReady(0){
-	NetworkManager::sInstance->clearLobbyInfoMap();
 	RenderManager::getRenderManager()->setCameraPoint(0, 0);
 	NetworkManager::sInstance->StartLobbySearch();
 	numPlayers = NetworkManager::sInstance->GetPlayerCount();
@@ -40,6 +39,7 @@ int LobbyMenu::runScene(){
 
 		// back button is pressed
 		if (buttonPressed == BUTTON_BACK){
+			GamerServices::sInstance->LeaveLobby(NetworkManager::sInstance->GetLobbyId());
 			return SCENE_MENU;
 		}
 
@@ -108,7 +108,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 12.0f);
 
 		// chicken tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9150, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9350, 80, 0);
 	tutorials.push_back(tutorial);
 
 	// peacock button
@@ -124,7 +124,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 11.0f);
 
 		// peacock tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9151,80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9351,80, 0);
 	tutorials.push_back(tutorial);
 
 	// flamingo button
@@ -140,7 +140,7 @@ void LobbyMenu::createClassButts(){
 
 
 		// flamingo tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9152, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9352, 80, 0);
 	tutorials.push_back(tutorial);
 
 	// quail button
@@ -156,7 +156,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 8.0f);
 
 		// quail tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9153, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9353, 80, 0);
 	tutorials.push_back(tutorial);
 
 	// turkey button
@@ -172,7 +172,7 @@ void LobbyMenu::createClassButts(){
 	offset += w * (1 / 11.0f);
 
 		// turkey tutorial
-	tutorial = tFactory.Spawn(tutorialID++, 9154, 80, 0);
+	tutorial = tFactory.Spawn(tutorialID++, 9354, 80, 0);
 	tutorials.push_back(tutorial);
 
 
@@ -183,10 +183,10 @@ void LobbyMenu::createClassButts(){
 	quaLogic->setNavButtons(flamButton, backButt, flamButton, turkButton);
 	turkLogic->setNavButtons(NULL, backButt, quaButton, readyButt);
 	ButtonLogicComponent* readyLogic = dynamic_cast<ButtonLogicComponent*>(readyButt->GetComponent(COMPONENT_LOGIC));
-	readyLogic->setNavButtons(turkButton, backButt, NULL, NULL);
+	readyLogic->setNavButtons(turkButton, NULL, backButt, NULL);
 	readyLogic->selectButton();
 	ButtonLogicComponent* backLogic = dynamic_cast<ButtonLogicComponent*>(backButt->GetComponent(COMPONENT_LOGIC));
-	backLogic->setNavButtons(readyButt, NULL, turkButton, NULL);
+	backLogic->setNavButtons(chickButton, NULL, NULL, readyButt);
 
 }
 
@@ -250,6 +250,8 @@ void LobbyMenu::changePlayerSelectionImage(){
 			std::cout << iter.first << std::endl;
 			if (iter.second.classType != -1) {
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->changeSprite(iter.second.classType + 100);
+				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->objRef->setScale(0.25f); // CHANGE THIS
+
 			}
 			else {
 				dynamic_cast<ButtonRenderComponent*>(slots[i]->GetComponent(COMPONENT_RENDER))->setToDefault();

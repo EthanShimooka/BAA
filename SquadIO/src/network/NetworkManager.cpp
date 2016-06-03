@@ -59,6 +59,7 @@ bool NetworkManager::Init()
 }
 
 void NetworkManager::StartLobbySearch(){
+	resetNetwork();
 	mState = NMS_Searching;
 	GamerServices::sInstance->LobbySearchAsync();
 	//update until lobby found or created
@@ -875,6 +876,17 @@ uint64_t NetworkManager::GetLobbyId(){
 	return mLobbyId;
 }
 
-void NetworkManager::clearLobbyInfoMap(){
+void NetworkManager::resetNetwork(){
+	/*mPlayerId = 0;
+	mLobbyId = 0;
+	mNewNetworkId = 1;*/
+	mIsMasterPeer = false;
+	/*mState = NMS_Unitialized;
+	mPlayerCount = 0;
+	mReadyCount = 0;*/
+	/*mDelayHeartbeat = kTimeBetweenDelayHeartbeat;
+	mTimeToStart = -1.0f;
+	mTurnNumber = -2;
+	mSubTurnNumber = 0;*/
 	lobbyInfoMap.clear();
 }

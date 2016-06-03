@@ -23,7 +23,7 @@ public:
 	/// List of object IDs of active peacock fans
 	list<uint64_t> shieldIDs;
 	/// Length chicken shield lasts in seconds
-	float shieldLength = 5.5;
+	float shieldLength = 10.5;
 	/// Timer and helper variables to support up to 8 chickens
 	Invoke* timer;
 	bool invokeHelper = false;

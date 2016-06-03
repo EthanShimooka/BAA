@@ -160,9 +160,11 @@
     <ClInclude Include="LauncherComponentIncludes.h" />
     <ClInclude Include="LobbyMenu.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MidBaseNetworkComponent.h" />
     <ClInclude Include="MidBirdObjectFactory.h" />
     <ClInclude Include="MidBirdRenderComponent.h" />
     <ClInclude Include="PlayerUIComponent.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Stats.h" />
     <ClInclude Include="TextAlignment.h" />
@@ -307,6 +309,7 @@
     <ClCompile Include="LobbyMenu.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MidBaseLogicComponent.cpp" />
+    <ClCompile Include="MidBaseNetworkComponent.cpp" />
     <ClCompile Include="MidBaseObjectFactory.cpp" />
     <ClCompile Include="MidBasePhysicsComponent.cpp" />
     <ClCompile Include="MidBaseRenderComponent.cpp" />
@@ -403,6 +406,12 @@
     <ProjectReference Include="..\SquadIO\SquadIO.vcxproj">
       <Project>{287f7667-20db-4bac-9c11-771ecb75a0df}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BAA.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\baaicon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@ class inGameStatsRenderComponent :
 	public RenderComponent
 {
 public:
-	inGameStatsRenderComponent(int _background = 1, float scale = 1);
+	inGameStatsRenderComponent(int _background = 1212, float scale = 1);
 	~inGameStatsRenderComponent();
 
 	int background = -1;
@@ -17,9 +17,16 @@ public:
 	SceneManager* sceneMan;
 	RenderManager* rendMan;
 	TextAlignment statsTexts;
+	TextAlignment scoreTexts;
 	void toggleOn(bool on);
 	void toggleOn();
 	void createText();
 	void updateText();
+	void createScoreText();
+	void Update();
+
+	TextAlignment::COLOR* purple;
+	TextAlignment::COLOR* yellow;
+
 };
 

@@ -30,6 +30,9 @@ GameSession::~GameSession(){
 	std::cout << "layer1: " << SceneManager::GetSceneManager()->findLayer("layer1")->m_SceneObjects.size() << std::endl;
 	std::cout << "layer2: " << SceneManager::GetSceneManager()->findLayer("layer2")->m_SceneObjects.size() << std::endl;
 	SceneManager::GetSceneManager()->RemoveAllObjects();
+	RenderManager::getRenderManager()->flippedScreen = false;
+	SceneManager::GetSceneManager()->AssembleScene();
+	
 }
 
 //variables used to keep track of bases and for camera shaking
@@ -155,7 +158,7 @@ void GameSession::LoadHUD(GameObject* player, SystemUIObjectQueue queue){
 	
 	std::vector<std::pair<SDLRenderObject*, clock_t>> killHUD;
 	for (int i = 0; i < 5; i++){
-		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,100,200+i*30);
+		UIObject* currKillHUD = HUDFactory.Spawn(KILL_NOTIFICATION,SCREEN_WIDTH-250,200+i*30);
 		SDLRenderObject* currKillObj = dynamic_cast<UIRenderComponent*>(currKillHUD->GetComponent(COMPONENT_RENDER))->objRef;
 		killHUD.push_back(std::pair<SDLRenderObject*, clock_t>(currKillObj, clock()));
 		UIObjs.push_back(currKillHUD);
@@ -264,7 +267,7 @@ int GameSession::Run(){
 		std::cout << "classType: " << classType << std::endl;
 		if (iter.first == NetworkManager::sInstance->GetMyPlayerId()){
 			player = GameObjects.AddObject(pFactory.Spawn(iter.first, (classType % 50) + 1, (i % 2) + 1, local));
-			stats.setLocalTeam((i % 2) + 1);
+			Stats::setLocalTeam((i % 2) + 1);
 			Stats::addPlayer(iter.first, (i % 2) + 1);
 		}
 		else{
@@ -348,7 +351,7 @@ int GameSession::Run(){
 	string leftBaseHealth = "";
 	SDLRenderObject * leftbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	leftbaseHUD->setPos(25, 650);
+	leftbaseHUD->setPos(15, 650);
 
 	SDLRenderObject * rightbaseHUDicon = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 7006, 0, 0, true);
 	rightbaseHUDicon->setPos(1214, 600);
@@ -356,7 +359,7 @@ int GameSession::Run(){
 	string rightBaseHealth = "";
 	SDLRenderObject * rightbaseHUD = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), -1, 5, 0, true);
 	rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 255, 0, 0, 60, "VT323-Regular"));
-	rightbaseHUD->setPos(1291, 650);
+	rightbaseHUD->setPos(1281, 650);
 
 
 	
@@ -526,7 +529,8 @@ int GameSession::Run(){
 		if (!firstTime) //allows culling to start after all initialization happens
 			cullObjects();
 
-		if (Timing::sInstance.SpawnMinions()){
+
+		if (NetworkManager::sInstance->IsMasterPeer() && Timing::sInstance.SpawnMinions()){
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, -900, 0, TEAM_YELLOW));
 			GameObjects.AddObject(mFactory.Spawn(minionCounter++, 900, 0, TEAM_PURPLE));
 
@@ -536,6 +540,10 @@ int GameSession::Run(){
 
 		//triggers endgame screen
 		if (Timing::sInstance.GetTimeRemainingS() <= 0) {
+			/*if (player->team == TEAM_PURPLE){
+					std::cout << "flip the screen" << std::endl;
+					renderMan->flippedScreen = false;
+			}*/
 			gameEnd = true;//so the mouse stops registering 
 			int myTeam;
 			for (unsigned int i = 0; i < players.size(); i++){
@@ -569,16 +577,7 @@ int GameSession::Run(){
 
 		//renderMan->renderText(fpscounter.c_str(), 255, 255, 0, 70, "BowlbyOneSC-Regular");
 		fpsHUD->setResourceObject(renderMan->renderText(fpscounter.c_str(), 0, 20, 240, 20, "VT323-Regular"));
-		leftBaseHealth = std::to_string(Stats::baseHealth_purple());
-
-	//	leftBaseHealth = std::to_string(leftBase->health);
-		leftbaseHUD->setResourceObject(renderMan->renderText(leftBaseHealth.c_str(), 250, 165, 10, 75, "BowlbyOneSC-Regular"));
-		rightBaseHealth = std::to_string(Stats::baseHealth_yellow());
-
-	//	rightBaseHealth = std::to_string(rightBase->health);
-		rightbaseHUD->setResourceObject(renderMan->renderText(rightBaseHealth.c_str(), 160, 32, 240, 75, "BowlbyOneSC-Regular"));
-
-
+		inGameStats.Update();
 	}
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
@@ -592,6 +591,7 @@ int GameSession::Run(){
 	//delete surf;
 	//delete fount;
 	//delete runWater;
+
 
 	GameWorld::getInstance()->~GameWorld();
 	return SCENE_GAMEOVER;

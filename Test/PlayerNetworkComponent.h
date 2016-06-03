@@ -17,6 +17,7 @@ typedef enum {
 
 class PlayerLogicComponent;
 class PlayerRenderComponent;
+class PlayerPhysicsComponent;
 class ClassComponent;
 class PlayerUIComponent;
 
@@ -27,6 +28,8 @@ public:
 	PlayerNetworkComponent(GameObject* player);
 	/// Destructor
 	~PlayerNetworkComponent();
+	/// set component pointers
+	void setPointersToComps();
 	/// Update
 	void Update();
 
@@ -50,6 +53,8 @@ public:
 	PlayerUIComponent *UIComp;
 	/// Pointer to the player render component
 	PlayerRenderComponent *renderComp;
+	/// pointer to the player physics component
+	PlayerPhysicsComponent *physComp;
 	/// Pointer to the player class component
 	ClassComponent *classComp;
 };

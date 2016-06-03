@@ -38,5 +38,7 @@ GameObject * MidBaseObjectFactory::Spawn(uint64_t PID, float posX, float posY, f
 
 	MidBaseLogicComponent* logic = new MidBaseLogicComponent(base);
 
+	MidBaseNetworkComponent* net = new MidBaseNetworkComponent(base);
+
 	return base;
 }

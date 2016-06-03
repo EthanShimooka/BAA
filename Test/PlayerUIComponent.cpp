@@ -43,7 +43,7 @@ void PlayerUIComponent::addToKillList(uint64_t shooter, uint64_t victim){
 	string victimText = GamerServices::sInstance->GetRemotePlayerName(victim);
 	shooterText += " -> " + victimText;
 	//reassign the new element to be the new notification
-	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(shooterText.c_str(), 255, 0, 255, 30, "BowlbyOneSC-Regular"));
+	killHUD[elemIndex].first->setResourceObject(RenderManager::getRenderManager()->renderText(shooterText.c_str(), 255, 0, 255, 20, "BowlbyOneSC-Regular"));
 	killHUD[elemIndex].first->visible = true;
 	killHUD[elemIndex].second = clock();
 }
@@ -63,7 +63,7 @@ void PlayerUIComponent::updateKillHUD(){
 		killHUD[killHUD.size() - 1] = tempElem;
 		//now update postions on screen
 		for (unsigned i = 0; i < killHUD.size(); i++){
-			killHUD[i].first->setPos((float)(SCREEN_WIDTH - 200), (float)(130 + i * 30));
+			killHUD[i].first->setPos((float)killHUD[i].first->posX, (float)(130 + i * 30));
 		}
 	}
 }
