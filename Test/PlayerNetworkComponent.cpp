@@ -89,7 +89,7 @@ void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket)
 		mPacket.Read(velX);
 		mPacket.Read(velY);
 		gameObjectRef->setPos(x, y);
-		physComp->mBody->SetTransform(b2Vec2(x / worldScale, y / worldScale), 0);
+		physComp->mBody->SetTransform(b2Vec2(x / worldScale, y / worldScale), physComp->mBody->GetAngle());
 		physComp->mBody->SetLinearVelocity(b2Vec2(velX, velY));
 		sequence = seq;
 	}
