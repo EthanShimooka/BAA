@@ -102,14 +102,12 @@ void MidBirdRenderComponent::animationLogic(){
 
 	if ((flagUp == 2 || flagUp == 0) && (purpleHealth > yellowHealth)){
 		//setAnimation("lower");
-		std::cout << "shiggle" << std::endl;
 		allObjs["purpleFlag"]->visible = false;
 		allObjs["yellowFlag"]->visible = true;
 		flagUp = 1;
 	}
 	if ((flagUp == 1 || flagUp == 0) && (purpleHealth < yellowHealth)){
 		//setAnimation("lower");
-		std::cout << "shiggle" << std::endl;
 		allObjs["purpleFlag"]->visible = true;
 		allObjs["yellowFlag"]->visible = false;
 		flagUp = 2;

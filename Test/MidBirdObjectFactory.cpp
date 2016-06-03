@@ -12,7 +12,7 @@ MidBirdObjectFactory::~MidBirdObjectFactory()
 
 
 
-GameObject* MidBirdObjectFactory::Spawn(uint64_t PID, float posX, float posY)
+GameObject* MidBirdObjectFactory::Spawn(uint64_t PID, float posX, float posY, int team)
 {
 
 	GameObject* bird = new GameObject();
@@ -21,9 +21,9 @@ GameObject* MidBirdObjectFactory::Spawn(uint64_t PID, float posX, float posY)
 	bird->setPos(posX, posY);
 	bird->isAlive = true;
 	//bird->type = GAMEOBJECT_TYPE::OBJECT_WELL;
+	if (team == TEAM_PURPLE)
+		bird->flipV = true;
 
-	// Minion Specific Render Component. In future will have flag
-	// for type of class,  which will instatiate based on flag
 
 	MidBirdRenderComponent* rend = new MidBirdRenderComponent(bird);
 

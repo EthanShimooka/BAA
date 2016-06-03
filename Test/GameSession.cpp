@@ -112,7 +112,15 @@ void GameSession::LoadWorld(){
 	GameObjects.AddObject(fanFactory.Spawn(fanID++, 350, 150, -120, TEAM_YELLOW)); //right bot
 
 	//Mid Bird
-	GameObjects.AddObject(midBirdFactory.Spawn(birdID, 0, (SCREEN_HEIGHT / 4.0f))); //right bot
+	
+	if (Stats::getLocalTeam() == 1){
+		GameObjects.AddObject(midBirdFactory.Spawn(birdID, 0, (SCREEN_HEIGHT / 4.0f), TEAM_YELLOW)); //right bot
+
+	}	else{
+
+		GameObjects.AddObject(midBirdFactory.Spawn(birdID, 0, -(SCREEN_HEIGHT / 4.0f), TEAM_PURPLE)); //right bot
+
+	}
 
 }
 
