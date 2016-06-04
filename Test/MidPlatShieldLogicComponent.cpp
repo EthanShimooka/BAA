@@ -35,7 +35,7 @@ void MidPlatShieldLogicComponent::toggleShield(){
 		///physicsComp->mBody->SetFixedRotation(false);
 
 		AudioManager* audioMan = AudioManager::getAudioInstance();
-		audioMan->playByName("SFX_Shield.wav");
+		//audioMan->playByName("SFX_Shield.wav");
 	}
 
 }
