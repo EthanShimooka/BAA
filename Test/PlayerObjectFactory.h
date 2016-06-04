@@ -34,6 +34,7 @@ public:
 
 	/// Creates a new player GameObject
 	GameObject * Spawn(uint64_t PID, int classType, int team, bool local);
+	PlayerUIComponent * localUIComp;
 	
 };
 

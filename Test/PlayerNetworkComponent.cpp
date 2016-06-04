@@ -2,10 +2,16 @@
 #include "Stats.h"
 
 
-PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player){
+PlayerNetworkComponent::PlayerNetworkComponent(GameObject* player, PlayerUIComponent** _localUI){
 	gameObjectRef = player;
 	gameObjectRef->AddComponent(COMPONENT_NETWORK, this);
 	interval = 10;
+	logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
+	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
+	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	localUI = _localUI;
+
 }
 
 
@@ -44,7 +50,6 @@ void PlayerNetworkComponent::createMovementPacket(){
 	posPacket->Write(gameObjectRef->posX);
 	posPacket->Write(gameObjectRef->posY);
 	b2Vec2 vel = physComp->mBody->GetLinearVelocity();
-	//std::cout << vel.x << ", " << vel.y << std::endl;
 	posPacket->Write(vel.x);
 	posPacket->Write(vel.y);
 	outgoingPackets.push(posPacket);
@@ -80,7 +85,7 @@ void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket)
 		mPacket.Read(gameObjectRef->posY);
 		sequence = seq;
 	}*/
-	float x, y, velX, velY;
+	float32 x, y, velX, velY;
 	uint32_t seq;
 	mPacket.Read(seq);
 	if (sequence < seq){
@@ -117,8 +122,9 @@ void PlayerNetworkComponent::handleDeathPacket(InputMemoryBitStream& dPacket){
 	dPacket.Read(deadPlayerID);
 	Stats::incPlayerDied(deadPlayerID, shooterID);
 	//std::cout << GamerServices::sInstance->GetRemotePlayerName(shooterID) << " KILLED " << GamerServices::sInstance->GetRemotePlayerName(gameObjectRef->ID) << std::endl;
-	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
-	if(UIComp)UIComp->addToKillList(shooterID, GamerServices::sInstance->GetLocalPlayerId());
+	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	//if(UIComp)
+	(*localUI)->addToKillList(shooterID, gameObjectRef->ID);
 	PlayerLogicComponent* deadPlayerLogic = dynamic_cast<PlayerLogicComponent*>(GameObjects.GetGameObject(deadPlayerID)->GetComponent(COMPONENT_LOGIC));
 	deadPlayerLogic->death = true;
 	logicComp->playDeathSFX(playerClass, deadPlayerID);
@@ -181,5 +187,5 @@ void PlayerNetworkComponent::setPointersToComps(){
 	renderComp = dynamic_cast<PlayerRenderComponent*>(gameObjectRef->GetComponent(COMPONENT_RENDER));
 	physComp = dynamic_cast<PlayerPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
-	UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
+	//UIComp = dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI));
 }

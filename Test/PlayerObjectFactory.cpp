@@ -70,14 +70,14 @@ GameObject* PlayerObjectFactory::Spawn(uint64_t PID, int classType, int team, bo
 	//PlayerRenderComponent* rend = new PlayerRenderComponent(player);
 
 	PlayerLogicComponent* logic = new PlayerLogicComponent(player, team);
-	PlayerNetworkComponent* net = new PlayerNetworkComponent(player);
+	PlayerNetworkComponent* net = new PlayerNetworkComponent(player, &localUIComp);
 
 	PlayerPhysicsComponent* physics = new PlayerPhysicsComponent(player, classComp->height, classComp->width);
 
 	if (local){		
 		PlayerInputComponent* input = new PlayerInputComponent(player, classComp);
 		PlayerUIComponent* UI = new PlayerUIComponent(player);
-
+		localUIComp = UI;
 	}
 
 	net->setPointersToComps();

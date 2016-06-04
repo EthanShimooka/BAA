@@ -171,9 +171,9 @@ void PlayerInputComponent::Update(){
 	}
 
 	//orient character and set idle animation if necessary
-	if (body->GetLinearVelocity().x<0)gameObjectRef->flipH = true;
-	else if (body->GetLinearVelocity().x>0)gameObjectRef->flipH = false;
-	if (body->GetLinearVelocity().x == 0)renderComp->setAnimation("idle");
+	if (body->GetLinearVelocity().x<-0.01)gameObjectRef->flipH = true;
+	else if (body->GetLinearVelocity().x>0.01)gameObjectRef->flipH = false;
+	if (abs(body->GetLinearVelocity().x) < 0.01)renderComp->setAnimation("idle");
 	else renderComp->setAnimation("walk");
 
 	//handle charging variables for crosshair

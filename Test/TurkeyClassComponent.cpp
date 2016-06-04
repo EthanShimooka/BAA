@@ -189,7 +189,7 @@ int TurkeyClassComponent::useAbility(){
 			m_allObjs["ammoIcon1"]->visible = false;
 			m_allObjs["ammoIcon2"]->visible = false;
 		}
-		writeNetAbility(gameObjectRef->ID, destX,destY, gameObjectRef->team);
+		writeNetAbility((*powerNum)-1, destX, destY, gameObjectRef->team);
 		return true;
 	}
 	else{

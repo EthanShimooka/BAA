@@ -25,7 +25,7 @@ class PlayerNetworkComponent : public NetworkComponent
 {
 public:
 	/// Construcor 
-	PlayerNetworkComponent(GameObject* player);
+	PlayerNetworkComponent(GameObject* player, PlayerUIComponent** _localUI);
 	/// Destructor
 	~PlayerNetworkComponent();
 	/// set component pointers
@@ -50,13 +50,15 @@ public:
 	/// Pointer to the player logic component
 	PlayerLogicComponent *logicComp;
 	/// Pointer to the player UI component
-	PlayerUIComponent *UIComp;
+	//PlayerUIComponent *UIComp;
 	/// Pointer to the player render component
 	PlayerRenderComponent *renderComp;
 	/// pointer to the player physics component
 	PlayerPhysicsComponent *physComp;
 	/// Pointer to the player class component
 	ClassComponent *classComp;
+	/// Pointer to the local UI component
+	PlayerUIComponent** localUI;
 };
 
 #endif

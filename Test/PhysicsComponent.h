@@ -48,7 +48,7 @@ enum CollisionMasks {
 	COLLISION_MINE = 0x0040,
 	COLLISION_FAN = 0x0080,
 	COLLISION_POWERSHIELD = 0x0100,
-
+	COLLISION_BOOMERANG = 0x0200,
 	COLLISION_ALL = 0xFFFF
 	//we can keep on adding more as needed
 };
