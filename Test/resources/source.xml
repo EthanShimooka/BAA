@@ -43,7 +43,6 @@
 
 <resource UID="74" type="graphic" filename="Player_Egg_1.png" scenescope="0"></resource>
 
-<resource UID="2001" type="graphic" filename="Game_Platform1.png" scenescope="0"></resource>
 <resource UID="2003" type="graphic" filename="Game_Fan_Off.png" scenescope="0"></resource>
 <resource UID="2005" type="graphic" filename="Game_platswitch_Shield_icon.png" scenescope="0"></resource>
 <resource UID="2006" type="graphic" filename="Game_platswitch_Shield.png" scenescope="0"></resource>
@@ -103,31 +102,26 @@
 <resource UID="3002" type="graphic" filename="Player_Chicken_Arm_2.png" scenescope="0"></resource>
 <resource UID="3003" type="graphic" filename="Player_Chicken_Leg_1.png" scenescope="0"></resource>
 <resource UID="3004" type="graphic" filename="Player_Chicken_Leg_2.png" scenescope="0"></resource>
-<resource UID="3005" type="graphic" filename="Player_Chicken_Throw_1.png" scenescope="0"></resource>
 <resource UID="3100" type="graphic" filename="Player_Peacock_Body.png" scenescope="0"></resource>
 <resource UID="3101" type="graphic" filename="Player_Peacock_Arm_1.png" scenescope="0"></resource>
 <resource UID="3102" type="graphic" filename="Player_Peacock_Arm_2.png" scenescope="0"></resource>
 <resource UID="3103" type="graphic" filename="Player_Peacock_Leg_1.png" scenescope="0"></resource>
 <resource UID="3104" type="graphic" filename="Player_Peacock_Leg_2.png" scenescope="0"></resource>
-<resource UID="3105" type="graphic" filename="Player_Peacock_Throw_1.png" scenescope="0"></resource>
 <resource UID="3200" type="graphic" filename="Player_Flamingo_Body.png" scenescope="0"></resource>
 <resource UID="3201" type="graphic" filename="Player_Flamingo_Arm_1.png" scenescope="0"></resource>
 <resource UID="3202" type="graphic" filename="Player_Flamingo_Arm_2.png" scenescope="0"></resource>
 <resource UID="3203" type="graphic" filename="Player_Flamingo_Leg_1.png" scenescope="0"></resource>
 <resource UID="3204" type="graphic" filename="Player_Flamingo_Leg_2.png" scenescope="0"></resource>
-<resource UID="3205" type="graphic" filename="Player_Flamingo_Throw_1.png" scenescope="0"></resource>
 <resource UID="3300" type="graphic" filename="Player_Quail_Body.png" scenescope="0"></resource>
 <resource UID="3301" type="graphic" filename="Player_Quail_Arm_1.png" scenescope="0"></resource>
 <resource UID="3302" type="graphic" filename="Player_Quail_Arm_2.png" scenescope="0"></resource>
 <resource UID="3303" type="graphic" filename="Player_Quail_Leg_1.png" scenescope="0"></resource>
 <resource UID="3304" type="graphic" filename="Player_Quail_Leg_2.png" scenescope="0"></resource>
-<resource UID="3305" type="graphic" filename="Player_Quail_Throw_1.png" scenescope="0"></resource>
 <resource UID="3500" type="graphic" filename="Player_Turkey_Body.png" scenescope="0"></resource>
 <resource UID="3501" type="graphic" filename="Player_Turkey_Arm_1.png" scenescope="0"></resource>
 <resource UID="3502" type="graphic" filename="Player_Turkey_Arm_2.png" scenescope="0"></resource>
 <resource UID="3503" type="graphic" filename="Player_Turkey_Leg_1.png" scenescope="0"></resource>
 <resource UID="3504" type="graphic" filename="Player_Turkey_Leg_2.png" scenescope="0"></resource>
-<resource UID="3505" type="graphic" filename="Player_Turkey_Throw_1.png" scenescope="0"></resource>
 
 
 <resource UID="4000" type="graphic" filename="Power_Mine.png" scenescope="0"></resource>
@@ -137,7 +131,6 @@
 <resource UID="4004" type="graphic" filename="PowerParticle.png" scenescope="0"></resource>
 
 
-<resource UID="6104" type="audio" filename="SFX_Shield.wav" scenescope="0"></resource>
 <resource UID="6000" type="audio" filename="bgmBAAGameplay.ogg" scenescope="0"></resource>
 <resource UID="6001" type="audio" filename="bgmBAALobby.ogg" scenescope="0"></resource>
 <resource UID="6002" type="audio" filename="bgmBAAGameEnd.ogg" scenescope="0"></resource>
