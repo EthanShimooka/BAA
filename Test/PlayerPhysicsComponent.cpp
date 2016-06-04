@@ -168,7 +168,6 @@ void PlayerPhysicsComponent::launchPlayer(){
 	b2Vec2 vel = mBody->GetLinearVelocity();
 
 	logicComp->becomeEgg();
-	std::cout << "horizontal velocity: " << vel.x << std::endl;
 
 
 	if (gameObjectRef->team == TEAM_YELLOW){
@@ -178,14 +177,7 @@ void PlayerPhysicsComponent::launchPlayer(){
      }
 
 	//check if back at base yet
-	if ((gameObjectRef->posX > 0) && (gameObjectRef->team == TEAM_YELLOW)){
-		logicComp->hatchBird(false);
-		logicComp->launchable = false;
-		logicComp->launchableZone = false;
-		currLaunch = false;
-	}
-
-	if ((gameObjectRef->posX < 0) && (gameObjectRef->team == TEAM_PURPLE)){
+	if ((gameObjectRef->posX > 0 && gameObjectRef->team == TEAM_YELLOW) || (gameObjectRef->posX < 0 && gameObjectRef->team == TEAM_PURPLE)){
 		logicComp->hatchBird(false);
 		logicComp->launchable = false;
 		logicComp->launchableZone = false;
