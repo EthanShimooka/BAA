@@ -12,7 +12,6 @@ ClassComponent::ClassComponent()
 	featherWidth = 1;
 	featherHeight = 1;
 	abilityCooldown = 15;
-	currBirdseed = 8;
 }
 
 ClassComponent::~ClassComponent()

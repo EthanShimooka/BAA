@@ -11,7 +11,6 @@ BoomerangNetworkComponent::~BoomerangNetworkComponent(){
 }
 
 void BoomerangNetworkComponent::sendTargetPacket(){
-	std::cout << "boomerangnetwork: send position update packet" << std::endl;
 	InputManager* input = InputManager::getInstance();
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
@@ -21,19 +20,15 @@ void BoomerangNetworkComponent::sendTargetPacket(){
 	outData->Write((int)5);
 	outData->Write((float)physicsComp->targetDest.x);
 	outData->Write((float)physicsComp->targetDest.y);
-
-	std::cout << physicsComp->targetDest.x << ", " << physicsComp->targetDest.y << std::endl;
 	outgoingPackets.push(outData);
 }
 
 
 void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket){
-	std::cout << "boomerangnetwork: handle position update packet" << std::endl;
 	BoomerangPhysicsComponent* physicsComp = dynamic_cast<BoomerangPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	float destX, destY;
 	int i;	
 	fPacket.Read(i);
-	std::cout << "new int: " << i << std::endl;
 	fPacket.Read(destX);
 	fPacket.Read(destY);
 	physicsComp->targetDest = b2Vec2(destX, destY);
