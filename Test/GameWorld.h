@@ -23,3 +23,4 @@ public:
 };
 
 extern float worldScale;
+extern bool konamiUnlocked;
