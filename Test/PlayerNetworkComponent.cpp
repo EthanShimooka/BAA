@@ -50,7 +50,6 @@ void PlayerNetworkComponent::createMovementPacket(){
 	posPacket->Write(gameObjectRef->posX);
 	posPacket->Write(gameObjectRef->posY);
 	b2Vec2 vel = physComp->mBody->GetLinearVelocity();
-	std::cout << "send player packet: " << vel.x << ", " << vel.y << std::endl;
 	posPacket->Write(vel.x);
 	posPacket->Write(vel.y);
 	outgoingPackets.push(posPacket);
@@ -96,7 +95,6 @@ void PlayerNetworkComponent::handleMovementPacket(InputMemoryBitStream& mPacket)
 		mPacket.Read(velY);
 		gameObjectRef->setPos(x, y);
 		physComp->mBody->SetTransform(b2Vec2(x / worldScale, y / worldScale), physComp->mBody->GetAngle());
-		std::cout << "handle player packet : " << velX << ", " << velY << std::endl;
 		physComp->mBody->SetLinearVelocity(b2Vec2(velX, velY));
 		sequence = seq;
 	}
