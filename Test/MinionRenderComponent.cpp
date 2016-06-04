@@ -15,17 +15,15 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	allObjs["rightArm"]->setAnchor(0.272, 0.8378);
 	allObjs["rightArm"]->setRotation(20);
 	allObjs["rightArm"]->setScale(0.6f);
-	if (team == 1){
-		if(false)allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
-		else allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
-		allObjs["body"]->setParent(allObjs["base"]);
+	if (konamiUnlocked){
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
+	}else if (team == TEAM_YELLOW){
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
 	}
-	else{
-		if(false)allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
-		else allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
-		allObjs["body"]->setParent(allObjs["base"]);
+	else if (team == TEAM_PURPLE){
+		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
 	}
-
+	allObjs["body"]->setParent(allObjs["base"]);
 
 	allObjs["leftArm"]->setParent(allObjs["body"]);
 	allObjs["rightArm"]->setParent(allObjs["body"]);

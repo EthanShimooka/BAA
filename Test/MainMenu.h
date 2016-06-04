@@ -13,11 +13,15 @@ private:
 	int checkButtons();
 	void removeButtons();
 	
+	//int konamiCode[10];
+	std::vector<int> *konamiCode;// (10, 0);
+	int konamiIndex;
 
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
 
 	GameObject* playButt;
 	GameObject* quitButt;
+	void checkKonami();
 };
 
