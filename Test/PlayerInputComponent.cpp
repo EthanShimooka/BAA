@@ -5,7 +5,7 @@ PlayerInputComponent::PlayerInputComponent(GameObject* player, ClassComponent* _
 	input = InputManager::getInstance();
 	gameObjectRef = player;
 	playerSpeed = _classComp->speed;
-	jumpSpeed = _classComp->jumpSpeed*2;
+	jumpSpeed = _classComp->jumpSpeed;
 	featherSpeed = _classComp->featherSpeed;
 	classComp = _classComp;
 	gameObjectRef->AddComponent(COMPONENT_INPUT, this);
