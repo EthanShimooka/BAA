@@ -45,7 +45,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											   if (otherObj->team != gameObjectRef->team && !logicComp->isEgg){
 												   //kill yourself
-												   logicComp->death = true;
 												   logicComp->becomeEgg();
 												   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 												   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
@@ -65,7 +64,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		if (otherObj->isLocal && !logicComp->isEgg){
 			//Triggers death stuff for player who fired feather
 			logicComp->becomeEgg();
-			logicComp->death = true;
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
 			featherLogicComp->giveBirdseed(3);
@@ -75,9 +73,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		}
 		GameObject* killer = dynamic_cast<FeatherLogicComponent*>(otherObj->GetComponent(COMPONENT_LOGIC))->owner;
 		if (killer->isLocal){	
-			dynamic_cast<PlayerUIComponent*>(killer->GetComponent(COMPONENT_UI))->addToKillList(killer->ID, gameObjectRef->ID);
-			//debug this line below. I added in the if statement since it was breaking when calling it on gameobjects that didn't have UIComponents (HUD)
-			//I'm not sure why I originally was calling it if didn't have HUD stuff
 			if(gameObjectRef->isLocal) dynamic_cast<PlayerUIComponent*>(gameObjectRef->GetComponent(COMPONENT_UI))->addToKillList(GamerServices::sInstance->GetLocalPlayerId(), shooter);
 		}
 		break;
@@ -97,7 +92,6 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 		uint64_t shooter = mineOwner->ID;
 		if (otherObj->isLocal && !logicComp->isEgg){
 			logicComp->becomeEgg();
-			logicComp->death = true;
 			ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
 			int localClass = classComp->getClass();
 			mineLogicComp->giveBirdseed(3);
@@ -223,9 +217,8 @@ void PlayerPhysicsComponent::Update(){
 		mBody->SetAngularVelocity(-5);
 		gameObjectRef->rotation = (float)(mBody->GetAngle()*180/M_PI);
 		//check if back at base yet
-		if (logicComp->death && abs(gameObjectRef->posX) > 1300){
+		if (logicComp->isEgg && abs(gameObjectRef->posX) > 1300){
 			logicComp->hatchBird(true);
-			logicComp->death = false;
 		}
 	}
 
