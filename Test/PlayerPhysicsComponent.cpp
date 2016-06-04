@@ -43,7 +43,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_BOOMERANG:{
 											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
-											   if (otherObj->team != gameObjectRef->team && !logicComp->isEgg){
+											   if (otherObj->team != gameObjectRef->team && !logicComp->isEgg && otherObj->isLocal){
 												   //kill yourself
 												   logicComp->death = true;
 												   logicComp->becomeEgg();
