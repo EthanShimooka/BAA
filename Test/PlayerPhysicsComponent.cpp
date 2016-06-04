@@ -45,6 +45,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 											   if (otherObj->team != gameObjectRef->team && !logicComp->isEgg){
 												   //kill yourself
+												   logicComp->death = true;
 												   logicComp->becomeEgg();
 												   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 												   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
