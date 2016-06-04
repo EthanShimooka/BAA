@@ -42,9 +42,9 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 	//std::cout << "PLAYER handling collision with object ID: " << otherObj->ID << std::endl;
 	switch (otherObj->type){
 	case GAMEOBJECT_TYPE::OBJECT_BOOMERANG:{
-											   if (otherObj->team != gameObjectRef->team){
+											   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
+											   if (otherObj->team != gameObjectRef->team && !logicComp->isEgg){
 												   //kill yourself
-												   PlayerLogicComponent* logicComp = dynamic_cast<PlayerLogicComponent*>(gameObjectRef->GetComponent(COMPONENT_LOGIC));
 												   logicComp->becomeEgg();
 												   PlayerNetworkComponent* networkComp = dynamic_cast<PlayerNetworkComponent*>(gameObjectRef->GetComponent(COMPONENT_NETWORK));
 												   ClassComponent* classComp = dynamic_cast<ClassComponent*>(gameObjectRef->GetComponent(COMPONENT_CLASS));
@@ -52,6 +52,7 @@ void PlayerPhysicsComponent::handleCollision(GameObject* otherObj){
 												   GameObject* boomOwner = boomLogicComp->owner;
 												   networkComp->createDeathPacket(boomOwner->ID, classComp->getClass(), gameObjectRef->ID);
 											   }
+											   break;
 	}
 	case GAMEOBJECT_TYPE::OBJECT_FEATHER:{
 		 if (otherObj->team == gameObjectRef->team)break;
