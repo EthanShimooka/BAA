@@ -32,5 +32,18 @@ void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket
 }
 
 void BoomerangNetworkComponent::Update(){
+	while (!incomingPackets.empty()){
+		InputMemoryBitStream packet = incomingPackets.front();
+		int mCommand;
+		handleTargetPacket(packet);
+		incomingPackets.pop();
+	}
 
+	// send outgoing packets
+	while (!outgoingPackets.empty()){
+		OutputMemoryBitStream* outData = outgoingPackets.front();
+		NetworkManager::sInstance->sendPacketToAllPeers(*outData);
+		outgoingPackets.pop();
+		delete outData;
+	}
 }

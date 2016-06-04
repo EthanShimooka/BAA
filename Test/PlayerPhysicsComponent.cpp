@@ -23,7 +23,7 @@ void PlayerPhysicsComponent::init(float height, float width){
 		mBody = gameWorld->getPhysicsWorld()->CreateBody(&bodyDef);
 
 	b2CircleShape box;
-	//box.SetAsBox(471, 480); // look up other functions for polygons
+	//box.SetAsBox(471, 480); // look up other functions for polygons 
 	//box.SetAsBox(width, height);
 	box.m_radius = width;
 	boxFixtureDef.shape = &box;
