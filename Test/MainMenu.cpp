@@ -1,7 +1,6 @@
 #include "MainMenu.h"
 #include "TitleScreenProps.h"
 
-
 MainMenu::MainMenu()
 {
 	RenderManager::getRenderManager()->setCameraPoint(0, 0);
@@ -10,6 +9,10 @@ MainMenu::MainMenu()
 	RenderManager::getRenderManager()->setBackground("Menu_bg.png");
 	RenderManager::getRenderManager()->update();
 	createButtons();
+	konamiIndex = 0;
+	int konamiTemp[] = {KEY_UP, KEY_UP, KEY_DOWN, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_LEFT, KEY_RIGHT, KEY_B, KEY_A};
+	konamiCode = new vector<int>(konamiTemp, konamiTemp + sizeof(konamiTemp) / sizeof(int));
+	konamiUnlocked = false;
 	SceneManager::GetSceneManager()->AssembleScene();
 }
 
@@ -25,7 +28,10 @@ int MainMenu::runScene(){
 	SceneManager* sceneMan = SceneManager::GetSceneManager();
 	auto planets = LoadTitleScreenProps();
 	while (true){
+		InputManager::getInstance()->update();
 		buttonPressed = checkButtons();
+		if (!konamiUnlocked)
+			checkKonami();
 		switch (buttonPressed){
 		case BUTTON_PLAY:
 			removeButtons();
@@ -71,7 +77,6 @@ void MainMenu::createButtons(){
 }
 
 int MainMenu::checkButtons(){
-	InputManager::getInstance()->update();
 	if (dynamic_cast<ButtonLogicComponent*>(playButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed())
 		return BUTTON_PLAY;
 	if (dynamic_cast<ButtonLogicComponent*>(quitButt->GetComponent(COMPONENT_LOGIC))->isButtonPressed())
@@ -84,3 +89,11 @@ void MainMenu::removeButtons(){
 }
 
 
+void MainMenu::checkKonami(){
+	InputManager *input = InputManager::getInstance();
+	if (input->isKeyReleased(konamiCode->at(konamiIndex)))
+		++konamiIndex;
+
+	if (konamiIndex == 10)
+		konamiUnlocked = true;
+}

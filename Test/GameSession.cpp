@@ -607,7 +607,7 @@ int GameSession::Run(){
 	audioMan->stopByName("bgmBAAGameEnd.ogg");
 	std::cout << renderMan << std::endl;
 	std::cout << renderMan << std::endl;
-
+	konamiUnlocked = false;
 	log->close();
 
 	//delete surf;

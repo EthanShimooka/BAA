@@ -11,6 +11,8 @@ GameWorld::GameWorld(){
 	currTime = clock();
 }
 float worldScale = 20.0f;
+bool konamiUnlocked = false;
+
 
 GameWorld::~GameWorld(){
 	//free the bodies
