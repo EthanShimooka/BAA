@@ -71,8 +71,8 @@
 <resource UID="2027" type="graphic" filename="Game_launcher_2.png" scenescope="0"></resource>
 <resource UID="2028" type="graphic" filename="Game_Well.png" scenescope="0"></resource>
 <resource UID="2029" type="graphic" filename="Game_launcher_3.png" scenescope="0"></resource>
-<resource UID="2030" type="graphic" filename="jim_face.png" scenescope="0"></resource>
-
+<resource UID="2030" type="graphic" filename="jim_face_yellow.png" scenescope="0"></resource>
+<resource UID="2031" type="graphic" filename="jim_face_purple.png" scenescope="0"></resource>
 
 
 <resource UID="2101" type="graphic" filename="Background_Beach.png" scenescope="0"></resource>
