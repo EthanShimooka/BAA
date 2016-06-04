@@ -23,4 +23,5 @@ public:
 };
 
 extern float worldScale;
-extern bool konamiUnlocked;
+extern bool konamiUnlocked; //clever
+extern bool japeUnlocked;

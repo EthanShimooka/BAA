@@ -15,7 +15,10 @@ private:
 	
 	//int konamiCode[10];
 	std::vector<int> *konamiCode;// (10, 0);
+	std::vector<int> *japeCode;// (10, 0);
+
 	int konamiIndex;
+	int japeIndex;
 
 	SystemGameObjectQueue sysQueue;
 	ButtonObjectFactory bFactory;
@@ -23,5 +26,6 @@ private:
 	GameObject* playButt;
 	GameObject* quitButt;
 	void checkKonami();
+	void checkJape();
 };
 

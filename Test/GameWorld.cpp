@@ -12,6 +12,7 @@ GameWorld::GameWorld(){
 }
 float worldScale = 20.0f;
 bool konamiUnlocked = false;
+bool japeUnlocked = false;
 
 
 GameWorld::~GameWorld(){

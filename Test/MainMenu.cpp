@@ -10,9 +10,17 @@ MainMenu::MainMenu()
 	RenderManager::getRenderManager()->update();
 	createButtons();
 	konamiIndex = 0;
+	japeIndex = 0;
+
 	int konamiTemp[] = {KEY_UP, KEY_UP, KEY_DOWN, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_LEFT, KEY_RIGHT, KEY_B, KEY_A};
 	konamiCode = new vector<int>(konamiTemp, konamiTemp + sizeof(konamiTemp) / sizeof(int));
+
 	konamiUnlocked = false;
+	int japeTemp[] = { KEY_I, KEY_T, KEY_S, KEY_D, KEY_A, KEY_T, KEY_B, KEY_O, KEY_I, KEY_UP };
+	japeCode = new vector<int>(japeTemp, japeTemp + sizeof(japeTemp) / sizeof(int));
+
+	japeUnlocked = false;
+
 	SceneManager::GetSceneManager()->AssembleScene();
 }
 
@@ -32,6 +40,8 @@ int MainMenu::runScene(){
 		buttonPressed = checkButtons();
 		if (!konamiUnlocked)
 			checkKonami();
+		if (!japeUnlocked)
+			checkJape();
 		switch (buttonPressed){
 		case BUTTON_PLAY:
 			removeButtons();
@@ -96,4 +106,14 @@ void MainMenu::checkKonami(){
 
 	if (konamiIndex == 10)
 		konamiUnlocked = true;
+}
+
+
+void MainMenu::checkJape(){
+	InputManager *input = InputManager::getInstance();
+	if (input->isKeyReleased(japeCode->at(japeIndex)))
+		++japeIndex;
+
+	if (japeIndex == 10)
+		japeUnlocked = true;
 }

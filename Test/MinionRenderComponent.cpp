@@ -16,12 +16,31 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	allObjs["rightArm"]->setRotation(20);
 	allObjs["rightArm"]->setScale(0.6f);
 	if (team == TEAM_YELLOW){
-		if (konamiUnlocked)allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
-		else allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
+		if (konamiUnlocked){
+			allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
+		}
+		else if (japeUnlocked){
+			allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2207, 0, 0);
+
+		}
+		else{
+			allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
+		}
+	
+	
 	}
 	else{
-		if (konamiUnlocked)allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2031, 0, 0);
-		else allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
+		if (konamiUnlocked){
+			allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2031, 0, 0);
+		}
+		else if (japeUnlocked){
+			allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2208, 0, 0);
+
+		}
+		else {
+			allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
+		}
+	
 	}
 	allObjs["body"]->setParent(allObjs["base"]);
 

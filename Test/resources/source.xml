@@ -94,8 +94,9 @@
 <resource UID="2204" type="graphic" filename="Gull_flag_yellow.png" scenescope="0"></resource>
 <resource UID="2205" type="graphic" filename="Gull_flag_purple.png" scenescope="0"></resource>
 <resource UID="2206" type="graphic" filename="Gull_buoy_left.png" scenescope="0"></resource>
-
-
+<resource UID="2207" type="graphic" filename="Jape_1.png" scenescope="0"></resource>
+<resource UID="2208" type="graphic" filename="Jape_2.png" scenescope="0"></resource>
+<resource UID="2209" type="graphic" filename="Jape_3.png" scenescope="0"></resource>
 
 <resource UID="3000" type="graphic" filename="Player_Chicken_Body.png" scenescope="0"></resource>
 <resource UID="3001" type="graphic" filename="Player_Chicken_Arm_1.png" scenescope="0"></resource>
