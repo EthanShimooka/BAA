@@ -17,8 +17,11 @@ void BoomerangNetworkComponent::sendTargetPacket(){
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	//outData->Write((int)CM_ABILITY); // have to uncomment and add in corrent command
 	outData->Write(gameObjectRef->ID);
-	outData->Write(input->getMouseX());
-	outData->Write(input->getMouseX());
+	float destX, destY;
+	RenderManager* renderMan = RenderManager::getRenderManager();
+	renderMan->windowCoordToWorldCoord(destX, destY, input->getMouseX(), input->getMouseY());
+	outData->Write(destX / worldScale);
+	outData->Write(destY / worldScale);
 	outgoingPackets.push(outData);
 }
 
@@ -28,7 +31,7 @@ void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket
 	int destX, destY;
 	fPacket.Read(destX);
 	fPacket.Read(destY);
-	physicsComp->targetDest = b2Vec2(destX / worldScale, destY / worldScale);
+	physicsComp->targetDest = b2Vec2(destX, destY);
 }
 
 void BoomerangNetworkComponent::Update(){
