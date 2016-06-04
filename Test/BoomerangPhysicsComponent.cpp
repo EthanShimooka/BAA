@@ -47,7 +47,7 @@ void BoomerangPhysicsComponent::handleCollision(GameObject* otherObj){
 			PlayerRenderComponent* ownerRenderComp = dynamic_cast<PlayerRenderComponent*>(otherObj->GetComponent(COMPONENT_RENDER));
 			ownerRenderComp->allObjs["armL"]->visible = true;
 			ownerRenderComp->allObjs["armR"]->visible = true;
-			//gameObjectRef->isAlive = false;
+			gameObjectRef->isAlive = false;
 		}
 		break;
 	case  GAMEOBJECT_TYPE::OBJECT_MINION:
