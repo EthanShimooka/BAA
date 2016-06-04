@@ -11,22 +11,23 @@ BoomerangNetworkComponent::~BoomerangNetworkComponent(){
 }
 
 void BoomerangNetworkComponent::sendTargetPacket(){
-	//std::cout << "boomerangnetwork: send position update packet" << std::endl;
+	std::cout << "boomerangnetwork: send position update packet" << std::endl;
 	InputManager* input = InputManager::getInstance();
 	OutputMemoryBitStream *outData = new OutputMemoryBitStream();
 	outData->Write(NetworkManager::sInstance->kPosCC);
 	//outData->Write((int)CM_ABILITY); // have to uncomment and add in corrent command
 	outData->Write(gameObjectRef->ID);
-	float destX, destY;
 	BoomerangPhysicsComponent* physicsComp = dynamic_cast<BoomerangPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
+	outData->Write((float)physicsComp->targetDest.x);
+	outData->Write((float)physicsComp->targetDest.y);
 
-	outData->Write(physicsComp->targetDest.x);
-	outData->Write(physicsComp->targetDest.y);
+	std::cout << physicsComp->targetDest.x << ", " << physicsComp->targetDest.y << std::endl;
 	outgoingPackets.push(outData);
 }
 
 
 void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket){
+	std::cout << "boomerangnetwork: handle position update packet" << std::endl;
 	BoomerangPhysicsComponent* physicsComp = dynamic_cast<BoomerangPhysicsComponent*>(gameObjectRef->GetComponent(COMPONENT_PHYSICS));
 	float destX, destY;
 	fPacket.Read(destX);
@@ -37,7 +38,6 @@ void BoomerangNetworkComponent::handleTargetPacket(InputMemoryBitStream& fPacket
 void BoomerangNetworkComponent::Update(){
 	while (!incomingPackets.empty()){
 		InputMemoryBitStream packet = incomingPackets.front();
-		int mCommand;
 		handleTargetPacket(packet);
 		incomingPackets.pop();
 	}
