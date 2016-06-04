@@ -16,11 +16,13 @@ MinionRenderComponent::MinionRenderComponent(GameObject* minion, int team){
 	allObjs["rightArm"]->setRotation(20);
 	allObjs["rightArm"]->setScale(0.6f);
 	if (team == 1){
-		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
+		if(true)allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2010, 0, 0);
+		else allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
 		allObjs["body"]->setParent(allObjs["base"]);
 	}
 	else{
-		allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
+		if(true)allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2009, 0, 0);
+		else allObjs["body"] = sceneMan->InstantiateObject(sceneMan->findLayer("layer1"), 2030, 0, 0);
 		allObjs["body"]->setParent(allObjs["base"]);
 	}
 
